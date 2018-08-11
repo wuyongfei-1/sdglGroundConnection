@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:mysql://localhost:3306/toaccessthedb</property>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.AccountType"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Bill"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.BillType"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Carrental"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Company"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Dictionaries"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Disattr"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Discar"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Disguide"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Disother"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Dispatch"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Dispatchhotel"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Disrestaurant"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Disshopp"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Guide"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Hotel"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.HoteroomType"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Log"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.MealType"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Offer"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Offercar"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.OfferHotel"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Offerline"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Offerother"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Offerrestaurant"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Offerscenic"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Operationlog"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Reportaccommodation"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Reportdetail"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Reportfare"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Reportingotherexpenses"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Reportqutsubsidy"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Reportrestaurant"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Reportticket"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Restaurant"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Role"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.RoomType"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Scenicspot"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Shopping"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Staff"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Template"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.TemplateHotel"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.TemplateScenicspot"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Traffic"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.Travel"/>
+        <mapping class="com.dyhc.sdglgroundconnection.pojo.VehicleType"/>
+        <!-- <property name="connection.username"/> -->
+        <!-- <property name="connection.password"/> -->
+
+        <!-- DB schema will be updated if needed -->
+        <!-- <property name="hbm2ddl.auto">update</property> -->
+    </session-factory>
+</hibernate-configuration>

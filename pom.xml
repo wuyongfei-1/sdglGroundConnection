@@ -64,19 +64,6 @@
             <artifactId>mapper-spring-boot-starter</artifactId>
             <version>1.1.4</version>
         </dependency>
-        <!--mybatis通用插件配置 start-->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus</artifactId>
-            <version>2.0-beta</version>
-        </dependency>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatisplus-spring-boot-starter</artifactId>
-            <version>1.0.5</version>
-        </dependency>
-        <!--mybatis通用插件配置 end-->
-
         <!--Springboot与druid连接池整合包-->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -102,6 +89,12 @@
             <version>4.0.0</version>
             <scope>provided</scope>
         </dependency>
+        <!-- 启动Springboot热部署 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
         <!--Springboot测试包-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -116,6 +109,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <!-- 开启springboot的热部署 -->
+                <configuration>
+                    <fork>true</fork>
+                </configuration>
             </plugin>
         </plugins>
     </build>

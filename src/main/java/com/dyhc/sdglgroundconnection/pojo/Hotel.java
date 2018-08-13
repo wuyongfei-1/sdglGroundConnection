@@ -1,5 +1,7 @@
 package com.dyhc.sdglgroundconnection.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
@@ -36,7 +38,9 @@ public class Hotel {
     @Column(name = "updateBy")
     private Integer updateBy;
     @Column(name = "updateDate")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date updateDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "createDate")
     private Date createDate;
     private String value1;

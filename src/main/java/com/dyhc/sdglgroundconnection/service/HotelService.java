@@ -12,5 +12,5 @@ import java.util.List;
  **/
 public interface HotelService {
 
-    PageInfo<Hotel> listHotels() throws Exception;
+    PageInfo<Hotel> listHotels(Integer pageNo,Integer PageSize) throws Exception;
 }

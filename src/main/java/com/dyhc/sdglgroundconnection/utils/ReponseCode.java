@@ -6,10 +6,7 @@ package com.dyhc.sdglgroundconnection.utils;
  **/
 public class ReponseCode {
     // 响应编码 reponse_code
-    public static final String CODE_SUCCESS = "0000";
-    public static final String CODE_ERROR = "2000";
-    // 响应标签 reponse_label
-    public static final String LABEL_SUCCESS = "SUCCESS";
-    public static final String LABEL_ERROR = "ERROR";
+    public static final String CODE_SUCCESS = "0";  // success
+    public static final String CODE_ERROR = "500";  // error
 
 }

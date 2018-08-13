@@ -17,8 +17,8 @@ public class HotelServiceImpl implements HotelService {
     @Autowired
     private HotelMapper hotelMapper;
 
-    public PageInfo<Hotel> listHotels() {
-        PageHelper.startPage(1, 2, true);
+    public PageInfo<Hotel> listHotels(Integer pageNo, Integer PageSize) {
+        PageHelper.startPage(pageNo, PageSize, true);
         PageInfo<Hotel> pageInfo = new PageInfo<>(hotelMapper.selectAll());
         return pageInfo;
     }

@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -26,10 +27,11 @@ public class HotelController {
     private HotelService hotelService;
 
     @RequestMapping("/showAllHotels")
-    public ReponseResult showHotel() {
+    public ReponseResult showHotel(@RequestParam("page") Integer pageNo, @RequestParam("limit") Integer pageSize) {
         try {
-            PageInfo<Hotel> pageInfo = hotelService.listHotels();
-            ReponseResult<PageInfo<Hotel>> data = ReponseResult.ok(pageInfo, "分页获取酒店成功！");
+            pageSize = 2;
+            PageInfo<Hotel> pageInfo = hotelService.listHotels(pageNo,pageSize);
+            ReponseResult<List> data = ReponseResult.ok(pageInfo.getList(), pageInfo.getTotal(), "分页获取酒店成功！");
             logger.info(" method:showHotel  分页获取酒店成功！");
             return data;
         } catch (Exception e) {

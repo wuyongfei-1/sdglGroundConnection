@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax & LayUI分页插件</title>
+    <link rel="stylesheet" href="/css/layui.css" media="all">
+</head>
+<body>
+<div id="pTable" style="width:888px;margin:0 auto">
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>酒店名称</th>
+            <th>starHotel</th>
+            <th>地址</th>
+            <th>breakfast</th>
+            <th>联系人</th>
+            <th>联系方式</th>
+            <th>修改日期</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <div id="laypage" style="text-align: center"></div>
+</div>
+</body>
+</html>
+<script src="/layui.js"></script>
+<script src="/js/jquery-1.8.2.min.js"></script>
+<script>
+
+    var limitcount = 2; // 每页总记录数
+    var curnum = 1;  // 当前页码
+
+    loadData();
+
+    function loadData() {
+        var str = "";
+        $.ajax({
+            url: "/showAllHotels",
+            data: {page:curnum,limit:limitcount},
+            dataType: "json",
+            type: "get",
+            success: function (e) {
+                $(e.data).each(function (i, result) {
+                    str += "<tr><td>" + result.hotelId + "</td><td>" + result.hotelName + "</td>" +
+                        "<td>" + result.starHotel + "</td><td>" + result.hotelAddress + "</td><td>" + result.breakfast + "</td><td>" + result.contacts + "</td><td>" + result.phone + "</td><td>" + result.updateDate + "</td></tr>";
+                })
+                $('tbody').html(str);
+
+                // 分页插件
+                layui.use('table', function () {
+                    var laypage = layui.laypage;
+                    laypage.render({
+                        elem: 'laypage'
+                        , count: e.count
+                        , curr: curnum
+                        , limit: 2
+                        , layout: ['prev', 'page', 'next', 'skip', 'count']
+                        , jump: function (obj, first) {
+                            if (!first) {
+                                //obj包含了当前分页的所有参数，比如：
+                                curnum = obj.curr; // 当前页面
+                                limitcount = obj.limit; // 每页记录数
+                                // 查询新数据
+                                loadData();
+                            }
+                        }
+                    })
+                })
+            },
+            error: function (res) {
+                alert(res);
+            }
+        })
+    }
+</script>

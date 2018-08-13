@@ -39,6 +39,7 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   configuration:
     map-underscore-to-camel-case: false
+    auto-mapping-behavior: full
 
 
 # mybatis公共插件配置

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
+ * 汽车租赁公司 控制层
  **/
 @RestController
 public class CarrentalController  {

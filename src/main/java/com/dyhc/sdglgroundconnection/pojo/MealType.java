@@ -26,13 +26,11 @@ public class MealType {
     @Column(name = "createBy")
     private Integer createBy; // 创建人 （外键，与人员表关联）
     @Column(name = "updateBy")
-    private Integer updateBy;
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private Integer updateBy; // 修改人（外键，与人员表关联）
-    @Column(name = "updateDate")
-    private Date updateDate;
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "updateDate")
     private Date updateDate; // 修改日期
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "createDate")
     private Date createDate; // 创建时间
     private String value1;

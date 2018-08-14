@@ -23,17 +23,13 @@ public class OfferHotel {
     private Double costPrice; // 成本价
     private Double offer; // 报价
     @Column(name = "whetherDel")
-    private Integer whetherDel;
-    private Integer creater;
-    private Integer modifier;
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private Integer whetherDel; // 是否删除（1代表已删除，0代表未删除）
     private Integer creater; // 创建人 （外键，与人员表关联）
     private Integer modifier; // 修改人（外键，与人员表关联）
-    @Column(name = "modifiedData")
-    private Timestamp modifiedData;
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "modifiedData")
     private Timestamp modifiedData; // 修改日期
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "creationDate")
     private Timestamp creationDate; // 创建时间
     private String value1;

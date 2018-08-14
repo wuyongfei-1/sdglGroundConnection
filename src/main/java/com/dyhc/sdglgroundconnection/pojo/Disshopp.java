@@ -25,11 +25,9 @@ public class Disshopp {
     private Integer createBy; // 创建人 （外键，与人员表关联）
     @Column(name = "updateBy")
     private Integer updateBy; // 修改人（外键，与人员表关联）
-    private Integer updateBy;
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "upDate")
     private Date upDate; // 修改日期
-    private Date upDate;
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "createDate")
     private Date createDate; // 创建时间

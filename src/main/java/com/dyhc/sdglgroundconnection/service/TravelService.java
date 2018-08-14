@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
+ * 组团社业务接口
  **/
 public interface TravelService {
 }

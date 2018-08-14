@@ -6,6 +6,7 @@ import java.util.Objects;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
+ * 日志操作表
  **/
 @Table(name = "operationlog")
 public class Operationlog {

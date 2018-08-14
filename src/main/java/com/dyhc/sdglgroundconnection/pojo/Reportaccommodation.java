@@ -6,38 +6,39 @@ import java.util.Objects;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
+ * 导游报账住宿表
  **/
 @Table(name = "reportaccommodation")
 public class Reportaccommodation {
     @Id
     @Column(name = "reportAccommodationId")
-    private int reportAccommodationId;
+    private int reportAccommodationId; // 导游报账住宿表编号
     @Column(name = "liveDate")
-    private Date liveDate;
+    private Date liveDate; // 入住日期
     @Column(name = "hotelName")
-    private String hotelName;
+    private String hotelName; // 酒店名称
     @Column(name = "typeId")
-    private Integer typeId;
+    private Integer typeId; // 酒店类型编号（外键，与酒店类型表关联）
     @Column(name = "housePrice")
-    private Double housePrice;
+    private Double housePrice; // 房价
     @Column(name = "roomNum")
-    private Integer roomNum;
+    private Integer roomNum; // 间数
     @Column(name = "accompanyingBed")
-    private Integer accompanyingBed;
+    private Integer accompanyingBed; // 陪同床位
     @Column(name = "accompanyingPrice")
-    private Double accompanyingPrice;
-    private Double subtotal;
+    private Double accompanyingPrice; // 陪同价位
+    private Double subtotal; // 小计
     @Column(name = "payMethods")
-    private String payMethods;
-    private Integer status;
+    private String payMethods; // 支付方式
+    private Integer status; // 是否删除（1代表已删除，0代表未删除）
     @Column(name = "createBy")
-    private Integer createBy;
+    private Integer createBy; // 创建人 （外键，与人员表关联）
     @Column(name = "updateBy")
-    private Integer updateBy;
+    private Integer updateBy; // 修改人（外键，与人员表关联）
     @Column(name = "upDate")
-    private Date upDate;
+    private Date upDate; // 修改日期
     @Column(name = "createDate")
-    private Date createDate;
+    private Date createDate; // 创建时间
     private String value1;
     private String value2;
     private String value3;

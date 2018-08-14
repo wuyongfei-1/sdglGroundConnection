@@ -6,37 +6,38 @@ import java.util.Objects;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
+ * 报价信息表
  **/
 @Table(name = "offer")
 public class Offer {
     @Id
     @Column(name = "offerId")
-    private int offerId;
+    private int offerId; // 主键编号
     @Column(name = "travelId")
-    private Integer travelId;
+    private Integer travelId; // 组团社编号（外键，与组团社关联）
     @Column(name = "travelStartTime")
-    private Timestamp travelStartTime;
+    private Timestamp travelStartTime; // 旅行开始时间
     @Column(name = "travelEndTime")
-    private Timestamp travelEndTime;
-    private Integer number;
-    private String tourist;
-    private String trip;
-    private Double offer;
+    private Timestamp travelEndTime; // 旅行结束时间
+    private Integer number; // 人数
+    private String tourist; // 客源地
+    private String trip; // 行程
+    private Double offer; // 报价(按人数算)
     @Column(name = "aVariance")
-    private Double aVariance;
-    private String shopping;
-    private String not;
-    private String remarks;
-    private String supervision;
-    private String reception;
+    private Double aVariance; // 单间房差
+    private String shopping; // 购物
+    private String not; // 不含
+    private String remarks; // 备注
+    private String supervision; // 团体监督
+    private String reception; // 接待标准
     @Column(name = "whetherDel")
-    private Integer whetherDel;
-    private Integer creater;
-    private Integer modifier;
+    private Integer whetherDel; // 是否删除（1代表已删除，0代表未删除）
+    private Integer creater; // 创建人 （外键，与人员表关联）
+    private Integer modifier; // 修改人（外键，与人员表关联）
     @Column(name = "modifiedData")
-    private Timestamp modifiedData;
+    private Timestamp modifiedData; // 修改日期
     @Column(name = "creationDate")
-    private Timestamp creationDate;
+    private Timestamp creationDate; // 创建时间
     private String value1;
     private String value2;
     private String value3;

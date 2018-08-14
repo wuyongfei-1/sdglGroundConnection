@@ -6,32 +6,33 @@ import java.util.Objects;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
+ * 字典表
  **/
 @Table(name = "dictionaries")
 public class Dictionaries {
     @Id
     @Column(name = "dictionariesId")
-    private int dictionariesId;
+    private int dictionariesId; // 字典编号
     @Column(name = "typeCode")
-    private String typeCode;
+    private String typeCode; // 编码（AAA、BBB）varch
     @Column(name = "typeName")
-    private String typeName;
+    private String typeName; // 编码名称（景点等级、餐厅类型）
     @Column(name = "valueId")
-    private Integer valueId;
+    private Integer valueId; // 内容编号int
     @Column(name = "valueContent1")
-    private String valueContent1;
+    private String valueContent1; // 内容1（例如：餐饭名、AAAAA级）
     @Column(name = "valueContent2")
-    private String valueContent2;
+    private String valueContent2; // 内容2（餐饭价格）
     @Column(name = "whetherDel")
-    private Integer whetherDel;
+    private Integer whetherDel; // 是否删除（1代表已删除，0代表未删除）
     @Column(name = "createBy")
-    private Integer createBy;
+    private Integer createBy; // 创建人 （外键，与人员表关联）
     @Column(name = "updateBy")
-    private Integer updateBy;
+    private Integer updateBy; // 修改人（外键，与人员表关联）
     @Column(name = "updateDate")
-    private Date updateDate;
+    private Date updateDate; // 修改日期
     @Column(name = "createDate")
-    private Date createDate;
+    private Date createDate; // 创建时间
     private String value1;
     private String value2;
     private String value3;

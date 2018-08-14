@@ -6,26 +6,27 @@ import java.util.Objects;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
+ * 带团日志表
  **/
 @Table(name = "log")
 public class Log {
     @Id
     @Column(name = "logId")
-    private int logId;
+    private int logId; // 日志编号
     @Column(name = "guideId")
-    private Integer guideId;
+    private Integer guideId; // 导游id
     @Column(name = "dispatchId")
-    private Integer dispatchId;
-    private String content;
-    private String remarks;
+    private Integer dispatchId; // 调度表编号（外键，与调度表关联）
+    private String content; // 内容
+    private String remarks; // 备注
     @Column(name = "whetherDel")
-    private Integer whetherDel;
-    private Integer creater;
-    private Integer modifier;
+    private Integer whetherDel; // 是否删除（1代表已删除，0代表未删除
+    private Integer creater; // 创建人 （外键，与人员表关联）
+    private Integer modifier; // 修改人（外键，与人员表关联）
     @Column(name = "modifiedData")
-    private Date modifiedData;
+    private Date modifiedData; // 修改日期
     @Column(name = "creationDate")
-    private Date creationDate;
+    private Date creationDate; // 创建日期
     private String value1;
     private String value2;
     private String value3;

@@ -6,46 +6,47 @@ import java.util.Objects;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
+ *  调度表
  **/
 @Table(name = "dispatch")
 public class Dispatch {
     @Id
     @Column(name = "dispatchId")
-    private int dispatchId;
+    private int dispatchId; // 调度信息编号
     @Column(name = "groundConnectionNumber")
-    private String groundConnectionNumber;
+    private String groundConnectionNumber; // 地接社团号
     @Column(name = "groupNumber")
-    private String groupNumber;
+    private String groupNumber; // 组团社团号
     @Column(name = "sendLine")
-    private String sendLine;
+    private String sendLine; // 发往线路
     @Column(name = "travelStartTime")
-    private Date travelStartTime;
+    private Date travelStartTime; // 旅行开始时间
     @Column(name = "travelEndTime")
-    private Date travelEndTime;
-    private Integer num;
-    private String tourist;
-    private String trip;
-    private Double offer;
+    private Date travelEndTime; // 旅行结束时间
+    private Integer num; // 人数
+    private String tourist; // 客源地
+    private String trip; // 行程
+    private Double offer; // 报价(按人数算)
     @Column(name = "aVariance")
-    private Double aVariance;
-    private Double fare;
+    private Double aVariance; // 单间房差
+    private Double fare; // 车费
     @Column(name = "wineFee")
-    private Double wineFee;
-    private String not;
-    private String remarks;
-    private String supervision;
-    private String reception;
-    private Double total;
-    private Double loan;
-    private Integer state;
+    private Double wineFee; // 酒水费
+    private String not; // 不含
+    private String remarks; // 备注
+    private String supervision; // 团体监督
+    private String reception; // 接待标准
+    private Double total; // 总计
+    private Double loan; // 导游借款
+    private Integer state; // 状态（1、未开始2、进行中3、已结束）
     @Column(name = "whetherDel")
-    private Integer whetherDel;
-    private Integer creater;
-    private Integer modifier;
+    private Integer whetherDel; // 是否删除（1代表已删除，0代表未删除）
+    private Integer creater; // 创建人 （外键，与人员表关联）
+    private Integer modifier; // 修改人（外键，与人员表关联）
     @Column(name = "modifiedData")
-    private Date modifiedData;
+    private Date modifiedData; // 修改日期
     @Column(name = "creationDate")
-    private Date creationDate;
+    private Date creationDate; // 创建日期
     private String value1;
     private String value2;
     private String value3;

@@ -6,25 +6,26 @@ import java.util.Objects;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
+ *  调度导游表
  **/
 @Table(name = "disguide")
 public class Disguide {
     @Id
     @Column(name = "disGuideId")
-    private int disGuideId;
+    private int disGuideId; // 调度导游id
     @Column(name = "guideId")
-    private Integer guideId;
+    private Integer guideId; // 导游编号（外键，与导游表关联）
     @Column(name = "offerId")
-    private Integer offerId;
-    private Integer status;
+    private Integer offerId; // 调度信息编号（外键，与报价信息表关联）
+    private Integer status; // 是否删除（1代表已删除，0代表未删除）
     @Column(name = "createBy")
-    private Integer createBy;
+    private Integer createBy; // 创建人 （外键，与人员表关联）
     @Column(name = "updateBy")
-    private Integer updateBy;
+    private Integer updateBy; // 修改人（外键，与人员表关联）
     @Column(name = "upDate")
-    private Date upDate;
+    private Date upDate; // 修改日期
     @Column(name = "createDate")
-    private Date createDate;
+    private Date createDate; // 创建时间
     private String value1;
     private String value2;
     private String value;

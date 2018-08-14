@@ -8,31 +8,32 @@ import java.util.Objects;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
+ * 公司信息表
  **/
 @Table(name = "company")
 public class Company {
     @Id
     @Column(name = "companyId")
-    private int companyId;
+    private int companyId; // 编号
     @Column(name = "companyName")
-    private String companyName;
+    private String companyName; // 公司名称
     @Column(name = "companyAddress")
-    private String companyAddress;
+    private String companyAddress; // 地址
     @Column(name = "companyPhone")
-    private Integer companyPhone;
-    private String fax;
+    private Integer companyPhone; // 电话
+    private String fax; // 传真
     @Column(name = "zipCode")
-    private String zipCode;
+    private String zipCode; // 邮编
     @Column(name = "businessLicense")
-    private String businessLicense;
+    private String businessLicense; // 经营许可证（L-SX-CJ00026）
     @Column(name = "whetherDel")
-    private Integer whetherDel;
-    private Integer creater;
-    private Integer modifier;
+    private Integer whetherDel; // 是否删除（1代表已删除，0代表未删除）
+    private Integer creater; // 创建人 （外键，与人员表关联）
+    private Integer modifier; // 修改人（外键，与人员表关联）
     @Column(name = "modifiedData")
-    private Date modifiedData;
+    private Date modifiedData; // 修改日期
     @Column(name = "creationDate")
-    private Date creationDate;
+    private Date creationDate; // 创建时间
     private String value1;
     private String value2;
     private String value3;

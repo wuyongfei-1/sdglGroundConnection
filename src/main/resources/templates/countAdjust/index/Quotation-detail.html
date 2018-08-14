@@ -33,7 +33,7 @@
 					<td><label class="layui-form-label">开始时间</label></td>
 					<td> <input type="text" name="date" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input"></td>
 					<td><label class="layui-form-label">结束时间</label></td>
-					<td> <input type="text" name="date" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input"></td>
+					<td> <input type="text" name="date" id="date1" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input"></td>
 				</tr>
 			</table>
 		</form>
@@ -99,7 +99,7 @@
 							</tr>
 							<tr>
 								<td><label class="layui-form-label">司陪：</label></td>
-								<td><label class="layui-form-label" style="width: 140px;">请输入房间数：</label></td>
+								<td><label class="layui-form-label" style="width: 140px;">房间数：</label></td>
 								<td><input type="text" class="layui-input"></td>
 								<td><label class="layui-form-label">成本价：</label></td>
 								<td><input type="text" class="layui-input"></td>
@@ -127,7 +127,6 @@
 										</tr>
 									</table>
 								</td>
-
 							</tr>
 							<tr>
 									<td><label class="layui-form-label">购物地：</label></td>
@@ -238,7 +237,7 @@
 							</td>
 					</tr>
 					<tr>
-						<td><label class="layui-form-label">酒水/矿泉水：</label></td>
+						<td><label class="layui-form-label">酒水：</label></td>
 						<td width="300px"><input type="text" class="layui-input"></td>
 					</tr>
 					<tr>
@@ -293,7 +292,7 @@
 										</td>
 					</tr>
 					<tr>
-										<td><label class="layui-form-label">司机导游小费：</label></td>
+										<td><label class="layui-form-label">司机导游：</label></td>
 										<td width="300px"><input type="text" class="layui-input"></td>
 					</tr>
 					<tr>
@@ -326,6 +325,13 @@
 							layedit = layui.layedit,
 							element=layui.element,
 							laydate = layui.laydate;
+                    //日期
+                    laydate.render({
+                        elem: '#date'
+                    });
+                    laydate.render({
+                        elem: '#date1'
+                    });
 					element.render( 'test1');
 					form.render('select', 'test1');
 					form.on('radio(*)', function(data){

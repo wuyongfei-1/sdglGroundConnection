@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * 进入凭证页面 控制器
  */
 @Controller
-@RequestMapping("/Voucher")
+@RequestMapping("/voucher")
 public class EnterVoucherController {
     // 日志对象
     private Logger logger = LoggerFactory.getLogger(EnterGeneralControlPageController.class);

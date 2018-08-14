@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * 进入页面-控制器
  **/
 @Controller
-@RequestMapping("/GeneralControl")
+@RequestMapping("/General")
 public class EnterGeneralControlPageController {
 
     // 日志对象

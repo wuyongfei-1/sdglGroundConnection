@@ -1,5 +1,7 @@
 package com.dyhc.sdglgroundconnection.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -24,8 +26,10 @@ public class Offercar {
     private Integer whetherDel;
     private Integer creater;
     private Integer modifier;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "modifiedData")
     private Timestamp modifiedData;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "creationDate")
     private Timestamp creationDate;
     private String value1;

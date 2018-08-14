@@ -1,5 +1,7 @@
 package com.dyhc.sdglgroundconnection.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
@@ -42,8 +44,10 @@ public class Dispatch {
     private Integer whetherDel;
     private Integer creater;
     private Integer modifier;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "modifiedData")
     private Date modifiedData;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "creationDate")
     private Date creationDate;
     private String value1;

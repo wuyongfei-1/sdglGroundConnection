@@ -1,5 +1,7 @@
 package com.dyhc.sdglgroundconnection.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
@@ -29,8 +31,10 @@ public class Disrestaurant {
     private Integer createBy;
     @Column(name = "updateBy")
     private Integer updateBy;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "upDate")
     private Date upDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "createDate")
     private Date createDate;
     private String value1;

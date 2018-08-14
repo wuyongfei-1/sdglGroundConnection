@@ -1,48 +1,53 @@
 package com.dyhc.sdglgroundconnection.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
+ * 导游报账餐厅表
  **/
 @Table(name = "reportrestaurant")
 public class Reportrestaurant {
     @Id
     @Column(name = "reportRestaurantId")
-    private Integer reportRestaurantId;
+    private Integer reportRestaurantId; // 导游报账餐厅表编号
     @Column(name = "lunchDate")
-    private Date lunchDate;
+    private Date lunchDate; // 午餐日期
     @Column(name = "luncheonName")
-    private String luncheonName;
+    private String luncheonName; // 午餐馆名称
     @Column(name = "lunchMeal")
-    private Double lunchMeal;
+    private Double lunchMeal; // 午餐餐标
     @Column(name = "lunchEatNum")
-    private Integer lunchEatNum;
-    private Double lunchother;
+    private Integer lunchEatNum; // 进餐人数
+    private Double lunchother; // 午餐其他
     @Column(name = "lunchPayMethods")
-    private String lunchPayMethods;
+    private String lunchPayMethods; // 午餐支付方式
     @Column(name = "dinnerDate")
-    private Date dinnerDate;
+    private Date dinnerDate; // 晚餐日期
     @Column(name = "dinnerName")
-    private String dinnerName;
+    private String dinnerName; // 晚餐馆名称
     @Column(name = "dinnerMeal")
-    private Double dinnerMeal;
+    private Double dinnerMeal; // 晚餐餐标
     @Column(name = "dinnerEatNum")
-    private Integer dinnerEatNum;
-    private Double dinnerother;
+    private Integer dinnerEatNum; // 进餐人数
+    private Double dinnerother; // 晚餐其他
     @Column(name = "dinnerPayMethods")
-    private String dinnerPayMethods;
-    private Integer status;
+    private String dinnerPayMethods; // 晚餐支付方式
+    private Integer status; // 是否删除（1代表已删除，0代表未删除）
     @Column(name = "createBy")
-    private Integer createBy;
+    private Integer createBy; // 创建人 （外键，与人员表关联）
     @Column(name = "updateBy")
-    private Integer updateBy;
+    private Integer updateBy; // 修改人（外键，与人员表关联）
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "upDate")
-    private Date upDate;
+    private Date upDate; // 修改日期
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "createDate")
-    private Date createDate;
+    private Date createDate; // 创建时间
     private String value1;
     private String value2;
     private String value3;

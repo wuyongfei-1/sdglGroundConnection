@@ -1,42 +1,47 @@
 package com.dyhc.sdglgroundconnection.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
+ *工作人员表
  **/
 @Table(name = "staff")
 public class Staff {
     @Id
     @Column(name = "staffId")
-    private int staffId;
+    private int staffId; // 人员编号
     @Column(name = "roleId")
-    private Integer roleId;
-    private String staffname;
+    private Integer roleId; // 角色编号（外键，与角色表关联）
+    private String staffname; // 姓名
     @Column(name = "theUserName")
-    private String theUserName;
-    private Integer sex;
-    private String password;
+    private String theUserName; // 用户名
+    private Integer sex; // 性别
+    private String password; // 密码
     @Column(name = "cardId")
-    private String cardId;
-    private Integer qqnumber;
+    private String cardId; // 身份证号
+    private Integer qqnumber; // QQ号码
     @Column(name = "headPortraitPath")
-    private String headPortraitPath;
+    private String headPortraitPath; // 头像地址
     @Column(name = "currentAddress")
-    private String currentAddress;
-    private Integer phone;
+    private String currentAddress; // 现住址
+    private Integer phone; // 联系电话
     @Column(name = "whetherDel")
-    private Integer whetherDel;
+    private Integer whetherDel; // 是否删除（1代表已删除，0代表未删除）
     @Column(name = "createBy")
-    private Integer createBy;
+    private Integer createBy; // 创建人 （外键，与人员表关联）
     @Column(name = "updateBy")
-    private Integer updateBy;
+    private Integer updateBy; // 修改人（外键，与人员表关联）
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "updateDate")
-    private Date updateDate;
+    private Date updateDate; // 修改日期
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "createDate")
-    private Date createDate;
+    private Date createDate; // 创建时间
     private String value1;
     private String value2;
     private String value3;

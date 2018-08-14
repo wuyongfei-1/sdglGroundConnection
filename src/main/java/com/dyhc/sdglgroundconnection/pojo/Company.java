@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.stereotype.Controller;
 
 import javax.persistence.*;
@@ -29,8 +30,10 @@ public class Company {
     private Integer whetherDel;
     private Integer creater;
     private Integer modifier;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "modifiedData")
     private Date modifiedData;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "creationDate")
     private Date creationDate;
     private String value1;

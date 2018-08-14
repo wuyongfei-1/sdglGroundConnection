@@ -1,34 +1,39 @@
 package com.dyhc.sdglgroundconnection.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
+ * 房间类型表
  **/
 @Table(name = "roomtype")
 public class RoomType {
     @Id
     @Column(name = "typeId")
-    private int typeId;
+    private int typeId; // 类型编号
     @Column(name = "hotelId")
-    private Integer hotelId;
+    private Integer hotelId; // 酒店编号（外键，与酒店表关联）
     @Column(name = "typeName")
-    private String typeName;
+    private String typeName; // 类型名称
     @Column(name = "costprice")
-    private Double costprice;
-    private Double offer;
+    private Double costprice; // 成本价
+    private Double offer; // 报价
     @Column(name = "whetherDel")
-    private Integer whetherDel;
+    private Integer whetherDel; // 是否删除（1代表已删除，0代表未删除）
     @Column(name = "createBy")
-    private Integer createBy;
+    private Integer createBy; // 创建人 （外键，与人员表关联）
     @Column(name = "updateBy")
-    private Integer updateBy;
+    private Integer updateBy; // 修改人（外键，与人员表关联）
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "updateDate")
-    private Date updateDate;
+    private Date updateDate; // 修改日期
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "createDate")
-    private Date createDate;
+    private Date createDate; // 创建日期
     private String value1;
     private String value2;
     private String value3;

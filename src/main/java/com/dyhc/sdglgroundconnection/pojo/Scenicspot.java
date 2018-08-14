@@ -1,43 +1,48 @@
 package com.dyhc.sdglgroundconnection.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
+ * 景点表
  **/
 @Table(name = "scenicspot")
 public class Scenicspot {
     @Id
     @Column(name = "scenicSpotId")
-    private int scenicSpotId;
+    private int scenicSpotId; // 景点编号
     @Column(name = "parentId")
-    private Integer parentId;
+    private Integer parentId; // 父景点编号
     @Column(name = "scenicSpotName")
-    private String scenicSpotName;
+    private String scenicSpotName; // 名称
     @Column(name = "scenicSpotAddress")
-    private String scenicSpotAddress;
-    private Integer costprice;
-    private Integer offer;
+    private String scenicSpotAddress; // 地点
+    private Integer costprice; // 成本价
+    private Integer offer; // 报价
     @Column(name = "typeCode")
-    private Integer typeCode;
+    private Integer typeCode; // 景点等级编号
     @Column(name = "typeId")
-    private Integer typeId;
+    private Integer typeId; // 编码（【景点等级】外键，与字典表关联）
     @Column(name = "picturePath")
-    private String picturePath;
-    private String describe;
-    private String remarks;
+    private String picturePath; // 景区图片地址
+    private String describe; // 描述
+    private String remarks; // 备注
     @Column(name = "whetherDel")
-    private Integer whetherDel;
+    private Integer whetherDel; // 是否删除（1代表已删除，0代表未删除）
     @Column(name = "createBy")
-    private Integer createBy;
+    private Integer createBy; // 创建人 （外键，与人员表关联）
     @Column(name = "scenicSpotId")
-    private Integer updateBy;
+    private Integer updateBy; // 修改人（外键，与人员表关联）
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "updateDate")
-    private Date updateDate;
+    private Date updateDate; // 修改日期
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "createDate")
-    private Date createDate;
+    private Date createDate; // 创建时间
     private String value1;
     private String value2;
     private String value3;

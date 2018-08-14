@@ -1,39 +1,44 @@
 package com.dyhc.sdglgroundconnection.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
+ * 交通表
  **/
 @Table(name = "traffic")
 public class Traffic {
     @Id
     @Column(name = "trafficId")
-    private int trafficId;
+    private int trafficId; // 交通编号
     @Column(name = "typeCode")
-    private String typeCode;
+    private String typeCode; // 编码（【交通名称类型】外键，与字典表关联）
     @Column(name = "valueId")
-    private Integer valueId;
+    private Integer valueId; // 类型编号(与字典表 类型编号进行关联)
     @Column(name = "departureTime")
-    private Date departureTime;
+    private Date departureTime; // 出发时间
     @Column(name = "arrivalTime")
-    private Date arrivalTime;
+    private Date arrivalTime; // 抵达时间
     @Column(name = "trainNumber")
-    private Integer trainNumber;
-    private Double costprice;
-    private Double offer;
+    private Integer trainNumber; // 车次
+    private Double costprice; // 成本价
+    private Double offer; // 报价
     @Column(name = "whetherDel")
-    private Integer whetherDel;
+    private Integer whetherDel; // 是否删除（1代表已删除，0代表未删除）
     @Column(name = "createBy")
-    private Integer createBy;
+    private Integer createBy; // 创建人 （外键，与人员表关联）
     @Column(name = "updateBy")
-    private Integer updateBy;
+    private Integer updateBy; // 修改人（外键，与人员表关联）
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "updateDate")
-    private Date updateDate;
+    private Date updateDate;//修改日期
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "createDate")
-    private Date createDate;
+    private Date createDate;//创建时间
     private String value1;
     private String value2;
     private String value3;

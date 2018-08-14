@@ -1,5 +1,7 @@
 package com.dyhc.sdglgroundconnection.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -23,9 +25,11 @@ public class Offerscenic {
     private Integer whetherDel;
     private Integer creater;
     private Integer modifier;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "modifiedData")
     private Timestamp modifiedData;
     @Column(name = "creationDate")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Timestamp creationDate;
     private String value1;
     private String value2;

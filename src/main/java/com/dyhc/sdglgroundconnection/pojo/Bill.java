@@ -33,8 +33,6 @@ public class Bill {
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "createDate")
     private Date createDate; // 创建日期
-
-
     private String value1;
     private String value2;
     private String value3;

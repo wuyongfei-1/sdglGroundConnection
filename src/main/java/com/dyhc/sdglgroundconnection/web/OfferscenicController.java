@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
+ * 报价景点 控制层
  **/
 @RestController
 public class OfferscenicController {

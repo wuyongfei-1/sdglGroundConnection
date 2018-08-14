@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html class="iframe-h">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>网站后台管理模版</title>
+		<link rel="stylesheet" type="text/css" href="/admin/layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="/admin/css/admin.css" />
+	</head>
+
+	<body>
+		<div class="wrap-container clearfix">
+				<div class="column-content-detail">
+					<form class="layui-form" action="">
+						<div class="layui-form-item">
+							<div class="layui-inline tool-btn">
+								<button class="layui-btn layui-btn-small layui-btn-normal addBtn" data-url="menu-add.html"><i class="layui-icon">&#xe654;</i></button>
+							</div>
+							<div class="layui-inline">
+								<input type="text" name="title" required lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+							</div>
+							<div class="layui-inline">
+								开始时间
+								<input type="date" />
+							</div>
+							<div class="layui-inline">
+								结束时间
+								<input type="date" />
+							</div>
+							<div class="layui-inline">
+								<select name="states" lay-filter="status">
+									<option value="000">请选择职务</option>
+									<option value="010">经理</option>
+									<option value="020">总控</option>
+									<option value="030">计调</option>
+									<option value="030">财务</option>
+								</select>
+								
+							</div>
+							<button class="layui-btn layui-btn-normal" lay-submit="search">搜索</button>
+						</div>
+					</form>
+					<div class="layui-form" id="table-list">
+						<table class="layui-table" lay-even lay-skin="nob">
+							<colgroup>
+								<col width="50">
+								<col class="hidden-xs" width="50">
+								<col class="hidden-xs" width="100">
+								<col>
+								<col class="hidden-xs" width="150">
+								<col class="hidden-xs" width="150">
+								<col width="80">
+								<col width="150">
+							</colgroup>
+							<thead>
+								<tr>
+									<th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose"></th>
+									<th style="width: 30px;">编号</th>
+									<th style="width: 45px;">姓名</th>
+									<th style="width: 30px;">性别</th>
+									<th style="width: 45px;">职务</th>
+									<th style="width: 80px;">用户名</th>
+									<th style="width: 100px;">身份证号</th>
+									<th style="width: 80px;">QQ</th>
+									<th style="width: 100px;">现住址</th>
+									<th style="width: 100px;">联系电话</th>
+									<th style="width: 80px; font-size: small;">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr id='node-1' class="parent collapsed">
+									<td><input type="checkbox" name="" lay-skin="primary" data-id="1"></td>
+									<td style="font-size:small">1</td>
+									<td style="font-size:small">王涛</td>
+									<td style="font-size:small">男</td>
+									<td style="font-size:small">总控</td>
+									<td style="font-size:small">wangtaoadmin</td>
+									<td style="font-size:small">142227199505240013</td>
+									<td style="font-size:small">1945210797</td>
+									<td style="font-size:small">山西太原小店区平阳路华康大厦7层</td>
+									<td style="font-size:small">13008300524</td>
+									<td>
+										<div class="layui-inline">
+											<button class="layui-btn layui-btn-mini layui-btn-normal  edit-btn" data-id="1" data-url="menu-add.html"><i class="layui-icon">&#xe642;</i></button>
+											<button class="layui-btn layui-btn-mini layui-btn-danger del-btn" data-id="1" data-url="menu-add.html"><i class="layui-icon">&#xe640;</i></button>
+										</div>
+									</td>
+								</tr>
+								<tr id='node-1' class="parent collapsed">
+									<td><input type="checkbox" name="" lay-skin="primary" data-id="1"></td>
+									<td style="font-size:small">2</td>
+									<td style="font-size:small">吴勇飞</td>
+									<td style="font-size:small">男</td>
+									<td style="font-size:small">计调</td>
+									<td style="font-size:small">wuyongfeiadmin</td>
+									<td style="font-size:small">145642199640213210</td>
+									<td style="font-size:small">1523612352</td>
+									<td style="font-size:small">山西太原小店区平阳路华康大厦7层</td>
+									<td style="font-size:small">13854625312</td>
+									<td>
+										<div class="layui-inline">
+											<button class="layui-btn layui-btn-mini layui-btn-normal  edit-btn" data-id="1" data-url="menu-add.html"><i class="layui-icon">&#xe642;</i></button>
+											<button class="layui-btn layui-btn-mini layui-btn-danger del-btn" data-id="1" data-url="menu-add.html"><i class="layui-icon">&#xe640;</i></button>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="page-wrap">
+							<ul class="pagination">
+								<li class="disabled"><span>«</span></li>
+								<li class="active"><span>1</span></li>
+								<li>
+									<a href="#">2</a>
+								</li>
+								<li>
+									<a href="#">»</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+		</div>
+		<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

@@ -1,0 +1,13 @@
+#content table tr{
+    line-height: 30px;
+}
+#divhead table tr{
+    line-height: 30px;
+    margin-bottom: 30px;
+}
+#divfoot{
+    margin-top: 30px;
+}
+#divfoot table tr{
+    line-height: 30px;
+}

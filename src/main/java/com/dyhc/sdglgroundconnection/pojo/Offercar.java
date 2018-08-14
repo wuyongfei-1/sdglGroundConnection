@@ -8,30 +8,35 @@ import java.util.Objects;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
+ * 报价用车表
  **/
 @Table(name = "offercar")
 public class Offercar {
     @Id
     @Column(name = "offerCarId")
-    private int offerCarId;
+    private int offerCarId; // 主键编号
     @Column(name = "typeId")
-    private Integer typeId;
+    private Integer typeId; // 用车类型编号（外键，与用车类型表关联）
     @Column(name = "offerId")
-    private Integer offerId;
+    private Integer offerId; // 报价信息编号（外键，与报价信息表关联）
     @Column(name = "costPrice")
-    private Double costPrice;
-    private Double offer;
-    private Integer number;
+    private Double costPrice; // 成本价
+    private Double offer; // 报价
+    private Integer number; // 数量
     @Column(name = "whetherDel")
     private Integer whetherDel;
     private Integer creater;
     private Integer modifier;
     @JsonFormat(pattern = "yyyy-MM-dd")
+    private Integer whetherDel; // 是否删除（1代表已删除，0代表未删除）
+    private Integer creater; // 创建人 （外键，与人员表关联）
+    private Integer modifier; // 修改人（外键，与人员表关联）
     @Column(name = "modifiedData")
     private Timestamp modifiedData;
     @JsonFormat(pattern = "yyyy-MM-dd")
+    private Timestamp modifiedData; // 修改日期
     @Column(name = "creationDate")
-    private Timestamp creationDate;
+    private Timestamp creationDate; // 创建时间
     private String value1;
     private String value2;
     private String value3;

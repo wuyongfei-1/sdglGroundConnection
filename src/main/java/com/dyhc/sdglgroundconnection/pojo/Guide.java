@@ -8,31 +8,36 @@ import java.util.Objects;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
+ * 导游表
  **/
 @Table(name = "guide")
 public class Guide {
     @Id
     @Column(name = "guideId")
-    private int guideId;
-    private String certificate;
+    private int guideId; // 导游编号
+    private String certificate; // 导游证件号
     @Column(name = "guideName")
-    private String guideName;
-    private String username;
-    private String password;
-    private Integer telephone;
-    private Integer age;
-    private Integer sex;
-    private Integer state;
+    private String guideName; // 导游姓名
+    private String username; // 用户名
+    private String password; // 密码
+    private Integer telephone; // 联系电话
+    private Integer age; // 年龄
+    private Integer sex; // 性别
+    private Integer state; // 状态（1、请假 2、已占用 3、空闲中）
     @Column(name = "whetherDel")
+    private Integer whetherDel; // 是否删除（1代表已删除，0代表未删除）
+    private Integer creater; // 创建人 （外键，与人员表关联)
+    private Integer modifier; // 修改人（外键，与人员表关联）
     private Integer whetherDel;
     private Integer creater;
     private Integer modifier;
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "modifiedData")
+    private Date modifiedData; // 修改日期
     private Date modifiedData;
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "creationDate")
-    private Date creationDate;
+    private Date creationDate; // 创建日期
     private String value1;
     private String value2;
     private String value3;

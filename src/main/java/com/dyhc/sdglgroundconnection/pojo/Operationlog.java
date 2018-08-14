@@ -8,31 +8,34 @@ import java.util.Objects;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
+ * 日志操作表
  **/
 @Table(name = "operationlog")
 public class Operationlog {
     @Id
     @Column(name = "operationLogId")
-    private int operationLogId;
+    private int operationLogId; // 主键Id
     @Column(name = "operationType")
-    private String operationType;
+    private String operationType; //操作类型（比如：酒店、餐馆、景点）
     @Column(name = "operationContent")
-    private String operationContent;
+    private String operationContent; // 操作内容（比如：添加了一个景点）
     @Column(name = "roleId")
-    private Integer roleId;
+    private Integer roleId; // 操作人（外键，与角色表关联）
     @Column(name = "operationDate")
-    private Date operationDate;
-    private Integer status;
+    private Date operationDate; // 操作时间
+    private Integer status; // 是否删除（1代表已删除，0代表未删除）
     @Column(name = "createBy")
-    private Integer createBy;
+    private Integer createBy; // 创建人 （外键，与人员表关联）
     @Column(name = "updateBy")
     private Integer updateBy;
     @JsonFormat(pattern = "yyyy-MM-dd")
+    private Integer updateBy; // 修改人（外键，与人员表关联）
     @Column(name = "upDate")
     private Date upDate;
     @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date upDate; // 修改日期
     @Column(name = "createDate")
-    private Date createDate;
+    private Date createDate; // 创建时间
     private String value1;
     private String value2;
     private String value3;

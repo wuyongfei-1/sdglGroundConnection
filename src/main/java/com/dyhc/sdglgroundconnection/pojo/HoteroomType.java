@@ -8,27 +8,30 @@ import java.util.Objects;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
+ * 调度酒店房间类型表
  **/
 @Table(name = "hoteroomtype")
 public class HoteroomType {
     @Id
     @Column(name = "hoteroomtId")
-    private int hoteroomtId;
+    private int hoteroomtId; // 调度酒店房间类型id
     @Column(name = "dispatchHotelId")
-    private Integer dispatchHotelId;
+    private Integer dispatchHotelId; // 调度酒店编号（外键，与调度酒店表关联）
     @Column(name = "typeId")
-    private Integer typeId;
-    private Integer status;
+    private Integer typeId; // 酒店房间类型编号（外键，与酒店房间类型表关联）
+    private Integer status; // 是否删除（1代表已删除，0代表未删除）
     @Column(name = "createBy")
-    private Integer createBy;
+    private Integer createBy; // 创建人 （外键，与人员表关联）
     @Column(name = "updateBy")
     private Integer updateBy;
     @JsonFormat(pattern = "yyyy-MM-dd")
+    private Integer updateBy; // 修改人（外键，与人员表关联）
     @Column(name = "upDate")
     private Date upDate;
     @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date upDate; // 修改日期
     @Column(name = "createDate")
-    private Date createDate;
+    private Date createDate; // 创建时间
     private String value1;
     private String value2;
     private String value3;

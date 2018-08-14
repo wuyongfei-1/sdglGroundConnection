@@ -8,39 +8,42 @@ import java.util.Objects;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
+ * 导游报账明细表
  **/
 @Table(name = "reportdetail")
 public class Reportdetail {
     @Id
     @Column(name = "reportDetailId")
-    private int reportDetailId;
+    private int reportDetailId; // 导游报账明细表编号
     @Column(name = "dispatchId")
-    private Integer dispatchId;
+    private Integer dispatchId; // 调度编号（外键，与调度表关联）
     @Column(name = "reportDate")
-    private Date reportDate;
-    private Double receipt;
+    private Date reportDate; // 报账日期
+    private Double receipt; // 外收团款
     @Column(name = "totalPayable")
-    private Double totalPayable;
+    private Double totalPayable; // 导游现付合计
     @Column(name = "typeCode")
-    private String typeCode;
+    private String typeCode; // 结余编码（外键，与字典表关联）
     @Column(name = "valueId")
-    private Integer valueId;
+    private Integer valueId; // 结余类型编号（外键，与字典表关联）
     @Column(name = "balanceAmount")
-    private Double balanceAmount;
-    private String remarks;
-    private Integer status;
+    private Double balanceAmount; // 结余金额
+    private String remarks; // 备注
+    private Integer status; // 状态（1、审核中 2、以结算 3、未通过）
     @Column(name = "whetherDel")
-    private Integer whetherDel;
+    private Integer whetherDel; // 是否删除（1代表已删除，0代表未删除）
     @Column(name = "createBy")
-    private Integer createBy;
+    private Integer createBy; // 创建人 （外键，与人员表关联）
     @Column(name = "updateBy")
     private Integer updateBy;
     @JsonFormat(pattern = "yyyy-MM-dd")
+    private Integer updateBy; // 修改人（外键，与人员表关联）
     @Column(name = "upDate")
     private Date upDate;
     @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date upDate; // 修改日期
     @Column(name = "createDate")
-    private Date createDate;
+    private Date createDate; // 创建时间
     private String value1;
     private String value2;
     private String value3;

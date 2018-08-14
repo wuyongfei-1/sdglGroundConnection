@@ -20,7 +20,7 @@ public class EnterVoucherController {
      */
     @RequestMapping("/BookingNotice.html")
     public String enterBookingNotice() {
-        return "BookingNotice";
+        return "voucher/BookingNotice";
     }
 
     /**
@@ -29,7 +29,7 @@ public class EnterVoucherController {
      */
     @RequestMapping("/CarRenting1.html")
     public String enterCarRenting1() {
-        return "CarRenting1";
+        return "voucher/CarRenting1";
     }
 
     /**
@@ -38,7 +38,7 @@ public class EnterVoucherController {
      */
     @RequestMapping("/CarRenting2.html")
     public String enterCarRenting2() {
-        return "CarRenting2";
+        return "voucher/CarRenting2";
     }
 
     /**
@@ -47,7 +47,7 @@ public class EnterVoucherController {
      */
     @RequestMapping("/Confirmation.html")
     public String enterConfirmation() {
-        return "Confirmation";
+        return "voucher/Confirmation";
     }
 
     /**
@@ -56,7 +56,7 @@ public class EnterVoucherController {
      */
     @RequestMapping("/GuidesReimbursement.html")
     public String enterGuidesReimbursement() {
-        return "GuidesReimbursement";
+        return "voucher/GuidesReimbursement";
     }
 
     /**
@@ -65,7 +65,7 @@ public class EnterVoucherController {
      */
     @RequestMapping("/log.html")
     public String enterlog() {
-        return "log";
+        return "voucher/log";
     }
 
     /**
@@ -74,7 +74,7 @@ public class EnterVoucherController {
      */
     @RequestMapping("/Mission.html")
     public String enterMission() {
-        return "Mission";
+        return "voucher/Mission";
     }
 
     /**
@@ -83,7 +83,7 @@ public class EnterVoucherController {
      */
     @RequestMapping("/newFile.html")
     public String enterNewFile() {
-        return "newFile";
+        return "voucher/newFile";
     }
 
     /**
@@ -92,7 +92,7 @@ public class EnterVoucherController {
      */
     @RequestMapping("/ptd.html")
     public String enterPtd() {
-        return "ptd";
+        return "voucher/ptd";
     }
 
     /**
@@ -101,7 +101,7 @@ public class EnterVoucherController {
      */
     @RequestMapping("/SecurityHints.html")
     public String enterSecurityHints() {
-        return "SecurityHints";
+        return "voucher/SecurityHints";
     }
 
     /**
@@ -110,7 +110,7 @@ public class EnterVoucherController {
      */
     @RequestMapping("/TravelPlan.html")
     public String enterTravelPlan() {
-        return "TravelPlan";
+        return "voucher/TravelPlan";
     }
 
 

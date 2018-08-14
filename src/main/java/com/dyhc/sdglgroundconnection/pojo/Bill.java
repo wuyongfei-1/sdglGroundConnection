@@ -26,11 +26,11 @@ public class Bill {
     @Column(name = "createBy")
     private Integer createBy; // 创建人 （外键，与人员表关联）
     @Column(name = "updateBy")
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private Integer updateBy; // 修改人（外键，与人员表关联）
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "updateDate")
     private Date updateDate; // 修改日期
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "createDate")
     private Date createDate; // 创建日期
 

@@ -1,5 +1,7 @@
 package com.dyhc.sdglgroundconnection.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
@@ -22,8 +24,10 @@ public class BillType {
     @Column(name = "updateBy")
     private Integer updateBy; // 修改人（外键，与人员表关联）
     @Column(name = "updateDate")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date updateDate; // 修改日期
     @Column(name = "createDate")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date createDate; // 创建日期
     private String value1;
     private String value2;

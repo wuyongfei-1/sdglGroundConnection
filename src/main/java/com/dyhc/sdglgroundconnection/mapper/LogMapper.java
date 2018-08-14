@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
+ * 带团日志
  **/
 @Mapper
 @Component

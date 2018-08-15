@@ -10,6 +10,12 @@ EnterCountAdjustPageController:计调页面
 EnterGeneralControlPageController：总控页面
 总控首页：http://localhost:8888/General/count-Adjust-Index.html
 
+数据库：
+字典表：编码：AAA 酒店
+              BBB 景点
+              CCC 餐厅
+              ……累加
+
 实体类：pojo
 accounttype 账户类型
 bill   单据

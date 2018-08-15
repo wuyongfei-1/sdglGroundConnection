@@ -262,4 +262,13 @@ public class EnterAdminPageController {
         return "admin/index/travel_list";
     }
 
+    /**
+     * 进入system页
+     * @return
+     */
+    @RequestMapping("/staff-add.html")
+    public String  staffAdd() {
+        return "admin/index/staff-add";
+    }
+
 }

@@ -2,5 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dyhc.sdglgroundconnection.mapper.StaffMapper">
+    <select id="listGetStaffsByNameAndCreateDateAndRoleId" resultType="com.dyhc.sdglgroundconnection.pojo.Staff">
+        SELECT `staffId`,`staffname`,`sex`,`roleId`,`theUserName`,`cardId`,`qqnumber`,`currentAddress`,`phone` FROM `staff`
+        WHERE 1=1
+            <if test="staffname !=null and staffname !='' ">
+               AND  `staffname` LIKE CONCAT('%',#{staffname},'%')
+            </if>
+            <if test="roleId !=null and roleId !=0">
+                AND `roleId` =#{roleId}
+            </if>
+            <if test="firstDate!=null and firstDate != ''">
+                AND `createDate` >  #{firstDate}
+            </if>
+            <if test="lastDate!=null and firstDate != ''">
+                AND #{lastDate}  >  `createDate`
+            </if>
 
+
+
+    </select>
 </mapper>

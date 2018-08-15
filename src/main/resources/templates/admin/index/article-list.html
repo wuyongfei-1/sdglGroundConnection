@@ -1,131 +1,212 @@
 <!DOCTYPE html>
 <html class="iframe-h">
 
-	<head>
-		<meta charset="UTF-8">
-		<meta name="renderer" content="webkit">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<title>网站后台管理模版</title>
-		<link rel="stylesheet" type="text/css" href="/admin/layui/css/layui.css" />
-		<link rel="stylesheet" type="text/css" href="/admin/css/admin.css" />
-	</head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>网站后台管理模版</title>
+    <link rel="stylesheet" type="text/css" href="/admin/layui/css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="/admin/css/admin.css"/>
+    <link rel="stylesheet" href="/css/layui.css" media="all">
+    <style>
+        #showstaffInfo tr {
+            height: 70px;
+        }
+    </style>
+</head>
 
-	<body>
-		<div class="wrap-container clearfix">
-				<div class="column-content-detail">
-					<form class="layui-form" action="">
-						<div class="layui-form-item">
-							<div class="layui-inline tool-btn">
-								<button class="layui-btn layui-btn-small layui-btn-normal addBtn" data-url="menu-add.html"><i class="layui-icon">&#xe654;</i></button>
-							</div>
-							<div class="layui-inline">
-								<input type="text" name="title" placeholder="请输入姓名" autocomplete="off" class="layui-input">
-							</div>
-							<div class="layui-inline">
-								开始时间
-								<input type="date" />
-							</div>
-							<div class="layui-inline">
-								结束时间
-								<input type="date" />
-							</div>
-							<div class="layui-inline">
-								<select name="states" lay-filter="status">
-									<option value="000">请选择职务</option>
-									<option value="010">经理</option>
-									<option value="020">总控</option>
-									<option value="030">计调</option>
-									<option value="030">财务</option>
-								</select>
-								
-							</div>
-							<button class="layui-btn layui-btn-normal" >搜索</button>
-						</div>
-					</form>
-					<div class="layui-form" id="table-list">
-						<table class="layui-table" lay-even lay-skin="nob">
-							<colgroup>
-								<col width="50">
-								<col class="hidden-xs" width="50">
-								<col class="hidden-xs" width="100">
-								<col>
-								<col class="hidden-xs" width="150">
-								<col class="hidden-xs" width="150">
-								<col width="80">
-								<col width="150">
-							</colgroup>
-							<thead>
-								<tr>
-									<th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose"></th>
-									<th style="width: 30px;">编号</th>
-									<th style="width: 45px;">姓名</th>
-									<th style="width: 30px;">性别</th>
-									<th style="width: 45px;">职务</th>
-									<th style="width: 80px;">用户名</th>
-									<th style="width: 100px;">身份证号</th>
-									<th style="width: 80px;">QQ</th>
-									<th style="width: 100px;">现住址</th>
-									<th style="width: 100px;">联系电话</th>
-									<th style="width: 80px; font-size: small;">操作</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr id='node-1' class="parent collapsed">
-									<td><input type="checkbox" name="" lay-skin="primary" data-id="1"></td>
-									<td style="font-size:small">1</td>
-									<td style="font-size:small">王涛</td>
-									<td style="font-size:small">男</td>
-									<td style="font-size:small">总控</td>
-									<td style="font-size:small">wangtaoadmin</td>
-									<td style="font-size:small">142227199505240013</td>
-									<td style="font-size:small">1945210797</td>
-									<td style="font-size:small">山西太原小店区平阳路华康大厦7层</td>
-									<td style="font-size:small">13008300524</td>
-									<td>
-										<div class="layui-inline">
-											<button class="layui-btn layui-btn-mini layui-btn-normal  edit-btn" data-id="1" data-url="menu-add.html"><i class="layui-icon">&#xe642;</i></button>
-											<button class="layui-btn layui-btn-mini layui-btn-danger del-btn" data-id="1" data-url="menu-add.html"><i class="layui-icon">&#xe640;</i></button>
-										</div>
-									</td>
-								</tr>
-								<tr id='node-1' class="parent collapsed">
-									<td><input type="checkbox" name="" lay-skin="primary" data-id="1"></td>
-									<td style="font-size:small">2</td>
-									<td style="font-size:small">吴勇飞</td>
-									<td style="font-size:small">男</td>
-									<td style="font-size:small">计调</td>
-									<td style="font-size:small">wuyongfeiadmin</td>
-									<td style="font-size:small">145642199640213210</td>
-									<td style="font-size:small">1523612352</td>
-									<td style="font-size:small">山西太原小店区平阳路华康大厦7层</td>
-									<td style="font-size:small">13854625312</td>
-									<td>
-										<div class="layui-inline">
-											<button class="layui-btn layui-btn-mini layui-btn-normal  edit-btn" data-id="1" data-url="menu-add.html"><i class="layui-icon">&#xe642;</i></button>
-											<button class="layui-btn layui-btn-mini layui-btn-danger del-btn" data-id="1" data-url="menu-add.html"><i class="layui-icon">&#xe640;</i></button>
-										</div>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						<div class="page-wrap">
-							<ul class="pagination">
-								<li class="disabled"><span>«</span></li>
-								<li class="active"><span>1</span></li>
-								<li>
-									<a href="#">2</a>
-								</li>
-								<li>
-									<a href="#">»</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-		</div>
-		<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
-	</body>
+<body>
+<div class="wrap-container clearfix">
+    <div class="column-content-detail">
+        <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <div class="layui-inline tool-btn">
+                    <input id="enterAddStaffInfo"  type="button" class="layui-btn layui-btn-small layui-btn-normal addBtn" value="+" >
+
+                   <!-- <button class="layui-btn layui-btn-small layui-btn-normal addBtn" id="enterAddStaffInfo" ><i
+                            class="layui-icon">&#xe654;</i></button>-->
+                </div>
+                <div class="layui-inline">
+                    <input type="text" name="title" placeholder="请输入姓名" id="staffName" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-inline">
+                    开始时间
+                    <input type="date"  id="firstDate" />
+                </div>
+                <div class="layui-inline">
+                    结束时间
+                    <input type="date"  id="lastDate"/>
+                </div>
+                <div class="layui-inline">
+                    <select id="Job-list" name="states"  lay-filter="status">
+
+
+                    </select>
+
+                </div>
+                <input class="layui-btn layui-btn-normal" type="button" onclick="listPageGetStaffByNameAndCreateDateAndRoleId()" value="搜索"/>
+            </div>
+        </form>
+        <div class="layui-form" id="table-list">
+            <table class="layui-table" lay-even lay-skin="nob">
+                <colgroup>
+                    <col width="50">
+                    <col class="hidden-xs" width="50">
+                    <col class="hidden-xs" width="100">
+                    <col>
+                    <col class="hidden-xs" width="150">
+                    <col class="hidden-xs" width="150">
+                    <col width="80">
+                    <col width="150">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose"></th>
+                    <th style="width: 30px;">编号</th>
+                    <th style="width: 45px;">姓名</th>
+                    <th style="width: 30px;">性别</th>
+                    <th style="width: 45px;">职务</th>
+                    <th style="width: 80px;">用户名</th>
+                    <th style="width: 100px;">身份证号</th>
+                    <th style="width: 80px;">QQ</th>
+                    <th style="width: 100px;">现住址</th>
+                    <th style="width: 100px;">联系电话</th>
+                    <th style="width: 80px; font-size: small;">操作</th>
+                </tr>
+                </thead>
+                <tbody id="showstaffInfo">
+
+                </tbody>
+            </table>
+            <div id="laypage" style="text-align: center"></div>
+
+        </div>
+    </div>
+</div>
+<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="/layui.js"></script>
+<script src="/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+
+    $(function () {
+        showGroupByRolenameRolesInfo()//绑定职务信息
+        listPageGetStaffByNameAndCreateDateAndRoleId();
+        $('#enterAddStaffInfo').on('click', function(){
+            layer.open({
+                type: 2,
+                title: '添加',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area : ['800px' , '600px'],
+                content: 'staff-add.html'
+            });
+        });
+    });
+    var limitcount = 6; // 每页总记录数
+    var curnum = 1;  // 当前页码
+    function listPageGetStaffByNameAndCreateDateAndRoleId() {
+        var staffName = $("#staffName").val();
+        var firstDate = $("#firstDate").val();
+        var lastDate = $("#lastDate").val();
+
+      /*  var roleId=$("#Job-list option:selected");*/
+        var roleId= $('#Job-list option:selected') .val();
+
+        $.ajax({
+            url: "/StaffController/listPageGetStaffByNameAndCreateDateAndRoleId",
+            data: {
+                "pageNo": curnum,
+                "pageSize": limitcount,
+                "staffname": staffName,
+                "firstDate": firstDate,
+                "lastDate": lastDate,
+                "roleId": roleId
+            },
+            dataType: "json",
+            type: "post",
+            success: function (ReponseResult) {
+
+                var content = "";
+                $(ReponseResult.data).each(function (i, e) {
+
+                    content += "<tr  class='parent collapsed' >";
+                    content += "<td><input type='checkbox' name='' lay-skin='primary' ><div class='layui-unselect layui-form-checkbox' lay-skin='primary'><i class='layui-icon layui-icon-ok'></i></div></td>";
+                    content += "<td style='font-size:small' >"+e.staffId+"</td>";
+                    content += "<td style='font-size:small' >"+e.staffname+"</td>";
+                    content += "<td style='font-size:small' >"+e.sex+"</td>";
+                    content += "<td style='font-size:small' >"+e.roleId+"</td>";
+                    content += "<td style='font-size:small' >"+e.theUserName+"</td>";
+                    content += "<td style='font-size:small' >"+e.qqnumber+"</td>";
+                    content += "<td style='font-size:small' >"+e.phone+"</td>";
+                    content += "<td style='font-size:small' >"+e.currentAddress+"</td>";
+                    content += "<td style='font-size:small' >"+e.phone+"</td>";
+                    content += "<td>";
+                    content += "<div class='layui-inline'>";
+                    content += "<button style='height: 30px; width: 30px;' class='layui-btn layui-btn-mini layui-btn-normal  edit-btn' data-id='1' data-url='menu-add.html'><i class='layui-icon'>&#xe642;</i></button>";
+                    content += "<button  style='height: 30px; width: 30px;' class='layui-btn layui-btn-mini layui-btn-danger del-btn' data-id='1' data-url='menu-add.html'><i class='layui-icon'>&#xe640;</i></button>";
+                    content += "</div>";
+                    content += "</td>";
+                    content += "</tr>";
+                })
+                $('#showstaffInfo').html(content);
+
+
+                // 分页插件
+                layui.use('table', function () {
+                    var laypage = layui.laypage;
+                    laypage.render({
+                        elem: 'laypage'
+                        , count: ReponseResult.count
+                        , curr: curnum
+                        , limit: 6
+                        , layout: ['prev', 'page', 'next', 'skip', 'count']
+                        , jump: function (obj, first) {
+                            if (!first) {
+                                //obj包含了当前分页的所有参数，比如：
+                                curnum = obj.curr; // 当前页面
+                                limitcount = obj.limit; // 每页记录数
+                                // 查询新数据
+                                listPageGetStaffByNameAndCreateDateAndRoleId();
+                            }
+                        }
+                    })
+                })
+            },
+            error: function (res) {
+                alert(res);
+            }
+        })
+    }
+
+
+    /*为下拉框绑定职务信息*/
+    function showGroupByRolenameRolesInfo() {
+
+        $.ajax({
+            url: "/RoleController/showGroupByRolenameRolesInfo",
+            data: {},
+            async:false,
+            dataType: "json",
+            type: "post",
+            success: function (ReponseResult) {
+                var content = "<option  value='0' selected='selected'>请选择职务</option>";
+                $(ReponseResult.data).each(function (i, e) {
+                    content += "<option value='" + e.roleId + "'>" + e.rolename + "</option>";
+                })
+                $('#Job-list').html(content);
+            },
+            error: function (res) {
+                alert(res);
+            }
+        })
+    }
+
+
+</script>
+</body>
 
 </html>

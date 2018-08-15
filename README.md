@@ -1,6 +1,29 @@
 # sdglGroundConnection
 世达国旅地接社管理系统
 
+跳转页面：
+web
+EnterAdminPageController:管理员页面
+管理员首页：http://localhost:8888/admin/adminIndex.html
+EnterCountAdjustPageController:计调页面
+计调首页：http://localhost:8888/countAdjust/count-Adjust-Index.html
+EnterGeneralControlPageController：总控页面
+总控首页：http://localhost:8888/General/count-Adjust-Index.html
+
+数据库：
+IP：192.168.43.124
+port：3306
+username: root
+password: 123456
+字典表：编码：ATTRACTIONS 景点等级
+              DIET 饮食类型
+              THEROOM 房间类型
+              VEHICLE 车辆类型
+              BILL 报账类型
+              TRAFFIC 交通类型
+              
+              
+
 实体类：pojo
 accounttype 账户类型
 bill   单据

@@ -11,10 +11,18 @@ EnterGeneralControlPageController：总控页面
 总控首页：http://localhost:8888/General/count-Adjust-Index.html
 
 数据库：
-字典表：编码：AAA 酒店
-              BBB 景点
-              CCC 餐厅
-              ……累加
+IP：192.168.43.124
+port：3306
+username: root
+password: 123456
+字典表：编码：ATTRACTIONS 景点等级
+              DIET 饮食类型
+              THEROOM 房间类型
+              VEHICLE 车辆类型
+              BILL 报账类型
+              TRAFFIC 交通类型
+              
+              
 
 实体类：pojo
 accounttype 账户类型

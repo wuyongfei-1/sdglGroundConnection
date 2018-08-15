@@ -21,7 +21,7 @@ public class Travel {
     private String personName; // 负责人名字
     @Column(name = "personPost")
     private String personPost; // 负责人职位
-    private Integer phone; // 联系电话
+    private String phone; // 联系电话
     @Column(name = "whetherDel")
     private Integer whetherDel; // 是否删除（1代表已删除，0代表未删除）
     @Column(name = "createBy")
@@ -78,13 +78,11 @@ public class Travel {
         this.personPost = personPost;
     }
 
-    @Basic
-    @Column(name = "phone")
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

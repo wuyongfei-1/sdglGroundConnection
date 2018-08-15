@@ -21,7 +21,7 @@ public class Company {
     @Column(name = "companyAddress")
     private String companyAddress; // 地址
     @Column(name = "companyPhone")
-    private Integer companyPhone; // 电话
+    private String companyPhone; // 电话
     private String fax; // 传真
     @Column(name = "zipCode")
     private String zipCode; // 邮编
@@ -71,13 +71,11 @@ public class Company {
         this.companyAddress = companyAddress;
     }
 
-    @Basic
-    @Column(name = "companyPhone")
-    public Integer getCompanyPhone() {
+    public String getCompanyPhone() {
         return companyPhone;
     }
 
-    public void setCompanyPhone(Integer companyPhone) {
+    public void setCompanyPhone(String companyPhone) {
         this.companyPhone = companyPhone;
     }
 

@@ -3,6 +3,7 @@ package com.dyhc.sdglgroundconnection.service.impl;
 import com.dyhc.sdglgroundconnection.mapper.StaffMapper;
 import com.dyhc.sdglgroundconnection.pojo.Hotel;
 import com.dyhc.sdglgroundconnection.pojo.Staff;
+import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.dyhc.sdglgroundconnection.service.StaffService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -40,4 +41,13 @@ public class StaffServiceImpl implements StaffService {
     }
 
 
+
+    /**
+     * 登录验证（dubingkun）
+     * @param username
+     * @return
+     */
+    public Staff loginCheck(String username) {
+        return staffMapper.getByTheUserName(username);
+    }
 }

@@ -22,4 +22,10 @@ public interface StaffMapper extends CommonMapper<Staff>{
      * @return
      */
     List<Staff> listGetStaffsByNameAndCreateDateAndRoleId(@Param("staffname") String staffname, @Param("firstDate")  String firstDate, @Param("lastDate")  String lastDate, @Param("roleId")  Integer roleId);
+    /**
+     * 根据用户名返回用户信息（dubingkun）
+     * @param username
+     * @return
+     */
+    Staff getByTheUserName(String username);
 }

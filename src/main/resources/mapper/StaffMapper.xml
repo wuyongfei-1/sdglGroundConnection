@@ -21,4 +21,7 @@
 
 
     </select>
+    <select id="getByTheUserName" resultType="com.dyhc.sdglgroundconnection.pojo.Staff">
+          SELECT * FROM `staff` WHERE theUserName=#{username}
+    </select>
 </mapper>

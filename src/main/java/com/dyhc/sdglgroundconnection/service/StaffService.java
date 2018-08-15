@@ -2,6 +2,7 @@ package com.dyhc.sdglgroundconnection.service;
 
 import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.github.pagehelper.PageInfo;
+import com.dyhc.sdglgroundconnection.pojo.Staff;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -25,4 +26,10 @@ public interface StaffService {
      * @return
      */
     Integer saveStaffInfo(Staff staff);
+    /**
+     * 根据用户名返回用户信息（dubingkun）
+     * @param username
+     * @return
+     */
+    Staff loginCheck(String username);
 }

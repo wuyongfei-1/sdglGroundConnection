@@ -39,10 +39,10 @@ function xianlu(obj){
 function shanchu(aa){
     var a=$(aa).parent();
     a.remove();
-}		
+}
 			function addss() {
 				var a = "<div style='margin-bottom: 30px;width: 800px'>"+
-					"<input type='image' src='/images/up.PNG' style='height: 30px;width: 35px;' id='toggle' onclick='qiehuan(this)' />"+
+				"<input type='image' src='/images/up.PNG' style='height: 30px;width: 35px;' id='toggle' onclick='qiehuan(this)' />"+
 				"<input type='image' id='sc' src='/images/del.PNG' onclick='shanchu(this)' style='display:inline-block;float: right;height: 30px;width: 35px;'/>"+
 				"<div id='content'>"+
 				"<form class='layui-form layui-form-pane' action=''>"+
@@ -156,7 +156,7 @@ function shanchu(aa){
 				
 				var b = $("#add");
 				b.remove();
-				var f = "<button class='layui-btn layui-btn-normal layui-btn-radius' onclick='addss()' id='add'>Day</button>";
+				var f = "<button class='layui-btn layui-btn-normal layui-btn-radius' onclick='addss()' id='add'>十</button>";
 				$("#zong").append(f);
 			}
 

@@ -35,7 +35,7 @@
 					<td><label class="layui-form-label">开始时间</label></td>
 					<td> <input type="text" name="date" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input"></td>
 					<td><label class="layui-form-label">结束时间</label></td>
-					<td> <input type="text" name="date" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input"></td>
+					<td> <input type="text" name="date" id="date1" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input"></td>
 				</tr>
 			</table>
 		</form>
@@ -97,7 +97,10 @@
 										<option value="4">纪检组</option>
 									</select>
 								</td>
-
+								<td><label class="layui-form-label">成本价:</label></td>
+								<td><input type="text" class="layui-input"></td>
+								<td><label class="layui-form-label">报价:</label></td>
+								<td><input type="text" class="layui-input"></td>
 							</tr>
 							<tr>
 								<td><label class="layui-form-label">午餐</label></td>
@@ -141,7 +144,7 @@
 					</form>
 				</div>
 			</div>
-			<button class='layui-btn layui-btn-normal layui-btn-radius' onclick='addss()' id="add">Day</button>
+			<button class='layui-btn layui-btn-normal layui-btn-radius' onclick='addss()' id="add">十</button>
 			<!---中结束-->
 		</div>
 		<div id="divfoot">
@@ -178,7 +181,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td><label class="layui-form-label">司机导游小费:</label></td>
+						<td><label class="layui-form-label">司机导游:</label></td>
 						<td colspan="5"><input type="text" class="layui-input"></td>
 					</tr>
 					<tr>
@@ -212,6 +215,13 @@
 						layedit = layui.layedit,
 						element=layui.element,
 						laydate = layui.laydate;
+                    //日期
+                    laydate.render({
+                        elem: '#date'
+                    });
+                    laydate.render({
+                        elem: '#date1'
+                    });
 					   element.render( 'test1');
 					   form.render('select', 'test1');
 				});

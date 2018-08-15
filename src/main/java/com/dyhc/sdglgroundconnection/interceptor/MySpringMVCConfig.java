@@ -6,10 +6,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 class WebMvcConfigurer extends WebMvcConfigurerAdapter {
     final String[] notLoginInterceptPaths ={"/admin/login.html","/loginCheck"};
+    final String[] loginInterceptPaths ={"/admin/*","/countAdjust/*","/General/*","/finance/*","/voucher/*"};
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //super.addInterceptors(registry);
         //拦截管理除登录页面以外的所有页面
-        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns(notLoginInterceptPaths);
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns(loginInterceptPaths).excludePathPatterns(notLoginInterceptPaths);
     }
 }

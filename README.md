@@ -1,6 +1,15 @@
 # sdglGroundConnection
 世达国旅地接社管理系统
 
+跳转页面：
+web
+EnterAdminPageController:管理员页面
+管理员首页：http://localhost:8888/admin/adminIndex.html
+EnterCountAdjustPageController:计调页面
+计调首页：http://localhost:8888/countAdjust/count-Adjust-Index.html
+EnterGeneralControlPageController：总控页面
+总控首页：http://localhost:8888/General/count-Adjust-Index.html
+
 实体类：pojo
 accounttype 账户类型
 bill   单据

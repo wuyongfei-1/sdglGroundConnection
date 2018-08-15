@@ -2,5 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dyhc.sdglgroundconnection.mapper.ScenicspotMapper">
+    <select id="ListScenicspot" resultType="com.dyhc.sdglgroundconnection.pojo.Scenicspot">
+        SELECT * FROM scenicspot WHERE whetherDel=#{whetherDel}
+        <if test="scenicSpotName!=null">
+            AND scenicSpotName LIKE CONCAT('%',#{scenicSpotName},'%')
+        </if>
+        <if test="scenicSpotAddress!=null">
+            AND scenicSpotAddress LIKE CONCAT('%',#{scenicSpotAddress},'%')
+        </if>
+        <if test="typeId!=null and typeId!=0">
+            AND typeId=#{typeId}
+        </if>
+    </select>
+    <insert id="saveScenicspotInfo">
+        INSERT INTO scenicspot  (parentId,scenicSpotName,scenicSpotAddress,
+        costprice,offer,typeCode,typeId,picturePath,`describe`,remarks,
+        whetherDel,createBy,createDate)
+        VALUES(#{parentId},#{scenicSpotName},#{scenicSpotAddress},
+        #{costprice},#{offer},#{typeCode},#{typeId},#{picturePath},#{describe},#{remarks},
+        #{whetherDel},#{createBy},#{createDate});
+    </insert>
+    <select id="ListScenicspotByParentId" resultType="com.dyhc.sdglgroundconnection.pojo.Scenicspot">
+          SELECT * FROM scenicspot WHERE parentId=0
+    </select>
 
 </mapper>

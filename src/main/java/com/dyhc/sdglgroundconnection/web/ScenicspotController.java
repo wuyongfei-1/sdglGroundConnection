@@ -1,11 +1,23 @@
 package com.dyhc.sdglgroundconnection.web;
 
+import com.dyhc.sdglgroundconnection.pojo.Hotel;
+import com.dyhc.sdglgroundconnection.pojo.Scenicspot;
 import com.dyhc.sdglgroundconnection.service.ScenicspotService;
+import com.dyhc.sdglgroundconnection.utils.ReponseResult;
+import com.github.pagehelper.PageInfo;
+import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
@@ -19,4 +31,146 @@ public class ScenicspotController {
 
     @Autowired
     private ScenicspotService scenicspotService;
+
+    /**
+     * 查询景点信息 wangtao
+     * @param pageNo 当前页
+     * @param pageSize 每页显示数量
+     * @param scenicspot 参数对象
+     * @return ReponseResult对象
+     */
+    @RequestMapping("/ListScenicspot")
+    public ReponseResult ListScenicspot(@RequestParam("page") Integer pageNo, @RequestParam("limit") Integer pageSize,Scenicspot scenicspot){
+        try {
+            //一、查询所有的景点信息
+            PageInfo<Scenicspot> pageInfo =scenicspotService.listScenicspot(pageNo,pageSize,scenicspot);
+            //二、返回ReponseResult对象
+            ReponseResult<List> data = ReponseResult.ok(pageInfo.getList(), pageInfo.getTotal(), "分页获取景点成功！");
+            //三、录入日志并返回
+            logger.info(" method:ListScenicspot  分页获取景点成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:ListScenicspot  获取景点数据失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
+    /**
+     * 新增景点信息  wangtao
+     * @param scenicspot 参数对象
+     * @return ReponseResult对象
+     */
+    @RequestMapping("/insertScenicspot")
+    public ReponseResult insertScenicspot(Scenicspot scenicspot){
+        try {
+            //设置默认参数
+            scenicspot.setCreateBy(1);
+            scenicspot.setCreateDate(new Date());
+            scenicspot.setWhetherDel(0);
+            scenicspot.setDescribe("景点");
+            scenicspot.setPicturePath("图片地址");
+            scenicspot.setTypeCode("ATTRACTIONS");
+            //一、新增景点信息
+            Integer result =scenicspotService.insertScenicspot(scenicspot);
+            ReponseResult<Integer> data=null;
+            //二、判断是否成功
+            if(result>0){
+                //成功则给ReponseResult对象赋值并日志记录
+                data = ReponseResult.ok(result, "新增景点成功！");
+                logger.info(" method:insertScenicspot  新增景点成功！");
+            }else{
+                //失败则给ReponseResult对象赋值并日志记录
+                data = ReponseResult.ok(result, "新增景点失败！");
+                logger.info(" method:insertScenicspot  新增景点失败！");
+            }
+            //返回ReponseResult对象
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:insertScenicspot  新增景点数据失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
+    /**
+     * 查询所有是父景点的信息
+     * @return 返回父景点集合
+     */
+    @RequestMapping("/ListScenicspotByParentId")
+    public ReponseResult ListScenicspotByParentId(){
+        try {
+            //一、查询所有的景点信息
+            PageInfo<Scenicspot> pageInfo =scenicspotService.ListScenicspotByParentId();
+            //二、返回ReponseResult对象
+            ReponseResult<List> data = ReponseResult.ok(pageInfo.getList(), pageInfo.getTotal(), "获取所有父景点成功！");
+            //三、录入日志并返回
+            logger.info(" method:ListScenicspotByParentId  获取所有父景点成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:ListScenicspotByParentId  获取所有父景点失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
+    /**
+     * 根据id获取信息
+     * @param scenicSpotId id
+     * @return 景点对象
+     */
+    @RequestMapping("/getInfoById")
+    public ReponseResult getInfoById(@Param("scenicSpotId")Integer scenicSpotId){
+        try {
+            //一、根据编号查询景点信息
+            Scenicspot scenicspot =scenicspotService.getScenicspotById(scenicSpotId);
+            //二、返回ReponseResult对象
+            ReponseResult<Scenicspot> data = ReponseResult.ok(scenicspot, "获取景点成功！");
+            //三、录入日志并返回
+            logger.info(" method:getInfoById  获取景点成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:getInfoById  获取景点失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
+    /**
+     * 根据id修改信息
+     * @param scenicspot 景点对象
+     * @return 返回受影响行数
+     */
+    @RequestMapping("/updateInfoById")
+    public ReponseResult updateInfoById(Scenicspot scenicspot){
+        try {
+            scenicspot.setUpdateBy(1);
+            scenicspot.setUpdateDate(new Date());
+            //一、修改景点信息
+            Integer result =scenicspotService.updateScenicspot(scenicspot);
+            ReponseResult<Integer> data=null;
+            //二、判断是否成功
+            if(result>0){
+                //成功则给ReponseResult对象赋值并日志记录
+                data = ReponseResult.ok(result, "修改景点成功！");
+                logger.info(" method:updateInfoById  修改景点成功！");
+            }else{
+                //失败则给ReponseResult对象赋值并日志记录
+                data = ReponseResult.ok(result, "新增景点失败！");
+                logger.info(" method:updateInfoById  修改景点失败！");
+            }
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:updateInfoById  修改景点失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
+
 }

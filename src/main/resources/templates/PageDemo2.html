@@ -38,7 +38,7 @@
     function loadData() {
         var str = "";
         $.ajax({
-            url: "/showAllHotels",
+            url: "/ListByHotel",
             data: {page:curnum,limit:limitcount},
             dataType: "json",
             type: "get",

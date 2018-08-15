@@ -42,4 +42,110 @@ public class HotelController {
             return err;
         }
     }
+    /**
+     * 查询全部
+     */
+    @RequestMapping("/ListByHotel")
+    public ReponseResult listByHotel(){
+        List<Hotel> list=hotelService.listByaHotel();
+        ReponseResult<List> date= ReponseResult.ok(list,"查询全部酒店成功！");
+        logger.info(" method:ListByHotel  查询全部酒店成功！");
+        return date;
+    }
+    /**
+     * 增加
+     */
+    @RequestMapping("/insertHotel")
+    public ReponseResult insertHotel(Hotel hotel){
+        try {
+            int result=hotelService.insertHotel(hotel);
+            ReponseResult<List> date;
+            if (result>0){
+                date= ReponseResult.ok("增加酒店成功！");
+                logger.info(" method:insertHotel  增加酒店成功！");
+
+            }else{
+                date= ReponseResult.ok("增加酒店失败！");
+                logger.info(" method:insertHotel  增加酒店失败！");
+            }
+            return date;
+        }catch (Exception e){
+            logger.error(" method:insertHotel  增加酒店数据失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+    /**
+     * 修改
+     */
+    @RequestMapping("/updateHotel")
+    public ReponseResult updateHotel(Hotel hotel){
+        try {
+            int result=hotelService.updateHotel(hotel);
+            ReponseResult<List> date;
+            if (result>0){
+                date= ReponseResult.ok("修改酒店成功！");
+                logger.info(" method:updateHotel  修改酒店成功！");
+
+            }else{
+                date= ReponseResult.ok("修改酒店失败！");
+                logger.info(" method:updateHotel  修改酒店失败！");
+            }
+            return date;
+        }catch (Exception e){
+            logger.error(" method:updateHotel  修改酒店失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+    /**
+     * 删除
+     */
+    @RequestMapping("/deleteHotelByID")
+    public ReponseResult deleteHotelByID(int id){
+        try {
+            int result=hotelService.deleteHotelByID(id);
+            ReponseResult<Integer> date;
+            if (result>0){
+                date= ReponseResult.ok(result,"删除酒店成功！");
+                logger.info(" method:deleteHotelByID  删除酒店成功！");
+
+            }else{
+                date= ReponseResult.ok("删除酒店失败！");
+                logger.info(" method:deleteHotelByID  删除酒店失败！");
+            }
+            return date;
+        }catch (Exception e){
+            logger.error(" method:deleteHotelByID  删除酒店失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+    /**
+     * id查询
+     */
+    @RequestMapping("/selectHotelById")
+    public ReponseResult selectHotelById(int id){
+        try {
+            Hotel result=hotelService.selectHotelById(id);
+            ReponseResult<Hotel> date;
+            if (result!=null){
+                date= ReponseResult.ok(result,"id查询成功");
+                logger.info(" method:selectHotelById  id查询成功！");
+
+            }else{
+                date= ReponseResult.ok("查询酒店失败！");
+                logger.info(" method:selectHotelById  查询酒店失败！");
+            }
+            return date;
+        }catch (Exception e){
+            logger.error(" method:selectHotelById  查询酒店失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
 }

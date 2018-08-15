@@ -14,4 +14,29 @@ import java.util.List;
 public interface HotelService {
 
     PageInfo<Hotel> listHotels(Integer pageNo,Integer PageSize) throws Exception;
+
+    /**
+     * 查询全部
+     * @return
+     */
+    List<Hotel> listByaHotel();
+    /**
+     * 增加
+     */
+    int insertHotel(Hotel hotel);
+    /**
+     * 修改
+     */
+    int updateHotel(Hotel hotel);
+    /**
+     * 删除
+     */
+    int deleteHotelByID(int id);
+
+    /**
+     * id查询
+     * @param id
+     * @return
+     */
+    Hotel selectHotelById(int id);
 }

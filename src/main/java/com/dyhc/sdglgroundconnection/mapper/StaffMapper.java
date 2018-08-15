@@ -11,4 +11,10 @@ import org.springframework.stereotype.Component;
 @Mapper
 @Component
 public interface StaffMapper extends CommonMapper<Staff>{
+    /**
+     * 根据用户名返回用户信息（dubingkun）
+     * @param username
+     * @return
+     */
+    Staff getByTheUserName(String username);
 }

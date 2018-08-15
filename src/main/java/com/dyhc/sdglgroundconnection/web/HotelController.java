@@ -30,7 +30,6 @@ public class HotelController {
     @RequestMapping("/showAllHotels")
     public ReponseResult showHotel(@RequestParam("page") Integer pageNo, @RequestParam("limit") Integer pageSize) {
         try {
-            pageSize = 2;
             PageInfo<Hotel> pageInfo = hotelService.listHotels(pageNo,pageSize);
             ReponseResult<List> data = ReponseResult.ok(pageInfo.getList(), pageInfo.getTotal(), "分页获取酒店成功！");
             logger.info(" method:showHotel  分页获取酒店成功！");

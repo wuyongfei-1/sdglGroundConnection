@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
+import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.mapper.HotelMapper;
 import com.dyhc.sdglgroundconnection.pojo.Hotel;
 import com.dyhc.sdglgroundconnection.service.HotelService;
@@ -28,38 +29,48 @@ public class HotelServiceImpl implements HotelService {
 
     /**
      * 查询全部
+     *
      * @return
      */
     @Override
     public List<Hotel> listByaHotel() {
         return hotelMapper.selectAll();
     }
+
     /**
      * 增加
+     *
      * @return
      */
     @Override
+    @RecordOperation(type = "酒店", desc = "添加了一条酒店信息")
     public int insertHotel(Hotel hotel) {
         return hotelMapper.insert(hotel);
     }
+
     /**
      * 修改
+     *
      * @return
      */
     @Override
     public int updateHotel(Hotel hotel) {
         return hotelMapper.updateByPrimaryKey(hotel);
     }
+
     /**
      * 删除
+     *
      * @return
      */
     @Override
     public int deleteHotelByID(int id) {
         return hotelMapper.deleteByPrimaryKey(id);
     }
+
     /**
      * id查询
+     *
      * @return
      */
     @Override

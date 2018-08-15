@@ -2,6 +2,7 @@
 世达国旅地接社管理系统
 
 跳转页面：
+http://localhost:8888/admin/login.html:登录页面
 web
 EnterAdminPageController:管理员页面
 管理员首页：http://localhost:8888/admin/adminIndex.html

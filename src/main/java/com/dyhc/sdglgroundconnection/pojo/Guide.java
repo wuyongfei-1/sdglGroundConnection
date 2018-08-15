@@ -20,7 +20,7 @@ public class Guide {
     private String guideName; // 导游姓名
     private String username; // 用户名
     private String password; // 密码
-    private Integer telephone; // 联系电话
+    private String telephone; // 联系电话
     private Integer age; // 年龄
     private Integer sex; // 性别
     private Integer state; // 状态（1、请假 2、已占用 3、空闲中）
@@ -88,13 +88,11 @@ public class Guide {
         this.password = password;
     }
 
-    @Basic
-    @Column(name = "telephone")
-    public Integer getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(Integer telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 

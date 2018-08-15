@@ -25,6 +25,8 @@ public class Dictionaries {
     private String valueContent1; // 内容1（例如：餐饭名、AAAAA级）
     @Column(name = "valueContent2")
     private String valueContent2; // 内容2（餐饭价格）
+    @Column(name = "valueContent3")
+    private String valueContent3; // 内容3（餐饭价格）
     @Column(name = "whetherDel")
     private Integer whetherDel; // 是否删除（1代表已删除，0代表未删除）
     @Column(name = "createBy")
@@ -206,5 +208,13 @@ public class Dictionaries {
     public int hashCode() {
 
         return Objects.hash(dictionariesId, typeCode, typeName, valueId, valueContent1, valueContent2, whetherDel, createBy, updateBy, updateDate, createDate, value1, value2, value3);
+    }
+
+    public String getValueContent3() {
+        return valueContent3;
+    }
+
+    public void setValueContent3(String valueContent3) {
+        this.valueContent3 = valueContent3;
     }
 }

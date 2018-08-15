@@ -25,7 +25,7 @@ public class Restaurant {
     private Integer valueId; // 编码（【餐厅类型名称】外键，与字典表关联）
     @Column(name = "picturePath")
     private String picturePath; // 餐馆图片地址
-    private Integer phone; // 联系电话
+    private String phone; // 联系电话
     @Column(name = "whetherDel")
     private Integer whetherDel; // 是否删除（1代表已删除，0代表未删除）
     @Column(name = "createBy")
@@ -102,13 +102,11 @@ public class Restaurant {
         this.picturePath = picturePath;
     }
 
-    @Basic
-    @Column(name = "phone")
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

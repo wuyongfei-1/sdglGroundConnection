@@ -1,5 +1,7 @@
 package com.dyhc.sdglgroundconnection.service;
 
+import com.dyhc.sdglgroundconnection.pojo.Company;
+import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -8,4 +10,5 @@ import org.springframework.stereotype.Component;
  * 公司信息业务接口
  **/
 public interface CompanyService {
+    PageInfo<Company> listCompany(Integer pageNo, Integer PageSize) throws Exception;
 }

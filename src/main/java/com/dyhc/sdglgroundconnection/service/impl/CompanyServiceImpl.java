@@ -1,7 +1,10 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
 import com.dyhc.sdglgroundconnection.mapper.CompanyMapper;
+import com.dyhc.sdglgroundconnection.pojo.Company;
 import com.dyhc.sdglgroundconnection.service.CompanyService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,4 +18,10 @@ public class CompanyServiceImpl implements CompanyService {
     @Autowired
     private CompanyMapper companyMapper;
 
+    @Override
+    public PageInfo<Company> listCompany(Integer pageNo, Integer PageSize) throws Exception {
+        PageHelper.startPage(pageNo, PageSize, true);
+        PageInfo<Company> pageInfo = new PageInfo<>(companyMapper.selectAll());
+        return pageInfo;
+    }
 }

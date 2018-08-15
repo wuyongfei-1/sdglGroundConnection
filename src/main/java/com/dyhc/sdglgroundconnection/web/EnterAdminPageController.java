@@ -245,4 +245,21 @@ public class EnterAdminPageController {
         return "admin/index/log-operate-admin";
     }
 
+    /**
+     * 进入system页
+     * @return
+     */
+    @RequestMapping("/travel_add.html")
+    public String  traveladd() {
+        return "admin/index/travel_add";
+    }
+    /**
+     * 进入system页
+     * @return
+     */
+    @RequestMapping("/travel_list.html")
+    public String  travellist() {
+        return "admin/index/travel_list";
+    }
+
 }

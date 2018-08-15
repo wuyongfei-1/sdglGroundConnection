@@ -281,22 +281,7 @@ public class EnterCountAdjustPageController {
     public String  trafficlist() {
         return "countAdjust/index/traffic_list";
     }
-    /**
-     * 进入system页
-     * @return
-     */
-    @RequestMapping("/travel_add.html")
-    public String  traveladd() {
-        return "countAdjust/index/travel_add";
-    }
-    /**
-     * 进入system页
-     * @return
-     */
-    @RequestMapping("/travel_list.html")
-    public String  travellist() {
-        return "countAdjust/index/travel_list";
-    }
+
     /**
      * 进入system页
      * @return

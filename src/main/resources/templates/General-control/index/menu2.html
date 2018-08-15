@@ -18,19 +18,25 @@
 				height: 5px;
 	
 			}
+			#daoyouxinxi{
+
+			}
+			#tbodyinfo tr td{
+				border: 1px solid #0C0C0C;
+			}
 			#daoyouinfo tr td{
 				margin-top: 20px;
 			}
 			
 			.nengyong{
-				background-color:#3385ff ;
-				color: white;
+
+				color: #0C0C0C;
 				
 			}
 			
 			.bunengyong{
-				background-color:#ff7f7f ;
-				color: white;
+
+				color: #0C0C0C;
 			}
 			
 			
@@ -45,12 +51,12 @@
 			</div>
 
 			<div style="height:600px; overflow-y: auto; overflow-x: auto; width: 820px;float: left;">
-				<h1>导游日程信息</h1s>
+				<h1>导游日程信息</h1>
 				<table  class="layui-table" lay-even="" lay-skin="nob" id="daoyouinfo">
 					
 					<thead>
 						<tr id="daoyouricheng">
-							<td><span style="width: 20px; height: 20px;">aaaaaa</span></td>
+							<td><span style="width: 90px;"></span></td>
 							<td>1</td>
 							<td>2</td>
 							<td>3</td>
@@ -85,8 +91,8 @@
 						</tr>
 					</thead>
 					<tbody id="tbodyinfo">
-						<tr id="daoyouxinxi">
-							<td>李晓杰</td>
+						<tr >
+							<td >李晓杰</td>
 							<td class="nengyong">√</td>
 							<td class="nengyong">√</td>
 							<td class="nengyong">√</td>
@@ -121,7 +127,7 @@
 					
 							
 						</tr>
-						<tr id="daoyouxinxi">
+						<tr >
 							<td>李晓杰</td>
 							<td class="nengyong">√</td>
 							<td class="nengyong">√</td>
@@ -130,12 +136,12 @@
 							<td class="nengyong">√</td>
 							<td class="nengyong">√</td>
 							<td class="nengyong">√</td>
-							<td class="bunengyong">×</td>
-							<td class="bunengyong">×</td>
-							<td class="bunengyong">×</td>
-							<td class="bunengyong">×</td>
-							<td class="bunengyong">×</td>
-							<td class="bunengyong">×</td>
+							<td class="bunengyong"></td>
+							<td class="bunengyong"></td>
+							<td class="bunengyong"></td>
+							<td class="bunengyong"></td>
+							<td class="bunengyong"></td>
+							<td class="bunengyong"></td>
 							<td class="nengyong">√</td>
 							<td class="nengyong">√</td>
 							<td class="nengyong">√</td>
@@ -155,7 +161,7 @@
 							<td class="nengyong">√</td>
 							<td class="nengyong">√</td>
 						</tr>
-						<tr id="daoyouxinxi">
+						<tr >
 							<td>李晓杰</td>
 							<td class="nengyong">√</td>
 							<td class="nengyong">√</td>
@@ -165,12 +171,12 @@
 							<td class="nengyong">√</td>
 							<td class="nengyong">√</td>
 							<td class="nengyong">√</td>
-							<td class="bunengyong">×</td>
-							<td class="bunengyong">×</td>
-							<td class="bunengyong">×</td>
-							<td class="bunengyong">×</td>
-							<td class="bunengyong">×</td>
-							<td class="bunengyong">×</td>
+							<td class="bunengyong"></td>
+							<td class="bunengyong"></td>
+							<td class="bunengyong"></td>
+							<td class="bunengyong"></td>
+							<td class="bunengyong"></td>
+							<td class="bunengyong"></td>
 							<td class="nengyong">√</td>
 							<td class="nengyong">√</td>
 							<td class="nengyong">√</td>
@@ -229,16 +235,16 @@
 					done: function(page, next) { //加载下一页
 						//模拟插入
 						setTimeout(function() {
-							
+
 							var content="<div style='width: 370px; height: 170px; border:1px solid #2B2E37; margin: 10px; padding: 15px;'>";
 								 	content+="<dl>";
-							 		content+="<dt>团号:团号写这里</dt>";			
-							 		content+="<dd>申请的导游:李晓杰</dd>";		
+							 		content+="<dt>团号:团号写这里</dt>";
+							 		content+="<dd>申请的导游:李晓杰</dd>";
 								 	content+="<dd>开团信息:晋祠，全国重点文物保护单位之一，位于太原市西南郊25公里处的悬瓮山麓。";
 									content+="小桥、古树互相映衬，山环水绕，文物荟萃，古木参天，";
 									content+="是一处风景十分优美的古建园林，被誉为山西的“小江南”，驰名中外。";
 									content+="晋祠的文物古迹很多，比较著名的有：圣母殿、侍女</dd>";
-									content+="<dd ><button class='layui-btn layui-btn-normal layui-btn-radius'>审核通过</button></dd>";	
+									content+="<dd ><button class='layui-btn layui-btn-normal layui-btn-radius'>审核通过</button></dd>";
 									content+="</dl>";
 								content+="</div>";
 							var lis = [];
@@ -266,7 +272,7 @@
 					done: function(page, next) { //加载下一页
 						//模拟插入
 						setTimeout(function() {
-							
+
 							var content="<tr id='daoyouxinxi'>";
 							content+="<td>李晓杰</td>";
 							content+="<td class='nengyong'>√</td>";
@@ -276,12 +282,12 @@
 							content+="<td class='nengyong'>√</td>";
 							content+="<td class='nengyong'>√</td>";
 							content+="<td class='nengyong'>√</td>";
-							content+="<td class='bunengyong'>×</td>";
-							content+="<td class='bunengyong'>×</td>";
-							content+="<td class='bunengyong'>×</td>";
-							content+="<td class='bunengyong'>×</td>";
-							content+="<td class='bunengyong'>×</td>";
-							content+="<td class='bunengyong'>×</td>";
+							content+="<td class='bunengyong'></td>";
+							content+="<td class='bunengyong'></td>";
+							content+="<td class='bunengyong'></td>";
+							content+="<td class='bunengyong'></td>";
+							content+="<td class='bunengyong'></td>";
+							content+="<td class='bunengyong'></td>";
 							content+="<td class='nengyong'>√</td>";
 							content+="<td class='nengyong'>√</td>";
 							content+="<td class='nengyong'>√</td>";

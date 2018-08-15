@@ -1,12 +1,10 @@
 package com.dyhc.sdglgroundconnection.interceptor;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-@Configuration
-class WebMvcConfigurer extends WebMvcConfigurerAdapter {
-    final String[] notLoginInterceptPaths ={"/admin/login.html","/loginCheck"};
-    final String[] loginInterceptPaths ={"/admin/*","/countAdjust/*","/General/*","/finance/*","/voucher/*"};
+public class LoginConfigurer extends WebMvcConfigurerAdapter {
+    final String[] notLoginInterceptPaths ={"/admin/login.html","/loginCheck"};//禁止拦截
+    final String[] loginInterceptPaths ={"/admin/*","/countAdjust/*","/General/*","/finance/*","/voucher/*"};//拦截
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //super.addInterceptors(registry);

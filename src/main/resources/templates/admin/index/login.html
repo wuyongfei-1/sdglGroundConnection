@@ -16,18 +16,10 @@
 				<div class="m-login-warp">
 					<form class="layui-form">
 						<div class="layui-form-item">
-							<input type="text" name="title" required lay-verify="required" placeholder="用户名" autocomplete="off" class="layui-input">
+							<input type="text" name="username" required lay-verify="required" placeholder="用户名" autocomplete="off" class="layui-input">
 						</div>
 						<div class="layui-form-item">
 							<input type="text" name="password" required lay-verify="required" placeholder="密码" autocomplete="off" class="layui-input">
-						</div>
-						<div class="layui-form-item">
-							<div class="layui-inline">
-								<input type="text" name="verity" required lay-verify="required" placeholder="验证码" autocomplete="off" class="layui-input">
-							</div>
-							<div class="layui-inline">
-								<img class="verifyImg" onclick="this.src=this.src+'?c='+Math.random();" src="/admin/images/login/yzm.jpg" />
-							</div>
 						</div>
 						<div class="layui-form-item m-login-btn">
 							<div class="layui-inline">
@@ -43,6 +35,7 @@
 			</div>
 		</div>
 		<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/js/jquery-3.3.1.min.js"></script>
 		<script>
 			layui.use(['form', 'layedit', 'laydate'], function() {
 				var form = layui.form(),
@@ -57,16 +50,41 @@
 						}
 					},
 					password: [/(.+){6,12}$/, '密码必须6到12位'],
-					verity: [/(.+){6}$/, '验证码必须是6位'],
+					// verity: [/(.+){6}$/, '验证码必须是6位'],
 					
 				});
 
 				
 				//监听提交
 				form.on('submit(login)', function(data) {
-					layer.alert(JSON.stringify(data.field), {
-						title: '最终的提交信息'
+				    $.ajax({
+                        url:"/loginCheck",
+						data:data.field,
+						dataType:"json",
+						type:"get",
+						success:function (data) {
+                            if(data.data==-1){
+                                alert(data.msg);
+							}
+							//管理员
+							if(data.data==1){
+							    location.href="http://localhost:8888/admin/adminIndex.html";
+							}
+							//计调
+                            if(data.data==3){
+                                location.href="http://localhost:8888/countAdjust/count-Adjust-Index.html";
+                            }
+                            //总控
+                            if(data.data==4){
+                                location.href="http://localhost:8888/General/count-Adjust-Index.html";
+                            }
+                        },error:function () {
+							alert("程序错误")
+                        }
 					})
+					// layer.alert(JSON.stringify(data.field), {
+                    // 	title: '最终的提交信息'
+                    // })
 					return false;
 				});
 

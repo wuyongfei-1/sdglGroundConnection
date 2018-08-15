@@ -25,7 +25,7 @@ public class Hotel {
     private String picturePath; // 图片地址
     private Integer breakfast; // 是否提供早餐
     private String contacts; // 联系人
-    private Integer phone; // 联系电话
+    private String phone; // 联系电话
     @Column(name = "hotelDescribe")
     private String hotelDescribe; // 酒店描述
     private String remarks; // 备注
@@ -118,13 +118,11 @@ public class Hotel {
         this.contacts = contacts;
     }
 
-    @Basic
-    @Column(name = "phone")
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

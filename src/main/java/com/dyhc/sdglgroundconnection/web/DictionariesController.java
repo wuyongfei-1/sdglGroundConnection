@@ -31,7 +31,7 @@ public class DictionariesController {
 
 
     /**
-     * 获取所有和景点相关的字典信息
+     * 获取所有和景点相关的字典信息  （wangtao）
      * @return 返回ReponseResult对象
      */
     @RequestMapping("/ListDictionariesByScenicspot")

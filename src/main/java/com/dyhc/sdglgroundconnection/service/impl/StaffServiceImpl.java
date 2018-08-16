@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
+import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.mapper.StaffMapper;
 import com.dyhc.sdglgroundconnection.pojo.Hotel;
 import com.dyhc.sdglgroundconnection.pojo.Staff;
@@ -23,6 +24,29 @@ public class StaffServiceImpl implements StaffService {
     @Autowired
     private StaffMapper staffMapper;
 
+    @Override
+    @RecordOperation(type = "用户", desc = "修改了一条状态")
+    public Integer updateStaffWhetherDel(Integer staffId) {
+        return staffMapper.updateStaffWhetherDel(staffId);
+    }
+
+    @Override
+    @RecordOperation(type = "用户", desc = "修改了一条")
+    public Integer updateStaffInfo(Staff staff) {
+        return staffMapper.updateStaffInfo(staff);
+    }
+
+    @Override
+    public Staff getStaffInfoByStaffId(Integer staffId) {
+        return staffMapper.selectByPrimaryKey(staffId);
+    }
+
+    @Override
+    @RecordOperation(type = "用户", desc = "删除了一条")
+    public Integer deleteStaffBystaffId(Integer id) {
+        return staffMapper.deleteByPrimaryKey(id);
+    }
+
     /**
      * 根据 staffname createDate roleId  分页查询人员信息(lixiaojie)
      * @return
@@ -35,8 +59,9 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
+    @RecordOperation(type = "用户", desc = "新增了一条")
     public Integer saveStaffInfo(Staff staff) {
-
+        staff.setWhetherDel(0);
         return staffMapper.insert(staff);
     }
 

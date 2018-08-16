@@ -4,6 +4,7 @@ import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.github.pagehelper.PageInfo;
 import com.dyhc.sdglgroundconnection.pojo.Staff;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -14,6 +15,33 @@ import java.util.List;
  * 人员业务接口
  **/
 public interface StaffService {
+
+    /**
+     * 根据staffId删除修改状态
+     * @return
+     */
+    Integer updateStaffWhetherDel( Integer staffId);
+    /**
+     * 修改用户信息
+     * @param staff
+     * @return
+     */
+    Integer updateStaffInfo(Staff staff);
+
+    /**
+     * 根据用户id获取用户信息
+     * @param staffId
+     * @return
+     */
+    Staff getStaffInfoByStaffId(Integer staffId);
+
+    /**
+     * 根据用户id删除用户信息
+     * @param id
+     * @return
+     */
+    Integer deleteStaffBystaffId(Integer id);
+
     /**
      * 根据 staffname createDate roleId  分页查询人员信息(lixiaojie)
      * @return

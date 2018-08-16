@@ -134,7 +134,7 @@
                 type: "get",
                 success: function (e) {
                     $(e.data).each(function (i, result) {
-                        str += "<tr><td>" + result.companyId + "</td><td>" + result.companyName + "</td><td>"
+                        str += "<tr><td>" + (i+1) + "</td><td>" + result.companyName + "</td><td>"
 							+ result.companyAddress + "</td><td>"
 							+ result.companyPhone + "</td><td>"
 							+ result.fax + "</td><td>" + result.zipCode + "</td><td>"

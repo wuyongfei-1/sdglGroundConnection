@@ -65,7 +65,7 @@ public class TravelServiceImpl implements TravelService {
      * @return
      */
     @Override
-    @RecordOperation(type = "组团社", desc = "修改了一条组团社信息")
+    @RecordOperation(type = "组团社", desc = "删除了一条组团社信息")
     public int deleteTravelByIDs(int travelid) throws Exception{
         return travelMapper.deleteTravel(travelid);
     }

@@ -81,6 +81,8 @@ public class OperationlogServiceImpl implements OperationlogService {
            // endTime = beginSdf.parse(endSdf.format(endTime));
             criteria1.andOperationdateBetween(beginTime, endTime);
         }
+        // 按照操作时间降序排序
+        operationlogExample.setOrderByClause("operationDate desc");
         // 分页
         Integer pageNo = (Integer) conditions.get("pageNo");
         Integer pageSize = (Integer) conditions.get("pageSize");

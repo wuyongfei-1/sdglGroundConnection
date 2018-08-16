@@ -1,7 +1,9 @@
 package com.dyhc.sdglgroundconnection.web;
 
 import com.dyhc.sdglgroundconnection.pojo.Hotel;
+import com.dyhc.sdglgroundconnection.pojo.RoomType;
 import com.dyhc.sdglgroundconnection.service.HotelService;
+import com.dyhc.sdglgroundconnection.service.RoomTypeService;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -27,11 +30,25 @@ public class HotelController {
 
     @Autowired
     private HotelService hotelService;
+    @Autowired
+    private RoomTypeService roomTypeService;
+
+    /**
+     * 根据条件分页查询酒店信息（dubingkun）
+     * @param pageNo 当前页码
+     * @param pageSize 当前显示数
+     * @param hotelName 酒店名称
+     * @param hotelAddress 酒店地址
+     * @param offer 最低报价
+     * @param offer2 最高报价
+     * @param status 禁用状态
+     * @return
+     */
     @RequestMapping("/showAllHotels")
-    public ReponseResult showHotel(@RequestParam("page") Integer pageNo, @RequestParam("limit") Integer pageSize) {
+    public ReponseResult showHotel(Integer pageNo,Integer pageSize,String hotelName,String hotelAddress,Integer offer,Integer offer2,Integer status) {
         try {
             pageSize = 2;
-            PageInfo<Hotel> pageInfo = hotelService.listHotels(pageNo,pageSize);
+            PageInfo<Hotel> pageInfo = hotelService.listHotels(pageNo,pageSize,hotelName,hotelAddress,offer,offer2,status);
             ReponseResult<List> data = ReponseResult.ok(pageInfo.getList(), pageInfo.getTotal(), "分页获取酒店成功！");
             logger.info(" method:showHotel  分页获取酒店成功！");
             return data;
@@ -42,6 +59,7 @@ public class HotelController {
             return err;
         }
     }
+
     /**
      * 查询全部
      */
@@ -52,6 +70,10 @@ public class HotelController {
         logger.info(" method:ListByHotel  查询全部酒店成功！");
         return date;
     }
+//    @RequestMapping("/insertHotelRoom")
+//    public ReponseResult inserHotelRoom(RoomType roomType){
+//
+//    }
     /**
      * 增加
      */

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
  * 进入页面-控制器
@@ -144,7 +146,8 @@ public class EnterCountAdjustPageController {
      * @return
      */
     @RequestMapping("/hotelroom-add.html")
-    public String  hotelroomadd() {
+    public String  hotelroomadd(HttpServletRequest request,Integer id) {
+        request.setAttribute("id",id);
         return "countAdjust/index/hotelroom-add";
     }
     /**

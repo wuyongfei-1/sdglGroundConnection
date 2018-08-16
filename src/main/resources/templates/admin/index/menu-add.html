@@ -17,37 +17,37 @@
 						<input type="hidden" th:value="${companyid}" id="comid">
 						<label class="layui-form-label">公司名称：</label>
 						<div class="layui-input-block">
-							<input type="text" name="title1" required lay-verify="required" placeholder="请输入公司名称" autocomplete="off" class="layui-input" id="companyName">
+							<input type="text" name="title1"  placeholder="请输入公司名称" autocomplete="off" class="layui-input" id="companyName">
 						</div>
 					</div>
 					<div class="layui-form-item">
 						<label class="layui-form-label">地址：</label>
 						<div class="layui-input-block">
-							<input type="text" name="title2" required lay-verify="required" placeholder="请输入地址" autocomplete="off" class="layui-input" id="companyAddress">
+							<input type="text" name="title2"  placeholder="请输入地址" autocomplete="off" class="layui-input" id="companyAddress">
 						</div>
 					</div>
 					<div class="layui-form-item">
 						<label class="layui-form-label">电话：</label>
 						<div class="layui-input-block">
-							<input type="text" name="title3" required lay-verify="required" placeholder="请输入电话" autocomplete="off" class="layui-input" id="companyPhone">
+							<input type="text" name="title3"  placeholder="请输入电话" autocomplete="off" class="layui-input" id="companyPhone">
 						</div>
 					</div>
 					<div class="layui-form-item">
 						<label class="layui-form-label">传真：</label>
 						<div class="layui-input-block">
-							<input type="text" name="title4" required lay-verify="required" placeholder="请输入传真" autocomplete="off" class="layui-input" id="fax">
+							<input type="text" name="title4"  placeholder="请输入传真" autocomplete="off" class="layui-input" id="fax">
 						</div>
 					</div>
 					<div class="layui-form-item">
 						<label class="layui-form-label">邮编：</label>
 						<div class="layui-input-block">
-							<input type="text" name="title5" required lay-verify="required" placeholder="请输入邮编" autocomplete="off" class="layui-input" id="zipCode">
+							<input type="text" name="title5"  placeholder="请输入邮编" autocomplete="off" class="layui-input" id="zipCode">
 						</div>
 					</div>
 					<div class="layui-form-item">
 						<label  class="layui-form-label" style="font-size: 10px">经营许可证：</label>
 						<div class="layui-input-block">
-							<input type="text" name="title6" required lay-verify="required" placeholder="请输入经营许可证（L-SX-CJ00026）" autocomplete="off" class="layui-input" id="businessLicense">
+							<input type="text" name="title6"  placeholder="请输入经营许可证（L-SX-CJ00026）" autocomplete="off" class="layui-input" id="businessLicense">
 						</div>
 					</div>
 					
@@ -69,7 +69,6 @@
 				form.render();
 				//监听提交
 				form.on('submit(formDemo)', function(data) {
-					layer.msg(JSON.stringify(data.field));
 					return false;
 				});
 			});
@@ -80,6 +79,36 @@
 			//判断是增加还是删除
 			function JIudge() {
 				var id=$("#comid").val();
+                var companyName=$("#companyName").val();
+                var companyAddress=$("#companyAddress").val();
+                var companyPhone=$("#companyPhone").val();
+                var fax=$("#fax").val();
+                var zipCode=$("#zipCode").val();
+                var businessLicense=$("#businessLicense").val();
+                if (companyName==undefined||companyName==""||companyName==null){
+                    alert("不准为空");
+                    return;
+                }
+                if (companyAddress==undefined||companyAddress==""||companyAddress==null){
+                    alert("不准为空");
+                    return;
+                }
+                if (companyPhone==undefined||companyPhone==""||companyPhone==null){
+                    alert("不准为空");
+                    return;
+                }
+                if (fax==undefined||fax==""||fax==null){
+                    alert("不准为空");
+                    return;
+                }
+                if (zipCode==undefined||zipCode==""||zipCode==null){
+                    alert("不准为空");
+                    return;
+                }
+                if (businessLicense==undefined||businessLicense==""||businessLicense==null){
+                    alert("不准为空");
+                    return;
+                }
 				if (id==null || id==""){
                     insertCompany();
 				}
@@ -96,7 +125,6 @@
                     dataType: "json",
                     type: "get",
                     success:function (data) {
-                        alert(data.data.companyName)
                         $("#companyName").val(data.data.companyName);
                         $("#companyAddress").val(data.data.companyAddress);
                         $("#companyPhone").val(data.data.companyPhone);

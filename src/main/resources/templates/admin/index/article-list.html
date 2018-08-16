@@ -13,7 +13,13 @@
     <link rel="stylesheet" href="/css/layui.css" media="all">
     <style>
         #showstaffInfo tr {
-            height: 70px;
+    /*        height: 70px;*/
+        }
+        #showstaffInfo tr  td{
+            text-align: center;
+        }
+        #staffHead th{
+            text-align: center;
         }
     </style>
 </head>
@@ -24,20 +30,26 @@
         <form class="layui-form" action="">
             <div class="layui-form-item">
                 <div class="layui-inline tool-btn">
-                    <input id="enterAddStaffInfo"  type="button" class="layui-btn layui-btn-small layui-btn-normal addBtn" value="+" >
+                    <input id="enterAddStaffInfo" onclick="addAlert()" style="font-size: 22px"  type="button" class="layui-btn layui-btn-small layui-btn-normal addBtn" value="+" >
 
                    <!-- <button class="layui-btn layui-btn-small layui-btn-normal addBtn" id="enterAddStaffInfo" ><i
                             class="layui-icon">&#xe654;</i></button>-->
                 </div>
                 <div class="layui-inline">
-                    <input type="text" name="title" placeholder="请输入姓名" id="staffName" autocomplete="off" class="layui-input">
+                    <input type="text" name="title" placeholder="请输入姓名关键字" id="staffName" autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-inline">
                     开始时间
+                    <!--<div class="layui-input-inline">
+                        <input type="text" class="layui-input" id="test30" placeholder="yyyy-MM-dd">
+                    </div>-->
                     <input type="date"  id="firstDate" />
                 </div>
                 <div class="layui-inline">
                     结束时间
+                  <!--  <div class="layui-input-inline">
+                        <input type="text" class="layui-input" id="test30" placeholder="yyyy-MM-dd">
+                    </div>-->
                     <input type="date"  id="lastDate"/>
                 </div>
                 <div class="layui-inline">
@@ -63,18 +75,18 @@
                     <col width="150">
                 </colgroup>
                 <thead>
-                <tr>
-                    <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose"></th>
-                    <th style="width: 30px;">编号</th>
-                    <th style="width: 45px;">姓名</th>
-                    <th style="width: 30px;">性别</th>
-                    <th style="width: 45px;">职务</th>
-                    <th style="width: 80px;">用户名</th>
-                    <th style="width: 100px;">身份证号</th>
-                    <th style="width: 80px;">QQ</th>
-                    <th style="width: 100px;">现住址</th>
-                    <th style="width: 100px;">联系电话</th>
-                    <th style="width: 80px; font-size: small;">操作</th>
+                <tr id="staffHead">
+                    <!--<th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose"></th>-->
+                    <th style="width: 30px" >编号</th>
+                    <th style="width: 45px" >姓名</th>
+                    <th >性别</th>
+                    <th>职务</th>
+                    <th >用户名</th>
+                    <th >身份证号</th>
+                    <th >QQ</th>
+                    <th style="width: 180px"  >现住址</th>
+                    <th>联系电话</th>
+                    <th >操作</th>
                 </tr>
                 </thead>
                 <tbody id="showstaffInfo">
@@ -91,21 +103,68 @@
 <script src="/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="/js/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" charset="utf-8">
-
+    /**
+     *頁面加載事件
+     */
     $(function () {
         showGroupByRolenameRolesInfo()//绑定职务信息
-        listPageGetStaffByNameAndCreateDateAndRoleId();
-        $('#enterAddStaffInfo').on('click', function(){
-            layer.open({
-                type: 2,
-                title: '添加',
-                maxmin: true,
-                shadeClose: true, //点击遮罩关闭层
-                area : ['800px' , '600px'],
-                content: 'staff-add.html'
-            });
-        });
+        listPageGetStaffByNameAndCreateDateAndRoleId();//显示分页后的用户信息
+
+
+
     });
+
+    /**
+     *  为新增模块添加弹出层
+     */
+    function addAlert() {
+        layer.open({
+            type: 2,
+            title: '添加',
+            maxmin: true,
+            shadeClose: true, //点击遮罩关闭层
+            area : ['800px' , '600px'],
+            content: 'staff-add.html'
+        });
+    }
+    //为修改模块添加弹出层
+    function updateAlert(staffId) {
+        layer.open({
+            type: 2,
+            title: '修改',
+            maxmin: true,
+            shadeClose: true, //点击遮罩关闭层
+            area : ['800px' , '600px'],
+            content: 'staff-update.html?staffId='+staffId
+        });
+    }
+
+    //根据用户id删除用户信息
+   function deleteStaffBystaffId(staffId){
+        if(!confirm("确定要删除吗？")){
+            return;
+        }
+
+       $.ajax({
+           url: "/staff/updateStaffWhetherDel",
+           data: {"staffId":staffId},
+           dataType: "json",
+           type: "post",
+           success: function (ReponseResult) {
+               if (ReponseResult.data==0||ReponseResult.data=='0') {
+                   alert("删除失败")
+               }
+               if (ReponseResult.data==1||ReponseResult.data=='1') {
+                   alert("删除成功")
+               }
+               listPageGetStaffByNameAndCreateDateAndRoleId();
+           },
+           error: function (res) {
+               /*  alert(res);*/
+           }
+       })
+    }
+
     var limitcount = 6; // 每页总记录数
     var curnum = 1;  // 当前页码
     function listPageGetStaffByNameAndCreateDateAndRoleId() {
@@ -126,32 +185,35 @@
                 "lastDate": lastDate,
                 "roleId": roleId
             },
+            async:false,
             dataType: "json",
             type: "post",
             success: function (ReponseResult) {
-
+                var pageNo = (curnum - 1) * limitcount;
                 var content = "";
                 $(ReponseResult.data).each(function (i, e) {
-
+                    pageNo++;
                     content += "<tr  class='parent collapsed' >";
-                    content += "<td><input type='checkbox' name='' lay-skin='primary' ><div class='layui-unselect layui-form-checkbox' lay-skin='primary'><i class='layui-icon layui-icon-ok'></i></div></td>";
-                    content += "<td style='font-size:small' >"+e.staffId+"</td>";
-                    content += "<td style='font-size:small' >"+e.staffname+"</td>";
-                    content += "<td style='font-size:small' >"+e.sex+"</td>";
-                    content += "<td style='font-size:small' >"+e.roleId+"</td>";
-                    content += "<td style='font-size:small' >"+e.theUserName+"</td>";
-                    content += "<td style='font-size:small' >"+e.qqnumber+"</td>";
-                    content += "<td style='font-size:small' >"+e.phone+"</td>";
-                    content += "<td style='font-size:small' >"+e.currentAddress+"</td>";
-                    content += "<td style='font-size:small' >"+e.phone+"</td>";
+                    content += "<td  >"+pageNo+"</td>";
+                    content += "<td >"+e.staffname+"</td>";
+                    content += "<td >"+(e.sex==0?'女':'男')+"</td>";
+                    content += "<td>"+e.rolename+"</td>";
+                    content += "<td >"+e.theUserName+"</td>";
+                    content += "<td >"+e.cardId+"</td>";
+                    content += "<td  >"+e.qqnumber+"</td>";
+                    content += "<td >"+e.currentAddress+"</td>";
+                    content += "<td >"+e.phone+"</td>";
                     content += "<td>";
                     content += "<div class='layui-inline'>";
-                    content += "<button style='height: 30px; width: 30px;' class='layui-btn layui-btn-mini layui-btn-normal  edit-btn' data-id='1' data-url='menu-add.html'><i class='layui-icon'>&#xe642;</i></button>";
-                    content += "<button  style='height: 30px; width: 30px;' class='layui-btn layui-btn-mini layui-btn-danger del-btn' data-id='1' data-url='menu-add.html'><i class='layui-icon'>&#xe640;</i></button>";
+                    content += "<button onclick='updateAlert("+e.staffId+")' class='layui-btn layui-btn-mini layui-btn-normal  edit-btn' ><i class='layui-icon' style='text-align: center'>&#xe642;</i></button>";
+                    content += "<button   class='layui-btn layui-btn-mini layui-btn-danger del-btn'  onclick='deleteStaffBystaffId("+e.staffId+")'><i class='layui-icon'>&#xe640;</i></button>";
                     content += "</div>";
                     content += "</td>";
                     content += "</tr>";
                 })
+ /*               "<button onclick='updatInfo("+result.companyId+")' id='updatInfo'  class=\"layui-btn layui-btn-mini layui-btn-normal  edit-btn\" value='修改'><i class='layui-icon'>&#xe642</i><tton>" +
+                "<button onclick='deleteCompany("+result.companyId+")' class=\"layui-btn layui-btn-mini layui-btn-danger del-btn\" data-id=\"1\"><i class=\"layui-icon\">&#xe640;</i><tton>\n" +*/
+
                 $('#showstaffInfo').html(content);
 
 

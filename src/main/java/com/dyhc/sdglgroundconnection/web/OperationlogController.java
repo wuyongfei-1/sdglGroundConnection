@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -54,7 +55,8 @@ public class OperationlogController {
         try {
             PageInfo<Operationlog> pageInfo = operationlogService.listOperationLogsByConditions(conditions);
             logger.info(" method:getAllOperationLogsByConditions 获取操作日志成功！");
-            return ReponseResult.ok(pageInfo.getList(), pageInfo.getTotal(), "获取日志成功");
+            ReponseResult<List<Operationlog>> result = ReponseResult.ok(pageInfo.getList(), pageInfo.getTotal(), "获取日志成功");
+            return result;
         } catch (Exception e) {
             logger.error(" method:getAllOperationLogsByConditions 获取操作日志失败，出现异常！类型：" + e.getMessage());
             e.printStackTrace();

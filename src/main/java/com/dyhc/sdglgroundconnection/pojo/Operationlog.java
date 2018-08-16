@@ -22,7 +22,7 @@ public class Operationlog {
     @Column(name = "roleId")
     private Integer roleId; // 操作人（外键，与角色表关联）
     @Column(name = "operationDate")
-    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy年MM月dd日HH时mm分ss秒", timezone = "GMT+8")
     private Date operationDate; // 操作时间
     private Integer status; // 是否删除（1代表已删除，0代表未删除）
     @Column(name = "createBy")

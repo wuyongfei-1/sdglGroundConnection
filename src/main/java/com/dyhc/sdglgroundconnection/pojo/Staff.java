@@ -24,6 +24,8 @@ public class Staff {
     private String password; // 密码
     @Column(name = "cardId")
     private String cardId; // 身份证号
+    @Transient
+    private String rolename;    //职务名字
     private String qqnumber; // QQ号码
     @Column(name = "headPortraitPath")
     private String headPortraitPath; // 头像地址
@@ -46,6 +48,13 @@ public class Staff {
     private String value2;
     private String value3;
 
+    public String getRolename() {
+        return rolename;
+    }
+
+    public void setRolename(String rolename) {
+        this.rolename = rolename;
+    }
 
     @Basic
     @Column(name = "staffId")

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -47,6 +48,16 @@ public class Hotel {
     private String value1;
     private String value2;
     private String value3;
+    @Transient
+    private List<RoomType> roomTypeList;//房间类型集合
+
+    public List<RoomType> getRoomTypeList() {
+        return roomTypeList;
+    }
+
+    public void setRoomTypeList(List<RoomType> roomTypeList) {
+        this.roomTypeList = roomTypeList;
+    }
 
     @Id
     @Column(name = "hotelId")

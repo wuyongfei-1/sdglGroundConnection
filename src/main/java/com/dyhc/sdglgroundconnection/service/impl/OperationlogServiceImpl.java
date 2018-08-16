@@ -64,18 +64,25 @@ public class OperationlogServiceImpl implements OperationlogService {
         if (!"".equals(operationType) && null != operationType) {
             criteria1.andOperationtypeLike("%" + operationType + "%");
         }
+        SimpleDateFormat beginSdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat endSdf = new SimpleDateFormat("yyyy-MM-dd ");
         // 根据起止时间和终止时间查询
         Date beginTime = (Date) conditions.get("beginTime");
         Date endTime = (Date) conditions.get("endTime");
         if ((!"".equals(beginTime) && null != beginTime)
                 && (endTime == null || "".equals(endTime))) {
-            criteria1.andOperationdateEqualTo(beginTime);
+          //  beginTime = beginSdf.parse(beginSdf.format(beginTime));
+            criteria1.andOperationdateGreaterThanOrEqualTo(beginTime);
         }
         // 根据时间段查询
         if ((!"".equals(beginTime) && null != beginTime)
                 && (endTime != null && !"".equals(endTime))) {
+           // beginTime = beginSdf.parse(beginSdf.format(beginTime));
+           // endTime = beginSdf.parse(endSdf.format(endTime));
             criteria1.andOperationdateBetween(beginTime, endTime);
         }
+        // 按照操作时间降序排序
+        operationlogExample.setOrderByClause("operationDate desc");
         // 分页
         Integer pageNo = (Integer) conditions.get("pageNo");
         Integer pageSize = (Integer) conditions.get("pageSize");

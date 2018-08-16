@@ -68,6 +68,7 @@ public class OperationLogAop {
         if (session.getAttribute("user") == null) {
             Staff staff = new Staff();
             staff.setRoleId(1);
+            staff.setStaffId(1);
             session.setAttribute("user", staff);
         }
         // 填充对象

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax实现图片上传</title>
+</head>
+<body>
+<center>
+    <h1>ajax & 文件上传</h1>
+    <form>
+        <input type="file" id="imageFile" name="multipartFile"/>
+        <input type="button" value="确认上传" onclick="submitImage()">
+    </form>
+</center>
+</body>
+<script src="/js/jquery-1.8.3.min.js"></script>
+<script>
+    // 提交图片到服务器
+    function submitImage() {
+        var savePath = "D://upload-images-test"; // 图片保存路径
+        var fileObj = document.getElementById("imageFile").files[0]; // 获取文件对象
+        // formData对象，用来序列化二进制数据
+        var formData = new FormData();
+        formData.append("multipartFile", fileObj);
+        formData.append("savePath", savePath);
+        // 发送请求到服务器
+        $.ajax({
+            url: "/operationlog/images/upload",
+            data: formData,
+            dataType: "json",
+            type: "post",
+            cache: false, // 上传文件不需要缓存
+            processData: false, // 对参数进行序列化处理
+            contentType: false,
+            success: function (result) {
+                if (result.code == 0) {
+                    alert(result.msg); // 上传成功
+                } else {
+                    alert(result.msg); // 上传失败
+                }
+            },
+            error: function (res) {
+                alert(res);
+            }
+        })
+    }
+</script>
+</html>

@@ -13,7 +13,17 @@ import java.util.List;
  **/
 public interface HotelService {
 
-    PageInfo<Hotel> listHotels(Integer pageNo,Integer PageSize) throws Exception;
+    /**
+     * 酒店信息多条件模糊分页查询（dubingkun）
+     * @param pageNo 当前页码
+     * @param PageSize 当前页码显示数据数
+     * @param hotelName 酒店名称
+     * @param hotelAddress 酒店地址
+     * @param offer 报价
+     * @param status 状态
+     * @return
+     */
+    PageInfo<Hotel> listHotels(Integer pageNo, Integer PageSize,String hotelName,String hotelAddress,Integer offer,Integer offer2,Integer status);
 
     /**
      * 查询全部

@@ -2,5 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dyhc.sdglgroundconnection.mapper.RoleMapper">
+    <!---->
+    <select id="listRolesGroupByRolename" resultType="com.dyhc.sdglgroundconnection.pojo.Role">
+        SELECT `roleId`,`rolename` FROM `role` GROUP BY `rolename`
+    </select>
+
 
 </mapper>

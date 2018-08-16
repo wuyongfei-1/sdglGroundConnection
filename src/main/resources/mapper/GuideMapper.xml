@@ -2,5 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dyhc.sdglgroundconnection.mapper.GuideMapper">
-
+    <select id="selectGuideName" resultType="com.dyhc.sdglgroundconnection.pojo.Guide">
+        SELECT * FROM `guide` WHERE 1=1 and whetherDel=0
+        <if test="companyName!=null and companyName!=''">
+            and guideName LIKE concat('%',#{guideName},'%')
+        </if>
+    </select>
+    <update id="deleteGuide">
+        UPDATE `guide` SET
+            `whetherDel` = 1
+        WHERE `guideId` = #{guideId}
+    </update>
 </mapper>

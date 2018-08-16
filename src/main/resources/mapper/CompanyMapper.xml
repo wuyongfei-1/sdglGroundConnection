@@ -2,5 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dyhc.sdglgroundconnection.mapper.CompanyMapper">
-
+    <select id="selectCompanyName" resultType="com.dyhc.sdglgroundconnection.pojo.Company">
+        SELECT * FROM `company` WHERE 1=1
+         <if test="companyName!=null and companyName!=''">
+             and companyName LIKE concat('%',#{companyName},'%')
+         </if>
+    </select>
 </mapper>

@@ -17,34 +17,35 @@
 						<div class="layui-form-item">
 							<div class="layui-inline tool-btn">
 								<button class="layui-btn layui-btn-small layui-btn-normal addBtn hidden-xs" data-url="spot-add.html"><i class="layui-icon">&#xe654;</i></button>
-								<button class="layui-btn layui-btn-small layui-btn-danger delBtn"  data-url="article-add.html"><i class="layui-icon">&#xe640;</i></button>
 							</div>
 							<div class="layui-inline">
-								<input type="text" name="title" required lay-verify="required" placeholder="请输入景点名称" autocomplete="off" class="layui-input">
+								<input type="text" name="scenicSpotName" placeholder="请输入景点名称" autocomplete="off" class="layui-input">
 							</div>
 							<div class="layui-inline">
-								<input type="text" name="title" required lay-verify="required" placeholder="请输入景点地址" autocomplete="off" class="layui-input">
+								<input type="text" name="scenicSpotAddress" placeholder="请输入景点地址" autocomplete="off" class="layui-input">
 							</div>
 							<div class="layui-inline">
-								<select name="states" lay-filter="status">
-									<option value="">请选择景点等级</option>
-									<option value="010">AAA</option>
-									<option value="021">AAAA</option>
-									<option value="010">AAAAA</option>
+								<select name="typeId" lay-filter="status">
+									<option value="0">请选择景点等级</option>
+									<option value="5">A</option>
+									<option value="4">AA</option>
+									<option value="3">AAA</option>
+									<option value="2">AAAA</option>
+									<option value="1">AAAAA</option>
 								</select>
 							</div>
 							<div class="layui-inline">
-								<select name="states" lay-filter="status">
-									<option value="">请选择一个状态</option>
-									<option value="010">禁用</option>
-									<option value="021">正常</option>
+								<select name="whetherDel" lay-filter="status">
+									<option value="2">请选择一个状态</option>
+									<option value="1">禁用</option>
+									<option value="0">正常</option>
 								</select>
 							</div>
-							<button class="layui-btn layui-btn-normal" lay-submit="search">搜索</button>
+							<button class="layui-btn layui-btn-normal" type="button" lay-submit="search" id="selectbutton">搜索</button>
 						</div>
 					</form>
 					<div class="layui-form" id="table-list">
-						<table class="layui-table" lay-skin="line">
+						<table class="layui-table" lay-skin="line" id="list">
 							<colgroup>
 								<col width="50">
 								<col class="hidden-xs" width="100">
@@ -58,20 +59,20 @@
 								<col width="130">
 							</colgroup>
 							<thead>
-								<tr>
-									<th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose"></th>
-									<th class="">景点编号</th>
-									<th class="">名称</th>
-									<th class="">所属景点名称</th>
-									<th class="">地址</th>
-									<th class="">景点等级</th>
-									<th class="">备注</th>
-									<th class="">报价</th>
-									<th>状态</th>
-									<th>操作</th>
-								</tr>
+							<tr>
+								<th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose"></th>
+								<th class="">景点编号</th>
+								<th class="">名称</th>
+								<th class="">所属景点名称</th>
+								<th class="">地址</th>
+								<th class="">景点等级</th>
+								<th class="">备注</th>
+								<th class="">报价</th>
+								<th>状态</th>
+								<th>操作</th>
+							</tr>
 							</thead>
-							<tbody>
+							<tbody id="jingdianinfo">
 								<tr id='node-1' class="parent collapsed">
 									<td><input type="checkbox" name="" lay-skin="primary" data-id="1">
 									<a class="layui-btn layui-btn-mini layui-btn-normal showSubBtn" data-id='1'>+</a></td>
@@ -139,11 +140,16 @@
 								</tr>
 							</tbody>
 						</table>
+						<!--<div id="laypage" style="text-align: center"></div>-->
 					</div>
 		</div>
+		<script src="/js/jquery-1.8.2.min.js"></script>
 		<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
+
 		<script>
+            var limitcount = 2; // 每页总记录数
+            var curnum = 1;  // 当前页码
 			layui.use(['jquery'], function() {
 				var $=layui.jquery;
 				//修改状态
@@ -158,6 +164,7 @@
 
 					}
 				})
+				
 				//栏目展示隐藏
 				$('.showSubBtn').on('click', function() {
 					var _this = $(this);
@@ -176,8 +183,132 @@
 						childAll.addClass('collapsed').removeClass('expanded').css('display', 'none');
 						childAll.find('.showSubBtn').html('+');
 					}
+				});
+                ListScenicspot();
+                $("#selectbutton").click(function () {
+                    ListScenicspot();
+                });
+				$(function () {
 
-				})
+                })
+				function ListScenicspot() {
+
+					var scenicSpotName=$("input[name='scenicSpotName']").val();
+					var scenicSpotAddress=$("input[name='scenicSpotAddress']").val();
+					var typeId=$("select[name='typeId']").val();
+					var whetherDel=$("select[name='whetherDel']").val();
+					if(typeId==''){
+					    typeId=0;
+					}
+					if(whetherDel==2){
+                        whetherDel=0;
+					}
+					$.post("/ListScenicspot","page="+curnum+"&limit="+limitcount+"&scenicSpotName="+scenicSpotName+
+						"&scenicSpotAddress="+scenicSpotAddress+"&typeId="+typeId+
+						"&whetherDel="+whetherDel,function (data) {
+                        var content="<colgroup>" +
+                            "<col width=\"50\">" +
+                            "<col class=\"hidden-xs\" width=\"100\">" +
+                            "<col class=\"hidden-xs\" width=\"100\">" +
+                            "<col class=\"hidden-xs\" width=\"100\">" +
+                            "<col class=\"hidden-xs\" width=\"120\">" +
+                            "<col width=\"150\">" +
+                            "<col width=\"130\">" +
+                            "<col width=\"130\">" +
+                            "<col width=\"80\">" +
+                            "<col width=\"130\">" +
+                            "</colgroup>\n" +
+                            "<thead>" +
+                            "<tr>" +
+                            "<th><input type=\"checkbox\" name=\"\" lay-skin=\"primary\" lay-filter=\"allChoose\"></th>" +
+                            "<th class=\"\">景点编号</th>" +
+                            "<th class=\"\">名称</th>" +
+                            "<th class=\"\">所属景点名称</th>" +
+                            "<th class=\"\">地址</th>" +
+                            "<th class=\"\">景点等级</th>" +
+                            "<th class=\"\">备注</th>" +
+                            "<th class=\"\">报价</th>" +
+                            "<th>状态</th>" +
+                            "<th>操作</th>" +
+                            "</tr>" +
+                            "</thead>";
+                        $.each(data.data,function (i,e) {
+                            alert(e.scenicSpotId);
+                            content+="<tr id='node-"+e.scenicSpotId+"' class=\"parent collapsed\">" +
+                                "<td><input type=\"checkbox\" name=\"\" lay-skin=\"primary\" data-id=\"1\">" +
+                                "<a class=\"layui-btn layui-btn-mini layui-btn-normal showSubBtn\" data-id='"+e.scenicSpotId+"'>+</a></td>" +
+                                "<td class=\"\">"+e.scenicSpotId+"</td>" +
+                                "<td class=\"\">"+e.scenicSpotName+"</td>" +
+                                "<td class=\"\">"+e.parentId+"</td>" +
+                                "<td class=\"\">"+e.scenicSpotAddress+"</td>" +
+                                "<td class=\"\">"+e.typeId+"</td>" +
+                                "<td class=\"\">"+e.remarks+"</td>" +
+                                "<td class=\"\">"+e.offer+"</td>" +
+                                "<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\">禁用</button></td>" +
+                                "<td>" +
+                                "<div class=\"layui-inline\">" +
+                                "<button class=\"layui-btn layui-btn-mini layui-btn-normal  add-btn\" data-id=\"1\" data-url=\"spotshopping-add.html\"><i class=\"layui-icon\">&#xe654;</i></button>" +
+                                "<button class=\"layui-btn layui-btn-mini layui-btn-normal  edit-btn\" data-id=\"1\" data-url=\"spot-add.html?id="+e.scenicSpotId+"\"><i class=\"layui-icon\">&#xe642;</i></button>" +
+                                "<button class=\"layui-btn layui-btn-mini layui-btn-danger del-btn\" data-id=\"1\" data-url=\"deleteInfo?id="+e.scenicSpotId+"\"><i class=\"layui-icon\">&#xe640;</i></button>" +
+                                "</div>" +
+                                "</td>" +
+                                "</tr>";
+                            $.each(e.scenicspotList,function (i,s) {
+                                content+="<tr id=\"type-"+e.scenicSpotId+"\" class=\"child-node-"+e.scenicSpotId+" parent collapsed\" style=\"display:none ;background-color: #D6E9C6;\" parentid=\""+e.scenicSpotId+"\">\n" +
+                                 "<td class=\"\"></td>" +
+                                 "<td class=\"\"></td>" +
+                                 "<td class=\"\">购物地名称</td>" +
+                                 "<td class=\"\"></td>" +
+                                 "<td class=\"\"></td>" +
+                                 "<td class=\"\"></td>" +
+                                 "<td class=\"\"></td>" +
+                                 "<td class=\"\"></td>" +
+                                 "<td class=\"\"></td>" +
+                                 "<td class=\"\">操作</td>" +
+                                 "</tr>";
+                                content+="<tr id='type-"+e.scenicSpotId+"' class=\"child-node-"+e.scenicSpotId+" parent collapsed\" style=\"display:none ;\" parentid=\""+e.scenicSpotId+"\">" +
+                                    "<td class=\"\"></td>" +
+                                    "<td class=\"\"></td>" +
+                                    "<td class=\"\">"+s.shoppingSite+"</td>" +
+                                    "<td class=\"\"></td>" +
+                                    "<td class=\"\"></td>" +
+                                    "<td class=\"\"></td>" +
+                                    "<td class=\"\"></td>" +
+                                    "<td class=\"\"></td>" +
+                                    "<td class=\"\"></td>" +
+                                    "<td>" +
+                                    "<div class=\"layui-inline\">" +
+                                    "<button class=\"layui-btn layui-btn-mini layui-btn-normal  edit-btn\" data-id=\""+e.scenicSpotId+"\" data-url=\"hotelroom-add.html\"><i class=\"layui-icon\">&#xe642;</i></button>" +
+                                    "<button class=\"layui-btn layui-btn-mini layui-btn-danger del-btn\" data-id=\""+e.scenicSpotId+"\" data-url=\"hotelroom-add.html\"><i class=\"layui-icon\">&#xe640;</i></button>" +
+                                    "</div>" +
+                                    "</td>" +
+                                    "</tr>";
+                            })
+                        })
+                        $("#list").html(content);
+                         // 分页插件
+                         layui.use('table', function () {
+                             var laypage = layui.laypage;
+                             laypage.render({
+                                 elem: 'laypage'
+                                 , count: e.count
+                                 , curr: curnum
+                                 , limit: 2
+                                 , layout: ['prev', 'page', 'next', 'skip', 'count']
+                                 , jump: function (obj, first) {
+                                     if (!first) {
+                                         //obj包含了当前分页的所有参数，比如：
+                                         curnum = obj.curr; // 当前页面
+                                         limitcount = obj.limit; // 每页记录数
+                                         // 查询新数据
+                                         ListScenicspot();
+                                     }
+                                 }
+                             })
+                         })
+
+                    },"json");
+                }
 			});
 		</script>
 	</body>

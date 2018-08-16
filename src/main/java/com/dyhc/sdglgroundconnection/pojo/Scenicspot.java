@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -46,6 +47,18 @@ public class Scenicspot {
     private String value1;
     private String value2;
     private String value3;
+
+
+    @Transient
+    private List<Shopping> scenicspotList;
+    @Transient
+    public List<Shopping> getScenicspotList() {
+        return scenicspotList;
+    }
+    @Transient
+    public void setScenicspotList(List<Shopping> scenicspotList) {
+        this.scenicspotList = scenicspotList;
+    }
 
     @Id
     @Column(name = "scenicSpotId")

@@ -13,63 +13,45 @@
 		<div class="wrap-container">
 			<form class="layui-form" style="width: 90%;padding-top: 20px;">
 					<div class="layui-form-item">
-						<label class="layui-form-label">姓名：</label>
+						<label class="layui-form-label">公司名称：</label>
 						<div class="layui-input-block">
-							<input type="text" name="title1" required lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+							<input type="text" name="title1" required lay-verify="required" placeholder="请输入公司名称" autocomplete="off" class="layui-input" id="companyName">
 						</div>
 					</div>
 					<div class="layui-form-item">
-						<label class="layui-form-label">用户名：</label>
+						<label class="layui-form-label">地址：</label>
 						<div class="layui-input-block">
-							<input type="text" name="title2" required lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input layui-disabled">
+							<input type="text" name="title2" required lay-verify="required" placeholder="请输入地址" autocomplete="off" class="layui-input" id="companyAddress">
 						</div>
 					</div>
 					<div class="layui-form-item">
-						<label class="layui-form-label">性别：</label>
+						<label class="layui-form-label">电话：</label>
 						<div class="layui-input-block">
-							<input type="radio" name="status" value="1" title="男" checked>
-							<input type="radio" name="status" value="0" title="女">
+							<input type="text" name="title3" required lay-verify="required" placeholder="请输入电话" autocomplete="off" class="layui-input" id="companyPhone">
 						</div>
 					</div>
 					<div class="layui-form-item">
-						<label class="layui-form-label">职务：</label>
+						<label class="layui-form-label">传真：</label>
 						<div class="layui-input-block">
-							<select name="states" lay-filter="status">
-									<option value="000">请选择职务</option>
-									<option value="010">经理</option>
-									<option value="020">总控</option>
-									<option value="030">计调</option>
-							</select>
+							<input type="text" name="title4" required lay-verify="required" placeholder="请输入传真" autocomplete="off" class="layui-input" id="fax">
 						</div>
 					</div>
 					<div class="layui-form-item">
-						<label class="layui-form-label">身份证号：</label>
+						<label class="layui-form-label">邮编：</label>
 						<div class="layui-input-block">
-							<input type="text" name="title3" required lay-verify="required" placeholder="请输入身份证号" autocomplete="off" class="layui-input">
+							<input type="text" name="title5" required lay-verify="required" placeholder="请输入邮编" autocomplete="off" class="layui-input" id="zipCode">
 						</div>
 					</div>
 					<div class="layui-form-item">
-						<label class="layui-form-label">QQ号码：</label>
+						<label  class="layui-form-label" style="font-size: 10px">经营许可证：</label>
 						<div class="layui-input-block">
-							<input type="text" name="title4" required lay-verify="required" placeholder="请输入QQ号码" autocomplete="off" class="layui-input">
-						</div>
-					</div>
-					<div class="layui-form-item">
-						<label class="layui-form-label">现住址：</label>
-						<div class="layui-input-block">
-							<input type="text" name="title5" required lay-verify="required" placeholder="请输入现住址" autocomplete="off" class="layui-input">
-						</div>
-					</div>
-					<div class="layui-form-item">
-						<label class="layui-form-label">联系电话：</label>
-						<div class="layui-input-block">
-							<input type="text" name="title6" required lay-verify="required" placeholder="请输入联系电话" autocomplete="off" class="layui-input">
+							<input type="text" name="title6" required lay-verify="required" placeholder="请输入经营许可证（L-SX-CJ00026）" autocomplete="off" class="layui-input" id="businessLicense">
 						</div>
 					</div>
 					
 					<div class="layui-form-item">
 						<div class="layui-input-block">
-							<button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo">立即提交</button>
+							<button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo" onclick="insertCompany()">立即提交</button>
 							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 						</div>
 					</div>
@@ -77,6 +59,7 @@
 		</div>
 
 		<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/js/jquery-1.8.2.min.js"></script>
 		<script>
 			//Demo
 			layui.use(['form'], function() {
@@ -88,6 +71,28 @@
 					return false;
 				});
 			});
+
+			function insertCompany() {
+			    var companyName=$("#companyName").val();
+                var companyAddress=$("#companyAddress").val();
+                var companyPhone=$("#companyPhone").val();
+                var fax=$("#fax").val();
+                var zipCode=$("#zipCode").val();
+                var businessLicense=$("#businessLicense").val();
+				$.ajax({
+					url:"/insertCompany",
+					data:{companyName:companyName,companyAddress:companyAddress,companyPhone:companyPhone,fax:fax,zipCode:zipCode,businessLicense:businessLicense},
+                    dataType: "json",
+                    type: "get",
+                    success:function (data) {
+                        if (data.states==1 || data.states=="1"){
+                            alert("增加成功");
+                        } else{
+                            alert("增加失败");
+                        }
+                    }
+				})
+            }
 		</script>
 	</body>
 

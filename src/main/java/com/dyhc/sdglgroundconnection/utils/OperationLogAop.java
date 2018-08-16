@@ -65,9 +65,12 @@ public class OperationLogAop {
         Date date = new Date();
         // 获取当前用户
         HttpSession session = request.getSession();
-        Staff staff = new Staff();
-        staff.setRoleId(1);
-        session.setAttribute("user", staff);
+        if (session.getAttribute("user") == null) {
+            Staff staff = new Staff();
+            staff.setRoleId(1);
+            staff.setStaffId(1);
+            session.setAttribute("user", staff);
+        }
         // 填充对象
         Staff user = (Staff) session.getAttribute("user");
         Operationlog operationlog = new Operationlog();

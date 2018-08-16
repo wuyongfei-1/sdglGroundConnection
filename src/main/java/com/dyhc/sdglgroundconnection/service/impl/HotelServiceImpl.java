@@ -90,4 +90,6 @@ public class HotelServiceImpl implements HotelService {
     public Hotel selectHotelById(int id) {
         return hotelMapper.selectByPrimaryKey(id);
     }
+
+
 }

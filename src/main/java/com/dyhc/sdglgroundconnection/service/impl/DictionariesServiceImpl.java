@@ -21,7 +21,7 @@ public class DictionariesServiceImpl implements DictionariesService {
     private DictionariesMapper dictionariesMapper;
 
     /**
-     * 查询所有景点相关字典信息 wangtao
+     * 查询所有景点相关字典信息 （wangtao）
      * @param typeCode 类型编码
      * @return 返回字典信息集合
      */

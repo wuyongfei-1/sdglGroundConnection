@@ -8,6 +8,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
  * 进入页面-控制器
@@ -180,7 +183,8 @@ public class EnterAdminPageController {
      * @return
      */
     @RequestMapping("/menu-add.html")
-    public String  menuAdd() {
+    public String  menuAdd(String companyid, HttpServletRequest httpServletRequest) {
+        httpServletRequest.setAttribute("companyid",companyid);
         return "admin/index/menu-add";
     }
 

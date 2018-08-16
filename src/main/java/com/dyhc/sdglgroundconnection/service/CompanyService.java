@@ -31,7 +31,7 @@ public interface CompanyService {
     /**
      * 删除（yunguohao）
      */
-    int deleteCompanyByIDs(int id);
+    int deleteCompanyByIDs(int companyid);
 
     /**
      * id查询（yunguohao）

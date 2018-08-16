@@ -4,6 +4,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
@@ -177,7 +183,8 @@ public class EnterAdminPageController {
      * @return
      */
     @RequestMapping("/menu-add.html")
-    public String  menuAdd() {
+    public String  menuAdd(String companyid, HttpServletRequest httpServletRequest) {
+        httpServletRequest.setAttribute("companyid",companyid);
         return "admin/index/menu-add";
     }
 
@@ -250,7 +257,8 @@ public class EnterAdminPageController {
      * @return
      */
     @RequestMapping("/travel_add.html")
-    public String  traveladd() {
+    public String  traveladd(String travelid, HttpServletRequest httpServletRequest) {
+        httpServletRequest.setAttribute("travelid",travelid);
         return "admin/index/travel_add";
     }
     /**
@@ -270,5 +278,18 @@ public class EnterAdminPageController {
     public String  staffAdd() {
         return "admin/index/staff-add";
     }
+
+
+    /**
+     * 进入system页
+     * @return
+     */
+    @RequestMapping("/staff-update.html")
+    public String  staffUpdate(String staffId, HttpServletRequest request) {
+        request.setAttribute("staffId",staffId);
+        return "admin/index/staff-update";
+    }
+
+
 
 }

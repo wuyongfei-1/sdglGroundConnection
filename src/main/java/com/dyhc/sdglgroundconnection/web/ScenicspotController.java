@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,7 +35,7 @@ public class ScenicspotController {
     private ScenicspotService scenicspotService;
 
     /**
-     * 查询景点信息 wangtao
+     * 查询景点信息 （wangtao）
      * @param pageNo 当前页
      * @param pageSize 每页显示数量
      * @param scenicspot 参数对象
@@ -43,6 +44,7 @@ public class ScenicspotController {
     @RequestMapping("/ListScenicspot")
     public ReponseResult ListScenicspot(@RequestParam("page") Integer pageNo, @RequestParam("limit") Integer pageSize,Scenicspot scenicspot){
         try {
+            scenicspot.setWhetherDel(0);
             //一、查询所有的景点信息
             PageInfo<Scenicspot> pageInfo =scenicspotService.listScenicspot(pageNo,pageSize,scenicspot);
             //二、返回ReponseResult对象
@@ -59,7 +61,7 @@ public class ScenicspotController {
     }
 
     /**
-     * 新增景点信息  wangtao
+     * 新增景点信息  （wangtao）
      * @param scenicspot 参数对象
      * @return ReponseResult对象
      */
@@ -97,7 +99,7 @@ public class ScenicspotController {
     }
 
     /**
-     * 查询所有是父景点的信息
+     * 查询所有是父景点的信息  （wangtao）
      * @return 返回父景点集合
      */
     @RequestMapping("/ListScenicspotByParentId")
@@ -119,12 +121,12 @@ public class ScenicspotController {
     }
 
     /**
-     * 根据id获取信息
+     * 根据id获取信息 （wangtao）
      * @param scenicSpotId id
      * @return 景点对象
      */
     @RequestMapping("/getInfoById")
-    public ReponseResult getInfoById(@Param("scenicSpotId")Integer scenicSpotId){
+    public ReponseResult getInfoById(@RequestParam("scenicSpotId")Integer scenicSpotId){
         try {
             //一、根据编号查询景点信息
             Scenicspot scenicspot =scenicspotService.getScenicspotById(scenicSpotId);
@@ -142,13 +144,20 @@ public class ScenicspotController {
     }
 
     /**
-     * 根据id修改信息
+     * 根据id修改信息 （wangtao）
      * @param scenicspot 景点对象
      * @return 返回受影响行数
      */
     @RequestMapping("/updateInfoById")
     public ReponseResult updateInfoById(Scenicspot scenicspot){
         try {
+            Scenicspot scenicspot1=scenicspotService.getScenicspotById(scenicspot.getScenicSpotId());
+            scenicspot.setWhetherDel(scenicspot1.getWhetherDel());
+            scenicspot.setCreateBy(scenicspot1.getCreateBy());
+            scenicspot.setCreateDate(scenicspot1.getCreateDate());
+            scenicspot.setTypeCode(scenicspot1.getTypeCode());
+            scenicspot.setPicturePath(scenicspot1.getPicturePath());
+            scenicspot.setDescribe(scenicspot1.getDescribe());
             scenicspot.setUpdateBy(1);
             scenicspot.setUpdateDate(new Date());
             //一、修改景点信息
@@ -172,6 +181,33 @@ public class ScenicspotController {
             return err;
         }
     }
+
+    public ReponseResult deleteInfoById(@RequestParam("id")Integer id){
+        try {
+
+            /*//一、修改景点信息
+            Integer result =scenicspotService.updateScenicspot(scenicspot);*/
+            ReponseResult<Integer> data=null;
+            //二、判断是否成功
+            /*if(result>0){
+                //成功则给ReponseResult对象赋值并日志记录
+                data = ReponseResult.ok(result, "修改景点成功！");
+                logger.info(" method:updateInfoById  修改景点成功！");
+            }else{
+                //失败则给ReponseResult对象赋值并日志记录
+                data = ReponseResult.ok(result, "新增景点失败！");
+                logger.info(" method:updateInfoById  修改景点失败！");
+            }*/
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:updateInfoById  修改景点失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
+
 
 
 }

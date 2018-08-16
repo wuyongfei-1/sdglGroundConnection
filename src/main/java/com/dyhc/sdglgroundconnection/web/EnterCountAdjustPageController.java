@@ -4,6 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -240,9 +243,19 @@ public class EnterCountAdjustPageController {
      * @return
      */
     @RequestMapping("/spot-add.html")
-    public String  spotadd() {
+    public String  spotadd(@RequestParam("id")String id, HttpServletRequest request) {
+        request.setAttribute("id",id);
         return "countAdjust/index/spot-add";
     }
+    /**
+     * 进入rbac-user-list页
+     * @return
+     */
+    @RequestMapping("/spot-add1.html")
+    public String  spotadd1() {
+        return "countAdjust/index/spot-add";
+    }
+
     /**
      * 进入rbac-user-list页
      * @return

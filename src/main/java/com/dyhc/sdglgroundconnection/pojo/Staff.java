@@ -24,6 +24,8 @@ public class Staff {
     private String password; // 密码
     @Column(name = "cardId")
     private String cardId; // 身份证号
+    @Transient
+    private String rolename;    //职务名字
     private String qqnumber; // QQ号码
     @Column(name = "headPortraitPath")
     private String headPortraitPath; // 头像地址
@@ -46,8 +48,16 @@ public class Staff {
     private String value2;
     private String value3;
 
-    @Id
-    @Column(name = "staff\nId")
+    public String getRolename() {
+        return rolename;
+    }
+
+    public void setRolename(String rolename) {
+        this.rolename = rolename;
+    }
+
+    @Basic
+    @Column(name = "staffId")
     public int getStaffId() {
         return staffId;
     }
@@ -235,35 +245,5 @@ public class Staff {
         this.value3 = value3;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Staff staff = (Staff) o;
-        return staffId == staff.staffId &&
-                Objects.equals(roleId, staff.roleId) &&
-                Objects.equals(staffname, staff.staffname) &&
-                Objects.equals(theUserName, staff.theUserName) &&
-                Objects.equals(sex, staff.sex) &&
-                Objects.equals(password, staff.password) &&
-                Objects.equals(cardId, staff.cardId) &&
-                Objects.equals(qqnumber, staff.qqnumber) &&
-                Objects.equals(headPortraitPath, staff.headPortraitPath) &&
-                Objects.equals(currentAddress, staff.currentAddress) &&
-                Objects.equals(phone, staff.phone) &&
-                Objects.equals(whetherDel, staff.whetherDel) &&
-                Objects.equals(createBy, staff.createBy) &&
-                Objects.equals(updateBy, staff.updateBy) &&
-                Objects.equals(updateDate, staff.updateDate) &&
-                Objects.equals(createDate, staff.createDate) &&
-                Objects.equals(value1, staff.value1) &&
-                Objects.equals(value2, staff.value2) &&
-                Objects.equals(value3, staff.value3);
-    }
 
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(staffId, roleId, staffname, theUserName, sex, password, cardId, qqnumber, headPortraitPath, currentAddress, phone, whetherDel, createBy, updateBy, updateDate, createDate, value1, value2, value3);
-    }
 }

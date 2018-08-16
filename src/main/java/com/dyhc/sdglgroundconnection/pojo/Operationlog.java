@@ -22,6 +22,7 @@ public class Operationlog {
     @Column(name = "roleId")
     private Integer roleId; // 操作人（外键，与角色表关联）
     @Column(name = "operationDate")
+    @JsonFormat(pattern = "yyyy年MM月dd日HH时mm分ss秒", timezone = "GMT+8")
     private Date operationDate; // 操作时间
     private Integer status; // 是否删除（1代表已删除，0代表未删除）
     @Column(name = "createBy")
@@ -34,6 +35,10 @@ public class Operationlog {
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "createDate")
     private Date createDate; // 创建时间
+    @Transient
+    private String roleName; // 操作角色
+    @Transient
+    private String staffName; // 操作人名称
     private String value1;
     private String value2;
     private String value3;
@@ -191,5 +196,21 @@ public class Operationlog {
     public int hashCode() {
 
         return Objects.hash(operationLogId, operationType, operationContent, roleId, operationDate, status, createBy, updateBy, upDate, createDate, value1, value2, value3);
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public String getStaffName() {
+        return staffName;
+    }
+
+    public void setStaffName(String staffName) {
+        this.staffName = staffName;
     }
 }

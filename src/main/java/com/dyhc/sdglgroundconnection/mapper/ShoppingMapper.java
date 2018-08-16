@@ -15,9 +15,11 @@ import java.util.List;
 public interface ShoppingMapper extends CommonMapper<Shopping>{
 
     /**
-     * 根据景点编号查询购物信息 wangtao
+     * 根据景点编号查询购物信息 （wangtao）
      * @param scenicSpotId 景点编号
      * @return 返回购物信息对象
      */
     List<Shopping> getShoppingByScenicspotId(Integer scenicSpotId) throws Exception;
+
+
 }

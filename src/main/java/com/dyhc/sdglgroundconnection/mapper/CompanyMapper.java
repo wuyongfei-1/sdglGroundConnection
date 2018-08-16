@@ -19,4 +19,11 @@ public interface CompanyMapper extends CommonMapper<Company>{
      * @return
      */
     List<Company> selectCompanyName(Company company) throws Exception;
+
+    /**
+     * 公司删除（yunguohao）
+     * @param companyid
+     * @return
+     */
+    int deleteCompany(int companyid);
 }

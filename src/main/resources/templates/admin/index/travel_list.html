@@ -9,6 +9,7 @@
 		<title>网站后台管理模版</title>
 		<link rel="stylesheet" type="text/css" href="/admin/layui/css/layui.css" />
 		<link rel="stylesheet" type="text/css" href="/admin/css/admin.css" />
+		<link rel="stylesheet" href="/css/layui.css" media="all">
 	</head>
 
 	<body>
@@ -16,14 +17,16 @@
 					<form class="layui-form" action="">
 						<div class="layui-form-item">
 							<div class="layui-inline tool-btn">
-								<button class="layui-btn layui-btn-small layui-btn-normal addBtn hidden-xs" data-url="travel_add.html"><i class="layui-icon">&#xe654;</i></button>
+								<input type="button" class="layui-btn layui-btn-small layui-btn-normal addBtn hidden-xs"
+									   id="anteraddInfo" style="width: 55px;font-size: 26px" value="+"></input>
 								
 							</div>
 							<div class="layui-inline">
-								<input type="text" name="title"  placeholder="请输入旅行社名称" autocomplete="off" class="layui-input">
+								<input type="text" name="title" placeholder="请输入旅行社名称" autocomplete="off" class="layui-input" id="travelName">
 							</div>
-							
-							<button class="layui-btn layui-btn-normal" >搜索</button>
+
+							<input type="button" class="layui-btn layui-btn-normal" onclick="loadData()" value="搜索"
+								   style="width: 80px"></input>
 						</div>
 					</form>
 					<div class="layui-form" id="table-list">
@@ -39,7 +42,7 @@
 							</colgroup>
 							<thead>
 								<tr>
-									<th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose"></th>
+
 									<th style="width: 80px;">编号</th>
 									<th style="width: 100px;">旅行社名称</th>
 									<th style="width: 80px;">负责人名字</th>
@@ -49,40 +52,16 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr id='node-1' class="parent collapsed">
-									<td><input type="checkbox" name="" lay-skin="primary" data-id="1"></td>
-									<th style="width: 80px;">1</th>
-									<th style="width: 100px;">使命旅行社</th>
-									<th style="width: 80px;">王大大</th>
-									<th style="width: 80px;">部门经理</th>
-									<th style="width: 120px;">13356485241</th>
-									<td>
-										<div class="layui-inline">
-											<button class="layui-btn layui-btn-mini layui-btn-normal  edit-btn" data-id="1" data-url="travel_add.html"><i class="layui-icon">&#xe642;</i></button>
-											<button class="layui-btn layui-btn-mini layui-btn-danger del-btn" data-id="1" data-url="travel_add.html"><i class="layui-icon">&#xe640;</i></button>
-										</div>
-									</td>
-								</tr>
-								<tr id='node-1' class="parent collapsed">
-									<td><input type="checkbox" name="" lay-skin="primary" data-id="1"></td>
-									<th style="width: 80px;">2</th>
-									<th style="width: 100px;">天南旅行社</th>
-									<th style="width: 80px;">海燕</th>
-									<th style="width: 80px;">总经理</th>
-									<th style="width: 120px;">15362543625</th>
-									<td>
-										<div class="layui-inline">
-											<button class="layui-btn layui-btn-mini layui-btn-normal  edit-btn" data-id="1" data-url="travel_add.html"><i class="layui-icon">&#xe642;</i></button>
-											<button class="layui-btn layui-btn-mini layui-btn-danger del-btn" data-id="1" data-url="travel_add.html"><i class="layui-icon">&#xe640;</i></button>
-										</div>
-									</td>
-								</tr>
+
 							</tbody>
 						</table>
+						<div id="laypage" style="text-align: center"></div>
 					</div>
 		</div>
 		<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/js/jquery-1.8.2.min.js"></script>
+		<script src="/layui.js"></script>
 		<script>
 			layui.use(['jquery'], function() {
 				var $=layui.jquery;
@@ -119,6 +98,115 @@
 
 				})
 			});
+
+
+			//窗体加载事件
+			$(function () {
+                loadData();
+                //添加弹窗事件
+                $('#anteraddInfo').on('click', function () {
+                    layer.open({
+                        type: 2,
+                        title: '公司添加',
+                        maxmin: true,
+                        shadeClose: true, //点击遮罩关闭层
+                        area: ['800px', '520px'],
+                        content: 'travel_add.html'
+                    });
+                });
+            });
+
+
+            //修改弹窗事件
+            function updatInfo(travelid) {
+                layer.open({
+                    type: 2,
+                    title: '公司修改',
+                    maxmin: true,
+                    shadeClose: true, //点击遮罩关闭层
+                    area: ['800px', '520px'],
+                    content: 'travel_add.html?travelid=' + travelid
+                });
+            }
+
+
+
+
+            var limitcount = 6; // 每页总记录数
+            var curnum = 1;  // 当前页码
+            //分页查询
+            function loadData() {
+                var travelName = $("#travelName").val();
+                var str = "";
+                $.ajax({
+                    url: "/travel/showAllTravel",
+                    data: {page: curnum, limit: limitcount, travelName: travelName},
+                    dataType: "json",
+                    type: "get",
+                    success: function (e) {
+                        var pageNo = (curnum - 1) * limitcount;
+                        $(e.data).each(function (i, result) {
+                            pageNo++;
+                            str += "<tr><td>" + (pageNo)
+								+ "</td><td>" + result.travelName + "</td><td>"
+                                + result.personName + "</td><td>"
+                                + result.personPost + "</td><td>"
+                                + result.phone + "</td>"
+                                + "<td>\n" +
+                                "<div class=\"layui-inline\">\n" +
+                                "<button onclick='updatInfo(" + result.travelId + ")' id='updatInfo'  class=\"layui-btn layui-btn-mini layui-btn-normal  edit-btn\"><i class='layui-icon'>&#xe642</i></button>" +
+                                "<button onclick='deleteTravel(" + result.travelId + ")' class=\"layui-btn layui-btn-mini layui-btn-danger del-btn\" data-id=\"1\"><i class=\"layui-icon\">&#xe640;</i></button>\n" +
+                                "</div>\n" +
+                                "</td>" + "</tr>";
+                        })
+                        $('tbody').html(str);
+                        // 分页插件
+                        layui.use('table', function () {
+                            var laypage = layui.laypage;
+                            laypage.render({
+                                elem: 'laypage'
+                                , count: e.count
+                                , curr: curnum
+                                , limit: 6
+                                , layout: ['prev', 'page', 'next', 'skip', 'count']
+                                , jump: function (obj, first) {
+                                    if (!first) {
+                                        //obj包含了当前分页的所有参数，比如：
+                                        curnum = obj.curr; // 当前页面
+                                        limitcount = obj.limit; // 每页记录数
+                                        // 查询新数据
+                                        loadData();
+                                    }
+                                }
+                            })
+                        })
+                    },
+                    error: function (res) {
+                        alert(res);
+                    }
+                })
+            }
+
+            //删除方法
+            function deleteTravel(id) {
+                if (confirm("确定删除数据?")) {
+                    $.ajax({
+                        url: "/travel/deleteTravelByID",
+                        data: {travelid: id},
+                        dataType: "json",
+                        type: "get",
+                        success: function (data) {
+                            if (data.data == 1 || data.data == "1") {
+                                alert("删除成功");
+                                loadData();
+                            } else {
+                                alert("删除失败");
+                                loadData();
+                            }
+                        }
+                    })
+                }
+            }
 		</script>
 	</body>
 

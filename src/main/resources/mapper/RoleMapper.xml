@@ -4,7 +4,7 @@
 <mapper namespace="com.dyhc.sdglgroundconnection.mapper.RoleMapper">
     <!---->
     <select id="listRolesGroupByRolename" resultType="com.dyhc.sdglgroundconnection.pojo.Role">
-        SELECT `roleId`,`rolename` FROM `role` GROUP BY `rolename`
+        SELECT `roleId`,`rolename` FROM `role`
     </select>
 
 

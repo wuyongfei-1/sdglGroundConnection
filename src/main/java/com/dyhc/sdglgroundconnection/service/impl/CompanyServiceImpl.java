@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
+import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.mapper.CompanyMapper;
 import com.dyhc.sdglgroundconnection.pojo.Company;
 import com.dyhc.sdglgroundconnection.service.CompanyService;
@@ -38,28 +39,32 @@ public class CompanyServiceImpl implements CompanyService {
      * @return
      */
     @Override
+    @RecordOperation(type = "公司", desc = "添加了一条公司信息")
     public int insertCompanys(Company company) {
+        company.setWhetherDel(0);
         return companyMapper.insert(company);
     }
-
     /**
      * 公司修改（yunguohao）
      * @param company
      * @return
      */
     @Override
+    @RecordOperation(type = "公司", desc = "修改了一条公司信息")
     public int updateCompanys(Company company) {
+        company.setWhetherDel(0);
         return companyMapper.updateByPrimaryKey(company);
     }
 
     /**
      * 删除（yunguohao）
-     * @param id
+     * @param companyid
      * @return
      */
     @Override
-    public int deleteCompanyByIDs(int id) {
-        return companyMapper.deleteByPrimaryKey(id);
+    @RecordOperation(type = "公司", desc = "删除了一条公司信息")
+    public int deleteCompanyByIDs(int companyid) {
+        return companyMapper.deleteCompany(companyid);
     }
 
     /**

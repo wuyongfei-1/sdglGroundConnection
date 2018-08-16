@@ -30,6 +30,7 @@ public class Scenicspot {
     private Integer typeId; // 景点等级编号
     @Column(name = "picturePath")
     private String picturePath; // 景区图片地址
+    @Column(name="`describe`")
     private String describe; // 描述
     private String remarks; // 备注
     @Column(name = "whetherDel")
@@ -48,6 +49,28 @@ public class Scenicspot {
     private String value2;
     private String value3;
 
+
+    @Transient
+    private String parentScenicSpotName; // 父景点名称
+
+    @Transient
+    private String typeName; // 等级名
+
+    public String getParentScenicSpotName() {
+        return parentScenicSpotName;
+    }
+
+    public void setParentScenicSpotName(String parentScenicSpotName) {
+        this.parentScenicSpotName = parentScenicSpotName;
+    }
+
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
+    }
 
     @Transient
     private List<Shopping> scenicspotList;

@@ -27,7 +27,6 @@ public class HotelController {
 
     @Autowired
     private HotelService hotelService;
-
     @RequestMapping("/showAllHotels")
     public ReponseResult showHotel(@RequestParam("page") Integer pageNo, @RequestParam("limit") Integer pageSize) {
         try {

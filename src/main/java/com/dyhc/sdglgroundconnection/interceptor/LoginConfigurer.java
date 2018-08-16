@@ -5,7 +5,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class LoginConfigurer implements WebMvcConfigurer {
-    final String[] notLoginInterceptPaths ={"/static/**","/admins/login.html","/loginCheck","/admin/**","/css/**","/font/**","/images/**","/js/**","/lay/**"};//禁止拦截
+    final String[] notLoginInterceptPaths ={"/static/**","/admins/login.html","/staff/loginCheck","/admin/**","/css/**","/font/**","/images/**","/js/**","/lay/**"};//禁止拦截
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //super.addInterceptors(registry);

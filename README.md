@@ -3,8 +3,8 @@
 
 页面跳转url：
 管理员控制类：EnterAdminPageController
-登录页面：http://localhost:8888/admin/login.html
-管理员首页：http://localhost:8888/admin/adminIndex.html
+登录页面：http://localhost:8888/admins/login.html
+管理员首页：http://localhost:8888/admins/adminIndex.html
 
 计调控制类：EnterCountAdjustPageController:
 计调首页：http://localhost:8888/countAdjust/count-Adjust-Index.html

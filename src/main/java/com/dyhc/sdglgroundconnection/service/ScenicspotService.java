@@ -52,4 +52,12 @@ public interface ScenicspotService {
      * @throws Exception
      */
     Scenicspot getScenicspotById(Integer id)throws Exception;
+
+    /**
+     * 根据id删除景点信息
+     * @param id id编号
+     * @return
+     * @throws Exception
+     */
+    Integer deleteScenicspotById(Integer id)throws Exception;
 }

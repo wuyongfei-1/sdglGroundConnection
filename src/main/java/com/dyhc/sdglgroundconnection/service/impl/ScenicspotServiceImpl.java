@@ -90,4 +90,16 @@ public class ScenicspotServiceImpl implements ScenicspotService {
     }
 
 
+    /**
+     * 根据id删除景点信息
+     * @param id id编号
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public Integer deleteScenicspotById(Integer id) throws Exception {
+        return scenicspotMapper.deleteByPrimaryKey(id);
+    }
+
+
 }

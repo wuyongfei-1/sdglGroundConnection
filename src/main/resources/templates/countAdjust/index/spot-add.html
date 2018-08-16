@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="renderer" content="webkit">
@@ -18,7 +18,7 @@
 						<div class="layui-tab-content">
 							<div class="layui-tab-item layui-show">
 								<div class="layui-form-item">
-									<input type="hidden" id="scenicSpotId" value="">
+									<input type="hidden" id="scenicSpotId" th:value="${id}">
 									<label class="layui-form-label">景点名称：</label>
 									<div class="layui-input-block">
 										<input type="text" name="scenicSpotName" required lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input">
@@ -94,43 +94,51 @@
 	<script src="/js/jquery-1.8.2.min.js"></script>
 	<script>
 		$(function () {
-            parentScenicSpot();
-            getScenicSpotLevel();
-           /* var url =location.search;   //先获取地址栏的信息（也就是.html后你传过来的字符串）
-            var Request = new Object();    //定义一个结果集，方便后面来接收结果
-            if(url.indexOf("?")!=-1){
-                var str = url.substr(1)　//去掉?号
-                strs = str.split("&");
-                for(var i=0;i<strs.length;i++){
-                    Request[strs[i ].split("=")[0]]=unescape(strs[i].split("=")[1]);
-                }
-            }
-            alert(Request["id"])*/
-           /* var id=UrlParm.parm("id");
-            var id1=request.QueryString("id");
-            alert(id1);
-            $("#scenicSpotId").val(id1);
-            if($("#scenicSpotId").val()!=''){
-                getScenicSpotById(id);
-            }*/
-            $("#save").click(function () {
-                insertscenicSpot();
-                /*if(id!=''){
-                    updateScenicSpot(id);
-                }else{
-                    insertscenicSpot();
-                }*/
-            });
+
         })
+        parentScenicSpot();
+        getScenicSpotLevel();
+        var id=$("#scenicSpotId").val();
+        if(id!=''&&id>0){
+            getScenicSpotById(id);
+        }
+        $("#save").click(function () {
+            //insertscenicSpot();
+            if(id>0){
+                updateScenicSpot(id);
+            }else{
+                insertscenicSpot();
+            }
+        });
+        function getScenicSpotLevel() {
+            //获取景点等级
+            $.post("/dictionaries/ListDictionariesByScenicspot","",function (data) {
+                var content1="<option value=\"0\">请选择景点等级</option>";
+                $.each(data.data,function (i,e) {
+                    content1+="<option value=\""+e.valueId+"\">"+e.valueContent1+"</option>";
+                })
+                $("#typeId").html(content1);
+            },"json");
+        }
+        function parentScenicSpot() {
+            //获取父景点信息
+            $.post("/scenicspot/ListScenicspotByParentId","",function (data) {
+                var content="<option value=\"0\">请选择父景点</option>";
+                $.each(data.data,function (i,e) {
+                    content+="<option value=\""+e.scenicSpotId+"\">"+e.scenicSpotName+"</option>";
+                })
+                $("#parentId").html(content);
+            },"json")
+        }
 		function getScenicSpotById(id) {
-			$.post("/getInfoById","id="+id,function (data) {
-                $("input[name='scenicSpotName']").val(data.scenicSpotName);
-                $("select[name='parentId']").val(data.parentId);
-                $("select[name='typeId']").val(data.typeId);
-                $("input[name='scenicSpotAddress']").val(data.scenicSpotAddress);
-                $("input[name='costprice']").val(data.costprice);
-                $("input[name='offer']").val(data.offer);
-                $("input[name='remarks']").val(data.remarks);
+			$.post("/scenicspot/getInfoById","scenicSpotId="+id,function (data) {
+                $("input[name='scenicSpotName']").val(data.data.scenicSpotName);
+                $("#parentId").val(data.data.parentId);
+                $("#typeId").val(data.data.typeId);
+                $("input[name='scenicSpotAddress']").val(data.data.scenicSpotAddress);
+                $("input[name='costprice']").val(data.data.costprice);
+                $("input[name='offer']").val(data.data.offer);
+                $("input[name='remarks']").val(data.data.remarks);
             },"json");
         }
         function updateScenicSpot(id) {
@@ -141,9 +149,9 @@
             var costprice=$("input[name='costprice']").val();
             var offer=$("input[name='offer']").val();
             var remarks=$("input[name='remarks']").val();
-            $.post("/updateInfoById","scenicSpotName="+scenicSpotName+"&parentId="+parentId+"" +
+            $.post("/scenicspot/updateInfoById","scenicSpotName="+scenicSpotName+"&parentId="+parentId+"" +
                 "&typeId="+typeId+"&scenicSpotAddress="+scenicSpotAddress+"&costprice="+costprice+
-                "&offer="+offer+"&remarks="+remarks+"id="+id,function (data){
+                "&offer="+offer+"&remarks="+remarks+"&scenicSpotId="+id,function (data){
 				if(data.data>0){
 				    alert("修改成功！");
 				}else{
@@ -151,26 +159,7 @@
 				}
 			},"json");
         }
-		function getScenicSpotLevel() {
-			//获取景点等级
-			$.post("/ListDictionariesByScenicspot","",function (data) {
-				var content1="<option value=\"0\">请选择景点等级</option>";
-				$.each(data.data,function (i,e) {
-                    content1+="<option value=\""+e.valueId+"\">"+e.valueContent1+"</option>";
-                })
-				$("#typeId").html(content1);
-            },"json");
-        }
-		function parentScenicSpot() {
-			//获取父景点信息
-			$.post("/ListScenicspotByParentId","",function (data) {
-			    var content="<option value=\0\">请选择父景点</option>";
-				$.each(data.data,function (i,e) {
-					content+="<option value=\""+e.scenicSpotId+"\">"+e.scenicSpotName+"</option>";
-                })
-				$("#parentId").html(content);
-            },"json")
-        }
+
 		function insertscenicSpot(){
 		    var scenicSpotName=$("input[name='scenicSpotName']").val();
             var parentId=$("select[name='parentId']").val();
@@ -179,7 +168,7 @@
             var costprice=$("input[name='costprice']").val();
             var offer=$("input[name='offer']").val();
             var remarks=$("input[name='remarks']").val();
-            $.post("/insertScenicspot","scenicSpotName="+scenicSpotName+"&parentId="+parentId+"" +
+            $.post("/scenicspot/insertScenicspot","scenicSpotName="+scenicSpotName+"&parentId="+parentId+"" +
 				"&typeId="+typeId+"&scenicSpotAddress="+scenicSpotAddress+"&costprice="+costprice+
 				"&offer="+offer+"&remarks="+remarks,function (data) {
 				if(data.data>0){

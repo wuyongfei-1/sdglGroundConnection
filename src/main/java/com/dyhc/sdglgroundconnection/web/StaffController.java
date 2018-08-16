@@ -2,6 +2,7 @@ package com.dyhc.sdglgroundconnection.web;
 
 import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.dyhc.sdglgroundconnection.service.StaffService;
+import com.dyhc.sdglgroundconnection.utils.EncryUtil;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +43,7 @@ public class StaffController  {
                 success= ReponseResult.ok(-1,"用户名或密码不匹配！");
                 return success;
             }
-            if(!sf.getPassword().equals(password)){
+            if(!sf.getPassword().equals(EncryUtil.encrypt(password))){
                 success= ReponseResult.ok(-1,"用户名或密码不匹配！");
                 return success;
             }

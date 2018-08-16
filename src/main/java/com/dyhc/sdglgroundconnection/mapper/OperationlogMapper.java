@@ -1,6 +1,7 @@
 package com.dyhc.sdglgroundconnection.mapper;
 
 import com.dyhc.sdglgroundconnection.pojo.Operationlog;
+import com.dyhc.sdglgroundconnection.pojo.OperationlogExample;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 

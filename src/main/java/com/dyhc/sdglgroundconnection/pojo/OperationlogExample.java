@@ -28,6 +28,12 @@ public class OperationlogExample {
         this.distinct = distinct;
     }
 
+    public boolean getDistinct(){
+        return distinct;
+    }
+
+
+
     public boolean isDistinct() {
         return distinct;
     }

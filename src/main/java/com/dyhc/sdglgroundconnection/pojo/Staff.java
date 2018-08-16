@@ -46,8 +46,9 @@ public class Staff {
     private String value2;
     private String value3;
 
-    @Id
-    @Column(name = "staff\nId")
+
+    @Basic
+    @Column(name = "staffId")
     public int getStaffId() {
         return staffId;
     }
@@ -235,35 +236,5 @@ public class Staff {
         this.value3 = value3;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Staff staff = (Staff) o;
-        return staffId == staff.staffId &&
-                Objects.equals(roleId, staff.roleId) &&
-                Objects.equals(staffname, staff.staffname) &&
-                Objects.equals(theUserName, staff.theUserName) &&
-                Objects.equals(sex, staff.sex) &&
-                Objects.equals(password, staff.password) &&
-                Objects.equals(cardId, staff.cardId) &&
-                Objects.equals(qqnumber, staff.qqnumber) &&
-                Objects.equals(headPortraitPath, staff.headPortraitPath) &&
-                Objects.equals(currentAddress, staff.currentAddress) &&
-                Objects.equals(phone, staff.phone) &&
-                Objects.equals(whetherDel, staff.whetherDel) &&
-                Objects.equals(createBy, staff.createBy) &&
-                Objects.equals(updateBy, staff.updateBy) &&
-                Objects.equals(updateDate, staff.updateDate) &&
-                Objects.equals(createDate, staff.createDate) &&
-                Objects.equals(value1, staff.value1) &&
-                Objects.equals(value2, staff.value2) &&
-                Objects.equals(value3, staff.value3);
-    }
 
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(staffId, roleId, staffname, theUserName, sex, password, cardId, qqnumber, headPortraitPath, currentAddress, phone, whetherDel, createBy, updateBy, updateDate, createDate, value1, value2, value3);
-    }
 }

@@ -38,22 +38,23 @@
         <div class="layui-form" id="table-list">
             <table class="layui-table" lay-even lay-skin="nob">
                 <colgroup>
-                    <col class="hidden-xs" width="100">
+                    <col class="hidden-xs" width="10">
                     <col class="hidden-xs" width="100">
                     <col>
                     <col class="hidden-xs" width="100">
                     <col class="hidden-xs" width="100">
-                    <col width="80">
-                    <col width="100">
+                    <col width="50">
+                    <col width="50">
                     <col width="70">
                 </colgroup>
                 <thead>
                 <tr>
+                    <th style="width:10px;">编号</th>
                     <th style="width: 30px;">操作类型</th>
                     <th style="width: 45px;">操作内容</th>
                     <th style="width: 30px;">权限</th>
                     <th style="width: 30px;">姓名</th>
-                    <th style="width: 45px;">操作时间</th>
+                    <th style="width: 90px;">操作时间</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -70,7 +71,7 @@
 <script src="/js/jquery-1.8.2.min.js"></script>
 </body>
 <script>
-    var limitcount = 2; // 每页总记录数
+    var limitcount = 6; // 每页总记录数
     var curnum = 1;  // 当前页码
     search();
 
@@ -95,8 +96,9 @@
             dataType: "json",
             type: "post",
             success: function (e) {
+                var id = (curnum-1)*limitcount;
                 $(e.data).each(function (i, result) {
-                    str += "<tr id='node-1' class='parent collapsed'><td style='font-size:small'>" + result.operationType + "</td><td style='font-size:small'>" + result.operationContent + "</td>" +
+                    str += "<tr id='node-1' class='parent collapsed'><td style='width:10px'>" + (++id) + "</td><td style='font-size:small'>" + result.operationType + "</td><td style='font-size:small'>" + result.operationContent + "</td>" +
                         "<td style='font-size:small'>" + result.roleName + "</td><td style='font-size:small'>" + result.staffName + "</td><td style='font-size:small'>" + result.operationDate + "</td></tr>";
                 })
                 $('tbody').html(str);
@@ -107,7 +109,7 @@
                         elem: 'laypage'
                         , count: e.count
                         , curr: curnum
-                        , limit: 2
+                        , limit: 6
                         , layout: ['prev', 'page', 'next', 'skip', 'count']
                         , jump: function (obj, first) {
                             if (!first) {

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -15,32 +16,33 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">名称：</label>
 						<div class="layui-input-block" style="width: 400px;">
-							<input type="text" name="title1" required lay-verify="required" placeholder="请输入旅行社名称" autocomplete="off" class="layui-input">
+							<input type="hidden" th:value="${travelid}" id="traid">
+							<input type="text" name="title1"  placeholder="请输入旅行社名称" autocomplete="off" class="layui-input" id="travelName">
 						</div>
 					</div>
 					<div class="layui-form-item">
 						<label class="layui-form-label">负责人：</label>
 						<div class="layui-input-block" style="width: 400px;">
-							<input type="text" name="title2" required lay-verify="required" placeholder="请输入负责人名称" autocomplete="off" class="layui-input">
+							<input type="text" name="title2"  placeholder="请输入负责人名称" autocomplete="off" class="layui-input" id="personName">
 						</div>
 					</div>
 					<div class="layui-form-item">
 						<label class="layui-form-label">职位：</label>
 						<div class="layui-input-block" style="width: 400px;">
-							<input type="text" name="title2" required lay-verify="required" placeholder="请输入负责人职位" autocomplete="off" class="layui-input">
+							<input type="text" name="title2"  placeholder="请输入负责人职位" autocomplete="off" class="layui-input" id="personPost">
 						</div>
 					</div>
 					<div class="layui-form-item">
 						<label class="layui-form-label">联系电话：</label>
 						<div class="layui-input-block" style="width: 400px;">
-							<input type="text" name="title3" required lay-verify="required" placeholder="请输入联系电话" autocomplete="off" class="layui-input">
+							<input type="text" name="title3"  placeholder="请输入联系电话" autocomplete="off" class="layui-input" id="phone">
 						</div>
 					</div>
 					
 					
 					<div class="layui-form-item">
 						<div class="layui-input-block">
-							<button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo">立即提交</button>
+							<button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo" onclick="JIudge()">立即提交</button>
 							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 						</div>
 					</div>
@@ -48,17 +50,118 @@
 		</div>
 
 		<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/js/jquery-1.8.2.min.js"></script>
 		<script>
 			//Demo
-//			layui.use(['form'], function() {
-//				var form = layui.form();
+			layui.use(['form'], function() {
+				var form = layui.form();
 				form.render();
 				//监听提交
 				form.on('submit(formDemo)', function(data) {
-					layer.msg(JSON.stringify(data.field));
+
 					return false;
 				});
 			});
+
+			//窗体加载
+			$(function () {
+                updateById();
+            });
+
+
+            //判断是增加还是删除
+            function JIudge() {
+                var id=$("#traid").val();
+                var travelName=$("#travelName").val();
+                var personName=$("#personName").val();
+                var personPost=$("#personPost").val();
+                var phone=$("#phone").val();
+                if (travelName==undefined||travelName==""||travelName==null){
+                    alert("旅行社名称不准为空");
+                    return;
+                }
+                if (personName==undefined||personName==""||personName==null){
+                    alert("负责人名称不准为空");
+                    return;
+                }
+                if (personPost==undefined||personPost==""||personPost==null){
+                    alert("负责人职位不准为空");
+                    return;
+                }
+                if (phone==undefined||phone==""||phone==null){
+                    alert("电话不准为空");
+                    return;
+                }
+                if (id==null || id==""){
+                    insertTravel();
+                }
+                if (id != null || id != ""){
+                    updateCompany();
+                }
+            }
+
+            //id查询赋值
+            function updateById(){
+                var id=$("#traid").val();
+                $.ajax({
+                    url:"/travel/selectTravelById",
+                    data:{id:id},
+                    dataType: "json",
+                    type: "get",
+                    success:function (data) {
+                        $("#travelName").val(data.data.travelName);
+                        $("#personName").val(data.data.personName);
+                        $("#personPost").val(data.data.personPost);
+                        $("#phone").val(data.data.phone);
+                    }
+                })
+            }
+
+
+            //修改方法
+            function updateCompany() {
+                var id=$("#traid").val();
+                var travelName=$("#travelName").val();
+                var personName=$("#personName").val();
+                var personPost=$("#personPost").val();
+                var phone=$("#phone").val();
+                $.ajax({
+                    url:"/travel/updateTravel",
+                    data:{travelName:travelName,personName:personName,personPost:personPost,phone:phone,travelId:id},
+                    dataType: "json",
+                    type: "get",
+                    success:function (data) {
+                        if (data.data==1 || data.data=="1"){
+                            alert("修改成功");
+                        } else{
+                            alert("修改失败");
+                        }
+                        parent.location.reload();
+                    }
+                })
+            }
+
+            //添加方法
+            function insertTravel() {
+                var travelName=$("#travelName").val();
+                var personName=$("#personName").val();
+                var personPost=$("#personPost").val();
+                var phone=$("#phone").val();
+                $.ajax({
+                    url:"/travel/insertTravel",
+                    data:{travelName:travelName,personName:personName,personPost:personPost,phone:phone},
+                    dataType: "json",
+                    type: "get",
+                    success:function (data) {
+                        if (data.data==1 || data.data=="1"){
+                            alert("增加成功");
+                        } else{
+                            alert("增加失败");
+                        }
+                        parent.location.reload();
+                    }
+                })
+            }
 		</script>
 	</body>
 

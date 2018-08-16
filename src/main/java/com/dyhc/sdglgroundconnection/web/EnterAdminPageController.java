@@ -257,7 +257,8 @@ public class EnterAdminPageController {
      * @return
      */
     @RequestMapping("/travel_add.html")
-    public String  traveladd() {
+    public String  traveladd(String travelid, HttpServletRequest httpServletRequest) {
+        httpServletRequest.setAttribute("travelid",travelid);
         return "admin/index/travel_add";
     }
     /**

@@ -3,6 +3,7 @@ package com.dyhc.sdglgroundconnection.service.impl;
 import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.mapper.HotelMapper;
 import com.dyhc.sdglgroundconnection.pojo.Hotel;
+import com.dyhc.sdglgroundconnection.pojo.HotelExample;
 import com.dyhc.sdglgroundconnection.service.HotelService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -21,9 +22,21 @@ public class HotelServiceImpl implements HotelService {
     @Autowired
     private HotelMapper hotelMapper;
 
+
+
+
     public PageInfo<Hotel> listHotels(Integer pageNo, Integer PageSize) {
         PageHelper.startPage(pageNo, PageSize, true);
         PageInfo<Hotel> pageInfo = new PageInfo<>(hotelMapper.selectAll());
+
+        HotelExample hotelExample = new HotelExample();
+
+        HotelExample.Criteria criteria = hotelExample.createCriteria();
+        criteria.andHotelnameLike("%二%");
+        List<Hotel> hotels = hotelMapper.selectByExample(hotelExample);
+        for (Hotel hotel : hotels) {
+            System.out.println(hotel.getHotelName());
+        }
         return pageInfo;
     }
 

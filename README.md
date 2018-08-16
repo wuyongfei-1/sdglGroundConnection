@@ -1,14 +1,15 @@
 # sdglGroundConnection
 世达国旅地接社管理系统
 
-跳转页面：
-http://localhost:8888/admin/login.html:登录页面
-web
-EnterAdminPageController:管理员页面
+页面跳转url：
+管理员控制类：EnterAdminPageController
+登录页面：http://localhost:8888/admin/login.html
 管理员首页：http://localhost:8888/admin/adminIndex.html
-EnterCountAdjustPageController:计调页面
+
+计调控制类：EnterCountAdjustPageController:
 计调首页：http://localhost:8888/countAdjust/count-Adjust-Index.html
-EnterGeneralControlPageController：总控页面
+
+总控控制类：EnterGeneralControlPageController
 总控首页：http://localhost:8888/General/count-Adjust-Index.html
 
 数据库：

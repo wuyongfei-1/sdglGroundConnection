@@ -68,8 +68,11 @@
 							}
 							//管理员
 							if(data.data==1){
-							    location.href="http://localhost:8888/admin/adminIndex.html";
+							    location.href="http://localhost:8888/admins/adminIndex.html";
 							}
+                            if(data.data==2){
+                                location.href="http://localhost:8888/admins/adminIndex.html";
+                            }
 							//计调
                             if(data.data==3){
                                 location.href="http://localhost:8888/countAdjust/count-Adjust-Index.html";
@@ -77,6 +80,9 @@
                             //总控
                             if(data.data==4){
                                 location.href="http://localhost:8888/General/count-Adjust-Index.html";
+                            }
+                            if(data.data==5){
+                                location.href="http://localhost:8888/finance/finance-Index.html";
                             }
                         },error:function () {
 							alert("程序错误")

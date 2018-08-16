@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
  * 人员 控制层
  **/
 @RestController
+@RequestMapping("/staff")
 public class StaffController  {
 
     // 日志对象

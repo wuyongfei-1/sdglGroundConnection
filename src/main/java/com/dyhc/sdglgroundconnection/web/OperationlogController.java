@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 操作日志 控制层
  **/
 @RestController
+@RequestMapping("/operationlog")
 public class OperationlogController {
 
     // 日志对象

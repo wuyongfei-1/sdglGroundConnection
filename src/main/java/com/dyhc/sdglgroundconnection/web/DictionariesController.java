@@ -20,6 +20,7 @@ import java.util.List;
  * 字典 控制层
  **/
 @RestController
+@RequestMapping("/dictionaries")
 public class DictionariesController {
 
     // 日志对象

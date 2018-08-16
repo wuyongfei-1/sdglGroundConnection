@@ -19,6 +19,7 @@ import java.util.List;
  * 酒店 控制层
  **/
 @RestController
+@RequestMapping("/hotel")
 public class HotelController {
 
     // 日志对象

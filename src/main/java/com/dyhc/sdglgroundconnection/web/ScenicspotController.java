@@ -24,6 +24,7 @@ import java.util.List;
  * 景点 控制层
  **/
 @RestController
+@RequestMapping("/scenicspot")
 public class ScenicspotController {
 
     // 日志对象

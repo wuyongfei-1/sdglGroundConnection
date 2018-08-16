@@ -235,6 +235,7 @@ public class EnterCountAdjustPageController {
     public String  shoppinglist() {
         return "countAdjust/index/shopping-list";
     }
+
     /**
      * 进入rbac-user-list页
      * @return
@@ -266,7 +267,13 @@ public class EnterCountAdjustPageController {
      * @return
      */
     @RequestMapping("/spotshopping-add.html")
-    public String  spotshoppingadd() {
+    public String  spotshoppingadd(@RequestParam("Spotid")Integer Spotid,@RequestParam("shoppingId")Integer shoppingId,HttpServletRequest request) {
+        if(Spotid!=null&&Spotid!=0){
+            request.setAttribute("Spotid",Spotid);
+        }
+        if(shoppingId!=null&&shoppingId!=0){
+            request.setAttribute("shoppingId",shoppingId);
+        }
         return "countAdjust/index/spotshopping-add";
     }
 

@@ -7,8 +7,10 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title>网站后台管理模版</title>
+		<link rel="stylesheet" href="/css/layui.css" media="all">
 		<link rel="stylesheet" type="text/css" href="/admin/layui/css/layui.css" />
 		<link rel="stylesheet" type="text/css" href="/admin/css/admin.css" />
+
 	</head>
 
 	<body>
@@ -16,7 +18,7 @@
 					<form class="layui-form" action="">
 						<div class="layui-form-item">
 							<div class="layui-inline tool-btn">
-								<button class="layui-btn layui-btn-small layui-btn-normal addBtn hidden-xs" data-url="spot-add1.html"><i class="layui-icon">&#xe654;</i></button>
+								<input type="button" class="layui-btn layui-btn-small layui-btn-normal addBtn hidden-xs" value="+" style="width: 30px" id="insert"></input>
 							</div>
 							<div class="layui-inline">
 								<input type="text" name="scenicSpotName" placeholder="请输入景点名称" autocomplete="off" class="layui-input">
@@ -138,19 +140,23 @@
 										</div>
 									</td>
 								</tr>
+
 							</tbody>
 						</table>
 						<div id="laypage" style="text-align: center"></div>
 					</div>
 		</div>
-		<script src="/js/jquery-1.8.2.min.js"></script>
+
 		<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/js/jquery-1.8.2.min.js"></script>
+		<script src="/layui.js"></script>
 
 		<script>
-            var limitcount = 3; // 每页总记录数
+            var limitcount = 6; // 每页总记录数
             var curnum = 1;  // 当前页码
             var id=0;
+
 			layui.use(['jquery'], function() {
 				var $=layui.jquery;
 				//修改状态
@@ -167,7 +173,7 @@
 				})
 				
 				//栏目展示隐藏
-				$('.showSubBtn').on('click', function() {
+				$(document).on('click','.showSubBtn', function() {
 					var _this = $(this);
 					var id = _this.attr('data-id');
 					var parent = _this.parents('.parent');
@@ -189,11 +195,12 @@
                 $("#selectbutton").click(function () {
                     ListScenicspot();
                 });
-				$(function () {
 
-                })
 
-				function ListScenicspot() {
+
+
+
+                function ListScenicspot() {
 					var scenicSpotName=$("input[name='scenicSpotName']").val();
 					var scenicSpotAddress=$("input[name='scenicSpotAddress']").val();
 					var typeId=$("select[name='typeId']").val();
@@ -207,7 +214,6 @@
 					$.post("/scenicspot/ListScenicspot","page="+curnum+"&limit="+limitcount+"&scenicSpotName="+scenicSpotName+
 						"&scenicSpotAddress="+scenicSpotAddress+"&typeId="+typeId+
 						"&whetherDel="+whetherDel,function (data) {
-
                         var content="<colgroup>" +
                             "<col width=\"50\">" +
                             "<col class=\"hidden-xs\" width=\"100\">" +
@@ -217,8 +223,7 @@
                             "<col width=\"150\">" +
                             "<col width=\"130\">" +
                             "<col width=\"130\">" +
-                            "<col width=\"80\">" +
-                            "<col width=\"130\">" +
+                            "<col width=\"200\">" +
                             "</colgroup>\n" +
                             "<thead>" +
                             "<tr>" +
@@ -230,13 +235,10 @@
                             "<th class=\"\">景点等级</th>" +
                             "<th class=\"\">备注</th>" +
                             "<th class=\"\">报价</th>" +
-                            "<th>状态</th>" +
                             "<th>操作</th>" +
                             "</tr>" +
                             "</thead>";
-
                         $.each(data.data,function (i,e) {
-
                             content+="<tr id='node-"+e.scenicSpotId+"' class=\"parent collapsed\">" +
                                 "<td><input type=\"checkbox\" name=\"\" lay-skin=\"primary\" data-id=\"1\">" +
                                 "<a class=\"layui-btn layui-btn-mini layui-btn-normal showSubBtn\" data-id='"+e.scenicSpotId+"'>+</a></td>" +
@@ -247,29 +249,27 @@
                                 "<td class=\"\">"+e.typeName+"</td>" +
                                 "<td class=\"\">"+e.remarks+"</td>" +
                                 "<td class=\"\">"+e.offer+"</td>" +
-                                "<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\">禁用</button></td>" +
                                 "<td>" +
-                                "<div class=\"layui-inline\">" +
-                                "<button class=\"layui-btn layui-btn-mini layui-btn-normal  add-btn\" data-id=\"1\" data-url=\"spotshopping-add.html\"><i class=\"layui-icon\">&#xe654;</i></button>" +
-                                "<button class=\"layui-btn layui-btn-mini layui-btn-normal edit-btn\" data-id=\""+e.scenicSpotId+"\" data-url=\"spot-add.html\"><i class=\"layui-icon\">&#xe642;</i></button>" +
-                                "<button class=\"layui-btn layui-btn-mini layui-btn-danger del-btn\" data-id=\""+e.scenicSpotId+"\" data-url=\"/deleteScenicspotById\"><i class=\"layui-icon\">&#xe640;</i></button>" +
+                                "<button class=\"layui-inline\">" +
+                                "<button type='button' value='"+e.scenicSpotId+"' class='layui-btn layui-btn-small layui-btn-normal addBtn' value=\""+e.scenicSpotId+"\" style=\"width: 30px;height: 30px;\" id=\"insert1\"><i class='layui-icon'>&#xe654;</i></button>" +
+                                "<button type='button' value='"+e.scenicSpotId+"' class=\"layui-btn layui-btn-mini layui-btn-normal edit-btn\" style=\"width: 30px;height: 30px;\" id='updateInfo'><i class='layui-icon'>&#xe642;</i></button>" +
+                                "<button type='button' value='"+e.scenicSpotId+"' class=\"layui-btn layui-btn-mini layui-btn-danger del-btn\"  style=\"width: 30px;height: 30px;\" id='deleteInfo'><i class='layui-icon'>&#xe640;</i></button>" +
                                 "</div>" +
                                 "</td>" +
                                 "</tr>";
                             if(e.scenicspotList!=null){
+                                content+="<tr id=\"type-"+i+"\" class=\"child-node-"+e.scenicSpotId+" parent collapsed\" style=\"display:none ;background-color: #D6E9C6;\" parentid=\""+e.scenicSpotId+"\">" +
+                                    "<td class=\"\"></td>" +
+                                    "<td class=\"\"></td>" +
+                                    "<td class=\"\">购物地名称</td>" +
+                                    "<td class=\"\"></td>" +
+                                    "<td class=\"\"></td>" +
+                                    "<td class=\"\"></td>" +
+                                    "<td class=\"\"></td>" +
+                                    "<td class=\"\"></td>" +
+                                    "<td class=\"\">操作</td>" +
+                                    "</tr>";
                                 $.each(e.scenicspotList,function (i1,s) {
-                                    content+="<tr id=\"type-"+i1+"\" class=\"child-node-"+e.scenicSpotId+" parent collapsed\" style=\"display:none ;background-color: #D6E9C6;\" parentid=\""+e.scenicSpotId+"\">" +
-                                        "<td class=\"\"></td>" +
-                                        "<td class=\"\"></td>" +
-                                        "<td class=\"\">购物地名称</td>" +
-                                        "<td class=\"\"></td>" +
-                                        "<td class=\"\"></td>" +
-                                        "<td class=\"\"></td>" +
-                                        "<td class=\"\"></td>" +
-                                        "<td class=\"\"></td>" +
-                                        "<td class=\"\"></td>" +
-                                        "<td class=\"\">操作</td>" +
-                                        "</tr>";
                                     content+="<tr id='type-"+e.scenicSpotId+"' class=\"child-node-"+e.scenicSpotId+" parent collapsed\" style=\"display:none ;\" parentid=\""+e.scenicSpotId+"\">" +
                                         "<td class=\"\"></td>" +
                                         "<td class=\"\"></td>" +
@@ -279,46 +279,123 @@
                                         "<td class=\"\"></td>" +
                                         "<td class=\"\"></td>" +
                                         "<td class=\"\"></td>" +
-                                        "<td class=\"\"></td>" +
                                         "<td>" +
                                         "<div class=\"layui-inline\">" +
-                                        "<button class=\"layui-btn layui-btn-mini layui-btn-normal  edit-btn\" data-id=\""+e.scenicSpotId+"\" data-url=\"hotelroom-add.html\"><i class=\"layui-icon\">&#xe642;</i></button>" +
-                                        "<button class=\"layui-btn layui-btn-mini layui-btn-danger del-btn\" data-id=\""+e.scenicSpotId+"\" data-url=\"hotelroom-add.html\"><i class=\"layui-icon\">&#xe640;</i></button>" +
+                                        "<button type='button' value='"+s.shoppingId+"' class=\"layui-btn layui-btn-mini layui-btn-normal edit-btn\" style=\"width: 30px;height: 30px;\" id='updateShopping'><i class=\"layui-icon\">&#xe642;</i></button>" +
+                                        "<button type='button' value='"+s.shoppingId+"' class=\"layui-btn layui-btn-mini layui-btn-danger del-btn\" style=\"width: 30px;height: 30px;\" id='deleteShopping'><i class=\"layui-icon\">&#xe640;</i></button>" +
                                         "</div>" +
                                         "</td>" +
                                         "</tr>";
                                 })
 							}
-
                         })
                         $("#list").html(content);
-                         // 分页插件
-                         layui.use('table', function () {
-                             var laypage = layui.laypage;
-                             laypage.render({
-                                 elem: 'laypage'
-                                 , count: e.count
-                                 , curr: curnum
-                                 , limit: 2
-                                 , layout: ['prev', 'page', 'next', 'skip', 'count']
-                                 , jump: function (obj, first) {
-                                     if (!first) {
-                                         //obj包含了当前分页的所有参数，比如：
-                                         curnum = obj.curr; // 当前页面
-                                         limitcount = obj.limit; // 每页记录数
-                                         // 查询新数据
-                                         ListScenicspot();
-                                     }
-                                 }
-                             })
-                         })
-
+                        layui.use('table', function () {
+                            var laypage = layui.laypage;
+                            laypage.render({
+                                elem: 'laypage'
+                                , count: data.count
+                                , curr: curnum
+                                , limit: 6
+                                , layout: ['prev', 'page', 'next', 'skip', 'count']
+                                , jump: function (obj, first) {
+                                    if (!first) {
+                                        //obj包含了当前分页的所有参数，比如：
+                                        curnum = obj.curr; // 当前页面
+                                        limitcount = obj.limit; // 每页记录数
+                                        // 查询新数据
+                                        ListScenicspot();
+                                    }
+                                }
+                            })
+                        })
                     },"json");
                 }
-                function toExit(id) {
-				    alert(id);
-					window.href="/countAdjust/spot-add.html?id="+id;
+                $(document).on('click','#insert1',function(){
+                    var id = $(this).val();
+                    layer.open({
+                        type: 2,
+                        title: '购物点添加',
+                        maxmin: true,
+                        shadeClose: true, //点击遮罩关闭层
+                        area : ['800px' , '700px'],
+                        content:'spotshopping-add.html?Spotid='+id
+                    });
+                });
+                $(document).on('click','#updateInfo',function(){
+                    var id = $(this).val();
+                    layer.open({
+                        type: 2,
+                        title: '景点修改',
+                        maxmin: true,
+                        shadeClose: true, //点击遮罩关闭层
+                        area : ['800px' , '700px'],
+                        content:'spot-add.html?id='+id
+                    });
+                });
+                $(document).on('click','#updateShopping',function(){
+                    var id = $(this).val();
+                    layer.open({
+                        type: 2,
+                        title: '景点修改',
+                        maxmin: true,
+                        shadeClose: true, //点击遮罩关闭层
+                        area : ['800px' , '700px'],
+                        content:'spotshopping-add.html?shoppingId='+id
+                    });
+                });
+                $(document).on('click','#deleteShopping',function(){
+                    var con=confirm("确认删除么?");
+                    if(con==true){
+                        var id = $(this).val();
+                        $.post("/shopping/deleteInfoById","id="+id,function (data) {
+                            if(data.data>0){
+                                alert("删除成功！");
+                            }else{
+                                alert("删除失败！");
+                            }
+                        },"json");
+                    }else{
+                        alert("取消操作！");
+                    }
+                });
+                $(document).on('click','#deleteInfo',function(){
+                    var con=confirm("确认删除么?");
+                    if(con==true){
+                        var id = $(this).val();
+                        $.post("/scenicspot/deleteInfoById","id="+id,function (data) {
+                            if(data.data>0){
+                                alert("删除成功！");
+                            }else{
+                                alert("删除失败！");
+                            }
+                        },"json");
+					}else{
+                        alert("取消操作！");
+					}
+
+                });
+                function deleteInfoByid(id){
+                    layer.open({
+                        type: 2,
+                        title: '景点删除',
+                        maxmin: true,
+                        shadeClose: true, //点击遮罩关闭层
+                        area : ['800px' , '700px'],
+                        content: 'countAdjust/deleteInfoById?id='+id
+                    });
                 }
+                $('#insert').on('click', function(){
+                    layer.open({
+                        type: 2,
+                        title: '景点添加',
+                        maxmin: true,
+                        shadeClose: true, //点击遮罩关闭层
+                        area : ['800px' , '700px'],
+                        content: '/countAdjust/spot-add1.html'
+                    });
+                });
+
 			});
 		</script>
 	</body>

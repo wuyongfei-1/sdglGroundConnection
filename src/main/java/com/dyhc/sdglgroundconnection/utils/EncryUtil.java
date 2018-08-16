@@ -2,11 +2,20 @@ package com.dyhc.sdglgroundconnection.utils;
 
 import org.junit.Test;
 
+import java.util.UUID;
+
 /**
  * 加密解密工具类
  */
 public class EncryUtil {
-
+    /**
+     * 获取uuid
+     * @return
+     */
+    public static String getUUID32(){
+        String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase();
+        return uuid;
+    }
     /**
      * 使用默认密钥进行DES加密
      */

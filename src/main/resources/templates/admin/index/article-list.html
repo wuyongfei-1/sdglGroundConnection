@@ -36,7 +36,7 @@
                             class="layui-icon">&#xe654;</i></button>-->
                 </div>
                 <div class="layui-inline">
-                    <input type="text" name="title" placeholder="请输入姓名" id="staffName" autocomplete="off" class="layui-input">
+                    <input type="text" name="title" placeholder="请输入姓名关键字" id="staffName" autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-inline">
                     开始时间
@@ -152,10 +152,10 @@
            type: "post",
            success: function (ReponseResult) {
                if (ReponseResult.data==0||ReponseResult.data=='0') {
-                   alert("失败")
+                   alert("删除失败")
                }
                if (ReponseResult.data==1||ReponseResult.data=='1') {
-                   alert("成功")
+                   alert("删除成功")
                }
                listPageGetStaffByNameAndCreateDateAndRoleId();
            },

@@ -20,13 +20,13 @@
                        autocomplete="off" class="layui-input">
             </div>
         </div>
-        <div class="layui-form-item">
+    <!--    <div class="layui-form-item">
             <label class="layui-form-label">密码：</label>
             <div class="layui-input-block">
                 <input type="text" name="password"  placeholder="请输入密码" autocomplete="off"
                        class="layui-input">
             </div>
-        </div>
+        </div>-->
         <div class="layui-form-item">
             <label class="layui-form-label">性别：</label>
             <div class="layui-input-block">
@@ -94,7 +94,7 @@
 
     function saveStaffInfo() {
         var staffname = $("input[name='staffname']").val();
-        var password = $("input[name='password']").val();
+/*        var password = $("input[name='password']").val();*/
         var sex = $("input[name='sex']").val();
         var roleId = $("#roleId option:selected").val();
 
@@ -105,11 +105,11 @@
         if (staffname==undefined||staffname==""||staffname==null){
             alert("不准为空");
             return;
-        }
+        }/*
         if (password==undefined||password==""||password==null){
             alert("不准为空");
             return;
-        }
+        }*/
         if (sex==undefined||sex==""||sex==null){
             alert("不准为空");
             return;
@@ -144,10 +144,10 @@
             type: "post",
             success: function (ReponseResult) {
                 if (ReponseResult.data == 0 || ReponseResult.data == '0') {
-                    alert("失败")
+                    alert("新增失败")
                 }
                 if (ReponseResult.data == 1 || ReponseResult.data == '1') {
-                    alert("成功")
+                    alert("新增成功")
                 }
                 parent.location.reload();
             },

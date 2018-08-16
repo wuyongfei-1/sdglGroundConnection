@@ -117,7 +117,7 @@
         var roleId= $('#Job-list option:selected') .val();
 
         $.ajax({
-            url: "/StaffController/listPageGetStaffByNameAndCreateDateAndRoleId",
+            url: "/staff/listPageGetStaffByNameAndCreateDateAndRoleId",
             data: {
                 "pageNo": curnum,
                 "pageSize": limitcount,
@@ -187,7 +187,7 @@
     function showGroupByRolenameRolesInfo() {
 
         $.ajax({
-            url: "/RoleController/showGroupByRolenameRolesInfo",
+            url: "/role/showGroupByRolenameRolesInfo",
             data: {},
             async:false,
             dataType: "json",

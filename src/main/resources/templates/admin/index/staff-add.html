@@ -85,10 +85,10 @@
 			function saveStaffInfo() {
 				var staffInfo=$("#staffInfo").serialize();
                 $.ajax({
-                    url: "/StaffController/saveStaffInfo",
+                    url: "/staff/saveStaffInfo",
                     data: staffInfo,
                     dataType: "json",
-                    type: "post",
+                    type: "get",
                     success: function (ReponseResult) {
 						if (ReponseResult.status==1||ReponseResult.status=='1') {
 						    alert("成功")

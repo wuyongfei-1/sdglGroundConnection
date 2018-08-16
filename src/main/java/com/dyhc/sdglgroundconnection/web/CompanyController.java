@@ -21,6 +21,7 @@ import java.util.List;
  * 公司信息 控制层
  **/
 @RestController
+@RequestMapping("/company")
 public class CompanyController  {
 
     // 日志对象

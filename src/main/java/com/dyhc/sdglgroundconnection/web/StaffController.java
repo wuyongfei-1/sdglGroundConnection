@@ -26,8 +26,8 @@ import java.util.List;
  * this class by created wuyongfei on 2018/6/5 13:50
  * 人员 控制层
  **/
-@RequestMapping("/StaffController")
 @RestController
+@RequestMapping("/staff")
 public class StaffController  {
 
     // 日志对象

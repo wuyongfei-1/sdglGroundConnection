@@ -24,9 +24,9 @@
             <if test="theUserName!=null and theUserName!=''">
                 `theUserName` = #{theUserName},
             </if>
-            <if test="sex!=null and sex!=''">
+
                 `sex` = #{sex},
-            </if>
+
             <if test="password!=null and password!=''">
                 `password` = #{password},
             </if>

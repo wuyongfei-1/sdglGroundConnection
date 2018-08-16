@@ -50,10 +50,10 @@
                 <thead>
                 <tr>
                     <th style="width:10px;">编号</th>
-                    <th style="width: 30px;">操作类型</th>
-                    <th style="width: 45px;">操作内容</th>
                     <th style="width: 30px;">权限</th>
                     <th style="width: 30px;">姓名</th>
+                    <th style="width: 30px;">操作类型</th>
+                    <th style="width: 45px;">操作内容</th>
                     <th style="width: 90px;">操作时间</th>
                 </tr>
                 </thead>
@@ -98,8 +98,8 @@
             success: function (e) {
                 var id = (curnum-1)*limitcount;
                 $(e.data).each(function (i, result) {
-                    str += "<tr id='node-1' class='parent collapsed'><td style='width:10px'>" + (++id) + "</td><td style='font-size:small'>" + result.operationType + "</td><td style='font-size:small'>" + result.operationContent + "</td>" +
-                        "<td style='font-size:small'>" + result.roleName + "</td><td style='font-size:small'>" + result.staffName + "</td><td style='font-size:small'>" + result.operationDate + "</td></tr>";
+                    str += "<tr id='node-1' class='parent collapsed'><td style='width:10px'>" + (++id) + "</td><td style='font-size:small'>" + result.roleName + "</td><td style='font-size:small'>" + result.staffName + "</td><td style='font-size:small'>" + result.operationType + "</td><td style='font-size:small'>" + result.operationContent + "</td>" +
+                        "<td style='font-size:small'>" + result.operationDate + "</td></tr>";
                 })
                 $('tbody').html(str);
                 // 分页插件

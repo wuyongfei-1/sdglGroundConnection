@@ -19,12 +19,12 @@
 							<input type="text" name="staffname" required lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
 						</div>
 					</div>
-					<div class="layui-form-item">
+			<!--		<div class="layui-form-item">
 						<label class="layui-form-label">密码：</label>
 						<div class="layui-input-block">
 							<input type="text" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
 						</div>
-					</div>
+					</div>-->
 					<div class="layui-form-item">
 						<label class="layui-form-label">性别：</label>
 						<div class="layui-input-block">
@@ -34,7 +34,7 @@
 					</div>
 					<div class="layui-form-item">
 						<label class="layui-form-label">职务：</label>
-						<div class="layui-input-block">
+						<div class="layui-input-block" id="Job-list">
 							<select id="roleId" name="roleId" lay-filter="status">
 									<option value="0">请选择职务</option>
 									<option value="1">经理</option>
@@ -80,9 +80,34 @@
 		<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/js/jquery-1.8.3.min.js"></script>
 		<script>
+
+
 			$(function () {
                 getStaffInfoByStaffId();
+                showGroupByRolenameRolesInfo();
             });
+
+            /*为下拉框绑定职务信息*/
+            function showGroupByRolenameRolesInfo() {
+
+                $.ajax({
+                    url: "/role/showGroupByRolenameRolesInfo",
+                    data: {},
+                    async:false,
+                    dataType: "json",
+                    type: "post",
+                    success: function (ReponseResult) {
+                        var content = "<option  value='0' selected='selected'>请选择职务</option>";
+                        $(ReponseResult.data).each(function (i, e) {
+                            content += "<option value='" + e.roleId + "'>" + e.rolename + "</option>";
+                        })
+                        $('#Job-list select').html(content);
+                    },
+                    error: function (res) {
+                        alert(res);
+                    }
+                })
+            }
 			/*修改用户信息*/
 			function updateStaffInfo() {
                 var staffInfo=$("#staffInfo").serialize();

@@ -64,4 +64,15 @@ public class ShoppingServiceImpl implements ShoppingService {
     public Integer deleteShoppingById(Integer shoppingId) throws Exception {
         return shoppingMapper.deleteByPrimaryKey(shoppingId);
     }
+
+    /**
+     * 修改购物信息 （wangtao）
+     * @param shopping 参数购物对象
+     * @return 返回受影响行数
+     * @throws Exception
+     */
+    @Override
+    public Integer updateShopping(Shopping shopping) throws Exception {
+        return shoppingMapper.updateByPrimaryKey(shopping);
+    }
 }

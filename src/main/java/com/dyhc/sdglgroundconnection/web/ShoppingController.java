@@ -62,6 +62,45 @@ public class ShoppingController  {
         }
     }
 
+
+    /**
+     *  根据购物点信息编号修改购物点信息 （wangtao）
+     * @param shopping 购物点信息参数对象
+     * @return 返回受影响行数
+     */
+    @RequestMapping("/updateShoppingById")
+    public ReponseResult updateShoppingById(Shopping shopping){
+        try {
+            //根据编号查询Shoping对象获取创建时间创建人等信息给修改对象
+            Shopping shopping1=shoppingService.getShoppingById(shopping.getShoppingId());
+            shopping.setCreater(shopping1.getCreater());
+            shopping.setCreationDate(shopping1.getCreationDate());
+            shopping.setWhetherDel(shopping1.getWhetherDel());
+            shopping.setModifier(1);
+            shopping.setModifiedData(new Date());
+            shopping.setScenicSpotId(shopping1.getScenicSpotId());
+            //一、删除景点信息
+            Integer result =shoppingService.updateShopping(shopping);
+            ReponseResult<Integer> data=null;
+            //二、判断是否成功
+            if(result>0){
+                //成功则给ReponseResult对象赋值并日志记录
+                data = ReponseResult.ok(result, "修改购物成功！");
+                logger.info(" method:updateShoppingById  修改购物成功！");
+            }else{
+                //失败则给ReponseResult对象赋值并日志记录
+                data = ReponseResult.ok(result, "修改购物失败！");
+                logger.info(" method:updateShoppingById  修改购物失败！");
+            }
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:updateShoppingById  修改购物失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
     /**
      * 根据编号查询购物点信息 （wangtao）
      * @param shoppingId shoppingId

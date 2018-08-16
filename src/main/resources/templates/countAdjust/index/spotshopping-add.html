@@ -22,7 +22,7 @@
 									<input type="hidden" id="shoppingId" th:value="${shoppingId}">
 									<label class="layui-form-label">购物地名称：</label>
 									<div class="layui-input-block">
-										<input type="text" name="shoppingSite" required lay-verify="required" placeholder="请输入购物点名称" autocomplete="off" class="layui-input">
+										<input type="text" name="shoppingSite" id="shoppingSite" required lay-verify="required" placeholder="请输入购物点名称" autocomplete="off" class="layui-input">
 									</div>
 								</div>
 							</div>
@@ -30,7 +30,7 @@
 					</div>
 					<div class="layui-form-item" style="padding-left: 10px;">
 						<div class="layui-input-block">
-							<input class="layui-btn" onclick="insertById()" id="tj" value="提交" style="width: 80px;font-size: small"></input>
+							<input class="layui-btn" onclick="exit()" id="tj" value="提交" style="width: 80px;font-size: small"></input>
 							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 						</div>
 					</div>
@@ -39,10 +39,14 @@
 	<script src="/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/js/jquery-1.8.2.min.js"></script>
 	<script>
-        var shoppingId=$("input[name='shoppingId']").val();
-        if(shoppingId==''||shoppingId==0){
-			getShoppingById(shoppingId);
-		}
+		$(function () {
+            var spotId=$("#spotId").val();
+            if(spotId==''||spotId==0){
+                var shoppingId=$("#shoppingId").val();
+                getShoppingById(shoppingId);
+            }
+        })
+
 		function getShoppingById(shoppingId) {
 			$.post("/shopping/getShoppingById","shoppingId="+shoppingId,function (data) {
                 $("#shoppingSite").val(data.data.shoppingSite);
@@ -50,10 +54,20 @@
         }
 
 		function exit(){
-            //如果购物信息编号不为空并且景点编号为空
+            var shoppingId=$("#shoppingId").val();
+                //如果购物信息编号不为空并且景点编号为空
             	if(shoppingId!=''&&$("#spotId").val()==''){
 					//调用修改方法
-
+                    var shoppingSite=$("input[name='shoppingSite']").val();
+                    alert(shoppingSite);
+					$.post("/shopping/updateShoppingById","shoppingId="+shoppingId+"&shoppingSite="+shoppingSite,function (data) {
+					    alert(data.data);
+						if(data.data>0){
+                            alert("修改成功！");
+						}else{
+						    alert("修改失败！");
+						}
+                    },"json");
 				}else{
             	    //调用新增方法
                     var spotId=$("#spotId").val();

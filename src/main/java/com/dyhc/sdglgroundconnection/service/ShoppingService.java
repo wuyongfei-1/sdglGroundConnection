@@ -35,9 +35,17 @@ public interface ShoppingService {
     Shopping getShoppingById(Integer id)throws Exception;
 
     /**
-     * 根据购编号删除购物点信息 （wangtao）
+     * 根据购物编号删除购物点信息 （wangtao）
      * @return 返回受影响行数
      * @throws Exception
      */
     Integer deleteShoppingById(Integer shoppingId)throws Exception;
+
+    /**
+     * 修改购物信息 （wangtao）
+     * @param shopping 参数购物对象
+     * @return 返回受影响行数
+     * @throws Exception
+     */
+    Integer updateShopping(Shopping shopping)throws Exception;
 }

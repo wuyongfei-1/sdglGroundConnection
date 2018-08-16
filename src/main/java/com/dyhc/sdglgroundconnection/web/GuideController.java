@@ -38,7 +38,7 @@ public class GuideController{
     public ReponseResult showHotel(@RequestParam("page") Integer pageNo, @RequestParam("limit") Integer pageSize, Guide guide) {
         try {
             pageSize = 6;
-            PageInfo<Guide> pageInfo = guideService.listCompany(pageNo,pageSize,guide);
+            PageInfo<Guide> pageInfo = guideService.listGuide(pageNo,pageSize,guide);
             ReponseResult<List> data = ReponseResult.ok(pageInfo.getList(), pageInfo.getTotal(), "分页获取导游成功！");
             logger.info(" method:showAllCompany  分页获取导游成功！");
             return data;

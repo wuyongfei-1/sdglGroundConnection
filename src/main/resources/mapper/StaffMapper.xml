@@ -70,7 +70,7 @@
     <select id="listGetStaffsByNameAndCreateDateAndRoleId" resultType="com.dyhc.sdglgroundconnection.pojo.Staff">
         SELECT `staffId`,`staffname`,`sex`,r.`roleId` AS roleId, r.`rolename` AS rolename ,`theUserName`,`cardId`,`qqnumber`,`currentAddress`,`phone` FROM `staff` AS s
         INNER JOIN `role` AS r ON s.`roleId`=r.`roleId`
-        WHERE 1=1  AND `whetherDel` =0
+        WHERE 1=1  AND s.`whetherDel` =0
             <if test="staffname !=null and staffname !='' ">
                AND  `staffname` LIKE CONCAT('%',#{staffname},'%')
             </if>

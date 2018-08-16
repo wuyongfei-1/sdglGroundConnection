@@ -16,6 +16,18 @@ import java.util.List;
 @Component
 public interface StaffMapper extends CommonMapper<Staff>{
 
+    /**
+     * 根据staffId删除修改状态
+     * @return
+     */
+    Integer updateStaffWhetherDel(@Param("staffId") Integer staffId);
+    /**
+     * 修改用户信息
+     * @param staff
+     * @return
+     */
+    Integer updateStaffInfo(Staff staff);
+
 
     /**
      * 根据 staffname createDate roleId 查询人员信息(lixiaojie)

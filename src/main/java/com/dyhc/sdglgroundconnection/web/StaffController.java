@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -37,7 +38,31 @@ public class StaffController  {
     @Autowired
     private StaffService staffService;
 
+    /**
+     * 根据用户id查询用户信息
+     * @param staffId
+     * @return
+     */
+    @RequestMapping(value = "/getStaffInfoByStaffId",method = RequestMethod.POST)
+    public ReponseResult getStaffInfoByStaffId(Integer staffId ) {
 
+        ReponseResult<Staff> data;
+        try {
+
+            Staff staff=staffService.getStaffInfoByStaffId(staffId);
+
+
+           data = ReponseResult.ok(staff, "根据用户id获取用户信息成功！");
+
+            logger.info(" method:getStaffInfoByStaffId  根据用户id获取用户信息成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:getStaffInfoByStaffId  根据用户id获取用户信息失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
     @RequestMapping(value = "/listPageGetStaffByNameAndCreateDateAndRoleId",method = RequestMethod.POST)
     public ReponseResult listPageGetStaffByNameAndCreateDateAndRoleId(Integer pageNo, Integer pageSize, String staffname, String firstDate,String lastDate, Integer roleId) {
         try {
@@ -45,10 +70,34 @@ public class StaffController  {
             PageInfo<Staff> pageInfo = staffService.listPageGetStaffByNameAndCreateDateAndRoleId( pageNo,  pageSize,  staffname,   firstDate, lastDate,  roleId);
             ReponseResult<List> data = ReponseResult.ok(pageInfo.getList(), pageInfo.getTotal(), "分页获取人員信息成功！");
 
-            logger.info(" method:showGroupByRolenameRolesInfo  获取角色类型信息成功！");
+            logger.info(" method:listPageGetStaffByNameAndCreateDateAndRoleId  分页获取人員信息成功！");
             return data;
         } catch (Exception e) {
-            logger.error(" method:showGroupByRolenameRolesInfo  获取角色类型信息失败，系统出现异常！");
+            logger.error(" method:listPageGetStaffByNameAndCreateDateAndRoleId  分页获取人員信息失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+    /**
+     * 增加
+     */
+    @RequestMapping(value = "/deleteStaffBystaffId",method = RequestMethod.POST )
+    public ReponseResult deleteStaffBystaffId(Integer staffId){
+        try {
+            int result=staffService.deleteStaffBystaffId(staffId);
+            ReponseResult<String> date;
+            if (result>0){
+                date= ReponseResult.ok("1","删除用户信息成功！");
+                logger.info(" method:deleteStaffBystaffId  删除用户信息成功！");
+
+            }else{
+                date= ReponseResult.ok("0","删除用户信息失败！");
+                logger.info(" method:deleteStaffBystaffId  删除用户信息失败！");
+            }
+            return date;
+        }catch (Exception e){
+            logger.error(" method:deleteStaffBystaffId  删除用户信息失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
             return err;
@@ -59,22 +108,69 @@ public class StaffController  {
      * 增加
      */
     @RequestMapping(value = "/saveStaffInfo",method = RequestMethod.POST )
-    public ReponseResult saveStaffInfo(@RequestBody Staff staff){
+    public ReponseResult saveStaffInfo(Staff staff){
         try {
             int result=staffService.saveStaffInfo(staff);
-            System.out.println(result);
             ReponseResult<String> date;
             if (result>0){
-                date= ReponseResult.ok("{\"status\":1}","增加用户信息成功！");
+                date= ReponseResult.ok("1","增加用户信息成功！");
                 logger.info(" method:saveStaffInfo  增加用户信息成功！");
 
             }else{
-                date= ReponseResult.ok("{\"status\":0}","增加用户信息失败！");
+                date= ReponseResult.ok("0","增加用户信息失败！");
                 logger.info(" method:saveStaffInfo  增加用户信息失败！");
             }
             return date;
         }catch (Exception e){
             logger.error(" method:saveStaffInfo  增加用户信息失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+    /**
+     * 修改删除状态
+     */
+    @RequestMapping(value = "/updateStaffWhetherDel",method = RequestMethod.POST )
+    public ReponseResult updateStaffWhetherDel(Integer staffId){
+        try {
+            int result=staffService.updateStaffWhetherDel(staffId);
+            ReponseResult<String> date;
+            if (result>0){
+                date= ReponseResult.ok("1","修改用户删除状态成功！");
+                logger.info(" method:updateStaffWhetherDel  修改用户删除状态成功！");
+
+            }else{
+                date= ReponseResult.ok("0","修改用户删除状态失败！");
+                logger.info(" method:updateStaffWhetherDel  修改用户删除状态失败！");
+            }
+            return date;
+        }catch (Exception e){
+            logger.error(" method:updateStaffWhetherDel  修改用户删除状态失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+    /**
+     * 修改
+     */
+    @RequestMapping(value = "/updateStaffInfo",method = RequestMethod.POST )
+    public ReponseResult updateStaffInfo(Staff staff){
+        try {
+            int result=staffService.updateStaffInfo(staff);
+            ReponseResult<String> date;
+            if (result>0){
+                date= ReponseResult.ok("1","修改用户信息成功！");
+                logger.info(" method:updateStaffInfo  修改用户信息成功！");
+
+            }else{
+                date= ReponseResult.ok("0","修改用户信息失败！");
+                logger.info(" method:updateStaffInfo  修改用户信息失败！");
+            }
+            return date;
+        }catch (Exception e){
+            logger.error(" method:updateStaffInfo  修改用户信息失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
             return err;

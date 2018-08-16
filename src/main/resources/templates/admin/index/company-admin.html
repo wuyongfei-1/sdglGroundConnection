@@ -95,10 +95,12 @@
 	</body>
 	<script>
 
-        var limitcount = 3; // 每页总记录数
+        var limitcount = 6; // 每页总记录数
         var curnum = 1;  // 当前页码
+			//窗体加载
             $(function () {
                 loadData();
+                //添加弹窗事件
                 $('#anteraddInfo').on('click', function(){
                     layer.open({
                         type: 2,
@@ -109,22 +111,24 @@
                         content: 'menu-add.html'
                     });
                 });
-                $('#updatInfo').on('click', function(){
+            });
+			//修改弹窗事件
+            function updatInfo(companyid) {
                     layer.open({
                         type: 2,
                         title: '公司修改',
                         maxmin: true,
                         shadeClose: true, //点击遮罩关闭层
                         area : ['800px' , '520px'],
-                        content: 'menu-add.html'
+                        content: 'menu-add.html?companyid='+companyid
                     });
-                });
-            });
+            }
+		//分页查询
         function loadData() {
             var companyName=$("#companyNmae").val();
             var str = "";
             $.ajax({
-                url: "/showAllCompany",
+                url: "/company/showAllCompany",
                 data: {page:curnum,limit:limitcount,companyName:companyName},
                 dataType: "json",
                 type: "get",
@@ -137,13 +141,12 @@
 							+ result.businessLicense + "</td>"
 							+ "<td>\n" +
                             "<div class=\"layui-inline\">\n" +
-                            "<input type='button' id='updatInfo'  class=\"layui-btn layui-btn-mini layui-btn-normal  edit-btn\" value='修改'> </input>" +
+                            "<button onclick='updatInfo("+result.companyId+")' id='updatInfo'  class=\"layui-btn layui-btn-mini layui-btn-normal  edit-btn\" value='修改'><i class='layui-icon'>&#xe642</i></button>" +
                             "<button onclick='deleteCompany("+result.companyId+")' class=\"layui-btn layui-btn-mini layui-btn-danger del-btn\" data-id=\"1\"><i class=\"layui-icon\">&#xe640;</i></button>\n" +
                             "</div>\n" +
                             "</td>"+"</tr>";
                     })
                     $('tbody').html(str);
-
                     // 分页插件
                     layui.use('table', function () {
                         var laypage = layui.laypage;
@@ -151,7 +154,7 @@
                             elem: 'laypage'
                             , count: e.count
                             , curr: curnum
-                            , limit: 3
+                            , limit: 6
                             , layout: ['prev', 'page', 'next', 'skip', 'count']
                             , jump: function (obj, first) {
                                 if (!first) {
@@ -171,18 +174,22 @@
             })
         }
         
-        
+        //删除方法
         function deleteCompany(id) {
+                alert(id);
             $.ajax({
-                url:"/deleteCompanyByID",
-                data:{id:id},
+                url:"/company/deleteCompanyByID",
+                data:{companyid:id},
                 dataType: "json",
                 type: "get",
                 success:function (data) {
-                    if (data>0){
+                    if (data.data==1 || data.data=="1"){
                         alert("删除成功");
+                        loadData();
                     } else{
                         alert("删除失败");
+                        loadData();
+
                     }
                 }
             })

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -13,6 +14,7 @@
 		<div class="wrap-container">
 			<form class="layui-form" style="width: 90%;padding-top: 20px;">
 					<div class="layui-form-item">
+						<input type="hidden" th:value="${companyid}" id="comid">
 						<label class="layui-form-label">公司名称：</label>
 						<div class="layui-input-block">
 							<input type="text" name="title1" required lay-verify="required" placeholder="请输入公司名称" autocomplete="off" class="layui-input" id="companyName">
@@ -51,7 +53,7 @@
 					
 					<div class="layui-form-item">
 						<div class="layui-input-block">
-							<button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo" onclick="insertCompany()">立即提交</button>
+							<button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo" onclick="JIudge()">立即提交</button>
 							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 						</div>
 					</div>
@@ -71,7 +73,67 @@
 					return false;
 				});
 			});
+			//窗体加载事件
+            $(function () {
+                updateById();
+            })
+			//判断是增加还是删除
+			function JIudge() {
+				var id=$("#comid").val();
+				if (id==null || id==""){
+                    insertCompany();
+				}
+                if (id != null || id != ""){
+                    updateCompany();
+                }
+            }
+			//id查询赋值
+			function updateById(){
+                var id=$("#comid").val();
+                $.ajax({
+                    url:"/company/selectCompanyById",
+                    data:{id:id},
+                    dataType: "json",
+                    type: "get",
+                    success:function (data) {
+                        alert(data.data.companyName)
+                        $("#companyName").val(data.data.companyName);
+                        $("#companyAddress").val(data.data.companyAddress);
+                        $("#companyPhone").val(data.data.companyPhone);
+                        $("#fax").val(data.data.fax);
+                        $("#zipCode").val(data.data.zipCode);
+                        $("#businessLicense").val(data.data.businessLicense);
+                    }
+                })
+			}
 
+            //修改方法
+            function updateCompany() {
+                var id=$("#comid").val();
+                var companyName=$("#companyName").val();
+                var companyAddress=$("#companyAddress").val();
+                var companyPhone=$("#companyPhone").val();
+                var fax=$("#fax").val();
+                var zipCode=$("#zipCode").val();
+                var businessLicense=$("#businessLicense").val();
+                $.ajax({
+                    url:"/company/updateCompany",
+                    data:{companyName:companyName,companyAddress:companyAddress,companyPhone:companyPhone,fax:fax,zipCode:zipCode,businessLicense:businessLicense,companyId:id},
+                    dataType: "json",
+                    type: "get",
+                    success:function (data) {
+                        if (data.data==1 || data.data=="1"){
+                            alert("修改成功");
+                        } else{
+                            alert("修改失败");
+                        }
+                        parent.location.reload();
+                    }
+                })
+            }
+			
+			
+			//添加方法
 			function insertCompany() {
 			    var companyName=$("#companyName").val();
                 var companyAddress=$("#companyAddress").val();
@@ -80,16 +142,17 @@
                 var zipCode=$("#zipCode").val();
                 var businessLicense=$("#businessLicense").val();
 				$.ajax({
-					url:"/insertCompany",
+					url:"/company/insertCompany",
 					data:{companyName:companyName,companyAddress:companyAddress,companyPhone:companyPhone,fax:fax,zipCode:zipCode,businessLicense:businessLicense},
                     dataType: "json",
                     type: "get",
                     success:function (data) {
-                        if (data.states==1 || data.states=="1"){
+                        if (data.data==1 || data.data=="1"){
                             alert("增加成功");
                         } else{
                             alert("增加失败");
                         }
+                        parent.location.reload();
                     }
 				})
             }

@@ -138,7 +138,7 @@
 							+ "<td>\n" +
                             "<div class=\"layui-inline\">\n" +
                             "<input type='button' id='updatInfo'  class=\"layui-btn layui-btn-mini layui-btn-normal  edit-btn\" value='修改'> </input>" +
-                            "<button class=\"layui-btn layui-btn-mini layui-btn-danger del-btn\" data-id=\"1\"><i class=\"layui-icon\">&#xe640;</i></button>\n" +
+                            "<button onclick='deleteCompany("+result.companyId+")' class=\"layui-btn layui-btn-mini layui-btn-danger del-btn\" data-id=\"1\"><i class=\"layui-icon\">&#xe640;</i></button>\n" +
                             "</div>\n" +
                             "</td>"+"</tr>";
                     })
@@ -172,10 +172,10 @@
         }
         
         
-        function deleteCompany() {
+        function deleteCompany(id) {
             $.ajax({
                 url:"/deleteCompanyByID",
-                data:{},
+                data:{id:id},
                 dataType: "json",
                 type: "get",
                 success:function (data) {

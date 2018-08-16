@@ -24,23 +24,4 @@ public class OperationlogController {
     @Autowired
     private OperationlogService operationlogService;
 
-   /* *//**
-     * 为每角色的每一个操作添加日志记录（wyf）
-     *
-     * @return
-     *//*
-    @RequestMapping("/addOperation.html")
-    public ReponseResult addOperationLog() {
-        Operationlog operationlog = new Operationlog();
-        try {
-            Integer result = operationlogService.addOperationLog(operationlog);
-            ReponseResult<String> reponseResult = ReponseResult.ok("{\"status\":" + result + "}", "添加成功");
-            logger.info("method:addOperationLog  添加日志成功！");
-            return reponseResult;
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.error("method:addOperationLog  添加日志失败！");
-            return ReponseResult.err("系统出现异常！");
-        }
-    }*/
 }

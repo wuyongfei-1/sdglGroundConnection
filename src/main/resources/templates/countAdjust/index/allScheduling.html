@@ -7,10 +7,6 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title>网站后台管理模版</title>
-        <style>
-        	tr{font-size:5px}
-			html { overflow-x: hidden; overflow-y: auto; }
-        </style>
 		<link rel="stylesheet" type="text/css" href="/admin/layui/css/layui.css" />
 		<link rel="stylesheet" type="text/css" href="/admin/css/admin.css" />
 	</head>
@@ -30,23 +26,22 @@
 				</div>
 			</form>
 			<div class="layui-form" id="table-list">
-				<table class="layui-table" lay-size="lg" style="width:1110px">
-                			
+				<table class="layui-table" lay-even lay-skin="nob">
+
 					<thead>
-						<tr>
-							<th style="width:24px; font-size:5px">序号</th>
-							<th style="width:60px; font-size:5px">组团社名称</th>
-                            <th style="width:80px; font-size:5px">旅行开始时间</th>
-                            <th style="width:80px; font-size:5px">旅行结束时间</th>
-                            <th style="width:25px; font-size:5px">人数</th>
-                            <th style="width:40px; font-size:5px">客源地</th>
-                            <th style="width:20px; font-size:5px">总计</th>
-                            <th style="width:10px; font-size:5px">状态</th>
-                            <th>操作</th>
-						</tr>
+					<tr>
+						<td class="hidden-xs">序号</td>
+						<td class="hidden-xs">组团社名字</td>
+						<td class="hidden-xs">人数</td>
+						<td class="hidden-xs">客源地</td>
+						<td class="hidden-xs">旅行开始时间</td>
+						<td class="hidden-xs">旅行结束时间</td>
+						<td class="hidden-xs">状态</td>
+						<td class="hidden-xs">操作</td>
+					</tr>
 					</thead>
-					<tbody id="tb">
-						
+					<tbody id="biuuu_city_list">
+
 					</tbody>
 				</table>
 				<div class="page-wrap">

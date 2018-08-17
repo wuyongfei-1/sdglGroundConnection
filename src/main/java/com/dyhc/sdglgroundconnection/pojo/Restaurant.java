@@ -4,11 +4,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
- *  餐馆表
+ * 餐馆表
  **/
 @Table(name = "restaurant")
 public class Restaurant {
@@ -37,6 +38,9 @@ public class Restaurant {
     private String value1;
     private String value2;
     private String value3;
+
+    @Transient
+    private List<MealType> mealTypes; // 所属的饮食类型列表
 
     @Id
     @Column(name = "restaurantId")
@@ -168,4 +172,11 @@ public class Restaurant {
     }
 
 
+    public List<MealType> getMealTypes() {
+        return mealTypes;
+    }
+
+    public void setMealTypes(List<MealType> mealTypes) {
+        this.mealTypes = mealTypes;
+    }
 }

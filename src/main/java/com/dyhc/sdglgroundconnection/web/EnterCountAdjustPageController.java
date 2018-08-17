@@ -39,7 +39,8 @@ public class EnterCountAdjustPageController {
      * @return
      */
     @RequestMapping("/admin-info.html")
-    public String  admininfo() {
+    public String  admininfo(String staffId, HttpServletRequest request) {
+        request.setAttribute("staffId", staffId);
         return "countAdjust/index/admin-info";
     }
     /**

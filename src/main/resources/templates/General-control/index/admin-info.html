@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -21,59 +22,60 @@
 				  <div class="layui-form-item">
 				    <label class="layui-form-label">人员编号：</label>
 				    <div class="layui-input-block">
-				      <input type="text" name="id" disabled autocomplete="off" class="layui-input layui-disabled" value="1">
+						<input type="hidden" name="staffId" id="hiddenStaffId" th:value="${staffId}">
+				      <input type="text" name="staffId"  disabled autocomplete="off" class="layui-input layui-disabled" value="1">
 				    </div>
 				  </div>
 				  <div class="layui-form-item">
 				    <label class="layui-form-label">用户名：</label>
 				    <div class="layui-input-block">
-				      <input type="text" name="username" disabled autocomplete="off" class="layui-input layui-disabled" value="admin">
+				      <input type="text" name="theUserName"  disabled autocomplete="off" class="layui-input layui-disabled" value="admin">
 				    </div>
 				  </div>
 				   <div class="layui-form-item">
 				    <label class="layui-form-label">姓名：</label>
 				    <div class="layui-input-block">
-				      <input type="text" name="name" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" value="未知">
+				      <input type="text" name="staffname" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" value="未知">
 				    </div>
 				  </div>
 				     <div class="layui-form-item">
 				    <label class="layui-form-label">性别：</label>
 				    <div class="layui-input-block">
-				      <input type="text" name="username" disabled autocomplete="off" class="layui-input layui-disabled" value="admin">
+				      <input type="text" name="sex" disabled autocomplete="off" class="layui-input layui-disabled" value="admin">
 				    </div>
 				  </div>
 				  <div class="layui-form-item">
 				    <label class="layui-form-label">身份证号：</label>
 				    <div class="layui-input-block">
-				      <input type="text" name="username" disabled autocomplete="off" class="layui-input layui-disabled" value="admin">
+				      <input type="text" name="cardId" disabled autocomplete="off" class="layui-input layui-disabled" value="admin">
 				    </div>
 				  </div>
 				  <div class="layui-form-item">
 				    <label class="layui-form-label">QQ号码：</label>
 				    <div class="layui-input-block">
-				      <input type="text" name="name" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" value="未知">
+				      <input type="text" name="qqnumber" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" value="未知">
 				    </div>
 				  </div>
 				  <div class="layui-form-item">
 				    <label class="layui-form-label">头像地址：</label>
 				    <div class="layui-input-block">
-				      <input type="text" name="name" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" value="未知">
+				      <input type="text" name="headPortraitPath" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" value="未知">
 				    </div>
 				  </div>
 				  <div class="layui-form-item">
 				    <label class="layui-form-label">现住址：</label>
 				    <div class="layui-input-block">
-				      <input type="text" name="name" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" value="未知">
+				      <input type="text" name="currentAddress" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" value="未知">
 				    </div>
 				  </div>
 				  <div class="layui-form-item">
 				    <label class="layui-form-label">联系电话：</label>
 				    <div class="layui-input-block">
-				      <input type="text" name="name" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" value="未知">
+				      <input type="text" name="phone" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" value="未知">
 				    </div>
 				  </div>
-				  
-				  
+
+
 				  <div class="layui-form-item">
 				    <div class="layui-input-block">
 				      <button class="layui-btn layui-btn-normal" lay-submit lay-filter="adminInfo">立即提交</button>
@@ -117,6 +119,7 @@
 		  </div>
 		</div>
 	<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/js/jquery-1.8.3.min.js"></script>
 	<script>
 		//Demo
 		layui.use(['form','element'], function(){
@@ -134,6 +137,38 @@
 		    return false;
 		  });
 		});
+        getStaffInfoByStaffId();
+        function getStaffInfoByStaffId() {
+            /*var hiddenStaffId=$("#hiddenStaffId").val(1);
+            alert(hiddenStaffId);*/
+            $.ajax({
+                url: "/staff/getStaffInfoByStaffId",
+                data: {"staffId":1},
+                dataType: "json",
+                type: "post",
+                success: function (ReponseResult) {
+                    $("input[name='staffname']").val(ReponseResult.data.staffname);
+                    if(ReponseResult.data.sex==1){
+                        $("input[name='sex']").val("男")
+                    }else{
+                        $("input[name='sex']").val("女")
+                    }
+                    $("input[name='staffId']").val(ReponseResult.data.staffId);
+                    $("input[name='theUserName']").val(ReponseResult.data.theUserName);
+                    $("input[name='headPortraitPath']").val(ReponseResult.data.headPortraitPath);
+                    $("input[name='cardId']").val(ReponseResult.data.cardId);
+                    $("input[name='qqnumber']").val(ReponseResult.data.qqnumber);
+                    $("input[name='currentAddress']").val(ReponseResult.data.currentAddress);
+                    $("input[name='phone']").val(ReponseResult.data.phone);
+
+                },
+                error: function (res) {
+                    /*  alert(res);*/
+                }
+            })
+        }
+
+
 	</script>
 	</body>
 </html>

@@ -59,11 +59,10 @@
             	if(shoppingId!=''&&$("#spotId").val()==''){
 					//调用修改方法
                     var shoppingSite=$("input[name='shoppingSite']").val();
-                    alert(shoppingSite);
 					$.post("/shopping/updateShoppingById","shoppingId="+shoppingId+"&shoppingSite="+shoppingSite,function (data) {
-					    alert(data.data);
 						if(data.data>0){
                             alert("修改成功！");
+                            parent.location.reload();
 						}else{
 						    alert("修改失败！");
 						}
@@ -75,6 +74,7 @@
                     $.post("/shopping/insertInfo","scenicSpotId="+spotId+"&shoppingSite="+shoppingSite,function(data) {
                         if(data.data>0){
                             alert("添加成功！");
+                            parent.location.reload();
                         }else{
                             alert("添加失败！");
                         }

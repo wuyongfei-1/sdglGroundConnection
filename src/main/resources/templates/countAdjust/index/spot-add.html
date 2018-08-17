@@ -4,6 +4,7 @@
 		<meta charset="UTF-8">
 		<meta name="renderer" content="webkit">
   		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta http-equiv="Content-Type" content="multipart/form-data; charset=utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title>网站后台管理模版</title>
 		<link rel="stylesheet" type="text/css" href="/admin/layui/css/layui.css"/>
@@ -26,7 +27,7 @@
 								</div>
 								<div class="layui-form-item">
 									<label class="layui-form-label">父景点：</label>
-									<div class="layui-inline">
+									<div class="layui-inline" id="parent">
 										<select name="parentId" lay-filter="status" id="parentId">
 											<option value="0">无</option>
 											<option value="1">AAA</option>
@@ -37,7 +38,7 @@
 								</div>
 								<div class="layui-form-item">
 									<label class="layui-form-label">等级：</label>
-									<div class="layui-inline">
+									<div class="layui-inline" id="level">
 										<select name="typeId" lay-filter="status" id="typeId">
 											<option value="0">请选择景点等级</option>
 											<option value="5">A</option>
@@ -55,9 +56,10 @@
 									</div>
 								</div>
 								<div class="layui-form-item">
-									<label class="layui-form-label">图片地址：</label>
+									<label class="layui-form-label">上传图片：</label>
 									<div class="layui-input-block">
-										<i class="layui-icon ">&#xe67c;</i>上传图片
+										<input type="file" id="imageFile" name="multipartFile" onchange="showimg()"/><img src="" style="width: 60px;height: 60px" id="imgs">
+										<input type="hidden" value="" id="path">
 									</div>
 								</div>
 								<div class="layui-form-item">
@@ -84,7 +86,7 @@
 					<div class="layui-form-item" style="padding-left: 10px;">
 						<div class="layui-input-block">
 							<button class="layui-btn layui-btn-normal" type="button" id="save">立即提交</button>
-							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+							<button type="reset" id="primarybtn" class="layui-btn layui-btn-primary">重置</button>
 						</div>
 					</div>
 				</form>
@@ -94,51 +96,128 @@
 	<script src="/js/jquery-1.8.2.min.js"></script>
 	<script>
 		$(function () {
-
-        })
-        parentScenicSpot();
-        getScenicSpotLevel();
-        var id=$("#scenicSpotId").val();
-        if(id!=''&&id>0){
-            getScenicSpotById(id);
-        }
-        $("#save").click(function () {
-            //insertscenicSpot();
-            if(id>0){
-                updateScenicSpot(id);
-            }else{
-                insertscenicSpot();
+            parentScenicSpot();
+            getScenicSpotLevel();
+            $("#imgs").hide();
+            var id=$("#scenicSpotId").val();
+            if(id!=''&&id>0){
+                getScenicSpotById(id);
             }
-        });
+            $("#save").click(function () {
+                //insertscenicSpot();
+                if(id>0){
+                    updateScenicSpot(id);
+                }else{
+                    insertupload();
+                }
+            });
+        })
+       $(document).on("click","#primarybtn",function () {
+           primarybtn();
+       })
+		function showimg() {
+            var file = document.getElementById("imageFile").files[0];
+            //创建读取文件的对象
+            var reader = new FileReader();
+            //创建文件读取相关的变量
+            var imgFile;
+            reader.onload=function(e) {
+                imgFile = e.target.result;
+                $("#imgs").attr('src', imgFile);
+                $("#imgs").show();
+            };
+            //正式读取文件
+            reader.readAsDataURL(file);
+        }
+        function primarybtn() {
+            $("#imgs").hide();
+        }
+        function insertupload() {
+            var scenicSpotName=$("input[name='scenicSpotName']").val();
+            var parentId=$("select[name='parentId']").val();
+            var typeId=$("select[name='typeId']").val();
+            var scenicSpotAddress=$("input[name='scenicSpotAddress']").val();
+            var costprice=$("input[name='costprice']").val();
+            var offer=$("input[name='offer']").val();
+            var remarks=$("input[name='remarks']").val();
+            var savePath = "E://sdglGroundConnection/src/main/resources/static/images/Scenicspot"; // 图片保存路径
+            var fileObj = document.getElementById("imageFile").files[0]; // 获取文件对象
+            // formData对象，用来序列化二进制数据
+            var formData = new FormData();
+            formData.append("multipartFile", fileObj);
+            formData.append("savePath", savePath);
+            formData.append("scenicSpotName",scenicSpotName);
+            formData.append("parentId",parentId);
+            formData.append("typeId",typeId);
+            formData.append("scenicSpotAddress",scenicSpotAddress);
+            formData.append("costprice",costprice);
+            formData.append("offer",offer);
+            formData.append("remarks",remarks);
+            // 发送请求到服务器
+            $.ajax({
+                url: "/scenicspot/insertScenicspot",
+                data: formData,
+                dataType: "json",
+                type: "post",
+                cache: false, // 上传文件不需要缓存
+                processData: false, // 对参数进行序列化处理
+                contentType: false,
+                success: function (result) {
+                    if (result.code == 0) {
+                        alert(result.msg); // 上传成功
+                    } else {
+                        alert(result.msg); // 上传失败
+                    }
+                },
+                error: function (res) {
+                    alert(res);
+                }
+            })
+        }
         function getScenicSpotLevel() {
             //获取景点等级
             $.post("/dictionaries/ListDictionariesByScenicspot","",function (data) {
-                var content1="<option value=\"0\">请选择景点等级</option>";
+                var content1="<select name=\"typeId\" lay-filter=\"status\" id=\"typeId\"><option value=\"0\">请选择景点等级</option>";
                 $.each(data.data,function (i,e) {
                     content1+="<option value=\""+e.valueId+"\">"+e.valueContent1+"</option>";
-                })
-                $("#typeId").html(content1);
+                });
+                content1+="</select>";
+                $("#level").html(content1);
             },"json");
         }
         function parentScenicSpot() {
             //获取父景点信息
             $.post("/scenicspot/ListScenicspotByParentId","",function (data) {
-                var content="<option value=\"0\">请选择父景点</option>";
+                var content="<select name=\"parentId\" lay-filter=\"status\" id=\"parentId\"><option value=\"0\">请选择父景点</option>";
                 $.each(data.data,function (i,e) {
                     content+="<option value=\""+e.scenicSpotId+"\">"+e.scenicSpotName+"</option>";
-                })
-                $("#parentId").html(content);
+                });
+                content+="</select>";
+                $("#parent").html(content);
             },"json")
         }
 		function getScenicSpotById(id) {
 			$.post("/scenicspot/getInfoById","scenicSpotId="+id,function (data) {
                 $("input[name='scenicSpotName']").val(data.data.scenicSpotName);
-                $("#parentId").val(data.data.parentId);
-                $("#typeId").val(data.data.typeId);
+                var pid=data.data.parentId;
+                /*alert(pid);*/
+                $("select[name='parentId']").val(pid);
+                /*var parentId=$("select[name='parentId']").val()
+                alert(parentId);*/
+                var tid=data.data.typeId;
+                /*alert(tid);*/
+                $("select[name='typeId']").val(tid);
+                /*var typeId=$("select[name='typeId']").val();
+                alert(typeId);*/
+                var savePath = "/images/Scenicspot/";
                 $("input[name='scenicSpotAddress']").val(data.data.scenicSpotAddress);
                 $("input[name='costprice']").val(data.data.costprice);
                 $("input[name='offer']").val(data.data.offer);
                 $("input[name='remarks']").val(data.data.remarks);
+                var path=savePath+data.data.picturePath;
+                $("#imgs").attr('src', path);
+				$("#path").val(data.data.picturePath);
+                $("#imgs").show();
             },"json");
         }
         function updateScenicSpot(id) {
@@ -149,35 +228,46 @@
             var costprice=$("input[name='costprice']").val();
             var offer=$("input[name='offer']").val();
             var remarks=$("input[name='remarks']").val();
-            $.post("/scenicspot/updateInfoById","scenicSpotName="+scenicSpotName+"&parentId="+parentId+"" +
-                "&typeId="+typeId+"&scenicSpotAddress="+scenicSpotAddress+"&costprice="+costprice+
-                "&offer="+offer+"&remarks="+remarks+"&scenicSpotId="+id,function (data){
-				if(data.data>0){
-				    alert("修改成功！");
-				}else{
-                    alert("修改失败！");
-				}
-			},"json");
+            var savePath = "E://sdglGroundConnection/src/main/resources/static/images/Scenicspot"; // 图片保存路径
+            var fileObj = document.getElementById("imageFile").files[0]; // 获取文件对象
+            var formData = new FormData();
+            if(fileObj==undefined){
+                var file=new File(["first Line Text","Second Line Text"],"a.txt");
+                fileObj=file;
+			}
+            formData.append("multipartFile", fileObj);
+            formData.append("savePath", savePath);
+            formData.append("scenicSpotName",scenicSpotName);
+            formData.append("parentId",parentId);
+            formData.append("typeId",typeId);
+            formData.append("scenicSpotAddress",scenicSpotAddress);
+            formData.append("costprice",costprice);
+            formData.append("offer",offer);
+            formData.append("scenicSpotId",id);
+            formData.append("remarks",remarks);
+            // formData对象，用来序列化二进制数据
+            // 发送请求到服务器
+            $.ajax({
+                url: "/scenicspot/updateInfoById",
+                data: formData,
+                dataType: "json",
+                type: "post",
+                cache: false, // 上传文件不需要缓存
+                processData: false, // 对参数进行序列化处理
+                contentType: false,
+                success: function (result) {
+                    if (result.code == 0) {
+                        alert(result.msg); // 上传成功
+                        parent.location.reload();
+                    } else {
+                        alert(result.msg); // 上传失败
+                    }
+                },
+                error: function (res) {
+                    alert(res);
+                }
+            })
         }
-
-		function insertscenicSpot(){
-		    var scenicSpotName=$("input[name='scenicSpotName']").val();
-            var parentId=$("select[name='parentId']").val();
-            var typeId=$("select[name='typeId']").val();
-            var scenicSpotAddress=$("input[name='scenicSpotAddress']").val();
-            var costprice=$("input[name='costprice']").val();
-            var offer=$("input[name='offer']").val();
-            var remarks=$("input[name='remarks']").val();
-            $.post("/scenicspot/insertScenicspot","scenicSpotName="+scenicSpotName+"&parentId="+parentId+"" +
-				"&typeId="+typeId+"&scenicSpotAddress="+scenicSpotAddress+"&costprice="+costprice+
-				"&offer="+offer+"&remarks="+remarks,function (data) {
-				if(data.data>0){
-				    alert("新增成功！");
-				}else{
-                    alert("新增失败！");
-				}
-            },"json");
-		}
 		layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog', 'common', 'tool', 'element', 'upload', 'layedit'], function() {
 				var form = layui.form(),
 					layer = layui.layer,

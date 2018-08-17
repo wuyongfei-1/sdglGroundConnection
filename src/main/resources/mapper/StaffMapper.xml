@@ -9,6 +9,15 @@
           `whetherDel` = 1
         WHERE `staffId` = #{staffId};
     </update>
+
+
+    <update id="updateStaffpa">
+                UPDATE
+        `staff`
+        SET
+        `password` = #{password}
+        WHERE `staffId` = #{staffId};
+    </update>
     <!--根据传入的staff信息修改-->
     <update id="updateStaffInfo" parameterType="com.dyhc.sdglgroundconnection.pojo.Staff">
             UPDATE

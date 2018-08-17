@@ -22,8 +22,13 @@
         #{costprice},#{offer},#{typeCode},#{typeId},#{picturePath},#{describe},#{remarks},
         #{whetherDel},#{createBy},#{createDate});
     </insert>
+    <update id="updateScenicspotInfoByParentId">
+        UPDATE scenicspot SET parentId = #{parentId},scenicSpotName = #{scenicSpotName},
+        costprice = #{costprice},offer = #{offer},typeId = #{typeId},picturePath = #{picturePath},updateBy=#{updateBy}
+        ,remarks = #{remarks},updateDate = #{updateDate} WHERE scenicSpotId = #{scenicSpotId}
+    </update>
     <select id="ListScenicspotByParentId" resultType="com.dyhc.sdglgroundconnection.pojo.Scenicspot">
-          SELECT * FROM scenicspot WHERE parentId=0
+          SELECT * FROM scenicspot
     </select>
 
 </mapper>

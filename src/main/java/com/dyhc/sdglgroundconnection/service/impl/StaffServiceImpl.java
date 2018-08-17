@@ -62,6 +62,8 @@ public class StaffServiceImpl implements StaffService {
     @Override
     @RecordOperation(type = "用户", desc = "修改了一条用户信息")
     public int updateStaffpas(Staff staff) throws Exception {
+        staff.setPassword(EncryUtil.encrypt("123456"));//密码加密
+
         return staffMapper.updateStaffpa(staff);
     }
 

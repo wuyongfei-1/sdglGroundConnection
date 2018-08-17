@@ -95,7 +95,9 @@ public class EnterCountAdjustPageController {
      * @return
      */
     @RequestMapping("/carrental-update.html")
-    public String  carRentalUpdate() {
+    public String  carRentalUpdate(String carrentalId ,HttpServletRequest request)
+    {
+        request.setAttribute("carrentalId",carrentalId);
         return "countAdjust/index/carrental-update";
     }
     /**
@@ -344,9 +346,21 @@ public class EnterCountAdjustPageController {
      * 进入system页
      * @return
      */
-    @RequestMapping("/vehicleType_add.html")
-    public String  vehicleType_add() {
-        return "countAdjust/index/vehicleType_add";
+    @RequestMapping("/vehicletype-add.html")
+    public String  vehicletypeAdd(String carrentalId,HttpServletRequest request) {
+        request.setAttribute("carrentalId",carrentalId);
+        return "countAdjust/index/vehicletype-add";
+    }
+
+    /**
+     * 进入system页
+     * @return
+     */
+    @RequestMapping("/vehicletype-update.html")
+    public String  vehicletypeUpdate(String vehicleTypeId,String carRentalId,HttpServletRequest request) {
+        request.setAttribute("vehicleTypeId",vehicleTypeId);
+        request.setAttribute("carRentalId",carRentalId);
+        return "countAdjust/index/vehicletype-update";
     }
     /**
      * 进入welcome页
@@ -411,6 +425,8 @@ public class EnterCountAdjustPageController {
         request.setAttribute("shoppingId",shoppingId);
         return "countAdjust/index/shopping-update";
     }
+
+
 
 
 }

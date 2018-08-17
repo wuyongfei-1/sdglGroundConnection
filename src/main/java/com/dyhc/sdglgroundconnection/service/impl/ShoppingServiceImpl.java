@@ -74,7 +74,7 @@ public class ShoppingServiceImpl implements ShoppingService {
      * @param shopping
      * @return
      */
-    @RecordOperation(type = "用户", desc = "新增了一条购物信息")
+    @RecordOperation(type = "购物", desc = "新增了一条购物信息")
     @Override
     public Integer saveShoppingInfo(Shopping shopping) {
         shopping.setWhetherDel(0);
@@ -95,7 +95,7 @@ public class ShoppingServiceImpl implements ShoppingService {
      * @param shopping
      * @return
      */
-    @RecordOperation(type = "用户", desc = "修改了一条购物信息")
+    @RecordOperation(type = "购物", desc = "修改了一条购物信息")
     @Override
     public Integer updateShoppingInfo(Shopping shopping) {
         shopping.setWhetherDel(0);
@@ -106,7 +106,7 @@ public class ShoppingServiceImpl implements ShoppingService {
      * @param shoppingId
      * @return
      */
-    @RecordOperation(type = "用户", desc = "删除了一条购物信息")
+    @RecordOperation(type = "购物", desc = "删除了一条购物信息")
     @Override
     public Integer deleteShoppingByShoppingId(Integer shoppingId) throws Exception {
         return shoppingMapper.deleteShoppingByShoppingId(shoppingId);

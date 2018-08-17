@@ -2,6 +2,7 @@ package com.dyhc.sdglgroundconnection.web;
 
 import com.dyhc.sdglgroundconnection.pojo.Carrental;
 import com.dyhc.sdglgroundconnection.pojo.Shopping;
+import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.dyhc.sdglgroundconnection.service.CarrentalService;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import com.github.pagehelper.PageInfo;
@@ -29,25 +30,92 @@ public class CarrentalController  {
 
     @Autowired
     private CarrentalService carrentalService;
+    /**
+     * 根据公司id删除公司信息 （lixiaojie)
+     * @param carrentalId
+     * @return
+     */
+    @RequestMapping(value = "/deleteCarrentalInfoByCarrentalId",method = RequestMethod.POST )
+    public ReponseResult deleteCarrentalInfoByCarrentalId(Integer carrentalId){
+        try {
+            int result=carrentalService.deleteCarrentalInfoByCarrentalId(carrentalId);
+            ReponseResult<String> date;
+            if (result>0){
+                date= ReponseResult.ok("1","删除公司信息成功！");
+                logger.info(" method:deleteCarrentalInfoByCarrentalId  删除公司信息成功！");
+
+            }else{
+                date= ReponseResult.ok("0","删除公司信息失败！");
+                logger.info(" method:deleteCarrentalInfoByCarrentalId  删除公司信息失败！");
+            }
+            return date;
+        }catch (Exception e){
+            logger.error(" method:deleteCarrentalInfoByCarrentalId  删除公司信息失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+    /**
+     * 根据用车公司id查询用车公司信息
+     * @param carrentalId
+     * @return
+     */
+    @RequestMapping(value = "/getCarrentalInfoByCarrentalId",method = RequestMethod.POST)
+    public ReponseResult getCarrentalInfoByCarrentalId(Integer carrentalId ) {
+
+        ReponseResult<Carrental> data;
+        try {
+
+            Carrental carrental=carrentalService.getCarrentalInfoByCarrentalId(carrentalId);
+
+
+            data = ReponseResult.ok(carrental, "根据用车公司id查询用车公司信息成功！");
+
+            logger.info(" method:getCarrentalInfoByCarrentalId  根据用车公司id查询用车公司信息成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:getCarrentalInfoByCarrentalId  根据用车公司id查询用车公司信息失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+    /**
+     * 修改公司信息 (lixiaojie)
+     */
+    @RequestMapping(value = "/updateCarrentalInfo",method = RequestMethod.POST )
+    public ReponseResult updateCarrentalInfo(Carrental carrental){
+        try {
+            int result=carrentalService.updateCarrentalInfo(carrental);
+            ReponseResult<String> date;
+            if (result>0){
+                date= ReponseResult.ok("1","修改车辆公司信息成功！");
+                logger.info(" method:updateCarrentalInfo  修改车辆公司信息成功！");
+
+            }else{
+                date= ReponseResult.ok("0","修改车辆公司信息失败！");
+                logger.info(" method:updateCarrentalInfo  修改车辆公司信息失败！");
+            }
+            return date;
+        }catch (Exception e){
+            logger.error(" method:updateCarrentalInfo  修改车辆公司信息失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
 
     /**
      *  新增车辆公司信息 （lixiaojie)
-     * @param carRentalName
-     * @param companyAddress
-     * @param contacts
-     * @param phone
-     * @param vehicleTypes
+     * @param carrental
      * @return
      */
     @RequestMapping(value = "/saveCarrentalInfo",method = RequestMethod.POST )
-    public ReponseResult saveCarrentalInfo(String carRentalName ,String companyAddress  ,String contacts  ,String phone ,String vehicleTypes){
+    public ReponseResult saveCarrentalInfo(Carrental carrental){
         try {
-            Carrental carrental =new Carrental();
-            carrental.setCarRentalName(carRentalName);
-            carrental.setCompanyAddress(companyAddress);
-            carrental.setContacts(contacts);
-            carrental.setPhone(phone);
-            int result=carrentalService.saveCarrentalInfo(carrental,vehicleTypes);
+
+            int result=carrentalService.saveCarrentalInfo(carrental);
             ReponseResult<String> date;
             if (result>0){
                 date= ReponseResult.ok("1","新增车辆公司信息成功！");

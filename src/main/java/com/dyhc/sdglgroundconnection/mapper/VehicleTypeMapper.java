@@ -22,4 +22,7 @@ public interface VehicleTypeMapper extends CommonMapper<VehicleType> {
      */
     List<VehicleType> getVehiclesTypeByCarRentalId(@Param("carRentalId") Integer carRentalId);
 
+
+
+
 }

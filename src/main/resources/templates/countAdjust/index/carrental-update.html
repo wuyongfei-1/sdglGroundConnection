@@ -10,29 +10,47 @@
 		<link rel="stylesheet" type="text/css" href="/admin/css/admin.css" />
 	</head>
 	<body>
-		<div class="wrap-container" style="height: 500px">
-			<form id="shoppingInfo"  class="layui-form" style="width: 90%;padding-top: 20px;">
-					<input type="hidden" name="hiddenShoppingId" id="hiddenShoppingId" th:value="${shoppingId}">
-					<div class="layui-form-item">
-						<label class="layui-form-label">购物地名称：</label>
-						<div class="layui-input-block">
-							<input type="text" name="shoppingSite"  placeholder="请输入购物地名称" autocomplete="off" class="layui-input">
-						</div>
+		<div class="wrap-container" style="height: 320px">
+			<form id="CarrentalInfo"  class="layui-form" style="width: 90%;padding-top: 20px;">
+				<input type="hidden" name="hiddenCarrentalId" id="hiddenCarrentalId" th:value="${carrentalId}">
+				<div class="layui-form-item">
+					<label style="width: 120px" class="layui-form-label">车辆公司名称：</label>
+					<div class="layui-input-block">
+						<input  style="width: 550px" type="text" name="carRentalName"  placeholder="请输入车辆公司名称"
+								autocomplete="off" class="layui-input">
 					</div>
+				</div>
 
-					<div class="layui-form-item">
-						<label class="layui-form-label">附近景点：</label>
-						<div class="layui-input-block" id="scenicSpot-list">
-							<select id="scenicSpotId" name="scenicSpotId" lay-filter="status">
 
-							</select>
-						</div>
+
+				<div class="layui-form-item">
+					<label style="width: 120px"  class="layui-form-label">车辆公司地址：</label>
+					<div class="layui-input-block">
+						<input type="text" style="width: 550px"  name="companyAddress"  placeholder="请输入车辆公司地址"
+							   autocomplete="off" class="layui-input">
 					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label style="width: 120px"  class="layui-form-label">车辆公司联系人：</label>
+					<div class="layui-input-block">
+						<input type="text" style="width: 550px"  name="contacts"  placeholder="请输入车辆公司联系人"
+							   autocomplete="off" class="layui-input">
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<label style="width: 120px"  class="layui-form-label">联系人电话：</label>
+					<div class="layui-input-block">
+						<input type="text" style="width: 550px"  name="phone"  placeholder="请输入联系人电话"
+							   autocomplete="off" class="layui-input">
+					</div>
+				</div>
 
 
 					<div class="layui-form-item">
 						<div class="layui-input-block">
-							<button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo" onclick="updateShoppingInfo()">立即提交</button>
+							<button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo" onclick="updateCarrentalInfo()">立即提交</button>
 							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 						</div>
 					</div>
@@ -45,24 +63,22 @@
 
 
 			$(function () {
-                getShoppingInfoByShoppingId();
-                listScenicspotAll()
+                getCarrentalInfoByCarrentalId(); //页面加载绑定数据 (lixiaojie)
             });
 
 
-			/*修改用户信息*/
-			function updateShoppingInfo() {
+			/*修改用户信息  (lixiaojie)*/
+			function updateCarrentalInfo() {
 
-                var scenicSpotId = $("#scenicSpotId option:selected").val();
-                if (scenicSpotId==undefined||scenicSpotId==""||scenicSpotId==null||scenicSpotId==0){
-                    alert("不准为空");
-                    return;
-                }
-                var hiddenShoppingId=$("#hiddenShoppingId").val();
-                var shoppingInfo=$("#shoppingInfo").serialize();
+                var CarrentalInfo = $("#CarrentalInfo").serialize();
+
+                var hiddenCarrentalId=$("#hiddenCarrentalId").val();
+                CarrentalInfo=CarrentalInfo+"&carRentalId="+hiddenCarrentalId
+				alert(CarrentalInfo);
                 $.ajax({
-                    url: "/shopping/updateShoppingInfo?shoppingId="+hiddenShoppingId,
-                    data: shoppingInfo,
+                    url: "/carrental/updateCarrentalInfo",
+                    data: CarrentalInfo
+					,
                     dataType: "json",
                     type: "post",
                     success: function (ReponseResult) {
@@ -79,29 +95,35 @@
                     }
                 })
             }
-
-            /*为下拉框绑定职务信息*/
-            function listScenicspotAll() {
-
+            //根据用户id查询用户信息  (lixiaojie)
+            function getCarrentalInfoByCarrentalId() {
+                var hiddenCarrentalId=$("#hiddenCarrentalId").val();
                 $.ajax({
-                    url: "/shopping/listScenicspotAll",
-                    data: {},
-                    async:false,
+                    url: "/carrental/getCarrentalInfoByCarrentalId",
+                    data: {
+                        "carrentalId":hiddenCarrentalId
+
+					},
                     dataType: "json",
                     type: "post",
                     success: function (ReponseResult) {
-                        var content = "<option  value='0' selected='selected'>请选择景点</option>";
-                        $(ReponseResult.data).each(function (i, e) {
-                            content += "<option value='" + e.scenicSpotId + "'>" + e.scenicSpotName + "</option>";
-                        })
-                        $('#scenicSpot-list select').html(content);
+
+                        $("input[name='carRentalName']").val(ReponseResult.data.carRentalName);
+
+
+                        $("input[name='companyAddress']").val(ReponseResult.data.companyAddress);
+                        $("input[name='contacts']").val(ReponseResult.data.contacts);
+                        $("input[name='currentAddress']").val(ReponseResult.data.currentAddress);
+                        $("input[name='phone']").val(ReponseResult.data.phone);
+
                     },
                     error: function (res) {
-                        alert(res);
+                        /*  alert(res);*/
                     }
                 })
             }
-			//根据用户id查询用户信息
+
+			//根据用户id查询用户信息 (lixiaojie)
 			function getShoppingInfoByShoppingId() {
                 var hiddenShoppingId=$("#hiddenShoppingId").val();
                 $.ajax({

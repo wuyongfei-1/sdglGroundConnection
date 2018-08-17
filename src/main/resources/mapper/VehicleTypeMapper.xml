@@ -5,7 +5,7 @@
 
 
 
-
+    <!--根据租车公司id获取车辆类型信息 (lixiaojie)-->
     <select id="getVehiclesTypeByCarRentalId" resultType="com.dyhc.sdglgroundconnection.pojo.VehicleType">
         SELECT * FROM `vehicletype` WHERE `carRentalId` =#{carRentalId}
     </select>

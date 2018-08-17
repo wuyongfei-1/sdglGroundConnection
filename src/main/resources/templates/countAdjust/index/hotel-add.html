@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="renderer" content="webkit">
@@ -18,96 +18,204 @@
 						<div class="layui-tab-content">
 							<div class="layui-tab-item layui-show">
 								<div class="layui-form-item">
-									<label class="layui-form-label">酒店编号：</label>
-									<div class="layui-input-block">
-										<input type="text" name="name" required lay-verify="required" placeholder="请输入酒店编号" autocomplete="off" class="layui-input">
-									</div>
-								</div>
-								<div class="layui-form-item">
 									<label class="layui-form-label">名称：</label>
 									<div class="layui-input-block">
-										<input type="text" name="name" required lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input">
+										<input type="text" name="hotelName" required lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input">
 									</div>
 								</div>
 								<div class="layui-form-item">
 									<label class="layui-form-label">星级：</label>
 									<div class="layui-input-block">
-										<i class="layui-icon-rate">&#xe67b;</i>
-										<i class="layui-icon-rate">&#xe67b;</i>
-										<i class="layui-icon-rate">&#xe67b;</i>
-										<i class="layui-icon-rate">&#xe67b;</i>
-										<i class="layui-icon-rate">&#xe67b;</i>
+										<select name="starHotel">
+											<option>请选择星级</option>
+											<option value="1">★</option>
+											<option value="2">★★</option>
+											<option value="3">★★★</option>
+											<option value="4">★★★★</option>
+											<option value="5">★★★★★</option>
+										</select>
 									</div>
 								</div>
 								<div class="layui-form-item">
 									<label class="layui-form-label">地址：</label>
 									<div class="layui-input-block">
-										<input type="text" name="name" required lay-verify="required" placeholder="请输入地址" autocomplete="off" class="layui-input">
+										<input name="hotelAddress" type="text" required lay-verify="required" placeholder="请输入地址" autocomplete="off" class="layui-input">
 									</div>
 								</div>
 								<div class="layui-form-item">
 									<label class="layui-form-label">图片地址：</label>
 									<div class="layui-input-block">
-										<i class="layui-icon ">&#xe67c;</i>上传图片
+										<input onchange="FirstImg()" name="firstImg" style="opacity:0;position:absolute" type="file" id="FirstfileImg" multiple="">
+										<div>
+											<span> 点击这里上传图片</span>
+										</div>
+										<fieldset style="width:500px;">
+											<legend>图片预览</legend>
+											<div style="position: relative;" id="ccc">
+											</div>
+										</fieldset>
 									</div>
 								</div>
 								<div class="layui-form-item">
 									<label class="layui-form-label">是否提供早餐：</label>
 									<div class="layui-input-block">
-										<input type="radio" name="radio" title="是" checked="checked" />
-										<input type="radio" name="radio" title="否"/>
+										<input type="radio" name="breakfast" value="1" title="是"  checked="checked" />
+										<input type="radio" name="breakfast" value="0" title="否"/>
 									</div>
 								</div>
 								<div class="layui-form-item">
 									<label class="layui-form-label">联系人：</label>
 									<div class="layui-input-block">
-										<input type="text" name="name" required lay-verify="required" placeholder="请输入联系人" autocomplete="off" class="layui-input">
+										<input type="text" name="contacts" required lay-verify="required" placeholder="请输入联系人" autocomplete="off" class="layui-input">
 									</div>
 								</div>
 								<div class="layui-form-item">
 									<label class="layui-form-label">联系电话：</label>
 									<div class="layui-input-block">
-										<input type="text" name="name" required lay-verify="required" placeholder="请输入联系电话" autocomplete="off" class="layui-input">
+										<input type="text" name="phone" required lay-verify="required" placeholder="请输入联系电话" autocomplete="off" class="layui-input">
 									</div>
 								</div>
 								<div class="layui-form-item">
 									<label class="layui-form-label">成本价：</label>
 									<div class="layui-input-block">
-										<input type="text" name="name" required lay-verify="required" placeholder="请输入成本价" autocomplete="off" class="layui-input">
+										<input type="text" name="costprice" required lay-verify="required" placeholder="请输入成本价" autocomplete="off" class="layui-input">
 									</div>
 								</div>
 								<div class="layui-form-item">
 									<label class="layui-form-label">报价：</label>
 									<div class="layui-input-block">
-										<input type="text" name="name" required lay-verify="required" placeholder="请输入报价" autocomplete="off" class="layui-input">
+										<input type="text" name="offer" required lay-verify="required" placeholder="请输入报价" autocomplete="off" class="layui-input">
 									</div>
 								</div>
 								<div class="layui-form-item">
 									<label class="layui-form-label">备注：</label>
 									<div class="layui-input-block">
-										<input type="text" name="name" required lay-verify="required" placeholder="请输入备注" autocomplete="off" class="layui-input">
+										<input type="text" name="remarks" required lay-verify="required" placeholder="请输入备注" autocomplete="off" class="layui-input">
 									</div>
 								</div>
 								<div class="layui-form-item">
 									<label class="layui-form-label">酒店描述：</label>
 									<div class="layui-input-block">
-										<textarea name="" placeholder="请输入酒店描述">
-										
-										</textarea>
+										<textarea name="hotelDescribe" placeholder="请输入酒店描述"></textarea>
 									</div>
+								</div>
+								<div>
+									<input type="hidden" name="hotelId" id="roomid" th:value="${hotelId}">
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="layui-form-item" style="padding-left: 10px;">
 						<div class="layui-input-block">
-							<button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo">立即提交</button>
+							<button type="button"  th:value="${pan!=0?1:0}" class="layui-btn layui-btn-normal" id="inser">立即提交</button>
 							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 						</div>
 					</div>
 				</form>
 	<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/js/jquery-3.2.1.js" type="text/javascript"></script>
+	<script>
+        $("#inser").click(function () {
+            if($(this).val()!=0){
+                var form=$("form").serialize()
+                $.ajax({
+                    url:"/hotel/updateHotelRoom",
+                    data:form,
+                    dataType:"json",
+                    type:"get",
+                    success:function (data) {
+                        alert(data.msg)
+                        parent.location.reload();
+                    }
+                })
+            }else {
+                var form=$("form").serialize()
+                // $.ajax({
+                //     url:"/hotel/insertHotelRoom",
+                //     data:form,
+                //     dataType:"json",
+                //     type:"get",
+                //     success:function (data) {
+                //         alert(data.msg)
+                //         parent.location.reload();
+                //     }
+                // })
+				//var imgfiler=$("#fileImg").attr("src");
+				//alert(imgfiler);
+                alert(form);
+            }
+        })
+	</script>
+	<script>
+        jQuery.DuoImgsYulan = function(file, id) {
+            for (var i = 0; i < 1; i++) {
+                if (!/image\/\w+/.test(file[i].type)) {
+                    alert("请选择图片文件");
+                    return false;
+                }
+                if (file[i].size > 2048 * 1024) {
+                    alert("图片不能大于2MB");
+                    continue;
+                }
+                var img;
+                console.log(document.getElementById("fileImg"));
+                console.log(file[i]);
+                console.log("file-size=" + file[i].size);
+                var reader = new FileReader();
+                reader.onloadstart = function(e) {
+                    console.log("开始读取....");
+                }
+                reader.onprogress = function(e) {
+                    console.log("正在读取中....");
+                }
+                reader.onabort = function(e) {
+                    console.log("中断读取....");
+                }
+                reader.onerror = function(e) {
+                    console.log("读取异常....");
+                }
+                reader.onload = function(e) {
+                    console.log("成功读取....");
+                    var div = document.createElement("div"); //外层 div
+                    div.setAttribute("style", "position:relative;width:inherit;height:inherit;float:left;z-index:2;width:150px;margin-left:8px;margin-right:8px;");
+                    var del = document.createElement("div"); //删除按钮div
+                    del.setAttribute("style", "position: absolute; bottom: 4px; right: 0px; z-index: 99; width: 30px; height:30px;border-radius:50%;")
+                    var delicon = document.createElement("img");
+                    delicon.setAttribute("src", "/images/upfile.png");
+                    delicon.setAttribute("title", "删除");
+                    delicon.setAttribute("style", "cursor:pointer;width: 30px; height:30px");
+                    del.onclick = function() {
+                        this.parentNode.parentNode.removeChild(this.parentElement);
+                        ClearfirtsImg();
+                    };
+                    del.appendChild(delicon);
+                    div.appendChild(del);
+                    var imgs = document.createElement("img"); //上传的图片
+                    imgs.setAttribute("name", "picturePath");
+                    imgs.setAttribute("id", "fileImg");
+                    imgs.setAttribute("src", e.target.result);
+                    imgs.setAttribute("width", 150);
+                    if (document.getElementById(id).childNodes.length > 2) {
+                        document.getElementById(id).removeChild(document.getElementById(id).firstChild);
+                    }
+                    div.appendChild(imgs)
+                    document.getElementById(id).appendChild(div);
+                }
+                reader.readAsDataURL(file[i]);
+            }
+        }
+
+        function FirstImg() {
+            $.DuoImgsYulan(document.getElementById("FirstfileImg").files, "ccc");
+        }
+
+        function ClearfirtsImg() {
+            var file = $("#FirstfileImg")
+            file.after(file.clone().val(""));
+            file.remove();
+        }
+	</script>
 	<script>
 		layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog', 'common', 'tool', 'element', 'upload', 'layedit'], function() {
 				var form = layui.form(),

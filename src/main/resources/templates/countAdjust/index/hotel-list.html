@@ -16,7 +16,7 @@
 					<form class="layui-form" action="">
 						<div class="layui-form-item">
 							<div class="layui-inline tool-btn">
-								<button class="layui-btn layui-btn-small layui-btn-normal addBtn hidden-xs" data-url="hotel-add.html"><i class="layui-icon">&#xe654;</i></button>
+								<input style="font-size: 20px" type="button" class="layui-btn layui-btn-small layui-btn-normal addBtn hidden-xs" id="insert" value="+"></input>
 								<button class="layui-btn layui-btn-small layui-btn-danger delBtn"  data-url="article-add.html"><i class="layui-icon">&#xe640;</i></button>
 							</div>
 							<div class="layui-inline">
@@ -125,6 +125,47 @@
                         search();
 					},error:function () {
 						alert("程序错误")
+                    }
+                })
+
+            })
+
+            //添加酒店按钮
+            $(document).on("click","#insert",function () {
+                layer.open({
+                    type: 2,
+                    title: '添加酒店',
+                    maxmin: true,
+                    shadeClose: true, //点击遮罩关闭层
+                    area : ['800px' , '520px'],
+                    content: 'hotel-add.html?pan=0&hotelId=0'
+                });
+            })
+            //修改酒店按钮
+            $(document).on("click","#update",function () {
+                var id=$(this).val();
+                layer.open({
+                    type: 2,
+                    title: '修改酒店',
+                    maxmin: true,
+                    shadeClose: true, //点击遮罩关闭层
+                    area : ['800px' , '520px'],
+                    content: 'hotel-add.html?pan=1&hotelId='+id+''
+                });
+            })
+            //删除酒店按钮
+            $(document).on("click","#delete",function () {
+                var id=$(this).val();
+                $.ajax({
+                    url:"/hotel/deleteHotelRoom?id="+id+"",
+                    data:"",
+                    dataType:"json",
+                    type:"get",
+                    success:function (data) {
+                        alert(data.msg);
+                        search();
+                    },error:function () {
+                        alert("程序错误")
                     }
                 })
 

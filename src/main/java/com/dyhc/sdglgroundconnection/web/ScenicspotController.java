@@ -170,7 +170,7 @@ public class ScenicspotController {
                 logger.info(" method:updateInfoById  修改景点成功！");
             }else{
                 //失败则给ReponseResult对象赋值并日志记录
-                data = ReponseResult.ok(result, "新增景点失败！");
+                data = ReponseResult.ok(result, "修改景点失败！");
                 logger.info(" method:updateInfoById  修改景点失败！");
             }
             return data;
@@ -182,25 +182,30 @@ public class ScenicspotController {
         }
     }
 
+    /**
+     *  根据id删除信息
+     * @param id id
+     * @return 返回受影响行数
+     */
+    @RequestMapping("/deleteInfoById")
     public ReponseResult deleteInfoById(@RequestParam("id")Integer id){
         try {
-
-            /*//一、修改景点信息
-            Integer result =scenicspotService.updateScenicspot(scenicspot);*/
+            //一、删除景点信息
+            Integer result =scenicspotService.deleteScenicspotById(id);
             ReponseResult<Integer> data=null;
             //二、判断是否成功
-            /*if(result>0){
+            if(result>0){
                 //成功则给ReponseResult对象赋值并日志记录
-                data = ReponseResult.ok(result, "修改景点成功！");
-                logger.info(" method:updateInfoById  修改景点成功！");
+                data = ReponseResult.ok(result, "删除景点成功！");
+                logger.info(" method:updateInfoById  删除景点成功！");
             }else{
                 //失败则给ReponseResult对象赋值并日志记录
-                data = ReponseResult.ok(result, "新增景点失败！");
-                logger.info(" method:updateInfoById  修改景点失败！");
-            }*/
+                data = ReponseResult.ok(result, "删除景点失败！");
+                logger.info(" method:updateInfoById  删除景点失败！");
+            }
             return data;
         } catch (Exception e) {
-            logger.error(" method:updateInfoById  修改景点失败，系统出现异常！");
+            logger.error(" method:deleteInfoById  删除景点失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
             return err;

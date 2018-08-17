@@ -20,26 +20,26 @@
 								<button class="layui-btn layui-btn-small layui-btn-danger delBtn"  data-url="article-add.html"><i class="layui-icon">&#xe640;</i></button>
 							</div>
 							<div class="layui-inline">
-								<input type="text" name="title" required lay-verify="required" placeholder="请输入酒店名称" autocomplete="off" class="layui-input">
+								<input type="text" id="one" name="title" placeholder="请输入酒店名称" autocomplete="off" class="layui-input">
 							</div>
 							<div class="layui-inline">
-								<input type="text" name="title" required lay-verify="required" placeholder="请输入酒店地址" autocomplete="off" class="layui-input">
+								<input type="text" id="two" name="title" placeholder="请输入酒店地址" autocomplete="off" class="layui-input">
 							</div>
 							价格区间：
 							<div class="layui-inline">
-								<input size="3" type="text" name="title" required lay-verify="required" placeholder="最低价" autocomplete="off" class="layui-input">
+								<input size="3" type="text" id="three" name="title"  placeholder="最低价" autocomplete="off" class="layui-input">
 							</div>
 							<div class="layui-inline">
-								<input size="3" type="text" name="title" required lay-verify="required" placeholder="最高价" autocomplete="off" class="layui-input">
+								<input size="3" type="text" id="four" name="title"  placeholder="最高价" autocomplete="off" class="layui-input">
 							</div>
 							<div class="layui-inline">
-								<select name="states" lay-filter="status">
+								<select name="states" lay-filter="status" id="five">
 									<option value="">请选择一个状态</option>
 									<option value="010">禁用</option>
 									<option value="021">正常</option>
 								</select>
 							</div>
-							<button class="layui-btn layui-btn-normal" lay-submit="search">搜索</button>
+							<input class="layui-btn layui-btn-normal" id="search" type="button" lay-submit="search" value="搜索"/>
 						</div>
 					</form>
 					<div class="layui-form" id="table-list">
@@ -71,77 +71,148 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr id='node-1' class="parent collapsed">
-									<td><input type="checkbox" name="" lay-skin="primary" data-id="1">
-									<a class="layui-btn layui-btn-mini layui-btn-normal showSubBtn" data-id='1'>+</a></td>
-									<td class="">2012</td>
-									<td class="">万狮京华</td>
-									<td class="">五星级</td>
-									<td class="">平阳路大马村</td>
-									<td class="">提供早餐</td>
-									<td class="">12873283</td>
-									<td class="">200</td>
-									<td><button class="layui-btn layui-btn-mini layui-btn-normal table-list-status">禁用 </button></td>
-									<td>
-										<div class="layui-inline">
-											<button class="layui-btn layui-btn-mini layui-btn-normal  add-btn" data-id="1" data-url="hotelroom-add.html"><i class="layui-icon">&#xe654;</i></button>
-											<button class="layui-btn layui-btn-mini layui-btn-normal  edit-btn" data-id="1" data-url="hotel-add.html"><i class="layui-icon">&#xe642;</i></button>
-											<button class="layui-btn layui-btn-mini layui-btn-danger del-btn" data-id="1" data-url="hotel-add.html"><i class="layui-icon">&#xe640;</i></button>
-										</div>
-									</td>
-								</tr>
-								<tr id="node-2" class="child-node-1 parent collapsed" style="display:none ;background-color: #D6E9C6;" parentid="1">
-									<td class=""></td>
-									<td class=""></td>
-									<td class="">房间类型名称</td>
-									<td class="">房间报价</td>
-									<td class=""></td>
-									<td class=""></td>
-									<td class=""></td>
-									<td class=""></td>
-									<td class=""></td>
-									<td class="">操作</td>
-								</tr>
-								<tr id='node-2' class="child-node-1 parent collapsed" style="display:none ;" parentid="1">
-									<td class=""></td>
-									<td class=""></td>
-									<td class="">大床房</td>
-									<td class="">300</td>
-									<td class=""></td>
-									<td class=""></td>
-									<td class=""></td>
-									<td class=""></td>
-									<td class=""></td>
-									<td>
-										<div class="layui-inline">
-											<button class="layui-btn layui-btn-mini layui-btn-normal  edit-btn" data-id="2" data-url="hotelroom-add.html"><i class="layui-icon">&#xe642;</i></button>
-											<button class="layui-btn layui-btn-mini layui-btn-danger del-btn" data-id="2" data-url="hotelroom-add.html"><i class="layui-icon">&#xe640;</i></button>
-										</div>
-									</td>
-								</tr>
-								<tr id='node-2' class="child-node-1 parent collapsed" style="display:none ;" parentid="1">
-									<td class=""></td>
-									<td class=""></td>
-									<td class="">大床房</td>
-									<td class="">300</td>
-									<td class=""></td>
-									<td class=""></td>
-									<td class=""></td>
-									<td class=""></td>
-									<td class=""></td>
-									<td>
-										<div class="layui-inline">
-											<button class="layui-btn layui-btn-mini layui-btn-normal  edit-btn" data-id="2" data-url="hotelroom-add.html"><i class="layui-icon">&#xe642;</i></button>
-											<button class="layui-btn layui-btn-mini layui-btn-danger del-btn" data-id="2" data-url="hotelroom-add.html"><i class="layui-icon">&#xe640;</i></button>
-										</div>
-									</td>
-								</tr>
 							</tbody>
 						</table>
+						<div id="laypage" style="text-align: center;"></div>
 					</div>
 		</div>
 		<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/js/jquery-3.2.1.js" type="text/javascript"></script>
+		<script src="/layui.js" type="text/javascript"></script>
+		<script>
+            var limitcount = 2; // 每页总记录数
+            var curnum = 1;  // 当前页码
+            var hotelName="";
+            var hotelAddress="";
+            var offer="";
+            var offer2="";
+            var status="";
+            $(document).on("click","#insert",function () {
+                var id=$(this).val();
+                layer.open({
+                    type: 2,
+                    title: '公司修改',
+                    maxmin: true,
+                    shadeClose: true, //点击遮罩关闭层
+                    area : ['800px' , '520px'],
+                    content: 'hotelroom-add.html?id='+id+''
+                });
+            })
+			//搜索（dubingkun）
+                $("#search").click(function () {
+                    hotelName=$("#one").val();
+                    hotelAddress=$("#two").val();
+                    offer=$("#three").val();
+                    offer2=$("#four").val();
+                    status=$("#five").val();
+					search();
+                    }
+				);
+            //查询（dubingkun）
+                function search() {
+                    $.ajax({
+                        url:"/hotel/showAllHotels",
+                        data:{pageNo:curnum,pageSize:2,hotelName:hotelName,hotelAddress:hotelAddress,offer:offer,offer2:offer2,status:status},
+                        dataType:"json",
+                        type:"get",
+                        success:function (data) {
+                            var count=0;
+                            var count2=0;
+                            var context2="";
+                            $.each(data.data,function (i,e) {
+                                count++;
+                                count2++;
+                                var fuqinid="node-"+count;
+                                var erziclass="child-node-"+count2+" parent collapsed";
+                                context2+="<tr id='"+fuqinid+"' class=\"parent collapsed\">\n" +
+                                    "\t\t\t\t\t\t\t\t<td><input type=\"checkbox\" name=\"\" lay-skin=\"primary\" data-id=\""+count2+"\">\n" +
+                                    "\t\t\t\t\t\t\t\t\t<a class=\"layui-btn layui-btn-mini layui-btn-normal showSubBtn\" data-id='"+count2+"'>+</a></td>\n" +
+                                    "\t\t\t\t\t\t\t\t<td class=\"\">"+e.hotelId+"</td>\n" +
+                                    "\t\t\t\t\t\t\t\t<td class=\"\">"+e.hotelName+"</td>\n" +
+                                    "\t\t\t\t\t\t\t\t<td class=\"\">"+e.starHotel+"</td>\n" +
+                                    "\t\t\t\t\t\t\t\t<td class=\"\">"+e.hotelAddress+"</td>\n" +
+                                    "\t\t\t\t\t\t\t\t<td class=\"\">"+e.breakfast+"</td>\n" +
+                                    "\t\t\t\t\t\t\t\t<td class=\"\">"+e.phone+"</td>\n" +
+                                    "\t\t\t\t\t\t\t\t<td class=\"\">"+e.offer+"</td>\n" +
+                                    "\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\">禁用 </button></td>\n" +
+                                    "\t\t\t\t\t\t\t\t<td>\n" +
+                                    "\t\t\t\t\t\t\t\t\t<div class=\"layui-inline\">\n" +
+                                    "\t\t\t\t\t\t\t\t\t\t<button class=\"layui-btn layui-btn-mini layui-btn-normal\" id=\"insert\" value=\""+e.hotelId+"\"><i class=\"layui-icon\">&#xe654;</i></button>\n" +
+                                    "\t\t\t\t\t\t\t\t\t\t<button class=\"layui-btn layui-btn-mini layui-btn-normal  edit-btn\" data-id=\"1\" data-url=\"hotel-add.html\"><i class=\"layui-icon\">&#xe642;</i></button>\n" +
+                                    "\t\t\t\t\t\t\t\t\t\t<button class=\"layui-btn layui-btn-mini layui-btn-danger del-btn\" data-id=\"1\" data-url=\"hotel-add.html\"><i class=\"layui-icon\">&#xe640;</i></button>\n" +
+                                    "\t\t\t\t\t\t\t\t\t</div>\n" +
+                                    "\t\t\t\t\t\t\t\t</td>\n" +
+                                    "\t\t\t\t\t\t\t</tr>";
+
+                                if(e.roomTypeList.length>0){
+                                    count++;
+                                    context2+="<tr id='"+fuqinid+"' class=\""+erziclass+"\" style=\"display:none ;background-color: #D6E9C6;\" parentid=\"1\">\n" +
+                                        "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                                        "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                                        "\t\t\t\t\t\t\t\t<td class=\"\">房间类型名称</td>\n" +
+                                        "\t\t\t\t\t\t\t\t<td class=\"\">房间报价</td>\n" +
+                                        "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                                        "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                                        "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                                        "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                                        "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                                        "\t\t\t\t\t\t\t\t<td class=\"\">操作</td>\n" +
+                                        "\t\t\t\t\t\t\t</tr>";
+                                    $.each(e.roomTypeList,function (j,p) {
+                                        count++;
+                                        context2+="<tr id='"+fuqinid+"' class=\""+erziclass+"\" style=\"display:none ;\" parentid=\"1\">\n" +
+                                            "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                                            "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                                            "\t\t\t\t\t\t\t\t<td class=\"\">"+p.typeName+"</td>\n" +
+                                            "\t\t\t\t\t\t\t\t<td class=\"\">"+p.offer+"</td>\n" +
+                                            "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                                            "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                                            "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                                            "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                                            "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                                            "\t\t\t\t\t\t\t\t<td>\n" +
+                                            "\t\t\t\t\t\t\t\t\t<div class=\"layui-inline\">\n" +
+                                            "\t\t\t\t\t\t\t\t\t\t<button class=\"layui-btn layui-btn-mini layui-btn-normal  edit-btn\" data-id=\"2\" data-url=\"hotelroom-add.html\"><i class=\"layui-icon\">&#xe642;</i></button>\n" +
+                                            "\t\t\t\t\t\t\t\t\t\t<button class=\"layui-btn layui-btn-mini layui-btn-danger del-btn\" data-id=\"2\" data-url=\"hotelroom-add.html\"><i class=\"layui-icon\">&#xe640;</i></button>\n" +
+                                            "\t\t\t\t\t\t\t\t\t</div>\n" +
+                                            "\t\t\t\t\t\t\t\t</td>\n" +
+                                            "\t\t\t\t\t\t\t</tr>";
+                                    })
+                                }
+                                $("tbody").html(context2);
+                                // 分页插件
+                                layui.use('table', function () {
+                                    var laypage = layui.laypage;
+                                    laypage.render({
+                                        elem: 'laypage'
+                                        , count: data.count
+                                        , curr: curnum
+                                        , limit: 2
+                                        , layout: ['prev', 'page', 'next', 'skip', 'count']
+                                        , jump: function (obj, first) {
+                                            if (!first) {
+                                                //obj包含了当前分页的所有参数，比如：
+                                                curnum = obj.curr; // 当前页面
+                                                limitcount = obj.limit; // 每页记录数
+                                                // 查询新数据
+                                                search();
+                                            }
+                                        }
+                                    })
+                                })
+                            })
+                        },error:function () {
+                            alert(123)
+                        }
+                    })
+                    //$("tbody").html(fuqin);
+                };
+			//修改赋值（dubingkun）
+			function updInfo() {
+				
+            }
+		</script>
 		<script>
 			layui.use(['jquery'], function() {
 				var $=layui.jquery;
@@ -158,7 +229,7 @@
 					}
 				})
 				//栏目展示隐藏
-				$('.showSubBtn').on('click', function() {
+				$(document).on('click','.showSubBtn', function() {
 					var _this = $(this);
 					var id = _this.attr('data-id');
 					var parent = _this.parents('.parent');
@@ -175,7 +246,6 @@
 						childAll.addClass('collapsed').removeClass('expanded').css('display', 'none');
 						childAll.find('.showSubBtn').html('+');
 					}
-
 				})
 			});
 		</script>

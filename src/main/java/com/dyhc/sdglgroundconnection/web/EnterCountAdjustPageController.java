@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
  * 进入页面-控制器
@@ -144,7 +146,8 @@ public class EnterCountAdjustPageController {
      * @return
      */
     @RequestMapping("/hotelroom-add.html")
-    public String  hotelroomadd() {
+    public String  hotelroomadd(HttpServletRequest request,Integer id) {
+        request.setAttribute("id",id);
         return "countAdjust/index/hotelroom-add";
     }
     /**
@@ -235,6 +238,7 @@ public class EnterCountAdjustPageController {
     public String  shoppinglist() {
         return "countAdjust/index/shopping-list";
     }
+
     /**
      * 进入rbac-user-list页
      * @return
@@ -265,8 +269,23 @@ public class EnterCountAdjustPageController {
      * 进入rbac-user-list页
      * @return
      */
-    @RequestMapping("/spotshopping-add.html")
-    public String  spotshoppingadd() {
+    @RequestMapping("/spotshopping-add1.html")
+    public String  spotshoppingadd1(@RequestParam("Spotid")Integer Spotid,HttpServletRequest request) {
+        if(Spotid!=null&&Spotid!=0){
+            request.setAttribute("Spotid",Spotid);
+        }
+        return "countAdjust/index/spotshopping-add";
+    }
+
+    /**
+     * 跳转修改购物信息页面  （wangtao）
+     * @param shoppingId 购物点编号
+     * @param request request对象
+     * @return 返回页面
+     */
+    @RequestMapping("/spotshopping-add2.html")
+    public String spotshoppingadd2(@RequestParam("shoppingId")Integer shoppingId,HttpServletRequest request){
+        request.setAttribute("shoppingId",shoppingId);
         return "countAdjust/index/spotshopping-add";
     }
 

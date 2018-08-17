@@ -2,8 +2,12 @@ package com.dyhc.sdglgroundconnection.service.impl;
 
 import com.dyhc.sdglgroundconnection.mapper.ScenicspotMapper;
 import com.dyhc.sdglgroundconnection.mapper.ShoppingMapper;
+<<<<<<< HEAD
 import com.dyhc.sdglgroundconnection.pojo.HotelExample;
 import com.dyhc.sdglgroundconnection.pojo.Scenicspot;
+=======
+import com.dyhc.sdglgroundconnection.pojo.Dictionaries;
+>>>>>>> 56d89aea00fa34027c84a431f1364c58d197ee4f
 import com.dyhc.sdglgroundconnection.pojo.Shopping;
 import com.dyhc.sdglgroundconnection.pojo.ShoppingExample;
 import com.dyhc.sdglgroundconnection.service.ShoppingService;
@@ -12,7 +16,11 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+import javax.persistence.criteria.CriteriaBuilder;
+>>>>>>> 56d89aea00fa34027c84a431f1364c58d197ee4f
 import java.util.List;
 
 /**
@@ -25,6 +33,7 @@ public class ShoppingServiceImpl implements ShoppingService {
     @Autowired
     private ShoppingMapper shoppingMapper;
 
+<<<<<<< HEAD
     @Autowired
     private ScenicspotMapper scenicspotMapper;
 
@@ -72,4 +81,60 @@ public class ShoppingServiceImpl implements ShoppingService {
     }
 
 
+=======
+    /**
+     * 新增购物信息 （wangtao）
+     * @param shopping 参数商品信息
+     * @return 返回受影响行数
+     */
+    @Override
+    public Integer insertInfo(Shopping shopping) throws Exception {
+        return shoppingMapper.insert(shopping);
+    }
+
+    /**
+     *  根据景点编号查询所有购物点信息 （wangtao）
+     * @param scenicSpotId 景点编号
+     * @return 返回购物点集合
+     */
+    @Override
+    public List<Shopping> ListShoppingByScenicSpotId(Integer scenicSpotId) throws Exception {
+        ShoppingExample shoppingExample=new ShoppingExample();
+        ShoppingExample.Criteria criteria=shoppingExample.createCriteria();
+        criteria.andScenicspotidEqualTo(scenicSpotId);
+        List<Shopping> s=shoppingMapper.selectByExample(shoppingExample);
+        return s;
+    }
+
+    /**
+     * 根据id查询购物点信息
+     * @return 返回购物点对象
+     * @throws Exception
+     */
+    @Override
+    public Shopping getShoppingById(Integer id) throws Exception {
+        return shoppingMapper.selectByPrimaryKey(id);
+    }
+
+    /**
+     * 根据购编号删除购物点信息 （wangtao）
+     * @return 返回受影响行数
+     * @throws Exception
+     */
+    @Override
+    public Integer deleteShoppingById(Integer shoppingId) throws Exception {
+        return shoppingMapper.deleteByPrimaryKey(shoppingId);
+    }
+
+    /**
+     * 修改购物信息 （wangtao）
+     * @param shopping 参数购物对象
+     * @return 返回受影响行数
+     * @throws Exception
+     */
+    @Override
+    public Integer updateShopping(Shopping shopping) throws Exception {
+        return shoppingMapper.updateByPrimaryKey(shopping);
+    }
+>>>>>>> 56d89aea00fa34027c84a431f1364c58d197ee4f
 }

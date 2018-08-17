@@ -23,7 +23,7 @@
         #{whetherDel},#{createBy},#{createDate});
     </insert>
     <select id="ListScenicspotByParentId" resultType="com.dyhc.sdglgroundconnection.pojo.Scenicspot">
-          SELECT * FROM scenicspot WHERE parentId=0
+          SELECT * FROM scenicspot
     </select>
 
 </mapper>

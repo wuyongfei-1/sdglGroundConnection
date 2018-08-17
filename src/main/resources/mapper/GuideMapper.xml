@@ -4,7 +4,7 @@
 <mapper namespace="com.dyhc.sdglgroundconnection.mapper.GuideMapper">
     <select id="selectGuideName" resultType="com.dyhc.sdglgroundconnection.pojo.Guide">
         SELECT * FROM `guide` WHERE 1=1 and whetherDel=0
-        <if test="companyName!=null and companyName!=''">
+        <if test="guideName!=null and guideName!=''">
             and guideName LIKE concat('%',#{guideName},'%')
         </if>
     </select>

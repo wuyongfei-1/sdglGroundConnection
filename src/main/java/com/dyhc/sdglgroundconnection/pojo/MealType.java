@@ -17,8 +17,10 @@ public class MealType {
     private int typeId; // 类型编号
     @Column(name = "restaurantId")
     private Integer restaurantId; // 餐馆编号（外键，与餐馆表关联）
-    @Column(name = "typeName")
-    private String typeName; // 类型名称
+    @Column(name = "typeCode")
+    private String typeCode; // 类型编码（外键，与字典表关联）
+    @Column(name = "valueId")
+    private String valueId; // 类型编号（外键，与字典表关联）
     private Double costprice; // 成本价
     private Double offer; // 报价
     @Column(name = "whetherDel")
@@ -57,15 +59,6 @@ public class MealType {
         this.restaurantId = restaurantId;
     }
 
-    @Basic
-    @Column(name = "typeName")
-    public String getTypeName() {
-        return typeName;
-    }
-
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
-    }
 
     @Basic
     @Column(name = "costprice")
@@ -167,29 +160,19 @@ public class MealType {
         this.value3 = value3;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        MealType mealtype = (MealType) o;
-        return typeId == mealtype.typeId &&
-                Objects.equals(restaurantId, mealtype.restaurantId) &&
-                Objects.equals(typeName, mealtype.typeName) &&
-                Objects.equals(costprice, mealtype.costprice) &&
-                Objects.equals(offer, mealtype.offer) &&
-                Objects.equals(whetherDel, mealtype.whetherDel) &&
-                Objects.equals(createBy, mealtype.createBy) &&
-                Objects.equals(updateBy, mealtype.updateBy) &&
-                Objects.equals(updateDate, mealtype.updateDate) &&
-                Objects.equals(createDate, mealtype.createDate) &&
-                Objects.equals(value1, mealtype.value1) &&
-                Objects.equals(value2, mealtype.value2) &&
-                Objects.equals(value3, mealtype.value3);
+    public String getTypeCode() {
+        return typeCode;
     }
 
-    @Override
-    public int hashCode() {
+    public void setTypeCode(String typeCode) {
+        this.typeCode = typeCode;
+    }
 
-        return Objects.hash(typeId, restaurantId, typeName, costprice, offer, whetherDel, createBy, updateBy, updateDate, createDate, value1, value2, value3);
+    public String getValueId() {
+        return valueId;
+    }
+
+    public void setValueId(String valueId) {
+        this.valueId = valueId;
     }
 }

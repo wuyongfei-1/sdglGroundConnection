@@ -1,7 +1,10 @@
 package com.dyhc.sdglgroundconnection.web;
 
+import com.dyhc.sdglgroundconnection.pojo.RoomType;
+import com.dyhc.sdglgroundconnection.service.RoomTypeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("/countAdjust")
 public class EnterCountAdjustPageController {
+    @Autowired
+    private RoomTypeService roomTypeService;
 
     // 日志对象
     private Logger logger = LoggerFactory.getLogger(EnterGeneralControlPageController.class);
@@ -150,12 +155,25 @@ public class EnterCountAdjustPageController {
         return "countAdjust/index/hotel-list";
     }
     /**
-     * 进入email-write页
+     * 进入email-write页（dubingkun）
      * @return
      */
     @RequestMapping("/hotelroom-add.html")
-    public String  hotelroomadd(HttpServletRequest request,Integer id) {
-        request.setAttribute("id",id);
+    public String  hotelroomadd(HttpServletRequest request,Integer pan,Integer hotelId,Integer typeId) {
+        RoomType roomType=null;
+        //修改
+        if(pan!=0){
+            try {
+                roomType=roomTypeService.getTypeId(typeId);
+                hotelId=roomType.getHotelId();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        request.setAttribute("rt",roomType);
+        request.setAttribute("pan",pan);
+        request.setAttribute("hotelId",hotelId);
+        request.setAttribute("typeId",typeId);
         return "countAdjust/index/hotelroom-add";
     }
     /**

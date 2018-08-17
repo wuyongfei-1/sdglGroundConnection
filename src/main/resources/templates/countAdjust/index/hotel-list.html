@@ -88,7 +88,51 @@
             var offer="";
             var offer2="";
             var status="";
-            $(document).on("click","#insert",function () {
+            //添加酒店房间按钮
+            $(document).on("click","#insert2",function () {
+                var id=$(this).val();
+                layer.open({
+                    type: 2,
+                    title: '添加酒店房间',
+                    maxmin: true,
+                    shadeClose: true, //点击遮罩关闭层
+                    area : ['800px' , '520px'],
+                    content: 'hotelroom-add.html?pan=0&hotelId='+id+'&typeId=0'
+                });
+            })
+            //修改酒店房间按钮
+            $(document).on("click","#update2",function () {
+                var id=$(this).val();
+                layer.open({
+                    type: 2,
+                    title: '修改酒店房间',
+                    maxmin: true,
+                    shadeClose: true, //点击遮罩关闭层
+                    area : ['800px' , '520px'],
+                    content: 'hotelroom-add.html?pan=1&hotelId=0&typeId='+id+''
+                });
+            })
+            //删除酒店房间按钮
+            $(document).on("click","#delete2",function () {
+                var id=$(this).val();
+                $.ajax({
+                    url:"/hotel/deleteHotelRoom?id="+id+"",
+                    data:"",
+                    dataType:"json",
+                    type:"get",
+                    success:function (data) {
+                        alert(data.msg);
+                        search();
+					},error:function () {
+						alert("程序错误")
+                    }
+                })
+
+            })
+
+
+            //修改酒店按钮
+            $(document).on("click","#update",function () {
                 var id=$(this).val();
                 layer.open({
                     type: 2,
@@ -96,9 +140,11 @@
                     maxmin: true,
                     shadeClose: true, //点击遮罩关闭层
                     area : ['800px' , '520px'],
-                    content: 'hotelroom-add.html?id='+id+''
+                    content: 'hotelroom-add.html?id='+id+'&pan=1'
                 });
             })
+
+            search();
 			//搜索（dubingkun）
                 $("#search").click(function () {
                     hotelName=$("#one").val();
@@ -138,9 +184,9 @@
                                     "\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\">禁用 </button></td>\n" +
                                     "\t\t\t\t\t\t\t\t<td>\n" +
                                     "\t\t\t\t\t\t\t\t\t<div class=\"layui-inline\">\n" +
-                                    "\t\t\t\t\t\t\t\t\t\t<button class=\"layui-btn layui-btn-mini layui-btn-normal\" id=\"insert\" value=\""+e.hotelId+"\"><i class=\"layui-icon\">&#xe654;</i></button>\n" +
-                                    "\t\t\t\t\t\t\t\t\t\t<button class=\"layui-btn layui-btn-mini layui-btn-normal  edit-btn\" data-id=\"1\" data-url=\"hotel-add.html\"><i class=\"layui-icon\">&#xe642;</i></button>\n" +
-                                    "\t\t\t\t\t\t\t\t\t\t<button class=\"layui-btn layui-btn-mini layui-btn-danger del-btn\" data-id=\"1\" data-url=\"hotel-add.html\"><i class=\"layui-icon\">&#xe640;</i></button>\n" +
+                                    "\t\t\t\t\t\t\t\t\t\t<button class=\"layui-btn layui-btn-mini layui-btn-normal\" id=\"insert2\" value=\""+e.hotelId+"\"><i class=\"layui-icon\">&#xe654;</i></button>\n" +
+                                    "\t\t\t\t\t\t\t\t\t\t<button class=\"layui-btn layui-btn-mini layui-btn-normal\" id=\"update\" value=\""+e.hotelId+"\" ><i class=\"layui-icon\">&#xe642;</i></button>\n" +
+                                    "\t\t\t\t\t\t\t\t\t\t<button class=\"layui-btn layui-btn-mini layui-btn-danger\" id=\"delete\" value=\""+e.hotelId+"\"><i class=\"layui-icon\">&#xe640;</i></button>\n" +
                                     "\t\t\t\t\t\t\t\t\t</div>\n" +
                                     "\t\t\t\t\t\t\t\t</td>\n" +
                                     "\t\t\t\t\t\t\t</tr>";
@@ -173,8 +219,8 @@
                                             "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
                                             "\t\t\t\t\t\t\t\t<td>\n" +
                                             "\t\t\t\t\t\t\t\t\t<div class=\"layui-inline\">\n" +
-                                            "\t\t\t\t\t\t\t\t\t\t<button class=\"layui-btn layui-btn-mini layui-btn-normal  edit-btn\" data-id=\"2\" data-url=\"hotelroom-add.html\"><i class=\"layui-icon\">&#xe642;</i></button>\n" +
-                                            "\t\t\t\t\t\t\t\t\t\t<button class=\"layui-btn layui-btn-mini layui-btn-danger del-btn\" data-id=\"2\" data-url=\"hotelroom-add.html\"><i class=\"layui-icon\">&#xe640;</i></button>\n" +
+                                            "\t\t\t\t\t\t\t\t\t\t<button class=\"layui-btn layui-btn-mini layui-btn-normal\" id=\"update2\" value=\""+p.typeId+"\"><i class=\"layui-icon\">&#xe642;</i></button>\n" +
+                                            "\t\t\t\t\t\t\t\t\t\t<button class=\"layui-btn layui-btn-mini layui-btn-danger\" id=\"delete2\" value=\""+p.typeId+"\"><i class=\"layui-icon\">&#xe640;</i></button>\n" +
                                             "\t\t\t\t\t\t\t\t\t</div>\n" +
                                             "\t\t\t\t\t\t\t\t</td>\n" +
                                             "\t\t\t\t\t\t\t</tr>";
@@ -188,7 +234,7 @@
                                         elem: 'laypage'
                                         , count: data.count
                                         , curr: curnum
-                                        , limit: 2
+                                        , limit: 6
                                         , layout: ['prev', 'page', 'next', 'skip', 'count']
                                         , jump: function (obj, first) {
                                             if (!first) {

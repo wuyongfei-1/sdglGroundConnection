@@ -1,7 +1,6 @@
 # 端口号配置
 server:
   port: 8888
-
 # 数据源配置
 spring:
   datasource:
@@ -33,6 +32,12 @@ spring:
     spring.datasource.filters: stat,wall,log4j
     # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+
+  # 设置上传文件的大小
+  servlet:
+    multipart:
+      max-file-size: 30Mb
+      max-request-size: 30Mb
 
 # mybatis配置
 mybatis:

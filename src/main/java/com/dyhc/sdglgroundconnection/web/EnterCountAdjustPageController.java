@@ -256,6 +256,7 @@ public class EnterCountAdjustPageController {
     public String  shoppinglist() {
         return "countAdjust/index/shopping-list";
     }
+
     /**
      * 进入rbac-user-list页
      * @return
@@ -286,8 +287,23 @@ public class EnterCountAdjustPageController {
      * 进入rbac-user-list页
      * @return
      */
-    @RequestMapping("/spotshopping-add.html")
-    public String  spotshoppingadd() {
+    @RequestMapping("/spotshopping-add1.html")
+    public String  spotshoppingadd1(@RequestParam("Spotid")Integer Spotid,HttpServletRequest request) {
+        if(Spotid!=null&&Spotid!=0){
+            request.setAttribute("Spotid",Spotid);
+        }
+        return "countAdjust/index/spotshopping-add";
+    }
+
+    /**
+     * 跳转修改购物信息页面  （wangtao）
+     * @param shoppingId 购物点编号
+     * @param request request对象
+     * @return 返回页面
+     */
+    @RequestMapping("/spotshopping-add2.html")
+    public String spotshoppingadd2(@RequestParam("shoppingId")Integer shoppingId,HttpServletRequest request){
+        request.setAttribute("shoppingId",shoppingId);
         return "countAdjust/index/spotshopping-add";
     }
 
@@ -369,5 +385,23 @@ public class EnterCountAdjustPageController {
         return "countAdjust/index/Quotation-detail";
     }
 
+    /**
+     * 进入Quotation-detail.html页
+     * @return
+     */
+    @RequestMapping("/shopping-add.html")
+    public String  shoppingAdd() {
+        return "countAdjust/index/shopping-add";
+    }
+
+    /**
+     * 进入system页
+     * @return
+     */
+    @RequestMapping("/shopping-update.html")
+    public String  staffUpdate(String shoppingId, HttpServletRequest request) {
+        request.setAttribute("shoppingId",shoppingId);
+        return "countAdjust/index/shopping-update";
+    }
 
 }

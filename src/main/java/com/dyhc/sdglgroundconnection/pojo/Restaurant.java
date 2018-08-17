@@ -19,10 +19,6 @@ public class Restaurant {
     private String restaurantName; // 名称
     @Column(name = "restaurantAddress")
     private String restaurantAddress; // 地点
-    @Column(name = "typeCode")
-    private Integer typeCode; // 餐厅类型编号（【餐厅类型编号】外键，与字典表关联
-    @Column(name = "valueId")
-    private Integer valueId; // 编码（【餐厅类型名称】外键，与字典表关联）
     @Column(name = "picturePath")
     private String picturePath; // 餐馆图片地址
     private String phone; // 联系电话
@@ -72,25 +68,6 @@ public class Restaurant {
         this.restaurantAddress = restaurantAddress;
     }
 
-    @Basic
-    @Column(name = "typeCode")
-    public Integer getTypeCode() {
-        return typeCode;
-    }
-
-    public void setTypeCode(Integer typeCode) {
-        this.typeCode = typeCode;
-    }
-
-    @Basic
-    @Column(name = "valueId")
-    public Integer getValueId() {
-        return valueId;
-    }
-
-    public void setValueId(Integer valueId) {
-        this.valueId = valueId;
-    }
 
     @Basic
     @Column(name = "picturePath")
@@ -190,31 +167,5 @@ public class Restaurant {
         this.value3 = value3;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Restaurant that = (Restaurant) o;
-        return restaurantId == that.restaurantId &&
-                Objects.equals(restaurantName, that.restaurantName) &&
-                Objects.equals(restaurantAddress, that.restaurantAddress) &&
-                Objects.equals(typeCode, that.typeCode) &&
-                Objects.equals(valueId, that.valueId) &&
-                Objects.equals(picturePath, that.picturePath) &&
-                Objects.equals(phone, that.phone) &&
-                Objects.equals(whetherDel, that.whetherDel) &&
-                Objects.equals(createBy, that.createBy) &&
-                Objects.equals(updateBy, that.updateBy) &&
-                Objects.equals(updateDate, that.updateDate) &&
-                Objects.equals(createDate, that.createDate) &&
-                Objects.equals(value1, that.value1) &&
-                Objects.equals(value2, that.value2) &&
-                Objects.equals(value3, that.value3);
-    }
 
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(restaurantId, restaurantName, restaurantAddress, typeCode, valueId, picturePath, phone, whetherDel, createBy, updateBy, updateDate, createDate, value1, value2, value3);
-    }
 }

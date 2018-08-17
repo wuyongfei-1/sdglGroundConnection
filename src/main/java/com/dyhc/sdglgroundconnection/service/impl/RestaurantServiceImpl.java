@@ -13,6 +13,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,7 @@ import java.util.Map;
  * 餐馆业务实现
  **/
 @Service
+@Transactional
 public class RestaurantServiceImpl implements RestaurantService {
 
     @Autowired
@@ -118,8 +120,16 @@ public class RestaurantServiceImpl implements RestaurantService {
      * @throws Exception 全局异常
      */
     @Override
+    @Transactional
     @RecordOperation(type = "餐馆", desc = "删除了一条餐馆信息")
     public Integer removeRestaurantInfoById(Integer restaurantId) throws Exception {
+        MealtypeExample mealtypeExample = new MealtypeExample();
+        // 拼接条件
+        MealtypeExample.Criteria criteria = mealtypeExample.createCriteria();
+        criteria.andRestaurantidEqualTo(restaurantId);
+        // 删除该餐馆下的所有饮食类型信息
+        mealTypeMapper.deleteByExample(mealtypeExample);
+        // 删除该餐馆
         return restaurantMapper.deleteByPrimaryKey(restaurantId);
     }
 

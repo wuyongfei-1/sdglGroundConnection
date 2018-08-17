@@ -28,7 +28,7 @@ public class GuideController{
     @Autowired
     private GuideService guideService;
     /**
-     * 导游分页查询
+     * 导游分页查询(yunguohao)
      * @param pageNo
      * @param pageSize
      * @param guide
@@ -50,7 +50,7 @@ public class GuideController{
         }
     }
     /**
-     * 增加
+     * 增加(yunguohao)
      */
     @RequestMapping("/insertGuide")
     public ReponseResult insertCompany(Guide guide){
@@ -76,7 +76,7 @@ public class GuideController{
         }
     }
     /**
-     * 修改
+     * 修改(yunguohao)
      */
     @RequestMapping("/updateGuide")
     public ReponseResult updateCompany(Guide guide){
@@ -100,7 +100,7 @@ public class GuideController{
         }
     }
     /**
-     * 删除
+     * 删除(yunguohao)
      */
     @RequestMapping("/deleteGuideByID")
     public ReponseResult deleteHotelByID(int guideid){
@@ -124,7 +124,7 @@ public class GuideController{
         }
     }
     /**
-     * id查询
+     * id查询(yunguohao)
      */
     @RequestMapping("/selectGuideById")
     public ReponseResult selectHotelById(int id){

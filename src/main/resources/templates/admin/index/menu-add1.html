@@ -34,18 +34,18 @@
 							<input type="radio" name="status" id="nvsex" value="0" title="女">
 						</div>
 					</div>
-					<div class="layui-form-item">
+					<!--<div class="layui-form-item">
 						<label class="layui-form-label">用户名：</label>
 						<div class="layui-input-block">
 							<input type="text" name="title3"  placeholder="请输入用户名" autocomplete="off" class="layui-input" id="username">
 						</div>
-					</div>
-					<div class="layui-form-item">
+					</div>-->
+					<!--<div class="layui-form-item">
 						<label class="layui-form-label">密码：</label>
 						<div class="layui-input-block">
 							<input type="text" name="title4"  placeholder="请输入密码" autocomplete="off" class="layui-input" id="password">
 						</div>
-					</div>
+					</div>-->
 					<div class="layui-form-item">
 						<label class="layui-form-label">联系电话：</label>
 						<div class="layui-input-block">
@@ -58,7 +58,7 @@
 							<input type="text" name="title6"  placeholder="请输入年龄" autocomplete="off" class="layui-input" id="age">
 						</div>
 					</div>
-				<div class="layui-form-item">
+				<!--<div class="layui-form-item" id="hi">
 					<label class="layui-form-label">状态：</label>
 					<div class="layui-input-block" id="Job-list">
 						<select id="roleId" name="roleId" lay-filter="status">
@@ -68,7 +68,7 @@
 							<option value="3">空闲中</option>
 						</select>
 					</div>
-				</div>
+				</div>-->
 					<div class="layui-form-item">
 						<div class="layui-input-block">
 							<button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo" onclick="JIudge()">立即提交</button>
@@ -93,20 +93,17 @@
 			});
 
 
-
+			//窗体加载
 			$(function () {
-                updateById();
-                $("#roleId").hide();
 
             });
 
 
             //判断是增加还是删除
             function JIudge() {
-                var id=$("#guiid").val();
                 var certificate=$("#certificate").val();
                 var guideName=$("#guideName").val();
-                var username=$("#username").val();
+               /* var username=$("#username").val();*/
                 /*var password=$("#password").val();*/
                 var telephone=$("#telephone").val();
                 var age=$("#age").val();
@@ -119,10 +116,10 @@
                     alert("不准为空");
                     return;
                 }
-                if (username==undefined||username==""||username==null){
+               /* if (username==undefined||username==""||username==null){
                     alert("不准为空");
                     return;
-                }
+                }*/
                 if (telephone==undefined||telephone==""||telephone==null){
                     alert("不准为空");
                     return;
@@ -135,15 +132,12 @@
                     alert("不准为空");
                     return;
                 }
-                if (id==null || id==""){
                     insertGuide();
-                }
-                if (id != null || id != ""){
-                    //$(select).show;
+               /* if (id != null || id != ""){
                     updateGuide();
-                }
+                }*/
             }
-            //id查询赋值
+           /* //id查询赋值
             function updateById(){
                 var id=$("#guiid").val();
                 $.ajax({
@@ -167,12 +161,13 @@
 						}
                     }
                 })
-            }
+            }*/
 
 
 
-            //修改方法
+            /*//修改方法
             function updateGuide() {
+
                 var sexs="";
                 var id=$("#guiid").val();
                 var certificate=$("#certificate").val();
@@ -198,24 +193,20 @@
                         parent.location.reload();
                     }
                 })
-            }
+            }*/
 
 
             //添加方法
             function insertGuide() {
                 var certificate=$("#certificate").val();
                 var guideName=$("#guideName").val();
-                var username=$("#username").val();
-                var password=$("#password").val();
+                /*var username=$("#username").val();*/
                 var telephone=$("#telephone").val();
                 var age=$("#age").val();
-                var sex=$("input[name=status]").val();
-                alert(sex);
-                /*var guides = $("#guides").serialize();
-                alert(guides)*/
+                var sex= $("input[name='status']:checked").val();
                 $.ajax({
                     url:"/guide/insertGuide",
-                    data:{certificate:certificate,guideName:guideName,username:username,password:password,telephone:telephone,age:age,sex:sex},
+                    data:{certificate:certificate,guideName:guideName,telephone:telephone,age:age,sex:sex},
                     dataType: "json",
                     type: "get",
                     success:function (data) {

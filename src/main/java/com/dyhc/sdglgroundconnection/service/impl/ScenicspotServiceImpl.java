@@ -3,11 +3,9 @@ package com.dyhc.sdglgroundconnection.service.impl;
 import com.dyhc.sdglgroundconnection.mapper.DictionariesMapper;
 import com.dyhc.sdglgroundconnection.mapper.ScenicspotMapper;
 import com.dyhc.sdglgroundconnection.mapper.ShoppingMapper;
-import com.dyhc.sdglgroundconnection.pojo.Dictionaries;
-import com.dyhc.sdglgroundconnection.pojo.DictionariesExample;
-import com.dyhc.sdglgroundconnection.pojo.Hotel;
-import com.dyhc.sdglgroundconnection.pojo.Scenicspot;
+import com.dyhc.sdglgroundconnection.pojo.*;
 import com.dyhc.sdglgroundconnection.service.ScenicspotService;
+import com.dyhc.sdglgroundconnection.service.ShoppingService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +22,9 @@ public class ScenicspotServiceImpl implements ScenicspotService {
 
     @Autowired
     private ScenicspotMapper scenicspotMapper;
+
+    @Autowired
+    private ShoppingService shoppingService;
 
     @Autowired
     private DictionariesMapper dictionariesMapper;
@@ -49,10 +50,11 @@ public class ScenicspotServiceImpl implements ScenicspotService {
             if(scenicspots.getParentId()==0){
                 scenicspots.setParentScenicSpotName("无");
             }else{
-                scenicspots.setScenicspotList(shoppingMapper.getShoppingByScenicspotId(scenicspots.getScenicSpotId()));
                 Scenicspot s=scenicspotMapper.selectByPrimaryKey(scenicspots.getParentId());
                 scenicspots.setParentScenicSpotName(s.getScenicSpotName());
             }
+            //给每个景点信息的购物集合赋值
+            scenicspots.setScenicspotList(shoppingMapper.getShoppingByScenicspotId(scenicspots.getScenicSpotId()));
             DictionariesExample dictionariesExample=new DictionariesExample();
             DictionariesExample.Criteria criteria=dictionariesExample.createCriteria();
             criteria.andTypecodeEqualTo("ATTRACTIONS");
@@ -109,15 +111,23 @@ public class ScenicspotServiceImpl implements ScenicspotService {
 
 
     /**
-     * 根据id删除景点信息 （wangtao）
+     * 根据id删除景点信息并删除景点下的购物点信息 （wangtao）
      * @param id id编号
      * @return
      * @throws Exception
      */
     @Override
     public Integer deleteScenicspotById(Integer id) throws Exception {
-        return scenicspotMapper.deleteByPrimaryKey(id);
+        List<Shopping> shoppingList=shoppingService.ListShoppingByScenicSpotId(id);
+        if(shoppingList!=null){
+            for (Shopping shopping:shoppingList) {
+                Integer result1=shoppingService.deleteShoppingById(shopping.getShoppingId());
+            }
+        }
+        Integer result=scenicspotMapper.deleteByPrimaryKey(id);
+        return result;
     }
+
 
 
 }

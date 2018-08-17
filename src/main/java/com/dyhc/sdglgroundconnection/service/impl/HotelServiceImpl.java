@@ -59,12 +59,15 @@ public class HotelServiceImpl implements HotelService {
         if(status!=null){
             criteria.andStatusEqualTo(status);
         }
+        criteria.andWhetherdelEqualTo(0);
         List<Hotel> hotels = hotelMapper.selectByExample(hotelExample);
         //查询酒店房间
         for (Hotel item:hotels) {
             RoomtypeExample roomtypeExample=new RoomtypeExample();
             RoomtypeExample.Criteria criteria1 = roomtypeExample.createCriteria();
             criteria1.andHotelidEqualTo(item.getHotelId());
+            //查询未删除
+            criteria1.andWhetherdelEqualTo(0);
             List<RoomType> roomTypeList=roomTypeMapper.selectByExample(roomtypeExample);
             item.setRoomTypeList(roomTypeList);
         }

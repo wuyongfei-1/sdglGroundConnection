@@ -2,6 +2,7 @@ package com.dyhc.sdglgroundconnection.web;
 
 import com.dyhc.sdglgroundconnection.pojo.Hotel;
 import com.dyhc.sdglgroundconnection.pojo.RoomType;
+import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.dyhc.sdglgroundconnection.service.HotelService;
 import com.dyhc.sdglgroundconnection.service.RoomTypeService;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
@@ -47,7 +48,7 @@ public class HotelController {
     @RequestMapping("/showAllHotels")
     public ReponseResult showHotel(Integer pageNo,Integer pageSize,String hotelName,String hotelAddress,Integer offer,Integer offer2,Integer status) {
         try {
-            pageSize = 2;
+            pageSize = 6;
             PageInfo<Hotel> pageInfo = hotelService.listHotels(pageNo,pageSize,hotelName,hotelAddress,offer,offer2,status);
             ReponseResult<List> data = ReponseResult.ok(pageInfo.getList(), pageInfo.getTotal(), "分页获取酒店成功！");
             logger.info(" method:showHotel  分页获取酒店成功！");
@@ -61,6 +62,99 @@ public class HotelController {
     }
 
     /**
+     * 新增酒店房间类型信息（dubingkun）
+     * @param roomType
+     * @return
+     */
+    @RequestMapping("/insertHotelRoom")
+    public ReponseResult inserHotelRoom(HttpServletRequest request,RoomType roomType){
+        roomType.setTypeId(0);
+        Staff sf=(Staff) request.getSession().getAttribute("user");
+        if(sf!=null){
+            roomType.setCreateBy(sf.getStaffId());
+        }
+        roomType.setWhetherDel(0);
+        int result= 0;
+        try {
+            result = roomTypeService.insertRoomType(roomType);
+            ReponseResult<String> date;
+            if(result>0){
+                date= ReponseResult.ok("增加酒店房间类型成功！");
+                logger.info(" method:insertHotel  增加酒店房间类型成功！");
+            }else{
+                date= ReponseResult.ok("增加酒店房间类型失败！");
+                logger.info(" method:insertHotel  增加酒店房间类型失败！");
+            }
+            return date;
+        } catch (Exception e) {
+            logger.error(" method:insertHotel  增加酒店数据失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
+    /**
+     * 修改酒店房间类型信息（dubingkun）
+     * @param roomType
+     * @return
+     */
+    @RequestMapping("/updateHotelRoom")
+    public ReponseResult updateHotelRoom(HttpServletRequest request,RoomType roomType){
+        Staff sf=(Staff) request.getSession().getAttribute("user");
+        if(sf!=null){
+            roomType.setCreateBy(sf.getStaffId());
+        }
+        roomType.setWhetherDel(0);
+        int result= 0;
+        try {
+            result = roomTypeService.updateRoomType(roomType);
+            ReponseResult<String> date;
+            if(result>0){
+                date= ReponseResult.ok("修改酒店房间类型成功！");
+                logger.info(" method:insertHotel  修改酒店房间类型成功！");
+            }else{
+                date= ReponseResult.ok("修改酒店房间类型失败！");
+                logger.info(" method:insertHotel  修改酒店房间类型失败！");
+            }
+            return date;
+        } catch (Exception e) {
+            logger.error(" method:insertHotel  修改酒店数据失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
+    /**
+     * 删除酒店房间信息（dubingkun）
+     * @param id
+     * @return
+     */
+    @RequestMapping("/deleteHotelRoom")
+    public ReponseResult deleteRoomType(Integer id){
+        int result= 0;
+        try {
+            RoomType roomType=roomTypeService.getTypeId(id);
+            roomType.setWhetherDel(1);
+            result = roomTypeService.updateRoomType(roomType);
+            ReponseResult<String> date;
+            if(result>0){
+                date= ReponseResult.ok("删除酒店房间类型成功！");
+                logger.info(" method:insertHotel  删除酒店房间类型成功！");
+            }else{
+                date= ReponseResult.ok("删除酒店房间类型失败！");
+                logger.info(" method:insertHotel  删除酒店房间类型失败！");
+            }
+            return date;
+        } catch (Exception e) {
+            logger.error(" method:insertHotel  删除酒店数据失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+    /**
      * 查询全部
      */
     @RequestMapping("/ListByHotel")
@@ -70,10 +164,6 @@ public class HotelController {
         logger.info(" method:ListByHotel  查询全部酒店成功！");
         return date;
     }
-//    @RequestMapping("/insertHotelRoom")
-//    public ReponseResult inserHotelRoom(RoomType roomType){
-//
-//    }
     /**
      * 增加
      */

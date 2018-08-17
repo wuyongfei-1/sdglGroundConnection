@@ -43,6 +43,7 @@ public class GuideServiceImpl implements GuideService {
     @RecordOperation(type = "导游", desc = "添加了一条导游信息")
     public int insertGuide(Guide guide) {
         guide.setWhetherDel(0);
+        guide.setState(3);
         return guideMapper.insert(guide);
     }
     /**

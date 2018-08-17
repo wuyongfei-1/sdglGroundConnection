@@ -38,7 +38,7 @@ public class GuideController{
     public ReponseResult showHotel(@RequestParam("page") Integer pageNo, @RequestParam("limit") Integer pageSize, Guide guide) {
         try {
             pageSize = 6;
-            PageInfo<Guide> pageInfo = guideService.listCompany(pageNo,pageSize,guide);
+            PageInfo<Guide> pageInfo = guideService.listGuide(pageNo,pageSize,guide);
             ReponseResult<List> data = ReponseResult.ok(pageInfo.getList(), pageInfo.getTotal(), "分页获取导游成功！");
             logger.info(" method:showAllCompany  分页获取导游成功！");
             return data;
@@ -61,15 +61,15 @@ public class GuideController{
             if (result>0){
                 date= ReponseResult.ok("1","增加导游成功！");
                 System.out.println(date);
-                logger.info(" method:insertCompany  增加导游成功！");
+                logger.info(" method:insertGuide  增加导游成功！");
 
             }else{
                 date= ReponseResult.ok("0","增加导游失败！");
-                logger.info(" method:insertCompany  增加导游失败！");
+                logger.info(" method:insertGuide  增加导游失败！");
             }
             return date;
         }catch (Exception e){
-            logger.error(" method:insertCompany  增加导游数据失败，系统出现异常！");
+            logger.error(" method:insertGuide  增加导游数据失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
             return err;
@@ -78,22 +78,22 @@ public class GuideController{
     /**
      * 修改
      */
-    @RequestMapping("/updateCompany")
+    @RequestMapping("/updateGuide")
     public ReponseResult updateCompany(Guide guide){
         try {
             int result=guideService.updateGuide(guide);
             ReponseResult<String> date;
             if (result>0){
                 date= ReponseResult.ok("1","修改导游成功！");
-                logger.info("method:updateCompany  修改导游成功！");
+                logger.info("method:updateGuide  修改导游成功！");
 
             }else{
                 date= ReponseResult.ok("0","修改导游失败！");
-                logger.info(" method:updateCompany  修改导游失败！");
+                logger.info(" method:updateGuide  修改导游失败！");
             }
             return date;
         }catch (Exception e){
-            logger.error(" method:updateCompany  修改导游失败，系统出现异常！");
+            logger.error(" method:updateGuide  修改导游失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
             return err;
@@ -102,18 +102,18 @@ public class GuideController{
     /**
      * 删除
      */
-    @RequestMapping("/deleteCompanyByID")
+    @RequestMapping("/deleteGuideByID")
     public ReponseResult deleteHotelByID(int guideid){
         try {
             int result=guideService.deleteGuideByIDs(guideid);
             ReponseResult<String> date;
             if (result>0){
                 date= ReponseResult.ok("1","删除导游成功！");
-                logger.info(" method:deleteCompanyByID  删除导游成功！");
+                logger.info(" method:deleteGuideByID  删除导游成功！");
 
             }else{
                 date= ReponseResult.ok("0","删除导游失败！");
-                logger.info(" method:deleteCompanyByID  删除导游失败！");
+                logger.info(" method:deleteGuideByID  删除导游失败！");
             }
             return date;
         }catch (Exception e){
@@ -126,7 +126,7 @@ public class GuideController{
     /**
      * id查询
      */
-    @RequestMapping("/selectCompanyById")
+    @RequestMapping("/selectGuideById")
     public ReponseResult selectHotelById(int id){
         try {
             Guide result=guideService.selectGuideByIds(id);
@@ -134,15 +134,15 @@ public class GuideController{
             ReponseResult<Guide> date;
             if (result!=null){
                 date= ReponseResult.ok(result,"id查询成功");
-                logger.info(" method:selectCompanyById  id查询成功！");
+                logger.info(" method:selectGuideById  id查询成功！");
 
             }else{
                 date= ReponseResult.ok("id查询导游失败！");
-                logger.info(" method:selectCompanyById  id查询导游失败！");
+                logger.info(" method:selectGuideById  id查询导游失败！");
             }
             return date;
         }catch (Exception e){
-            logger.error(" method:selectCompanyById  id查询导游失败，系统出现异常！");
+            logger.error(" method:selectGuideById  id查询导游失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
             return err;

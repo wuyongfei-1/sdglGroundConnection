@@ -193,7 +193,8 @@ public class EnterAdminPageController {
      * @return
      */
     @RequestMapping("/menu-add1.html")
-    public String  menuAdd1() {
+    public String  menuAdd1(String guideid, HttpServletRequest httpServletRequest) {
+        httpServletRequest.setAttribute("guideid",guideid);
         return "admin/index/menu-add1";
     }
 

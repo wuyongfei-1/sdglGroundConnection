@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>网站后台管理模版</title>
+    <link rel="stylesheet" type="text/css" href="/admin/layui/css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="/admin/css/admin.css"/>
+</head>
+<body>
+<div class="wrap-container" style="height:500px; ">
+    <form id="shoppingInfo" class="layui-form" style="width: 90%;padding-top: 20px;">
+        <div class="layui-form-item">
+            <label class="layui-form-label">购物地点：</label>
+            <div class="layui-input-block">
+                <input type="text" name="shoppingSite"  placeholder="请输入购物地点"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+    <!--    <div class="layui-form-item">
+            <label class="layui-form-label">密码：</label>
+            <div class="layui-input-block">
+                <input type="text" name="password"  placeholder="请输入密码" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>-->
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">附近景点：</label>
+            <div class="layui-input-block" id="Scheduling-list">
+                <select id="scenicSpotId" name="scenicSpotId" lay-filter="status">
+
+                </select>
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo" onclick="saveShoppingInfo()">
+                    立即提交
+                </button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/jquery-1.8.3.min.js"></script>
+<script>
+    $(function () {
+        listScenicspotAll();
+    });
+
+    function saveShoppingInfo() {
+        var shoppingSite = $("input[name='shoppingSite']").val();
+
+        var scenicSpotId = $("#scenicSpotId option:selected").val();
+
+        if (shoppingSite==undefined||shoppingSite==""||shoppingSite==null){
+            alert("不准为空");
+            return;
+        }
+
+        if (scenicSpotId==undefined||scenicSpotId==""||scenicSpotId==null||scenicSpotId==0){
+            alert("不准为空");
+            return;
+        }
+
+        var shoppingInfo = $("#shoppingInfo").serialize();
+        $.ajax({
+            url: "/shopping/saveShoppingInfo",
+            data: shoppingInfo,
+            dataType: "json",
+            type: "post",
+            success: function (ReponseResult) {
+                if (ReponseResult.data == 0 || ReponseResult.data == '0') {
+                    alert("新增失败")
+                }
+                if (ReponseResult.data == 1 || ReponseResult.data == '1') {
+                    alert("新增成功")
+                }
+                parent.location.reload();
+            },
+            error: function (res) {
+                /*  alert(res);*/
+            }
+        })
+    }
+    /*为下拉框绑定职务信息*/
+    function listScenicspotAll() {
+
+        $.ajax({
+            url: "/shopping/listScenicspotAll",
+            data: {},
+            async:false,
+            dataType: "json",
+            type: "post",
+            success: function (ReponseResult) {
+                var content = "<option  value='0' selected='selected'>请选择景点</option>";
+                $(ReponseResult.data).each(function (i, e) {
+                    content += "<option value='" + e.scenicSpotId + "'>" + e.scenicSpotName + "</option>";
+                })
+                $('#Scheduling-list select').html(content);
+            },
+            error: function (res) {
+                alert(res);
+            }
+        })
+    }
+</script>
+<script>
+    //Demo
+    layui.use(['form'], function () {
+        var form = layui.form();
+        form.render();
+        //监听提交
+        form.on('submit(formDemo)', function (data) {
+            return false;
+        });
+    });
+</script>
+</body>
+
+</html>

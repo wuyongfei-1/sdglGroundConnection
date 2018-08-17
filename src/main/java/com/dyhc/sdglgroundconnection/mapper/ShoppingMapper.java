@@ -2,6 +2,7 @@ package com.dyhc.sdglgroundconnection.mapper;
 
 import com.dyhc.sdglgroundconnection.pojo.Shopping;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -20,6 +21,8 @@ public interface ShoppingMapper extends CommonMapper<Shopping>{
      * @return 返回购物信息对象
      */
     List<Shopping> getShoppingByScenicspotId(Integer scenicSpotId) throws Exception;
+
+    Integer deleteShoppingByShoppingId(@Param("shoppingId") Integer shoppingId)throws Exception;
 
 
 }

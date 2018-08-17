@@ -32,6 +32,16 @@ public class Shopping {
     private String value1;
     private String value2;
     private String value3;
+    @Transient
+    private Scenicspot scenicspot ;
+
+    public Scenicspot getScenicspot() {
+        return scenicspot;
+    }
+
+    public void setScenicspot(Scenicspot scenicspot) {
+        this.scenicspot = scenicspot;
+    }
 
     @Id
     @Column(name = "shoppingId")

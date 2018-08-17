@@ -348,5 +348,23 @@ public class EnterCountAdjustPageController {
         return "countAdjust/index/Quotation-detail";
     }
 
+    /**
+     * 进入Quotation-detail.html页
+     * @return
+     */
+    @RequestMapping("/shopping-add.html")
+    public String  shoppingAdd() {
+        return "countAdjust/index/shopping-add";
+    }
+
+    /**
+     * 进入system页
+     * @return
+     */
+    @RequestMapping("/shopping-update.html")
+    public String  staffUpdate(String shoppingId, HttpServletRequest request) {
+        request.setAttribute("shoppingId",shoppingId);
+        return "countAdjust/index/shopping-update";
+    }
 
 }

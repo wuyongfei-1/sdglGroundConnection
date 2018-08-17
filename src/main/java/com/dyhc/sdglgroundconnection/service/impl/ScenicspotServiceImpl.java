@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
+import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.mapper.DictionariesMapper;
 import com.dyhc.sdglgroundconnection.mapper.ScenicspotMapper;
 import com.dyhc.sdglgroundconnection.mapper.ShoppingMapper;
@@ -75,6 +76,7 @@ public class ScenicspotServiceImpl implements ScenicspotService {
      * @throws Exception
      */
     @Override
+    @RecordOperation(type = "景点信息",desc = "增加一条景点信息")
     public Integer insertScenicspot(Scenicspot s) throws Exception {
         Integer result=scenicspotMapper.saveScenicspotInfo(s);
         return result;
@@ -97,6 +99,7 @@ public class ScenicspotServiceImpl implements ScenicspotService {
      * @throws Exception
      */
     @Override
+    @RecordOperation(type = "景点信息",desc = "修改了一条景点信息")
     public Integer updateScenicspot(Scenicspot scenicspot) throws Exception {
         Integer result=scenicspotMapper.updateScenicspotInfoByParentId(scenicspot);
         return result;
@@ -120,6 +123,7 @@ public class ScenicspotServiceImpl implements ScenicspotService {
      * @throws Exception
      */
     @Override
+    @RecordOperation(type = "景点信息",desc = "删除了一条景点信息")
     public Integer deleteScenicspotById(Integer id) throws Exception {
         List<Shopping> shoppingList=shoppingService.ListShoppingByScenicSpotId(id);
         if(shoppingList!=null){

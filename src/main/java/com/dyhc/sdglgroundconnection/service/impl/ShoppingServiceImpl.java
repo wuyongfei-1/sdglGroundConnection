@@ -120,6 +120,7 @@ public class ShoppingServiceImpl implements ShoppingService {
      * @return 返回受影响行数
      */
     @Override
+    @RecordOperation(type = "购物地点",desc = "新增一条购物地点信息")
     public Integer insertInfo(Shopping shopping) throws Exception {
         return shoppingMapper.insert(shopping);
     }
@@ -154,6 +155,7 @@ public class ShoppingServiceImpl implements ShoppingService {
      * @throws Exception
      */
     @Override
+    @RecordOperation(type = "购物地点",desc = "删除了一条购物地点信息")
     public Integer deleteShoppingById(Integer shoppingId) throws Exception {
         return shoppingMapper.deleteByPrimaryKey(shoppingId);
     }
@@ -165,6 +167,7 @@ public class ShoppingServiceImpl implements ShoppingService {
      * @throws Exception
      */
     @Override
+    @RecordOperation(type = "购物地点",desc = "修改了一条购物地点信息")
     public Integer updateShopping(Shopping shopping) throws Exception {
 
         return shoppingMapper.updateByPrimaryKey(shopping);

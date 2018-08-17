@@ -34,4 +34,11 @@ public interface ScenicspotMapper extends CommonMapper<Scenicspot>{
      * @return 返回父景点集合
      */
     List<Scenicspot> ListScenicspotByParentId() throws Exception;
+
+    /**
+     *  根据编号修改景点信息 （wangtao）
+     * @return
+     * @throws Exception
+     */
+    int updateScenicspotInfoByParentId(Scenicspot scenicspot) throws Exception;
 }

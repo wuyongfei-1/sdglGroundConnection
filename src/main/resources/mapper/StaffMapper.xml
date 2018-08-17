@@ -2,9 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dyhc.sdglgroundconnection.mapper.StaffMapper">
-
-
-    <!--删除用户信息 (lixiaojie)-->
     <update id="updateStaffWhetherDel">
         UPDATE
           `staff`
@@ -12,6 +9,16 @@
           `whetherDel` = 1
         WHERE `staffId` = #{staffId};
     </update>
+
+
+    <update id="updateStaffpa">
+                UPDATE
+        `staff`
+        SET
+        `password` = #{password}
+        WHERE `staffId` = #{staffId};
+    </update>
+    <!--根据传入的staff信息修改-->
     <!--根据传入的staff信息修改 (lixiaojie)-->
     <update id="updateStaffInfo" parameterType="com.dyhc.sdglgroundconnection.pojo.Staff">
             UPDATE
@@ -76,7 +83,7 @@
                AND  `staffname` LIKE CONCAT('%',#{staffname},'%')
             </if>
             <if test="roleId !=null and roleId !=0">
-                AND r.`roleId` =#{roleId}
+                AND `roleId` =#{roleId}
             </if>
             <if test="firstDate!=null and firstDate != ''">
                 AND `createDate` >  #{firstDate}

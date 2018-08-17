@@ -2,7 +2,7 @@ package com.dyhc.sdglgroundconnection.service.impl;
 
 import com.dyhc.sdglgroundconnection.mapper.DictionariesMapper;
 import com.dyhc.sdglgroundconnection.pojo.Dictionaries;
-import com.dyhc.sdglgroundconnection.pojo.Scenicspot;
+import com.dyhc.sdglgroundconnection.pojo.DictionariesExample;
 import com.dyhc.sdglgroundconnection.service.DictionariesService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,20 +21,31 @@ public class DictionariesServiceImpl implements DictionariesService {
     private DictionariesMapper dictionariesMapper;
 
     /**
-     * 查询所有景点相关字典信息 （wangtao）
+     * 根据类型编号查询相关字典信息 （wangtao）
+     *
      * @param typeCode 类型编码
      * @return 返回字典信息集合
      */
     @Override
     public PageInfo<Dictionaries> ListDictionariesByScenicepot(String typeCode) throws Exception {
-        List<Dictionaries> dictionariesList=dictionariesMapper.ListDictionariesByScenicspot(typeCode);
-        PageInfo<Dictionaries> pageInfo=new PageInfo<>(dictionariesList);
+        List<Dictionaries> dictionariesList = dictionariesMapper.ListDictionariesByScenicspot(typeCode);
+        PageInfo<Dictionaries> pageInfo = new PageInfo<>(dictionariesList);
         return pageInfo;
     }
 
-
-
-
-
+    /**
+     * 根据类型编码获取对应的所有字典信息（wuyongfei）（不分页，所有）
+     *
+     * @param typeCode 类型编码
+     * @return 对应的所有字典信息
+     * @throws Exception 全局异常
+     */
+    @Override
+    public List<Dictionaries> listDictionaries(String typeCode) throws Exception {
+        DictionariesExample dictionariesExample = new DictionariesExample();
+        DictionariesExample.Criteria criteria = dictionariesExample.createCriteria();
+        criteria.andTypecodeEqualTo(typeCode);
+        return dictionariesMapper.selectByExample(dictionariesExample);
+    }
 
 }

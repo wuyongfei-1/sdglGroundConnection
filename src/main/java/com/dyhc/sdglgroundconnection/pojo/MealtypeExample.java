@@ -951,6 +951,10 @@ public class MealtypeExample {
             addCriterion("value3 not between", value1, value2, "value3");
             return (Criteria) this;
         }
+        public Criteria andValueIdEqualTo(Integer value) {
+            addCriterion("valueId =", value, "valueId");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

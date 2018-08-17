@@ -10,7 +10,7 @@ public class LoginConfigurer implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         //super.addInterceptors(registry);
         //拦截管理除登录页面以外的所有页面
-        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("").excludePathPatterns(notLoginInterceptPaths);
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns(notLoginInterceptPaths);
     }
 
 

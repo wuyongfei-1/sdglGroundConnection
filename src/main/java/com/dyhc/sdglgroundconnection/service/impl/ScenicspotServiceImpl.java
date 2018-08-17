@@ -60,7 +60,9 @@ public class ScenicspotServiceImpl implements ScenicspotService {
             criteria.andTypecodeEqualTo("ATTRACTIONS");
             criteria.andValueidEqualTo(scenicspots.getTypeId());
             List<Dictionaries> d=dictionariesMapper.selectByExample(dictionariesExample);
-            scenicspots.setTypeName(d.get(0).getValueContent1());
+            if(d.size()>0){
+                scenicspots.setTypeName(d.get(0).getValueContent1());
+            }
         }
         PageInfo<Scenicspot> pageInfo = new PageInfo<>(scenicspotList);
         return pageInfo;
@@ -96,7 +98,12 @@ public class ScenicspotServiceImpl implements ScenicspotService {
      */
     @Override
     public Integer updateScenicspot(Scenicspot scenicspot) throws Exception {
-        return scenicspotMapper.updateByPrimaryKey(scenicspot);
+        scenicspot.setScenicSpotId(scenicspot.getScenicSpotId());
+        ScenicspotExample scenicspotExample = new ScenicspotExample();
+        ScenicspotExample.Criteria criteria = scenicspotExample.createCriteria();
+        criteria.andScenicspotidEqualTo(scenicspot.getScenicSpotId());
+        Integer result=scenicspotMapper.updateByExample(scenicspot,scenicspotExample);
+        return result;
     }
 
     /**

@@ -3,6 +3,7 @@ package com.dyhc.sdglgroundconnection.web;
 import com.dyhc.sdglgroundconnection.pojo.Hotel;
 import com.dyhc.sdglgroundconnection.pojo.Scenicspot;
 import com.dyhc.sdglgroundconnection.service.ScenicspotService;
+import com.dyhc.sdglgroundconnection.utils.FileUploadUtil;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Param;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
@@ -44,7 +46,6 @@ public class ScenicspotController {
     @RequestMapping("/ListScenicspot")
     public ReponseResult ListScenicspot(@RequestParam("page") Integer pageNo, @RequestParam("limit") Integer pageSize,Scenicspot scenicspot){
         try {
-            scenicspot.setWhetherDel(0);
             //一、查询所有的景点信息
             PageInfo<Scenicspot> pageInfo =scenicspotService.listScenicspot(pageNo,pageSize,scenicspot);
             //二、返回ReponseResult对象
@@ -66,14 +67,22 @@ public class ScenicspotController {
      * @return ReponseResult对象
      */
     @RequestMapping("/insertScenicspot")
-    public ReponseResult insertScenicspot(Scenicspot scenicspot){
+    public ReponseResult insertScenicspot(Scenicspot scenicspot,@RequestParam("multipartFile") MultipartFile multipartFile,
+                                          @RequestParam("savePath") String savePath){
         try {
+            // 上传图片操作
+            String uploadResult = FileUploadUtil.uploadImage(multipartFile, savePath, ".jpg");
+            if (!"".equals(uploadResult)) {
+                scenicspot.setPicturePath(uploadResult);
+                logger.info(" method:insertScenicspot  上传图片成功！");
+            }else{
+                logger.info(" method:insertScenicspot  上传图片失败！");
+            }
             //设置默认参数
             scenicspot.setCreateBy(1);
             scenicspot.setCreateDate(new Date());
             scenicspot.setWhetherDel(0);
             scenicspot.setDescribe("景点");
-            scenicspot.setPicturePath("图片地址");
             scenicspot.setTypeCode("ATTRACTIONS");
             //一、新增景点信息
             Integer result =scenicspotService.insertScenicspot(scenicspot);

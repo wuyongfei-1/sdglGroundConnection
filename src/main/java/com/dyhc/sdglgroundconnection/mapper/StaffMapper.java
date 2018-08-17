@@ -40,4 +40,8 @@ public interface StaffMapper extends CommonMapper<Staff>{
      * @return
      */
     Staff getByTheUserName(String username);
+    /**
+     * 修改密码(yunguohao)
+     */
+    int updateStaffpa(Staff staff);
 }

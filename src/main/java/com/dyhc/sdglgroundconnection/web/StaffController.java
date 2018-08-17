@@ -182,13 +182,21 @@ public class StaffController  {
     public ReponseResult testUploadImage(Staff staff,@RequestParam("multipartFile") MultipartFile multipartFile,
                                          @RequestParam("savePath") String savePath) {
         try {
-            // 上传图片操作
-            String uploadResult = FileUploadUtil.uploadImage(multipartFile, savePath, ".jpg");
-            if (!"".equals(uploadResult)) {
-                staff.setHeadPortraitPath(uploadResult);
-                logger.info(" method:updateStaff  上传图片成功！");
-            }else{
-                logger.info(" method:updateStaff  上传图片失败！");
+            //判断是否有上传图片 判断multipartFile和savePath是否为null
+            if (!multipartFile.isEmpty() && "a.txt".equals(multipartFile.getOriginalFilename())) {
+                System.out.println("上上上");
+                //如果为空则根据编号查询信息把用户之前的图片地址赋值给要修改的对象
+                Staff staff1 = staffService.getStaffInfoByStaffId(2);
+                staff.setHeadPortraitPath(staff1.getHeadPortraitPath());
+            } else {
+                // 上传图片操作
+                String uploadResult = FileUploadUtil.uploadImage(multipartFile, savePath, ".jpg");
+                if (!"".equals(uploadResult)) {
+                    staff.setHeadPortraitPath(uploadResult);
+                    logger.info(" method:updateStaff  上传图片成功！");
+                } else {
+                    logger.info(" method:updateStaff  上传图片失败！");
+                }
             }
             int result=staffService.updateStaffs(staff);
             ReponseResult<String> date;
@@ -209,6 +217,31 @@ public class StaffController  {
         }
     }
 
+
+    /**
+     * 修改
+     */
+    @RequestMapping("/updateStaff1")
+    public ReponseResult updateCompany(Staff staff){
+        try {
+            int result=staffService.updateStaffpas(staff);
+            ReponseResult<String> date;
+            if (result>0){
+                date= ReponseResult.ok("1","修改公司成功！");
+                logger.info("method:updateStaff1  修改公司成功！");
+
+            }else{
+                date= ReponseResult.ok("0","修改公司失败！");
+                logger.info(" method:updateStaff1  修改公司失败！");
+            }
+            return date;
+        }catch (Exception e){
+            logger.error(" method:updateStaff1  修改公司失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
 
 
     /**

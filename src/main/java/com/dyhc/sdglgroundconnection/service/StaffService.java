@@ -29,6 +29,10 @@ public interface StaffService {
     Integer updateStaffInfo(Staff staff);
 
     /**
+     * 修改用户信息（yunguohao）
+     */
+    int updateStaffs(Staff staff) throws Exception;
+    /**
      * 根据用户id获取用户信息
      * @param staffId
      * @return

@@ -41,6 +41,18 @@ public class StaffServiceImpl implements StaffService {
         return staffMapper.updateStaffInfo(staff);
     }
 
+    /**
+     * 修改个人信息（yunguohao）
+     * @param staff
+     * @return
+     */
+    @Override
+    @RecordOperation(type = "用户", desc = "修改了一条用户信息")
+    public int updateStaffs(Staff staff) throws Exception {
+        staff.setWhetherDel(0);
+        return  staffMapper.updateByPrimaryKey(staff);
+    }
+
     @Override
     public Staff getStaffInfoByStaffId(Integer staffId) {
         return staffMapper.selectByPrimaryKey(staffId);

@@ -59,7 +59,8 @@
 				  <div class="layui-form-item">
 				    <label class="layui-form-label">头像地址：</label>
 				    <div class="layui-input-block">
-				      <input type="text" name="headPortraitPath" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input" value="未知">
+						<input type="file" id="imageFile" name="multipartFile" onchange="showimg()"/><img src="" style="width: 60px;height: 60px" id="imgs">
+						<img src="/static/images/asdasd.jpg">
 				    </div>
 				  </div>
 				  <div class="layui-form-item">
@@ -111,7 +112,7 @@
 				  </div>
 				  <div class="layui-form-item">
 				    <div class="layui-input-block">
-				      <button class="layui-btn layui-btn-normal" lay-submit lay-filter="adminPassword">立即提交</button>
+				      <button class="layui-btn layui-btn-normal" lay-submit lay-filter="adminPassword" onclick="updateStaffInfo()">立即提交</button>
 				    </div>
 				  </div>
 				</form>
@@ -137,7 +138,26 @@
 		    return false;
 		  });
 		});
-        getStaffInfoByStaffId();
+		$(function () {
+            getStaffInfoByStaffId();
+        });
+
+
+        function showimg() {
+            var file = document.getElementById("imageFile").files[0];
+            //创建读取文件的对象
+            var reader = new FileReader();
+            //创建文件读取相关的变量
+            var imgFile;
+            reader.onload=function(e) {
+                imgFile = e.target.result;
+                $("#imgs").attr('src', imgFile);
+                $("#imgs").show();
+            };
+            //正式读取文件
+            reader.readAsDataURL(file);
+        }
+        //id查询信息
         function getStaffInfoByStaffId() {
             /*var hiddenStaffId=$("#hiddenStaffId").val(1);
             alert(hiddenStaffId);*/
@@ -155,12 +175,11 @@
                     }
                     $("input[name='staffId']").val(ReponseResult.data.staffId);
                     $("input[name='theUserName']").val(ReponseResult.data.theUserName);
-                    $("input[name='headPortraitPath']").val(ReponseResult.data.headPortraitPath);
+                    $("input[name='multipartFile']").val(ReponseResult.data.headPortraitPath);
                     $("input[name='cardId']").val(ReponseResult.data.cardId);
                     $("input[name='qqnumber']").val(ReponseResult.data.qqnumber);
                     $("input[name='currentAddress']").val(ReponseResult.data.currentAddress);
                     $("input[name='phone']").val(ReponseResult.data.phone);
-
                 },
                 error: function (res) {
                     /*  alert(res);*/
@@ -168,6 +187,47 @@
             })
         }
 
+        /*修改用户信息*/
+        function updateStaffInfo() {
+            alert("修改");
+            var savePath = "D://upload-images-test"; // 图片保存路径
+            var fileObj = document.getElementById("imageFile").files[0]; // 获取文件对象
+            var staffname= $("input[name='staffname']").val();
+            alert(staffname)
+            var headPortraitPath=$("input[name='multipartFile']").val();
+            var qqnumber= $("input[name='qqnumber']").val();
+            var currentAddress= $("input[name='currentAddress']").val();
+            var phone= $("input[name='phone']").val();
+            var staffId=2;
+            // formData对象，用来序列化二进制数据
+            var formData = new FormData();
+            formData.append("multipartFile", fileObj);
+            formData.append("savePath", savePath);
+            formData.append("staffname",staffname);
+            formData.append("headPortraitPath",headPortraitPath);
+            formData.append("qqnumber",qqnumber);
+            formData.append("currentAddress",currentAddress);
+            formData.append("phone",phone);
+            formData.append("staffId",staffId);
+            $.ajax({
+                url: "/staff/updateStaff",
+                data: formData,
+                dataType: "json",
+                type: "post",
+                success: function (ReponseResult) {
+                    if (ReponseResult.data==0||ReponseResult.data=='0') {
+                        alert("修改失败")
+                    }
+                    if (ReponseResult.data==1||ReponseResult.data=='1') {
+                        alert("修改成功")
+                    }
+                    parent.location.reload();
+                },
+                error: function (res) {
+                    /*  alert(res);*/
+                }
+            })
+        }
 
 	</script>
 	</body>

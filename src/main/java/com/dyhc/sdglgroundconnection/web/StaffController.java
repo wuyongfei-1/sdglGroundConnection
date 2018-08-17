@@ -1,22 +1,17 @@
 package com.dyhc.sdglgroundconnection.web;
 
 import com.dyhc.sdglgroundconnection.pojo.Staff;
-import com.dyhc.sdglgroundconnection.pojo.Hotel;
-import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.dyhc.sdglgroundconnection.service.StaffService;
 import com.dyhc.sdglgroundconnection.utils.EncryUtil;
-import com.dyhc.sdglgroundconnection.utils.ReponseResult;
+import com.dyhc.sdglgroundconnection.utils.FileUploadUtil;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -176,6 +171,45 @@ public class StaffController  {
             return err;
         }
     }
+    /**
+     * 图片上传（yunguohao）
+     *
+     * @param multipartFile 文件对象
+     * @param savePath      图片保存路径
+     * @return 保存结果updateStaff
+     */
+    @RequestMapping("/updateStaff")
+    public ReponseResult testUploadImage(Staff staff,@RequestParam("multipartFile") MultipartFile multipartFile,
+                                         @RequestParam("savePath") String savePath) {
+        try {
+            // 上传图片操作
+            String uploadResult = FileUploadUtil.uploadImage(multipartFile, savePath, ".jpg");
+            if (!"".equals(uploadResult)) {
+                staff.setHeadPortraitPath(uploadResult);
+                logger.info(" method:updateStaff  上传图片成功！");
+            }else{
+                logger.info(" method:updateStaff  上传图片失败！");
+            }
+            int result=staffService.updateStaffs(staff);
+            ReponseResult<String> date;
+            if (result>0){
+                date= ReponseResult.ok("1","修改用户信息成功！");
+                logger.info(" method:updateStaff  修改用户信息成功！");
+
+            }else{
+                date= ReponseResult.ok("0","修改用户信息失败！");
+                logger.info(" method:updateStaff  修改用户信息失败！");
+            }
+            return date;
+        }catch (Exception e){
+            logger.error(" method:updateStaffInfo  修改用户信息失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
+
 
     /**
      * 登录验证（dubingkun）

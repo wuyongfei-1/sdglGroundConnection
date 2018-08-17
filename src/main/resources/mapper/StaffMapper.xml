@@ -22,7 +22,6 @@
     <update id="updateStaffInfo" parameterType="com.dyhc.sdglgroundconnection.pojo.Staff">
             UPDATE
               `staff`
-
     <set>
             <if test="roleId!=0 and roleId!=null and roleId!=''">
                 `roleId` = #{roleId},

@@ -172,19 +172,6 @@
             })
 
 
-            //修改酒店按钮
-            $(document).on("click","#update",function () {
-                var id=$(this).val();
-                layer.open({
-                    type: 2,
-                    title: '公司修改',
-                    maxmin: true,
-                    shadeClose: true, //点击遮罩关闭层
-                    area : ['800px' , '520px'],
-                    content: 'hotelroom-add.html?id='+id+'&pan=1'
-                });
-            })
-
             search();
 			//搜索（dubingkun）
                 $("#search").click(function () {

@@ -140,10 +140,11 @@ public class EnterCountAdjustPageController {
      */
     @RequestMapping("/hotel-add.html")
     public String  hoteladd(HttpServletRequest request,Integer pan,Integer hotelId) {
-        Hotel hotel=hotelService.selectHotelById(hotelId);
+        Hotel hotel=null;
         //修改
         if(pan!=0){
             try {
+                hotel=hotelService.selectHotelById(hotelId);
                 hotelId=hotel.getHotelId();
             } catch (Exception e) {
                 e.printStackTrace();

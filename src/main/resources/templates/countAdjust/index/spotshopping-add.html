@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="renderer" content="webkit">
@@ -18,9 +18,11 @@
 						<div class="layui-tab-content">
 							<div class="layui-tab-item layui-show">
 								<div class="layui-form-item">
+									<input type="hidden" id="spotId" th:value="${Spotid}">
+									<input type="hidden" id="shoppingId" th:value="${shoppingId}">
 									<label class="layui-form-label">购物地名称：</label>
 									<div class="layui-input-block">
-										<input type="text" name="name" required lay-verify="required" placeholder="请输入房间类型名称" autocomplete="off" class="layui-input">
+										<input type="text" name="shoppingSite" id="shoppingSite" required lay-verify="required" placeholder="请输入购物点名称" autocomplete="off" class="layui-input">
 									</div>
 								</div>
 							</div>
@@ -28,14 +30,60 @@
 					</div>
 					<div class="layui-form-item" style="padding-left: 10px;">
 						<div class="layui-input-block">
-							<button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo">立即提交</button>
+							<input class="layui-btn" onclick="exit()" id="tj" value="提交" style="width: 80px;font-size: small"></input>
 							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 						</div>
 					</div>
 				</form>
 	<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/js/jquery-1.8.2.min.js"></script>
 	<script>
+		$(function () {
+            var spotId=$("#spotId").val();
+            if(spotId==''||spotId==0){
+                var shoppingId=$("#shoppingId").val();
+                getShoppingById(shoppingId);
+            }
+        })
+
+		function getShoppingById(shoppingId) {
+			$.post("/shopping/getShoppingById","shoppingId="+shoppingId,function (data) {
+                $("#shoppingSite").val(data.data.shoppingSite);
+            },"json");
+        }
+
+		function exit(){
+            var shoppingId=$("#shoppingId").val();
+                //如果购物信息编号不为空并且景点编号为空
+            	if(shoppingId!=''&&$("#spotId").val()==''){
+					//调用修改方法
+                    var shoppingSite=$("input[name='shoppingSite']").val();
+                    alert(shoppingSite);
+					$.post("/shopping/updateShoppingById","shoppingId="+shoppingId+"&shoppingSite="+shoppingSite,function (data) {
+					    alert(data.data);
+						if(data.data>0){
+                            alert("修改成功！");
+						}else{
+						    alert("修改失败！");
+						}
+                    },"json");
+				}else{
+            	    //调用新增方法
+                    var spotId=$("#spotId").val();
+                    var shoppingSite=$("input[name='shoppingSite']").val();
+                    $.post("/shopping/insertInfo","scenicSpotId="+spotId+"&shoppingSite="+shoppingSite,function(data) {
+                        if(data.data>0){
+                            alert("添加成功！");
+                        }else{
+                            alert("添加失败！");
+                        }
+                    },"json");
+
+                }
+
+
+		}
 		layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog', 'common', 'tool', 'element', 'upload', 'layedit'], function() {
 				var form = layui.form(),
 					layer = layui.layer,

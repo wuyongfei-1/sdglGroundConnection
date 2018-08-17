@@ -45,7 +45,6 @@ public class EnterAdminPageController {
 
     /**
      * 分页demo2
-     *
      * @return
      */
     @RequestMapping("/PageDemo2.html")
@@ -66,7 +65,6 @@ public class EnterAdminPageController {
 
     /**
      * 进入admin-info页面
-     *
      * @return
      */
     @RequestMapping("/admin-info.html")
@@ -170,7 +168,7 @@ public class EnterAdminPageController {
      * @return
      */
     @RequestMapping("/email-write.html")
-    public String emailWrite() {
+    public String  emailWrite() {
         return "admin/index/email-write";
     }
 
@@ -222,7 +220,19 @@ public class EnterAdminPageController {
      */
     @RequestMapping("/menu-add1.html")
     public String menuAdd1() {
+
         return "admin/index/menu-add1";
+    }
+
+    /**
+     * 进入menu-add1页面
+     *
+     * @return
+     */
+    @RequestMapping("/guide-up.html")
+    public String guideUp(String guideid, HttpServletRequest httpServletRequest) {
+        httpServletRequest.setAttribute("guideid", guideid);
+        return "admin/index/guide-up";
     }
 
     /**

@@ -351,6 +351,7 @@
                         $.post("/shopping/deleteInfoById","id="+id,function (data) {
                             if(data.data>0){
                                 alert("删除成功！");
+                                ListScenicspot();
                             }else{
                                 alert("删除失败！");
                             }
@@ -366,6 +367,7 @@
                         $.post("/scenicspot/deleteInfoById","id="+id,function (data) {
                             if(data.data>0){
                                 alert("删除成功！");
+                                ListScenicspot();
                             }else{
                                 alert("删除失败！");
                             }

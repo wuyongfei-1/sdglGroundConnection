@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>网站后台管理模版</title>
+    <link rel="stylesheet" type="text/css" href="/admin/layui/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="/admin/css/admin.css" />
+</head>
+<body>
+<div class="wrap-container">
+    <form class="layui-form" style="width: 90%;padding-top: 20px;" id="guides">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">证件号：</label>
+            <div class="layui-input-block">
+                <input type="hidden" th:value="${guideid}" id="guiid">
+                <input type="text" name="title2"  placeholder="请输入证件号" autocomplete="off" class="layui-input" id="certificate">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">导游姓名：</label>
+            <div class="layui-input-block">
+                <input type="text" name="title6"  placeholder="请输入姓名" autocomplete="off" class="layui-input" id="guideName">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" id="sex">性别：</label>
+            <div class="layui-input-block">
+                <input type="radio" disabled autocomplete="off" name="status" id="nansex" value="1" title="男" checked>
+                <input type="radio" disabled autocomplete="off" name="status" id="nvsex" value="0" title="女">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态：</label>
+            <div class="layui-input-block" id="Job-list">
+                <select id="roleId" name="roleId" lay-filter="status">
+                    <option value="0">请选择状态</option>
+                    <option value="1">请假</option>
+                    <option value="2">已占用</option>
+                    <option value="3">空闲中</option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">联系电话：</label>
+            <div class="layui-input-block">
+                <input type="text" name="title5"  placeholder="请输入联系电话" autocomplete="off" class="layui-input" id="telephone">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">年龄：</label>
+            <div class="layui-input-block">
+                <input type="text" name="title6"  placeholder="请输入年龄" autocomplete="off" class="layui-input" id="age">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo" onclick="JIudge()">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/jquery-1.8.2.min.js"></script>
+<script>
+    //Demo
+    layui.use(['form'], function() {
+        var form = layui.form();
+        form.render();
+        //监听提交
+        form.on('submit(formDemo)', function(data) {
+
+            return false;
+        });
+    });
+
+
+    //窗体加载
+    $(function () {
+        updateById();
+    });
+
+
+    //判断是增加还是删除
+    function JIudge() {
+        var id=$("#guiid").val();
+        var certificate=$("#certificate").val();
+        var guideName=$("#guideName").val();
+        var telephone=$("#telephone").val();
+        var age=$("#age").val();
+        var sex=$("input[name=status]").val();
+        var roleId=$("#roleId").val();
+        if (certificate==undefined||certificate==""||certificate==null){
+            alert("不准为空");
+            return;
+        }
+        if (guideName==undefined||guideName==""||guideName==null){
+            alert("不准为空");
+            return;
+        }
+
+        if (telephone==undefined||telephone==""||telephone==null){
+            alert("不准为空");
+            return;
+        }
+        if (age==undefined||age==""||age==null){
+            alert("不准为空");
+            return;
+        }
+        if (sex==undefined||sex==""||sex==null){
+            alert("不可修改");
+            return;
+        }
+        if (roleId==undefined||roleId==""||roleId==null||roleId==0){
+            alert("不准为空");
+            return;
+        }
+        if (id != null || id != ""){
+            updateGuide();
+        }
+    }
+    //id查询赋值
+    function updateById(){
+        var id=$("#guiid").val();
+        $.ajax({
+            url:"/guide/selectGuideById",
+            data:{id:id},
+            dataType: "json",
+            type: "get",
+            success:function (data) {
+                $("#guideId").val(data.data.guideId);
+                $("#certificate").val(data.data.certificate);
+                $("#guideName").val(data.data.guideName);
+                $("#password").val(data.data.password);
+                $("#telephone").val(data.data.telephone);
+                $("#age").val(data.data.age);
+                $("#roleId").val(data.data.state);
+                if(data.data.sex==1){
+                    $("#nansex").attr("checked",true);
+                }else{
+                    $("#nvsex").attr("checked",true);
+                }
+            }
+        })
+    }
+    //修改方法
+    function updateGuide() {
+        var id=$("#guiid").val();
+        var certificate=$("#certificate").val();
+        var guideName=$("#guideName").val();
+        var telephone=$("#telephone").val();
+        var age=$("#age").val();
+        var sex= $("input[name='status']:checked").val();
+        var roleId=$("#roleId").val();
+        $.ajax({
+            url:"/guide/updateGuide",
+            data:{certificate:certificate,guideName:guideName,telephone:telephone,age:age,sex:sex,state:roleId,guideId:id},
+            dataType: "json",
+            type: "get",
+            success:function (data) {
+                if (data.data==1 || data.data=="1"){
+                    alert("修改成功");
+                } else{
+                    alert("修改失败");
+                }
+                parent.location.reload();
+            }
+        })
+    }
+
+
+    //添加方法
+    function insertGuide() {
+        var certificate=$("#certificate").val();
+        var guideName=$("#guideName").val();
+        var username=$("#username").val();
+        var password=$("#password").val();
+        var telephone=$("#telephone").val();
+        var age=$("#age").val();
+        var sex=$("input[name=status]").val();
+        alert(sex);
+        /*var guides = $("#guides").serialize();
+        alert(guides)*/
+        $.ajax({
+            url:"/guide/insertGuide",
+            data:{certificate:certificate,guideName:guideName,username:username,password:password,telephone:telephone,age:age,sex:sex},
+            dataType: "json",
+            type: "get",
+            success:function (data) {
+                if (data.data==1 || data.data=="1"){
+                    alert("增加成功");
+                } else{
+                    alert("增加失败");
+                }
+                parent.location.reload();
+            }
+        })
+    }
+</script>
+</body>
+
+</html>

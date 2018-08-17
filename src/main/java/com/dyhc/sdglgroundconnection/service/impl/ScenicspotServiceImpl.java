@@ -98,11 +98,7 @@ public class ScenicspotServiceImpl implements ScenicspotService {
      */
     @Override
     public Integer updateScenicspot(Scenicspot scenicspot) throws Exception {
-        scenicspot.setScenicSpotId(scenicspot.getScenicSpotId());
-        ScenicspotExample scenicspotExample = new ScenicspotExample();
-        ScenicspotExample.Criteria criteria = scenicspotExample.createCriteria();
-        criteria.andScenicspotidEqualTo(scenicspot.getScenicSpotId());
-        Integer result=scenicspotMapper.updateByExample(scenicspot,scenicspotExample);
+        Integer result=scenicspotMapper.updateScenicspotInfoByParentId(scenicspot);
         return result;
     }
 

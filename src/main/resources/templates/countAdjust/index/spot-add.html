@@ -4,6 +4,7 @@
 		<meta charset="UTF-8">
 		<meta name="renderer" content="webkit">
   		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta http-equiv="Content-Type" content="multipart/form-data; charset=utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title>网站后台管理模版</title>
 		<link rel="stylesheet" type="text/css" href="/admin/layui/css/layui.css"/>
@@ -58,7 +59,7 @@
 									<label class="layui-form-label">上传图片：</label>
 									<div class="layui-input-block">
 										<input type="file" id="imageFile" name="multipartFile" onchange="showimg()"/><img src="" style="width: 60px;height: 60px" id="imgs">
-										<img src="http://localhost:8080/D:/upload-images-test/20180817110810343.jpg">
+										<input type="hidden" value="" id="path">
 									</div>
 								</div>
 								<div class="layui-form-item">
@@ -139,7 +140,7 @@
             var costprice=$("input[name='costprice']").val();
             var offer=$("input[name='offer']").val();
             var remarks=$("input[name='remarks']").val();
-            var savePath = "D://upload-images-test"; // 图片保存路径
+            var savePath = "E://sdglGroundConnection/src/main/resources/static/images/Scenicspot"; // 图片保存路径
             var fileObj = document.getElementById("imageFile").files[0]; // 获取文件对象
             // formData对象，用来序列化二进制数据
             var formData = new FormData();
@@ -208,14 +209,14 @@
                 $("select[name='typeId']").val(tid);
                 /*var typeId=$("select[name='typeId']").val();
                 alert(typeId);*/
-                var savePath = "D:\\upload-images-test"+"\\";
+                var savePath = "/images/Scenicspot/";
                 $("input[name='scenicSpotAddress']").val(data.data.scenicSpotAddress);
                 $("input[name='costprice']").val(data.data.costprice);
                 $("input[name='offer']").val(data.data.offer);
                 $("input[name='remarks']").val(data.data.remarks);
                 var path=savePath+data.data.picturePath;
-                alert(path);
                 $("#imgs").attr('src', path);
+				$("#path").val(data.data.picturePath);
                 $("#imgs").show();
             },"json");
         }
@@ -227,16 +228,45 @@
             var costprice=$("input[name='costprice']").val();
             var offer=$("input[name='offer']").val();
             var remarks=$("input[name='remarks']").val();
-            $.post("/scenicspot/updateInfoById","scenicSpotName="+scenicSpotName+"&parentId="+parentId+"" +
-                "&typeId="+typeId+"&scenicSpotAddress="+scenicSpotAddress+"&costprice="+costprice+
-                "&offer="+offer+"&remarks="+remarks+"&scenicSpotId="+id,function (data){
-				if(data.data>0){
-				    alert("修改成功！");
-                    parent.location.reload();
-				}else{
-                    alert("修改失败！");
-				}
-			},"json");
+            var savePath = "E://sdglGroundConnection/src/main/resources/static/images/Scenicspot"; // 图片保存路径
+            var fileObj = document.getElementById("imageFile").files[0]; // 获取文件对象
+            var formData = new FormData();
+            if(fileObj==undefined){
+                var file=new File(["first Line Text","Second Line Text"],"a.txt");
+                fileObj=file;
+			}
+            formData.append("multipartFile", fileObj);
+            formData.append("savePath", savePath);
+            formData.append("scenicSpotName",scenicSpotName);
+            formData.append("parentId",parentId);
+            formData.append("typeId",typeId);
+            formData.append("scenicSpotAddress",scenicSpotAddress);
+            formData.append("costprice",costprice);
+            formData.append("offer",offer);
+            formData.append("scenicSpotId",id);
+            formData.append("remarks",remarks);
+            // formData对象，用来序列化二进制数据
+            // 发送请求到服务器
+            $.ajax({
+                url: "/scenicspot/updateInfoById",
+                data: formData,
+                dataType: "json",
+                type: "post",
+                cache: false, // 上传文件不需要缓存
+                processData: false, // 对参数进行序列化处理
+                contentType: false,
+                success: function (result) {
+                    if (result.code == 0) {
+                        alert(result.msg); // 上传成功
+                        parent.location.reload();
+                    } else {
+                        alert(result.msg); // 上传失败
+                    }
+                },
+                error: function (res) {
+                    alert(res);
+                }
+            })
         }
 		layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog', 'common', 'tool', 'element', 'upload', 'layedit'], function() {
 				var form = layui.form(),

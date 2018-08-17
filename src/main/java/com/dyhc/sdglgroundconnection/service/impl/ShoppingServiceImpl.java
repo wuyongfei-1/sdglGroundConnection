@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
+import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.mapper.ScenicspotMapper;
 import com.dyhc.sdglgroundconnection.mapper.ShoppingMapper;
 
@@ -37,6 +38,7 @@ public class ShoppingServiceImpl implements ShoppingService {
     @Autowired
     private ScenicspotMapper scenicspotMapper;
 
+
     @Override
     public PageInfo<Shopping> listPageShoppingByShoppingSite(Integer pageNo, Integer pageSize, String shoppingSite) {
         PageHelper.startPage(pageNo, pageSize, true);
@@ -53,9 +55,9 @@ public class ShoppingServiceImpl implements ShoppingService {
         return pageInfo;
     }
 
+
     @Override
     public List<Scenicspot> listScenicspotAll() {
-
         return scenicspotMapper.selectAll();
     }
 
@@ -70,12 +72,25 @@ public class ShoppingServiceImpl implements ShoppingService {
         return shoppingMapper.selectByPrimaryKey(shoppingId);
     }
 
+    /**
+     * 根据购物点编号修改购物点信息 （wangtao）
+     * @param shopping
+     * @return
+     */
     @Override
+    @RecordOperation(type = "购物地点",desc = "修改了一条购物地点信息！")
     public Integer updateShoppingInfo(Shopping shopping) {
         return shoppingMapper.updateByPrimaryKey(shopping);
     }
 
+    /**
+     * 根据购物地点编号删除购物地点信息
+     * @param shoppingId
+     * @return
+     * @throws Exception
+     */
     @Override
+    @RecordOperation(type = "购物地点",desc = "删除一条购物地点信息")
     public Integer deleteShoppingByShoppingId(Integer shoppingId) throws Exception {
         return shoppingMapper.deleteShoppingByShoppingId(shoppingId);
     }
@@ -88,6 +103,7 @@ public class ShoppingServiceImpl implements ShoppingService {
      * @return 返回受影响行数
      */
     @Override
+    @RecordOperation(type = "购物地点",desc = "新增一条购物地点信息")
     public Integer insertInfo(Shopping shopping) throws Exception {
         return shoppingMapper.insert(shopping);
     }
@@ -122,6 +138,7 @@ public class ShoppingServiceImpl implements ShoppingService {
      * @throws Exception
      */
     @Override
+    @RecordOperation(type = "购物地点",desc = "删除了一条购物地点信息")
     public Integer deleteShoppingById(Integer shoppingId) throws Exception {
         return shoppingMapper.deleteByPrimaryKey(shoppingId);
     }
@@ -133,6 +150,7 @@ public class ShoppingServiceImpl implements ShoppingService {
      * @throws Exception
      */
     @Override
+    @RecordOperation(type = "购物地点",desc = "修改了一条购物地点信息")
     public Integer updateShopping(Shopping shopping) throws Exception {
         return shoppingMapper.updateByPrimaryKey(shopping);
     }

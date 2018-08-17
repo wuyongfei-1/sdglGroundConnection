@@ -5,7 +5,9 @@ import com.dyhc.sdglgroundconnection.pojo.RoomType;
 import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.dyhc.sdglgroundconnection.service.HotelService;
 import com.dyhc.sdglgroundconnection.service.RoomTypeService;
+import com.dyhc.sdglgroundconnection.utils.FileUploadUtil;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +16,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -33,6 +37,7 @@ public class HotelController {
     private HotelService hotelService;
     @Autowired
     private RoomTypeService roomTypeService;
+
 
     /**
      * 根据条件分页查询酒店信息（dubingkun）
@@ -164,25 +169,43 @@ public class HotelController {
         logger.info(" method:ListByHotel  查询全部酒店成功！");
         return date;
     }
+
     /**
-     * 增加
+     * 添加酒店信息
+     * @param request
+     * @param file 图片对象
+     * @param savePath 保存路径
+     * @return
      */
     @RequestMapping("/insertHotel")
-    public ReponseResult insertHotel(Hotel hotel){
+    public ReponseResult updateHotel(HttpServletRequest request,@RequestParam("fileObj") MultipartFile file, @RequestParam("savePath") String savePath){
+        String uploadResult = FileUploadUtil.uploadImage(file, savePath, ".jpg");
+        String parameter = request.getParameter("form");
+        int result= 0;
+        ObjectMapper objectMapper = new ObjectMapper();
         try {
-            int result=hotelService.insertHotel(hotel);
-            ReponseResult<List> date;
-            if (result>0){
-                date= ReponseResult.ok("增加酒店成功！");
-                logger.info(" method:insertHotel  增加酒店成功！");
-
+            ReponseResult<String> date=null;
+            Hotel hotel = objectMapper.readValue(parameter, Hotel.class);
+            hotel.setStatus(1);
+            hotel.setWhetherDel(0);
+            hotel.setPicturePath(uploadResult);
+            Staff sf=(Staff) request.getSession().getAttribute("user");
+            if(sf!=null){
+                hotel.setCreateBy(sf.getStaffId());
+            }
+            if (!"".equals(uploadResult)){
+                result=hotelService.insertHotel(hotel);
+                if(result>0){
+                    date= ReponseResult.ok("添加酒店成功！");
+                    logger.info(" method:insertHotel  添加酒店成功！");
+                }
             }else{
-                date= ReponseResult.ok("增加酒店失败！");
-                logger.info(" method:insertHotel  增加酒店失败！");
+                date= ReponseResult.ok("添加酒店失败！");
+                logger.info(" method:insertHotel  添加酒店失败！");
             }
             return date;
-        }catch (Exception e){
-            logger.error(" method:insertHotel  增加酒店数据失败，系统出现异常！");
+        } catch (Exception e) {
+            logger.error(" method:insertHotel  添加酒店失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
             return err;

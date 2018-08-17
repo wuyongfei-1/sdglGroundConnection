@@ -11,17 +11,12 @@
     </update>
 
 
-    <update id="updateStaffpa">
-                UPDATE
-        `staff`
-        SET
-        `password` = #{password}
-        WHERE `staffId` = #{staffId};
-    </update>
+
+
     <!--根据传入的staff信息修改 (lixiaojie)-->
 
 
-    <update id="updateStaffpa">
+    <update id="updateStaffpa" parameterType="com.dyhc.sdglgroundconnection.pojo.Staff">
                 UPDATE
         `staff`
         SET
@@ -34,7 +29,7 @@
               `staff`
     <set>
             <if test="roleId!=0 and roleId!=null and roleId!=''">
-                `roleId` = #{roleId},
+              `roleId` = #{roleId},
             </if>
             <if test="staffname!=null and staffname!=''">
                     `staffname` = #{staffname},
@@ -91,7 +86,7 @@
                AND  `staffname` LIKE CONCAT('%',#{staffname},'%')
             </if>
             <if test="roleId !=null and roleId !=0">
-                AND `roleId` =#{roleId}
+                AND  r.`roleId` =#{roleId}
             </if>
             <if test="firstDate!=null and firstDate != ''">
                 AND `createDate` >  #{firstDate}

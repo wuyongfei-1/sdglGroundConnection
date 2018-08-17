@@ -68,7 +68,7 @@ public class OperationlogController {
     }
 
     /**
-     * 测试图片上传
+     * 测试图片上传（wuyongfei）
      *
      * @param multipartFile 文件对象
      * @param savePath      图片保存路径

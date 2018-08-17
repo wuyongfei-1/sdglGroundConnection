@@ -5,4 +5,12 @@
     <select id="getShoppingByScenicspotId" resultType="com.dyhc.sdglgroundconnection.pojo.Shopping">
           SELECT * FROM shopping WHERE scenicSpotId=#{scenicSpotId}
     </select>
+
+    <update id="deleteShoppingByShoppingId">
+        UPDATE
+          `shopping`
+        SET
+          `whetherDel` = 1
+        WHERE `shoppingId` = #{shoppingId};
+    </update>
 </mapper>

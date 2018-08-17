@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>网站后台管理模版</title>
+		<link rel="stylesheet" type="text/css" href="/admin/layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="/admin/css/admin.css" />
+	</head>
+	<body>
+		<div class="wrap-container" style="height: 500px">
+			<form id="shoppingInfo"  class="layui-form" style="width: 90%;padding-top: 20px;">
+					<input type="hidden" name="hiddenShoppingId" id="hiddenShoppingId" th:value="${shoppingId}">
+					<div class="layui-form-item">
+						<label class="layui-form-label">购物地名称：</label>
+						<div class="layui-input-block">
+							<input type="text" name="shoppingSite"  placeholder="请输入购物地名称" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+
+					<div class="layui-form-item">
+						<label class="layui-form-label">附近景点：</label>
+						<div class="layui-input-block" id="scenicSpot-list">
+							<select id="scenicSpotId" name="scenicSpotId" lay-filter="status">
+
+							</select>
+						</div>
+					</div>
+
+
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo" onclick="updateShoppingInfo()">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</form>
+		</div>
+
+		<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/js/jquery-1.8.3.min.js"></script>
+		<script>
+
+
+			$(function () {
+                getShoppingInfoByShoppingId();
+                listScenicspotAll()
+            });
+
+
+			/*修改用户信息*/
+			function updateShoppingInfo() {
+
+                var scenicSpotId = $("#scenicSpotId option:selected").val();
+                if (scenicSpotId==undefined||scenicSpotId==""||scenicSpotId==null||scenicSpotId==0){
+                    alert("不准为空");
+                    return;
+                }
+                var hiddenShoppingId=$("#hiddenShoppingId").val();
+                var shoppingInfo=$("#shoppingInfo").serialize();
+                $.ajax({
+                    url: "/shopping/updateShoppingInfo?shoppingId="+hiddenShoppingId,
+                    data: shoppingInfo,
+                    dataType: "json",
+                    type: "post",
+                    success: function (ReponseResult) {
+                        if (ReponseResult.data==0||ReponseResult.data=='0') {
+                            alert("修改失败")
+                        }
+                        if (ReponseResult.data==1||ReponseResult.data=='1') {
+                            alert("修改成功")
+                        }
+                        parent.location.reload();
+                    },
+                    error: function (res) {
+                        /*  alert(res);*/
+                    }
+                })
+            }
+
+            /*为下拉框绑定职务信息*/
+            function listScenicspotAll() {
+
+                $.ajax({
+                    url: "/shopping/listScenicspotAll",
+                    data: {},
+                    async:false,
+                    dataType: "json",
+                    type: "post",
+                    success: function (ReponseResult) {
+                        var content = "<option  value='0' selected='selected'>请选择景点</option>";
+                        $(ReponseResult.data).each(function (i, e) {
+                            content += "<option value='" + e.scenicSpotId + "'>" + e.scenicSpotName + "</option>";
+                        })
+                        $('#scenicSpot-list select').html(content);
+                    },
+                    error: function (res) {
+                        alert(res);
+                    }
+                })
+            }
+			//根据用户id查询用户信息
+			function getShoppingInfoByShoppingId() {
+                var hiddenShoppingId=$("#hiddenShoppingId").val();
+                $.ajax({
+                    url: "/shopping/getShoppingInfoByShoppingId",
+                    data: {"shoppingId":hiddenShoppingId},
+                    dataType: "json",
+                    type: "post",
+                    success: function (ReponseResult) {
+                        $("input[name='shoppingSite']").val(ReponseResult.data.shoppingSite);
+                        $("#scenicSpotId").val(ReponseResult.data.scenicSpotId);
+						/*
+                        $("input[name='password']").val(ReponseResult.data.password);
+                        $("input[name='sex'][value='"+ReponseResult.data.sex+"']").attr("checked",true);
+
+                        $("input[name='cardId']").val(ReponseResult.data.cardId);
+                        $("input[name='qqnumber']").val(ReponseResult.data.qqnumber);
+                        $("input[name='currentAddress']").val(ReponseResult.data.currentAddress);
+                        $("input[name='phone']").val(ReponseResult.data.phone);*/
+
+                    },
+                    error: function (res) {
+                        /*  alert(res);*/
+                    }
+                })
+            }
+			
+
+
+		</script>
+		<script>
+			//Demo
+			layui.use(['form'], function() {
+				var form = layui.form();
+				form.render();
+				//监听提交
+				form.on('submit(formDemo)', function(data) {
+
+					return false;
+				});
+			});
+		</script>
+	</body>
+
+</html>

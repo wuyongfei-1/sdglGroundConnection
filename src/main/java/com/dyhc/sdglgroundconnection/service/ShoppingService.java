@@ -1,10 +1,21 @@
 package com.dyhc.sdglgroundconnection.service;
 
+<<<<<<< HEAD
+import com.dyhc.sdglgroundconnection.pojo.Scenicspot;
 import com.dyhc.sdglgroundconnection.pojo.Shopping;
+import com.dyhc.sdglgroundconnection.pojo.Staff;
+import com.github.pagehelper.PageInfo;
+=======
+import com.dyhc.sdglgroundconnection.pojo.Shopping;
+>>>>>>> 56d89aea00fa34027c84a431f1364c58d197ee4f
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+<<<<<<< HEAD
+=======
 import javax.persistence.criteria.CriteriaBuilder;
+>>>>>>> 56d89aea00fa34027c84a431f1364c58d197ee4f
 import java.util.List;
 
 /**
@@ -13,6 +24,19 @@ import java.util.List;
  **/
 public interface ShoppingService {
 
+<<<<<<< HEAD
+    PageInfo<Shopping> listPageShoppingByShoppingSite(Integer pageNo, Integer pageSize, String shoppingSite);
+
+    List<Scenicspot> listScenicspotAll();
+
+    Integer saveShoppingInfo(Shopping shopping);
+
+    Shopping  getShoppingInfoByShoppingId(Integer shoppingId);
+
+    Integer updateShoppingInfo(Shopping shopping);
+
+    Integer deleteShoppingByShoppingId( Integer shoppingId)throws Exception;
+=======
     /**
      * 新增购物信息 （wangtao）
      * @param shopping 参数商品信息
@@ -48,4 +72,5 @@ public interface ShoppingService {
      * @throws Exception
      */
     Integer updateShopping(Shopping shopping)throws Exception;
+>>>>>>> 56d89aea00fa34027c84a431f1364c58d197ee4f
 }

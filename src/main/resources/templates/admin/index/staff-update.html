@@ -110,8 +110,12 @@
             }
 			/*修改用户信息*/
 			function updateStaffInfo() {
+                var roleId = $("#roleId option:selected").val();
+                if (roleId==undefined||roleId==""||roleId==null||roleId==0){
+                    alert("不准为空");
+                    return;
+                }
                 var staffInfo=$("#staffInfo").serialize();
-                console.log(staffInfo);
                 $.ajax({
                     url: "/staff/updateStaffInfo",
                     data: staffInfo,

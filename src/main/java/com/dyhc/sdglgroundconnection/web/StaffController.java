@@ -80,7 +80,7 @@ public class StaffController  {
         }
     }
     /**
-     * 增加
+     * 删除
      */
     @RequestMapping(value = "/deleteStaffBystaffId",method = RequestMethod.POST )
     public ReponseResult deleteStaffBystaffId(Integer staffId){

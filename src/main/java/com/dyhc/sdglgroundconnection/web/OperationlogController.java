@@ -77,8 +77,9 @@ public class OperationlogController {
     @PostMapping(value = "/images/upload")
     public ReponseResult testUploadImage(@RequestParam("multipartFile") MultipartFile multipartFile,
                                          @RequestParam("savePath") String savePath) {
-        boolean uploadResult = FileUploadUtil.uploadImage(multipartFile, savePath ,".jpg");
-        if (uploadResult) {
+        // 上传图片操作
+        String uploadResult = FileUploadUtil.uploadImage(multipartFile, savePath, ".jpg");
+        if (!"".equals(uploadResult)) {
             logger.info(" method:testUploadImage 上传图片成功！");
             return ReponseResult.ok("上传图片成功！");
         } else {

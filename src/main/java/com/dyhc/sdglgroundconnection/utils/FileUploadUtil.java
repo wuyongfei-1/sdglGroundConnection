@@ -21,13 +21,14 @@ public class FileUploadUtil {
 
     /**
      * 上传图片至服务器（wuyongfei）
+     * 返回""则上传失败，否则成功
      *
      * @param multipartFile  文件实例
      * @param savePath       保存路径
      * @param suffixNameList 可允许上传的文件前缀
-     * @return true(success)/false(error)
+     * @return 文件名称
      */
-    public static boolean uploadImage(MultipartFile multipartFile, String savePath, String... suffixNameList) {
+    public static String uploadImage(MultipartFile multipartFile, String savePath, String... suffixNameList) {
         if (multipartFile != null && !multipartFile.isEmpty()) { // 判断文件是否存在
             // 获取后缀名
             String originalFilename = multipartFile.getOriginalFilename();
@@ -45,7 +46,7 @@ public class FileUploadUtil {
             }
             if (!breakCondition) {
                 logger.error(" method:uploadImage 上传的文件类型不符合，请重新上传！");
-                return false;
+                return "";
             }
             // 生成唯一文件名
             // 当前时间戳
@@ -70,14 +71,15 @@ public class FileUploadUtil {
             try {
                 multipartFile.transferTo(file); // copy file
                 logger.info(" method:uploadImage 文件上传成功!");
-                return true;
+                return newFileName;
             } catch (IOException e) {
                 logger.error(" method:uploadImage 文件上传出现错误!");
                 e.printStackTrace(); // appear error
-                return false;
+                return "";
             }
         } else {
-            return false;
+            logger.error(" method:uploadImage 文件不存在!");
+            return "";
         }
     }
 }

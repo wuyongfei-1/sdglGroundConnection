@@ -73,17 +73,25 @@ public class EnterCountAdjustPageController {
      * 进入用車页
      * @return
      */
-    @RequestMapping("/carRental_add.html")
+    @RequestMapping("/carrental-add.html")
     public String  carRentaladd() {
-        return "countAdjust/index/carRental_add";
+        return "countAdjust/index/carrental-add";
     }
     /**
      * 进入用車页
      * @return
      */
-    @RequestMapping("/carRental_list.html")
+    @RequestMapping("/carrental-list.html")
     public String  carRentallist() {
-        return "countAdjust/index/carRental_list";
+        return "countAdjust/index/carrental-list";
+    }
+    /**
+     * 进入用車页
+     * @return
+     */
+    @RequestMapping("/carrental-update.html")
+    public String  carRentalUpdate() {
+        return "countAdjust/index/carrental-update";
     }
     /**
      * 进入column-danye-detail页
@@ -385,5 +393,6 @@ public class EnterCountAdjustPageController {
         request.setAttribute("shoppingId",shoppingId);
         return "countAdjust/index/shopping-update";
     }
+
 
 }

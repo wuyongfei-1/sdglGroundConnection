@@ -36,9 +36,9 @@
                              class="layui-icon">&#xe654;</i></button>-->
 				</div>
 				<div class="layui-inline">
-					<input type="text" name="title" id="shoppingSite" placeholder="请输入购物地名称" autocomplete="off" class="layui-input">
+					<input type="text" name="title" id="carRentalName" placeholder="请输入公司名称" autocomplete="off" class="layui-input">
 				</div>
-				<input class="layui-btn layui-btn-normal" type="button" onclick="listPageShoppingByShoppingSite()" value="搜索" />
+				<input class="layui-btn layui-btn-normal" type="button" onclick="listPageInfoByCarRentalName()" value="搜索" />
 			</div>
 		</form>
 		<div class="layui-form" id="table-list">
@@ -56,14 +56,16 @@
 				<thead>
 				<tr>
 
-					<th class="hidden-xs" width="90px">购物编号</th>
-					<th width="200px">购物地名称</th>
-					<th width="200px">临近景点</th>
+					<th class="hidden-xs" width="90px">车辆公司编号</th>
+					<th width="200px">车辆公司名称</th>
+					<th width="200px">车辆公司联系人</th>
+					<th width="200px">车辆公司联系人电话</th>
+					<th width="200px">公司地址</th>
 
 					<th>操作</th>
 				</tr>
 				</thead>
-				<tbody  id="showShoppingInfo">
+				<tbody  id="showCarRentalInfo">
 
 				</tbody>
 			</table>
@@ -81,7 +83,7 @@
      *頁面加載事件
      */
     $(function () {
-        listPageShoppingByShoppingSite();//显示分页后购物的信息
+        listPageInfoByCarRentalName();//显示分页后购物的信息
     });
 
     /**
@@ -94,7 +96,7 @@
             maxmin: true,
             shadeClose: true, //点击遮罩关闭层
             area : ['800px' , '600px'],
-            content: 'shopping-add.html'
+            content: 'carrental-add.html'
         });
     }
     //为修改模块添加弹出层
@@ -127,7 +129,7 @@
                 if (ReponseResult.data==1||ReponseResult.data=='1') {
                     alert("删除成功")
                 }
-                listPageShoppingByShoppingSite();
+                listPageInfoByCarRentalName();
             },
             error: function (res) {
                 /*  alert(res);*/
@@ -137,16 +139,16 @@
 
     var limitcount = 6; // 每页总记录数
     var curnum = 1;  // 当前页码
-    function listPageShoppingByShoppingSite() {
-        var shoppingSite = $("#shoppingSite").val();
+    function listPageInfoByCarRentalName() {
+        var carRentalName = $("#carRentalName").val();
 
 
         $.ajax({
-            url: "/shopping/listPageShoppingByShoppingSite",
+            url: "/carrental/listPageInfoByCarRentalName",
             data: {
                 "pageNo": curnum,
                 "pageSize": limitcount,
-                "shoppingSite": shoppingSite,
+                "carRentalName": carRentalName,
 
             },
             async:false,
@@ -158,9 +160,11 @@
                 $(ReponseResult.data).each(function (i, e) {
                     pageNo++;
                     content+= "<tr>";
-                    content+= "<td class=hidden-xs>"+e.shoppingId+"</td>";
-                    content+= "<td>"+e.shoppingSite+"</td>";
-                    content+= "<td>"+e.scenicspot.scenicSpotName+"</td>";
+                    content+= "<td class=hidden-xs>"+e.carRentalId+"</td>";
+                    content+= "<td>"+e.carRentalName+"</td>";
+                    content+= "<td>"+e.contacts+"</td>";
+                    content+= "<td>"+e.phone+"</td>";
+                    content+= "<td>"+e.companyAddress+"</td>";
                     content+= "<td>";
                     content+= "<div class=layui-inline>";
                     content+= "<button onclick='updateAlert("+e.shoppingId+")' class='layui-btn layui-btn-mini layui-btn-normal  edit-btn' ><i class='layui-icon' style='text-align: center'>&#xe642;</i></button>";
@@ -171,7 +175,7 @@
                 })
 
 
-                $('#showShoppingInfo').html(content);
+                $('#showCarRentalInfo').html(content);
 
 
                 // 分页插件
@@ -189,7 +193,7 @@
                                 curnum = obj.curr; // 当前页面
                                 limitcount = obj.limit; // 每页记录数
                                 // 查询新数据
-                                listPageShoppingByShoppingSite();
+                                listPageInfoByCarRentalName();
                             }
                         }
                     })

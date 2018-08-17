@@ -20,4 +20,10 @@ public interface DictionariesMapper extends CommonMapper<Dictionaries>{
      * @return 返回字典集合
      */
     List<Dictionaries> ListDictionariesByScenicspot(@Param("typeCode") String typeCode) throws Exception;
+
+
+    /**
+     *  根据typeCode查询所有字典表类型    （lixiaojie) 可共用
+     */
+    List<Dictionaries> listDictionariesByTypeCode(@Param("typeCode") String typeCode) throws Exception;
 }

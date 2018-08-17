@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
+import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.mapper.ScenicspotMapper;
 import com.dyhc.sdglgroundconnection.mapper.ShoppingMapper;
 
@@ -37,6 +38,13 @@ public class ShoppingServiceImpl implements ShoppingService {
     @Autowired
     private ScenicspotMapper scenicspotMapper;
 
+    /**
+     * 分页查询购物信息   （lixiaojie)
+     * @param pageNo    当前页
+     * @param pageSize  每页大小
+     * @param shoppingSite 购物地点
+     * @return
+     */
     @Override
     public PageInfo<Shopping> listPageShoppingByShoppingSite(Integer pageNo, Integer pageSize, String shoppingSite) {
         PageHelper.startPage(pageNo, pageSize, true);
@@ -52,29 +60,53 @@ public class ShoppingServiceImpl implements ShoppingService {
 
         return pageInfo;
     }
-
+    /**
+     * 获取所有景点信息 （lixiaojie)
+     * @return
+     */
     @Override
     public List<Scenicspot> listScenicspotAll() {
 
         return scenicspotMapper.selectAll();
     }
-
+    /**
+     * 新增购物信息 （lixiaojie)
+     * @param shopping
+     * @return
+     */
+    @RecordOperation(type = "用户", desc = "新增了一条购物信息")
     @Override
     public Integer saveShoppingInfo(Shopping shopping) {
         shopping.setWhetherDel(0);
         return shoppingMapper.insert(shopping);
     }
-
+    /**
+     * 根据id获取购物信息 （lixiaojie)
+     * @param shoppingId
+     * @return
+     */
     @Override
     public Shopping getShoppingInfoByShoppingId(Integer shoppingId) {
         return shoppingMapper.selectByPrimaryKey(shoppingId);
     }
 
+    /**
+     * 根据id修改购物信息(lixiaojie）
+     * @param shopping
+     * @return
+     */
+    @RecordOperation(type = "用户", desc = "修改了一条购物信息")
     @Override
     public Integer updateShoppingInfo(Shopping shopping) {
+        shopping.setWhetherDel(0);
         return shoppingMapper.updateByPrimaryKey(shopping);
     }
-
+    /**
+     * 根据id删除购物信息 （lixiaojie)
+     * @param shoppingId
+     * @return
+     */
+    @RecordOperation(type = "用户", desc = "删除了一条购物信息")
     @Override
     public Integer deleteShoppingByShoppingId(Integer shoppingId) throws Exception {
         return shoppingMapper.deleteShoppingByShoppingId(shoppingId);
@@ -134,6 +166,7 @@ public class ShoppingServiceImpl implements ShoppingService {
      */
     @Override
     public Integer updateShopping(Shopping shopping) throws Exception {
+
         return shoppingMapper.updateByPrimaryKey(shopping);
     }
 

@@ -35,7 +35,7 @@ public class ShoppingController  {
     private ShoppingService shoppingService;
 
     /**
-     * 根据用户id查询用户信息
+     * 根据id获取购物信息 （lixiaojie)
      * @param shoppingId
      * @return
      */
@@ -59,6 +59,13 @@ public class ShoppingController  {
             return err;
         }
     }
+    /**
+     * 分页查询购物信息   （lixiaojie)
+     * @param pageNo    当前页
+     * @param pageSize  每页大小
+     * @param shoppingSite 购物地点
+     * @return
+     */
     @RequestMapping(value = "/listPageShoppingByShoppingSite",method = RequestMethod.POST)
     public ReponseResult listPageShoppingByShoppingSite(Integer pageNo, Integer pageSize, String shoppingSite) {
         try {
@@ -75,6 +82,10 @@ public class ShoppingController  {
             return err;
         }
     }
+    /**
+     * 获取所有景点信息 （lixiaojie)
+     * @return
+     */
     @RequestMapping(value = "/listScenicspotAll",method = RequestMethod.POST)
     public ReponseResult listScenicspotAll() {
         try {
@@ -90,7 +101,9 @@ public class ShoppingController  {
         }
     }
     /**
-     * 修改
+     * 修改购物信息 （lixiaojie)
+     * @param shopping
+     * @return
      */
     @RequestMapping(value = "/updateShoppingInfo",method = RequestMethod.POST )
     public ReponseResult updateShoppingInfo(Shopping shopping){
@@ -114,7 +127,9 @@ public class ShoppingController  {
         }
     }
     /**
-     * 删除
+     * 根据id删除购物信息 （lixiaojie)
+     * @param shoppingId
+     * @return
      */
     @RequestMapping(value = "/deleteShoppingByShoppingId",method = RequestMethod.POST )
     public ReponseResult deleteShoppingByShoppingId(Integer shoppingId){
@@ -138,7 +153,9 @@ public class ShoppingController  {
         }
     }
     /**
-     * 增加
+     * 新增购物信息 （lixiaojie)
+     * @param shopping
+     * @return
      */
     @RequestMapping(value = "/saveShoppingInfo",method = RequestMethod.POST )
     public ReponseResult saveShoppingInfo(Shopping shopping){

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="renderer" content="webkit">
@@ -11,36 +11,47 @@
     <link rel="stylesheet" type="text/css" href="/admin/css/admin.css"/>
 </head>
 <body>
-<div class="wrap-container" style="height:500px; ">
+<div class="wrap-container" style="height:370px; ">
     <form id="shoppingInfo" class="layui-form" style="width: 90%;padding-top: 20px;">
+
         <div class="layui-form-item">
-            <label class="layui-form-label">购物地点：</label>
+            <label style="width: 120px" class="layui-form-label">车辆公司名称：</label>
             <div class="layui-input-block">
-                <input type="text" name="shoppingSite"  placeholder="请输入购物地点"
+                <input  style="width: 550px" type="text" name="carRentalName"  placeholder="请输入车辆公司名称"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
-    <!--    <div class="layui-form-item">
-            <label class="layui-form-label">密码：</label>
-            <div class="layui-input-block">
-                <input type="text" name="password"  placeholder="请输入密码" autocomplete="off"
-                       class="layui-input">
-            </div>
-        </div>-->
+
+
 
         <div class="layui-form-item">
-            <label class="layui-form-label">附近景点：</label>
-            <div class="layui-input-block" id="Scheduling-list">
-                <select id="scenicSpotId" name="scenicSpotId" lay-filter="status">
+            <label style="width: 120px"  class="layui-form-label">车辆公司地址：</label>
+            <div class="layui-input-block">
+                <input type="text" style="width: 550px"  name="companyAddress"  placeholder="请输入车辆公司地址"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
 
-                </select>
+        <div class="layui-form-item">
+            <label style="width: 120px"  class="layui-form-label">车辆公司联系人：</label>
+            <div class="layui-input-block">
+                <input type="text" style="width: 550px"  name="contacts"  placeholder="请输入车辆公司联系人"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label style="width: 120px"  class="layui-form-label">联系人电话：</label>
+            <div class="layui-input-block">
+                <input type="text" style="width: 550px"  name="phone"  placeholder="请输入联系人电话"
+                       autocomplete="off" class="layui-input">
             </div>
         </div>
 
 
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo" onclick="saveShoppingInfo()">
+                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo" onclick="saveCarrentalInfo()">
                     立即提交
                 </button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
@@ -53,28 +64,31 @@
 <script src="/js/jquery-1.8.3.min.js"></script>
 <script>
     $(function () {
-        listScenicspotAll();
+
     });
 
-    function saveShoppingInfo() {
-        var shoppingSite = $("input[name='shoppingSite']").val();
+    /**
+     * 新增公司信息(李晓杰)
+     */
+    function saveCarrentalInfo() {
 
-        var scenicSpotId = $("#scenicSpotId option:selected").val();
 
-        if (shoppingSite==undefined||shoppingSite==""||shoppingSite==null){
-            alert("不准为空");
-            return;
-        }
 
-        if (scenicSpotId==undefined||scenicSpotId==""||scenicSpotId==null||scenicSpotId==0){
-            alert("不准为空");
-            return;
-        }
+        var carRentalName = $("input[name='carRentalName']").val();
+        var companyAddress = $("input[name='companyAddress']").val();
+        var contacts = $("input[name='contacts']").val();
+        var phone = $("input[name='phone']").val();
 
-        var shoppingInfo = $("#shoppingInfo").serialize();
+
         $.ajax({
-            url: "/shopping/saveShoppingInfo",
-            data: shoppingInfo,
+            url: "/carrental/saveCarrentalInfo",
+            data: {
+                "carRentalName":carRentalName,
+                "companyAddress":companyAddress,
+                "contacts":contacts,
+                "phone":phone
+
+            },
             dataType: "json",
             type: "post",
             success: function (ReponseResult) {
@@ -91,27 +105,7 @@
             }
         })
     }
-    /*为下拉框绑定职务信息*/
-    function listScenicspotAll() {
 
-        $.ajax({
-            url: "/shopping/listScenicspotAll",
-            data: {},
-            async:false,
-            dataType: "json",
-            type: "post",
-            success: function (ReponseResult) {
-                var content = "<option  value='0' selected='selected'>请选择景点</option>";
-                $(ReponseResult.data).each(function (i, e) {
-                    content += "<option value='" + e.scenicSpotId + "'>" + e.scenicSpotName + "</option>";
-                })
-                $('#Scheduling-list select').html(content);
-            },
-            error: function (res) {
-                alert(res);
-            }
-        })
-    }
 </script>
 <script>
     //Demo

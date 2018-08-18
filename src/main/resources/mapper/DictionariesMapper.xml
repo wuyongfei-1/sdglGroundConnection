@@ -5,4 +5,9 @@
     <select id="ListDictionariesByScenicspot" resultType="com.dyhc.sdglgroundconnection.pojo.Dictionaries">
         SELECT * FROM dictionaries WHERE typeCode=#{typeCode}
     </select>
+
+
+    <select id="listDictionariesByTypeCode" resultType="com.dyhc.sdglgroundconnection.pojo.Dictionaries">
+        SELECT * FROM dictionaries WHERE typeCode=#{typeCode}
+    </select>
 </mapper>

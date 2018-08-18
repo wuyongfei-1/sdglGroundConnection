@@ -9,14 +9,27 @@
           `whetherDel` = 1
         WHERE `staffId` = #{staffId};
     </update>
+
+
+
+
+    <!--根据传入的staff信息修改 (lixiaojie)-->
+
+
+    <update id="updateStaffpa" parameterType="com.dyhc.sdglgroundconnection.pojo.Staff">
+                UPDATE
+        `staff`
+        SET
+        `password` = #{password}
+        WHERE `staffId` = #{staffId};
+    </update>
     <!--根据传入的staff信息修改-->
     <update id="updateStaffInfo" parameterType="com.dyhc.sdglgroundconnection.pojo.Staff">
             UPDATE
               `staff`
-
     <set>
             <if test="roleId!=0 and roleId!=null and roleId!=''">
-                `roleId` = #{roleId},
+              `roleId` = #{roleId},
             </if>
             <if test="staffname!=null and staffname!=''">
                     `staffname` = #{staffname},
@@ -64,7 +77,7 @@
     </set>
             WHERE `staffId` = #{staffId};
     </update>
-    
+    <!--分页获取 用户id (lixiaojie)-->
     <select id="listGetStaffsByNameAndCreateDateAndRoleId" resultType="com.dyhc.sdglgroundconnection.pojo.Staff">
         SELECT `staffId`,`staffname`,`sex`,r.`roleId` AS roleId, r.`rolename` AS rolename ,`theUserName`,`cardId`,`qqnumber`,`currentAddress`,`phone` FROM `staff` AS s
         INNER JOIN `role` AS r ON s.`roleId`=r.`roleId`
@@ -73,7 +86,7 @@
                AND  `staffname` LIKE CONCAT('%',#{staffname},'%')
             </if>
             <if test="roleId !=null and roleId !=0">
-                AND `roleId` =#{roleId}
+                AND  r.`roleId` =#{roleId}
             </if>
             <if test="firstDate!=null and firstDate != ''">
                 AND `createDate` >  #{firstDate}

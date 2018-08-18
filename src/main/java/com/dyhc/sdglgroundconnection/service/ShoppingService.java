@@ -21,17 +21,44 @@ import java.util.List;
  * 购物业务接口
  **/
 public interface ShoppingService {
-
+    /**
+     * 分页查询购物信息   （lixiaojie)
+     * @param pageNo    当前页
+     * @param pageSize  每页大小
+     * @param shoppingSite 购物地点
+     * @return
+     */
     PageInfo<Shopping> listPageShoppingByShoppingSite(Integer pageNo, Integer pageSize, String shoppingSite);
 
+    /**
+     * 获取所有景点信息 （lixiaojie)
+     * @return
+     */
     List<Scenicspot> listScenicspotAll();
 
+    /**
+     * 新增购物信息 （lixiaojie)
+     * @param shopping
+     * @return
+     */
     Integer saveShoppingInfo(Shopping shopping);
-
+    /**
+     * 根据id获取购物信息 （lixiaojie)
+     * @param shoppingId
+     * @return
+     */
     Shopping  getShoppingInfoByShoppingId(Integer shoppingId);
-
+    /**
+     * 修改购物信息 （lixiaojie)
+     * @param shopping
+     * @return
+     */
     Integer updateShoppingInfo(Shopping shopping);
-
+    /**
+     * 根据id删除购物信息 （lixiaojie)
+     * @param shoppingId
+     * @return
+     */
     Integer deleteShoppingByShoppingId( Integer shoppingId)throws Exception;
 
     /**

@@ -38,6 +38,13 @@ public class ShoppingServiceImpl implements ShoppingService {
     @Autowired
     private ScenicspotMapper scenicspotMapper;
 
+    /**
+     * 分页查询购物信息   （lixiaojie)
+     * @param pageNo    当前页
+     * @param pageSize  每页大小
+     * @param shoppingSite 购物地点
+     * @return
+     */
 
     @Override
     public PageInfo<Shopping> listPageShoppingByShoppingSite(Integer pageNo, Integer pageSize, String shoppingSite) {
@@ -56,17 +63,30 @@ public class ShoppingServiceImpl implements ShoppingService {
     }
 
 
+    /**
+     * 获取所有景点信息 （lixiaojie)
+     * @return
+     */
     @Override
     public List<Scenicspot> listScenicspotAll() {
         return scenicspotMapper.selectAll();
     }
-
+    /**
+     * 新增购物信息 （lixiaojie)
+     * @param shopping
+     * @return
+     */
+    @RecordOperation(type = "购物", desc = "新增了一条购物信息")
     @Override
     public Integer saveShoppingInfo(Shopping shopping) {
         shopping.setWhetherDel(0);
         return shoppingMapper.insert(shopping);
     }
-
+    /**
+     * 根据id获取购物信息 （lixiaojie)
+     * @param shoppingId
+     * @return
+     */
     @Override
     public Shopping getShoppingInfoByShoppingId(Integer shoppingId) {
         return shoppingMapper.selectByPrimaryKey(shoppingId);
@@ -77,17 +97,21 @@ public class ShoppingServiceImpl implements ShoppingService {
      * @param shopping
      * @return
      */
+    /**
+     * 根据id修改购物信息(lixiaojie）
+     * @param shopping
+     * @return
+     */
     @Override
     @RecordOperation(type = "购物地点",desc = "修改了一条购物地点信息！")
     public Integer updateShoppingInfo(Shopping shopping) {
+        shopping.setWhetherDel(0);
         return shoppingMapper.updateByPrimaryKey(shopping);
     }
-
     /**
-     * 根据购物地点编号删除购物地点信息
+     * 根据id删除购物信息 （lixiaojie)
      * @param shoppingId
      * @return
-     * @throws Exception
      */
     @Override
     @RecordOperation(type = "购物地点",desc = "删除一条购物地点信息")
@@ -152,6 +176,7 @@ public class ShoppingServiceImpl implements ShoppingService {
     @Override
     @RecordOperation(type = "购物地点",desc = "修改了一条购物地点信息")
     public Integer updateShopping(Shopping shopping) throws Exception {
+
         return shoppingMapper.updateByPrimaryKey(shopping);
     }
 

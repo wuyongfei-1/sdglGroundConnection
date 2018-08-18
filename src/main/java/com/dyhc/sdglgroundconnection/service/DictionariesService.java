@@ -15,9 +15,19 @@ import java.util.List;
 public interface DictionariesService {
 
     /**
-     * 查询所有景点相关字典信息 （wangtao）
+     * 查询所有景点相关字典信息 （wangtao）（分页）
+     *
      * @param typeCode 类型编码
      * @return 返回字典信息集合
      */
     PageInfo<Dictionaries> ListDictionariesByScenicepot(String typeCode) throws Exception;
+
+    /**
+     * 根据类型编码获取所有的字典信息（wuyongfei）（不分页，所有）
+     *
+     * @param typeCode 类型编码
+     * @return 所有的字典信息
+     * @throws Exception 全局异常
+     */
+    List<Dictionaries> listDictionaries(String typeCode) throws Exception;
 }

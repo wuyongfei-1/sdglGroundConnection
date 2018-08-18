@@ -3,4 +3,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dyhc.sdglgroundconnection.mapper.VehicleTypeMapper">
 
+
+
+    <!--根据租车公司id获取车辆类型信息 (lixiaojie)-->
+    <select id="getVehiclesTypeByCarRentalId" resultType="com.dyhc.sdglgroundconnection.pojo.VehicleType">
+        SELECT * FROM `vehicletype` WHERE `carRentalId` =#{carRentalId}
+    </select>
+
+
+
 </mapper>

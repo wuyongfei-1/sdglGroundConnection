@@ -53,9 +53,10 @@
 <script src="/js/jquery-1.8.3.min.js"></script>
 <script>
     $(function () {
+        //页面加载绑定景点信息（李晓杰）
         listScenicspotAll();
     });
-
+    //点击修改按钮保存购物信息 （李晓杰）
     function saveShoppingInfo() {
         var shoppingSite = $("input[name='shoppingSite']").val();
 
@@ -91,7 +92,7 @@
             }
         })
     }
-    /*为下拉框绑定职务信息*/
+    /*为下拉框绑定景点信息 （李晓杰）*/
     function listScenicspotAll() {
 
         $.ajax({

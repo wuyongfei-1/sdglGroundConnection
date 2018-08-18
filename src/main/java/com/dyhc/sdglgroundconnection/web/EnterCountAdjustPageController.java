@@ -43,7 +43,8 @@ public class EnterCountAdjustPageController {
      * @return
      */
     @RequestMapping("/admin-info.html")
-    public String  admininfo() {
+    public String  admininfo(String staffId, HttpServletRequest request) {
+        request.setAttribute("staffId", staffId);
         return "countAdjust/index/admin-info";
     }
     /**
@@ -82,17 +83,27 @@ public class EnterCountAdjustPageController {
      * 进入用車页
      * @return
      */
-    @RequestMapping("/carRental_add.html")
+    @RequestMapping("/carrental-add.html")
     public String  carRentaladd() {
-        return "countAdjust/index/carRental_add";
+        return "countAdjust/index/carrental-add";
     }
     /**
      * 进入用車页
      * @return
      */
-    @RequestMapping("/carRental_list.html")
+    @RequestMapping("/carrental-list.html")
     public String  carRentallist() {
-        return "countAdjust/index/carRental_list";
+        return "countAdjust/index/carrental-list";
+    }
+    /**
+     * 进入用車页
+     * @return
+     */
+    @RequestMapping("/carrental-update.html")
+    public String  carRentalUpdate(String carrentalId ,HttpServletRequest request)
+    {
+        request.setAttribute("carrentalId",carrentalId);
+        return "countAdjust/index/carrental-update";
     }
     /**
      * 进入column-danye-detail页
@@ -353,9 +364,21 @@ public class EnterCountAdjustPageController {
      * 进入system页
      * @return
      */
-    @RequestMapping("/vehicleType_add.html")
-    public String  vehicleType_add() {
-        return "countAdjust/index/vehicleType_add";
+    @RequestMapping("/vehicletype-add.html")
+    public String  vehicletypeAdd(String carrentalId,HttpServletRequest request) {
+        request.setAttribute("carrentalId",carrentalId);
+        return "countAdjust/index/vehicletype-add";
+    }
+
+    /**
+     * 进入system页
+     * @return
+     */
+    @RequestMapping("/vehicletype-update.html")
+    public String  vehicletypeUpdate(String vehicleTypeId,String carRentalId,HttpServletRequest request) {
+        request.setAttribute("vehicleTypeId",vehicleTypeId);
+        request.setAttribute("carRentalId",carRentalId);
+        return "countAdjust/index/vehicletype-update";
     }
     /**
      * 进入welcome页
@@ -420,5 +443,8 @@ public class EnterCountAdjustPageController {
         request.setAttribute("shoppingId",shoppingId);
         return "countAdjust/index/shopping-update";
     }
+
+
+
 
 }

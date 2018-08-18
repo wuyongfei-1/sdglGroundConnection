@@ -3,7 +3,9 @@ package com.dyhc.sdglgroundconnection.pojo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -36,7 +38,8 @@ public class Carrental {
     private String value1;
     private String value2;
     private String value3;
-
+    @Transient
+    private List<VehicleType> vehicleTypes=new ArrayList<>();
     @Id
     @Column(name = "carRentalId")
     public int getCarRentalId() {
@@ -45,6 +48,14 @@ public class Carrental {
 
     public void setCarRentalId(int carRentalId) {
         this.carRentalId = carRentalId;
+    }
+
+    public List<VehicleType> getVehicleTypes() {
+        return vehicleTypes;
+    }
+
+    public void setVehicleTypes(List<VehicleType> vehicleTypes) {
+        this.vehicleTypes = vehicleTypes;
     }
 
     @Basic

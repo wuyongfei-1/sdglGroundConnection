@@ -212,7 +212,6 @@ public class HotelController {
     @RequestMapping("/updateHotel")
     public ReponseResult updateHotel(HttpServletRequest request,@RequestParam("fileObj") MultipartFile file, @RequestParam("savePath") String savePath){
         String parameter = request.getParameter("form");//获取作用域中存储的json字符串
-        String imgCheng=request.getParameter("imgCheng");
         String uploadResult=null;
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -271,6 +270,30 @@ public class HotelController {
             return date;
         }catch (Exception e){
             logger.error(" method:deleteHotelByID  删除酒店失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+    /**
+     * id查询
+     */
+    @RequestMapping("/selectHotelById")
+    public ReponseResult selectHotelById(int id){
+        try {
+            Hotel result=hotelService.selectHotelById(id);
+            ReponseResult<Hotel> date;
+            if (result!=null){
+                date= ReponseResult.ok(result,"id查询成功");
+                logger.info(" method:selectHotelById  id查询成功！");
+
+            }else{
+                date= ReponseResult.ok("查询酒店失败！");
+                logger.info(" method:selectHotelById  查询酒店失败！");
+            }
+            return date;
+        }catch (Exception e){
+            logger.error(" method:selectHotelById  查询酒店失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
             return err;

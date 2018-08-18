@@ -123,7 +123,7 @@
 	<script src="/js/jquery-3.2.1.js" type="text/javascript"></script>
 	<script>
         if($("#hotelId").val()!='0'){
-            var imgsrc=$("#imgsrc").val();
+            var imgsrc="/api/image/"+$("#imgsrc").val();
             var img="<img name=\"picturePath\" id=\"fileImg\" src=\""+imgsrc+"\" width=\"150\">"
             $("#ccc").html(img);
         }

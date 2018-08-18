@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>网站后台管理模版</title>
+    <link rel="stylesheet" type="text/css" href="/admin/layui/css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="/admin/css/admin.css"/>
+</head>
+<body>
+<div class="wrap-container">
+    <form id="staffInfo" class="layui-form" enctype="multipart/form-data"  style="width: 90%;padding-top: 20px;">
+        <input type="hidden" name="hiddenUserId" id="hiddenUserId" th:value="${userId}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">姓名：</label>
+            <div class="layui-input-block">
+                <input type="text" name="staffname" required lay-verify="required" placeholder="请输入姓名"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <!--		<div class="layui-form-item">
+                    <label class="layui-form-label">密码：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                    </div>
+                </div>-->
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别：</label>
+            <div class="layui-input-block">
+                <input type="radio" name="sex" value="1" title="男" checked>
+                <input type="radio" name="sex" value="0" title="女">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">身份证号：</label>
+            <div class="layui-input-block">
+                <input type="text" name="cardId" required lay-verify="required" placeholder="请输入身份证号" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">QQ号码：</label>
+            <div class="layui-input-block">
+                <input type="text" name="qqnumber" required lay-verify="required" placeholder="请输入QQ号码"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">现住址：</label>
+            <div class="layui-input-block">
+                <input type="text" name="currentAddress" required lay-verify="required" placeholder="请输入现住址"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">联系电话：</label>
+            <div class="layui-input-block">
+                <input type="text" name="phone" required lay-verify="required" placeholder="请输入联系电话" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <input type="file" id="browsefile">
+            <div class="images_show" id="images_show">
+                <p class="first">上传图片预览区</p>
+            </div>
+
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo"
+                            onclick="updateUserInfo()">
+                        立即提交
+                    </button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+    </form>
+</div>
+
+<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/jquery-3.2.1.js"></script>
+
+<script>
+
+
+    $(function () {
+        getStaffIdBySession();
+    });
+
+    function getFileUrl(sourceId) {
+        var url;
+        url = window.URL.createObjectURL(document.getElementById("browsefile").files.item(0));
+
+        return url;
+    }
+    /*修改用户信息*/
+    function updateUserInfo() {
+
+
+        var roleId = 1;
+        var staffname = $("input[name='staffname']").val();
+        var sex = $("input[name='sex']").val();
+        var qqnumber = $("input[name='qqnumber']").val();
+        var theUserName = $("input[name='theUserName']").val();
+        var currentAddress = $("input[name='currentAddress']").val();
+        var phone = $("input[name='phone']").val();
+        var cardId = $("input[name='cardId']").val();
+        var staffId = $("#hiddenUserId").val();
+        var savePath = "D://upload-images-test";
+        var fileObj = document.getElementById("browsefile").files[0];
+        alert($("#browsefile").val());
+         if ($("#browsefile").val() != "1") {
+            var file = new File(["first Line Text", "Second Line Text"], "a.txt");
+            fileObj = file;
+        }
+        var formData = new FormData();
+
+        formData.append("savePath", savePath);
+        formData.append("staffname", staffname);
+        formData.append("theUserName", theUserName);
+        formData.append("sex", sex);
+        formData.append("cardId", cardId);
+        formData.append("qqnumber", qqnumber);
+        formData.append("currentAddress", currentAddress);
+         formData.append("phone", phone);
+        formData.append("staffId", staffId);
+        formData.append("roleId", roleId);
+        formData.append("savePath", savePath);
+        formData.append("fileObj", fileObj);
+        $.ajax({
+            url: "/staff/updateUserInfo",
+            data: formData,
+            dataType: "json",
+            async:false,
+            type: "post",
+            cache: false, // 上传文件不需要缓存
+            processData: false, // 对参数进行序列化处理
+            contentType: false,
+            success: function (data) {
+                alert(data.msg)
+                parent.location.reload()
+            }, error() {
+                alert("服务器异常")
+            }
+        })
+    }
+
+    //根据用户id查询用户信息
+    function getStaffIdBySession() {
+        $.ajax({
+            url: "/staff/getStaffIdBySession",
+            dataType: "json",
+            type: "post",
+            success: function (ReponseResult) {
+
+                $("input[name='staffname']").val(ReponseResult.data.staffname);
+                $("input[name='password']").val(ReponseResult.data.password);
+                $("input[name='sex'][value='" + ReponseResult.data.sex + "']").attr("checked", true);
+                $("input[name='cardId']").val(ReponseResult.data.cardId);
+                $("input[name='qqnumber']").val(ReponseResult.data.qqnumber);
+                $("input[name='currentAddress']").val(ReponseResult.data.currentAddress);
+                $("input[name='phone']").val(ReponseResult.data.phone);
+
+            },
+            error: function (res) {
+                /*  alert(res);*/
+            }
+        })
+    }
+
+</script>
+<script>
+    //Demo
+    layui.use(['form'], function () {
+        var form = layui.form();
+        form.render();
+        //监听提交
+        form.on('submit(formDemo)', function (data) {
+
+            return false;
+        });
+    });
+</script>
+<script>
+    $(document).ready(function (e) {
+        //判断浏览器是否有FileReader接口
+        if (typeof FileReader == 'undefined') {
+            /*$("#images_show").css({'background':'none'}).html('亲,您的浏览器还不支持HTML5的FileReader接口,无法使用图片本地预览,请更新浏览器获得最好体验');*/
+            //如果浏览器是ie
+            if ($.browser.msie === true) {
+                //ie6直接用file input的value值本地预览
+                if ($.browser.version == 6) {
+                    $("#browsefile").change(function (event) {
+                        //ie6下怎么做图片格式判断?
+                        var src = event.target.value;
+                        //var src = document.selection.createRange().text;    //选中后 selection对象就产生了 这个对象只适合ie
+                        var img = '<img src="' + src + '" width="200px" height="200px" />';
+                        $("#images_show").empty().append(img);
+                    });
+                }
+                //ie7,8使用滤镜本地预览
+                else if ($.browser.version == 7 || $.browser.version == 8) {
+                    $("#browsefile").change(function (event) {
+                        $(event.target).select();
+                        var src = document.selection.createRange().text;
+                        var dom = document.getElementById('images_show');
+                        console.log(src);
+                        //使用滤镜 成功率高
+                        $("#images_show").css({"filter": "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)"});
+                        /*dom.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src= src;*/
+                        dom.innerHTML = '<img id="head" alt=" " src=+src+ />';
+                        //使用和ie6相同的方式 设置src为绝对路径的方式 有些图片无法显示 效果没有使用滤镜好
+                        /*var img = '<img src="'+src+'" width="200px" height="200px" />';
+                        $("#images_show").empty().append(img);*/
+                    });
+                }
+            }
+            //如果是不支持FileReader接口的低版本firefox 可以用getAsDataURL接口
+            else if ($.browser.mozilla === true) {
+                $("#browsefile").change(function (event) {
+                    //firefox2.0没有event.target.files这个属性 就像ie6那样使用value值 但是firefox2.0不支持绝对路径嵌入图片 放弃firefox2.0
+                    //firefox3.0开始具备event.target.files这个属性 并且开始支持getAsDataURL()这个接口 一直到firefox7.0结束 不过以后都可以用HTML5的FileReader接口了
+                    if (event.target.files) {
+                        //console.log(event.target.files);
+                        for (var i = 0; i < event.target.files.length; i++) {
+                            var img = '<img src="' + event.target.files.item(i).getAsDataURL() + '" width="200px" height="200px"/>';
+                            $("#images_show").empty().append(img);
+                        }
+                    }
+                    else {
+                        //console.log(event.target.value);
+                        //$("#imgPreview").attr({'src':event.target.value});
+                    }
+                });
+            }
+        }
+        else {
+            // version 1
+            /*$("#imgUpload").change(function(e){
+             var file = e.target.files[0];
+             var fReader = new FileReader();
+             //console.log(fReader);
+             //console.log(file);
+             fReader.onload=(function(var_file)
+             {
+               return function(e)
+               {
+                 $("#imgPreview").attr({'src':e.target.result,'alt':var_file.name});
+               }
+             })(file);
+             fReader.readAsDataURL(file);
+             });*/
+            //单图上传 version 2
+            /*$("#imgUpload").change(function(e){
+               var file = e.target.files[0];
+               var reader = new FileReader();
+               reader.onload = function(e){
+                 //displayImage($('bd'),e.target.result);
+                 //alert('load');
+                 $("#imgPreview").attr({'src':e.target.result});
+               }
+               reader.readAsDataURL(file);
+              });*/
+            //多图上传 input file控件里指定multiple属性 e.target是dom类型
+            $("#browsefile").change(function (e) {
+                for (var i = 0; i < e.target.files.length; i++) {
+                    var file = e.target.files.item(i);
+                    //允许文件MIME类型 也可以在input标签中指定accept属性
+                    //console.log(/^image\/.*$/i.test(file.type));
+                    if (!(/^image\/.*$/i.test(file.type))) {
+                        continue;      //不是图片 就跳出这一次循环
+                    }
+                    //实例化FileReader API
+                    var freader = new FileReader();
+                    freader.readAsDataURL(file);
+                    freader.onload = function (e) {
+                        var img = '<img src="' + e.target.result + '" width="200px" height="200px"/>';
+                        $("#images_show").empty().append(img);
+                    }
+                }
+            });
+            //处理图片拖拽的代码
+            var destDom = document.getElementById('images_show');
+            destDom.addEventListener('dragover', function (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }, false);
+            destDom.addEventListener('drop', function (event) {
+                event.stopPropagation();
+                event.preventDefault();
+                var img_file = event.dataTransfer.files.item(0);        //获取拖拽过来的文件信息 暂时取一个
+                //console.log(event.dataTransfer.files.item(0).type);
+                if (!(/^image\/.*$/.test(img_file.type))) {
+                    alert('您还未拖拽任何图片过来,或者您拖拽的不是图片文件');
+                    return false;
+                }
+                fReader = new FileReader();
+                fReader.readAsDataURL(img_file);
+                fReader.onload = function (event) {
+                    destDom.innerHTML = '';
+                    destDom.innerHTML = '<img src="' + event.target.result + '" width="200px" height="200px"/>';
+                };
+            }, false);
+        }
+    });
+
+</script>
+</body>
+
+</html>

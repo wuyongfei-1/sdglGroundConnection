@@ -107,13 +107,27 @@ public class HotelServiceImpl implements HotelService {
     }
 
     /**
-     * 删除
-     *
+     * 删除酒店房屋信息（dubingkun）
+     * @param id
      * @return
      */
     @Override
     public int deleteHotelByID(int id) {
-        return hotelMapper.deleteByPrimaryKey(id);
+        RoomtypeExample roomtypeExample=new RoomtypeExample();
+        RoomtypeExample.Criteria criteria=roomtypeExample.createCriteria();
+        criteria.andHotelidEqualTo(id);
+        //获取酒店下的房间信息
+        List<RoomType> roomTypes=roomTypeMapper.selectByExample(roomtypeExample);
+        for (RoomType item:roomTypes) {
+            //循环修改删除状态列
+            RoomType roomType=roomTypeMapper.selectByPrimaryKey(item.getTypeId());
+            roomType.setWhetherDel(1);
+            roomTypeMapper.updateByPrimaryKey(roomType);
+        }
+        Hotel hotel=hotelMapper.selectByPrimaryKey(id);
+        hotel.setWhetherDel(1);
+        int a=hotelMapper.updateByPrimaryKey(hotel);
+        return a;
     }
 
     /**

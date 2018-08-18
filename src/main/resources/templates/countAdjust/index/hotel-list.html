@@ -157,7 +157,7 @@
             $(document).on("click","#delete",function () {
                 var id=$(this).val();
                 $.ajax({
-                    url:"/hotel/deleteHotelRoom?id="+id+"",
+                    url:"/hotel/deleteHotel?id="+id+"",
                     data:"",
                     dataType:"json",
                     type:"get",
@@ -168,7 +168,6 @@
                         alert("程序错误")
                     }
                 })
-
             })
 
 

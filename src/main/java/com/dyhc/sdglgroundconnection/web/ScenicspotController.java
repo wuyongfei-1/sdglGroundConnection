@@ -73,11 +73,10 @@ public class ScenicspotController {
      * @return ReponseResult对象
      */
     @RequestMapping("/insertScenicspot")
-    public ReponseResult insertScenicspot(Scenicspot scenicspot, @RequestParam("multipartFile") MultipartFile multipartFile,
-                                          @RequestParam("savePath") String savePath) {
+    public ReponseResult insertScenicspot(Scenicspot scenicspot, @RequestParam("multipartFile") MultipartFile multipartFile) {
         try {
             // 上传图片操作
-            String uploadResult = FileUploadUtil.uploadImage(multipartFile, savePath, ".jpg");
+            String uploadResult = FileUploadUtil.uploadImage(multipartFile, ".jpg");
             if (!"".equals(uploadResult)) {
                 scenicspot.setPicturePath(uploadResult);
                 logger.info(" method:insertScenicspot  上传图片成功！");
@@ -166,8 +165,7 @@ public class ScenicspotController {
      * @return 返回受影响行数
      */
     @RequestMapping("/updateInfoById")
-    public ReponseResult updateInfoById(Scenicspot scenicspot, @RequestParam("multipartFile") MultipartFile multipartFile,
-                                        @RequestParam("savePath") String savePath) {
+    public ReponseResult updateInfoById(Scenicspot scenicspot, @RequestParam("multipartFile") MultipartFile multipartFile) {
         try {
             //判断是否有上传图片 判断multipartFile和savePath是否为null
             if (!multipartFile.isEmpty() && "a.txt".equals(multipartFile.getOriginalFilename())) {
@@ -177,7 +175,7 @@ public class ScenicspotController {
             } else {
                 //如果不为空则执行上传图片和修改方法
                 // 上传图片操作
-                String uploadResult = FileUploadUtil.uploadImage(multipartFile, savePath, ".jpg");
+                String uploadResult = FileUploadUtil.uploadImage(multipartFile, ".jpg");
                 if (!"".equals(uploadResult)) {
                     scenicspot.setPicturePath(uploadResult);
                     logger.info(" method:insertScenicspot  上传图片成功！");

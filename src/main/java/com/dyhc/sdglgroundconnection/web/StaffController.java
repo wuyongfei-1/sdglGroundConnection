@@ -175,12 +175,10 @@ public class StaffController  {
      * 图片上传（yunguohao）
      *
      * @param multipartFile 文件对象
-     * @param savePath      图片保存路径
      * @return 保存结果updateStaff
      */
     @RequestMapping("/updateStaff")
-    public ReponseResult testUploadImage(Staff staff,@RequestParam("multipartFile") MultipartFile multipartFile,
-                                         @RequestParam("savePath") String savePath) {
+    public ReponseResult testUploadImage(Staff staff,@RequestParam("multipartFile") MultipartFile multipartFile) {
         try {
             //判断是否有上传图片 判断multipartFile和savePath是否为null
             if (!multipartFile.isEmpty() && "a.txt".equals(multipartFile.getOriginalFilename())) {
@@ -190,7 +188,7 @@ public class StaffController  {
                 staff.setHeadPortraitPath(staff1.getHeadPortraitPath());
             } else {
                 // 上传图片操作
-                String uploadResult = FileUploadUtil.uploadImage(multipartFile, savePath, ".jpg");
+                String uploadResult = FileUploadUtil.uploadImage(multipartFile, ".jpg");
                 if (!"".equals(uploadResult)) {
                     staff.setHeadPortraitPath(uploadResult);
                     logger.info(" method:updateStaff  上传图片成功！");

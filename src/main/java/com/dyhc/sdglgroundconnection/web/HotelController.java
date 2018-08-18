@@ -276,6 +276,41 @@ public class HotelController {
         }
     }
     /**
+     * 禁用酒店信息
+     * @param id
+     * @return
+     */
+    @RequestMapping("/updateDisabled")
+    public ReponseResult updateDisabled(Integer id,Integer pan){
+        try {
+            Hotel hotel=hotelService.selectHotelById(id);
+            String msg=null;
+            if(pan==0){
+                hotel.setStatus(0);
+                msg="禁用酒店成功！";
+            }else {
+                hotel.setStatus(1);
+                msg="解禁酒店成功！";
+            }
+            int result =hotelService.updateHotel(hotel);
+            ReponseResult<String> date;
+            if (result>0){
+                date= ReponseResult.ok(msg);
+                logger.info(" method:updateDisabled  禁用酒店成功！");
+
+            }else{
+                date= ReponseResult.ok(msg);
+                logger.info(" method:updateDisabled  禁用酒店失败！");
+            }
+            return date;
+        }catch (Exception e){
+            logger.error(" method:updateDisabled  禁用酒店失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+    /**
      * id查询
      */
     @RequestMapping("/selectHotelById")

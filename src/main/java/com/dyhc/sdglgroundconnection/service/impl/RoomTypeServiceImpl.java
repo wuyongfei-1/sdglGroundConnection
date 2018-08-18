@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
+import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.mapper.RoomTypeMapper;
 import com.dyhc.sdglgroundconnection.pojo.RoomType;
 import com.dyhc.sdglgroundconnection.service.RoomTypeService;
@@ -24,16 +25,19 @@ public class RoomTypeServiceImpl implements RoomTypeService {
     }
 
     @Override
+    @RecordOperation(type = "酒店房间", desc = "添加了一条酒店房间信息")
     public int insertRoomType(RoomType roomType)throws Exception {
         return roomTypeMapper.insert(roomType);
     }
 
     @Override
+    @RecordOperation(type = "酒店房间", desc = "修改了一条酒店房间信息")
     public int updateRoomType(RoomType roomType) throws Exception{
         return roomTypeMapper.updateByPrimaryKeySelective(roomType);
     }
 
     @Override
+    @RecordOperation(type = "酒店房间", desc = "删除了一条酒店房间信息")
     public int deleteRoomType(Integer id) throws Exception{
         return roomTypeMapper.deleteByPrimaryKey(id);
     }

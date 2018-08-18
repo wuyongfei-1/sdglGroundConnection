@@ -422,4 +422,22 @@ public class EnterCountAdjustPageController {
         return "countAdjust/index/shopping-update";
     }
 
+    /**
+     * 进入savetemplate.html页面
+     * @return
+     */
+    @RequestMapping("/savetemplate.html")
+    public String saveTemplate(){
+        return "countAdjust/index/savetemplate";
+    }
+
+    /**
+     * 进入line-template.html页面
+     * @return
+     */
+    @RequestMapping("/line-template.html")
+    public String lineTemplate(){
+        return "countAdjust/index/line-template";
+    }
+
 }

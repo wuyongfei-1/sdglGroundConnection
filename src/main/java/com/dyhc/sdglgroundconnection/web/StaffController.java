@@ -190,7 +190,7 @@ public class StaffController  {
                 staff.setHeadPortraitPath(staff1.getHeadPortraitPath());
             } else {
                 // 上传图片操作
-                String uploadResult = FileUploadUtil.uploadImage(multipartFile, savePath, ".jpg");
+                String uploadResult = FileUploadUtil.uploadImage(multipartFile, ".jpg");
                 if (!"".equals(uploadResult)) {
                     staff.setHeadPortraitPath(uploadResult);
                     logger.info(" method:updateStaff  上传图片成功！");

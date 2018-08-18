@@ -38,6 +38,7 @@ spring:
     multipart:
       max-file-size: 30Mb
       max-request-size: 30Mb
+      location: ${file.uploadFolder}
 
 # mybatis配置
 mybatis:
@@ -60,4 +61,8 @@ pagehelper:
   offset-as-page-num: true
   row-bounds-with-count: true
   reasonable: true
+
+file:
+  staticAccessPath: /api/file/**  # 静态资源对外暴露的访问路径
+  uploadFolder: D://uploadFiles/  # 文件上传目录
 

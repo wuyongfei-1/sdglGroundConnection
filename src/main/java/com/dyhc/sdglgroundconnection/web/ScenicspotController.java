@@ -77,7 +77,7 @@ public class ScenicspotController {
                                           @RequestParam("savePath") String savePath) {
         try {
             // 上传图片操作
-            String uploadResult = FileUploadUtil.uploadImage(multipartFile, savePath, ".jpg");
+            String uploadResult = FileUploadUtil.uploadImage(multipartFile, ".jpg");
             if (!"".equals(uploadResult)) {
                 scenicspot.setPicturePath(uploadResult);
                 logger.info(" method:insertScenicspot  上传图片成功！");
@@ -178,7 +178,7 @@ public class ScenicspotController {
             } else {
                 //如果不为空则执行上传图片和修改方法
                 // 上传图片操作
-                String uploadResult = FileUploadUtil.uploadImage(multipartFile, savePath, ".jpg");
+                String uploadResult = FileUploadUtil.uploadImage(multipartFile, ".jpg");
                 if (!"".equals(uploadResult)) {
                     scenicspot.setPicturePath(uploadResult);
                     logger.info(" method:insertScenicspot  上传图片成功！");

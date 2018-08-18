@@ -22,12 +22,20 @@ public class FileUploadUtil {
     // 日志实例
     private static Logger logger = LoggerFactory.getLogger(FileUploadUtil.class);
 
-    // 真实绝对路径
-    private static String uploadFolder;
+    // windows真实绝对路径
+    private static String windowsUploadFolder;
 
-    @Value("${file.uploadFolder}")
-    public void setUploadFolder(String uploadFolder) {
-        this.uploadFolder = uploadFolder;
+    // linux真实绝对路径
+    private static String linuxUploadFolder;
+
+    @Value("${file.linuxUploadFolder}")
+    public void setLinuxUploadFolder(String linuxUploadFolder) {
+        this.linuxUploadFolder = linuxUploadFolder;
+    }
+
+    @Value("${file.windowsUploadFolder}")
+    public void setWindowsUploadFolder(String windowsUploadFolder) {
+        this.windowsUploadFolder = windowsUploadFolder;
     }
 
     /**
@@ -38,7 +46,21 @@ public class FileUploadUtil {
      * @param suffixNameList 可允许上传的文件前缀
      * @return 文件名称
      */
-    public static String uploadImage(MultipartFile multipartFile,String... suffixNameList) {
+    public static String uploadImage(MultipartFile multipartFile, String... suffixNameList) {
+        // 获取当前系统信息
+        String osName = System.getProperty("os.name");
+        String folderName = "";  // 当前系统目录
+        if (osName != null && osName.startsWith("Windows")) {  // windows系统
+            folderName = windowsUploadFolder;
+        } else {    // linux系统
+            folderName = linuxUploadFolder;
+        }
+        File osFile = new File(folderName); // 系统目录
+        if (!osFile.exists()) {
+            osFile.mkdirs();
+        }
+        // 替换当前目录的分隔符
+        folderName = folderName.replace("/", File.separator);
         if (multipartFile != null && !multipartFile.isEmpty()) { // 判断文件是否存在
             // 获取后缀名
             String originalFilename = multipartFile.getOriginalFilename();
@@ -69,22 +91,14 @@ public class FileUploadUtil {
             // 新文件名
             String newFileName = currentTimeLong + floorNum + suffixName;
             // 生成文件对象
-            if (uploadFolder == null || "".equals(uploadFolder)) {
-                uploadFolder = "D://uploadFiles/";  // 异常防止
-            }
-            File file = new File(uploadFolder);
-            // 判断文件是否存在
-            if (!file.exists()) {
-                file.mkdirs(); // 递归创建
-            }
-            file = new File(uploadFolder + "/" + newFileName);
+            File file = new File(folderName + File.separator + newFileName);
             try {
                 multipartFile.transferTo(file); // copy file
                 logger.info(" method:uploadImage 文件上传成功!");
                 return newFileName;
             } catch (IOException e) {
-                logger.error(" method:uploadImage 文件上传出现错误!");
                 e.printStackTrace(); // appear error
+                logger.error(" method:uploadImage 文件上传出现错误!");
                 return "";
             }
         } else {

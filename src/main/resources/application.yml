@@ -33,13 +33,6 @@ spring:
     # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
 
-  # 设置上传文件的大小
-  servlet:
-    multipart:
-      max-file-size: 30Mb
-      max-request-size: 30Mb
-      location: ${file.uploadFolder}
-
 # mybatis配置
 mybatis:
   mapper-locations: classpath:mapper/*.xml
@@ -64,5 +57,6 @@ pagehelper:
 
 file:
   staticAccessPath: /api/image/**  # 静态资源对外暴露的访问路径
-  uploadFolder: D://uploadFiles/  # 文件上传目录
+  windowsUploadFolder: D://uploadFiles/  # windows文件上传目录
+  linuxUploadFolder: /root/uploadFiles/  # linux文件上传目录
 

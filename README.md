@@ -1,13 +1,16 @@
 # sdglGroundConnection
 世达国旅地接社管理系统
 
-图片上传配置：
+# 图片上传配置：
 图片请求路径：http://localhost:8888/api/image/图片名称
 虚拟路径：/api/image/
 windows：真实保存绝对路径：D://uploadFiles/
 linux：真实保存绝对路径：/root/uploadFiles/
 
-页面跳转url：
+# 图片上传出现异常：
+异常信息：java.io.IOException: The temporary upload location xxx is not valid （重启程序即可解决）
+
+# 页面跳转url：
 管理员控制类：EnterAdminPageController
 登录页面：http://localhost:8888/admins/login.html
 管理员首页：http://localhost:8888/admins/adminIndex.html
@@ -18,21 +21,20 @@ linux：真实保存绝对路径：/root/uploadFiles/
 总控控制类：EnterGeneralControlPageController
 总控首页：http://localhost:8888/General/count-Adjust-Index.html
 
-数据库：
+# 数据库相关信息：
 IP：192.168.43.124
 port：3306
 username: root
 password: 123456
-字典表：编码：ATTRACTIONS 景点等级
-              DIET 饮食类型
-              THEROOM 房间类型
-              VEHICLE 车辆类型
-              BILL 报账类型
-              TRAFFIC 交通类型
-              
-              
-
-实体类：pojo
+字典表：
+编码：ATTRACTIONS 景点等级
+      DIET 饮食类型
+      THEROOM 房间类型
+      VEHICLE 车辆类型
+      BILL 报账类型
+      RAFFIC 交通类型
+                          
+# 实体类信息：pojo
 accounttype 账户类型
 bill   单据
 billtype 单据类型
@@ -80,8 +82,7 @@ traffic 交通
 travel 组团社
 vehicletype 车辆类型
 
-
-凭证单：voucher
+# 凭证单进入页面url：voucher
 GuidesReimbursement.html  导游报账明细单
 SecurityHints.html        山西旅遊注意事項及安全提示单
 log.html		  导游带团日志单

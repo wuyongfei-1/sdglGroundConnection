@@ -71,7 +71,6 @@ public class OperationlogController {
      * 测试图片上传（wuyongfei）
      *
      * @param multipartFile 文件对象
-     * @param savePath      图片保存路径
      * @return 保存结果
      */
     @PostMapping(value = "/images/upload")

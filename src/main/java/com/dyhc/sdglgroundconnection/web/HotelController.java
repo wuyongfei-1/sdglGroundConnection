@@ -66,6 +66,21 @@ public class HotelController {
         }
     }
 
+    @RequestMapping("/listAllHotel")
+    public ReponseResult listAllHotel(){
+        try {
+            List<Hotel> hotelList = hotelService.listByaHotel();
+            ReponseResult<List> data = ReponseResult.ok( hotelList,"获取全部酒店成功！");
+            logger.info(" method:showHotel  获取全部酒店成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:showHotel  获取全部酒店数据失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
     /**
      * 新增酒店房间类型信息（dubingkun）
      * @param roomType

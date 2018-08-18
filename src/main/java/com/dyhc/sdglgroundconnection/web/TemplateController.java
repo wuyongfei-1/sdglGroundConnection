@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,7 +49,7 @@ public class TemplateController {
      * @return ReponseResult对象
      */
     @RequestMapping("/insertTemplateInfo")
-    public ReponseResult insertTemplateInfo(Template template){
+    public ReponseResult insertTemplateInfo(@RequestBody Template template){
         try {
             //创建返回的ReponseResult对象
             ReponseResult<Integer> data=null;

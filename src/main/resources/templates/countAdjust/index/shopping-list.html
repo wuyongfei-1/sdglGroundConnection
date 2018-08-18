@@ -78,14 +78,14 @@
 <script type="text/javascript" src="/js/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" charset="utf-8">
     /**
-     *頁面加載事件
+     *頁面加載事件（李晓杰）
      */
     $(function () {
-        listPageShoppingByShoppingSite();//显示分页后购物的信息
+        listPageShoppingByShoppingSite();//显示分页后购物的信息（李晓杰）
     });
 
     /**
-     *  为新增模块添加弹出层
+     *  为新增模块添加弹出层（李晓杰）
      */
     function addAlert() {
         layer.open({
@@ -97,7 +97,7 @@
             content: 'shopping-add.html'
         });
     }
-    //为修改模块添加弹出层
+    //为修改模块添加弹出层（李晓杰）
     function updateAlert(shoppingId) {
         layer.open({
             type: 2,
@@ -109,7 +109,7 @@
         });
     }
 
-    //根据用户id删除用户信息
+    //根据用户id删除购物信息（李晓杰）
     function deleteShoppingByShoppingId(shoppingId){
         if(!confirm("确定要删除吗？")){
             return;
@@ -134,7 +134,7 @@
             }
         })
     }
-
+	//页面加载显示所有信息（李晓杰）
     var limitcount = 6; // 每页总记录数
     var curnum = 1;  // 当前页码
     function listPageShoppingByShoppingSite() {

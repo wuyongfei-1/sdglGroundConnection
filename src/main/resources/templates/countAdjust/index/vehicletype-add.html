@@ -12,38 +12,35 @@
 </head>
 <body>
 <div class="wrap-container" style="height:370px; ">
+    <input type="hidden" name="hiddenCarrentalId" id="hiddenCarrentalId" th:value="${carrentalId}">
     <form id="shoppingInfo" class="layui-form" style="width: 90%;padding-top: 20px;">
-
         <div class="layui-form-item">
-            <label style="width: 120px" class="layui-form-label">车辆公司名称：</label>
+            <label style="width: 120px" class="layui-form-label">车辆类型名称：</label>
             <div class="layui-input-block">
-                <input  style="width: 550px" type="text" name="carRentalName"  placeholder="请输入车辆公司名称"
+                <input  style="width: 550px" type="text" name="typeName"  placeholder="请输入车辆公司名称"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
-
-
-
         <div class="layui-form-item">
-            <label style="width: 120px"  class="layui-form-label">车辆公司地址：</label>
+            <label style="width: 120px"  class="layui-form-label">载客量：</label>
             <div class="layui-input-block">
-                <input type="text" style="width: 550px"  name="companyAddress"  placeholder="请输入车辆公司地址"
-                       autocomplete="off" class="layui-input">
-            </div>
-        </div>
-
-        <div class="layui-form-item">
-            <label style="width: 120px"  class="layui-form-label">车辆公司联系人：</label>
-            <div class="layui-input-block">
-                <input type="text" style="width: 550px"  name="contacts"  placeholder="请输入车辆公司联系人"
+                <input type="text" style="width: 550px"  name="passengervolume"  placeholder="请输入车辆公司地址"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
-            <label style="width: 120px"  class="layui-form-label">联系人电话：</label>
+            <label style="width: 120px"  class="layui-form-label">成本价：</label>
             <div class="layui-input-block">
-                <input type="text" style="width: 550px"  name="phone"  placeholder="请输入联系人电话"
+                <input type="text" style="width: 550px"  name="costprice"  placeholder="请输入车辆公司联系人"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label style="width: 120px"  class="layui-form-label">报价：</label>
+            <div class="layui-input-block">
+                <input type="text" style="width: 550px"  name="offer"  placeholder="请输入联系人电话"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -51,7 +48,7 @@
 
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo" onclick="saveCarrentalInfo()">
+                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo" onclick="saveVehicleTypeInfo()">
                     立即提交
                 </button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
@@ -68,25 +65,27 @@
     });
 
     /**
-     * 新增公司信息(李晓杰)
+     *  新增用车类型 李晓杰
      */
-    function saveCarrentalInfo() {
+    function saveVehicleTypeInfo() {
 
 
 
-        var carRentalName = $("input[name='carRentalName']").val();
-        var companyAddress = $("input[name='companyAddress']").val();
-        var contacts = $("input[name='contacts']").val();
-        var phone = $("input[name='phone']").val();
+        var typeName = $("input[name='typeName']").val();
+        var passengervolume = $("input[name='passengervolume']").val();
+        var costprice = $("input[name='costprice']").val();
+        var offer = $("input[name='offer']").val();
+        var hiddenCarrentalId = $("input[name='hiddenCarrentalId']").val();
 
 
         $.ajax({
-            url: "/carrental/saveCarrentalInfo",
+            url: "/vehicleType/saveVehicleTypeInfo",
             data: {
-                "carRentalName":carRentalName,
-                "companyAddress":companyAddress,
-                "contacts":contacts,
-                "phone":phone
+                "typeName":typeName,
+                "passengervolume":passengervolume,
+                "costprice":costprice,
+                "carRentalId":hiddenCarrentalId,
+                "offer":offer
 
             },
             dataType: "json",

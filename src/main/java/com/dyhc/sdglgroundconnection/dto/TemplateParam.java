@@ -2,6 +2,9 @@ package com.dyhc.sdglgroundconnection.dto;
 
 import com.dyhc.sdglgroundconnection.pojo.Template;
 
+/**
+ * 模板参数类 （wangtao）
+ */
 public class TemplateParam extends Template {
     private Integer page; // 当前页码
     private Integer limit; // 每页记录数

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -34,6 +35,27 @@ public class Template {
     private String value2;
     private String value3;
 
+    @Transient
+    private TemplateHotel templateHotel; // 酒店对象
+
+    @Transient
+    private List<TemplateScenicspot> templateScenicspotList; // 景点集合
+
+    public TemplateHotel getTemplateHotel() {
+        return templateHotel;
+    }
+
+    public void setTemplateHotel(TemplateHotel templateHotel) {
+        this.templateHotel = templateHotel;
+    }
+
+    public List<TemplateScenicspot> getTemplateScenicspotList() {
+        return templateScenicspotList;
+    }
+
+    public void setTemplateScenicspotList(List<TemplateScenicspot> templateScenicspotList) {
+        this.templateScenicspotList = templateScenicspotList;
+    }
     @Id
     @Column(name = "templateId")
     public int getTemplateId() {

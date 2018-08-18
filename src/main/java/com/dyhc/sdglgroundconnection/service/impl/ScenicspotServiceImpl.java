@@ -45,7 +45,7 @@ public class ScenicspotServiceImpl implements ScenicspotService {
     public PageInfo<Scenicspot> listScenicspot(Integer pageNo, Integer PageSize, Scenicspot scenicspot) throws Exception {
         PageHelper.startPage(pageNo, PageSize, true);
         //一、查询所有景点信息
-        List<Scenicspot> scenicspotList=scenicspotMapper.ListScenicspot(scenicspot);
+        List<Scenicspot> scenicspotList=scenicspotMapper.ListScenicspots(scenicspot);
         //二、根据景点编号查询景点下的购物信息给景点对象的购物信息集合赋值
         for (Scenicspot scenicspots: scenicspotList) {
             if(scenicspots.getParentId()==0){

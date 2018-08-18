@@ -20,7 +20,7 @@ public interface ScenicspotMapper extends CommonMapper<Scenicspot>{
      * @return 返回信息集合
      * @throws Exception
      */
-    List<Scenicspot> ListScenicspot(Scenicspot scenicspot) throws Exception;
+    List<Scenicspot> ListScenicspots(Scenicspot scenicspot) throws Exception;
 
     /**
      * 新增信息  （wangtao）

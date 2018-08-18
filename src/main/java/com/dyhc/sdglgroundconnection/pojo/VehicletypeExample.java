@@ -28,6 +28,10 @@ public class VehicletypeExample {
         this.distinct = distinct;
     }
 
+    public void setOredCriteria(List<Criteria> oredCriteria) {
+        this.oredCriteria = oredCriteria;
+    }
+
     public boolean isDistinct() {
         return distinct;
     }

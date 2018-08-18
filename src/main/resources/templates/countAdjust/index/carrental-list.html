@@ -15,10 +15,10 @@
 		#showstaffInfo tr {
 			/*        height: 70px;*/
 		}
-		#showstaffInfo tr  td{
+		#showCarRentalInfo tr  td{
 			text-align: center;
 		}
-		#staffHead th{
+		#showCarRentalTitle th{
 			text-align: center;
 		}
 	</style>
@@ -36,9 +36,9 @@
                              class="layui-icon">&#xe654;</i></button>-->
 				</div>
 				<div class="layui-inline">
-					<input type="text" name="title" id="shoppingSite" placeholder="请输入购物地名称" autocomplete="off" class="layui-input">
+					<input type="text" name="title" id="carRentalName" placeholder="请输入公司名称" autocomplete="off" class="layui-input">
 				</div>
-				<input class="layui-btn layui-btn-normal" type="button" onclick="listPageShoppingByShoppingSite()" value="搜索" />
+				<input class="layui-btn layui-btn-normal" type="button" onclick="listPageInfoByCarRentalName()" value="搜索" />
 			</div>
 		</form>
 		<div class="layui-form" id="table-list">
@@ -54,16 +54,18 @@
 					<col width="150">
 				</colgroup>
 				<thead>
-				<tr>
+				<tr id="showCarRentalTitle" >
+					<th class="hidden-xs" width="30px"></th>
+					<th class="hidden-xs" width="60px">车辆公司编号</th>
+					<th  width="60px">车辆公司名称</th>
+					<th  width="60px">车辆公司联系人</th>
+					<th  width="60px">车辆公司联系人电话</th>
+					<th width="60px" >公司地址</th>
 
-					<th class="hidden-xs" width="90px">购物编号</th>
-					<th width="200px">购物地名称</th>
-					<th width="200px">临近景点</th>
-
-					<th>操作</th>
+					<th width="120px">操作</th>
 				</tr>
 				</thead>
-				<tbody  id="showShoppingInfo">
+				<tbody  id="showCarRentalInfo">
 
 				</tbody>
 			</table>
@@ -81,43 +83,18 @@
      *頁面加載事件
      */
     $(function () {
-        listPageShoppingByShoppingSite();//显示分页后购物的信息
+        listPageInfoByCarRentalName();//显示分页后购物的信息
     });
 
-    /**
-     *  为新增模块添加弹出层
-     */
-    function addAlert() {
-        layer.open({
-            type: 2,
-            title: '添加',
-            maxmin: true,
-            shadeClose: true, //点击遮罩关闭层
-            area : ['800px' , '600px'],
-            content: 'shopping-add.html'
-        });
-    }
-    //为修改模块添加弹出层
-    function updateAlert(shoppingId) {
-        layer.open({
-            type: 2,
-            title: '修改',
-            maxmin: true,
-            shadeClose: true, //点击遮罩关闭层
-            area : ['800px' , '600px'],
-            content: 'shopping-update.html?shoppingId='+shoppingId
-        });
-    }
-
-    //根据用户id删除用户信息
-    function deleteShoppingByShoppingId(shoppingId){
+    //根据车辆公司id删除车辆公司信息（lixiaojie）
+    function deleteCarrentalInfoByCarrentalId(carrentalId){
         if(!confirm("确定要删除吗？")){
             return;
         }
 
         $.ajax({
-            url: "/shopping/deleteShoppingByShoppingId",
-            data: {"shoppingId":shoppingId},
+            url: "/carrental/deleteCarrentalInfoByCarrentalId",
+            data: {"carrentalId":carrentalId},
             dataType: "json",
             type: "post",
             success: function (ReponseResult) {
@@ -127,7 +104,7 @@
                 if (ReponseResult.data==1||ReponseResult.data=='1') {
                     alert("删除成功")
                 }
-                listPageShoppingByShoppingSite();
+                listPageInfoByCarRentalName();
             },
             error: function (res) {
                 /*  alert(res);*/
@@ -135,76 +112,235 @@
         })
     }
 
-    var limitcount = 6; // 每页总记录数
-    var curnum = 1;  // 当前页码
-    function listPageShoppingByShoppingSite() {
-        var shoppingSite = $("#shoppingSite").val();
-
+    //根据公司车辆类型id删除公司车辆类型信息（lixiaojie）
+    function deleteVehicleTypeByVehicleTypeId(VehicleTypeId){
+        if(!confirm("确定要删除吗？")){
+            return;
+        }
 
         $.ajax({
-            url: "/shopping/listPageShoppingByShoppingSite",
-            data: {
-                "pageNo": curnum,
-                "pageSize": limitcount,
-                "shoppingSite": shoppingSite,
-
-            },
-            async:false,
+            url: "/vehicleType/deleteVehicleTypeByVehicleTypeId",
+            data: {"VehicleTypeId":VehicleTypeId},
             dataType: "json",
             type: "post",
             success: function (ReponseResult) {
-                var pageNo = (curnum - 1) * limitcount;
-                var content = "";
-                $(ReponseResult.data).each(function (i, e) {
-                    pageNo++;
-                    content+= "<tr>";
-                    content+= "<td class=hidden-xs>"+e.shoppingId+"</td>";
-                    content+= "<td>"+e.shoppingSite+"</td>";
-                    content+= "<td>"+e.scenicspot.scenicSpotName+"</td>";
-                    content+= "<td>";
-                    content+= "<div class=layui-inline>";
-                    content+= "<button onclick='updateAlert("+e.shoppingId+")' class='layui-btn layui-btn-mini layui-btn-normal  edit-btn' ><i class='layui-icon' style='text-align: center'>&#xe642;</i></button>";
-                    content+= "<button   class='layui-btn layui-btn-mini layui-btn-danger del-btn'  onclick='deleteShoppingByShoppingId("+e.shoppingId+")'><i class='layui-icon'>&#xe640;</i></button>";
-                    content+= "</div>";
-                    content+= "</td>";
-                    content+= "</tr>";
-                })
-
-
-                $('#showShoppingInfo').html(content);
-
-
-                // 分页插件
-                layui.use('table', function () {
-                    var laypage = layui.laypage;
-                    laypage.render({
-                        elem: 'laypage'
-                        , count: ReponseResult.count
-                        , curr: curnum
-                        , limit: 6
-                        , layout: ['prev', 'page', 'next', 'skip', 'count']
-                        , jump: function (obj, first) {
-                            if (!first) {
-                                //obj包含了当前分页的所有参数，比如：
-                                curnum = obj.curr; // 当前页面
-                                limitcount = obj.limit; // 每页记录数
-                                // 查询新数据
-                                listPageShoppingByShoppingSite();
-                            }
-                        }
-                    })
-                })
+                if (ReponseResult.data==0||ReponseResult.data=='0') {
+                    alert("删除失败")
+                }
+                if (ReponseResult.data==1||ReponseResult.data=='1') {
+                    alert("删除成功")
+                }
+                listPageInfoByCarRentalName();
             },
             error: function (res) {
-                alert(res);
+                /*  alert(res);*/
             }
         })
     }
+
+    /**
+     *  为新增模块添加弹出层（李晓杰）
+     */
+    function addAlert() {
+        layer.open({
+            type: 2,
+            title: '添加',
+            maxmin: true,
+            shadeClose: true, //点击遮罩关闭层
+            area : ['800px' , '420px'],
+            content: 'carrental-add.html'
+        });
+    }
+    /**
+     *  为修改模块添加弹出层（李晓杰）
+     */
+    function updateAlert(carrentalId) {
+        layer.open({
+            type: 2,
+            title: '修改',
+            maxmin: true,
+            shadeClose: true, //点击遮罩关闭层
+            area : ['800px' , '420px'],
+            content: 'carrental-update.html?carrentalId='+carrentalId
+        });
+    }
+
+    /**
+     *  为修改类型模块添加弹出层（李晓杰）
+     */
+    function updatetypeAlert(vehicleTypeId,carRentalId) {
+        layer.open({
+            type: 2,
+            title: '修改用车类型',
+            maxmin: true,
+            shadeClose: true, //点击遮罩关闭层
+            area : ['800px' , '420px'],
+            content: 'vehicletype-update.html?vehicleTypeId='+vehicleTypeId+"&carRentalId="+carRentalId
+        });
+    }
+
+    /**
+     *  为新增类型模块添加弹出层（李晓杰）
+     */
+    function addTypeAlert(carrentalId) {
+        layer.open({
+            type: 2,
+            title: '添加',
+            maxmin: true,
+            shadeClose: true, //点击遮罩关闭层
+            area : ['800px' , '420px'],
+            content: 'vehicletype-add.html?carrentalId='+carrentalId
+        });
+    }
+
+
+    /**
+	 *  分页显示用车公司信息 (lixiaojie)
+     * @type {number}
+     */
+    var limitcount = 2; // 每页总记录数
+    var curnum = 1;  // 当前页码
+
+    var offer="";
+    var offer2="";
+    var status="";
+    function listPageInfoByCarRentalName() {
+        var carRentalName = $("#carRentalName").val();
+        $.ajax({
+            url:"/carrental/listPageInfoByCarRentalName",
+            data:{
+                "pageNo": curnum,
+                "pageSize": limitcount,
+                "carRentalName": carRentalName
+
+            },
+            dataType:"json",
+            type:"post",
+            success:function (data) {
+                var count=0;
+                var count2=0;
+                var context2="";
+                $.each(data.data,function (i,e) {
+                    count++;
+                    count2++;
+                    var fuqinid="node-"+count;
+                    var erziclass="child-node-"+count2+" parent collapsed";
+                    context2+="<tr id='"+fuqinid+"' class=\"parent collapsed\">\n" +
+                        "\t\t\t\t\t\t\t\t<td>\n" +
+                        "\t\t\t\t\t\t\t\t\t<a class=\"layui-btn layui-btn-mini layui-btn-normal showSubBtn\" data-id='"+count2+"'>+</a></td>\n" +
+                        "\t\t\t\t\t\t\t\t<td class=\"\">"+e.carRentalId+"</td>\n" +
+                        "\t\t\t\t\t\t\t\t<td class=\"\">"+e.carRentalName+"</td>\n" +
+                        "\t\t\t\t\t\t\t\t<td class=\"\">"+e.contacts+"</td>\n" +
+                        "\t\t\t\t\t\t\t\t<td class=\"\">"+e.phone+"</td>\n" +
+                        "\t\t\t\t\t\t\t\t<td class=\"\">"+e.companyAddress+"</td>\n" +
+                        "\t\t\t\t\t\t\t\t<td>\n" +
+                        "\t\t\t\t\t\t\t\t\t<div class=\"layui-inline\">\n" +
+                        "\t\t\t\t\t\t\t\t\t\t<button class=\"layui-btn layui-btn-mini layui-btn-normal\" onclick='addTypeAlert("+e.carRentalId+")' ><i class=\"layui-icon\">&#xe654;</i></button>\n" +
+                        "\t\t\t\t\t\t\t\t\t\t<button class=\"layui-btn layui-btn-mini layui-btn-normal\" onclick='updateAlert("+e.carRentalId+")'  ><i class=\"layui-icon\">&#xe642;</i></button>\n" +
+                        "\t\t\t\t\t\t\t\t\t\t<button class=\"layui-btn layui-btn-mini layui-btn-danger\" onclick='deleteCarrentalInfoByCarrentalId("+e.carRentalId+")' ><i class=\"layui-icon\">&#xe640;</i></button>\n" +
+                        "\t\t\t\t\t\t\t\t\t</div>\n" +
+                        "\t\t\t\t\t\t\t\t</td>\n" +
+                        "\t\t\t\t\t\t\t</tr>";
+
+                    if(e.vehicleTypes.length>0){
+                        count++;
+                        context2+="<tr id='"+fuqinid+"' class=\""+erziclass+"\" style=\"display:none ;background-color: #D6E9C6;\" parentid=\"1\">\n" +
+                            "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                            "\t\t\t\t\t\t\t\t<td class=\"\">车辆类型编号</td>\n" +
+                            "\t\t\t\t\t\t\t\t<td class=\"\">车辆类型名称</td>\n" +
+                            "\t\t\t\t\t\t\t\t<td class=\"\">载客量</td>\n" +
+                            "\t\t\t\t\t\t\t\t<td class=\"\">成本价</td>\n" +
+                            "\t\t\t\t\t\t\t\t<td class=\"\">报价</td>\n" +
+                            "\t\t\t\t\t\t\t\t<td class=\"\">操作</td>\n" +
+                            "\t\t\t\t\t\t\t</tr>";
+                        $.each(e.vehicleTypes,function (j,p) {
+                            count++;
+                            context2+="<tr id='"+fuqinid+"' class=\""+erziclass+"\" style=\"display:none ;\" parentid=\"1\">\n" +
+                                "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                                "\t\t\t\t\t\t\t\t<td class=\"\">"+p.typeId+"</td>\n" +
+                                "\t\t\t\t\t\t\t\t<td class=\"\">"+p.typeName+"</td>\n" +
+                                "\t\t\t\t\t\t\t\t<td class=\"\">"+p.passengervolume+"</td>\n" +
+                                "\t\t\t\t\t\t\t\t<td class=\"\">"+p.costprice+"</td>\n" +
+                                "\t\t\t\t\t\t\t\t<td class=\"\">"+p.offer+"</td>\n" +
+
+                                "\t\t\t\t\t\t\t\t<td>\n" +
+                                "\t\t\t\t\t\t\t\t\t<div class=\"layui-inline\">\n" +
+                                "\t\t\t\t\t\t\t\t\t\t<button class=\"layui-btn layui-btn-mini layui-btn-normal\" onclick='updatetypeAlert("+p.typeId+","+e.carRentalId+")'><i class=\"layui-icon\">&#xe642;</i></button>\n" +
+                                "\t\t\t\t\t\t\t\t\t\t<button class=\"layui-btn layui-btn-mini layui-btn-danger\" onclick='deleteVehicleTypeByVehicleTypeId("+e.typeId+")' ><i class=\"layui-icon\">&#xe640;</i></button>\n" +
+                                "\t\t\t\t\t\t\t\t\t</div>\n" +
+                                "\t\t\t\t\t\t\t\t</td>\n" +
+                                "\t\t\t\t\t\t\t</tr>";
+                        })
+                    }
+                    $("#showCarRentalInfo").html(context2);
+                    // 分页插件
+                    layui.use('table', function () {
+                        var laypage = layui.laypage;
+                        laypage.render({
+                            elem: 'laypage'
+                            , count: data.count
+                            , curr: curnum
+                            , limit: 6
+                            , layout: ['prev', 'page', 'next', 'skip', 'count']
+                            , jump: function (obj, first) {
+                                if (!first) {
+                                    //obj包含了当前分页的所有参数，比如：
+                                    curnum = obj.curr; // 当前页面
+                                    limitcount = obj.limit; // 每页记录数
+                                    // 查询新数据
+                                    listPageInfoByCarRentalName();
+                                }
+                            }
+                        })
+                    })
+                })
+            },error:function () {
+                alert(123)
+            }
+        })
+        //$("tbody").html(fuqin);
+    };
+
 
 
 
 
 </script>
 </body>
+<script>
+    layui.use(['jquery'], function() {
+        var $=layui.jquery;
+        //修改状态
+        $('#table-list').on('click', '.table-list-status', function() {
+            var That = $(this);
+            var status = That.attr('data-status');
+            var id = That.parent().attr('data-id');
+            if(status == 1) {
+                That.removeClass('layui-btn-normal').addClass('layui-btn-warm').html('隐藏').attr('data-status', 2);
+            } else if(status == 2) {
+                That.removeClass('layui-btn-warm').addClass('layui-btn-normal').html('显示').attr('data-status', 1);
 
+            }
+        })
+        //栏目展示隐藏
+        $(document).on('click','.showSubBtn', function() {
+            var _this = $(this);
+            var id = _this.attr('data-id');
+            var parent = _this.parents('.parent');
+            var child = $('.child-node-' + id);
+            var childAll = $('tr[parentid=' + id + ']');
+            if(parent.hasClass('collapsed')) {
+                _this.html('-');
+                parent.addClass('expanded').removeClass('collapsed');
+                child.css('display', '');
+            } else {
+                _this.html('+');
+                parent.addClass('collapsed').removeClass('expanded');
+                child.css('display', 'none');
+                childAll.addClass('collapsed').removeClass('expanded').css('display', 'none');
+                childAll.find('.showSubBtn').html('+');
+            }
+        })
+    });
+</script>
 </html>

@@ -28,6 +28,10 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
+    /**
+     * 查询所有角色类型 (lixiaojie)
+     * @return
+     */
     @RequestMapping(value = "/showGroupByRolenameRolesInfo",method = RequestMethod.POST)
     public ReponseResult showGroupByRolenameRolesInfo() {
         try {

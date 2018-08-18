@@ -45,12 +45,12 @@
 
 
 			$(function () {
-                getShoppingInfoByShoppingId();
-                listScenicspotAll()
+                getShoppingInfoByShoppingId();//页面加载获取input隐藏域的值（李晓杰）
+                listScenicspotAll();//页面加载  绑定景点信息 （李晓杰）
             });
 
 
-			/*修改用户信息*/
+			/*修改购物信息 （李晓杰）*/
 			function updateShoppingInfo() {
 
                 var scenicSpotId = $("#scenicSpotId option:selected").val();
@@ -80,7 +80,7 @@
                 })
             }
 
-            /*为下拉框绑定职务信息*/
+            /*为下拉框绑定景点信息 （李晓杰）*/
             function listScenicspotAll() {
 
                 $.ajax({
@@ -101,7 +101,7 @@
                     }
                 })
             }
-			//根据用户id查询用户信息
+			//根据用户id查询购物信息 （李晓杰）
 			function getShoppingInfoByShoppingId() {
                 var hiddenShoppingId=$("#hiddenShoppingId").val();
                 $.ajax({

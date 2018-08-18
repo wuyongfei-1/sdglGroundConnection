@@ -5,7 +5,7 @@
     <select id="getShoppingByScenicspotId" resultType="com.dyhc.sdglgroundconnection.pojo.Shopping">
           SELECT * FROM shopping WHERE scenicSpotId=#{scenicSpotId}
     </select>
-
+    <!--根据id删除 购物信息(lixiaojie）-->
     <update id="deleteShoppingByShoppingId">
         UPDATE
           `shopping`

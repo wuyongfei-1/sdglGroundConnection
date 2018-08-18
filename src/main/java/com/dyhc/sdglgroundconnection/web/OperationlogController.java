@@ -75,8 +75,7 @@ public class OperationlogController {
      * @return 保存结果
      */
     @PostMapping(value = "/images/upload")
-    public ReponseResult testUploadImage(@RequestParam("multipartFile") MultipartFile multipartFile,
-                                         @RequestParam("savePath") String savePath) {
+    public ReponseResult testUploadImage(@RequestParam("multipartFile") MultipartFile multipartFile) {
         // 上传图片操作
         String uploadResult = FileUploadUtil.uploadImage(multipartFile, ".jpg");
         if (!"".equals(uploadResult)) {

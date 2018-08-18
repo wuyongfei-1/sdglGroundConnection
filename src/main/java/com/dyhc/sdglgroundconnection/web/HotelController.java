@@ -174,12 +174,11 @@ public class HotelController {
      * 添加酒店信息
      * @param request
      * @param file 图片对象
-     * @param savePath 保存路径
      * @return
      */
     @RequestMapping("/insertHotel")
-    public ReponseResult updateHotel(HttpServletRequest request,@RequestParam("fileObj") MultipartFile file, @RequestParam("savePath") String savePath){
-        String uploadResult = FileUploadUtil.uploadImage(file, savePath, ".jpg");
+    public ReponseResult updateHotel(HttpServletRequest request,@RequestParam("fileObj") MultipartFile file){
+        String uploadResult = FileUploadUtil.uploadImage(file, ".jpg");
         String parameter = request.getParameter("form");
         int result= 0;
         ObjectMapper objectMapper = new ObjectMapper();

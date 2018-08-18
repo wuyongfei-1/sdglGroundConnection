@@ -1,6 +1,10 @@
 # sdglGroundConnection
 世达国旅地接社管理系统
 
+图片请求路径：http://localhost:8888/api/image/图片名称
+图片真实保存绝对路径：D://uploadFiles/
+虚拟路径：/api/image/
+
 页面跳转url：
 管理员控制类：EnterAdminPageController
 登录页面：http://localhost:8888/admins/login.html

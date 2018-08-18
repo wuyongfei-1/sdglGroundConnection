@@ -63,6 +63,6 @@ pagehelper:
   reasonable: true
 
 file:
-  staticAccessPath: /api/file/**  # 静态资源对外暴露的访问路径
+  staticAccessPath: /api/image/**  # 静态资源对外暴露的访问路径
   uploadFolder: D://uploadFiles/  # 文件上传目录
 

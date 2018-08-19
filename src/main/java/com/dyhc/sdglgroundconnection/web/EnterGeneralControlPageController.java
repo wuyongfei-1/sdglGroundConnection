@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
  * 进入页面-控制器
@@ -187,5 +189,15 @@ public class EnterGeneralControlPageController {
     @RequestMapping("/welcome.html")
     public String  welcome() {
         return "General-control/index/welcome";
+    }
+
+    /**
+     * 进入welcome页
+     * @return
+     */
+    @RequestMapping("/user-update.html")
+    public String  userUpdate(String userId, HttpServletRequest request)
+    {   request.setAttribute("userId",userId);
+        return "General-control/index/user-update";
     }
 }

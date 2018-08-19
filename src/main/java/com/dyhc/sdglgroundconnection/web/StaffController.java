@@ -1,10 +1,13 @@
 package com.dyhc.sdglgroundconnection.web;
 
+import com.dyhc.sdglgroundconnection.pojo.Hotel;
 import com.dyhc.sdglgroundconnection.pojo.Staff;
+import com.dyhc.sdglgroundconnection.service.HotelService;
 import com.dyhc.sdglgroundconnection.service.StaffService;
 import com.dyhc.sdglgroundconnection.utils.EncryUtil;
 import com.dyhc.sdglgroundconnection.utils.FileUploadUtil;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,6 +61,29 @@ public class StaffController  {
             return err;
         }
     }
+
+    /**
+     * 从session中获取用户id
+     * @return
+     */
+    @RequestMapping(value = "/getStaffIdBySession",method = RequestMethod.POST)
+    public ReponseResult getStaffIdBySession(HttpServletRequest request) {
+        Staff oldStaff= (Staff) request.getSession().getAttribute("user");
+        ReponseResult<Staff> data;
+        try {
+            Staff staff=staffService.getStaffInfoByStaffId(1);
+            data = ReponseResult.ok(staff, "从session中获取用户id成功！");
+            logger.info(" method:getStaffIdBySession  从session中获取用户id成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:getStaffIdBySession  从session中获取用户id失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
+
     @RequestMapping(value = "/listPageGetStaffByNameAndCreateDateAndRoleId",method = RequestMethod.POST)
     public ReponseResult listPageGetStaffByNameAndCreateDateAndRoleId(Integer pageNo, Integer pageSize, String staffname, String firstDate,String lastDate, Integer roleId) {
         try {
@@ -172,43 +198,49 @@ public class StaffController  {
         }
     }
     /**
-     * 图片上传（yunguohao）
+     *  修改用户信息并且修改图片上传（yunguohao）(lixiaojie)
      *
      * @param multipartFile 文件对象
+     * @param
      * @return 保存结果updateStaff
      */
-    @RequestMapping("/updateStaff")
-    public ReponseResult testUploadImage(Staff staff,@RequestParam("multipartFile") MultipartFile multipartFile) {
+    @RequestMapping("/updateUserInfo")
+    public ReponseResult updateUserInfo(Staff staff,@RequestParam("fileObj") MultipartFile multipartFile ) {
+        Staff oldStaff = staffService.getStaffInfoByStaffId(staff.getStaffId());
         try {
             //判断是否有上传图片 判断multipartFile和savePath是否为null
+
+
             if (!multipartFile.isEmpty() && "a.txt".equals(multipartFile.getOriginalFilename())) {
-                System.out.println("上上上");
                 //如果为空则根据编号查询信息把用户之前的图片地址赋值给要修改的对象
-                Staff staff1 = staffService.getStaffInfoByStaffId(2);
-                staff.setHeadPortraitPath(staff1.getHeadPortraitPath());
+                staff.setHeadPortraitPath(oldStaff.getHeadPortraitPath());
+
             } else {
                 // 上传图片操作
-                String uploadResult = FileUploadUtil.uploadImage(multipartFile, ".jpg");
+                String uploadResult = FileUploadUtil.uploadImage(multipartFile,".jpg");
                 if (!"".equals(uploadResult)) {
                     staff.setHeadPortraitPath(uploadResult);
-                    logger.info(" method:updateStaff  上传图片成功！");
+                    logger.info(" method:updateUserInfo  上传图片成功！");
                 } else {
-                    logger.info(" method:updateStaff  上传图片失败！");
+                    logger.info(" method:updateUserInfo  上传图片失败！");
                 }
             }
+            staff.setTheUserName(oldStaff.getTheUserName());
+            staff.setRoleId(oldStaff.getRoleId());
+            staff.setPassword(oldStaff.getPassword());
             int result=staffService.updateStaffs(staff);
             ReponseResult<String> date;
             if (result>0){
                 date= ReponseResult.ok("1","修改用户信息成功！");
-                logger.info(" method:updateStaff  修改用户信息成功！");
+                logger.info(" method:updateUserInfo  修改用户信息成功！");
 
             }else{
                 date= ReponseResult.ok("0","修改用户信息失败！");
-                logger.info(" method:updateStaff  修改用户信息失败！");
+                logger.info(" method:updateUserInfo  修改用户信息失败！");
             }
             return date;
         }catch (Exception e){
-            logger.error(" method:updateStaffInfo  修改用户信息失败，系统出现异常！");
+            logger.error(" method:updateUserInfo  修改用户信息失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
             return err;

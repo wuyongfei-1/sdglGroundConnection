@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板信息</title>
+    <link rel="stylesheet" href="/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/admin/css/admin.css" />
+</head>
+<body>
+<div id="pTable" class="page-content-wrap" >
+        <div class="layui-form-item">
+            <div class="layui-inline tool-btn">
+                <button class='layui-btn layui-btn-small layui-btn-normal add-btn' id='insert' type='button'><i class='layui-icon'>&#xe654;</i></button>
+            </div>
+            <div class="layui-inline">
+                <input type="text" id="jiuN" name="tempname" placeholder="请输入模板名称" autocomplete="off" class="layui-input">
+            </div>
+            <input type="button" class="layui-btn layui-btn-normal" lay-submit="search" value="搜索" onclick="loadData(1)">
+        </div>
+    <div id="table-list">
+        <table class="layui-table" lay-skin="line">
+            <thead>
+            <tr>
+                <th class="">序号</th>
+                <th class="">模板名称</th>
+                <th class="">行程内容</th>
+                <th class="">创建人</th>
+                <th class="">创建时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+    <div id="laypage" style="text-align: center"></div>
+</div>
+</body>
+</html>
+<script src="/js/jquery-1.8.2.min.js"></script>
+<script src="/layui.js"></script>
+<script src="/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
+<script>
+
+    var limitcount = 2; // 每页总记录数
+    var curnum = 1;  // 当前页码
+
+    function loadData(refresh) {
+        //判断是搜索还是点击页数的回调 如果是搜索默认显示第一页
+        if(refresh==1){
+            curnum=1;
+        }
+        var str = "";
+        var tempname=$("input[name=tempname]").val();
+        var username=$("input[name=username]").val();
+        $.ajax({
+            url: "/Template/listTemplate",
+            data: {pageNo:curnum,pageSize:limitcount,tempName:tempname,username:username},
+            dataType: "json",
+            type: "get",
+            success: function (e) {
+                // 分页插件
+                layui.use('table', function () {
+                    var laypage = layui.laypage;
+                    laypage.render({
+                        elem: 'laypage'
+                        , count: e.count
+                        , curr: curnum
+                        , limit: 2
+                        , layout: ['prev', 'page', 'next', 'skip', 'count']
+                        , jump: function (obj, first) {
+                            if (!first) {
+                                //obj包含了当前分页的所有参数，比如：
+                                curnum = obj.curr; // 当前页面
+                                // 查询新数据
+                                loadData(0);
+                            }
+                        }
+                    })
+                })
+                var xu=(curnum-1)*limitcount+1;
+                $(e.data).each(function (i, result) {
+                    str+="<tr><td>"+xu+"</td><td>"+result.templateName+"</td><td>"+result.templateContent+"</td><td>"+result.staff.theUserName+"</td><td>"+result.creationDate+"</td><td><button id='update' type='button' value='\" + result.restaurantId + \"' class='layui-btn layui-btn-small layui-btn-normal go-btn'><i class='layui-icon'>&#xe642;</i></button><button class='layui-btn layui-btn-small layui-btn-danger del-btn' data-id='1' data-url='article-detail.html'><i class='layui-icon' onclick=''>&#xe640;</i></button></td></tr>";
+                    xu++;
+                })
+                $('tbody').html(str);
+            },
+            error: function (res) {
+                alert(res);
+            }
+        })
+    }
+    $(function(){
+        loadData(0);
+        $(document).on("click","#insert",function () {
+            layer.open({
+                type: 2,
+                title: '新增线路模板',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area : ['880px' , '520px'],
+                content: 'savetemplate.html'
+            });
+        })
+        $(document).on("click","#update",function () {
+            var id=$(this).val();
+            layer.open({
+                type: 2,
+                title: '修改线路模板',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area : ['800px' , '520px'],
+                content: 'Restaurant-add.html?restaurantId='+id
+            });
+        })
+    });
+    function like(){
+        var iWidth=650; //弹出窗口的宽度;
+        var iHeight=700;
+        var iTop = (window.screen.availHeight-30-iHeight)/2; //获得窗口的垂直位置;
+        var iLeft = (window.screen.availWidth-10-iWidth)/2;
+        window.showModalDialog("Restaurant-add.html","newwindow","height=500, width=550, top="+iTop+",left="+iLeft+", toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no");
+    }
+</script>

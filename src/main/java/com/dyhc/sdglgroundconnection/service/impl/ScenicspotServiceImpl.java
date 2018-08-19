@@ -45,7 +45,7 @@ public class ScenicspotServiceImpl implements ScenicspotService {
     public PageInfo<Scenicspot> listScenicspot(Integer pageNo, Integer PageSize, Scenicspot scenicspot) throws Exception {
         PageHelper.startPage(pageNo, PageSize, true);
         //一、查询所有景点信息
-        List<Scenicspot> scenicspotList=scenicspotMapper.ListScenicspot(scenicspot);
+        List<Scenicspot> scenicspotList=scenicspotMapper.ListScenicspots(scenicspot);
         //二、根据景点编号查询景点下的购物信息给景点对象的购物信息集合赋值
         for (Scenicspot scenicspots: scenicspotList) {
             if(scenicspots.getParentId()==0){
@@ -83,13 +83,13 @@ public class ScenicspotServiceImpl implements ScenicspotService {
     }
 
     /**
-     * 查询所有父景点  （wangtao）
-     * @return 返回父景点对象集合
+     * 查询所有景点  （wangtao）
+     * @return 返回景点对象集合
      * @throws Exception
      */
     @Override
-    public PageInfo<Scenicspot> ListScenicspotByParentId() throws Exception {
-        PageInfo<Scenicspot> pageInfo = new PageInfo<>(scenicspotMapper.ListScenicspotByParentId());
+    public PageInfo<Scenicspot> ListScenicspot() throws Exception {
+        PageInfo<Scenicspot> pageInfo = new PageInfo<>(scenicspotMapper.ListScenicspot());
         return pageInfo;
     }
 

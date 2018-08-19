@@ -113,22 +113,21 @@ public class ScenicspotController {
     }
 
     /**
-     * 查询所有是父景点的信息  （wangtao）
-     *
-     * @return 返回父景点集合
+     * 查询所有景点的信息  （wangtao）
+     * @return 返回景点集合
      */
     @RequestMapping("/ListScenicspotByParentId")
     public ReponseResult ListScenicspotByParentId() {
         try {
             //一、查询所有的景点信息
-            PageInfo<Scenicspot> pageInfo = scenicspotService.ListScenicspotByParentId();
+            PageInfo<Scenicspot> pageInfo = scenicspotService.ListScenicspot();
             //二、返回ReponseResult对象
-            ReponseResult<List> data = ReponseResult.ok(pageInfo.getList(), pageInfo.getTotal(), "获取所有父景点成功！");
+            ReponseResult<List> data = ReponseResult.ok(pageInfo.getList(), pageInfo.getTotal(), "获取所有景点成功！");
             //三、录入日志并返回
-            logger.info(" method:ListScenicspotByParentId  获取所有父景点成功！");
+            logger.info(" method:ListScenicspotByParentId  获取所有景点成功！");
             return data;
         } catch (Exception e) {
-            logger.error(" method:ListScenicspotByParentId  获取所有父景点失败，系统出现异常！");
+            logger.error(" method:ListScenicspotByParentId  获取所有景点失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
             return err;

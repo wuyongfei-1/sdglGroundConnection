@@ -35,8 +35,8 @@
 							<div class="layui-inline">
 								<select name="states" lay-filter="status" id="five">
 									<option value="">请选择一个状态</option>
-									<option value="010">禁用</option>
-									<option value="021">正常</option>
+									<option value="0">禁用</option>
+									<option value="1">正常</option>
 								</select>
 							</div>
 							<input class="layui-btn layui-btn-normal" id="search" type="button" lay-submit="search" value="搜索"/>
@@ -114,20 +114,21 @@
             })
             //删除酒店房间按钮
             $(document).on("click","#delete2",function () {
-                var id=$(this).val();
-                $.ajax({
-                    url:"/hotel/deleteHotelRoom?id="+id+"",
-                    data:"",
-                    dataType:"json",
-                    type:"get",
-                    success:function (data) {
-                        alert(data.msg);
-                        search();
-					},error:function () {
-						alert("程序错误")
-                    }
-                })
-
+                if(confirm("确认删除么？")){
+                    var id=$(this).val();
+                    $.ajax({
+                        url:"/hotel/deleteHotelRoom?id="+id+"",
+                        data:"",
+                        dataType:"json",
+                        type:"get",
+                        success:function (data) {
+                            alert(data.msg);
+                            search();
+                        },error:function () {
+                            alert("程序错误")
+                        }
+                    })
+				}
             })
 
             //添加酒店按钮
@@ -155,20 +156,21 @@
             })
             //删除酒店按钮
             $(document).on("click","#delete",function () {
-                var id=$(this).val();
-                $.ajax({
-                    url:"/hotel/deleteHotelRoom?id="+id+"",
-                    data:"",
-                    dataType:"json",
-                    type:"get",
-                    success:function (data) {
-                        alert(data.msg);
-                        search();
-                    },error:function () {
-                        alert("程序错误")
-                    }
-                })
-
+                if(confirm("确认删除吗？")){
+					var id=$(this).val();
+					$.ajax({
+						url:"/hotel/deleteHotel?id="+id+"",
+						data:"",
+						dataType:"json",
+						type:"get",
+						success:function (data) {
+							alert(data.msg);
+							search();
+						},error:function () {
+							alert("程序错误")
+						}
+					})
+                }
             })
 
 
@@ -199,6 +201,13 @@
                                 count2++;
                                 var fuqinid="node-"+count;
                                 var erziclass="child-node-"+count2+" parent collapsed";
+                                var updatedisabled
+                                if(e.status==1){
+                                    updatedisabled= "\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"jinyong\" value=\""+e.hotelId+"\">禁用 </button></td>\n" ;
+                                }else{
+                                    updatedisabled= "\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"jiejin\" value=\""+e.hotelId+"\" style='background-color: sandybrown'>解禁 </button></td>\n" ;
+
+                                }
                                 context2+="<tr id='"+fuqinid+"' class=\"parent collapsed\">\n" +
                                     "\t\t\t\t\t\t\t\t<td><input type=\"checkbox\" name=\"\" lay-skin=\"primary\" data-id=\""+count2+"\">\n" +
                                     "\t\t\t\t\t\t\t\t\t<a class=\"layui-btn layui-btn-mini layui-btn-normal showSubBtn\" data-id='"+count2+"'>+</a></td>\n" +
@@ -209,7 +218,7 @@
                                     "\t\t\t\t\t\t\t\t<td class=\"\">"+e.breakfast+"</td>\n" +
                                     "\t\t\t\t\t\t\t\t<td class=\"\">"+e.phone+"</td>\n" +
                                     "\t\t\t\t\t\t\t\t<td class=\"\">"+e.offer+"</td>\n" +
-                                    "\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\">禁用 </button></td>\n" +
+                                   updatedisabled+
                                     "\t\t\t\t\t\t\t\t<td>\n" +
                                     "\t\t\t\t\t\t\t\t\t<div class=\"layui-inline\">\n" +
                                     "\t\t\t\t\t\t\t\t\t\t<button class=\"layui-btn layui-btn-mini layui-btn-normal\" id=\"insert2\" value=\""+e.hotelId+"\"><i class=\"layui-icon\">&#xe654;</i></button>\n" +
@@ -282,10 +291,43 @@
                     })
                     //$("tbody").html(fuqin);
                 };
-			//修改赋值（dubingkun）
-			function updInfo() {
-				
-            }
+
+			//禁用按钮（dubingkun）
+            $(document).on("click","#jinyong",function () {
+                if(confirm("确认禁用吗？")){
+                    var id=$(this).val();
+                    $.ajax({
+                        url:"/hotel/updateDisabled?id="+id+"&pan=0",
+                        data:"",
+                        dataType:"json",
+                        type:"get",
+                        success:function (data) {
+                            alert(data.msg);
+                            search();
+                        },error:function () {
+                            alert("程序错误")
+                        }
+                    })
+                }
+            })
+            //解禁按钮（dubingkun）
+            $(document).on("click","#jiejin",function () {
+                if(confirm("确认解禁吗？")){
+                    var id=$(this).val();
+                    $.ajax({
+                        url:"/hotel/updateDisabled?id="+id+"&pan=1",
+                        data:"",
+                        dataType:"json",
+                        type:"get",
+                        success:function (data) {
+                            alert(data.msg);
+                            search();
+                        },error:function () {
+                            alert("程序错误")
+                        }
+                    })
+                }
+            })
 		</script>
 		<script>
 			layui.use(['jquery'], function() {

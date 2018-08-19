@@ -66,6 +66,21 @@ public class HotelController {
         }
     }
 
+    @RequestMapping("/listAllHotel")
+    public ReponseResult listAllHotel(){
+        try {
+            List<Hotel> hotelList = hotelService.listByaHotel();
+            ReponseResult<List> data = ReponseResult.ok( hotelList,"获取全部酒店成功！");
+            logger.info(" method:showHotel  获取全部酒店成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:showHotel  获取全部酒店数据失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
     /**
      * 新增酒店房间类型信息（dubingkun）
      * @param roomType
@@ -159,16 +174,6 @@ public class HotelController {
             return err;
         }
     }
-    /**
-     * 查询全部
-     */
-    @RequestMapping("/ListByHotel")
-    public ReponseResult listByHotel(){
-        List<Hotel> list=hotelService.listByaHotel();
-        ReponseResult<List> date= ReponseResult.ok(list,"查询全部酒店成功！");
-        logger.info(" method:ListByHotel  查询全部酒店成功！");
-        return date;
-    }
 
     /**
      * 添加酒店信息
@@ -178,7 +183,7 @@ public class HotelController {
      * @return
      */
     @RequestMapping("/insertHotel")
-    public ReponseResult updateHotel(HttpServletRequest request,@RequestParam("fileObj") MultipartFile file, @RequestParam("savePath") String savePath){
+    public ReponseResult insertHotel(HttpServletRequest request,@RequestParam("fileObj") MultipartFile file, @RequestParam("savePath") String savePath){
         String uploadResult = FileUploadUtil.uploadImage(file, savePath, ".jpg");
         String parameter = request.getParameter("form");
         int result= 0;
@@ -211,14 +216,37 @@ public class HotelController {
             return err;
         }
     }
+
     /**
-     * 修改
+     * 修改酒店信息（dubingkun）
+     * @param request
+     * @param file
+     * @param savePath
+     * @return
      */
     @RequestMapping("/updateHotel")
-    public ReponseResult updateHotel(Hotel hotel){
+    public ReponseResult updateHotel(HttpServletRequest request,@RequestParam("fileObj") MultipartFile file, @RequestParam("savePath") String savePath){
+        String parameter = request.getParameter("form");//获取作用域中存储的json字符串
+        String uploadResult=null;
+        ObjectMapper objectMapper = new ObjectMapper();
         try {
+            ReponseResult<String> date=null;
+            Hotel hotel = objectMapper.readValue(parameter, Hotel.class);
+            Staff staff=(Staff) request.getSession().getAttribute("user");
+            if(staff!=null){
+                hotel.setUpdateBy(staff.getStaffId());
+            }
+            hotel.setStatus(1);
+            hotel.setWhetherDel(0);
+            //判断是否重新上传图片
+            if(!file.isEmpty() && "a.txt".equals(file.getOriginalFilename())){
+                Hotel hotel1=hotelService.selectHotelById(hotel.getHotelId());
+                hotel.setPicturePath(hotel1.getPicturePath());
+            }else{
+                uploadResult= FileUploadUtil.uploadImage(file, savePath, ".jpg");
+                hotel.setPicturePath(uploadResult);
+            }
             int result=hotelService.updateHotel(hotel);
-            ReponseResult<List> date;
             if (result>0){
                 date= ReponseResult.ok("修改酒店成功！");
                 logger.info(" method:updateHotel  修改酒店成功！");
@@ -235,16 +263,19 @@ public class HotelController {
             return err;
         }
     }
+
     /**
-     * 删除
+     * 删除酒店信息
+     * @param id
+     * @return
      */
-    @RequestMapping("/deleteHotelByID")
-    public ReponseResult deleteHotelByID(int id){
+    @RequestMapping("/deleteHotel")
+    public ReponseResult deleteHotelByID(Integer id){
         try {
-            int result=hotelService.deleteHotelByID(id);
-            ReponseResult<Integer> date;
+            int result =hotelService.deleteHotelByID(id);
+            ReponseResult<String> date;
             if (result>0){
-                date= ReponseResult.ok(result,"删除酒店成功！");
+                date= ReponseResult.ok("删除酒店成功！");
                 logger.info(" method:deleteHotelByID  删除酒店成功！");
 
             }else{
@@ -254,6 +285,41 @@ public class HotelController {
             return date;
         }catch (Exception e){
             logger.error(" method:deleteHotelByID  删除酒店失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+    /**
+     * 禁用酒店信息
+     * @param id
+     * @return
+     */
+    @RequestMapping("/updateDisabled")
+    public ReponseResult updateDisabled(Integer id,Integer pan){
+        try {
+            Hotel hotel=hotelService.selectHotelById(id);
+            String msg=null;
+            if(pan==0){
+                hotel.setStatus(0);
+                msg="禁用酒店成功！";
+            }else {
+                hotel.setStatus(1);
+                msg="解禁酒店成功！";
+            }
+            int result =hotelService.updateHotel(hotel);
+            ReponseResult<String> date;
+            if (result>0){
+                date= ReponseResult.ok(msg);
+                logger.info(" method:updateDisabled  禁用酒店成功！");
+
+            }else{
+                date= ReponseResult.ok(msg);
+                logger.info(" method:updateDisabled  禁用酒店失败！");
+            }
+            return date;
+        }catch (Exception e){
+            logger.error(" method:updateDisabled  禁用酒店失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
             return err;

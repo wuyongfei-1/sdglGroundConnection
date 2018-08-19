@@ -33,11 +33,11 @@ public interface ScenicspotService {
     Integer insertScenicspot(Scenicspot scenicspot)throws Exception;
 
     /**
-     * 查询所有父景点 （wangtao）
-     * @return 返回父景点对象集合
+     * 查询所有景点 （wangtao）
+     * @return 返回景点对象集合
      * @throws Exception
      */
-    PageInfo<Scenicspot> ListScenicspotByParentId()throws Exception;
+    PageInfo<Scenicspot> ListScenicspot()throws Exception;
 
     /**
      * 根据编号修改景点信息 （wangtao）

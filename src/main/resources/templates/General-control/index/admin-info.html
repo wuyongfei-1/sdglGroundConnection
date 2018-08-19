@@ -37,10 +37,8 @@
             <form class="layui-form" id="userInfo" style="width: 90%;padding-top: 20px;">
 
                 <a href="javascript:void(0)" onclick="updateAlert(1)">编辑资料</a>
-                <div style="width: 700px;height: 100px">
-                    <label class="layui-form-label">头像地址：</label><input type="text" name="headPortraitPath" disabled
-
-                                                                        autocomplete="off"
+                <div style="width: 700px;height: 170px">
+                    <label class="layui-form-label">头像地址：</label><input style="height: 140px; width: 180px;"  type="image" name="headPortraitPath" disabled autocomplete="off"
                                                                         class="layui-input "
                                                                         value="admin">
                 </div>
@@ -192,20 +190,7 @@
     });
 
 
-    function showimg() {
-        var file = document.getElementById("imageFile").files[0];
-        //创建读取文件的对象
-        var reader = new FileReader();
-        //创建文件读取相关的变量
-        var imgFile;
-        reader.onload = function (e) {
-            imgFile = e.target.result;
-            $("#imgs").attr('src', imgFile);
-            $("#imgs").show();
-        };
-        //正式读取文件
-        reader.readAsDataURL(file);
-    }
+
 
     //id查询信息
     function getStaffIdBySession() {
@@ -230,9 +215,10 @@
                 $("input[name='qqnumber']").val(ReponseResult.data.qqnumber);
                 $("input[name='currentAddress']").val(ReponseResult.data.currentAddress);
                 $("input[name='phone']").val(ReponseResult.data.phone);
-                var savePath = "/images/Scenicspot/";
+                var savePath = "/api/image/";
                 var path = savePath + ReponseResult.data.headPortraitPath;
-                $("#imgs").attr('src', path);
+
+                $("input[name='headPortraitPath']").attr('src', path);
             },
             error: function (res) {
                 /*  alert(res);*/
@@ -279,85 +265,7 @@
     }
 
 
-    /*修改用户信息*/
-    function updateStaffInfo() {
-        var formData = new FormData();
-        var savePath = "D://sdglGroundConnection/src/main/resources/static/images/Scenicspot"; // 图片保存路径
-        var fileObj = document.getElementById("imageFile").files[0]; // 获取文件对象
-        if (fileObj == undefined) {
-            alert("请选择图片");
-            return
-        }
-        if (fileObj == undefined) {
-            var file = new File(["first Line Text", "Second Line Text"], "a.txt");
-            fileObj = file;
-        }
-        var theUserName = $("input[name='theUserName']").val();
-        var sexs = "";
-        var roleIds = "";
-        var roleId = $("#roleId").val();
-        var sex = $("input[name='sex']").val()
-        if (sex == "男") {
-            sexs = 1;
-        }
-        if (sex == "女") {
-            sexs = 0;
-        }
-        if (roleId == "经理") {
-            roleIds = 1;
-        }
-        if (roleId == "总控") {
-            roleIds = 2;
-        }
-        if (roleId == "计调") {
-            roleIds = 3;
-        }
 
-        var password = $("input[name='password']").val();
-        var theUserName = $("input[name='theUserName']").val();
-        var staffname = $("input[name='staffname']").val();
-        var headPortraitPath = $("input[name='multipartFile']").val();
-        var qqnumber = $("input[name='qqnumber']").val();
-        var currentAddress = $("input[name='currentAddress']").val();
-        var phone = $("input[name='phone']").val();
-        var cardId = $("input[name='cardId']").val();
-        var staffId = 2;
-        // formData对象，用来序列化二进制数据
-
-        formData.append("multipartFile", fileObj);
-        formData.append("savePath", savePath);
-        formData.append("staffname", staffname);
-        formData.append("theUserName", theUserName);
-        formData.append("sex", sexs);
-        formData.append("cardId", cardId);
-        formData.append("headPortraitPath", headPortraitPath);
-        formData.append("qqnumber", qqnumber);
-        formData.append("currentAddress", currentAddress);
-        formData.append("phone", phone);
-        formData.append("staffId", staffId);
-        formData.append("password", password);
-        formData.append("roleId", roleId);
-        $.ajax({
-            url: "/staff/updateStaff",
-            data: formData,
-            dataType: "json",
-            type: "post",
-            cache: false, // 上传文件不需要缓存
-            processData: false, // 对参数进行序列化处理
-            contentType: false,
-            success: function (result) {
-                if (result.code == 0) {
-                    alert(result.msg); // 上传成功
-                    parent.location.reload();
-                } else {
-                    alert(result.msg); // 上传失败
-                }
-            },
-            error: function (res) {
-                /*  alert(res);*/
-            }
-        })
-    }
 
 </script>
 </body>

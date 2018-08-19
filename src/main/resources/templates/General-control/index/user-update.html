@@ -63,10 +63,12 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <input type="file" id="browsefile">
+            <label class="layui-form-label">头像：</label>
+
             <div class="images_show" id="images_show">
-                <p class="first">上传图片预览区</p>
+
             </div>
+            <input type="file" id="browsefile"  value="修改图片">
 
 
             <div class="layui-form-item">
@@ -112,8 +114,8 @@
         var staffId = $("#hiddenUserId").val();
         var savePath = "D://upload-images-test";
         var fileObj = document.getElementById("browsefile").files[0];
-        alert($("#browsefile").val());
-         if ($("#browsefile").val() != "1") {
+         if (fileObj == undefined) {
+
             var file = new File(["first Line Text", "Second Line Text"], "a.txt");
             fileObj = file;
         }
@@ -158,13 +160,19 @@
             success: function (ReponseResult) {
 
                 $("input[name='staffname']").val(ReponseResult.data.staffname);
+
                 $("input[name='password']").val(ReponseResult.data.password);
                 $("input[name='sex'][value='" + ReponseResult.data.sex + "']").attr("checked", true);
                 $("input[name='cardId']").val(ReponseResult.data.cardId);
                 $("input[name='qqnumber']").val(ReponseResult.data.qqnumber);
                 $("input[name='currentAddress']").val(ReponseResult.data.currentAddress);
                 $("input[name='phone']").val(ReponseResult.data.phone);
-
+                var savePath = "/api/image/";
+                var path = savePath + ReponseResult.data.headPortraitPath;
+                /*if (ReponseResult.data.headPortraitPath!=''){
+                    $("#browsefile").attr('type', "hidden");
+                }*/
+                $("#images_show").html(" <img src='"+path+"' width=\"180px\" height=\"140px\">");
             },
             error: function (res) {
                 /*  alert(res);*/

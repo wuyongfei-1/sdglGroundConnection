@@ -12,6 +12,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ import java.util.List;
  * 酒店业务实现
  **/
 @Service
+@Transactional
 public class HotelServiceImpl implements HotelService {
 
     @Autowired
@@ -102,18 +104,35 @@ public class HotelServiceImpl implements HotelService {
      * @return
      */
     @Override
+    @RecordOperation(type = "酒店", desc = "修改了一条酒店信息")
     public int updateHotel(Hotel hotel) {
         return hotelMapper.updateByPrimaryKey(hotel);
     }
 
     /**
-     * 删除
-     *
+     * 删除酒店房屋信息（dubingkun）
+     * @param id
      * @return
      */
     @Override
+    @Transactional
+    @RecordOperation(type = "酒店", desc = "删除了一条酒店信息")
     public int deleteHotelByID(int id) {
-        return hotelMapper.deleteByPrimaryKey(id);
+        RoomtypeExample roomtypeExample=new RoomtypeExample();
+        RoomtypeExample.Criteria criteria=roomtypeExample.createCriteria();
+        criteria.andHotelidEqualTo(id);
+        //获取酒店下的房间信息
+        List<RoomType> roomTypes=roomTypeMapper.selectByExample(roomtypeExample);
+        for (RoomType item:roomTypes) {
+            //循环修改删除状态列
+            RoomType roomType=roomTypeMapper.selectByPrimaryKey(item.getTypeId());
+            roomType.setWhetherDel(1);
+            roomTypeMapper.updateByPrimaryKey(roomType);
+        }
+        Hotel hotel=hotelMapper.selectByPrimaryKey(id);
+        hotel.setWhetherDel(1);
+        int a=hotelMapper.updateByPrimaryKey(hotel);
+        return a;
     }
 
     /**

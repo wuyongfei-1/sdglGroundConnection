@@ -73,11 +73,10 @@ public class ScenicspotController {
      * @return ReponseResult对象
      */
     @RequestMapping("/insertScenicspot")
-    public ReponseResult insertScenicspot(Scenicspot scenicspot, @RequestParam("multipartFile") MultipartFile multipartFile,
-                                          @RequestParam("savePath") String savePath) {
+    public ReponseResult insertScenicspot(Scenicspot scenicspot, @RequestParam("multipartFile") MultipartFile multipartFile) {
         try {
             // 上传图片操作
-            String uploadResult = FileUploadUtil.uploadImage(multipartFile, savePath, ".jpg");
+            String uploadResult = FileUploadUtil.uploadImage(multipartFile, ".jpg");
             if (!"".equals(uploadResult)) {
                 scenicspot.setPicturePath(uploadResult);
                 logger.info(" method:insertScenicspot  上传图片成功！");
@@ -114,22 +113,21 @@ public class ScenicspotController {
     }
 
     /**
-     * 查询所有是父景点的信息  （wangtao）
-     *
-     * @return 返回父景点集合
+     * 查询所有景点的信息  （wangtao）
+     * @return 返回景点集合
      */
     @RequestMapping("/ListScenicspotByParentId")
     public ReponseResult ListScenicspotByParentId() {
         try {
             //一、查询所有的景点信息
-            PageInfo<Scenicspot> pageInfo = scenicspotService.ListScenicspotByParentId();
+            PageInfo<Scenicspot> pageInfo = scenicspotService.ListScenicspot();
             //二、返回ReponseResult对象
-            ReponseResult<List> data = ReponseResult.ok(pageInfo.getList(), pageInfo.getTotal(), "获取所有父景点成功！");
+            ReponseResult<List> data = ReponseResult.ok(pageInfo.getList(), pageInfo.getTotal(), "获取所有景点成功！");
             //三、录入日志并返回
-            logger.info(" method:ListScenicspotByParentId  获取所有父景点成功！");
+            logger.info(" method:ListScenicspotByParentId  获取所有景点成功！");
             return data;
         } catch (Exception e) {
-            logger.error(" method:ListScenicspotByParentId  获取所有父景点失败，系统出现异常！");
+            logger.error(" method:ListScenicspotByParentId  获取所有景点失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
             return err;
@@ -167,8 +165,7 @@ public class ScenicspotController {
      * @return 返回受影响行数
      */
     @RequestMapping("/updateInfoById")
-    public ReponseResult updateInfoById(Scenicspot scenicspot, @RequestParam("multipartFile") MultipartFile multipartFile,
-                                        @RequestParam("savePath") String savePath) {
+    public ReponseResult updateInfoById(Scenicspot scenicspot, @RequestParam("multipartFile") MultipartFile multipartFile) {
         try {
             //判断是否有上传图片 判断multipartFile和savePath是否为null
             if (!multipartFile.isEmpty() && "a.txt".equals(multipartFile.getOriginalFilename())) {
@@ -178,7 +175,7 @@ public class ScenicspotController {
             } else {
                 //如果不为空则执行上传图片和修改方法
                 // 上传图片操作
-                String uploadResult = FileUploadUtil.uploadImage(multipartFile, savePath, ".jpg");
+                String uploadResult = FileUploadUtil.uploadImage(multipartFile, ".jpg");
                 if (!"".equals(uploadResult)) {
                     scenicspot.setPicturePath(uploadResult);
                     logger.info(" method:insertScenicspot  上传图片成功！");

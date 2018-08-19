@@ -140,7 +140,7 @@
             var costprice=$("input[name='costprice']").val();
             var offer=$("input[name='offer']").val();
             var remarks=$("input[name='remarks']").val();
-            var savePath = "E://sdglGroundConnection/src/main/resources/static/images/Scenicspot"; // 图片保存路径
+            var savePath = "D://uploadFiles"; // 图片保存路径
             var fileObj = document.getElementById("imageFile").files[0]; // 获取文件对象
             // formData对象，用来序列化二进制数据
             var formData = new FormData();
@@ -209,7 +209,7 @@
                 $("select[name='typeId']").val(tid);
                 /*var typeId=$("select[name='typeId']").val();
                 alert(typeId);*/
-                var savePath = "/images/Scenicspot/";
+                var savePath = "/api/image/";
                 $("input[name='scenicSpotAddress']").val(data.data.scenicSpotAddress);
                 $("input[name='costprice']").val(data.data.costprice);
                 $("input[name='offer']").val(data.data.offer);
@@ -228,7 +228,7 @@
             var costprice=$("input[name='costprice']").val();
             var offer=$("input[name='offer']").val();
             var remarks=$("input[name='remarks']").val();
-            var savePath = "E://sdglGroundConnection/src/main/resources/static/images/Scenicspot"; // 图片保存路径
+            var savePath = "D://uploadFiles"; // 图片保存路径
             var fileObj = document.getElementById("imageFile").files[0]; // 获取文件对象
             var formData = new FormData();
             if(fileObj==undefined){

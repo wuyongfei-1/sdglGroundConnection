@@ -17,12 +17,10 @@
 <script>
     // 提交图片到服务器
     function submitImage() {
-        var savePath = "D://upload-images-test"; // 图片保存路径
         var fileObj = document.getElementById("imageFile").files[0]; // 获取文件对象
         // formData对象，用来序列化二进制数据
         var formData = new FormData();
         formData.append("multipartFile", fileObj);
-        formData.append("savePath", savePath);
         // 发送请求到服务器
         $.ajax({
             url: "/operationlog/images/upload",

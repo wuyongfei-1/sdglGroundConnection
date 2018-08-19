@@ -36,8 +36,6 @@ public class StaffController  {
     @Autowired
     private StaffService staffService;
 
-    @Autowired
-    private HotelService hotelService;
     /**
      * 根据用户id查询用户信息
      * @param staffId
@@ -213,7 +211,7 @@ public class StaffController  {
             //判断是否有上传图片 判断multipartFile和savePath是否为null
 
 
-            if (multipartFile.isEmpty() && "a.txt".equals(multipartFile.getOriginalFilename())) {
+            if (!multipartFile.isEmpty() && "a.txt".equals(multipartFile.getOriginalFilename())) {
                 //如果为空则根据编号查询信息把用户之前的图片地址赋值给要修改的对象
                 staff.setHeadPortraitPath(oldStaff.getHeadPortraitPath());
 

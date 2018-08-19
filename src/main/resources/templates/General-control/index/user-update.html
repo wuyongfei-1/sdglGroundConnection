@@ -68,7 +68,8 @@
             <div class="images_show" id="images_show">
 
             </div>
-            <input type="file" id="browsefile"  value="修改图片">
+
+            <input hidden type="file" id="browsefile"  value="修改图片">
 
 
             <div class="layui-form-item">
@@ -85,6 +86,16 @@
 
 <script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 <script src="/js/jquery-3.2.1.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#images_show').on('click', function(){
+
+            $("#browsefile").click();
+
+        });
+    });
+
+</script>
 
 <script>
 
@@ -172,7 +183,7 @@
                 /*if (ReponseResult.data.headPortraitPath!=''){
                     $("#browsefile").attr('type', "hidden");
                 }*/
-                $("#images_show").html(" <img src='"+path+"' width=\"180px\" height=\"140px\">");
+                $("#images_show").html(" <img src='"+path+"' width=\"100px\" height=\"100px\">");
             },
             error: function (res) {
                 /*  alert(res);*/
@@ -206,7 +217,7 @@
                         //ie6下怎么做图片格式判断?
                         var src = event.target.value;
                         //var src = document.selection.createRange().text;    //选中后 selection对象就产生了 这个对象只适合ie
-                        var img = '<img src="' + src + '" width="200px" height="200px" />';
+                        var img = '<img src="' + src + '" width="100px" height="100px" />';
                         $("#images_show").empty().append(img);
                     });
                 }
@@ -235,7 +246,7 @@
                     if (event.target.files) {
                         //console.log(event.target.files);
                         for (var i = 0; i < event.target.files.length; i++) {
-                            var img = '<img src="' + event.target.files.item(i).getAsDataURL() + '" width="200px" height="200px"/>';
+                            var img = '<img src="' + event.target.files.item(i).getAsDataURL() + '" width="100px" height="100px"/>';
                             $("#images_show").empty().append(img);
                         }
                     }
@@ -286,7 +297,7 @@
                     var freader = new FileReader();
                     freader.readAsDataURL(file);
                     freader.onload = function (e) {
-                        var img = '<img src="' + e.target.result + '" width="200px" height="200px"/>';
+                        var img = '<img src="' + e.target.result + '" width="100px" height="100px"/>';
                         $("#images_show").empty().append(img);
                     }
                 }
@@ -310,7 +321,7 @@
                 fReader.readAsDataURL(img_file);
                 fReader.onload = function (event) {
                     destDom.innerHTML = '';
-                    destDom.innerHTML = '<img src="' + event.target.result + '" width="200px" height="200px"/>';
+                    destDom.innerHTML = '<img src="' + event.target.result + '" width="100px" height="100px"/>';
                 };
             }, false);
         }

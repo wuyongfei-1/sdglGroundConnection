@@ -17,7 +17,6 @@ import java.util.Map;
 public interface RestaurantService {
 
 
-
     /**
      * 分页查询符合条件的餐馆列表（wuyongfei）
      *
@@ -26,6 +25,25 @@ public interface RestaurantService {
      * @throws Exception 全局异常
      */
     PageInfo<Restaurant> listRestaurantsAndMealTypesByConditions(Map<String, Object> conditions) throws Exception;
+
+    /**
+     * 通过餐馆编号获取餐馆对象
+     *
+     * @param restaurantId 餐馆编号
+     * @return 餐馆对象
+     * @throws Exception 全局异常
+     */
+    Restaurant getRestaurantById(Integer restaurantId) throws Exception;
+
+
+    /**
+     * 通过饮食类型编号获取饮食类型对象
+     *
+     * @param mealTypeId 饮食类型编号
+     * @return 饮食类型对象
+     * @throws Exception 全局异常
+     */
+    MealType getMealTypeById(Integer mealTypeId) throws Exception;
 
     /**
      * 添加一条餐馆信息（wuyongfei）

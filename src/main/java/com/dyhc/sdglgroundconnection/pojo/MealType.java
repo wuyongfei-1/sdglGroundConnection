@@ -1,10 +1,8 @@
 package com.dyhc.sdglgroundconnection.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Objects;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
@@ -38,6 +36,9 @@ public class MealType {
     private String value1;
     private String value2;
     private String value3;
+
+    @Transient
+    private String mealTypeName; // 饮食类型名称
 
     @Id
     @Column(name = "typeId")
@@ -174,5 +175,13 @@ public class MealType {
 
     public void setValueId(String valueId) {
         this.valueId = valueId;
+    }
+
+    public String getMealTypeName() {
+        return mealTypeName;
+    }
+
+    public void setMealTypeName(String mealTypeName) {
+        this.mealTypeName = mealTypeName;
     }
 }

@@ -1,180 +1,359 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="UTF-8">
-		<meta name="renderer" content="webkit">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<title>网站后台管理模版</title>
-		<link rel="stylesheet" type="text/css" href="/admin/layui/css/layui.css" />
-		<link rel="stylesheet" type="text/css" href="/admin/css/admin.css" />
-	</head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>网站后台管理模版</title>
+    <link rel="stylesheet" type="text/css" href="/admin/layui/css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="/admin/css/admin.css"/>
+    <link rel="stylesheet" href="/css/layui.css" media="all">
+</head>
 
-	<body>
-		<div class="page-content-wrap">
-					<form class="layui-form" action="">
-						<div class="layui-form-item">
-							<div class="layui-inline tool-btn">
-								<button class="layui-btn layui-btn-small layui-btn-normal addBtn hidden-xs" data-url="Restaurant-add.html"><i class="layui-icon">&#xe654;</i></button>
-								<button class="layui-btn layui-btn-small layui-btn-danger delBtn"  data-url="article-add.html"><i class="layui-icon">&#xe640;</i></button>
-							</div>
-							<div class="layui-inline">
-								<input type="text" name="title" required lay-verify="required" placeholder="请输入饭店名称" autocomplete="off" class="layui-input">
-							</div>
-							<div class="layui-inline">
-								<input type="text" name="title" required lay-verify="required" placeholder="请输入饭店地址" autocomplete="off" class="layui-input">
-							</div>
-							价格区间：
-							<div class="layui-inline">
-								<input size="3" type="text" name="title" required lay-verify="required" placeholder="最低价" autocomplete="off" class="layui-input">
-							</div>
-							<div class="layui-inline">
-								<input size="3" type="text" name="title" required lay-verify="required" placeholder="最高价" autocomplete="off" class="layui-input">
-							</div>
-							<div class="layui-inline">
-								<select name="states" lay-filter="status">
-									<option value="">请选择一个状态</option>
-									<option value="010">禁用</option>
-									<option value="021">正常</option>
-								</select>
-							</div>
-							<div class="layui-inline">
-								<select name="states" lay-filter="status">
-									<option value="">请选择饮食类型</option>
-									<option value="010">面食</option>
-									<option value="021">盖饭</option>
-								</select>
-							</div>
-							<button class="layui-btn layui-btn-normal" lay-submit="search">搜索</button>
-						</div>
-					</form>
-					<div class="layui-form" id="table-list">
-						<table class="layui-table" lay-skin="line">
-							<colgroup>
-								<col width="50">
-								<col class="hidden-xs" width="100">
-								<col class="hidden-xs" width="100">
-								<col class="hidden-xs" width="100">
-								<col class="hidden-xs" width="120">
-								<col width="150">
-								<col width="130">
-								<col width="130">
-								<col width="80">
-								<col width="130">
-							</colgroup>
-							<thead>
-								<tr>
-									<th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose"></th>
-									<th class="">餐馆编号</th>
-									<th class="">名称</th>
-									<th class="">地址</th>
-									<th class="">联系电话</th>
-									<th>状态</th>
-									<th>操作</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr id='node-1' class="parent collapsed">
-									<td><input type="checkbox" name="" lay-skin="primary" data-id="1">
-									<a class="layui-btn layui-btn-mini layui-btn-normal showSubBtn" data-id='1'>+</a></td>
-									<td class="">2012</td>
-									<td class="">万狮京华</td>
-									<td class="">平阳路大马村</td>
-									
-									<td class="">12873283</td>
-									<td><button class="layui-btn layui-btn-mini layui-btn-normal table-list-status">禁用 </button></td>
-									<td>
-										<div class="layui-inline">
-											<button class="layui-btn layui-btn-mini layui-btn-normal  add-btn" data-id="1" data-url="Restaurantroom-add.html"><i class="layui-icon">&#xe654;</i></button>
-											<button class="layui-btn layui-btn-mini layui-btn-normal  edit-btn" data-id="1" data-url="Restaurant-add.html"><i class="layui-icon">&#xe642;</i></button>
-											<button class="layui-btn layui-btn-mini layui-btn-danger del-btn" data-id="1" data-url="Restaurant-add.html"><i class="layui-icon">&#xe640;</i></button>
-										</div>
-									</td>
-								</tr>
-								<tr id="node-2" class="child-node-1 parent collapsed" style="display:none ;background-color: #D6E9C6;" parentid="1">
-									<td class=""></td>
-									<td class=""></td>
-									<th class="">饮食类型名称</th>
-									<th class="">饮食报价</th>
-									<th class=""></th>
-									<th class="">状态</th>
-									<th class="">操作</th>
-								</tr>
-								<tr id='node-2' class="child-node-1 parent collapsed" style="display:none ;" parentid="1">
-									<td class=""></td>
-									<td class=""></td>
-									<td class="">大床房</td>
-									<td class="">300</td>
-									<td class=""></td>
-								
-									<td><button class="layui-btn layui-btn-mini layui-btn-normal table-list-status">禁用 <tton></td>
-									<td>
-										<div class="layui-inline">
-											<button class="layui-btn layui-btn-mini layui-btn-normal  edit-btn" data-id="2" data-url="hotelroom-add.html"><i class="layui-icon">&#xe642;</i><tton>
-											<button class="layui-btn layui-btn-mini layui-btn-danger del-btn" data-id="2" data-url="hotelroom-add.html"><i class="layui-icon">&#xe640;</i><tton>
-										</div>
-									</td>
-								</tr>
-								<tr id='node-2' class="child-node-1 parent collapsed" style="display:none ;" parentid="1">
-									<td class=""></td>
-									<td class=""></td>
-									<td class="">大床房</td>
-									<td class="">300</td>
-									<td class=""></td>
-									
-									<td><button class="layui-btn layui-btn-mini layui-btn-normal table-list-status">禁用 <tton></td>
-									<td>
-										<div class="layui-inline">
-											<button class="layui-btn layui-btn-mini layui-btn-normal  edit-btn" data-id="2" data-url="hotelroom-add.html"><i class="layui-icon">&#xe642;</i><tton>
-											<button class="layui-btn layui-btn-mini layui-btn-danger del-btn" data-id="2" data-url="hotelroom-add.html"><i class="layui-icon">&#xe640;</i><tton>
-										</div>
-									</td>
-								</tr>
+<body>
+<div class="page-content-wrap">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <div class="layui-inline tool-btn">
+                <input type="button" class="layui-btn layui-btn-small layui-btn-normal layui-icon" value="&#xe654;"
+                       name="addRestaurant"/>
+            </div>
 
-							</tbody>
-						</table>
-					</div>
-		</div>
-		<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
-		<script>
-			layui.use(['jquery'], function() {
-				var $=layui.jquery;
-				//修改状态
-				$('#table-list').on('click', '.table-list-status', function() {
-					var That = $(this);
-					var status = That.attr('data-status');
-					var id = That.parent().attr('data-id');
-					if(status == 1) {
-						That.removeClass('layui-btn-normal').addClass('layui-btn-warm').html('隐藏').attr('data-status', 2);
-					} else if(status == 2) {
-						That.removeClass('layui-btn-warm').addClass('layui-btn-normal').html('显示').attr('data-status', 1);
+            <div class="layui-inline">
+                <input type="text" name="restaurantName" placeholder="请输入饭店名称" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-inline">
+                <input type="text" name="restaurantAddress" placeholder="请输入饭店地址" autocomplete="off"
+                       class="layui-input">
+            </div>
+            价格区间：
+            <div class="layui-inline">
+                <input size="3" type="text" name="minPrice" placeholder="最低价" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-inline">
+                <input size="3" type="text" name="maxPrice" placeholder="最高价" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-inline">
 
-					}
-				})
-				//栏目展示隐藏
-				$('.showSubBtn').on('click', function() {
-					var _this = $(this);
-					var id = _this.attr('data-id');
-					var parent = _this.parents('.parent');
-					var child = $('.child-node-' + id);
-					var childAll = $('tr[parentid=' + id + ']');
-					if(parent.hasClass('collapsed')) {
-						_this.html('-');
-						parent.addClass('expanded').removeClass('collapsed');
-						child.css('display', '');
-					} else {
-						_this.html('+');
-						parent.addClass('collapsed').removeClass('expanded');
-						child.css('display', 'none');
-						childAll.addClass('collapsed').removeClass('expanded').css('display', 'none');
-						childAll.find('.showSubBtn').html('+');
-					}
+                <select name="mealType" lay-filter="status">
+                    <option value="0">请选择饮食类型</option>
+                </select>
+            </div>
+            <input type="button" class="layui-btn layui-btn-normal" value="搜索"
+                   onclick="showAllRestaurantAndAllMealTypes(1,6)"/>
+        </div>
+    </form>
+    <div class="layui-form" id="table-list">
+        <table class="layui-table" lay-skin="line">
+            <colgroup>
+                <col width="50">
+                <col class="hidden-xs" width="100">
+                <col class="hidden-xs" width="100">
+                <col class="hidden-xs" width="100">
+                <col class="hidden-xs" width="120">
+                <col width="150">
+                <col width="130">
+                <col width="130">
+                <col width="80">
+                <col width="130">
+            </colgroup>
+            <thead>
+            <tr>
+                <th class="">饮食类型</th>
+                <th class="">餐馆编号</th>
+                <th class="">名称</th>
+                <th class="">地址</th>
+                <th class="">联系电话</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
 
-				})
-			});
-		</script>
-	</body>
+
+            </tbody>
+        </table>
+    </div>
+    <div id="laypage" style="text-align: center"></div>
+</div>
+<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
+<script src="/layui.js"></script>
+<script src="/js/jquery-1.8.2.min.js"></script>
+<script>
+    var pageNo = 1; // 当前页码
+    var pageSize = 6;  // 每页总记录数
+
+    loadAllMealTypes();  // 加载所有的饮食类型
+    showAllRestaurantAndAllMealTypes(pageNo, pageSize);  // 加载所有的餐馆以及饮食类型
+
+
+    // 加载所有的饮食类型
+    function loadAllMealTypes() {
+        $.ajax({
+            url: "/dictionaries/dictionaries/all",
+            data: {typeCode: "DIET"},
+            dataType: "json",
+            type: "get",
+            success: function (result) {
+                // 渲染数据
+                $('[name=mealType]').html('');
+                var selectData = "<option value=\"0\">请选择饮食类型</option>";
+                $.each(result.data, function (i, e) {
+                    selectData += "<option value='" + (e.valueId) + "'>" + (e.valueContent1) + "</option>";
+                });
+                $('[name=mealType]').html(selectData);
+            },
+            error: function (res) {
+                alert(res);
+            }
+        })
+    }
+
+
+    // 添加餐馆信息点击事件
+    $(document).on("click", "[name=addRestaurant]", function () {
+        layer.open({
+            type: 2,
+            title: '添加餐馆',
+            maxmin: true,
+            shadeClose: true, //点击遮罩关闭层
+            area: ['800px', '520px'],
+            content: 'Restaurant-add.html?type=0'
+        });
+    })
+
+
+    // 修改餐馆信息点击事件
+    $(document).on("click", "[name=updateRestaurant]", function () {
+        var restaurantId = $(this).attr("data-id");
+        layer.open({
+            type: 2,
+            title: '添加餐馆',
+            maxmin: true,
+            shadeClose: true, //点击遮罩关闭层
+            area: ['800px', '520px'],
+            content: 'Restaurant-add.html?type=' + restaurantId
+        });
+    })
+
+
+    // 添加饮食类型信息点击事件
+    $(document).on("click", "[name=addRealTypeInfo]", function () {
+        var restaurantId = $(this).attr("parentId");
+        layer.open({
+            type: 2,
+            title: '添加饮食类型',
+            maxmin: true,
+            shadeClose: true, //点击遮罩关闭层
+            area: ['800px', '520px'],
+            content: 'Restaurantroom-add.html?type=0&restaurantId=' + restaurantId
+        });
+    })
+
+
+    // 修改饮食类型信息点击事件
+    $(document).on("click", "[name=updateMealTypeInfo]", function () {
+        var mealTypeId = $(this).attr("data-id");
+        var restaurantId = $(this).attr("parentId");
+        var valueId = $(this).attr("valueId");
+        layer.open({
+            type: 2,
+            title: '修改饮食类型',
+            maxmin: true,
+            shadeClose: true, //点击遮罩关闭层
+            area: ['800px', '520px'],
+            content: 'Restaurantroom-add.html?type=' + mealTypeId + "&restaurantId= " + restaurantId + "&valueId=" + valueId
+        });
+    })
+
+
+    // 显示所有的餐馆和饮食类型
+    function showAllRestaurantAndAllMealTypes(page, limit) {
+        var conditions = $('form').serialize();
+        $.ajax({
+            url: "/restaurant/restaurant/all",
+            data: conditions + "&page=" + pageNo + "&limit=" + pageSize,
+            dataType: "json",
+            type: "get",
+            success: function (result) {
+                $('tbody').html('');
+                if (result.code == 0) {
+                    var showId = (page - 1) * limit;
+                    // success
+                    var infos = "";
+                    $.each(result.data, function (i, e) {
+                        infos += "<tr id='node-1' class=\"parent collapsed\" >\n" +
+                            "<td>" +
+                            "<a class=\"layui-btn layui-btn-mini layui-btn-normal showSubBtn\" data-id='" + (i + 1) + "' onclick='showItem(" + (i + 1) + ",this)'>+</a></td>\n" +
+                            "<td class=\"\" style='padding-left: 20px'>" + (++showId) + "</td>\n" +
+                            "<td class=\"\">" + (e.restaurantName) + "</td>\n" +
+                            "<td class=\"\">" + (e.restaurantAddress) + "</td>\n" +
+                            "\n" +
+                            "<td class=\"\">" + (e.phone) + "</td>\n" +
+                            "<td>\n" +
+                            "<div class=\"layui-inline\">\n" +
+                            "<button class=\"layui-btn layui-btn-mini layui-btn-normal  add-btn\" parentId='" + (e.restaurantId) + "' data-id=\"" + (e.restaurantId) + "\" data-url=\"Restaurantroom-add.html\" name='addRealTypeInfo'><i class=\"layui-icon\">&#xe654;</i></button>\n" +
+                            "<button class=\"layui-btn layui-btn-mini layui-btn-normal  edit-btn\" data-id=\"" + (e.restaurantId) + "\" data-url=\"Restaurant-add.html\" name='updateRestaurant'><i class=\"layui-icon\">&#xe642;</i></button>\n" +
+                            "<button class=\"layui-btn layui-btn-mini layui-btn-danger del-btn\" data-id=\"1\" data-url=\"Restaurant-add.html\" onclick='removeRestaurantInfo(" + (e.restaurantId) + ")'><i class=\"layui-icon\">&#xe640;</i></button>\n" +
+                            "</div>\n" +
+                            "</td>\n" +
+                            "</tr>";
+                        if (e.mealTypes.length > 0) {
+                            infos += "<tr id=\"node-2\" class=\"child-node-1 parent collapsed\" style=\"display:none ;background-color: #D6E9C6;\" parentid=\"" + (i + 1) + "\">\n" +
+                                "<td class=\"\"></td>\n" +
+                                "<td class=\"\">编号</td>\n" +
+                                "<th class=\"\">饮食类型名称</th>\n" +
+                                "<th class=\"\">成本价</th>\n" +
+                                "<th class=\"\">报价</th>\n" +
+                                "<th class=\"\">操作</th>\n" +
+                                "</tr>";
+                            // 遍历饮食类型列表
+                            $.each(e.mealTypes, function (j, mealType) {
+                                infos += "<tr  id='node-2' class=\"child-node-1 parent collapsed\" style=\"display:none ;\" parentid=\"" + (i + 1) + "\">\n" +
+                                    "<td class=\"\"></td>\n" +
+                                    "<td class=\"\">" + (++j) + "</td>\n" +
+                                    "<td class=\"\">" + (mealType.mealTypeName) + "</td>\n" +
+                                    "<td class=\"\">" + (mealType.costprice) + "</td>\n" +
+                                    "<td class=\"\">" + (mealType.offer) + "</td>\n" +
+                                    "<td>\n" +
+                                    "<div class=\"layui-inline\">\n" +
+                                    "<button class=\"layui-btn layui-btn-mini layui-btn-normal  edit-btn\" name='updateMealTypeInfo' valueId='" + (mealType.valueId) + "' parentId = '" + (mealType.restaurantId) + "' data-id=\"" + (mealType.typeId) + "\" data-url=\"hotelroom-add.html\"><i class=\"layui-icon\">&#xe642;</i><tton>\n" +
+                                    "<button class=\"layui-btn layui-btn-mini layui-btn-danger del-btn\" data-id=\"2\"  onclick='removeMealTypeInfo(" + mealType.typeId + ")' data-url=\"hotelroom-add.html\"><i class=\"layui-icon\">&#xe640;</i><tton>\n" +
+                                    "</div>\n" +
+                                    "</td>\n" +
+                                    "</tr>";
+                            })
+                        }
+                    })
+                    $('tbody').html(infos);
+
+                    // 分页插件
+                    layui.use('table', function () {
+                        var laypage = layui.laypage;
+                        laypage.render({
+                            elem: 'laypage'
+                            , count: result.count
+                            , curr: pageNo
+                            , limit: pageSize
+                            , layout: ['prev', 'page', 'next', 'skip', 'count']
+                            , jump: function (obj, first) {
+                                if (!first) {
+                                    //obj包含了当前分页的所有参数，比如：
+                                    pageNo = obj.curr; // 当前页面
+                                    pageSize = obj.limit; // 每页记录数
+                                    // 查询新数据
+                                    showAllRestaurantAndAllMealTypes(pageNo, pageSize)
+                                }
+                            }
+                        })
+                    })
+
+                } else {
+                    alert(result.msg);
+                }
+            },
+            error: function (res) {
+                alert(res);
+            }
+        })
+    }
+
+
+    // 根据饮食类型编号删除相关的饮食类型信息
+    function removeMealTypeInfo(mealTypeId) {
+        var flag = confirm("确认删除该饮食类型吗？");
+        if (flag) {
+            $.ajax({
+                url: "/restaurant/mealType/remove",
+                data: {mealTypeId: mealTypeId},
+                dataType: "json",
+                type: "post",
+                success: function (result) {
+                    alert(result.msg);
+                    showAllRestaurantAndAllMealTypes(pageNo, pageSize);
+                },
+                error: function (res) {
+                    alert(res);
+                }
+            })
+        }
+    }
+
+
+    // 根据餐馆编号删除相关的餐馆信息
+    function removeRestaurantInfo(restaurantId) {
+        var flag = confirm("确认删除该餐馆吗？");
+        if (flag) {  // 发送删除请求
+            $.ajax({
+                url: "/restaurant/restaurant/remove",
+                data: {restaurantId: restaurantId},
+                dataType: "json",
+                type: "post",
+                success: function (result) {
+                    alert(result.msg);
+                    showAllRestaurantAndAllMealTypes(pageNo, pageSize);
+                },
+                error: function (res) {
+                    alert(res);
+                }
+            })
+        }
+    }
+
+    // 显示子项内容点击事件
+    function showItem(parentId, obj) {
+        if ($(obj).text() == "+") {
+            $(obj).text('-');
+            // 隐藏所有子项内容
+            $('[id=node-2]').hide();
+            $('[parentid=' + parentId + ']').show();
+        } else {
+            $(obj).text('+');
+            // 隐藏所有子项内容
+            $('[id=node-2]').hide();
+        }
+    }
+</script>
+<script>
+    layui.use(['jquery'], function () {
+        var $ = layui.jquery;
+        //修改状态
+        $('#table-list').on('click', '.table-list-status', function () {
+            var That = $(this);
+            var status = That.attr('data-status');
+            var id = That.parent().attr('data-id');
+            if (status == 1) {
+                That.removeClass('layui-btn-normal').addClass('layui-btn-warm').html('隐藏').attr('data-status', 2);
+            } else if (status == 2) {
+                That.removeClass('layui-btn-warm').addClass('layui-btn-normal').html('显示').attr('data-status', 1);
+
+            }
+        })
+        //栏目展示隐藏
+        $('.showSubBtn').on('click', function () {
+            var _this = $(this);
+            var id = _this.attr('data-id');
+            var parent = _this.parents('.parent');
+            var child = $('.child-node-' + id);
+            var childAll = $('tr[parentid=' + id + ']');
+            if (parent.hasClass('collapsed')) {
+                _this.html('-');
+                parent.addClass('expanded').removeClass('collapsed');
+                child.css('display', '');
+            } else {
+                _this.html('+');
+                parent.addClass('collapsed').removeClass('expanded');
+                child.css('display', 'none');
+                childAll.addClass('collapsed').removeClass('expanded').css('display', 'none');
+                childAll.find('.showSubBtn').html('+');
+            }
+
+        })
+    });
+</script>
+</body>
 
 </html>

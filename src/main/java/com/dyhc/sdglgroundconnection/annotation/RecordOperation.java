@@ -12,6 +12,4 @@ public @interface RecordOperation {
     String type() default "";  // 操作类型
 
     String desc() default "";  // 操作内容
-
-
 }

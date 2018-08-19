@@ -81,7 +81,7 @@ public class RestaurantServiceImpl implements RestaurantService {
             if (ConditionValidation.validation(minPrice) && ConditionValidation.validation(maxPrice)) {
                 criteria1.andCostpriceBetween(minPrice, maxPrice);
             }
-            if (ConditionValidation.validation(mealType) && mealType>0) {
+            if (ConditionValidation.validation(mealType) && mealType > 0) {
                 criteria1.andValueIdEqualTo(mealType);
             }
             criteria1.andRestaurantidEqualTo(restaurant.getRestaurantId());
@@ -102,7 +102,7 @@ public class RestaurantServiceImpl implements RestaurantService {
             restaurant.setMealTypes(mealTypes);
             // 记录没有相关饮食类型的餐馆
             if (ConditionValidation.validation(minPrice) || ConditionValidation.validation(maxPrice)
-                    || (ConditionValidation.validation(mealType) && mealType>0)) {
+                    || (ConditionValidation.validation(mealType) && mealType > 0)) {
                 if (mealTypes.size() == 0) {
                     for (int i = 0; i < restaurantIds.length; i++) {
                         if (restaurantIds[i] == null) {
@@ -226,6 +226,7 @@ public class RestaurantServiceImpl implements RestaurantService {
      * @throws Exception 全局异常
      */
     @Override
+    @Transactional
     @RecordOperation(type = "饮食类型", desc = "新增了一条饮食类型信息")
     public Integer saveMealTypeInfoByRestaurantId(MealType mealType) throws Exception {
         mealType.setCreateDate(new Date());

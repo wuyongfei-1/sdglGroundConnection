@@ -141,7 +141,7 @@ public class RestaurantController {
     }
 
     /**
-     * 通过饮食类型编号获取饮食类型对象
+     * 通过饮食类型编号获取饮食类型对象（wuyongfei）
      *
      * @param mealTypeId 饮食类型编号
      * @return
@@ -160,7 +160,7 @@ public class RestaurantController {
     }
 
     /**
-     * 通过餐馆编号获取餐馆对象
+     * 通过餐馆编号获取餐馆对象（wuyongfei）
      *
      * @param restaurantId 餐馆编号
      * @return

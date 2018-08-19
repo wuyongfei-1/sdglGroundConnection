@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 public class DruidDataSourceConfig {
 
     /**
-     * 注册一个ServletRegistrationBean
+     * 注册一个ServletRegistrationBean（wuyongfei）
      *
      * @return
      */

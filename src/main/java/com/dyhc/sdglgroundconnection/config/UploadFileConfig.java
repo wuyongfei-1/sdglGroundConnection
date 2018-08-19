@@ -12,7 +12,7 @@ import java.io.File;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
- * 上传文件配置
+ * 上传文件配置（wuyongfei）
  **/
 @Configuration
 public class UploadFileConfig {
@@ -25,6 +25,11 @@ public class UploadFileConfig {
     @Value("${file.linuxUploadFolder}")
     private String linuxUploadFolder; // linux上传文件目录
 
+    /**
+     * Springboot配置文件上传（wuyongfei）
+     *
+     * @return
+     */
     @Bean
     MultipartConfigElement multipartConfigElement() {
         // 获取当前系统信息
@@ -41,7 +46,7 @@ public class UploadFileConfig {
         // 创建相应的目录
         if (!file.exists()) {
             file.mkdirs();
-            logger.info("程序启动成功，图片存放目录 "+file.getAbsolutePath()+" 创建成功！");
+            logger.info("程序启动成功，图片存放目录 " + file.getAbsolutePath() + " 创建成功！");
         }
         MultipartConfigFactory factory = new MultipartConfigFactory();
         factory.setLocation(uploadFolder);

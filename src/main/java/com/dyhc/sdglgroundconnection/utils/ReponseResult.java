@@ -3,7 +3,7 @@ package com.dyhc.sdglgroundconnection.utils;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
- * 响应信息主体。返回给前端的数据
+ * 响应信息主体。返回给前端的数据（wuyongfei）
  **/
 public class ReponseResult<T> {
     private String code = "";   // 响应编码
@@ -12,7 +12,7 @@ public class ReponseResult<T> {
     private Long count; // 数据的总数 （分页附加）
 
     /**
-     * 成功返回给前端页面分页后的数据（带分页）
+     * 成功返回给前端页面分页后的数据（带分页）（wuyongfei）
      *
      * @param data      携带数据
      * @param infoCount 数据量
@@ -29,7 +29,7 @@ public class ReponseResult<T> {
     }
 
     /**
-     * 成功返回给前端页面的数据（不带分页）
+     * 成功返回给前端页面的数据（不带分页）（wuyongfei）
      *
      * @param data    携带数据
      * @param message 成功提示
@@ -45,7 +45,7 @@ public class ReponseResult<T> {
     }
 
     /**
-     * 成功返回给前端页面的数据
+     * 成功返回给前端页面的数据（wuyongfei）
      *
      * @param message 成功提示
      * @return
@@ -60,7 +60,7 @@ public class ReponseResult<T> {
     }
 
     /**
-     * 出现失败返回给前端页面的数据
+     * 出现失败返回给前端页面的数据（wuyongfei）
      *
      * @param message 失败提示
      * @return

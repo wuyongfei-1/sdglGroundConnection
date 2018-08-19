@@ -125,7 +125,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     /**
-     * 根据编号获取餐馆对象
+     * 根据编号获取餐馆对象（wuyongfei）
      *
      * @param restaurantId 餐馆编号
      * @return 餐馆对象
@@ -137,7 +137,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     /**
-     * 根据饮食类型编号获取饮食类型对象
+     * 根据饮食类型编号获取饮食类型对象（wuyongfei）
      *
      * @param mealTypeId 饮食类型编号
      * @return 饮食类型对象

@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
  **/
 public class DispatchException extends RuntimeException {
 
-    private Logger logger = LoggerFactory.getLogger(MealtypeExample.class); // 日志对象
+    private Logger logger = LoggerFactory.getLogger(DispatchException.class); // 日志对象
 
     /**
      * 异常提示

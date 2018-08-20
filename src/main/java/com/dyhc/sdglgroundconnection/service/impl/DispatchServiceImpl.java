@@ -1,10 +1,9 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
 import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
-import com.dyhc.sdglgroundconnection.dto.DisParam;
+import com.dyhc.sdglgroundconnection.dto.DispatchParam;
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.mapper.DispatchMapper;
-import com.dyhc.sdglgroundconnection.pojo.Dispatch;
 import com.dyhc.sdglgroundconnection.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,7 +52,7 @@ public class DispatchServiceImpl implements DispatchService {
     @Override
     @Transactional
     @RecordOperation(type = "调度信息", desc = "添加了一条调度信息")
-    public Integer saveDispatchInfo(DisParam disParam) throws DispatchException {
+    public Integer saveDispatchInfo(DispatchParam disParam) throws DispatchException {
         // 添加调度信息
         dispatchMapper.insert(disParam.getDispatch());
         // 添加购物信息

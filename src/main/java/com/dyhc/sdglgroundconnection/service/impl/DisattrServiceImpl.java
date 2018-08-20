@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
+import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.mapper.DisattrMapper;
 import com.dyhc.sdglgroundconnection.pojo.Disattr;
@@ -27,6 +28,7 @@ public class DisattrServiceImpl implements DisattrService {
      * @throws DispatchException 调度异常
      */
     @Override
+    @RecordOperation(type = "调度景点", desc = "批量添加了多条调度景点信息")
     public Integer saveDisattrInfoes(List<Disattr> disattrList) throws DispatchException {
         return disattrMapper.insertList(disattrList);
     }

@@ -4,6 +4,7 @@ import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.dto.TemplateParam;
 import com.dyhc.sdglgroundconnection.mapper.TemplateMapper;
 import com.dyhc.sdglgroundconnection.pojo.*;
+import com.dyhc.sdglgroundconnection.service.HotelService;
 import com.dyhc.sdglgroundconnection.service.TemplateHotelService;
 import com.dyhc.sdglgroundconnection.service.TemplateScenicspotService;
 import com.dyhc.sdglgroundconnection.service.TemplateService;
@@ -29,6 +30,9 @@ public class TemplateServiceImpl implements TemplateService {
     private TemplateMapper templateMapper;
 
     @Autowired
+    private HotelService hotelService;
+
+    @Autowired
     private TemplateHotelService templateHotelService;
 
     @Autowired
@@ -48,17 +52,18 @@ public class TemplateServiceImpl implements TemplateService {
         template.setCreater(1);
         template.setCreationDate(new Date());
         template.setWhetherDel(0);
+        Integer result=templateMapper.insertUseGeneratedKeys(template);
         //新增时给模板酒店信息一些默认的参数赋值
         template.getTemplateHotel().setCreater(1);
         template.getTemplateHotel().setCreationDate(new Date());
         template.getTemplateHotel().setWhetherDel(0);
-        template.getTemplateHotel().setTemplateId(template.getTemplateId());
+        template.getTemplateHotel().setTemplateId(result);
         //新增时给模板景点信息一些默认的参数赋值
         for (TemplateScenicspot templateScenicspot: template.getTemplateScenicspotList()) {
             templateScenicspot.setCreater(1);
             templateScenicspot.setCreationDate(new Date());
             templateScenicspot.setWhetherDel(0);
-            templateScenicspot.setTemplateId(template.getTemplateId());
+            templateScenicspot.setTemplateId(result);
         }
         //新增模板酒店信息
         Integer result1=templateHotelService.insertTemplateHotelInfo(template.getTemplateHotel());
@@ -66,8 +71,18 @@ public class TemplateServiceImpl implements TemplateService {
         for (TemplateScenicspot ts: template.getTemplateScenicspotList()) {
             Integer result2=templateScenicspotService.insertTemplateScenicspit(ts);
         }
-        Integer result=templateMapper.insert(template);
+
         return result;
+    }
+
+    /**
+     * 查询所有模板信息 （wangtao）
+     * @return 返回模板集合
+     * @throws Exception
+     */
+    @Override
+    public List<Template> listAllTemplate() throws Exception {
+        return templateMapper.selectAll();
     }
 
     /**
@@ -106,8 +121,13 @@ public class TemplateServiceImpl implements TemplateService {
      */
     @Override
     public Template getTemplateByTemplateId(Integer templateId) throws Exception{
+        //根据模板编号查询模板信息
         Template template=templateMapper.selectByPrimaryKey(templateId);
+        //根据模板编号查询模板酒店信息并赋值
         template.setTemplateHotel(templateHotelService.getTemplateHotelInfoByTemplateId(templateId));
+        //根据模板酒店的酒店编号查询酒店信息并赋值
+        template.getTemplateHotel().setHotel(hotelService.selectHotelById(template.getTemplateHotel().getTemplateId()));
+        //根据模板编号查询模板景点信息并赋值
         template.setTemplateScenicspotList(templateScenicspotService.listTemplateScenicspotByTemplateId(templateId));
         return template;
     }

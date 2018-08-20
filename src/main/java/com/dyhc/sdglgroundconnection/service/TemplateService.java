@@ -21,6 +21,12 @@ public interface TemplateService {
      */
     Integer insertTemplateInfo(Template template) throws Exception;
 
+    /**
+     * 查询所有模板信息 （wangtao）
+     * @return 返回模板集合
+     * @throws Exception
+     */
+    List<Template> listAllTemplate() throws Exception;
 
     /**
      * 根据条件查询模板信息并分页 （wangtao）

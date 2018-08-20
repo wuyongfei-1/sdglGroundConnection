@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Content-Type" content="multipart/form-data; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>网站后台管理模版</title>
+    <link rel="stylesheet" type="text/css" href="/admin/layui/css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="/admin/css/admin.css"/>
+</head>
+<body>
+<form class="layui-form column-content-detail">
+    <div class="layui-tab">
+        <ul class="layui-tab-title">
+            <li class="layui-this">线路模板信息</li>
+        </ul>
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <div class="layui-form-item">
+                    <input type="hidden" id="templateid" th:value="${templateid}">
+                </div>
+            </div>
+        </div>
+        <div class="layui-tab-content">
+            <table border="0" cellspacing="0" cellpadding="0" id="infos">
+                <tr>
+                    <td><label class="layui-form-label">酒店</label></td>
+                    <td><input type="text" class="layui-input"></td>
+                    <td><label class="layui-form-label">成本价</label></td>
+                    <td><input type="text" class="layui-input"></td>
+                    <td><label class="layui-form-label">报价</label></td>
+                    <td><input type="text" class="layui-input"></td>
+                </tr>
+                <!--点击新增结束-->
+                <tr id="scenic">
+                    <td><label class="layui-form-label">景点</label></td>
+                    <td><input type="text" class="layui-input"></td>
+                    <td><label class="layui-form-label">成本价:</label></td>
+                    <td><input type="text" class="layui-input"></td>
+                    <td><label class="layui-form-label">报价:</label></td>
+                    <td><input type="text" class="layui-input"></td>
+                </tr>
+                <tr>
+                    <td><label class="layui-form-label">行程</label></td>
+                    <td colspan="5"> <textarea placeholder="请输入内容" class="layui-textarea" name="desc"></textarea></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="layui-form-item" style="padding-left: 10px;">
+        <div class="layui-input-block">
+        </div>
+    </div>
+</form>
+<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript"  src="/js/getUrlParam.js"></script>
+<script src="/js/jquery-1.8.2.min.js"></script>
+<script>
+    function gets() {
+        var templateid=$("#templateid").val();
+        $.post("/template/getTemplateByTemplateId","templateId="+templateid,function (data) {
+            var content="<tr>" +
+                "<td><label class=\"layui-form-label\">酒店</label></td>" +
+                "<td><input type=\"text\" class=\"layui-input\" value='"+data.data.templateHotel.hotel.hotelName+"'></td>" +
+                "<td><label class=\"layui-form-label\" >成本价</label></td>" +
+                "<td><input type=\"text\" class=\"layui-input\" value='"+data.data.templateHotel.costPrice+"'></td>" +
+                "<td><label class=\"layui-form-label\">报价</label></td>" +
+                "<td><input type=\"text\" class=\"layui-input\" value='"+data.data.templateHotel.offer+"'></td>" +
+                "</tr>";
+            $.each(data.data.templateScenicspotList,function (i,e) {
+                content+="<tr id=\"scenic\">" +
+                    "<td><label class=\"layui-form-label\">景点</label></td>" +
+                    "<td><input type=\"text\" class=\"layui-input\" value='"+e.scenicspot.scenicSpotName+"'></td>" +
+                    "<td><label class=\"layui-form-label\">成本价:</label></td>" +
+                    "<td><input type=\"text\" class=\"layui-input\" value='"+e.costPrice+"'></td>" +
+                    "<td><label class=\"layui-form-label\">报价:</label></td>" +
+                    "<td><input type=\"text\" class=\"layui-input\" value='"+e.offer+"'></td>" +
+                    "</tr>";
+            })
+            content+="<tr>" +
+                "<td><label class=\"layui-form-label\">行程</label></td>" +
+                "<td colspan=\"5\"> <textarea placeholder=\"请输入内容\" class=\"layui-textarea\" name=\"desc\">"+data.data.templateContent+"</textarea></td>" +
+                "</tr>";
+            $("#infos").html(content);
+        });
+    }
+
+    layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog', 'common', 'tool', 'element', 'upload', 'layedit'], function() {
+        var form = layui.form(),
+            layer = layui.layer,
+            $ = layui.jquery,
+            laypage = layui.laypage,
+            laydate = layui.laydate,
+            layedit = layui.layedit,
+            common = layui.common,
+            tool = layui.tool,
+            element = layui.element(),
+            dialog = layui.dialog;
+
+        //获取当前iframe的name值
+        var iframeObj = $(window.frameElement).attr('name');
+        //创建一个编辑器
+        var editIndex = layedit.build('LAY_demo_editor', {
+            tool: ['strong' //加粗
+                , 'italic' //斜体
+                , 'underline' //下划线
+                , 'del' //删除线
+                , '|' //分割线
+                , 'left' //左对齐
+                , 'center' //居中对齐
+                , 'right' //右对齐
+                , 'link' //超链接
+                , 'unlink' //清除链接
+                , 'image' //插入图片
+            ],
+            height: 100
+        })
+        //全选
+        form.on('checkbox(allChoose)', function(data) {
+            var child = $(data.elem).parents('table').find('tbody input[type="checkbox"]');
+            child.each(function(index, item) {
+                item.checked = data.elem.checked;
+            });
+            form.render('checkbox');
+        });
+        form.render();
+
+        layui.upload({
+            url: '上传接口url',
+            success: function(res) {
+                console.log(res); //上传成功返回值，必须为json格式
+            }
+        });
+    });
+    $(function () {
+        gets();
+
+    });
+</script>
+</body>
+</html>

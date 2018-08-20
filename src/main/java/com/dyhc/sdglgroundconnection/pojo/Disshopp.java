@@ -19,6 +19,8 @@ public class Disshopp {
     private Integer scenicSpotId; // 购物编号（外键，与景点表关联）
     @Column(name = "offerId")
     private Integer offerId; // 调度信息编号（外键，与报价信息表关联）
+    @Column(name = "weight")
+    private Integer weight;//权重（天数）
     private Date date; // 日期
     private Integer status; // 是否删除（1代表已删除，0代表未删除）
     @Column(name = "createBy")

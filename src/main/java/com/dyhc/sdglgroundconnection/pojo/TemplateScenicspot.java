@@ -37,6 +37,17 @@ public class TemplateScenicspot {
     private String value2;
     private String value3;
 
+    @Transient
+    private Scenicspot scenicspot; // 景点对象
+
+    public Scenicspot getScenicspot() {
+        return scenicspot;
+    }
+
+    public void setScenicspot(Scenicspot scenicspot) {
+        this.scenicspot = scenicspot;
+    }
+
     @Id
     @Column(name = "templateScenicSpotId")
     public int getTemplateScenicSpotId() {

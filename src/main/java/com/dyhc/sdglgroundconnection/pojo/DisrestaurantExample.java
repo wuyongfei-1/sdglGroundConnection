@@ -312,6 +312,66 @@ public class DisrestaurantExample {
             return (Criteria) this;
         }
 
+        public Criteria andWeightIsNull() {
+            addCriterion("weight is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightIsNotNull() {
+            addCriterion("weight is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightEqualTo(Integer value) {
+            addCriterion("weight =", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightNotEqualTo(Integer value) {
+            addCriterion("weight <>", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightGreaterThan(Integer value) {
+            addCriterion("weight >", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightGreaterThanOrEqualTo(Integer value) {
+            addCriterion("weight >=", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightLessThan(Integer value) {
+            addCriterion("weight <", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightLessThanOrEqualTo(Integer value) {
+            addCriterion("weight <=", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightIn(List<Integer> values) {
+            addCriterion("weight in", values, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightNotIn(List<Integer> values) {
+            addCriterion("weight not in", values, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightBetween(Integer value1, Integer value2) {
+            addCriterion("weight between", value1, value2, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightNotBetween(Integer value1, Integer value2) {
+            addCriterion("weight not between", value1, value2, "weight");
+            return (Criteria) this;
+        }
+
         public Criteria andCostpriceIsNull() {
             addCriterion("costPrice is null");
             return (Criteria) this;
@@ -502,62 +562,52 @@ public class DisrestaurantExample {
             return (Criteria) this;
         }
 
-        public Criteria andDindateEqualTo(String value) {
+        public Criteria andDindateEqualTo(Integer value) {
             addCriterion("dinDate =", value, "dindate");
             return (Criteria) this;
         }
 
-        public Criteria andDindateNotEqualTo(String value) {
+        public Criteria andDindateNotEqualTo(Integer value) {
             addCriterion("dinDate <>", value, "dindate");
             return (Criteria) this;
         }
 
-        public Criteria andDindateGreaterThan(String value) {
+        public Criteria andDindateGreaterThan(Integer value) {
             addCriterion("dinDate >", value, "dindate");
             return (Criteria) this;
         }
 
-        public Criteria andDindateGreaterThanOrEqualTo(String value) {
+        public Criteria andDindateGreaterThanOrEqualTo(Integer value) {
             addCriterion("dinDate >=", value, "dindate");
             return (Criteria) this;
         }
 
-        public Criteria andDindateLessThan(String value) {
+        public Criteria andDindateLessThan(Integer value) {
             addCriterion("dinDate <", value, "dindate");
             return (Criteria) this;
         }
 
-        public Criteria andDindateLessThanOrEqualTo(String value) {
+        public Criteria andDindateLessThanOrEqualTo(Integer value) {
             addCriterion("dinDate <=", value, "dindate");
             return (Criteria) this;
         }
 
-        public Criteria andDindateLike(String value) {
-            addCriterion("dinDate like", value, "dindate");
-            return (Criteria) this;
-        }
-
-        public Criteria andDindateNotLike(String value) {
-            addCriterion("dinDate not like", value, "dindate");
-            return (Criteria) this;
-        }
-
-        public Criteria andDindateIn(List<String> values) {
+        public Criteria andDindateIn(List<Integer> values) {
             addCriterion("dinDate in", values, "dindate");
             return (Criteria) this;
         }
 
-        public Criteria andDindateNotIn(List<String> values) {
+        public Criteria andDindateNotIn(List<Integer> values) {
             addCriterion("dinDate not in", values, "dindate");
             return (Criteria) this;
         }
 
-        public Criteria andDindateBetween(String value1, String value2) {
+        public Criteria andDindateBetween(Integer value1, Integer value2) {
             addCriterion("dinDate between", value1, value2, "dindate");
             return (Criteria) this;
         }
 
-        public Criteria andDindateNotBetween(String value1, String value2) {
+        public Criteria andDindateNotBetween(Integer value1, Integer value2) {
             addCriterion("dinDate not between", value1, value2, "dindate");
             return (Criteria) this;
         }

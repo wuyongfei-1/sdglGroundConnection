@@ -19,6 +19,8 @@ public class Offerline {
     private Integer offerId; // 报价信息编号（外键，与报价信息表关联）
     @Column(name = "lineArriveName")
     private String lineArriveName; // 线路抵达名称
+    @Column(name = "weight")
+    private Integer weight;//权重（天数）
     @Column(name = "travelContent")
     private String travelContent; // 行程内容
     private Date date; // 日期

@@ -2,9 +2,11 @@ package com.dyhc.sdglgroundconnection.service.impl;
 
 import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.mapper.TemplateScenicspotMapper;
+import com.dyhc.sdglgroundconnection.pojo.Scenicspot;
 import com.dyhc.sdglgroundconnection.pojo.TemplateScenicspot;
 import com.dyhc.sdglgroundconnection.pojo.TemplatehotelExample;
 import com.dyhc.sdglgroundconnection.pojo.TemplatescenicspotExample;
+import com.dyhc.sdglgroundconnection.service.ScenicspotService;
 import com.dyhc.sdglgroundconnection.service.TemplateScenicspotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,9 @@ import java.util.List;
  **/
 @Service
 public class TemplateScenicspotServiceImpl implements TemplateScenicspotService {
+
+    @Autowired
+    private ScenicspotService scenicspotService;
 
     @Autowired
     private TemplateScenicspotMapper templateScenicspotMapper;
@@ -47,6 +52,9 @@ public class TemplateScenicspotServiceImpl implements TemplateScenicspotService 
         criteria.andTemplateidEqualTo(templateId);
         //使用条件对象进行条件查询并使用模板景点集合接收
         templateScenicspotList=templateScenicspotMapper.selectByExample(templatescenicspotExample);
+        for (TemplateScenicspot templateScenicspot:templateScenicspotList) {
+            templateScenicspot.setScenicspot(scenicspotService.getScenicspotById(templateScenicspot.getScenicSpotId()));
+        }
         return templateScenicspotList;
     }
 

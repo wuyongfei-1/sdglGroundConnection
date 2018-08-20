@@ -27,6 +27,6 @@ public class UploadFilePathConfig extends WebMvcConfigurerAdapter {
 
     // 配置图片的访问策略
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler(staticAccessPath).addResourceLocations("file:" + windowsUploadFolder, "file:" + linuxUploadFolder);
+        registry.addResourceHandler(staticAccessPath).addResourceLocations("file:" + windowsUploadFolder.replace("/",File.separator), "file:" + linuxUploadFolder.replace("/",File.separator));
     }
 }

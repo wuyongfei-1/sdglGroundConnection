@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
  * 报价时异常（dubingkun）
  */
 public class OfferException extends RuntimeException{
-    private Logger logger = LoggerFactory.getLogger(MealtypeExample.class); // 日志对象
+    private Logger logger = LoggerFactory.getLogger(OfferException.class); // 日志对象
 
     /**
      * 异常提示
@@ -16,6 +16,6 @@ public class OfferException extends RuntimeException{
      */
     public OfferException(String msg){
         super(msg);
-        logger.error("饮食类型异常："+msg);
+        logger.error("报价发生异常："+msg);
     }
 }

@@ -20,10 +20,10 @@ public interface OffercarService {
 
     /**
      * 添加报价汽车信息（dubingkun）
-     * @param offercar
+     * @param list
      * @return
      */
-    Integer insertOffercar (Offercar offercar)throws  OfferException;
+    Integer insertOffercar (List<Offercar> list)throws  OfferException;
 
     /**
      * 修改报价汽车信息（dubingkun）

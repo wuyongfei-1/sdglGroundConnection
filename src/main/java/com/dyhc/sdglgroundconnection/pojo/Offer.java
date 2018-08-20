@@ -1,11 +1,13 @@
 package com.dyhc.sdglgroundconnection.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
+import java.util.Date;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
@@ -19,9 +21,13 @@ public class Offer {
     @Column(name = "travelId")
     private Integer travelId; // 组团社编号（外键，与组团社关联）
     @Column(name = "travelStartTime")
-    private Timestamp travelStartTime; // 旅行开始时间
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    private Date travelStartTime; // 旅行开始时间
     @Column(name = "travelEndTime")
-    private Timestamp travelEndTime; // 旅行结束时间
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    private Date travelEndTime; // 旅行结束时间
     private Integer number; // 人数
     private String tourist; // 客源地
     private String trip; // 行程
@@ -40,10 +46,10 @@ public class Offer {
     private Integer modifier; // 修改人（外键，与人员表关联）
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "`modifiedData`")
-    private Timestamp modifiedData; // 修改日期
+    private Date modifiedData; // 修改日期
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "creationDate")
-    private Timestamp creationDate; // 创建时间
+    private Date creationDate; // 创建时间
     private String value1;
     private String value2;
     private String value3;
@@ -88,21 +94,21 @@ public class Offer {
 
     @Basic
     @Column(name = "travelStartTime")
-    public Timestamp getTravelStartTime() {
+    public Date getTravelStartTime() {
         return travelStartTime;
     }
 
-    public void setTravelStartTime(Timestamp travelStartTime) {
+    public void setTravelStartTime(Date travelStartTime) {
         this.travelStartTime = travelStartTime;
     }
 
     @Basic
     @Column(name = "travelEndTime")
-    public Timestamp getTravelEndTime() {
+    public Date getTravelEndTime() {
         return travelEndTime;
     }
 
-    public void setTravelEndTime(Timestamp travelEndTime) {
+    public void setTravelEndTime(Date travelEndTime) {
         this.travelEndTime = travelEndTime;
     }
 
@@ -238,21 +244,21 @@ public class Offer {
 
     @Basic
     @Column(name = "modifiedData")
-    public Timestamp getModifiedData() {
+    public Date getModifiedData() {
         return modifiedData;
     }
 
-    public void setModifiedData(Timestamp modifiedData) {
+    public void setModifiedData(Date modifiedData) {
         this.modifiedData = modifiedData;
     }
 
     @Basic
     @Column(name = "creationDate")
-    public Timestamp getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Timestamp creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -364,9 +370,4 @@ public class Offer {
                 Objects.equals(value3, offer1.value3);
     }
 
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(offerId, travelId, travelStartTime, travelEndTime, number, tourist, trip, offer, aVariance, shopping, not, remarks, supervision, reception, whetherDel, creater, modifier, modifiedData, creationDate, value1, value2, value3);
-    }
 }

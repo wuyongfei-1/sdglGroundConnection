@@ -32,8 +32,8 @@ public class OfferscenicServiceImpl implements OfferscenicService {
 
     @Override
     @RecordOperation(type = "景点报价", desc = "添加了一条景点报价信息")
-    public Integer insertOfferscenic(Offerscenic offerscenic) throws OfferException {
-        return offerscenicMapper.insert(offerscenic);
+    public Integer insertOfferscenic(List<Offerscenic> list) throws OfferException {
+        return offerscenicMapper.insertList(list);
     }
 
     @Override

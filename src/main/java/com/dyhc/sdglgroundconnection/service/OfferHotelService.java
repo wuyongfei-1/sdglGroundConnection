@@ -23,11 +23,11 @@ public interface OfferHotelService {
 
     /**
      * 新增酒店报价信息（dubingkun）
-     * @param offerHotel
+     * @param list
      * @return
      * @throws Exception
      */
-    Integer insertOfferHotel(OfferHotel offerHotel)throws OfferException;
+    Integer insertOfferHotel(List<OfferHotel> list)throws OfferException;
 
     /**
      * 修改酒店报价信息（dubingkun）

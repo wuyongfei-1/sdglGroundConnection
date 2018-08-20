@@ -32,8 +32,8 @@ public class OfferrestaurantServiceImpl implements OfferrestaurantService {
 
     @Override
     @RecordOperation(type = "餐馆报价", desc = "添加了一条餐馆报价信息")
-    public Integer insertOfferrestaurant(Offerrestaurant offerrestaurant) throws OfferException {
-        return offerrestaurantMapper.insert(offerrestaurant);
+    public Integer insertOfferrestaurant(List<Offerrestaurant> list) throws OfferException {
+        return offerrestaurantMapper.insertList(list);
     }
 
     @Override

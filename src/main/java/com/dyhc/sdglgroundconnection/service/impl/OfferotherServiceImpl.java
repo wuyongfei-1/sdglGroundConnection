@@ -32,8 +32,8 @@ public class OfferotherServiceImpl implements OfferotherService {
 
     @Override
     @RecordOperation(type = "其它报价", desc = "添加了一条其它报价信息")
-    public Integer insertOfferother(Offerother offerother) throws OfferException {
-        return offerotherMapper.insert(offerother);
+    public Integer insertOfferother(List<Offerother> list) throws OfferException {
+        return offerotherMapper.insertList(list);
     }
 
     @Override

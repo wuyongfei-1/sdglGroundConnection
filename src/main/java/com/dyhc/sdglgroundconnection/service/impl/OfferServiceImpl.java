@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -84,49 +86,39 @@ public class OfferServiceImpl implements OfferService {
         List<Offerrestaurant> listOfferrestaurant = offerParam.getListOfferrestaurant();//餐厅报价信息
         List<Offerother> listOfferother = offerParam.getListOfferother();//其它报价信息
         List<Offerline> listOfferline = offerParam.getListOfferline();//线路报价信息
+
+        Date day = new Date();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        //System.out.println(df.format(day));
+
+        int a = offerMapper.insert(offerParam.getOffer());
+
         //用车
         if (listOffercar != null) {
-            for (Offercar item : listOffercar) {
-                item.setOfferCarId(0);
-                offercarService.insertOffercar(item);
-            }
+            offercarService.insertOffercar(listOffercar);
         }
         //酒店
         if (listOfferHotel != null) {
-            for (OfferHotel item : listOfferHotel) {
-                item.setOfferHotelId(0);
-                offerHotelService.insertOfferHotel(item);
-            }
+            offerHotelService.insertOfferHotel(listOfferHotel);
         }
         //景点
         if (listOfferscenic != null) {
-            for (Offerscenic item : listOfferscenic) {
-                item.setOfferScenicId(0);
-                offerscenicService.insertOfferscenic(item);
-            }
+            offerscenicService.insertOfferscenic(listOfferscenic);
         }
         //餐馆
         if (listOfferrestaurant != null) {
-            for (Offerrestaurant item : listOfferrestaurant) {
-                item.setOfferRestaurantId(0);
-                offerrestaurantService.insertOfferrestaurant(item);
-            }
+            offerrestaurantService.insertOfferrestaurant(listOfferrestaurant);
         }
         //其它
         if (listOfferother != null) {
-            for (Offerother item : listOfferother) {
-                item.setOfferOtherId(0);
-                offerotherService.insertOfferother(item);
-            }
+            offerotherService.insertOfferother(listOfferother);
         }
         //线路
         if (listOfferline != null) {
-            for (Offerline item : listOfferline) {
-                item.setOfferLineRecordId(0);
-                offerlineService.insertOfferline(item);
-            }
+            offerlineService.insertOfferline(listOfferline);
         }
-        int a = offerMapper.insert(offerParam.getOffer());
+
+
         return a;
     }
 

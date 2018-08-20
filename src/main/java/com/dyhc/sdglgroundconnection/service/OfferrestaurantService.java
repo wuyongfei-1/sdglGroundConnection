@@ -21,10 +21,10 @@ public interface OfferrestaurantService {
 
     /**
      * 添加餐厅报价信息（dubingkun）
-     * @param offerrestaurant
+     * @param list
      * @return
      */
-    Integer insertOfferrestaurant (Offerrestaurant offerrestaurant)throws  OfferException;
+    Integer insertOfferrestaurant (List<Offerrestaurant> list)throws  OfferException;
 
     /**
      * 修改餐厅报价信息（dubingkun）

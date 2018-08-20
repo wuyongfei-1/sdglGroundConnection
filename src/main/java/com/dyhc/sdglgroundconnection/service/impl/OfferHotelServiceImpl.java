@@ -32,8 +32,8 @@ public class OfferHotelServiceImpl implements OfferHotelService {
 
     @Override
     @RecordOperation(type = "酒店报价", desc = "添加了一条酒店报价信息")
-    public Integer insertOfferHotel(OfferHotel offerHotel) throws OfferException {
-        return offerHotelMapper.insert(offerHotel);
+    public Integer insertOfferHotel(List<OfferHotel> list) throws OfferException {
+        return offerHotelMapper.insertList(list);
     }
 
     @Override

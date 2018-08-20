@@ -13,12 +13,6 @@ import java.util.List;
  * 调度导游业务接口
  **/
 public interface DisguideService {
-    /**
-     * 根据导游编号查询(yunguoaho)
-     * @param disGuideId
-     * @return
-     */
-    List<Disguide> selectdisGuideId(int disGuideId);
 
     /**
      * 添加调度导游信息（wuyongfei）
@@ -28,4 +22,12 @@ public interface DisguideService {
      * @throws DispatchException 调度异常
      */
     Integer saveDisguideInfo(Disguide disguide) throws DispatchException;
+    /**
+     * 根据导游编号查询(yunguoaho)
+     * @param disGuideId
+     * @return
+     */
+    List<Disguide> selectdisGuideId(int disGuideId);
+
+
 }

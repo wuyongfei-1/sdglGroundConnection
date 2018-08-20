@@ -9,12 +9,22 @@ import java.util.List;
  * 报价信息参数类（dubingkun）
  */
 public class OfferParam {
+    private Offer offer;//报价信息
     private List<Offercar> listOffercar;//用车报价信息
     private List<OfferHotel> listOfferHotel;//酒店报价信息
     private List<Offerscenic> listOfferscenic;//景点报价信息
     private List<Offerrestaurant> listOfferrestaurant;//餐厅报价信息
     private List<Offerother> listOfferother;//其它报价信息
     private List<Offerline>listOfferline;//线路报价信息
+
+
+    public Offer getOffer() {
+        return offer;
+    }
+
+    public void setOffer(Offer offer) {
+        this.offer = offer;
+    }
 
     public List<Offercar> getListOffercar() {
         return listOffercar;

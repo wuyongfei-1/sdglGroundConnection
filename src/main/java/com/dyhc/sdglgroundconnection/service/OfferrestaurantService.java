@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.service;
 
+import com.dyhc.sdglgroundconnection.exception.OfferException;
 import com.dyhc.sdglgroundconnection.pojo.Offerrestaurant;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
@@ -16,14 +17,14 @@ public interface OfferrestaurantService {
      * @param offerId
      * @return
      */
-    List<Offerrestaurant> listOfferrestaurantByOfferId(Integer offerId) throws Exception;
+    List<Offerrestaurant> listOfferrestaurantByOfferId(Integer offerId) throws OfferException;
 
     /**
      * 添加餐厅报价信息（dubingkun）
      * @param offerrestaurant
      * @return
      */
-    Integer insertOfferrestaurant (Offerrestaurant offerrestaurant)throws  Exception;
+    Integer insertOfferrestaurant (Offerrestaurant offerrestaurant)throws  OfferException;
 
     /**
      * 修改餐厅报价信息（dubingkun）
@@ -31,5 +32,5 @@ public interface OfferrestaurantService {
      * @return
      * @throws Exception
      */
-    Integer updateOfferrestaurant(Offerrestaurant offerrestaurant)throws Exception;
+    Integer updateOfferrestaurant(Offerrestaurant offerrestaurant)throws OfferException;
 }

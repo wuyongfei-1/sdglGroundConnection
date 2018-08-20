@@ -1,5 +1,7 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
+import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
+import com.dyhc.sdglgroundconnection.exception.OfferException;
 import com.dyhc.sdglgroundconnection.mapper.OfferHotelMapper;
 import com.dyhc.sdglgroundconnection.pojo.OfferHotel;
 import com.dyhc.sdglgroundconnection.pojo.OfferhotelExample;
@@ -20,7 +22,7 @@ public class OfferHotelServiceImpl implements OfferHotelService {
     private OfferHotelMapper offerHotelMapper;
 
     @Override
-    public List<OfferHotel> listOfferHotelByOfferId(Integer offerId) throws Exception {
+    public List<OfferHotel> listOfferHotelByOfferId(Integer offerId) throws OfferException {
         OfferhotelExample offerhotelExample=new OfferhotelExample();
         OfferhotelExample.Criteria criteria=offerhotelExample.createCriteria();
         criteria.andOfferidEqualTo(offerId);
@@ -29,12 +31,14 @@ public class OfferHotelServiceImpl implements OfferHotelService {
     }
 
     @Override
-    public Integer insertOfferHotel(OfferHotel offerHotel) throws Exception {
+    @RecordOperation(type = "酒店报价", desc = "添加了一条酒店报价信息")
+    public Integer insertOfferHotel(OfferHotel offerHotel) throws OfferException {
         return offerHotelMapper.insert(offerHotel);
     }
 
     @Override
-    public Integer updateOfferHotel(OfferHotel offerHotel) throws Exception {
+    @RecordOperation(type = "酒店报价", desc = "修改了一条酒店报价信息")
+    public Integer updateOfferHotel(OfferHotel offerHotel) throws OfferException {
         return offerHotelMapper.updateByPrimaryKey(offerHotel);
     }
 }

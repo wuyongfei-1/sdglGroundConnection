@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.service;
 
+import com.dyhc.sdglgroundconnection.exception.OfferException;
 import com.dyhc.sdglgroundconnection.pojo.Offerscenic;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
@@ -16,14 +17,14 @@ public interface OfferscenicService {
      * @param offerId
      * @return
      */
-    List<Offerscenic> listOfferscenicByOfferId(Integer offerId) throws Exception;
+    List<Offerscenic> listOfferscenicByOfferId(Integer offerId) throws OfferException;
 
     /**
      * 添加餐厅报价信息（dubingkun）
      * @param offerscenic
      * @return
      */
-    Integer insertOfferscenic (Offerscenic offerscenic)throws  Exception;
+    Integer insertOfferscenic (Offerscenic offerscenic)throws  OfferException;
 
     /**
      * 修改餐厅报价信息（dubingkun）
@@ -31,6 +32,6 @@ public interface OfferscenicService {
      * @return
      * @throws Exception
      */
-    Integer updateOfferscenic(Offerscenic offerscenic)throws Exception;
+    Integer updateOfferscenic(Offerscenic offerscenic)throws OfferException;
 }
    

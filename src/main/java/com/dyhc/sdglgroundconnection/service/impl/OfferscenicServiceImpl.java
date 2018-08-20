@@ -1,5 +1,7 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
+import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
+import com.dyhc.sdglgroundconnection.exception.OfferException;
 import com.dyhc.sdglgroundconnection.mapper.OfferscenicMapper;
 import com.dyhc.sdglgroundconnection.pojo.Offerscenic;
 import com.dyhc.sdglgroundconnection.pojo.OfferscenicExample;
@@ -20,7 +22,7 @@ public class OfferscenicServiceImpl implements OfferscenicService {
     private OfferscenicMapper offerscenicMapper;
 
     @Override
-    public List<Offerscenic> listOfferscenicByOfferId(Integer offerId) throws Exception {
+    public List<Offerscenic> listOfferscenicByOfferId(Integer offerId) throws OfferException {
         OfferscenicExample offerhotelExample=new OfferscenicExample();
         OfferscenicExample.Criteria criteria=offerhotelExample.createCriteria();
         criteria.andOfferidEqualTo(offerId);
@@ -29,12 +31,14 @@ public class OfferscenicServiceImpl implements OfferscenicService {
     }
 
     @Override
-    public Integer insertOfferscenic(Offerscenic offerscenic) throws Exception {
+    @RecordOperation(type = "景点报价", desc = "添加了一条景点报价信息")
+    public Integer insertOfferscenic(Offerscenic offerscenic) throws OfferException {
         return offerscenicMapper.insert(offerscenic);
     }
 
     @Override
-    public Integer updateOfferscenic(Offerscenic offerscenic) throws Exception {
+    @RecordOperation(type = "景点报价", desc = "修改了一条景点报价信息")
+    public Integer updateOfferscenic(Offerscenic offerscenic) throws OfferException {
         return offerscenicMapper.updateByPrimaryKey(offerscenic);
     }
 }

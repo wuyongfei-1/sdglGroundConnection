@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.service;
 
+import com.dyhc.sdglgroundconnection.exception.OfferException;
 import com.dyhc.sdglgroundconnection.pojo.Offerother;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
@@ -16,14 +17,14 @@ public interface OfferotherService {
      * @param offerId
      * @return
      */
-    List<Offerother> listOfferotherByOfferId(Integer offerId) throws Exception;
+    List<Offerother> listOfferotherByOfferId(Integer offerId) throws OfferException;
 
     /**
      * 添加其它报价信息（dubingkun）
      * @param offerother
      * @return
      */
-    Integer insertOfferother (Offerother offerother)throws  Exception;
+    Integer insertOfferother (Offerother offerother)throws  OfferException;
 
     /**
      * 修改其它报价信息（dubingkun）
@@ -31,5 +32,5 @@ public interface OfferotherService {
      * @return
      * @throws Exception
      */
-    Integer updateOfferother(Offerother offerother)throws Exception;
+    Integer updateOfferother(Offerother offerother)throws OfferException;
 }

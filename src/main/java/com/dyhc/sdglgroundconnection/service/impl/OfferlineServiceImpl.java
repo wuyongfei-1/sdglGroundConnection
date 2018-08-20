@@ -1,5 +1,7 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
+import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
+import com.dyhc.sdglgroundconnection.exception.OfferException;
 import com.dyhc.sdglgroundconnection.mapper.OfferlineMapper;
 import com.dyhc.sdglgroundconnection.pojo.Offerline;
 import com.dyhc.sdglgroundconnection.pojo.OfferlineExample;
@@ -20,7 +22,7 @@ public class OfferlineServiceImpl implements OfferlineService {
     private OfferlineMapper offerlineMapper;
 
     @Override
-    public List<Offerline> listOfferlineByOfferId(Integer offerId) throws Exception {
+    public List<Offerline> listOfferlineByOfferId(Integer offerId) throws OfferException {
         OfferlineExample offerhotelExample=new OfferlineExample();
         OfferlineExample.Criteria criteria=offerhotelExample.createCriteria();
         criteria.andOfferidEqualTo(offerId);
@@ -29,12 +31,14 @@ public class OfferlineServiceImpl implements OfferlineService {
     }
 
     @Override
-    public Integer insertOfferline(Offerline offerline) throws Exception {
+    @RecordOperation(type = "线路报价", desc = "添加了一条用线路价信息")
+    public Integer insertOfferline(Offerline offerline) throws OfferException {
         return offerlineMapper.insert(offerline);
     }
 
     @Override
-    public Integer updateOfferline(Offerline offerline) throws Exception {
+    @RecordOperation(type = "线路报价", desc = "添加了一条线路报价信息")
+    public Integer updateOfferline(Offerline offerline) throws OfferException {
         return offerlineMapper.updateByPrimaryKey(offerline);
     }
 }

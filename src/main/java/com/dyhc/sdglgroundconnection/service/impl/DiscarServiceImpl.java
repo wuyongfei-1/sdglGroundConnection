@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
+import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.mapper.DiscarMapper;
 import com.dyhc.sdglgroundconnection.pojo.Discar;
@@ -25,6 +26,7 @@ public class DiscarServiceImpl implements DiscarService {
      * @throws DispatchException 调度异常
      */
     @Override
+    @RecordOperation(type = "调度用车", desc = "添加了一条调度用车信息")
     public Integer saveDiscarInfo(Discar discar) throws DispatchException {
         return discarMapper.insert(discar);
     }

@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
+import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.mapper.DisotherMapper;
 import com.dyhc.sdglgroundconnection.pojo.Disother;
@@ -25,6 +26,7 @@ public class DisotherServiceImpl implements DisotherService {
      * @throws DispatchException 调度异常
      */
     @Override
+    @RecordOperation(type = "调度其他", desc = "添加了一条调度其他的信息")
     public Integer saveDisotherInfo(Disother disother) throws DispatchException {
         return disotherMapper.insert(disother);
     }

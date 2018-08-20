@@ -31,16 +31,16 @@ public class TemplateHotelServiceImpl implements TemplateHotelService {
 
     /**
      * 根据模板编号查询模板酒店信息 （wangtao）
-     * @param TemaplateId 模板编号
+     * @param temaplateId 模板编号
      * @return 返回模板酒店对象
      */
     @Override
-    public TemplateHotel getTemplateHotelInfoByTemplateId(Integer TemaplateId) throws Exception {
+    public TemplateHotel getTemplateHotelInfoByTemplateId(Integer temaplateId) throws Exception {
         List<TemplateHotel> templateHotelList=null;
         TemplateHotel templateHotel=null;
         TemplatehotelExample templatehotelExample=new TemplatehotelExample();
         TemplatehotelExample.Criteria criteria=templatehotelExample.createCriteria();
-        criteria.andTemplateidEqualTo(TemaplateId);
+        criteria.andTemplateidEqualTo(temaplateId);
         templateHotelList=templateHotelMapper.selectByExample(templatehotelExample);
         if(templateHotelList.size()>0){
             templateHotel=templateHotelList.get(0);

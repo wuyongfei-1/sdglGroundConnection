@@ -1,5 +1,7 @@
 package com.dyhc.sdglgroundconnection.mapper;
 
+import com.dyhc.sdglgroundconnection.pojo.HoteroomType;
+import com.dyhc.sdglgroundconnection.pojo.Linetemplate;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -9,5 +11,5 @@ import org.springframework.stereotype.Component;
  **/
 @Mapper
 @Component
-public interface LinetemplateMapper {
+public interface LinetemplateMapper extends CommonMapper<Linetemplate> {
 }

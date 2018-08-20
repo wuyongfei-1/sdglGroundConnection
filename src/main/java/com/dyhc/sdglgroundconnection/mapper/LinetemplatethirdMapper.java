@@ -1,6 +1,10 @@
 package com.dyhc.sdglgroundconnection.mapper;
 
+import com.dyhc.sdglgroundconnection.pojo.HoteroomType;
+import com.dyhc.sdglgroundconnection.pojo.Linetemplate;
+import com.dyhc.sdglgroundconnection.pojo.Linetemplatethird;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,5 +13,12 @@ import org.springframework.stereotype.Component;
  **/
 @Mapper
 @Component
-public interface LinetemplatethirdMapper {
+public interface LinetemplatethirdMapper  extends CommonMapper<Linetemplatethird> {
+
+    /**
+     * 根据总线路模板编号查询最大权重
+     * @param lineId 总线路模板编号
+     * @return 返回最大权重
+     */
+    Integer getMaxWeightByLineId(@Param("lineId") Integer lineId);
 }

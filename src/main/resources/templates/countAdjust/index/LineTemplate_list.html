@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>网站后台管理模版</title>
+    <link rel="stylesheet" href="/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/admin/layui/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="/admin/css/admin.css" />
+
+</head>
+
+<body>
+<div class="page-content-wrap">
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <div class="layui-inline tool-btn">
+                <input type="button" class="layui-btn layui-btn-small layui-btn-normal addBtn hidden-xs" value="+" style="width: 30px" id="insert"></input>
+            </div>
+            <div class="layui-inline">
+                <input type="text" name="lineName" placeholder="请输入线路名称" autocomplete="off" class="layui-input">
+            </div>
+            <button class="layui-btn layui-btn-normal" type="button" lay-submit="search" id="selectbutton">搜索</button>
+        </div>
+    </form>
+    <div class="layui-form" id="table-list">
+        <table class="layui-table" lay-skin="line" id="list">
+            <thead>
+            <tr>
+                <th></th>
+                <th class="">线路编号</th>
+                <th class="">名称</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody id="jingdianinfo">
+            <tr id='node-1' class="parent collapsed">
+                <td><a class="layui-btn layui-btn-mini layui-btn-normal showSubBtn" data-id='1'>+</a></td>
+                <td class="">1</td>
+                <td class="">太原线路</td>
+                <td>
+                    <div class="layui-inline">
+                        <button class="layui-btn layui-btn-mini layui-btn-normal  add-btn" data-id="1" data-url="template_add.html"><i class="layui-icon">&#xe654;</i></button>
+                        <button class="layui-btn layui-btn-mini layui-btn-normal  edit-btn" data-id="1" data-url="spot-add.html"><i class="layui-icon">&#xe642;</i></button>
+                        <button class="layui-btn layui-btn-mini layui-btn-danger del-btn" data-id="1" data-url="spot-add.html"><i class="layui-icon">&#xe640;</i></button>
+                    </div>
+                </td>
+            </tr>
+            <tr id="node-2" class="child-node-1 parent collapsed" style="display:none ;background-color: #D6E9C6;" parentid="1">
+                <td class=""></td>
+                <td class="">模板名称</td>
+                <td class=""></td>
+                <td class="">操作</td>
+            </tr>
+            <tr id='node-2' class="child-node-1 parent collapsed" style="display:none ;" parentid="1">
+                <td class=""></td>
+                <td class="">柳巷</td>
+                <td class=""></td>
+                <td>
+                    <div class="layui-inline">
+                        <button class="layui-btn layui-btn-mini layui-btn-normal  edit-btn" data-id="2" data-url="hotelroom-add.html"><i class="layui-icon">&#xe642;</i></button>
+                        <button class="layui-btn layui-btn-mini layui-btn-danger del-btn" data-id="2" data-url="hotelroom-add.html"><i class="layui-icon">&#xe640;</i></button>
+                    </div>
+                </td>
+            </tr>
+            <tr id='node-2' class="child-node-1 parent collapsed" style="display:none ;" parentid="1">
+                <td class=""></td>
+                <td class="">平遥古城</td>
+                <td class=""></td>
+                <td>
+                    <div class="layui-inline">
+                        <button class="layui-btn layui-btn-mini layui-btn-normal  edit-btn" data-id="2" data-url="hotelroom-add.html"><i class="layui-icon">&#xe642;</i></button>
+                        <button class="layui-btn layui-btn-mini layui-btn-danger del-btn" data-id="2" data-url="hotelroom-add.html"><i class="layui-icon">&#xe640;</i></button>
+                    </div>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+        <div id="laypage" style="text-align: center"></div>
+    </div>
+</div>
+
+<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/jquery-1.8.2.min.js"></script>
+<script src="/layui.js"></script>
+
+<script>
+    var limitcount = 6; // 每页总记录数
+    var curnum = 1;  // 当前页码
+
+    layui.use(['jquery'], function() {
+        var $=layui.jquery;
+        //修改状态
+        $('#table-list').on('click', '.table-list-status', function() {
+            var That = $(this);
+            var status = That.attr('data-status');
+            var id = That.parent().attr('data-id');
+            if(status == 1) {
+                That.removeClass('layui-btn-normal').addClass('layui-btn-warm').html('隐藏').attr('data-status', 2);
+            } else if(status == 2) {
+                That.removeClass('layui-btn-warm').addClass('layui-btn-normal').html('显示').attr('data-status', 1);
+
+            }
+        })
+
+        //栏目展示隐藏
+        $(document).on('click','.showSubBtn', function() {
+            var _this = $(this);
+            var id = _this.attr('data-id');
+            var parent = _this.parents('.parent');
+            var child = $('.child-node-' + id);
+            var childAll = $('tr[parentid=' + id + ']');
+            if(parent.hasClass('collapsed')) {
+                _this.html('-');
+                parent.addClass('expanded').removeClass('collapsed');
+                child.css('display', '');
+            } else {
+                _this.html('+');
+                parent.addClass('collapsed').removeClass('expanded');
+                child.css('display', 'none');
+                childAll.addClass('collapsed').removeClass('expanded').css('display', 'none');
+                childAll.find('.showSubBtn').html('+');
+            }
+        });
+        ListLineTemplate();
+        $("#selectbutton").click(function () {
+            ListLineTemplate();
+        });
+        function ListLineTemplate() {
+            var lineName=$("input[name='lineName']").val();
+            $.post("/linetemplate/listLinetemplateInfoByLinename","page="+curnum+"&limit="+limitcount+
+                "&lineName="+lineName,function (data) {
+                var content="<thead>" +
+                                "<tr>" +
+                                    "<th></th>" +
+                                    "<th class=\"\">线路编号</th>" +
+                                    "<th class=\"\">名称</th>" +
+                                    "<th>操作</th>" +
+                                "</tr>" +
+                            "</thead>";
+                $.each(data.data,function (i,e) {
+                    content+="<tr id='node-1' class=\"parent collapsed\">" +
+                        "                <td><a class=\"layui-btn layui-btn-mini layui-btn-normal showSubBtn\" data-id='"+e.lineid+"'>+</a></td>" +
+                        "                <td class=\"\">"+e.lineid+"</td>" +
+                        "                <td class=\"\">"+e.linename+"</td>" +
+                        "                <td>" +
+                        "                    <div class=\"layui-inline\">" +
+                        "<button type='button' value='"+e.lineid+"' class='layui-btn layui-btn-small layui-btn-normal addBtn' style=\"width: 30px;height: 30px;\" id=\"insert1\"><i class='layui-icon'>&#xe654;</i></button>" +
+                        "<button type='button' value='"+e.lineid+"' class=\"layui-btn layui-btn-mini layui-btn-normal edit-btn\" style=\"width: 30px;height: 30px;\" id='updateInfo'><i class='layui-icon'>&#xe642;</i></button>" +
+                        "<button type='button' value='"+e.lineid+"' class=\"layui-btn layui-btn-mini layui-btn-danger del-btn\"  style=\"width: 30px;height: 30px;\" id='deleteInfo'><i class='layui-icon'>&#xe640;</i></button>" +
+                        "                    </div>" +
+                        "                </td>" +
+                        "            </tr>";
+                    if(e.templateList!=null){
+                        content+="<tr id=\"type-"+i+"\" class=\"child-node-"+e.lineid+" parent collapsed\" style=\"display:none ;background-color: #D6E9C6;\" parentid=\""+e.lineid+"\">" +
+                            "<td class=\"\"></td>" +
+                            "<td class=\"\">模板名称</td>" +
+                            "<td class=\"\"></td>" +
+                            "<td class=\"\">操作</td>" +
+                            "</tr>";
+                        $.each(e.templateList,function (i1,s) {
+                            content+="<tr id='type-"+e.lineid+"' class=\"child-node-"+e.lineid+" parent collapsed\" style=\"display:none ;\" parentid=\""+e.lineid+"\">" +
+                                "<td class=\"\"></td>" +
+                                "<td class=\"\">"+s.templateName+"</td>" +
+                                "<td class=\"\"><button type='button' value='"+s.templateId+"'class=\"layui-btn layui-btn-mini layui-btn-normal \" id='showInfo'>显示详情</button></td>" +
+                                "<td>" +
+                                "<div class=\"layui-inline\">" +
+                                "<button type='button' value='"+s.thirdid+"' class=\"layui-btn layui-btn-mini layui-btn-danger del-btn\" style=\"width: 30px;height: 30px;\" id='deleteShopping'><i class=\"layui-icon\">&#xe640;</i></button>" +
+                                "</div>" +
+                                "</td>" +
+                                "</tr>";
+                        })
+                    }
+                });
+                $("#list").html(content);
+                layui.use('table', function () {
+                    var laypage = layui.laypage;
+                    laypage.render({
+                        elem: 'laypage'
+                        , count: data.count
+                        , curr: curnum
+                        , limit: 6
+                        , layout: ['prev', 'page', 'next', 'skip', 'count']
+                        , jump: function (obj, first) {
+                            if (!first) {
+                                //obj包含了当前分页的所有参数，比如：
+                                curnum = obj.curr; // 当前页面
+                                limitcount = obj.limit; // 每页记录数
+                                // 查询新数据
+                                ListLineTemplate();
+                            }
+                        }
+                    })
+                })
+            },"json");
+        }
+        $(document).on('click','#insert1',function(){
+            var id = $(this).val();
+            layer.open({
+                type: 2,
+                title: '模板添加',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area : ['800px' , '700px'],
+                content:'template_add.html?lineid='+id
+            });
+        });
+        $(document).on("click","#showInfo",function () {
+            var id = $(this).val();
+            layer.open({
+                type: 2,
+                title: '展示模板信息',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area : ['800px' , '700px'],
+                content:'showTemplate.html?templateid='+id
+            });
+        });
+        $(document).on('click','#updateInfo',function(){
+            var id = $(this).val();
+            layer.open({
+                type: 2,
+                title: '线路模板修改',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area : ['800px' , '700px'],
+                content:'LineTemplate_add1.html?lineTemplateId='+id
+            });
+        });
+
+        $(document).on('click','#deleteShopping',function(){
+            var con=confirm("确认删除么?");
+            if(con==true){
+                var id = $(this).val();
+                $.post("/linetemplatethird/deleteLinetemplatethirdInfo","thirdId="+id,function (data) {
+                    if(data.data>0){
+                        alert("删除成功！");
+                        ListLineTemplate();
+                    }else{
+                        alert("删除失败！");
+                    }
+                },"json");
+            }else{
+                alert("取消操作！");
+            }
+        });
+        $(document).on('click','#deleteInfo',function(){
+            var con=confirm("确认删除么?");
+            if(con==true){
+                var id = $(this).val();
+                $.post("/linetemplate/deleteLineTemplateInfo","lineTemplateId="+id,function (data) {
+                    if(data.data>0){
+                        alert("删除成功！");
+                        ListLineTemplate();
+                    }else{
+                        alert("删除失败！");
+                    }
+                },"json");
+            }else{
+                alert("取消操作！");
+            }
+
+        });
+
+        $('#insert').on('click', function(){
+            layer.open({
+                type: 2,
+                title: '线路模板添加',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area : ['800px' , '700px'],
+                content: 'LineTemplate_add.html'
+            });
+        });
+
+    });
+</script>
+</body>
+
+</html>

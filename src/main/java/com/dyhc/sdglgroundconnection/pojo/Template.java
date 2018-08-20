@@ -35,6 +35,18 @@ public class Template {
     private String value2;
     private String value3;
 
+    public Integer getThirdid() {
+        return thirdid;
+    }
+
+    public void setThirdid(Integer thirdid) {
+        this.thirdid = thirdid;
+    }
+
+    @Transient
+
+    private Integer thirdid; // 所属模板的第三方表编号
+
     @Transient
     private TemplateHotel templateHotel; // 酒店对象
 

@@ -44,6 +44,28 @@ public class TemplateController {
     private TemplateScenicspotService templateScenicspotService;
 
     /**
+     * 查询所有模板信息 （wangtao）
+     * @return 返回ReponseResult对象
+     */
+    @RequestMapping("/listAllInfo")
+    public ReponseResult listAllInfo(){
+        try {
+            //一、查询所有的景点信息
+            List<Template> templateList = templateService.listAllTemplate();
+            //二、返回ReponseResult对象
+            ReponseResult<List> data = ReponseResult.ok(templateList, "获取模板成功！");
+            //三、录入日志并返回
+            logger.info(" method:listAllInfo  获取模板成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:listAllInfo  获取模板数据失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
+    /**
      * 添加模板信息 （wangtao）
      * @param template 模板信息参数对象
      * @return ReponseResult对象
@@ -105,7 +127,7 @@ public class TemplateController {
      * @return 返回ReponseResult对象
      */
     @RequestMapping("/getTemplateByTemplateId")
-    public ReponseResult getTemplateByTemplateId(@RequestParam("templateId") Integer templateId){
+    public ReponseResult getTemplateByTemplateId(@RequestParam("templateId")Integer templateId){
         try {
             //一、查询所有的景点信息
             Template template = templateService.getTemplateByTemplateId(templateId);

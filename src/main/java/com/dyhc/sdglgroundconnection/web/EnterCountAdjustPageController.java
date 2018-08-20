@@ -543,5 +543,44 @@ public class EnterCountAdjustPageController {
         return "countAdjust/index/line-template";
     }
 
+    /**
+     * 进入总线路模板列表页面 （wangtao）
+     * @return
+     */
+    @RequestMapping("/LineTemplate_list.html")
+    public String tolineTemplateList(){
+        return  "countAdjust/index/LineTemplate_list";
+    }
+
+    /**
+     * 进入总线路模板列表页面 （wangtao）
+     * @return
+     */
+    @RequestMapping("/LineTemplate_add.html")
+    public String tolineTemplateadd(){
+        return  "countAdjust/index/LineTemplate_add";
+    }
+
+    /**
+     * 进入总线路模板列表页面 （wangtao）
+     * @return
+     */
+    @RequestMapping("/LineTemplate_add1.html")
+    public String tolineTemplateadd1(@RequestParam("lineTemplateId")Integer lineTemplateId,HttpServletRequest request){
+        request.setAttribute("lineTemplateId",lineTemplateId);
+        return  "countAdjust/index/LineTemplate_add";
+    }
+
+    @RequestMapping("/template_add.html")
+    public String toTemplateadd(@RequestParam("lineid")Integer lineid,HttpServletRequest request){
+        request.setAttribute("lineid",lineid);
+        return "countAdjust/index/template_add";
+    }
+
+    @RequestMapping("/showTemplate.html")
+    public String toShowTemplate(@RequestParam("templateid")Integer templateId,HttpServletRequest request){
+        request.setAttribute("templateid",templateId);
+        return "countAdjust/index/showTemplate";
+    }
 
 }

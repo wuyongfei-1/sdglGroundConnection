@@ -37,6 +37,17 @@ public class TemplateHotel {
     private String value2;
     private String value3;
 
+    @Transient
+    private Hotel hotel; // 酒店对象
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
+    }
+
     @Id
     @Column(name = "templateHotelId")
     public int getTemplateHotelId() {

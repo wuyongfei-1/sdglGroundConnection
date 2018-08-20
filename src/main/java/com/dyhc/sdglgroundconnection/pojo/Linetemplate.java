@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Date;
+import java.util.List;
 
 @Table(name = "linetemplate")
 public class Linetemplate {
@@ -35,6 +37,17 @@ public class Linetemplate {
     private String value2;
 
     private String value3;
+
+    @Transient
+    private List<Template> templateList; // 模板信息集合
+
+    public List<Template> getTemplateList() {
+        return templateList;
+    }
+
+    public void setTemplateList(List<Template> templateList) {
+        this.templateList = templateList;
+    }
 
     public Integer getLineid() {
         return lineid;

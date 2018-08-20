@@ -51,6 +51,8 @@ public class OfferServiceImpl implements OfferService {
         List<Offerrestaurant> listOfferrestaurant=offerParam.getListOfferrestaurant();//餐厅报价信息
         List<Offerother> listOfferother=offerParam.getListOfferother();//其它报价信息
         List<Offerline>listOfferline=offerParam.getListOfferline();//线路报价信息
+
+        int a=offerMapper.insert(offerParam.getOffer());
         //用车
         if(listOffercar!=null){
             for (Offercar item:listOffercar) {
@@ -93,7 +95,6 @@ public class OfferServiceImpl implements OfferService {
                 offerlineService.insertOfferline(item);
             }
         }
-        int a=offerMapper.insert(offerParam.getOffer());
         return a;
     }
 

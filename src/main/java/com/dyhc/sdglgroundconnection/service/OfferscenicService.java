@@ -13,21 +13,21 @@ import java.util.List;
  **/
 public interface OfferscenicService {
     /**
-     * 根据报价编号查询餐厅报价信息（dubingkun）
+     * 根据报价编号查询景点报价信息（dubingkun）
      * @param offerId
      * @return
      */
     List<Offerscenic> listOfferscenicByOfferId(Integer offerId) throws OfferException;
 
     /**
-     * 添加餐厅报价信息（dubingkun）
-     * @param offerscenic
+     * 添加景点报价信息（dubingkun）
+     * @param list
      * @return
      */
-    Integer insertOfferscenic (Offerscenic offerscenic)throws  OfferException;
+    Integer insertOfferscenic (List<Offerscenic> list)throws  OfferException;
 
     /**
-     * 修改餐厅报价信息（dubingkun）
+     * 修改景点报价信息（dubingkun）
      * @param offerscenic
      * @return
      * @throws Exception

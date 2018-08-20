@@ -21,10 +21,10 @@ public interface OfferlineService {
 
     /**
      * 添加报价线路信息（dubingkun）
-     * @param offerline
+     * @param list
      * @return
      */
-    Integer insertOfferline (Offerline offerline)throws  OfferException;
+    Integer insertOfferline (List<Offerline> list)throws  OfferException;
 
     /**
      * 修改报价线路信息（dubingkun）

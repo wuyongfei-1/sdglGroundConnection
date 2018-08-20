@@ -32,8 +32,8 @@ public class OfferlineServiceImpl implements OfferlineService {
 
     @Override
     @RecordOperation(type = "线路报价", desc = "添加了一条用线路价信息")
-    public Integer insertOfferline(Offerline offerline) throws OfferException {
-        return offerlineMapper.insert(offerline);
+    public Integer insertOfferline(List<Offerline> list) throws OfferException {
+        return offerlineMapper.insertList(list);
     }
 
     @Override

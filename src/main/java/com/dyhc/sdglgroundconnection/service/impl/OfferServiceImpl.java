@@ -53,48 +53,6 @@ public class OfferServiceImpl implements OfferService {
         List<Offerline>listOfferline=offerParam.getListOfferline();//线路报价信息
 
         int a=offerMapper.insert(offerParam.getOffer());
-        //用车
-        if(listOffercar!=null){
-            for (Offercar item:listOffercar) {
-                item.setOfferCarId(0);
-                offercarService.insertOffercar(item);
-            }
-        }
-        //酒店
-        if(listOfferHotel!=null){
-            for (OfferHotel item:listOfferHotel) {
-                item.setOfferHotelId(0);
-                offerHotelService.insertOfferHotel(item);
-            }
-        }
-        //景点
-        if(listOfferscenic!=null){
-            for (Offerscenic item:listOfferscenic) {
-                item.setOfferScenicId(0);
-                offerscenicService.insertOfferscenic(item);
-            }
-        }
-        //餐馆
-        if(listOfferrestaurant!=null){
-            for (Offerrestaurant item:listOfferrestaurant) {
-                item.setOfferRestaurantId(0);
-                offerrestaurantService.insertOfferrestaurant(item);
-            }
-        }
-        //其它
-        if(listOfferother!=null){
-            for (Offerother item:listOfferother) {
-                item.setOfferOtherId(0);
-                offerotherService.insertOfferother(item);
-            }
-        }
-        //线路
-        if(listOfferline!=null){
-            for (Offerline item:listOfferline) {
-                item.setOfferLineRecordId(0);
-                offerlineService.insertOfferline(item);
-            }
-        }
         return a;
     }
 

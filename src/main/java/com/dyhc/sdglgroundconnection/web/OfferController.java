@@ -1,9 +1,12 @@
 package com.dyhc.sdglgroundconnection.web;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.dyhc.sdglgroundconnection.dto.OfferParam;
 import com.dyhc.sdglgroundconnection.pojo.*;
 import com.dyhc.sdglgroundconnection.service.OfferService;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +33,11 @@ public class OfferController {
 
 
     @RequestMapping("/insertOffer")
-    public ReponseResult insertOffer(@RequestBody OfferParam offerParam){
-
+    public ReponseResult insertOffer(@RequestBody JSONObject jsonObject){
         try {
+            String s = JSON.toJSONString(jsonObject);
+            ObjectMapper objectMapper = new ObjectMapper();
+            OfferParam offerParam = objectMapper.readValue(s, OfferParam.class);
             ReponseResult<String> date=null;
             int result =offerService.insertOffer(offerParam);
             if (result>0){

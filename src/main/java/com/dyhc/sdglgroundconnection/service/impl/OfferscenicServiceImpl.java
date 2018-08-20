@@ -25,7 +25,7 @@ public class OfferscenicServiceImpl implements OfferscenicService {
         OfferscenicExample.Criteria criteria=offerhotelExample.createCriteria();
         criteria.andOfferidEqualTo(offerId);
         List<Offerscenic> list=offerscenicMapper.selectByExample(criteria);
-        return null;
+        return list;
     }
 
     @Override

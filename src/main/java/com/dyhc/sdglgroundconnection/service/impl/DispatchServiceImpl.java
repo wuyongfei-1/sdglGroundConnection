@@ -43,9 +43,10 @@ public class DispatchServiceImpl implements DispatchService {
 
 
     /**
-     * 保存一条调度信息
+     * 保存一条调度信息（wuyongfei）
+     * （保存该调度下的购物、餐馆、酒店、导游、用车、景点、调度、其他）
      *
-     * @param disParam 调度信息对象
+     * @param disParam 调度信息参数对象
      * @return 受影响行数
      * @throws DispatchException 调度异常
      */
@@ -53,15 +54,21 @@ public class DispatchServiceImpl implements DispatchService {
     @Transactional
     @RecordOperation(type = "调度信息", desc = "添加了一条调度信息")
     public Integer saveDispatchInfo(DispatchParam disParam) throws DispatchException {
-        // 添加调度信息
-        dispatchMapper.insert(disParam.getDispatch());
         // 添加购物信息
+        disshoppService.saveDisShopInfo(disParam.getDisshoppList());
         // 添加餐馆信息
+        disrestaurantService.saveDisrestaurantInfo(disParam.getDisrestaurantList());
         // 添加酒店信息
+        dispatchhotelService.saveDispatchhotelInfo(disParam.getDispatchhotelList());
         // 添加导游信息
+        disguideService.saveDisguideInfo(disParam.getDisguide());
         // 添加用车信息
+        discarService.saveDiscarInfo(disParam.getDiscar());
         // 添加景点信息
+        disattrService.saveDisattrInfoes(disParam.getDisattrList());
         // 添加其他信息
-        return 0;
+        disotherService.saveDisotherInfo(disParam.getDisother());
+        // 添加调度信息
+        return dispatchMapper.insert(disParam.getDispatch());
     }
 }

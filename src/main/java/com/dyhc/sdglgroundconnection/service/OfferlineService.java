@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.service;
 
+import com.dyhc.sdglgroundconnection.exception.OfferException;
 import com.dyhc.sdglgroundconnection.pojo.Offerline;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
@@ -16,14 +17,14 @@ public interface OfferlineService {
      * @param offerId
      * @return
      */
-    List<Offerline> listOfferlineByOfferId(Integer offerId) throws Exception;
+    List<Offerline> listOfferlineByOfferId(Integer offerId) throws OfferException;
 
     /**
      * 添加报价线路信息（dubingkun）
      * @param offerline
      * @return
      */
-    Integer insertOfferline (Offerline offerline)throws  Exception;
+    Integer insertOfferline (Offerline offerline)throws  OfferException;
 
     /**
      * 修改报价线路信息（dubingkun）
@@ -31,5 +32,5 @@ public interface OfferlineService {
      * @return
      * @throws Exception
      */
-    Integer updateOfferline(Offerline offerline)throws Exception;
+    Integer updateOfferline(Offerline offerline)throws OfferException;
 }

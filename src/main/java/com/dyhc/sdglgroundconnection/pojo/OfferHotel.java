@@ -21,6 +21,8 @@ public class OfferHotel {
     private Integer offerId; // 报价信息编号（外键，与报价信息表关联）
     @Column(name = "costPrice")
     private Double costPrice; // 成本价
+    @Column(name = "weight")
+    private Integer weight;//权重（天数）
     private Double offer; // 报价
     @Column(name = "whetherDel")
     private Integer whetherDel; // 是否删除（1代表已删除，0代表未删除）

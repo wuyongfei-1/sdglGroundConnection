@@ -19,6 +19,8 @@ public class Disrestaurant {
     private Integer typeId; // 餐馆类型编号（外键，与餐馆类型表关联）
     @Column(name = "offerId")
     private Integer offerId; // 调度信息编号（外键，与报价信息表关联）
+    @Column(name = "weight")
+    private Integer weight;//权重（天数）
     @Column(name = "costPrice")
     private Double costPrice; // 成本价
     @Column(name = "quotePrice")
@@ -26,7 +28,7 @@ public class Disrestaurant {
     @Column(name = "numDays")
     private Integer numDays; // 天数
     @Column(name = "dinDate")
-    private String dinDate; // 用餐时间（早、中、晚）
+    private Integer dinDate; // 用餐时间（早、中、晚）
     private Integer status; // 是否删除（1代表已删除，0代表未删除）
     @Column(name = "createBy")
     private Integer createBy; // 创建人 （外键，与人员表关联）
@@ -104,11 +106,11 @@ public class Disrestaurant {
 
     @Basic
     @Column(name = "dinDate")
-    public String getDinDate() {
+    public Integer getDinDate() {
         return dinDate;
     }
 
-    public void setDinDate(String dinDate) {
+    public void setDinDate(Integer dinDate) {
         this.dinDate = dinDate;
     }
 

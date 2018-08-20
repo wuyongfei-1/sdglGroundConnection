@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.service;
 
+import com.dyhc.sdglgroundconnection.exception.OfferException;
 import com.dyhc.sdglgroundconnection.pojo.Offercar;
 
 import java.util.List;
@@ -15,14 +16,14 @@ public interface OffercarService {
      * @return
      * @throws Exception
      */
-    List<Offercar> listOffercarByOfferId(Integer offerId)throws Exception;
+    List<Offercar> listOffercarByOfferId(Integer offerId)throws OfferException;
 
     /**
      * 添加报价汽车信息（dubingkun）
      * @param offercar
      * @return
      */
-    Integer insertOffercar (Offercar offercar)throws  Exception;
+    Integer insertOffercar (Offercar offercar)throws  OfferException;
 
     /**
      * 修改报价汽车信息（dubingkun）
@@ -30,5 +31,5 @@ public interface OffercarService {
      * @return
      * @throws Exception
      */
-    Integer updateOffercar(Offercar offercar)throws Exception;
+    Integer updateOffercar(Offercar offercar)throws OfferException;
 }

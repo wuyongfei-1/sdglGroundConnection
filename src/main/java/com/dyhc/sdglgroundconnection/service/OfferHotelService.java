@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.service;
 
+import com.dyhc.sdglgroundconnection.exception.OfferException;
 import com.dyhc.sdglgroundconnection.pojo.Offer;
 import com.dyhc.sdglgroundconnection.pojo.OfferHotel;
 import org.apache.ibatis.annotations.Mapper;
@@ -18,7 +19,7 @@ public interface OfferHotelService {
      * @return
      * @throws Exception
      */
-    List<OfferHotel> listOfferHotelByOfferId(Integer offerId)throws Exception;
+    List<OfferHotel> listOfferHotelByOfferId(Integer offerId)throws OfferException;
 
     /**
      * 新增酒店报价信息（dubingkun）
@@ -26,7 +27,7 @@ public interface OfferHotelService {
      * @return
      * @throws Exception
      */
-    Integer insertOfferHotel(OfferHotel offerHotel)throws Exception;
+    Integer insertOfferHotel(OfferHotel offerHotel)throws OfferException;
 
     /**
      * 修改酒店报价信息（dubingkun）
@@ -34,5 +35,5 @@ public interface OfferHotelService {
      * @return
      * @throws Exception
      */
-    Integer updateOfferHotel(OfferHotel offerHotel)throws Exception;
+    Integer updateOfferHotel(OfferHotel offerHotel)throws OfferException;
 }

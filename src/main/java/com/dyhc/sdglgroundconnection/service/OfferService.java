@@ -1,6 +1,8 @@
 package com.dyhc.sdglgroundconnection.service;
 
 
+import com.dyhc.sdglgroundconnection.dto.OfferParam;
+import com.dyhc.sdglgroundconnection.exception.OfferException;
 import com.dyhc.sdglgroundconnection.pojo.Offer;
 
 import java.util.List;
@@ -15,14 +17,14 @@ public interface OfferService {
      * @param offerId
      * @return
      */
-    Offer getOfferByOfferId(Integer offerId) throws Exception;
+    Offer getOfferByOfferId(Integer offerId) throws OfferException;
 
     /**
      * 添加报价信息（dubingkun）
-     * @param offer
+     * @param offerParam
      * @return
      */
-    Integer insertOffer (Offer offer)throws  Exception;
+    Integer insertOffer (OfferParam offerParam)throws  OfferException;
 
     /**
      * 修改报价信息（dubingkun）
@@ -30,5 +32,5 @@ public interface OfferService {
      * @return
      * @throws Exception
      */
-    Integer updateOffer(Offer offer)throws Exception;
+    Integer updateOffer(Offer offer)throws OfferException;
 }

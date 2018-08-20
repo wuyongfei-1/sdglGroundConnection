@@ -405,6 +405,66 @@ public class OfferrestaurantExample {
             return (Criteria) this;
         }
 
+        public Criteria andWeightIsNull() {
+            addCriterion("weight is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightIsNotNull() {
+            addCriterion("weight is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightEqualTo(Integer value) {
+            addCriterion("weight =", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightNotEqualTo(Integer value) {
+            addCriterion("weight <>", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightGreaterThan(Integer value) {
+            addCriterion("weight >", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightGreaterThanOrEqualTo(Integer value) {
+            addCriterion("weight >=", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightLessThan(Integer value) {
+            addCriterion("weight <", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightLessThanOrEqualTo(Integer value) {
+            addCriterion("weight <=", value, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightIn(List<Integer> values) {
+            addCriterion("weight in", values, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightNotIn(List<Integer> values) {
+            addCriterion("weight not in", values, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightBetween(Integer value1, Integer value2) {
+            addCriterion("weight between", value1, value2, "weight");
+            return (Criteria) this;
+        }
+
+        public Criteria andWeightNotBetween(Integer value1, Integer value2) {
+            addCriterion("weight not between", value1, value2, "weight");
+            return (Criteria) this;
+        }
+
         public Criteria andOfferIsNull() {
             addCriterion("offer is null");
             return (Criteria) this;
@@ -535,52 +595,52 @@ public class OfferrestaurantExample {
             return (Criteria) this;
         }
 
-        public Criteria andHavemealsdateEqualTo(Date value) {
+        public Criteria andHavemealsdateEqualTo(Integer value) {
             addCriterion("havemealsdate =", value, "havemealsdate");
             return (Criteria) this;
         }
 
-        public Criteria andHavemealsdateNotEqualTo(Date value) {
+        public Criteria andHavemealsdateNotEqualTo(Integer value) {
             addCriterion("havemealsdate <>", value, "havemealsdate");
             return (Criteria) this;
         }
 
-        public Criteria andHavemealsdateGreaterThan(Date value) {
+        public Criteria andHavemealsdateGreaterThan(Integer value) {
             addCriterion("havemealsdate >", value, "havemealsdate");
             return (Criteria) this;
         }
 
-        public Criteria andHavemealsdateGreaterThanOrEqualTo(Date value) {
+        public Criteria andHavemealsdateGreaterThanOrEqualTo(Integer value) {
             addCriterion("havemealsdate >=", value, "havemealsdate");
             return (Criteria) this;
         }
 
-        public Criteria andHavemealsdateLessThan(Date value) {
+        public Criteria andHavemealsdateLessThan(Integer value) {
             addCriterion("havemealsdate <", value, "havemealsdate");
             return (Criteria) this;
         }
 
-        public Criteria andHavemealsdateLessThanOrEqualTo(Date value) {
+        public Criteria andHavemealsdateLessThanOrEqualTo(Integer value) {
             addCriterion("havemealsdate <=", value, "havemealsdate");
             return (Criteria) this;
         }
 
-        public Criteria andHavemealsdateIn(List<Date> values) {
+        public Criteria andHavemealsdateIn(List<Integer> values) {
             addCriterion("havemealsdate in", values, "havemealsdate");
             return (Criteria) this;
         }
 
-        public Criteria andHavemealsdateNotIn(List<Date> values) {
+        public Criteria andHavemealsdateNotIn(List<Integer> values) {
             addCriterion("havemealsdate not in", values, "havemealsdate");
             return (Criteria) this;
         }
 
-        public Criteria andHavemealsdateBetween(Date value1, Date value2) {
+        public Criteria andHavemealsdateBetween(Integer value1, Integer value2) {
             addCriterion("havemealsdate between", value1, value2, "havemealsdate");
             return (Criteria) this;
         }
 
-        public Criteria andHavemealsdateNotBetween(Date value1, Date value2) {
+        public Criteria andHavemealsdateNotBetween(Integer value1, Integer value2) {
             addCriterion("havemealsdate not between", value1, value2, "havemealsdate");
             return (Criteria) this;
         }

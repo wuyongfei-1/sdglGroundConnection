@@ -26,7 +26,7 @@ public class OfferotherServiceImpl implements OfferotherService {
         OfferotherExample offerhotelExample=new OfferotherExample();
         OfferotherExample.Criteria criteria=offerhotelExample.createCriteria();
         criteria.andOfferidEqualTo(offerId);
-        List<Offerother> list=offerotherMapper.selectByExample(criteria);
+        List<Offerother> list=offerotherMapper.selectByExample(offerhotelExample);
         return list;
     }
 

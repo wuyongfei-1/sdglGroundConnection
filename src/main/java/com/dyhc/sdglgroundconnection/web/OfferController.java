@@ -1,15 +1,14 @@
 package com.dyhc.sdglgroundconnection.web;
 
 import com.dyhc.sdglgroundconnection.dto.OfferParam;
+import com.dyhc.sdglgroundconnection.exception.OfferException;
 import com.dyhc.sdglgroundconnection.pojo.*;
 import com.dyhc.sdglgroundconnection.service.OfferService;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,23 +26,41 @@ public class OfferController {
     @Autowired
     private OfferService offerService;
 
+    /**
+     * 获取报价详细信息（wuyongfei）
+     *
+     * @param offerId 报价编号
+     * @return 响应结果
+     */
+    @GetMapping("/offer/detail/{id}.html")
+    public ReponseResult getOfferInfoById(@PathVariable("id") Integer offerId) {
+        try {
+            Offer offer = offerService.getOfferByOfferId(offerId);
+            logger.info(" method:getOfferInfoById  根据编号获取报价信息成功！");
+            return ReponseResult.ok(offer, "获取报价信息成功！");
+        } catch (OfferException e) {
+            logger.error(" method:getOfferInfoById  根据编号获取报价信息失败！");
+            e.printStackTrace();
+            return ReponseResult.err("获取报价信息失败！");
+        }
+    }
 
 
     @RequestMapping("/insertOffer")
-    public ReponseResult insertOffer(@RequestBody OfferParam offerParam){
+    public ReponseResult insertOffer(@RequestBody OfferParam offerParam) {
 
         try {
-            ReponseResult<String> date=null;
-            int result =offerService.insertOffer(offerParam);
-            if (result>0){
-                date= ReponseResult.ok("添加报价成功！");
+            ReponseResult<String> date = null;
+            int result = offerService.insertOffer(offerParam);
+            if (result > 0) {
+                date = ReponseResult.ok("添加报价成功！");
                 logger.info(" method:updateHotel  添加报价成功！");
-            }else{
-                date= ReponseResult.ok("添加报价失败！");
+            } else {
+                date = ReponseResult.ok("添加报价失败！");
                 logger.info(" method:updateHotel  添加报价失败！");
             }
             return date;
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error(" method:updateHotel  添加报价失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");

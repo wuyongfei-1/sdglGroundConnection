@@ -26,7 +26,7 @@ public class OfferlineServiceImpl implements OfferlineService {
         OfferlineExample offerhotelExample=new OfferlineExample();
         OfferlineExample.Criteria criteria=offerhotelExample.createCriteria();
         criteria.andOfferidEqualTo(offerId);
-        List<Offerline> list=offerlineMapper.selectByExample(criteria);
+        List<Offerline> list=offerlineMapper.selectByExample(offerhotelExample);
         return list;
     }
 

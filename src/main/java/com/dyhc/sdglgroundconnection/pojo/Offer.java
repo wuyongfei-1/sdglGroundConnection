@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -28,6 +29,7 @@ public class Offer {
     @Column(name = "aVariance")
     private Double aVariance; // 单间房差
     private String shopping; // 购物
+    @Column(name = "`not`")
     private String not; // 不含
     private String remarks; // 备注
     private String supervision; // 团体监督
@@ -37,7 +39,7 @@ public class Offer {
     private Integer creater; // 创建人 （外键，与人员表关联）
     private Integer modifier; // 修改人（外键，与人员表关联）
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "modifiedData")
+    @Column(name = "`modifiedData`")
     private Timestamp modifiedData; // 修改日期
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "creationDate")
@@ -45,6 +47,24 @@ public class Offer {
     private String value1;
     private String value2;
     private String value3;
+
+    @Transient
+    private Offercar offercar; // 报价用车详细信息
+
+    @Transient
+    private List<OfferHotel> offerHotelList; // 报价酒店详细信息列表
+
+    @Transient
+    private List<Offerline> offerlineList; // 报价线路信息记录列表
+
+    @Transient
+    private Offerother offerother; // 报价其他详细信息
+
+    @Transient
+    private List<Offerrestaurant> offerrestaurantList; // 报价餐馆信息列表
+
+    @Transient
+    private List<Offerscenic> offerscenicList; // 报价景点信息列表
 
     @Id
     @Column(name = "offerId")
@@ -264,6 +284,55 @@ public class Offer {
 
     public void setValue3(String value3) {
         this.value3 = value3;
+    }
+
+    public Offercar getOffercar() {
+        return offercar;
+    }
+
+    public void setOffercar(Offercar offercar) {
+        this.offercar = offercar;
+    }
+
+    public List<OfferHotel> getOfferHotelList() {
+        return offerHotelList;
+    }
+
+    public void setOfferHotelList(List<OfferHotel> offerHotelList) {
+        this.offerHotelList = offerHotelList;
+    }
+
+    public List<Offerline> getOfferlineList() {
+        return offerlineList;
+    }
+
+    public void setOfferlineList(List<Offerline> offerlineList) {
+        this.offerlineList = offerlineList;
+    }
+
+    public Offerother getOfferother() {
+        return offerother;
+    }
+
+    public void setOfferother(Offerother offerother) {
+        this.offerother = offerother;
+    }
+
+
+    public List<Offerscenic> getOfferscenicList() {
+        return offerscenicList;
+    }
+
+    public void setOfferscenicList(List<Offerscenic> offerscenicList) {
+        this.offerscenicList = offerscenicList;
+    }
+
+    public List<Offerrestaurant> getOfferrestaurantList() {
+        return offerrestaurantList;
+    }
+
+    public void setOfferrestaurantList(List<Offerrestaurant> offerrestaurantList) {
+        this.offerrestaurantList = offerrestaurantList;
     }
 
     @Override

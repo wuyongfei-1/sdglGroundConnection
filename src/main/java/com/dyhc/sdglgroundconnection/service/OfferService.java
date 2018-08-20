@@ -14,6 +14,7 @@ import java.util.List;
 public interface OfferService {
     /**
      * 根据报价编号查询报价信息（dubingkun）
+     *
      * @param offerId
      * @return
      */
@@ -21,16 +22,18 @@ public interface OfferService {
 
     /**
      * 添加报价信息（dubingkun）
+     *
      * @param offerParam
      * @return
      */
-    Integer insertOffer (OfferParam offerParam)throws  OfferException;
+    Integer insertOffer(OfferParam offerParam) throws OfferException;
 
     /**
      * 修改报价信息（dubingkun）
+     *
      * @param offer
      * @return
      * @throws Exception
      */
-    Integer updateOffer(Offer offer)throws OfferException;
+    Integer updateOffer(Offer offer) throws OfferException;
 }

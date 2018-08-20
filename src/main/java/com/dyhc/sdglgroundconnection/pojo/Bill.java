@@ -37,6 +37,27 @@ public class Bill {
     private String value2;
     private String value3;
 
+    @Transient
+    private BillType billType;
+    @Transient
+    private Dispatch dispatch;
+
+    public BillType getBillType() {
+        return billType;
+    }
+
+    public void setBillType(BillType billType) {
+        this.billType = billType;
+    }
+
+    public Dispatch getDispatch() {
+        return dispatch;
+    }
+
+    public void setDispatch(Dispatch dispatch) {
+        this.dispatch = dispatch;
+    }
+
     @Id
     @Column(name = "billId")
     public int getBillId() {

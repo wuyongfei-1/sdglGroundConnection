@@ -3,4 +3,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dyhc.sdglgroundconnection.mapper.DisguideMapper">
 
+    <select id="selectdisGuideId" resultType="com.dyhc.sdglgroundconnection.pojo.Disguide">
+        SELECT di.offerId,d.num,d.tourist,d.travelStartTime,d.travelEndTime,bi.picturePath FROM `disguide` di
+        INNER JOIN dispatch d ON di.offerId=d.dispatchId
+        INNER JOIN bill bi ON bi.dispatchId=d.dispatchId
+        INNER JOIN billtype bt ON bt.billTypeId=bi.billTypeId
+        WHERE di.disGuideId=1 AND NOW() >d.travelEndTime AND bt.typeName='集体照'
+    </select>
 </mapper>

@@ -1,9 +1,12 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
 import com.dyhc.sdglgroundconnection.mapper.DisguideMapper;
+import com.dyhc.sdglgroundconnection.pojo.Disguide;
 import com.dyhc.sdglgroundconnection.service.DisguideService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
@@ -14,4 +17,14 @@ public class DisguideServiceImpl implements DisguideService {
 
     @Autowired
     private DisguideMapper disguideMapper;
+
+    /**
+     * 调度导游查询
+     * @param disGuideId
+     * @return
+     */
+    @Override
+    public List<Disguide> selectdisGuideId(int disGuideId) {
+        return disguideMapper.selectdisGuideId(disGuideId);
+    }
 }

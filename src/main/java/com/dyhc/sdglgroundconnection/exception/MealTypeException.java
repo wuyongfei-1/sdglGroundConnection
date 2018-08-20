@@ -1,6 +1,5 @@
 package com.dyhc.sdglgroundconnection.exception;
 
-import com.dyhc.sdglgroundconnection.pojo.MealtypeExample;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,7 +9,7 @@ import org.slf4j.LoggerFactory;
  **/
 public class MealTypeException extends RuntimeException {
 
-    private Logger logger = LoggerFactory.getLogger(MealtypeExample.class); // 日志对象
+    private Logger logger = LoggerFactory.getLogger(MealTypeException.class); // 日志对象
 
     /**
      * 异常提示（wuyongfei）

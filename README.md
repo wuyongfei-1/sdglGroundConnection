@@ -35,6 +35,8 @@ password: 123456
       RAFFIC 交通类型
                           
 # 实体类信息：pojo
+linetemplate 总线路（一条线路包括多个模板）
+linetemplatethird 线路表和模板表的第三方关系
 accounttype 账户类型
 bill   单据
 billtype 单据类型

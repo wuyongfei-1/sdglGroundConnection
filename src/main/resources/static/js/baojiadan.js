@@ -72,9 +72,7 @@ function insertJingdian(onClickjd) {
     });
 }
 
-	function  san(dang){
-      $(dang).parent().parent().remove();
-	}
+
 
 			function addss() {
 				var a = "<div style='margin-bottom: 30px;width: 800px'>"+

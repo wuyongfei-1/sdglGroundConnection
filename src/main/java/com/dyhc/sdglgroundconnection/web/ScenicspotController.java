@@ -136,7 +136,6 @@ public class ScenicspotController {
 
     /**
      * 根据id获取信息 （wangtao）
-     *
      * @param scenicSpotId id
      * @return 景点对象
      */
@@ -208,7 +207,7 @@ public class ScenicspotController {
     }
 
     /**
-     * 根据id删除信息
+     * 根据id删除信息 （wangtao）
      *
      * @param id id
      * @return 返回受影响行数

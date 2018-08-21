@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -18,6 +19,7 @@ public class Reportdetail {
     @Column(name = "dispatchId")
     private Integer dispatchId; // 调度编号（外键，与调度表关联）
     @Column(name = "reportDate")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date reportDate; // 报账日期
     private Double receipt; // 外收团款
     @Column(name = "totalPayable")
@@ -36,7 +38,7 @@ public class Reportdetail {
     private Integer createBy; // 创建人 （外键，与人员表关联）
     @Column(name = "updateBy")
     private Integer updateBy; // 修改人（外键，与人员表关联）
-    @Column(name = "upDate")
+    @Column(name = "`upDate`")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date upDate; // 修改日期
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -45,6 +47,16 @@ public class Reportdetail {
     private String value1;
     private String value2;
     private String value3;
+    @Transient
+    private Dispatch dispatch;
+
+    public Dispatch getDispatch() {
+        return dispatch;
+    }
+
+    public void setDispatch(Dispatch dispatch) {
+        this.dispatch = dispatch;
+    }
 
     @Id
     @Column(name = "reportDetailId")

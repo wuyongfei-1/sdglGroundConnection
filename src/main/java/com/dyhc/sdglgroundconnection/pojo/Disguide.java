@@ -33,6 +33,56 @@ public class Disguide {
     private String value1;
     private String value2;
     private String value;
+    @Transient
+    private Integer num; // 人数
+    @Transient
+    private String tourist; // 客源地
+    @Transient
+    private Date travelStartTime; // 旅行开始时间
+    @Transient
+    private Date travelEndTime; // 旅行结束时间
+    @Transient
+    private String picturePath; // 图片路径
+
+    public Integer getNum() {
+        return num;
+    }
+
+    public void setNum(Integer num) {
+        this.num = num;
+    }
+
+    public String getTourist() {
+        return tourist;
+    }
+
+    public void setTourist(String tourist) {
+        this.tourist = tourist;
+    }
+
+    public Date getTravelStartTime() {
+        return travelStartTime;
+    }
+
+    public void setTravelStartTime(Date travelStartTime) {
+        this.travelStartTime = travelStartTime;
+    }
+
+    public Date getTravelEndTime() {
+        return travelEndTime;
+    }
+
+    public void setTravelEndTime(Date travelEndTime) {
+        this.travelEndTime = travelEndTime;
+    }
+
+    public String getPicturePath() {
+        return picturePath;
+    }
+
+    public void setPicturePath(String picturePath) {
+        this.picturePath = picturePath;
+    }
 
     @Id
     @Column(name = "disGuideId")

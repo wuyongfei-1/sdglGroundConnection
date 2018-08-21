@@ -2,5 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dyhc.sdglgroundconnection.mapper.BillMapper">
-
+    <resultMap id="lianbiao" type="com.dyhc.sdglgroundconnection.pojo.Bill">
+        <id column="billId" property="billId"/>
+        <association property="dispatch" javaType="com.dyhc.sdglgroundconnection.pojo.Dispatch">
+            <id column="dispatchId" property="dispatchId"/>
+        </association>
+    </resultMap>
+    <select id="selectDispatchId" resultMap="lianbiao">
+        SELECT * FROM `bill`  b
+        INNER JOIN `dispatch` d ON b.dispatchId=d.dispatchId
+        WHERE b.dispatchId=#{dispatchId}
+    </select>
+    <resultMap id="lianbiao1" type="com.dyhc.sdglgroundconnection.pojo.Bill">
+        <id column="billId" property="billId"/>
+        <association property="billType" javaType="com.dyhc.sdglgroundconnection.pojo.BillType">
+            <id column="billTypeId" property="billTypeId"/>
+        </association>
+    </resultMap>
+    <select id="selectbillTypeId" resultMap="lianbiao1">
+        SELECT * FROM `bill`  b
+        INNER JOIN `billtype` d ON b.billTypeId=d.billTypeId
+        WHERE b.billTypeId=#{billTypeId}
+    </select>
 </mapper>

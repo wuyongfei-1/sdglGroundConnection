@@ -2,5 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dyhc.sdglgroundconnection.mapper.ReportdetailMapper">
+    <resultMap id="lianbiao" type="com.dyhc.sdglgroundconnection.pojo.Reportdetail">
+        <id column="reportDetailId" property="reportDetailId"/>
+        <association property="dispatch" javaType="com.dyhc.sdglgroundconnection.pojo.Dispatch">
+            <id column="dispatchId" property="dispatchId"/>
+        </association>
+    </resultMap>
+    <select id="selectDispatchId" resultMap="lianbiao">
+        SELECT * FROM `reportdetail`  r
+        INNER JOIN `dispatch` d ON r.dispatchId=d.dispatchId
+        WHERE r.dispatchId=#{dispatchId}
+    </select>
 
+
+    <select id="selectreportDate" resultType="com.dyhc.sdglgroundconnection.pojo.Reportdetail">
+        SELECT * FROM `reportdetail` WHERE 1=1
+        <if test="sdate!=null and sdate !='' and edate!=null and edate!=''">
+           and  reportDate between #{sdate} and #{edate}
+        </if>
+        <if test="sdate=!null and sdate !='' and edate==null and edate ==''">
+            and  reportDate>=#{sdate}
+        </if>
+        <if test="sdate==null and sdate =='' and edate!=null and edate !=''">
+            and  #{edate}>=reportDate desc
+        </if>
+    </select>
 </mapper>

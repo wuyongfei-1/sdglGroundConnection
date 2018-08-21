@@ -8,6 +8,6 @@
         INNER JOIN dispatch d ON di.offerId=d.dispatchId
         INNER JOIN bill bi ON bi.dispatchId=d.dispatchId
         INNER JOIN billtype bt ON bt.billTypeId=bi.billTypeId
-        WHERE di.disGuideId=1 AND NOW() >d.travelEndTime AND bt.typeName='集体照'
+        WHERE di.disGuideId=#{disGuideId} AND NOW() >d.travelEndTime AND bt.typeName='集体照'
     </select>
 </mapper>

@@ -8,7 +8,7 @@ import java.util.Objects;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
- *  调度表
+ * 调度表
  **/
 @Table(name = "dispatch")
 public class Dispatch {
@@ -40,6 +40,7 @@ public class Dispatch {
     private String reception; // 接待标准
     private Double total; // 总计
     private Double loan; // 导游借款
+    private Integer status; // 审核状态  调度状态（1、已审核  2、未审核）
     private Integer state; // 状态（1、未开始2、进行中3、已结束）
     @Column(name = "whetherDel")
     private Integer whetherDel; // 是否删除（1代表已删除，0代表未删除）
@@ -374,5 +375,13 @@ public class Dispatch {
     public int hashCode() {
 
         return Objects.hash(dispatchId, groundConnectionNumber, groupNumber, sendLine, travelStartTime, travelEndTime, num, tourist, trip, offer, aVariance, fare, wineFee, not, remarks, supervision, reception, total, loan, state, whetherDel, creater, modifier, modifiedData, creationDate, value1, value2, value3);
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

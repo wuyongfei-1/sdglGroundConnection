@@ -165,66 +165,6 @@ public class OffercarExample {
             return (Criteria) this;
         }
 
-        public Criteria andTypeidIsNull() {
-            addCriterion("typeId is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeidIsNotNull() {
-            addCriterion("typeId is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeidEqualTo(Integer value) {
-            addCriterion("typeId =", value, "typeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeidNotEqualTo(Integer value) {
-            addCriterion("typeId <>", value, "typeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeidGreaterThan(Integer value) {
-            addCriterion("typeId >", value, "typeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("typeId >=", value, "typeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeidLessThan(Integer value) {
-            addCriterion("typeId <", value, "typeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeidLessThanOrEqualTo(Integer value) {
-            addCriterion("typeId <=", value, "typeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeidIn(List<Integer> values) {
-            addCriterion("typeId in", values, "typeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeidNotIn(List<Integer> values) {
-            addCriterion("typeId not in", values, "typeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeidBetween(Integer value1, Integer value2) {
-            addCriterion("typeId between", value1, value2, "typeid");
-            return (Criteria) this;
-        }
-
-        public Criteria andTypeidNotBetween(Integer value1, Integer value2) {
-            addCriterion("typeId not between", value1, value2, "typeid");
-            return (Criteria) this;
-        }
-
         public Criteria andOfferidIsNull() {
             addCriterion("offerId is null");
             return (Criteria) this;
@@ -282,6 +222,136 @@ public class OffercarExample {
 
         public Criteria andOfferidNotBetween(Integer value1, Integer value2) {
             addCriterion("offerId not between", value1, value2, "offerid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypecodeIsNull() {
+            addCriterion("typeCode is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypecodeIsNotNull() {
+            addCriterion("typeCode is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypecodeEqualTo(String value) {
+            addCriterion("typeCode =", value, "typecode");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypecodeNotEqualTo(String value) {
+            addCriterion("typeCode <>", value, "typecode");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypecodeGreaterThan(String value) {
+            addCriterion("typeCode >", value, "typecode");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypecodeGreaterThanOrEqualTo(String value) {
+            addCriterion("typeCode >=", value, "typecode");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypecodeLessThan(String value) {
+            addCriterion("typeCode <", value, "typecode");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypecodeLessThanOrEqualTo(String value) {
+            addCriterion("typeCode <=", value, "typecode");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypecodeLike(String value) {
+            addCriterion("typeCode like", value, "typecode");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypecodeNotLike(String value) {
+            addCriterion("typeCode not like", value, "typecode");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypecodeIn(List<String> values) {
+            addCriterion("typeCode in", values, "typecode");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypecodeNotIn(List<String> values) {
+            addCriterion("typeCode not in", values, "typecode");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypecodeBetween(String value1, String value2) {
+            addCriterion("typeCode between", value1, value2, "typecode");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypecodeNotBetween(String value1, String value2) {
+            addCriterion("typeCode not between", value1, value2, "typecode");
+            return (Criteria) this;
+        }
+
+        public Criteria andValueidIsNull() {
+            addCriterion("valueId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andValueidIsNotNull() {
+            addCriterion("valueId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andValueidEqualTo(Integer value) {
+            addCriterion("valueId =", value, "valueid");
+            return (Criteria) this;
+        }
+
+        public Criteria andValueidNotEqualTo(Integer value) {
+            addCriterion("valueId <>", value, "valueid");
+            return (Criteria) this;
+        }
+
+        public Criteria andValueidGreaterThan(Integer value) {
+            addCriterion("valueId >", value, "valueid");
+            return (Criteria) this;
+        }
+
+        public Criteria andValueidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("valueId >=", value, "valueid");
+            return (Criteria) this;
+        }
+
+        public Criteria andValueidLessThan(Integer value) {
+            addCriterion("valueId <", value, "valueid");
+            return (Criteria) this;
+        }
+
+        public Criteria andValueidLessThanOrEqualTo(Integer value) {
+            addCriterion("valueId <=", value, "valueid");
+            return (Criteria) this;
+        }
+
+        public Criteria andValueidIn(List<Integer> values) {
+            addCriterion("valueId in", values, "valueid");
+            return (Criteria) this;
+        }
+
+        public Criteria andValueidNotIn(List<Integer> values) {
+            addCriterion("valueId not in", values, "valueid");
+            return (Criteria) this;
+        }
+
+        public Criteria andValueidBetween(Integer value1, Integer value2) {
+            addCriterion("valueId between", value1, value2, "valueid");
+            return (Criteria) this;
+        }
+
+        public Criteria andValueidNotBetween(Integer value1, Integer value2) {
+            addCriterion("valueId not between", value1, value2, "valueid");
             return (Criteria) this;
         }
 

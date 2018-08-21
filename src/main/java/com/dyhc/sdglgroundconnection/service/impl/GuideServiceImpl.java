@@ -3,6 +3,7 @@ package com.dyhc.sdglgroundconnection.service.impl;
 import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.mapper.GuideMapper;
 import com.dyhc.sdglgroundconnection.pojo.Guide;
+import com.dyhc.sdglgroundconnection.pojo.GuideExample;
 import com.dyhc.sdglgroundconnection.service.GuideService;
 import com.dyhc.sdglgroundconnection.utils.EncryUtil;
 import com.github.pagehelper.PageHelper;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -25,7 +27,24 @@ public class GuideServiceImpl implements GuideService {
     private GuideMapper guideMapper;
 
     /**
+     * 导游登陆业务实现（wuyongfei）
+     *
+     * @param username 用户名
+     * @return 导游对象
+     * @throws Exception 全局异常
+     */
+    @Override
+    public Guide login(String username) throws Exception {
+        GuideExample guideExample = new GuideExample();
+        GuideExample.Criteria criteria = guideExample.createCriteria();
+        criteria.andUsernameEqualTo(username);
+        List<Guide> guides = guideMapper.selectByExample(guideExample);
+        return (guides != null && guides.size() > 0) ? guides.get(0) : null;
+    }
+
+    /**
      * 导游名称分页查询(yunguohao)
+     *
      * @param pageNo
      * @param PageSize
      * @param guide
@@ -41,6 +60,7 @@ public class GuideServiceImpl implements GuideService {
 
     /**
      * 导游添加(yunguohao)
+     *
      * @param guide
      * @return
      */
@@ -64,8 +84,10 @@ public class GuideServiceImpl implements GuideService {
         guide.setUsername(TheUserName);
         return guideMapper.insert(guide);
     }
+
     /**
      * 导游修改(yunguohao)
+     *
      * @param guide
      * @return
      */
@@ -75,8 +97,10 @@ public class GuideServiceImpl implements GuideService {
         guide.setWhetherDel(0);
         return guideMapper.updateByPrimaryKey(guide);
     }
+
     /**
      * 导游删除(yunguohao)
+     *
      * @param guideid
      * @return
      */
@@ -85,8 +109,10 @@ public class GuideServiceImpl implements GuideService {
     public int deleteGuideByIDs(int guideid) {
         return guideMapper.deleteGuide(guideid);
     }
+
     /**
      * 导游id查询(yunguohao)
+     *
      * @param id
      * @return
      */

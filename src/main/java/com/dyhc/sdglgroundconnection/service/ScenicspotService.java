@@ -7,6 +7,8 @@ import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
  * 景点业务接口
@@ -60,4 +62,11 @@ public interface ScenicspotService {
      * @throws Exception
      */
     Integer deleteScenicspotById(Integer id)throws Exception;
+
+    /**
+     * 查询所有景点信息（dubingkun）
+     * @return
+     * @throws Exception
+     */
+    List<Scenicspot> listScenicspot() throws Exception;
 }

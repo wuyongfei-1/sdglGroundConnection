@@ -135,6 +135,10 @@ public class ScenicspotServiceImpl implements ScenicspotService {
         return result;
     }
 
+    @Override
+    public List<Scenicspot> listScenicspot() throws Exception {
+        return scenicspotMapper.selectAll();
+    }
 
 
 }

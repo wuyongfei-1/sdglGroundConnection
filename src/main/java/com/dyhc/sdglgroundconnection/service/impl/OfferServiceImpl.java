@@ -86,13 +86,11 @@ public class OfferServiceImpl implements OfferService {
         List<Offerrestaurant> listOfferrestaurant = offerParam.getListOfferrestaurant();//餐厅报价信息
         List<Offerother> listOfferother = offerParam.getListOfferother();//其它报价信息
         List<Offerline> listOfferline = offerParam.getListOfferline();//线路报价信息
-
         Date day = new Date();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         //System.out.println(df.format(day));
-
-        int a = offerMapper.insert(offerParam.getOffer());
-
+        Offer offer=offerParam.getOffer();
+        int a = offerMapper.insert(offer);
         //用车
         if (listOffercar != null) {
             offercarService.insertOffercar(listOffercar);

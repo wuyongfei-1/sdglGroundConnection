@@ -44,6 +44,8 @@ public class OfferController {
     private HotelService hotelService;
     @Autowired
     private DictionariesService dictionariesService;
+    @Autowired
+    private TravelService travelService;
 
     /**
      * 获取报价详细信息（wuyongfei）
@@ -82,6 +84,8 @@ public class OfferController {
             List<Dictionaries> dictionariesList=dictionariesService.listDictionaries("DIET");
             //查询所有车队类型
             List<Dictionaries> dictionariesList2=dictionariesService.listDictionaries("VEHICLE");
+            //查询组团社信息
+            List<Travel> travels=travelService.listAllTravels();
             List list=new ArrayList();
             list.add(linetemplates);
             list.add(templates);
@@ -89,6 +93,7 @@ public class OfferController {
             list.add(hotelList);
             list.add(dictionariesList);
             list.add(dictionariesList2);
+            list.add(travels);
             return ReponseResult.ok(list,"获取报价页面初始信息成功！");
         } catch (Exception e) {
             logger.error(" method:updateHotel  获取线路失败，系统出现异常！");

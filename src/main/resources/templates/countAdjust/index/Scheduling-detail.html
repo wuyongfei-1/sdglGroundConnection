@@ -18,13 +18,7 @@
                 <tr>
                     <td><label class="layui-form-label">组团社名称</label></td>
                     <td>
-                        <select name="city" lay-verify="required">
-                            <option value=""></option>
-                            <option value="0">哈红祖</option>
-                            <option value="1">无敌组</option>
-                            <option value="2">哈皮组</option>
-                            <option value="3">66组</option>
-                            <option value="4">纪检组</option>
+                        <select id="zutuanshe" name="city" lay-verify="required">
                         </select>
                     </td>
                     <td><label class="layui-form-label">人数</label></td>
@@ -226,6 +220,7 @@
     var wucan = "<option value=''>请选择</option>";
     var xianluinfo = "<option value=''>请选择</option>";
     var chedui = "<option value=''>请选择</option>";
+    var zutuanshe = "<option value=''>请选择</option>";
     function chengZhong(zhege) {
         $.ajax({
             url: "/offer/listAllByLineId?lineId=" + $(zhege).val() + "",
@@ -469,6 +464,7 @@
 
     showInfo();
     $("#yongche").html(chedui);
+    $("#zutuanshe").html(zutuanshe);
     $("#zongxianlu").html(zongxinalu)
 
     function showInfo2(zhege){
@@ -510,6 +506,9 @@
                 })
                 $.each(data.data[5], function (i, e) {
                     chedui += "<option value='" + e.dictionariesId + "' costPrice='"+e.valueContent2+"' offer='"+e.valueContent3+"'>" + e.valueContent1 + "</option>";
+                })
+                $.each(data.data[6], function (i, e) {
+                    zutuanshe += "<option value='" + e.travelId + "'>" + e.travelName + "</option>";
                 })
                 $($(zhege).parent().parent().parent().find("[spot='jingdian']")).html(jingdian);
                 $($(zhege).parent().parent().parent().find("[hotel='jiudian']")).html(jiudian)
@@ -562,6 +561,9 @@
                 $.each(data.data[5], function (i, e) {
                     chedui += "<option value='" + e.dictionariesId + "' costPrice='"+e.valueContent2+"' offer='"+e.valueContent3+"'>" + e.valueContent1 + "</option>";
                 })
+                $.each(data.data[6], function (i, e) {
+                    zutuanshe += "<option value='" + e.travelId + "'>" + e.travelName + "</option>";
+                })
                 $("[xl='xianlu']").html(xianluinfo);
                 $("[spot='jingdian']").html(jingdian);
                 $("[hotel='jiudian']").html(jiudian)
@@ -571,6 +573,15 @@
                 alert(123);
             }
         })
+    }
+
+    //报价按钮单击事件
+    $("#baocun").click(function () {
+        alert(123);
+    })
+    //新增报价信息
+    function insertOffer() {
+
     }
 </script>
 <script type="text/javascript">

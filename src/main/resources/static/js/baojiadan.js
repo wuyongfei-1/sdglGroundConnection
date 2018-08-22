@@ -9,9 +9,6 @@ function qiehuan(dd){
     $(a).slideToggle();
 
 }
-function tankuang(canshu) {
-	alert(canshu);
-}
 function xianlu(obj){
     var text=$(obj).html();
     if(text=="自行填写"){
@@ -40,18 +37,7 @@ function shanchu(aa){
     var a=$(aa).parent();
     a.remove();
 }
-// var jingdian;
-// var jiudian;
-// var wancan;
-// var wucan;
-// var xianluinfo;
-// function fuzhu(one,two,three,four,five){
-// 	jingdian=one;
-//     jiudian=two;
-// 	wancan=three;
-// 	wucan=four;
-// 	xianluinfo=five;
-// }
+
 function insertJingdian(onClickjd) {
         $(onClickjd).parent().parent().next().after("<tr id=\"scenic\">\n" +
             "                            <td><label class=\"layui-form-label\">景点</label></td>\n" +
@@ -65,7 +51,7 @@ function insertJingdian(onClickjd) {
             "                            <td><label class=\"layui-form-label\">报价:</label></td>\n" +
             "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
             "<td style='bottom: 0px;'><label class='layui-form-label' onclick='san(this)'>×</label></td>"+
-            "                        </tr>");
+            "</tr>");
     layui.use(['form', 'layedit', 'laydate','element'], function() {
         var form = layui.form,
             layer = layui.layer,
@@ -200,7 +186,6 @@ function insertJingdian(onClickjd) {
 				b.remove();
 				var f = "<button class='layui-btn layui-btn-normal layui-btn-radius' onclick='addss()' id='add'>十</button>";
 				$("#zong").append(f);
-
 			}
 function showInfo3() {
     zongxinalu = "<option value='-1'>请选择</option>";
@@ -267,4 +252,3 @@ function addjd(obj){
 function deljd(obj){
     $(obj).prev().text("");
 }
-

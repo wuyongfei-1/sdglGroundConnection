@@ -34,13 +34,20 @@ public interface LinetemplatethirdService {
     Integer insertLinetemplatethirdInfo(Linetemplatethird linetemplatethird) throws Exception;
 
     /**
-     * 根据总线路表编号和模板编号删除第三方表信息（给总线路模板删除模板） （wangtao）
+     * 根据第三方表编号删除第三方表信息（给总线路模板删除模板） （wangtao）
      * @param linetemplatethirdId 第三方表信息参数对象
      * @return 返回受影响行数
      * @throws Exception
      */
     Integer deleteLinetemplatethirdInfo(Integer linetemplatethirdId) throws Exception;
 
+    /**
+     * 根据模板编号删除第三方表信息
+     * @param templateId 模板编号
+     * @return 返回受影响行数
+     * @throws Exception
+     */
+    Integer deleteLinetemplatethirdInfoByTemplateId(Integer templateId)throws Exception;
 
     /**
      * 获取权重 （wangtao）

@@ -192,63 +192,63 @@ public class DisshoppExample {
             return (Criteria) this;
         }
 
-        public Criteria andScenicspotidIsNull() {
-            addCriterion("scenicSpotId is null");
+        public Criteria andShoppingidIsNull() {
+            addCriterion("shoppingId is null");
             return (Criteria) this;
         }
 
-        public Criteria andScenicspotidIsNotNull() {
-            addCriterion("scenicSpotId is not null");
+        public Criteria andShoppingidIsNotNull() {
+            addCriterion("shoppingId is not null");
             return (Criteria) this;
         }
 
-        public Criteria andScenicspotidEqualTo(Integer value) {
-            addCriterion("scenicSpotId =", value, "scenicspotid");
+        public Criteria andShoppingidEqualTo(Integer value) {
+            addCriterion("shoppingId =", value, "shoppingid");
             return (Criteria) this;
         }
 
-        public Criteria andScenicspotidNotEqualTo(Integer value) {
-            addCriterion("scenicSpotId <>", value, "scenicspotid");
+        public Criteria andShoppingidNotEqualTo(Integer value) {
+            addCriterion("shoppingId <>", value, "shoppingid");
             return (Criteria) this;
         }
 
-        public Criteria andScenicspotidGreaterThan(Integer value) {
-            addCriterion("scenicSpotId >", value, "scenicspotid");
+        public Criteria andShoppingidGreaterThan(Integer value) {
+            addCriterion("shoppingId >", value, "shoppingid");
             return (Criteria) this;
         }
 
-        public Criteria andScenicspotidGreaterThanOrEqualTo(Integer value) {
-            addCriterion("scenicSpotId >=", value, "scenicspotid");
+        public Criteria andShoppingidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("shoppingId >=", value, "shoppingid");
             return (Criteria) this;
         }
 
-        public Criteria andScenicspotidLessThan(Integer value) {
-            addCriterion("scenicSpotId <", value, "scenicspotid");
+        public Criteria andShoppingidLessThan(Integer value) {
+            addCriterion("shoppingId <", value, "shoppingid");
             return (Criteria) this;
         }
 
-        public Criteria andScenicspotidLessThanOrEqualTo(Integer value) {
-            addCriterion("scenicSpotId <=", value, "scenicspotid");
+        public Criteria andShoppingidLessThanOrEqualTo(Integer value) {
+            addCriterion("shoppingId <=", value, "shoppingid");
             return (Criteria) this;
         }
 
-        public Criteria andScenicspotidIn(List<Integer> values) {
-            addCriterion("scenicSpotId in", values, "scenicspotid");
+        public Criteria andShoppingidIn(List<Integer> values) {
+            addCriterion("shoppingId in", values, "shoppingid");
             return (Criteria) this;
         }
 
-        public Criteria andScenicspotidNotIn(List<Integer> values) {
-            addCriterion("scenicSpotId not in", values, "scenicspotid");
+        public Criteria andShoppingidNotIn(List<Integer> values) {
+            addCriterion("shoppingId not in", values, "shoppingid");
             return (Criteria) this;
         }
 
-        public Criteria andScenicspotidBetween(Integer value1, Integer value2) {
-            addCriterion("scenicSpotId between", value1, value2, "scenicspotid");
+        public Criteria andShoppingidBetween(Integer value1, Integer value2) {
+            addCriterion("shoppingId between", value1, value2, "shoppingid");
             return (Criteria) this;
         }
 
-        public Criteria andScenicspotidNotBetween(Integer value1, Integer value2) {
-            addCriterion("scenicSpotId not between", value1, value2, "scenicspotid");
+        public Criteria andShoppingidNotBetween(Integer value1, Integer value2) {
+            addCriterion("shoppingId not between", value1, value2, "shoppingid");
             return (Criteria) this;
         }
 

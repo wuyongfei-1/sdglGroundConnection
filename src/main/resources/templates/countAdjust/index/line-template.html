@@ -13,23 +13,25 @@
                 <button class='layui-btn layui-btn-small layui-btn-normal add-btn' id='insert' type='button'><i class='layui-icon'>&#xe654;</i></button>
             </div>
             <div class="layui-inline">
-                <input type="text" id="jiuN" name="tempname" placeholder="请输入模板名称" autocomplete="off" class="layui-input">
+                <input type="text" id="templateName" name="templateName" placeholder="请输入模板名称" autocomplete="off" class="layui-input">
             </div>
-            <input type="button" class="layui-btn layui-btn-normal" lay-submit="search" value="搜索" onclick="loadData(1)">
+            <input type="button" class="layui-btn layui-btn-normal" lay-submit="search" value="搜索" onclick="getInfo()">
         </div>
     <div id="table-list">
         <table class="layui-table" lay-skin="line">
             <thead>
             <tr>
+                <th></th>
                 <th class="">序号</th>
                 <th class="">模板名称</th>
                 <th class="">行程内容</th>
                 <th class="">创建人</th>
                 <th class="">创建时间</th>
+                <th>查看</th>
                 <th>操作</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody id="Info">
 
             </tbody>
         </table>
@@ -43,56 +45,68 @@
 <script src="/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
 <script>
 
-    var limitcount = 2; // 每页总记录数
+    var limitcount = 6; // 每页总记录数
     var curnum = 1;  // 当前页码
 
-    function loadData(refresh) {
-        //判断是搜索还是点击页数的回调 如果是搜索默认显示第一页
-        if(refresh==1){
-            curnum=1;
-        }
-        var str = "";
-        var tempname=$("input[name=tempname]").val();
-        var username=$("input[name=username]").val();
-        $.ajax({
-            url: "/Template/listTemplate",
-            data: {pageNo:curnum,pageSize:limitcount,tempName:tempname,username:username},
-            dataType: "json",
-            type: "get",
-            success: function (e) {
-                // 分页插件
-                layui.use('table', function () {
-                    var laypage = layui.laypage;
-                    laypage.render({
-                        elem: 'laypage'
-                        , count: e.count
-                        , curr: curnum
-                        , limit: 2
-                        , layout: ['prev', 'page', 'next', 'skip', 'count']
-                        , jump: function (obj, first) {
-                            if (!first) {
-                                //obj包含了当前分页的所有参数，比如：
-                                curnum = obj.curr; // 当前页面
-                                // 查询新数据
-                                loadData(0);
-                            }
+    getInfo();
+
+    //ajax获取模板列表分页按条件查
+    function getInfo(){
+        var templateName=$("#templateName").val();
+        $.post("/template/listTemplateByConditions","templateName="+templateName+"&page="+curnum+"&limit="+limitcount,function (data) {
+            var content="";
+            $.each(data.data,function (i,e) {
+                  content+="<tr id='node-1' class=\"parent collapsed\">" +
+                                  "<td></td>" +
+                                  "<td class=\"\">"+(i+1)+"</td>" +
+                                  "<td class=\"\">"+e.templateName+"</td>" +
+                                  "<td class=\"\">"+e.templateContent+"</td>" +
+                                  "<td class=\"\">"+e.staff.staffname+"</td>" +
+                                  "<td class=\"\">"+e.creationDate+"</td>" +
+                                  "<td class=\"\"><button type='button' value='"+e.templateId+"'class=\"layui-btn layui-btn-mini layui-btn-normal \" id='showInfo'>显示详情</button></td>" +
+                                  "<td>" +
+                                  "<div class=\"layui-inline\">" +
+                                  "<button type='button' value='"+e.templateId+"' id='updateInfo' class=\"layui-btn layui-btn-mini layui-btn-normal  edit-btn\" data-id=\"1\" data-url=\"spot-add.html\"><i class=\"layui-icon\">&#xe642;</i></button>" +
+                                  "<button type='button' value='"+e.templateId+"' id='deleteInfo' class=\"layui-btn layui-btn-mini layui-btn-danger del-btn\" data-id=\"1\" data-url=\"spot-add.html\"><i class=\"layui-icon\">&#xe640;</i></button>" +
+                                  "</div>" +
+                                  "</td>" +
+                          "</tr>";
+            });
+            $("#Info").html(content);
+            layui.use('table', function () {
+                var laypage = layui.laypage;
+                laypage.render({
+                    elem: 'laypage'
+                    , count: data.count
+                    , curr: curnum
+                    , limit: 6
+                    , layout: ['prev', 'page', 'next', 'skip', 'count']
+                    , jump: function (obj, first) {
+                        if (!first) {
+                            //obj包含了当前分页的所有参数，比如：
+                            curnum = obj.curr; // 当前页面
+                            limitcount = obj.limit; // 每页记录数
+                            // 查询新数据
+                            getInfo();
                         }
-                    })
+                    }
                 })
-                var xu=(curnum-1)*limitcount+1;
-                $(e.data).each(function (i, result) {
-                    str+="<tr><td>"+xu+"</td><td>"+result.templateName+"</td><td>"+result.templateContent+"</td><td>"+result.staff.theUserName+"</td><td>"+result.creationDate+"</td><td><button id='update' type='button' value='\" + result.restaurantId + \"' class='layui-btn layui-btn-small layui-btn-normal go-btn'><i class='layui-icon'>&#xe642;</i></button><button class='layui-btn layui-btn-small layui-btn-danger del-btn' data-id='1' data-url='article-detail.html'><i class='layui-icon' onclick=''>&#xe640;</i></button></td></tr>";
-                    xu++;
-                })
-                $('tbody').html(str);
-            },
-            error: function (res) {
-                alert(res);
-            }
-        })
+            })
+        },"json");
     }
+
     $(function(){
-        loadData(0);
+        $(document).on("click","#showInfo",function () {
+            var id = $(this).val();
+            layer.open({
+                type: 2,
+                title: '展示模板信息',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area : ['800px' , '700px'],
+                content:'showTemplate.html?templateid='+id
+            });
+        });
         $(document).on("click","#insert",function () {
             layer.open({
                 type: 2,
@@ -103,17 +117,33 @@
                 content: 'savetemplate.html'
             });
         })
-        $(document).on("click","#update",function () {
+        $(document).on("click","#updateInfo",function () {
             var id=$(this).val();
             layer.open({
                 type: 2,
                 title: '修改线路模板',
                 maxmin: true,
                 shadeClose: true, //点击遮罩关闭层
-                area : ['800px' , '520px'],
-                content: 'Restaurant-add.html?restaurantId='+id
+                area : ['900px' , '700px'],
+                content: 'savetemplate1.html?templateId='+id
             });
         })
+        $(document).on("click","#deleteInfo",function () {
+            var con=confirm("确认删除么?删除模板会删除该模板所有引用！");
+            if(con==true){
+                var id = $(this).val();
+                $.post("/template/deleteTemplateByTemplateId","templateId="+id,function (data) {
+                    if(data.data>0){
+                        alert("删除成功！");
+                        getInfo();
+                    }else{
+                        alert("删除失败！");
+                    }
+                },"json");
+            }else{
+                alert("取消操作！");
+            }
+        });
     });
     function like(){
         var iWidth=650; //弹出窗口的宽度;

@@ -535,6 +535,16 @@ public class EnterCountAdjustPageController {
     }
 
     /**
+     * 进入savetemplate.html页面
+     * @return
+     */
+    @RequestMapping("/savetemplate1.html")
+    public String saveTemplate1(@RequestParam("templateId")Integer templateId,HttpServletRequest request){
+        request.setAttribute("templateId",templateId);
+        return "countAdjust/index/savetemplate";
+    }
+
+    /**
      * 进入line-template.html页面
      * @return
      */

@@ -15,8 +15,8 @@ public class Disshopp {
     @Id
     @Column(name = "disShoppId")
     private int disShoppId; // 调度购物id
-    @Column(name = "scenicSpotId")
-    private Integer scenicSpotId; // 购物编号（外键，与景点表关联）
+    @Column(name = "shoppingId")
+    private Integer shoppingId; // 购物地点编号（外键，与购物地点表关联）
     @Column(name = "offerId")
     private Integer offerId; // 调度信息编号（外键，与报价信息表关联）
     @Column(name = "weight")
@@ -47,15 +47,6 @@ public class Disshopp {
         this.disShoppId = disShoppId;
     }
 
-    @Basic
-    @Column(name = "scenicSpotId")
-    public Integer getScenicSpotId() {
-        return scenicSpotId;
-    }
-
-    public void setScenicSpotId(Integer scenicSpotId) {
-        this.scenicSpotId = scenicSpotId;
-    }
 
     @Basic
     @Column(name = "offerId")
@@ -157,28 +148,21 @@ public class Disshopp {
         this.value3 = value3;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Disshopp disshopp = (Disshopp) o;
-        return disShoppId == disshopp.disShoppId &&
-                Objects.equals(scenicSpotId, disshopp.scenicSpotId) &&
-                Objects.equals(offerId, disshopp.offerId) &&
-                Objects.equals(date, disshopp.date) &&
-                Objects.equals(status, disshopp.status) &&
-                Objects.equals(createBy, disshopp.createBy) &&
-                Objects.equals(updateBy, disshopp.updateBy) &&
-                Objects.equals(upDate, disshopp.upDate) &&
-                Objects.equals(createDate, disshopp.createDate) &&
-                Objects.equals(value1, disshopp.value1) &&
-                Objects.equals(value2, disshopp.value2) &&
-                Objects.equals(value3, disshopp.value3);
+
+
+    public Integer getShoppingId() {
+        return shoppingId;
     }
 
-    @Override
-    public int hashCode() {
+    public void setShoppingId(Integer shoppingId) {
+        this.shoppingId = shoppingId;
+    }
 
-        return Objects.hash(disShoppId, scenicSpotId, offerId, date, status, createBy, updateBy, upDate, createDate, value1, value2, value3);
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
     }
 }

@@ -114,6 +114,14 @@ public class TemplateServiceImpl implements TemplateService {
         return pageInfo;
     }
 
+    @Override
+    public Template listTemplateByTemplateId(Integer templateId) throws Exception {
+        Template template=templateMapper.selectByPrimaryKey(templateId);
+        template.setTemplateHotel(templateHotelService.getTemplateHotelInfoByTemplateId(template.getTemplateId()));
+        template.setTemplateScenicspotList(templateScenicspotService.listTemplateScenicspotByTemplateId(template.getTemplateId()));
+        return template;
+    }
+
     /**
      * 根据模板编号查询模板信息 （wangtao）
      * @param templateId 模板编号

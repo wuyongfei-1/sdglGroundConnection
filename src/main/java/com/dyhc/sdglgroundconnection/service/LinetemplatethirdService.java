@@ -48,4 +48,8 @@ public interface LinetemplatethirdService {
      * @return 返回权重
      */
     Integer getWeight(Integer lineId)throws Exception;
+    /**
+     * 查询全部线路（dubingkun）
+     */
+    List<Linetemplatethird> listLinetemplatethird();
 }

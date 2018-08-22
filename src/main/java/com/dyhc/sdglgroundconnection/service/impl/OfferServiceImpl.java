@@ -90,8 +90,8 @@ public class OfferServiceImpl implements OfferService {
         Date day = new Date();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         //System.out.println(df.format(day));
-
-        int a = offerMapper.insert(offerParam.getOffer());
+        Offer offer=offerParam.getOffer();
+        int a = offerMapper.insert(offer);
 
         //用车
         if (listOffercar != null) {

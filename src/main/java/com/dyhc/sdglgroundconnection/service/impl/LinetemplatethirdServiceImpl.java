@@ -94,5 +94,10 @@ public class LinetemplatethirdServiceImpl implements LinetemplatethirdService {
         return weight;
     }
 
+    @Override
+    public List<Linetemplatethird> listLinetemplatethird() {
+        return linetemplatethirdMapper.selectAll();
+    }
+
 
 }

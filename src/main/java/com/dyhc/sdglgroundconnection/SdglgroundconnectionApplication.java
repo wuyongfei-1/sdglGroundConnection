@@ -10,4 +10,5 @@ public class SdglgroundconnectionApplication {
     public static void main(String[] args) {
         SpringApplication.run(SdglgroundconnectionApplication.class, args);
     }
+
 }

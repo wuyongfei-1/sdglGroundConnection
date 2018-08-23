@@ -79,6 +79,20 @@ public class LinetemplatethirdServiceImpl implements LinetemplatethirdService {
     }
 
     /**
+     * 根据模板编号删除第三方表信息
+     * @param templateId 模板编号
+     * @return 返回受影响行数
+     * @throws Exception
+     */
+    @Override
+    public Integer deleteLinetemplatethirdInfoByTemplateId(Integer templateId) throws Exception {
+        LinetemplatethirdExample linetemplatethirdExample=new LinetemplatethirdExample();
+        LinetemplatethirdExample.Criteria criteria=linetemplatethirdExample.createCriteria();
+        criteria.andTemplateidEqualTo(templateId);
+        return linetemplatethirdMapper.deleteByExample(linetemplatethirdExample);
+    }
+
+    /**
      * 获取当前权重 （wangtao）
      * @param lineId 模板编号
      * @return 返回当前权重
@@ -92,6 +106,11 @@ public class LinetemplatethirdServiceImpl implements LinetemplatethirdService {
             weight=weight+1;
         }
         return weight;
+    }
+
+    @Override
+    public List<Linetemplatethird> listLinetemplatethird() {
+        return linetemplatethirdMapper.selectAll();
     }
 
 

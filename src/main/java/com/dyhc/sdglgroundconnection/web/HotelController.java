@@ -66,6 +66,10 @@ public class HotelController {
         }
     }
 
+    /**
+     * 获取全部酒店信息 （wangtao）
+     * @return 返回ReponseResult集合
+     */
     @RequestMapping("/listAllHotel")
     public ReponseResult listAllHotel(){
         try {
@@ -329,7 +333,7 @@ public class HotelController {
      * id查询
      */
     @RequestMapping("/selectHotelById")
-    public ReponseResult selectHotelById(int id){
+    public ReponseResult selectHotelById(@RequestParam("id") Integer id){
         try {
             Hotel result=hotelService.selectHotelById(id);
             ReponseResult<Hotel> date;

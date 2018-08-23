@@ -17,8 +17,10 @@ public class VehicleType {
     private int typeId; // 类型编号
     @Column(name = "carRentalId")
     private Integer carRentalId; // 公司编号（外键，与租赁公司表关联）
-    @Column(name = "typeName")
-    private String typeName; // 类型名称
+    @Column(name = "typeCode")
+    private String typeCode; // 类型名称
+    @Column(name = "valueId")
+    private Integer valueId; // 类型编号
     private Integer passengervolume; // 载客量
     private Integer costprice; // 成本价
     private Integer offer; // 报价
@@ -58,15 +60,6 @@ public class VehicleType {
         this.carRentalId = carRentalId;
     }
 
-    @Basic
-    @Column(name = "typeName")
-    public String getTypeName() {
-        return typeName;
-    }
-
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
-    }
 
     @Basic
     @Column(name = "passengervolume")
@@ -178,30 +171,19 @@ public class VehicleType {
         this.value3 = value3;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        VehicleType that = (VehicleType) o;
-        return typeId == that.typeId &&
-                Objects.equals(carRentalId, that.carRentalId) &&
-                Objects.equals(typeName, that.typeName) &&
-                Objects.equals(passengervolume, that.passengervolume) &&
-                Objects.equals(costprice, that.costprice) &&
-                Objects.equals(offer, that.offer) &&
-                Objects.equals(whetherDel, that.whetherDel) &&
-                Objects.equals(createBy, that.createBy) &&
-                Objects.equals(updateBy, that.updateBy) &&
-                Objects.equals(updateDate, that.updateDate) &&
-                Objects.equals(createDate, that.createDate) &&
-                Objects.equals(value1, that.value1) &&
-                Objects.equals(value2, that.value2) &&
-                Objects.equals(value3, that.value3);
+    public String getTypeCode() {
+        return typeCode;
     }
 
-    @Override
-    public int hashCode() {
+    public void setTypeCode(String typeCode) {
+        this.typeCode = typeCode;
+    }
 
-        return Objects.hash(typeId, carRentalId, typeName, passengervolume, costprice, offer, whetherDel, createBy, updateBy, updateDate, createDate, value1, value2, value3);
+    public Integer getValueId() {
+        return valueId;
+    }
+
+    public void setValueId(Integer valueId) {
+        this.valueId = valueId;
     }
 }

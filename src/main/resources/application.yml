@@ -32,6 +32,13 @@ spring:
     spring.datasource.filters: stat,wall,log4j
     # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+  activemq:
+    broker-url: tcp://127.0.0.1:61616
+    user: admin
+    password: admin
+    pool:
+      enabled: false
+    in-memory: true
 
 # mybatis配置
 mybatis:
@@ -60,3 +67,6 @@ file:
   windowsUploadFolder: D://uploadFiles/  # windows文件上传目录
   linuxUploadFolder: /root/uploadFiles/  # linux文件上传目录
 
+
+jms:
+  destination: test

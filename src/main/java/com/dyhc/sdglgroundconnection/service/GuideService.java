@@ -10,8 +10,19 @@ import org.springframework.stereotype.Component;
  * 导游业务接口
  **/
 public interface GuideService {
+
+    /**
+     * 导游登陆（wuyongfei）
+     *
+     * @param username 用户名
+     * @return 导游对象
+     * @throws Exception 全局异常
+     */
+    Guide login(String username) throws Exception;
+
     /**
      * 导游名字查询（yunguohao）
+     *
      * @param pageNo
      * @param PageSize
      * @return
@@ -23,10 +34,12 @@ public interface GuideService {
      * 增加（yunguohao）
      */
     int insertGuide(Guide guide);
+
     /**
      * 修改（yunguohao）
      */
     int updateGuide(Guide guide);
+
     /**
      * 删除（yunguohao）
      */
@@ -34,6 +47,7 @@ public interface GuideService {
 
     /**
      * id查询（yunguohao）
+     *
      * @param id
      * @return
      */

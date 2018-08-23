@@ -735,73 +735,73 @@ public class OfferExample {
             return (Criteria) this;
         }
 
-        public Criteria andNotIsNull() {
-            addCriterion("not is null");
+        public Criteria andNotexcludeIsNull() {
+            addCriterion("notExclude is null");
             return (Criteria) this;
         }
 
-        public Criteria andNotIsNotNull() {
-            addCriterion("not is not null");
+        public Criteria andNotexcludeIsNotNull() {
+            addCriterion("notExclude is not null");
             return (Criteria) this;
         }
 
-        public Criteria andNotEqualTo(String value) {
-            addCriterion("not =", value, "not");
+        public Criteria andNotexcludeEqualTo(String value) {
+            addCriterion("notExclude =", value, "notexclude");
             return (Criteria) this;
         }
 
-        public Criteria andNotNotEqualTo(String value) {
-            addCriterion("not <>", value, "not");
+        public Criteria andNotexcludeNotEqualTo(String value) {
+            addCriterion("notExclude <>", value, "notexclude");
             return (Criteria) this;
         }
 
-        public Criteria andNotGreaterThan(String value) {
-            addCriterion("not >", value, "not");
+        public Criteria andNotexcludeGreaterThan(String value) {
+            addCriterion("notExclude >", value, "notexclude");
             return (Criteria) this;
         }
 
-        public Criteria andNotGreaterThanOrEqualTo(String value) {
-            addCriterion("not >=", value, "not");
+        public Criteria andNotexcludeGreaterThanOrEqualTo(String value) {
+            addCriterion("notExclude >=", value, "notexclude");
             return (Criteria) this;
         }
 
-        public Criteria andNotLessThan(String value) {
-            addCriterion("not <", value, "not");
+        public Criteria andNotexcludeLessThan(String value) {
+            addCriterion("notExclude <", value, "notexclude");
             return (Criteria) this;
         }
 
-        public Criteria andNotLessThanOrEqualTo(String value) {
-            addCriterion("not <=", value, "not");
+        public Criteria andNotexcludeLessThanOrEqualTo(String value) {
+            addCriterion("notExclude <=", value, "notexclude");
             return (Criteria) this;
         }
 
-        public Criteria andNotLike(String value) {
-            addCriterion("not like", value, "not");
+        public Criteria andNotexcludeLike(String value) {
+            addCriterion("notExclude like", value, "notexclude");
             return (Criteria) this;
         }
 
-        public Criteria andNotNotLike(String value) {
-            addCriterion("not not like", value, "not");
+        public Criteria andNotexcludeNotLike(String value) {
+            addCriterion("notExclude not like", value, "notexclude");
             return (Criteria) this;
         }
 
-        public Criteria andNotIn(List<String> values) {
-            addCriterion("not in", values, "not");
+        public Criteria andNotexcludeIn(List<String> values) {
+            addCriterion("notExclude in", values, "notexclude");
             return (Criteria) this;
         }
 
-        public Criteria andNotNotIn(List<String> values) {
-            addCriterion("not not in", values, "not");
+        public Criteria andNotexcludeNotIn(List<String> values) {
+            addCriterion("notExclude not in", values, "notexclude");
             return (Criteria) this;
         }
 
-        public Criteria andNotBetween(String value1, String value2) {
-            addCriterion("not between", value1, value2, "not");
+        public Criteria andNotexcludeBetween(String value1, String value2) {
+            addCriterion("notExclude between", value1, value2, "notexclude");
             return (Criteria) this;
         }
 
-        public Criteria andNotNotBetween(String value1, String value2) {
-            addCriterion("not not between", value1, value2, "not");
+        public Criteria andNotexcludeNotBetween(String value1, String value2) {
+            addCriterion("notExclude not between", value1, value2, "notexclude");
             return (Criteria) this;
         }
 

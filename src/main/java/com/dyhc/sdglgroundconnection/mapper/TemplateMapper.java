@@ -11,4 +11,10 @@ import org.springframework.stereotype.Component;
 @Mapper
 @Component
 public interface TemplateMapper  extends CommonMapper<Template>{
+
+    /**
+     * 查询当前最大编号 （wangtao）
+     * @return
+     */
+    Integer selectMaxId() throws Exception;
 }

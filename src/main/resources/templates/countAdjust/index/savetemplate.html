@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -11,34 +11,33 @@
     <form class="layui-form layui-form-pane" action="">
         <table border="0" cellspacing="0" cellpadding="0">
             <tr>
-                <td><label class="layui-form-label">线路</label></td>
+                <td><label class="layui-form-label">模板名</label><input type="hidden" id="templateId" th:value="${templateId}"><input type="hidden" id="templateHotelId" value=""></td>
                 <td>
-                    <input type="text" class="layui-input">
+                    <input type="text" class="layui-input" id="templateName">
                 </td>
             </tr>
-
             <tr>
                 <td><label class="layui-form-label">酒店</label></td>
                 <td>
-                    <select name="jiudian" lay-verify="required" lay-filter="abc" >
+                    <select name="hotelId" id="hotelId" lay-verify="required" lay-ignore style="width: 200px;height: 40px" onchange="gethotel()" >
 
                     </select>
                 </td>
                 <td><label class="layui-form-label">成本价</label></td>
-                <td><input type="text" class="layui-input"></td>
+                <td><input type="text" class="layui-input" id="costPrice"></td>
                 <td><label class="layui-form-label">报价</label></td>
-                <td><input type="text" class="layui-input"></td>
+                <td><input type="text" class="layui-input" id="offer"></td>
             </tr>
-            <tr>
+            <tr id="hotelinfo">
                 <td colspan="2">
-                    <input type="image" style="width: 150px;height: 120px;margin: 8px;" id="tupian" src="/images/face/jiudian.jpg"/>
-                    <div style="margin-left: 8px;" id="xingji">
+                    <input type="image" style="width: 150px;height: 120px;margin: 8px;" id="picturePath" src=""/>
+                    <div style="margin-left: 8px;">
 
                     </div>
                 </td>
                 <td style="margin:8px;" colspan="4" >
-                    <span style="font-size: 16px;font-weight:bold">中华酒店</span>
-                    <p>中华酒店起源于吊亮酒店，必须成功样式要好看今天必须做完，中华酒店起源于吊<br/>亮酒店，必须成功样式要好看今天必须做完，吊亮酒店，必须成功样式要好看今天必须做完</p>
+                    <span style="font-size: 16px;font-weight:bold" id="hotelName">中华酒店</span>
+                    <p id="hotelDescribe">中华酒店起源于吊亮酒店，必须成功样式要好看今天必须做完，中华酒店起源于吊<br/>亮酒店，必须成功样式要好看今天必须做完，吊亮酒店，必须成功样式要好看今天必须做完</p>
                 </td>
             </tr>
 
@@ -47,27 +46,26 @@
                 <td colspan="2"><button class="layui-btn" type="button" style="font-size: 12px" onclick="insertJingdian(this)">添加景点+</button></td>
             </tr>
             <!--点击新增结束-->
-            <tr id="scenic">
+            <tr id="scenic0">
                 <td><label class="layui-form-label">景点</label></td>
                 <td>
-                    <select  name="jingdian" lay-verify="required" >
+                    <select  name="scenicSpotIds" id="scenicSpotId" lay-verify="required" lay-ignore style="width: 200px;height: 40px" onchange="getScenicspot(this)">
 
                     </select>
                 </td>
                 <td><label class="layui-form-label">成本价:</label></td>
-                <td><input type="text" class="layui-input"></td>
+                <td><input type="text" name="scostPrices" class="layui-input" id="scostPrice" value=""></td>
                 <td><label class="layui-form-label">报价:</label></td>
-                <td><input type="text" class="layui-input"></td>
+                <td><input type="text" name="soffers" class="layui-input" id="soffer" value=""></td>
             </tr>
             <tr>
                 <td><label class="layui-form-label">行程</label></td>
-                <td colspan="5"> <textarea placeholder="请输入内容" class="layui-textarea" name="desc"></textarea></td>
+                <td colspan="5"> <textarea placeholder="请输入内容" class="layui-textarea" name="desc" id="templateContent"></textarea></td>
             </tr>
             <tr>
                 <td></td>
                 <td></td>
-                <td><button class="layui-btn layui-btn-radius">保存</button></td>
-                <td><button class="layui-btn layui-btn-radius">取消</button></td>
+                <td><button type="button" class="layui-btn layui-btn-radius" id="save">保存</button></td>
             </tr>
         </table>
     </form>
@@ -77,9 +75,122 @@
 <script type="text/javascript" src="/js/baojiadan.js"></script>
 <script type="text/javascript">
     $(function() {
-        LodingResouce();
+        $("#hotelinfo").hide();
+        gethotelScenicspotInfo();
+        var templateId=$("#templateId").val();
+        if(templateId>0){
+            getTemplateInfo(templateId);
+        }
     });
 
+    var count=0;
+    function  san(dang){
+        $(dang).parent().parent().remove();
+        count--;
+    }
+
+    $(document).on("click","#save",function () {
+        var id=$("#templateId").val();
+        if(id>0){
+            updateInfo();
+        }else{
+            insertInfo();
+        }
+
+    });
+    function getTemplateInfo(templateId) {
+        $.post("/template/getTemplateByTemplateId","templateId="+templateId,function (data) {
+            $("#hotelinfo").show();
+            $("#templateName").val(data.data.templateName);
+            $("#templateContent").val(data.data.templateContent);
+            $("#hotelId").val(data.data.templateHotel.hotelId);
+            $("#costPrice").val(data.data.templateHotel.costPrice);
+            $("#offer").val(data.data.templateHotel.offer);
+            var path="/api/image/";
+            var path1=path+data.data.templateHotel.hotel.picturePath;
+            $("#picturePath").prop("src",path1);
+            $("#hotelName").text(data.data.templateHotel.hotel.hotelName);
+            $("#hotelDescribe").text(data.data.templateHotel.hotel.hotelDescribe);
+            $("#scenicSpotId").val(data.data.templateScenicspotList[0].scenicSpotId);
+            $("#scostPrice").val(data.data.templateScenicspotList[0].costPrice);
+            $("#soffer").val(data.data.templateScenicspotList[0].offer);
+            $("#templateHotelId").val(data.data.templateHotel.templateHotelId);
+            var num=0;
+            if(data.data.templateScenicspotList.length==2){
+                count=data.data.templateScenicspotList.length-1;
+            }
+            if(data.data.templateScenicspotList.length!=1){
+                var content1=$("select[name=scenicSpotIds]").html();
+                $.each(data.data.templateScenicspotList,function (i,e) {
+                    num++;
+                    if(i>0){
+                        var content="<tr id=\"scenic\">" +
+                            "<td><label class=\"layui-form-label\">景点</label></td>" +
+                            "<td>" +
+                            "<select  name=\"scenicSpotId\" id=\"scenicSpotId"+(i)+"\" lay-verify=\"required\" lay-ignore style=\"width: 200px;height: 40px\" onchange=\"getScenicspot(this)\">" +
+                            ""+content1+"</select>" +
+                            "</td>" +
+                            "<td><label class=\"layui-form-label\">成本价:</label></td>" +
+                            "<td><input type=\"text\" name='scostPrice' class=\"layui-input\" id=\"scostPrice"+(i)+"\" value=\""+e.costPrice+"\"></td>" +
+                            "<td><label class=\"layui-form-label\">报价:</label></td>" +
+                            "<td><input type=\"text\" name='soffer' class=\"layui-input\" id=\"soffer"+(i)+"\" value=\""+e.offer+"\"></td>" +
+                            "<td style='bottom: 0px;'><label class='layui-form-label' onclick='san(this)'>×</label></td>"+
+                            "</tr>";
+                        $("#scenic0").after(content);
+                        $("#scenicSpotId"+(i)+"").val(e.scenicSpotId);
+                        /*alert(content);
+                        alert($("#scenicSpotId"+(i+1)+"").val());
+                        alert("num="+num);
+                        alert("i="+i);
+                        alert("集合长度="+data.data.templateScenicspotList.length);*/
+                    }
+                    if(num==data.data.templateScenicspotList.length){
+                        return;
+                    }
+                });
+            }
+        },"json");
+    }
+
+    //下拉框chenga事件方法
+    function gethotel() {
+        var hotelId=$("#hotelId").val();
+        $.post("/hotel/selectHotelById","id="+hotelId,function (data) {
+            $("#hotelinfo").show();
+            $("#costPrice").val(data.data.costprice);
+            $("#offer").val(data.data.offer);
+            var path="/api/image/";
+            var path1=path+data.data.picturePath;
+            $("#picturePath").prop("src",path1);
+            $("#hotelName").text(data.data.hotelName);
+            $("#hotelDescribe").text(data.data.hotelDescribe);
+        },"json");
+    }
+    //获取景点信息
+    function getScenicspot(Scenicspot) {
+        var scenicSpotId=$(Scenicspot).val();
+        $.post("/scenicspot/getInfoById","scenicSpotId="+scenicSpotId,function (data) {
+            var cost=$(Scenicspot).parent().next().next().children("input").val(data.data.costprice);
+            var off=$(Scenicspot).parent().next().next().next().next().children("input").val(data.data.offer);
+        },"json");
+    }
+    //绑定所有酒店景点信息到下拉框中
+    function gethotelScenicspotInfo(){
+        $.post("/hotel/listAllHotel","",function (data) {
+            var hotels="<option value=\"0\">请选择酒店</option>";
+            $.each(data.data,function (i,e) {
+                hotels+="<option value=\""+e.hotelId+"\">"+e.hotelName+"</option>";
+            });
+            $("#hotelId").html(hotels);
+        },"json");
+        $.post("/scenicspot/ListScenicspotByParentId","",function (data) {
+            var scenicspots="<option value=\"0\">请选择景点</option>";
+            $.each(data.data,function (i,e) {
+                scenicspots+="<option value=\""+e.scenicSpotId+"\">"+e.scenicSpotName+"</option>";
+            });
+            $("#scenicSpotId").html(scenicspots);
+        },"json");
+    }
     layui.use(['form', 'layedit', 'laydate','element'], function() {
          var form = layui.form;
          layer = layui.layer;
@@ -87,9 +198,7 @@
          element=layui.element;
          laydate = layui.laydate;
 
-        form.on('select(abc)',function (data) {
-            alert(data.value);
-        });
+
 
         //日期
         laydate.render({
@@ -105,86 +214,133 @@
         form.render('select', 'test1');
         form.render('select');
     });
-
-    
-    /**
-     * 加载下拉框资源
-     * @constructor
-     */
-    function LodingResouce(){
-        $.ajax({
-            url: "/Template/getResource",
-            dataType: "json",
-            type: "get",
-            success:function (result) {
-                var jiudian="<option value='0'>--请选择--</option>";
-                var jingdian="<option value='0'>--请选择--</option>";
-                $(result.data["hotel"]).each(function (i,e) {
-                    jiudian+="<option value='"+e.hotelId+"'>"+e.hotelName+"</option>";
-                });
-                $(result.data["scenicspot"]).each(function (i,e) {
-                    jingdian+="<option value='"+e.scenicSpotId+"'>"+e.scenicSpotName+"</option>";
-                });
-                $("select[name=jingdian]").html(jingdian);
-                $("select[name=jiudian]").html(jiudian);
-            },
-            error:function (err) {
-                alert(err);
-            }
-
-        });
-    }
+    //添加景点
     function insertJingdian(onClickjd) {
-        var content=$("select[name=jingdian]").html();
-        $(onClickjd).parent().parent().next().after("<tr id='scenic'>"+
-            "<td><label class='layui-form-label'>景点</label></td>"+
-            "<td>"+
-            "<select name='jingdian' lay-verify='required'>"+content+"</select>"+
-            "</td>"+
-            "<td><label class='layui-form-label'>成本价:</label></td>"+
-            "<td><input type='text' class='layui-input'></td>"+
-            "<td><label class='layui-form-label'>报价:</label></td>"+
-            "<td><input type='text' class='layui-input'></td>"+
-            "<td style='bottom: 0px;'><label class='layui-form-label' onclick='san(this)'>×</label></td>"+
-            "</tr>");
-        layui.use(['form', 'layedit', 'laydate','element'], function() {
-            var form = layui.form,
-                layer = layui.layer,
-                layedit = layui.layedit,
-                element=layui.element,
-                laydate = layui.laydate,
-                a;
-            form.render(); //更新全部
-            form.render('select'); //刷新select选择框渲染
-        });
+        if(count<=3){
+            count++;
+            var content=$("select[name=scenicSpotIds]").html();
+            $(onClickjd).parent().parent().next().after("<tr id='scenic'>"+
+                "<td><label class='layui-form-label'>景点</label></td>"+
+                "<td>"+
+                "<select name='scenicSpotId' id='scenicSpotId"+count+"' lay-verify='required' lay-ignore style=\"width: 200px;height: 40px\" onchange=\"getScenicspot(this)\">"+content+"</select>"+
+                "</td>"+
+                "<td><label class='layui-form-label'>成本价:</label></td>"+
+                "<td><input type='text' name='scostPrice' class='layui-input' id='scostPrice"+count+"'></td>"+
+                "<td><label class='layui-form-label'>报价:</label></td>"+
+                "<td><input type='text' name='soffer' class='layui-input' id='soffer"+count+"'></td>"+
+                "<td style='bottom: 0px;'><label class='layui-form-label' onclick='san(this)'>×</label></td>"+
+                "</tr>");
+            layui.use(['form', 'layedit', 'laydate','element'], function() {
+                var form = layui.form,
+                    layer = layui.layer,
+                    layedit = layui.layedit,
+                    element=layui.element,
+                    laydate = layui.laydate,
+                    a;
+                form.render(); //更新全部
+                form.render('select'); //刷新select选择框渲染
+            });
+        }
     }
 
-    /**
-     * 根据Id查找指定的酒店信息
-     * @param id
-     */
-    function getHotelByid(id) {
+    function updateInfo() {
+        //模板对象
+        var template={};
+        //模板景点集合
+        var templateScenicspotList=[];
+        //模板酒店对象
+        var templateHotel={};
+        var templateScenicspot1={};
+        templateScenicspot1.scenicSpotId=$("select[name='scenicSpotIds']").val();
+        templateScenicspot1.costPrice=$("input[name='scostPrices']").val();
+        templateScenicspot1.offer=$("input[name='soffers']").val();
+        templateScenicspotList.push(templateScenicspot1);
+        var scenicSpotIds=$("select[name='scenicSpotId']");
+        var scostPrices=$("input[name='scostPrice']");
+        var soffers=$("input[name='soffer']");
+        for(var i=0;i<scenicSpotIds.length;i++){
+            var templateScenicspot={};
+            templateScenicspot.scenicSpotId=scenicSpotIds[i].value;
+            templateScenicspot.costPrice=scostPrices[i].value;
+            templateScenicspot.offer=soffers[i].value;
+            templateScenicspotList.push(templateScenicspot);
+        }
+        //给模板酒店对象赋值
+        templateHotel.hotelId=$("#hotelId").val();
+        templateHotel.costPrice=$("#costPrice").val();
+        templateHotel.offer=$("#offer").val();
+        templateHotel.templateHotelId=$("#templateHotelId").val();
+        console.log(templateHotel);
+        //给模板对象赋值
+        template.templateId=$("#templateId").val();
+        template.templateName=$("#templateName").val();
+        template.templateContent=$("#templateContent").val();
+        template.templateHotel=templateHotel;
+        template.templateScenicspotList=templateScenicspotList;
+        var template1=JSON.stringify(template);
+        console.log(template1);
         $.ajax({
-            url: "/Hotel/getHotelById",
-            data:{id:id},
-            dataType: "json",
-            type: "get",
-            success:function (result) {
-                var xingji="";
-                for(var i=0;i<5;i++){
-                    if(i<result.data.starHotel){
-                        xingji+=" <input type='image' src='/images/face/xingyou.png' style='width: 20px;height: 20px;margin: 3px;'/>";
-                    }else{
-                        xingji+="<input type='image'src='/images/face/xingwu.png'style='width: 20px;height: 20px;margin: 3px;'/>";
-                    }
+            url:"/template/updateTemplateByTemplateId",
+            data:template1,
+            type:"post",
+            dataType:"json",
+            contentType:"application/json",
+            success:function (data) {
+                if(data.data>0){
+                    alert("修改成功！");
+                    parent.location.reload();
+                }else{
+                    alert("修改失败！");
                 }
-                $("#xingji").html(xingji);
-                $("#tupian").attr("src","");
-            },
-            error:function (err) {
-                alert(err);
             }
-
+        });
+    }
+    function insertInfo() {
+        //模板对象
+        var template={};
+        //模板景点集合
+        var templateScenicspotList=[];
+        //模板酒店对象
+        var templateHotel={};
+        var templateScenicspot1={};
+        templateScenicspot1.scenicSpotId=$("select[name='scenicSpotIds']").val();
+        templateScenicspot1.costPrice=$("input[name='scostPrices']").val();
+        templateScenicspot1.offer=$("input[name='soffers']").val();
+        templateScenicspotList.push(templateScenicspot1);
+        for (var i=1;i<=count;i++){
+            var templateScenicspot={};
+            var a="scenicSpotId"+i;
+            var c="scostPrice"+i;
+            var d="soffer"+i;
+            templateScenicspot.scenicSpotId=$("#"+a+"").val();
+            templateScenicspot.costPrice=$("#"+c+"").val();
+            templateScenicspot.offer=$("#"+d+"").val();
+            templateScenicspotList.push(templateScenicspot);
+        }
+        //给模板酒店对象赋值
+        templateHotel.hotelId=$("#hotelId").val();
+        templateHotel.costPrice=$("#costPrice").val();
+        templateHotel.offer=$("#offer").val();
+        //给模板对象赋值
+        template.templateName=$("#templateName").val();
+        template.templateContent=$("#templateContent").val();
+        template.templateHotel=templateHotel;
+        template.templateScenicspotList=templateScenicspotList;
+        var template1=JSON.stringify(template);
+        $.ajax({
+            url:"/template/insertTemplateInfo",
+            data:template1,
+            type:"post",
+            dataType:"json",
+            contentType:"application/json",
+            success:function (data) {
+                if(data.data>0){
+                    alert("添加成功！");
+                    parent.location.reload();
+                }else{
+                    alert("添加失败！");
+                }
+            }
         });
     }
 </script>

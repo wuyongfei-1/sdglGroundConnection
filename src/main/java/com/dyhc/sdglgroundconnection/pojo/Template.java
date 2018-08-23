@@ -35,6 +35,17 @@ public class Template {
     private String value2;
     private String value3;
 
+    @Transient
+    private Staff staff; // 人员表对象
+
+    public Staff getStaff() {
+        return staff;
+    }
+
+    public void setStaff(Staff staff) {
+        this.staff = staff;
+    }
+
     public Integer getThirdid() {
         return thirdid;
     }

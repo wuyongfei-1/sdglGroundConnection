@@ -11,4 +11,8 @@ import org.springframework.stereotype.Component;
 @Mapper
 @Component
 public interface OfferMapper extends CommonMapper<Offer>{
+    /**
+     * 查询最大的offerId
+     */
+    public Integer getIntegerByOfferId();
 }

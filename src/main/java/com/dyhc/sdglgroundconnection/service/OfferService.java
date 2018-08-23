@@ -36,4 +36,8 @@ public interface OfferService {
      * @throws Exception
      */
     Integer updateOffer(Offer offer) throws OfferException;
+    /**
+     * 查询最大的offerId（dubingkun）
+     */
+    Integer getIntegerByOfferId();
 }

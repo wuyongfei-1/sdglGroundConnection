@@ -20,12 +20,12 @@ public class Offer {
     @Column(name = "travelId")
     private Integer travelId; // 组团社编号（外键，与组团社关联）
     @Column(name = "travelStartTime")
-    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date travelStartTime; // 旅行开始时间
     @Column(name = "travelEndTime")
-    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date travelEndTime; // 旅行结束时间
     private Integer number; // 人数
     private String tourist; // 客源地

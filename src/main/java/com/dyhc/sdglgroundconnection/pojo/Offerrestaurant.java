@@ -18,7 +18,7 @@ public class Offerrestaurant {
     @Column(name = "offerId")
     private Integer offerId; // 报价信息编号（外键，与报价信息表关联）
     @Column(name = "typeCode")
-    private Integer typeCode; // 编码（外键，与字典表关联）
+    private String typeCode; // 编码（外键，与字典表关联）
     @Column(name = "dictionariesId")
     private Integer dictionariesId; // 编号（外键，与字典表关联）
     @Column(name = "weight")
@@ -42,6 +42,14 @@ public class Offerrestaurant {
     private String value2;
     private String value3;
 
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
+
     @Id
     @Column(name = "offerRestaurantId")
     public int getOfferRestaurantId() {
@@ -64,11 +72,11 @@ public class Offerrestaurant {
 
     @Basic
     @Column(name = "typeCode")
-    public Integer getTypeCode() {
+    public String getTypeCode() {
         return typeCode;
     }
 
-    public void setTypeCode(Integer typeCode) {
+    public void setTypeCode(String typeCode) {
         this.typeCode = typeCode;
     }
 

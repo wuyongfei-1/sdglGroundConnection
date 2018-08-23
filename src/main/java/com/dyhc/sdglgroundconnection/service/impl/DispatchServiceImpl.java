@@ -3,11 +3,18 @@ package com.dyhc.sdglgroundconnection.service.impl;
 import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.dto.DispatchParam;
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
+import com.dyhc.sdglgroundconnection.mapper.DisguideMapper;
 import com.dyhc.sdglgroundconnection.mapper.DispatchMapper;
+import com.dyhc.sdglgroundconnection.mapper.GuideMapper;
+import com.dyhc.sdglgroundconnection.pojo.*;
 import com.dyhc.sdglgroundconnection.service.*;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
@@ -20,6 +27,11 @@ public class DispatchServiceImpl implements DispatchService {
     @Autowired
     private DispatchMapper dispatchMapper;  // 调度持久化
 
+    @Autowired
+    private DisguideMapper disguideMapper; //调度导游dao
+
+    @Autowired
+    private GuideMapper guideMapper; //导游dao
     @Autowired
     private DisshoppService disshoppService; // 调度购物业务
 
@@ -70,5 +82,52 @@ public class DispatchServiceImpl implements DispatchService {
         disotherService.saveDisotherInfo(disParam.getDisother());
         // 添加调度信息
         return dispatchMapper.insert(disParam.getDispatch());
+    }
+    /**
+     * 查询所有未审核且删除状态为1的调度信息 (lixiaojie)
+     * 1表示未审核
+     * @return
+     */
+    @Override
+    public PageInfo<Dispatch> selectDispatchs(Integer pageNo, Integer pageSize) {
+        PageHelper.startPage(pageNo, pageSize, true);
+        //查询调度表
+        DispatchExample dispatchExample=new DispatchExample();
+        DispatchExample.Criteria criteria= dispatchExample.createCriteria();
+        criteria.andWhetherdelEqualTo(0);
+        criteria.andStatusEqualTo(1);
+        List<Dispatch> dispatches=dispatchMapper.selectByExample(dispatchExample);
+
+        //查询调度导游表
+
+        for (Dispatch dispatch: dispatches) {
+            DisguideExample disguideExample=new DisguideExample();
+            DisguideExample.Criteria disguideExamplecriteria=disguideExample.createCriteria();
+            disguideExamplecriteria.andOfferidEqualTo(dispatch.getDispatchId());
+            List<Disguide> disguides=disguideMapper.selectByExample(disguideExample);
+            dispatch.setGuide(guideMapper.selectByPrimaryKey(disguides.get(0).getGuideId()));
+        }
+        PageInfo<Dispatch> pageInfo =new PageInfo<Dispatch>(dispatches);
+        return pageInfo;
+    }
+    /** 总控审核通过（lixiaojie)
+     * @return
+     */
+    @Override
+    public Integer onCheckDispatchInfo(Integer dispatchId) {
+        Dispatch dispatch=dispatchMapper.selectByPrimaryKey(dispatchId);
+        dispatch.setStatus(2);
+        Integer result =dispatchMapper.updateByPrimaryKey(dispatch);
+        return result;
+    }
+    /** 总控审核未通过（lixiaojie)
+     * @return
+     */
+    @Override
+    public Integer noCheckDispatchInfo(Integer dispatchId) {
+        Dispatch dispatch=dispatchMapper.selectByPrimaryKey(dispatchId);
+        dispatch.setStatus(3);
+        Integer result =dispatchMapper.updateByPrimaryKey(dispatch);
+        return result;
     }
 }

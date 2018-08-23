@@ -2,6 +2,10 @@ package com.dyhc.sdglgroundconnection.service;
 
 import com.dyhc.sdglgroundconnection.dto.DispatchParam;
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
+import com.dyhc.sdglgroundconnection.pojo.Dispatch;
+import com.github.pagehelper.PageInfo;
+
+import java.util.List;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
@@ -17,4 +21,24 @@ public interface DispatchService {
      * @throws DispatchException 调度信息异常
      */
     Integer saveDispatchInfo(DispatchParam disParam) throws DispatchException;
+
+    /**
+     * 查询所有未审核且删除状态为1的调度信息 (lixiaojie)
+     * 1表示未审核
+     *
+     * @return
+     */
+    PageInfo<Dispatch> selectDispatchs(Integer pageNo, Integer pageSize);
+
+    /** 总控审核通过（lixiaojie)
+     * @return
+     */
+    Integer onCheckDispatchInfo(Integer dispatchId);
+
+    /**
+     * 总控审核不通过(lixiaojie)
+     * @return
+     */
+    Integer noCheckDispatchInfo(Integer dispatchId);
+
 }

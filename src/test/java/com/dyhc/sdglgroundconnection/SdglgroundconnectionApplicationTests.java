@@ -17,11 +17,4 @@ public class SdglgroundconnectionApplicationTests {
     @Autowired
     private ActiveMQUtil producer;
 
-    @Test
-    public void contextLoads() {
-        Destination destination = new ActiveMQQueue("mytest.queue");
-        for(int i=0; i<100; i++){
-            producer.sendMessage(destination, "myname is chhliu!!!");
-        }
-    }
 }

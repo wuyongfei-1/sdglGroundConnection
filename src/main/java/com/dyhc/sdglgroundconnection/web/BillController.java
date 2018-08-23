@@ -1,16 +1,13 @@
 package com.dyhc.sdglgroundconnection.web;
 
 import com.dyhc.sdglgroundconnection.pojo.Bill;
-import com.dyhc.sdglgroundconnection.pojo.Restaurant;
 import com.dyhc.sdglgroundconnection.service.BillService;
-import com.dyhc.sdglgroundconnection.utils.FileUploadUtil;
+import com.dyhc.sdglgroundconnection.utils.ClientFileUploadUtil;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,7 +45,7 @@ public class BillController  {
             // 将json串转换为javaType
             ObjectMapper objectMapper = new ObjectMapper();
             Bill bill=objectMapper.readValue(pzBill,Bill.class);
-            String uploadResult = FileUploadUtil.uploadImage(multipartFile, savePath, ".jpg");
+            String uploadResult = ClientFileUploadUtil.uploadImage(multipartFile, savePath, ".jpg");
             bill.setPicturePath(savePath+uploadResult);
             Integer saveResult = billService.insertBill(bill);
             if (saveResult > 0) {

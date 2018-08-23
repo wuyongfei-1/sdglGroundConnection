@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.service;
 
+import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.pojo.Dictionaries;
 import com.dyhc.sdglgroundconnection.pojo.MealType;
 import com.dyhc.sdglgroundconnection.pojo.Restaurant;
@@ -15,6 +16,14 @@ import java.util.Map;
  * 餐馆业务接口
  **/
 public interface RestaurantService {
+
+    /**
+     * 查询所有的餐馆信息（不分页）（wuyongfei）
+     *
+     * @return 餐馆列表
+     * @throws DispatchException 调度异常
+     */
+    List<Restaurant> listAllRestaurants() throws DispatchException;
 
 
     /**

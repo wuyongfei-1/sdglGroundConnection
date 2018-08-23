@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.service;
 
+import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.pojo.Carrental;
 import com.dyhc.sdglgroundconnection.pojo.Dictionaries;
 import com.dyhc.sdglgroundconnection.pojo.VehicleType;
@@ -14,8 +15,18 @@ import java.util.List;
  * 汽车租赁公司业务接口
  **/
 public interface CarrentalService {
+
+    /**
+     * 获取所有的汽车租赁公司信息（不分页）（wuyongfei）
+     *
+     * @return 汽车租赁列表
+     * @throws DispatchException 调度异常
+     */
+    List<Carrental> listAllCarrentals() throws DispatchException;
+
     /**
      * 删除汽车公司
+     *
      * @param carrentalId
      * @return
      */
@@ -24,6 +35,7 @@ public interface CarrentalService {
 
     /**
      * 更具用车公司id获取用车公司信息(lixiaojie)
+     *
      * @param carrentalId
      * @return
      */
@@ -31,19 +43,23 @@ public interface CarrentalService {
 
     /**
      * 修改用车公司信息 (lixiaojie)
+     *
      * @param carrental
      * @return
      */
     Integer updateCarrentalInfo(Carrental carrental);
+
     /**
      * 从字典表获取所有车辆类型(lixiaojie)
+     *
      * @return
      */
-    List<Dictionaries> listDictionariesInfoByVEHICLE()throws Exception;
+    List<Dictionaries> listDictionariesInfoByVEHICLE() throws Exception;
 
 
     /**
      * 添加用车公司信息（lixiaojie)
+     *
      * @param carrental
      * @return
      */
@@ -51,8 +67,9 @@ public interface CarrentalService {
 
     /**
      * 分页查询用车信息   （lixiaojie)
-     * @param pageNo    当前页
-     * @param pageSize  每页大小
+     *
+     * @param pageNo        当前页
+     * @param pageSize      每页大小
      * @param carRentalName 购物地点
      * @return
      */

@@ -1,6 +1,7 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
 import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
+import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.mapper.GuideMapper;
 import com.dyhc.sdglgroundconnection.pojo.Guide;
 import com.dyhc.sdglgroundconnection.pojo.GuideExample;
@@ -25,6 +26,17 @@ public class GuideServiceImpl implements GuideService {
 
     @Autowired
     private GuideMapper guideMapper;
+
+    /**
+     * 获取所有的导游信息（不分页）（wuyongfei）
+     *
+     * @return 导游列表
+     * @throws DispatchException 调度异常
+     */
+    @Override
+    public List<Guide> listAllGuides() throws DispatchException {
+        return guideMapper.selectAll();
+    }
 
     /**
      * 导游登陆业务实现（wuyongfei）

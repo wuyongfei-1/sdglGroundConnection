@@ -1,27 +1,18 @@
 package com.dyhc.sdglgroundconnection.web;
 
-import com.dyhc.sdglgroundconnection.pojo.Hotel;
 import com.dyhc.sdglgroundconnection.pojo.Scenicspot;
 import com.dyhc.sdglgroundconnection.service.ScenicspotService;
-import com.dyhc.sdglgroundconnection.utils.FileUploadUtil;
+import com.dyhc.sdglgroundconnection.utils.ClientFileUploadUtil;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import com.github.pagehelper.PageInfo;
-import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.DataOutputStream;
-import java.io.*;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -76,7 +67,7 @@ public class ScenicspotController {
     public ReponseResult insertScenicspot(Scenicspot scenicspot, @RequestParam("multipartFile") MultipartFile multipartFile) {
         try {
             // 上传图片操作
-            String uploadResult = FileUploadUtil.uploadImage(multipartFile, ".jpg");
+            String uploadResult = ClientFileUploadUtil.uploadImage(multipartFile, ".jpg");
             if (!"".equals(uploadResult)) {
                 scenicspot.setPicturePath(uploadResult);
                 logger.info(" method:insertScenicspot  上传图片成功！");
@@ -174,7 +165,7 @@ public class ScenicspotController {
             } else {
                 //如果不为空则执行上传图片和修改方法
                 // 上传图片操作
-                String uploadResult = FileUploadUtil.uploadImage(multipartFile, ".jpg");
+                String uploadResult = ClientFileUploadUtil.uploadImage(multipartFile, ".jpg");
                 if (!"".equals(uploadResult)) {
                     scenicspot.setPicturePath(uploadResult);
                     logger.info(" method:insertScenicspot  上传图片成功！");

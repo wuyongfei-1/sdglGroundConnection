@@ -67,11 +67,21 @@ public class StaffServiceImpl implements StaffService {
         return staffMapper.updateStaffpa(staff);
     }
 
+    /**
+     *  根据id获取用户信息 （lixiaojie)
+     * @param staffId
+     * @return
+     */
     @Override
     public Staff getStaffInfoByStaffId(Integer staffId) {
         return staffMapper.selectByPrimaryKey(staffId);
     }
 
+    /**
+     *  根据id删除用户信息（lixiaojie）
+     * @param id
+     * @return
+     */
     @Override
     public Integer deleteStaffBystaffId(Integer id) {
         return staffMapper.deleteByPrimaryKey(id);

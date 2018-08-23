@@ -15,8 +15,9 @@ public class Offercar {
     @Id
     @Column(name = "offerCarId")
     private int offerCarId; // 主键编号
-    @Column(name = "vehicleTypeId")
+    @Column(name = "typeCode")
     private String  typeCode; // 编码类型（外键，与字典表关联）
+    @Column(name = "valueId")
     private Integer valueId; // 类型编号（外键，与字典表关联）
     @Column(name = "offerId")
     private Integer offerId; // 报价信息编号（外键，与报价信息表关联）

@@ -13,23 +13,23 @@
 <body>
 <div class="page-content-wrap">
     <div id="divhead">
-        <form class="layui-form layui-form-pane" action="">
+        <form class="layui-form layui-form-pane" action="" id="offer">
             <table border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td><label class="layui-form-label">组团社名称</label></td>
                     <td>
-                        <select id="zutuanshe" name="city" lay-verify="required">
+                        <select id="zutuanshe" id="travelId" lay-verify="required">
                         </select>
                     </td>
                     <td><label class="layui-form-label">人数</label></td>
-                    <td><input type="text" class="layui-input"></td>
+                    <td><input type="text" name="number" id="number" class="layui-input"></td>
                 </tr>
                 <tr>
                     <td><label class="layui-form-label">开始时间</label></td>
-                    <td><input type="text" name="date" id="date" lay-verify="date" placeholder="yyyy-MM-dd"
+                    <td><input type="text" name="travelStartTime" id="date" lay-verify="date" placeholder="yyyy-MM-dd"
                                autocomplete="off" class="layui-input"></td>
                     <td><label class="layui-form-label">结束时间</label></td>
-                    <td><input type="text" name="date" id="date1" lay-verify="date" placeholder="yyyy-MM-dd"
+                    <td><input type="text" name="travelEndTime" id="date1" lay-verify="date" placeholder="yyyy-MM-dd"
                                autocomplete="off" class="layui-input"></td>
                 </tr>
             </table>
@@ -37,10 +37,12 @@
                 <tr>
                     <td><label class="layui-form-label">选择线路</label></td>
                     <td>
-                        <select name="city" id="zongxianlu" lay-ignore onchange="chengZhong(this)">
+                        <select id="zongxianlu" lay-ignore onchange="chengZhong(this)">
 
                         </select>
                     </td>
+                    <td><label class="layui-form-label">客源地</label></td>
+                    <td><input type="text" id="tourist" class="layui-input"></td>
                 </tr>
             </table>
         </form>
@@ -91,7 +93,7 @@
                             <td><label class="layui-form-label">成本价</label></td>
                             <td><input type="text" class="layui-input"></td>
                             <td><label class="layui-form-label">报价</label></td>
-                            <td><input type="text" class="layui-input"></td>
+                            <td><input type="text" name='offer' class="layui-input"></td>
                         </tr>
                         <!--点击新增景点-->
                         <tr id="onClickjd">
@@ -112,7 +114,7 @@
                             <td><label class="layui-form-label">成本价:</label></td>
                             <td><input type="text" class="layui-input"></td>
                             <td><label class="layui-form-label">报价:</label></td>
-                            <td><input type="text" class="layui-input"></td>
+                            <td><input type="text" name='offer' class="layui-input"></td>
                         </tr>
                         <tr>
                             <td><label class="layui-form-label">午餐</label></td>
@@ -125,7 +127,7 @@
                             <td><label class="layui-form-label">成本价</label></td>
                             <td><input type="text" class="layui-input"></td>
                             <td><label class="layui-form-label">报价</label></td>
-                            <td><input type="text" class="layui-input"></td>
+                            <td><input type="text" name='offer' class="layui-input"></td>
                         </tr>
                         <tr>
                             <td><label class="layui-form-label">晚餐</label></td>
@@ -137,7 +139,7 @@
                             <td><label class="layui-form-label">成本价</label></td>
                             <td><input type="text" class="layui-input"></td>
                             <td><label class="layui-form-label">报价</label></td>
-                            <td><input type="text" class="layui-input"></td>
+                            <td><input type="text" name='offer' class="layui-input"></td>
                         </tr>
                         <tr>
                             <td><label class="layui-form-label">行程</label></td>
@@ -162,19 +164,23 @@
                         </select>
                     </td>
                     <td><label class="layui-form-label">成本价</label></td>
-                    <td><input type="text" class="layui-input"></td>
+                    <td><input type="text" id="carcostPrice" class="layui-input"></td>
                     <td><label class="layui-form-label">报价</label></td>
-                    <td><input type="text" class="layui-input"></td>
+                    <td><input type="text" id="caroffer" name='offer' class="layui-input"></td>
+                    <td><label class="layui-form-label">数量</label></td>
+                    <td><input type="text" id='carnumber' class="layui-input"></td>
                 </tr>
                 <tr>
                     <td><label class="layui-form-label">其他:</label></td>
                     <td colspan="5">
                         <table border="0" cellspacing="0" cellpadding="0">
                             <tr>
+                                <td><label class="layui-form-label">备注</label></td>
+                                <td width="300px"><input type="text" id="otherremarks" class="layui-input"></td>
                                 <td><label class="layui-form-label">成本价</label></td>
-                                <td width="300px"><input type="text" class="layui-input"></td>
+                                <td width="300px"><input type="text" id="othercostPrice" class="layui-input"></td>
                                 <td><label class="layui-form-label">报价</label></td>
-                                <td width="300px"><input type="text" class="layui-input"></td>
+                                <td width="300px"><input type="text" id="otheroffer" name='offer' class="layui-input"></td>
                             </tr>
                         </table>
                     </td>
@@ -185,19 +191,31 @@
                 </tr>
                 <tr>
                     <td><label class="layui-form-label">备注：</label></td>
-                    <td colspan="5"><textarea placeholder="请输入内容" class="layui-textarea" name="desc"></textarea></td>
+                    <td colspan="5"><textarea placeholder="请输入内容" class="layui-textarea" name="remarks"></textarea></td>
                 </tr>
                 <tr>
                     <td><label class="layui-form-label">接待标准：</label></td>
-                    <td colspan="5"><textarea placeholder="请输入内容" class="layui-textarea" name="desc"></textarea></td>
+                    <td colspan="5"><textarea placeholder="请输入内容" class="layui-textarea" name="reception"></textarea></td>
+                </tr>
+                <tr>
+                    <td><label class="layui-form-label">不含：</label></td>
+                    <td colspan="5"><textarea placeholder="请输入内容" class="layui-textarea" name="notExclude"></textarea></td>
+                </tr>
+                <tr>
+                    <td><label class="layui-form-label">购物：</label></td>
+                    <td colspan="5"><textarea placeholder="请输入内容" class="layui-textarea" name="shopping"></textarea></td>
+                </tr>
+                <tr>
+                    <td><label class="layui-form-label">团体监督：</label></td>
+                    <td colspan="5"><textarea placeholder="请输入内容" class="layui-textarea" name="supervision"></textarea></td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>
-                        <button class='layui-btn layui-btn-normal layui-btn-radius'>预览报价单</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input class='layui-btn layui-btn-normal layui-btn-radius' value="预览报价单" id="yulan">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td>
-                        <button class='layui-btn layui-btn-normal layui-btn-radius' id="baocun">打印报价单</button>
+                        <input value="打印报价单" type="button" class='layui-btn layui-btn-normal layui-btn-radius' id="baocun">
                     </td>
                 </tr>
             </table>
@@ -246,7 +264,7 @@
                                 "                            <td><label class=\"layui-form-label\">成本价:</label></td>\n" +
                                 "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
                                 "                            <td><label class=\"layui-form-label\">报价:</label></td>\n" +
-                                "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
+                                "                            <td><input type=\"text\" name='offer' class=\"layui-input\"></td>\n" +
                                 "<td style='bottom: 0px;'><label class='layui-form-label' onclick='san(this)'>×</label></td>"+
                                 "                        </tr>";
                     })
@@ -294,7 +312,7 @@
                             "                            <td><label class=\"layui-form-label\">成本价</label></td>\n" +
                             "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
                             "                            <td><label class=\"layui-form-label\">报价</label></td>\n" +
-                            "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
+                            "                            <td><input type=\"text\" name='offer' class=\"layui-input\"></td>\n" +
                             "                        </tr>\n" +
                             "                        <!--点击新增景点-->\n" +
                             "                        <tr id=\"onClickjd\">\n" +
@@ -316,7 +334,7 @@
                             "                            <td><label class=\"layui-form-label\">成本价</label></td>\n" +
                             "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
                             "                            <td><label class=\"layui-form-label\">报价</label></td>\n" +
-                            "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
+                            "                            <td><input type=\"text\" name='offer' class=\"layui-input\"></td>\n" +
                             "                        </tr>\n" +
                             "                        <tr>\n" +
                             "                            <td><label class=\"layui-form-label\">晚餐</label></td>\n" +
@@ -328,7 +346,7 @@
                             "                            <td><label class=\"layui-form-label\">成本价</label></td>\n" +
                             "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
                             "                            <td><label class=\"layui-form-label\">报价</label></td>\n" +
-                            "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
+                            "                            <td><input type=\"text\" name='offer' class=\"layui-input\"></td>\n" +
                             "                        </tr>\n" +
                             "                        <tr>\n" +
                             "                            <td><label class=\"layui-form-label\">行程</label></td>\n" +
@@ -436,7 +454,7 @@
                         "                            <td><label class=\"layui-form-label\">成本价:</label></td>\n" +
                         "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
                         "                            <td><label class=\"layui-form-label\">报价:</label></td>\n" +
-                        "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
+                        "                            <td><input type=\"text\" name='offer' class=\"layui-input\"></td>\n" +
                         "<td style='bottom: 0px;'><label class='layui-form-label' onclick='san(this)'>×</label></td>"+
                         "                        </tr>";
                     var json3={"soptid":e.scenicSpotId};
@@ -468,10 +486,11 @@
     $("#zongxianlu").html(zongxinalu)
 
     function showInfo2(zhege){
-        jingdian = "<option value='-1'></option>";
-        jiudian = "<option value='-1'></option>";
-        wancan = "<option value='-1'></option>";
-        wucan = "<option value='-1'></option>";
+        jingdian = "<option value='-1'>请选择</option>";
+        jiudian = "<option value='-1'>请选择</option>";
+        wancan = "<option value='-1'>请选择</option>";
+        wucan = "<option value='-1'>请选择</option>";
+        xianluinfo = "<option value='-1'>请选择</option>";
         $.ajax({
             url: "/offer/listAllShow",
             data: "",
@@ -505,7 +524,7 @@
                     wucan += "<option value='" + e.dictionariesId + "' costPrice='"+e.valueContent2+"' offer='"+e.valueContent3+"'>" + e.valueContent1 + "</option>";
                 })
                 $.each(data.data[5], function (i, e) {
-                    chedui += "<option value='" + e.dictionariesId + "' costPrice='"+e.valueContent2+"' offer='"+e.valueContent3+"'>" + e.valueContent1 + "</option>";
+                    chedui += "<option value='" + e.valueId + "' costPrice='"+e.valueContent2+"' offer='"+e.valueContent3+"'>" + e.valueContent1 + "</option>";
                 })
                 $.each(data.data[6], function (i, e) {
                     zutuanshe += "<option value='" + e.travelId + "'>" + e.travelName + "</option>";
@@ -575,14 +594,182 @@
         })
     }
 
-    //报价按钮单击事件
-    $("#baocun").click(function () {
-        alert(123);
-    })
-    //新增报价信息
-    function insertOffer() {
+
+    //报价表信息
+    function offerTable(){
+        offerJson={};
+        var travelStartTime=$("#date").val();//开团日期
+        var travelEndTime=$("#date1").val();//结束日期
+        var number=$("#number").val();//人数
+        var travelId=$("#travelId").val();//组团社
+        var offer=0;//报价
+        var trip="";//行程
+        var shopping=$("[name='shopping']").val();//购物
+        var notExclude=$("[name='notExclude']").val();//不含
+        var remarks=$("[name='remarks']").val();//备注
+        var reception=$("[name='reception']").val();//接待标准
+        var supervision=$("[name='supervision']").val();//团体监督
+        var tourist=$("#tourist").val();//客源地
+        $("[name='offer']").each(function (i,e) {
+            offer+=parseInt($(this).val());
+        })
+        $("[name='desc']").each(function (i, e) {
+            trip+=$(this).val();
+            trip+="--";
+        })
+        //报价信息字符串
+        offerJson={"travelId":travelId,
+            "travelStartTime":travelStartTime,
+            "travelEndTime":travelEndTime,
+            "number":number,
+            "tourist":tourist,
+            "trip":trip,
+            "offer":offer,
+            "shopping":shopping,
+            "notExclude":notExclude,
+            "remarks":remarks,
+            "supervision":supervision,
+            "reception":reception};
+    }
+    //报价用车表
+    function carTbale() {
+        carJson={};
+        var valueId=$("#yongche").val();//类型编号
+        var number=$("#carnumber").val();//数量
+        var costPrice=$("#carcostPrice").val();//成本价
+        var offer=$("#caroffer").val()//报价
+        carJson={
+            "valueId":valueId,
+            "costPrice":costPrice,
+            "offer":offer,
+            "number":number
+        }
+    }
+    //报价酒店
+    function hotelTable() {
+        hotelJson=[];
+        $("[hotel='jiudian']").each(function (i, e) {
+            var json={};
+            var hotelId=$(this).val();
+            var costPrice=$(this).attr("costprice");
+            var offer=$(this).attr("offer");
+            var weight=i+1;
+            json={
+                "hotelId":hotelId,
+                "costPrice":costPrice,
+                "offer":offer,
+                "weight":weight
+            }
+            hotelJson.push(json);
+        })
+    }
+    //报价景点
+    function spotTable() {
+        spotJson=[];
+        $("[spot='jingdian']").each(function (i,e) {
+            var json={
+                "scenicSpotId":$(this).val(),
+                "costPrice":$(this).attr("costprice"),
+                "offer":$(this).attr("offer"),
+                "weight":(i+1)
+            }
+            spotJson.push(json);
+        })
+    }
+    //报价餐馆
+    function restaurantTable(){
+        restaurantJson=[];
+        var json={};//午餐
+        var json2={};//晚餐
+        $("[wc='wucan']").each(function (i, e) {
+            json={
+                "dictionariesId":$(this).val(),
+                "costPrice":$(this).attr("costprice"),
+                "weight":(i+1),
+                "offer":$(this).attr("offer"),
+                "havemealsdate":"2"
+            }
+            restaurantJson.push(json);
+        })
+        $("[wac='wancan']").each(function (i, e) {
+            json2={
+                "dictionariesId":$(this).val(),
+                "costPrice":$(this).attr("costprice"),
+                "weight":(i+1),
+                "offer":$(this).attr("offer"),
+                "havemealsdate":"3"
+            }
+            restaurantJson.push(json2);
+        })
 
     }
+    //报价其它
+    function otherTable() {
+        otherJson={
+            "costPrice":$("#othercostPrice").val(),
+            "offer":$("#otheroffer").val(),
+            "remarks":$("#otherremarks").val()
+        };
+    }
+    //报价线路
+    function lineTable() {
+        lineJson=[];
+        $("[xl='xianlu']").each(function (i,e) {
+            var json={
+                "lineArriveName":$(this).text(),
+                "travelContent":$(this).parent().parent().parent().find("[name='desc']").val(),
+                "weight":i
+            }
+            lineJson.push(json);
+        })
+    }
+    var offerJson={};//报价
+    var carJson={};//报价用车
+    var hotelJson=[];//报价酒店
+    var spotJson=[];//报价景点
+    var restaurantJson=[];//报价餐厅
+    var otherJson={};//报价其它
+    var lineJson=[];//报价线路
+
+    //新增报价信息
+    function insertOffer() {
+        offerTable();
+        carTbale();
+        hotelTable();
+        spotTable();
+        restaurantTable();
+        otherTable();
+        lineTable();
+        var offerJsonPlus={
+            "offer":offerJson,
+            "offercar":carJson,
+            "listOfferHotel":hotelJson,
+            "listOfferscenic":spotJson,
+            "listOfferrestaurant":restaurantJson,
+            "offerother":otherJson,
+            "listOfferline":lineJson
+        };
+        $.ajax({
+            url:"/offer/insertOffer",
+            data:JSON.stringify(offerJsonPlus),
+            dataType:"json",
+            type:"post",
+            contentType:"application/json",
+            success:function (data) {
+                alert(data.msg)
+            },error:function () {
+                alert("程序异常")
+            }
+        })
+    }
+    //报价按钮单击事件
+    $("#baocun").click(function () {
+        insertOffer();
+    })
+    //报价预览按钮单击事件
+    $("#yulan").click(function () {
+        alert(123)
+    })
 </script>
 <script type="text/javascript">
     function san(dang) {
@@ -599,9 +786,9 @@
             "</select>" +
             "</td>" +
             "<td><label class='layui-form-label'>成本价:</label></td>" +
-            "<td><input type='text' class='layui-input'></td>" +
+            "<td><input type='text'  class='layui-input'></td>" +
             "<td><label class='layui-form-label'>报价:</label></td>" +
-            "<td><input type='text' class='layui-input'></td>" +
+            "<td><input type='text' name='offer' class='layui-input'></td>" +
             "<td style='bottom: 0px;'><label class='layui-form-label' onclick='san(this)'>×</label></td>" +
             "</tr>");
         layui.use(['form', 'layedit', 'laydate', 'element'], function () {

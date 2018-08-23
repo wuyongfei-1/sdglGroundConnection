@@ -94,4 +94,6 @@ public class GuideServiceImpl implements GuideService {
     public Guide selectGuideByIds(int id) {
         return guideMapper.selectByPrimaryKey(id);
     }
+
+
 }

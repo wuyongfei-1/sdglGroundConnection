@@ -21,7 +21,7 @@ public class ActiveMQUtil {
      * @param destination 目的地（队列/主题）
      * @param message     消息
      */
-    public void sendMessage(String destination, String message) {
+    public void sendMessage(String destination, Object message) {
         jmsMessagingTemplate.convertAndSend(destination, message);
     }
 

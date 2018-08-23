@@ -32,8 +32,8 @@ public class OffercarServiceImpl implements OffercarService {
 
     @Override
     @RecordOperation(type = "用车报价", desc = "添加了一条用车报价信息")
-    public Integer insertOffercar(List<Offercar> list) throws OfferException {
-        return offercarMapper.insertList(list);
+    public Integer insertOffercar(Offercar offercar) throws OfferException {
+        return offercarMapper.insert(offercar);
     }
 
     @Override

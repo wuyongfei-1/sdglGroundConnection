@@ -49,7 +49,7 @@ function insertJingdian(onClickjd) {
             "                            <td><label class=\"layui-form-label\">成本价:</label></td>\n" +
             "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
             "                            <td><label class=\"layui-form-label\">报价:</label></td>\n" +
-            "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
+            "                            <td><input type=\"text\" name='offer' class=\"layui-input\"></td>\n" +
             "<td style='bottom: 0px;'><label class='layui-form-label' onclick='san(this)'>×</label></td>"+
             "</tr>");
     layui.use(['form', 'layedit', 'laydate','element'], function() {
@@ -113,7 +113,7 @@ function insertJingdian(onClickjd) {
                     "                            <td><label class=\"layui-form-label\">成本价</label></td>\n" +
                     "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
                     "                            <td><label class=\"layui-form-label\">报价</label></td>\n" +
-                    "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
+                    "                            <td><input type=\"text\" name='offer' class=\"layui-input\"></td>\n" +
                     "                        </tr>\n" +
                     "                        <!--点击新增景点-->\n" +
                     "                        <tr id=\"onClickjd\">\n" +
@@ -133,7 +133,7 @@ function insertJingdian(onClickjd) {
                     "                            <td><label class=\"layui-form-label\">成本价:</label></td>\n" +
                     "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
                     "                            <td><label class=\"layui-form-label\">报价:</label></td>\n" +
-                    "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
+                    "                            <td><input type=\"text\" name='offer' class=\"layui-input\"></td>\n" +
                     "                        </tr>"+
                     "                        <tr>\n" +
                     "                            <td><label class=\"layui-form-label\">午餐</label></td>\n" +
@@ -146,7 +146,7 @@ function insertJingdian(onClickjd) {
                     "                            <td><label class=\"layui-form-label\">成本价</label></td>\n" +
                     "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
                     "                            <td><label class=\"layui-form-label\">报价</label></td>\n" +
-                    "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
+                    "                            <td><input type=\"text\" name='offer' class=\"layui-input\"></td>\n" +
                     "                        </tr>\n" +
                     "                        <tr>\n" +
                     "                            <td><label class=\"layui-form-label\">晚餐</label></td>\n" +
@@ -158,7 +158,7 @@ function insertJingdian(onClickjd) {
                     "                            <td><label class=\"layui-form-label\">成本价</label></td>\n" +
                     "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
                     "                            <td><label class=\"layui-form-label\">报价</label></td>\n" +
-                    "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
+                    "                            <td><input type=\"text\" name='offer' class=\"layui-input\"></td>\n" +
                     "                        </tr>\n" +
                     "                        <tr>\n" +
                     "                            <td><label class=\"layui-form-label\">行程</label></td>\n" +

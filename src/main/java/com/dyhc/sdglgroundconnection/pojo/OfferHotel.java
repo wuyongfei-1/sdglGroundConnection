@@ -24,7 +24,17 @@ public class OfferHotel {
     @Column(name = "weight")
     private Integer weight;//权重（天数）
     private Double offer; // 报价
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
+
     @Column(name = "whetherDel")
+
     private Integer whetherDel; // 是否删除（1代表已删除，0代表未删除）
     private Integer creater; // 创建人 （外键，与人员表关联）
     private Integer modifier; // 修改人（外键，与人员表关联）

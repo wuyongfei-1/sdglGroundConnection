@@ -21,10 +21,10 @@ public interface OfferotherService {
 
     /**
      * 添加其它报价信息（dubingkun）
-     * @param list
+     * @param offerother
      * @return
      */
-    Integer insertOfferother (List<Offerother> list)throws  OfferException;
+    Integer insertOfferother (Offerother offerother)throws  OfferException;
 
     /**
      * 修改其它报价信息（dubingkun）

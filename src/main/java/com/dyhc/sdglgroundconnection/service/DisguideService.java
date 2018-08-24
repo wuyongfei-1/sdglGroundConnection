@@ -1,10 +1,7 @@
 package com.dyhc.sdglgroundconnection.service;
 
-import com.dyhc.sdglgroundconnection.pojo.Disguide;
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.pojo.Disguide;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -13,6 +10,13 @@ import java.util.List;
  * 调度导游业务接口
  **/
 public interface DisguideService {
+
+    /**
+     * 根据调度表编号查询调度导游表信息 （wangtao）
+     * @param dispatchId 调度表编号
+     * @return 返回调度导游表对象
+     */
+    Disguide getDisguideByDispatchId(Integer dispatchId);
 
     /**
      * 添加调度导游信息（wuyongfei）

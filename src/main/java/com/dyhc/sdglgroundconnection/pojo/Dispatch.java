@@ -1,10 +1,10 @@
 package com.dyhc.sdglgroundconnection.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -60,9 +60,76 @@ public class Dispatch {
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "creationDate")
     private Date creationDate; // 创建日期
-    private String value1;
-    private String value2;
+    private String value1; // 组团社联系人（团控）
+    private String value2; // 组团社联系电话
     private String value3;
+
+
+    @Transient
+    private Discar discar; // 调度用车对象
+
+    @Transient
+    private Dispatchtourgroup dispatchtourgroup; // 调度旅行团对象
+
+    @Transient
+    private List<Dispatchhotel> dispatchhotel; // 调度酒店表对象
+
+    @Transient
+    private List<Disattr> disattrList; // 调度景点表集合
+
+    @Transient
+    private Disguide disguide; // 调度导游表对象
+
+    @Transient
+    private Company company; // 本公司对象
+
+    public List<Disattr> getDisattrList() {
+        return disattrList;
+    }
+
+    public void setDisattrList(List<Disattr> disattrList) {
+        this.disattrList = disattrList;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public Discar getDiscar() {
+        return discar;
+    }
+
+    public void setDiscar(Discar discar) {
+        this.discar = discar;
+    }
+
+    public List<Dispatchhotel> getDispatchhotel() {
+        return dispatchhotel;
+    }
+
+    public void setDispatchhotel(List<Dispatchhotel> dispatchhotel) {
+        this.dispatchhotel = dispatchhotel;
+    }
+
+    public Disguide getDisguide() {
+        return disguide;
+    }
+
+    public void setDisguide(Disguide disguide) {
+        this.disguide = disguide;
+    }
+
+    public Dispatchtourgroup getDispatchtourgroup() {
+        return dispatchtourgroup;
+    }
+
+    public void setDispatchtourgroup(Dispatchtourgroup dispatchtourgroup) {
+        this.dispatchtourgroup = dispatchtourgroup;
+    }
 
     @Id
     @Column(name = "dispatchId")

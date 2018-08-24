@@ -2,9 +2,11 @@ package com.dyhc.sdglgroundconnection.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
-import java.util.Objects;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
@@ -18,7 +20,7 @@ public class Disshopp {
     @Column(name = "shoppingId")
     private Integer shoppingId; // 购物地点编号（外键，与购物地点表关联）
     @Column(name = "offerId")
-    private Integer offerId; // 调度信息编号（外键，与报价信息表关联）
+    private Integer offerId; // 调度信息编号（外键，与调度信息表关联）
     @Column(name = "weight")
     private Integer weight;//权重（天数）
     private Date date; // 日期

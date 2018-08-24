@@ -3,6 +3,8 @@ package com.dyhc.sdglgroundconnection.service.impl;
 import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.mapper.VehicleTypeMapper;
 import com.dyhc.sdglgroundconnection.pojo.VehicleType;
+import com.dyhc.sdglgroundconnection.service.CarrentalService;
+import com.dyhc.sdglgroundconnection.service.DictionariesService;
 import com.dyhc.sdglgroundconnection.service.VehicleTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,12 @@ public class VehicleTypeServiceImpl implements VehicleTypeService {
 
     @Autowired
     private VehicleTypeMapper vehicleTypeMapper;
+
+    @Autowired
+    private CarrentalService carrentalService;
+
+    @Autowired
+    private DictionariesService dictionariesService;
     /**
      * 根据汽车公司类型id删除公司汽车(lixiaojie)
      * @param VehicleTypeId
@@ -46,7 +54,10 @@ public class VehicleTypeServiceImpl implements VehicleTypeService {
      */
     @Override
     public VehicleType getVehicleTypeInfoByTypeId(Integer TypeId) {
-        return vehicleTypeMapper.selectByPrimaryKey(TypeId);
+        VehicleType vehicleType=vehicleTypeMapper.selectByPrimaryKey(TypeId);
+        vehicleType.setCarrental(carrentalService.getCarrentalInfoByCarrentalId(vehicleType.getCarRentalId()));
+        vehicleType.setCarType(dictionariesService.listDictionaries1(vehicleType.getTypeCode(),vehicleType.getValueId()));
+        return vehicleType;
     }
     /**
      * 修改车辆类型信息(lixiaojie)

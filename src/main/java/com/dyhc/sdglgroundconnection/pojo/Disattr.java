@@ -18,7 +18,7 @@ public class Disattr {
     @Column(name = "scenicSpotId")
     private Integer scenicSpotId; // 景点编号（外键，与景点表关联）
     @Column(name = "offerId")
-    private Integer offerId; // 调度信息编号（外键，与报价信息表关联）
+    private Integer offerId; // 调度信息编号（外键，与调度信息表关联）
     private Date date; // 日期
     private Integer buynum; // 购买人数
     @Column(name = "weight")
@@ -43,6 +43,25 @@ public class Disattr {
     private String value1;
     private String value2;
     private String value3;
+
+    @Transient
+    private Scenicspot scenicspot; // 景点对象
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
+
+    public Scenicspot getScenicspot() {
+        return scenicspot;
+    }
+
+    public void setScenicspot(Scenicspot scenicspot) {
+        this.scenicspot = scenicspot;
+    }
 
     @Id
     @Column(name = "disAttrId")

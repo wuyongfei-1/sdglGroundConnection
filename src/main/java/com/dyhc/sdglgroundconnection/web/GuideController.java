@@ -41,7 +41,7 @@ public class GuideController {
      * @param userName 用户名
      * @param password 密码
      * @param request  请求对象
-     * @return 响应结果
+     * @return 响应结果 <前端只需判断该接口返回的json对象中的status为1则校验成功，否则登陆失败>
      */
     @GetMapping("/login.do")
     public ReponseResult login(@RequestParam(value = "userName", required = true) String userName,
@@ -57,19 +57,21 @@ public class GuideController {
                     if (guide.getPassword().equals(EncryUtil.encrypt(password))) {
                         // 保存信息到session中
                         request.getSession().setAttribute("guide", guide);
+                        logger.info(userName + " " + DateTimeUtil.getCurrentDate("yyyy-MM-dd HH:mm:ss") + " 登陆成功！");
                         // 登陆成功
-                        return ReponseResult.ok(userName + " " + DateTimeUtil.getCurrentDate("yyyy-MM-dd HH:mm:ss") + " 登陆成功！");
+                        return ReponseResult.ok("{\"status\";1}", " 登陆成功！");
                     } else {
                         // 用户名正确，密码错误
-                        return ReponseResult.err("用户名和密码不匹配！");
+                        return ReponseResult.ok("{\"status\";0}", "用户名和密码不匹配！");
                     }
                 } else {
                     // 用户名不存在
-                    return ReponseResult.err("用户名和密码不匹配！");
+                    return ReponseResult.ok("{\"status\";0}", "用户名和密码不匹配！");
                 }
             }
-            return ReponseResult.err("用户名或密码不能为空！");
+            return ReponseResult.ok("{\"status\";0}", "用户名或密码不能为空！");
         } catch (Exception e) {
+            logger.error(" method:login  导游登陆出现异常，登陆失败！" + e.getMessage());
             e.printStackTrace();
             return ReponseResult.err("系统出现异常，登陆失败！");
         }

@@ -33,7 +33,7 @@ spring:
     # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
 
-  # ActiveMQ消息队列连接配置
+  # ActiveMQ消息队列连接配置 客户端port:8161
   activemq:
     broker-url: tcp://127.0.0.1:61616
     user: admin

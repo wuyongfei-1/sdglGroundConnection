@@ -2,6 +2,7 @@ package com.dyhc.sdglgroundconnection.service.impl;
 
 import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
+import com.dyhc.sdglgroundconnection.jms.ActiveMQUtil;
 import com.dyhc.sdglgroundconnection.mapper.GuideMapper;
 import com.dyhc.sdglgroundconnection.pojo.Guide;
 import com.dyhc.sdglgroundconnection.pojo.GuideExample;
@@ -10,6 +11,8 @@ import com.dyhc.sdglgroundconnection.utils.EncryUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.annotation.JmsListener;
+import org.springframework.jms.support.JmsUtils;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -26,6 +29,11 @@ public class GuideServiceImpl implements GuideService {
 
     @Autowired
     private GuideMapper guideMapper;
+
+    @Autowired
+    private ActiveMQUtil activeMQUtil;
+
+    private Guide guide; // 存放消息队列处理完返回的信息
 
     /**
      * 获取所有的导游信息（不分页）（wuyongfei）
@@ -47,11 +55,22 @@ public class GuideServiceImpl implements GuideService {
      */
     @Override
     public Guide login(String username) throws Exception {
+        activeMQUtil.sendMessage("guide.login", username);
+        return guide;
+    }
+
+    /**
+     * MQ监听器& 导游登陆（wuyongfei）
+     *
+     * @param username 用户名
+     */
+    @JmsListener(destination = "guide.login")
+    public void reveiveQueueFromLogin(String username) {
         GuideExample guideExample = new GuideExample();
         GuideExample.Criteria criteria = guideExample.createCriteria();
         criteria.andUsernameEqualTo(username);
         List<Guide> guides = guideMapper.selectByExample(guideExample);
-        return (guides != null && guides.size() > 0) ? guides.get(0) : null;
+        guide = (guides != null && guides.size() > 0) ? guides.get(0) : null;
     }
 
     /**

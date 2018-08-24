@@ -108,7 +108,7 @@
             //数据渲染
             function dispatchtourgroupShow() {
                 $.ajax({
-                    url: "/dispatch/getDispatchInfoByDispatchId",
+                    url: "/dispatch/",
                     data: {dispatchId:1},
                     dataType: "json",
                     type: "post",
@@ -123,20 +123,7 @@
                         $("#remarks").text(e.data.remarks)//备注);
                         $("#tourist").text(e.data.tourist);//客源地
                         $("#num").text(e.data.num);//人数
-                        $.each(e.data.dispatchhotel,function (i, result) {
-                            date=result.date.substring(5,10);
-                            date2=result.date.substring(5,9);
-                            date1=date.substring(4);
-                            date1++;
-                            date3=date2+date1;
-                            num1= Math.ceil(e.data.num/2);
-                            str +="<tr>\n" +
-                                "\t<td>"+date+"-"+date3+"</td>\n" +
-                                " <td>"+result.hotel.hotelName+"</td>\n" +
-                                "<td>"+num1+"标+"+result.companyBedNum+"司陪</td>\n" +
-                                "</tr>";
-                        })
-                        $("#t").html(str);
+
                     }
                 })
             }

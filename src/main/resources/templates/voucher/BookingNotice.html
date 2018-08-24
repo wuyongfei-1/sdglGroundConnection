@@ -88,8 +88,7 @@
          <table>
          	<tr>
             	<td style="width:8%">团控:</td>
-                <td style="width:30%" id="guideName"></td>
-                <td style="width:30%" id="telephone"></td>
+                <td style="width:30%" id="teamContactsName"></td>
                 <td style="width:8%">TEL：</td>
                 <td style="width:26%">0351-7896890</td>
                 <td style="width:8%">FAX：</td>
@@ -129,8 +128,7 @@
                 $("#remarks").text(e.data.remarks)//备注);
                 $("#tourist").text(e.data.tourist);//客源地
                 $("#num").text(e.data.num);//人数
-                $("#guideName").text(e.data.tourist);//客源地
-                $("#telephone").text(e.data.num);//人数
+                $("#teamContactsName").text(e.data.dispatchtourgroup.teamcontactsname+"  "+e.data.dispatchtourgroup.contactnumber);//团控
                 $.each(e.data.dispatchhotel,function (i, result) {
                     date=result.date.substring(5,10);
                     date2=result.date.substring(5,9);

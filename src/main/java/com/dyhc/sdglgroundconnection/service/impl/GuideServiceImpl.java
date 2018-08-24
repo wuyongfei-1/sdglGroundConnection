@@ -60,7 +60,7 @@ public class GuideServiceImpl implements GuideService {
     }
 
     /**
-     * MQ监听器& 导游登陆（wuyongfei）
+     * MQ监听器 & 导游登陆（wuyongfei）
      *
      * @param username 用户名
      */

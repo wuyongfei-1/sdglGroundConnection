@@ -36,6 +36,9 @@ public class DispatchServiceImpl implements DispatchService {
     private DisshoppService disshoppService; // 调度购物业务
 
     @Autowired
+    private TravelService travelService; // 组团社业务
+
+    @Autowired
     private DisrestaurantService disrestaurantService; // 调度餐馆业务
 
     @Autowired

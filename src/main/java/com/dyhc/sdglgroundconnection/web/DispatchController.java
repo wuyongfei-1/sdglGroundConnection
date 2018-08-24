@@ -27,6 +27,11 @@ public class DispatchController {
     private DispatchService dispatchService;
 
 
+    /**
+     * 根据调度编号查询调度信息 （wangtao）
+     * @param dispatchId 调度编号
+     * @return 返回调度信息对象
+     */
     @RequestMapping("/getDispatchInfoByDispatchId")
     public ReponseResult getDispatchInfoByDispatchId(@RequestParam("dispatchId")Integer dispatchId){
         try {

@@ -18,7 +18,7 @@ public class Discar {
     @Column(name = "typeId")
     private Integer typeId; // 用车类型编号（外键，与用车类型表关联）
     @Column(name = "offerId")
-    private Integer offerId; // 调度信息编号（外键，与报价信息表关联）
+    private Integer offerId; // 调度信息编号（外键，与调度信息表关联）
     @Column(name = "costPrice")
     private Double costPrice; // 成本价
     @Column(name = "quotePrice")

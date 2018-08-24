@@ -18,7 +18,7 @@ public class Disrestaurant {
     @Column(name = "typeId")
     private Integer typeId; // 餐馆类型编号（外键，与餐馆类型表关联）
     @Column(name = "offerId")
-    private Integer offerId; // 调度信息编号（外键，与报价信息表关联）
+    private Integer offerId; // 调度信息编号（外键，与调度信息表关联）
     @Column(name = "weight")
     private Integer weight;//权重（天数）
     @Column(name = "costPrice")

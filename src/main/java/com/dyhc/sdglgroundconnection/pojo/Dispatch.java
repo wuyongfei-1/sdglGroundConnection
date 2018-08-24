@@ -1,10 +1,10 @@
 package com.dyhc.sdglgroundconnection.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -63,6 +63,43 @@ public class Dispatch {
     private String value1;
     private String value2;
     private String value3;
+
+    @Transient
+    private Travel travel; // 组团社对象
+
+
+    @Transient
+    private List<Dispatchhotel> dispatchhotel; // 调度酒店表对象
+
+
+    @Transient
+    private Disguide disguide; // 调度导游表对象
+
+    public Travel getTravel() {
+        return travel;
+    }
+
+    public void setTravel(Travel travel) {
+        this.travel = travel;
+    }
+
+    public List<Dispatchhotel> getDispatchhotel() {
+        return dispatchhotel;
+    }
+
+    public void setDispatchhotel(List<Dispatchhotel> dispatchhotel) {
+        this.dispatchhotel = dispatchhotel;
+    }
+
+    public Disguide getDisguide() {
+        return disguide;
+    }
+
+    public void setDisguide(Disguide disguide) {
+        this.disguide = disguide;
+    }
+
+
 
     @Id
     @Column(name = "dispatchId")

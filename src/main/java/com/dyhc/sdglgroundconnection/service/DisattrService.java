@@ -2,8 +2,6 @@ package com.dyhc.sdglgroundconnection.service;
 
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.pojo.Disattr;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -12,6 +10,13 @@ import java.util.List;
  * 调度景点业务接口
  **/
 public interface DisattrService {
+
+    /**
+     * 根据调度编号查询调度景点信息
+     * @param offerId 调度编号
+     * @return 调度景点集合
+     */
+    List<Disattr> listDisattrByOffId(Integer offerId)throws Exception;
 
     /**
      * 批量添加调度景点列表（wuyongfei）

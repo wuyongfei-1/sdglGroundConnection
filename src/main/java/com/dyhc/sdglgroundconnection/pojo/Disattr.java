@@ -44,6 +44,25 @@ public class Disattr {
     private String value2;
     private String value3;
 
+    @Transient
+    private Scenicspot scenicspot; // 景点对象
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
+
+    public Scenicspot getScenicspot() {
+        return scenicspot;
+    }
+
+    public void setScenicspot(Scenicspot scenicspot) {
+        this.scenicspot = scenicspot;
+    }
+
     @Id
     @Column(name = "disAttrId")
     public int getDisAttrId() {

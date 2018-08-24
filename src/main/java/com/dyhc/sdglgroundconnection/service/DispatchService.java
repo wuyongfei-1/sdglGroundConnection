@@ -17,7 +17,7 @@ public interface DispatchService {
      * @param dispatchId 调度编号
      * @return 返回调度表信息对象
      */
-    Dispatch getDispatchInfoByDispatchInfoId(Integer dispatchId);
+    Dispatch getDispatchInfoByDispatchInfoId(Integer dispatchId)throws Exception;
 
     /**
      * 添加一条调度信息（wuyongfei）

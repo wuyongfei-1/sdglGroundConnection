@@ -129,6 +129,8 @@
                 $("#remarks").text(e.data.remarks)//备注);
                 $("#tourist").text(e.data.tourist);//客源地
                 $("#num").text(e.data.num);//人数
+                $("#guideName").text(e.data.tourist);//客源地
+                $("#telephone").text(e.data.num);//人数
                 $.each(e.data.dispatchhotel,function (i, result) {
                     date=result.date.substring(5,10);
                     date2=result.date.substring(5,9);

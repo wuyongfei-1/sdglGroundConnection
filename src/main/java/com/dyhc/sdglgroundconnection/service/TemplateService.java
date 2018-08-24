@@ -34,6 +34,12 @@ public interface TemplateService {
      * @return 返回模板集合
      */
     PageInfo<Template> listTemplateByConditions(TemplateParam templateParam) throws Exception;
+    /**
+     * 根据模板id查询模板信息 （dubingkun）
+     * @param templateId 模板id
+     * @return 返回模板集合
+     */
+    Template listTemplateByTemplateId(Integer templateId) throws Exception;
 
     /**
      * 根据模板编号查询模板信息 （wangtao）

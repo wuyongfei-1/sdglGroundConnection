@@ -1,6 +1,7 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
 import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
+import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.mapper.TravelMapper;
 ;
 import com.dyhc.sdglgroundconnection.pojo.Travel;
@@ -9,6 +10,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
@@ -21,7 +24,19 @@ public class TravelServiceImpl implements TravelService {
     private TravelMapper travelMapper;
 
     /**
+     * 获取所有的旅行社（不分页）（wuyongfei）
+     *
+     * @return 旅行社列表
+     * @throws DispatchException 调度异常
+     */
+    @Override
+    public List<Travel> listAllTravels() throws DispatchException {
+        return travelMapper.selectAll();
+    }
+
+    /**
      * 组团社名称分页查询（yunguohao）
+     *
      * @param pageNo
      * @param PageSize
      * @param travel
@@ -36,7 +51,8 @@ public class TravelServiceImpl implements TravelService {
     }
 
     /**
-     *组团社增加（yunguohao）
+     * 组团社增加（yunguohao）
+     *
      * @param travel
      * @return
      */
@@ -48,7 +64,8 @@ public class TravelServiceImpl implements TravelService {
     }
 
     /**
-     *组团社修改（yunguohao）
+     * 组团社修改（yunguohao）
+     *
      * @param travel
      * @return
      */
@@ -60,18 +77,20 @@ public class TravelServiceImpl implements TravelService {
     }
 
     /**
-     *组团社删除（yunguohao）
+     * 组团社删除（yunguohao）
+     *
      * @param travelid
      * @return
      */
     @Override
     @RecordOperation(type = "组团社", desc = "删除了一条组团社信息")
-    public int deleteTravelByIDs(int travelid) throws Exception{
+    public int deleteTravelByIDs(int travelid) throws Exception {
         return travelMapper.deleteTravel(travelid);
     }
 
     /**
      * 组团社id查询（yunguohao）
+     *
      * @param id
      * @return
      */

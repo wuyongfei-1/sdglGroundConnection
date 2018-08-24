@@ -16,10 +16,7 @@ function xianlu(obj){
 		$(obj).html("选择模板");
     }else{
         $(obj).parent().prev().html("<select name='city' lay-verify='required' lay-search>"+
-		"<option value=''></option>"+
-		"<option value='0'>哈红祖</option>"+
-		"<option value='1'>无敌组</option>"+
-		"<option value='2'>纪检组</option>"+
+		xianluinfo+
 			"</select>");
 		$(obj).html("自行填写");
 	}
@@ -42,22 +39,17 @@ function shanchu(aa){
 }
 
 function insertJingdian(onClickjd) {
-        $(onClickjd).parent().parent().next().after("<tr id='scenic'>"+
-            "<td><label class='layui-form-label'>景点</label></td>"+
-            "<td>"+
-            "<select name='city' lay-verify='required'>"+
-            "<option value=''></option>"+
-            "<option value='0'>哈红祖</option>"+
-            "<option value='1'>无敌组</option>"+
-            "<option value='2'>哈皮组</option>"+
-            "<option value='3'>66组</option>"+
-            "<option value='4'>纪检组</option>"+
-            "</select>"+
-            "</td>"+
-            "<td><label class='layui-form-label'>成本价:</label></td>"+
-            "<td><input type='text' class='layui-input'></td>"+
-            "<td><label class='layui-form-label'>报价:</label></td>"+
-            "<td><input type='text' class='layui-input'></td>"+
+        $(onClickjd).parent().parent().next().after("<tr id=\"scenic\">\n" +
+            "                            <td><label class=\"layui-form-label\">景点</label></td>\n" +
+            "                            <td>\n" +
+            "                                <select name=\"city\" lay-ignore spot=\"jingdian\"onchange=\"baojia(this)\">\n" +
+            jingdian+
+            "                                </select>\n" +
+            "                            </td>\n" +
+            "                            <td><label class=\"layui-form-label\">成本价:</label></td>\n" +
+            "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
+            "                            <td><label class=\"layui-form-label\">报价:</label></td>\n" +
+            "                            <td><input type=\"text\" name='offer' class=\"layui-input\"></td>\n" +
             "<td style='bottom: 0px;'><label class='layui-form-label' onclick='san(this)'>×</label></td>"+
             "</tr>");
     layui.use(['form', 'layedit', 'laydate','element'], function() {
@@ -72,115 +64,111 @@ function insertJingdian(onClickjd) {
     });
 }
 
-
-
+	function  san(dang){
+      $(dang).parent().parent().remove();
+	}
+		showInfo3();
 			function addss() {
-				var a = "<div style='margin-bottom: 30px;width: 800px'>"+
-				"<input type='image' src='/images/up.PNG' style='height: 30px;width: 35px;' id='toggle' onclick='qiehuan(this)' />"+
-				"<input type='image' id='sc' src='/images/del.PNG' onclick='shanchu(  this)' style='display:inline-block;float: right;height: 30px;width: 35px;'/>"+
-				"<div id='content'>"+
-				"<form class='layui-form layui-form-pane' action=''>"+
-				"<table border='0' cellspacing='0' cellpadding='0'>"+
-				"<tr>"+
-				"<td><label class='layui-form-label'>线路</label></td>"+
-				"<td>"+
-				"<select name='city' lay-verify='required' lay-search>"+
-				"<option value=''></option>"+
-				"<option value='0'>哈红祖</option>"+
-				"<option value='1'>无敌组</option>"+
-				"<option value='2'>哈皮组</option>"+
-				"<option value='3'>66组</option>"+
-				"<option value='4'>纪检组</option>"+
-				"</select>"+
-				"</td>"+
-				"<td colspan='2'>&nbsp;<button type='button' class='layui-btn layui-btn-normal layui-btn-radius' style='height: 30px;width: 100px;' onclick='xianlu(this)'>自行填写</button></td>"+
-				"<td colspan='2'>&nbsp;<button type='button'class='layui-btn layui-btn-normal layui-btn-radius' style='height: 30px;width: 100px'>保存模板</button></td>"+
-				"</tr>"+
-					"<tr>"+
-					"<td><label class='layui-form-label'>日期</label></td>"+
-					"<td>"+
-					"<input type='text' class='layui-input'>"+
-					"</td>"+
-					"</tr>"+
-					"<tr id='scenic'  lay-filter='skt'>"+
-					"<td><label class='layui-form-label'>酒店</label></td>"+
-					"<td>"+
-					"<select name='city' lay-verify='required'>"+
-					"<option value=''></option>"+
-					"<option value='0'>哈红祖</option>"+
-					"<option value='1'>无敌组</option>"+
-					"<option value='2'>哈皮组</option>"+
-					"<option value='3'>66组</option>"+
-					"<option value='4'>纪检组</option>"+
-					"</select>"+
-					"</td>"+
-				"<td><label class='layui-form-label'>成本价</label></td>"+
-				"<td><input type='text' class='layui-input'></td>"+
-				"<td><label class='layui-form-label'>报价</label></td>"+
-				"<td><input type='text' class='layui-input'></td>"+
-				"</tr>"+
-                    "<tr id='onClickjd'>"+
-                    "<td colspan='2'><button class='layui-btn' type='button' style='font-size:12px' onclick='insertJingdian(this)'>添加景点+</button></td>"+
-                    "</tr>"+
-				"<tr id='scenic'>"+
-				"<td><label class='layui-form-label'>景点</label></td>"+
-				"<td>"+
-				"<select name='city' lay-verify='required'>"+
-				"<option value=''></option>"+
-					"<option value='0'>哈红祖</option>"+
-					"<option value='1'>无敌组</option>"+
-					"<option value='2'>哈皮组</option>"+
-					"<option value='3'>66组</option>"+
-				"<option value='4'>纪检组</option>"+
-					"</select>"+
-					"</td>"+
-                    "<td><label class='layui-form-label'>成本价:</label></td>"+
-                    "<td><input type='text' class='layui-input'></td>"+
-                    "<td><label class='layui-form-label'>报价:</label></td>"+
-                    "<td><input type='text' class='layui-input'></td>"+
-					"</tr>"+
-					"<tr>"+
-					"<td><label class='layui-form-label'>午餐</label></td>"+
-				"<td>"+
-				"<select name='city' lay-verify='required'>"+
-					"<option value=''></option>"+
-					"<option value='0'>哈红祖</option>"+
-					"<option value='1'>无敌组</option>"+
-					"<option value='2'>哈皮组</option>"+
-					"<option value='3'>66组</option>"+
-				"<option value='4'>纪检组</option>"+
-					"</select>"+
-					"</td>"+
-					"<td><label class='layui-form-label'>成本价</label></td>"+
-				"<td><input type='text' class='layui-input'></td>"+
-					"<td><label class='layui-form-label'>报价</label></td>"+
-				"<td><input type='text' class='layui-input'></td>"+
-					"</tr>"+
-					"<tr>"+
-					"<td><label class='layui-form-label'>晚餐</label></td>"+
-				"<td>"+
-				"<select name='city' lay-verify='required'>"+
-					"<option value=''></option>"+
-					"<option value='0'>哈红祖</option>"+
-					"<option value='1'>无敌组</option>"+
-					"<option value='2'>哈皮组</option>"+
-					"<option value='3'>66组</option>"+
-				"<option value='4'>纪检组</option>"+
-					"</select>"+
-					"</td>"+
-					"	<td><label class='layui-form-label'>成本价</label></td>"+
-				"<td><input type='text' class='layui-input'></td>"+
-					"<td><label class='layui-form-label'>报价</label></td>"+
-				"<td><input type='text' class='layui-input'></td>"+
-					"</tr>"+
-					"<tr>"+
-					"<td><label class='layui-form-label'>行程</label></td>"+
-				"<td colspan='5'> <textarea placeholder='请输入内容' class='layui-textarea' name='desc'></textarea></td>"+
-				"</tr>"+
-				"</table>"+
-				"</form>"+
-				"</div>"+
-				"</div>";
+				var a= "<div style='margin-bottom: 30px;width: 800px'>\n" +
+                    "            <input type=\"image\" src=\"/images/up.PNG\" style=\"height: 30px;width: 35px;\" id=\"toggle\"\n" +
+                    "                   onclick='qiehuan(this)'/>\n" +
+                    "            <input type=\"image\" id=\"sc\" src=\"/images/del.PNG\" onclick='shanchu(this)'\n" +
+                    "                   style=\"display:inline-block;float: right;height: 30px;width: 35px;\"/>\n" +
+                    "            <div id=\"content\">\n" +
+                    "                <form class=\"layui-form layui-form-pane\" action=\"\">\n" +
+                    "                    <table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n" +
+                    "                        <tr>\n" +
+                    "                            <td><label class=\"layui-form-label\" onchange='chengZi(this)'>线路</label></td>\n" +
+                    "                            <td>\n" +
+                    "                                <select name=\"city\" lay-ignore lay-search xl=\"xianlu\" onchange='chengZi(this)'>\n" +
+                    xianluinfo+
+                    "                                </select>\n" +
+                    "                            </td>\n" +
+                    "                            <td colspan=\"2\">&nbsp;<button type=\"button\"\n" +
+                    "                                                          class='layui-btn layui-btn-normal layui-btn-radius'\n" +
+                    "                                                          style='height: 30px;width: 100px;' onclick=\"xianlu(this)\">自行填写\n" +
+                    "                            </button>\n" +
+                    "                            </td>\n" +
+                    "                            <td colspan=\"2\">&nbsp;<button type=\"button\"\n" +
+                    "                                                          class='layui-btn layui-btn-normal layui-btn-radius'\n" +
+                    "                                                          style='height: 30px;width: 100px'>保存模板\n" +
+                    "                            </button>\n" +
+                    "                            </td>\n" +
+                    "                        </tr>\n" +
+                    "                        <tr>\n" +
+                    "                            <td><label class=\"layui-form-label\">日期</label></td>\n" +
+                    "                            <td>\n" +
+                    "                                <input type=\"text\" name=\"date\" id=\"date2\" lay-verify=\"date\" placeholder=\"yyyy-MM-dd\"\n" +
+                    "                                       autocomplete=\"off\" class=\"layui-input\">\n" +
+                    "                            </td>\n" +
+                    "                        </tr>\n" +
+                    "\n" +
+                    "                        <tr>\n" +
+                    "                            <td><label class=\"layui-form-label\">酒店</label></td>\n" +
+                    "                            <td>\n" +
+                    "                                <select name=\"city\" lay-ignore hotel=\"jiudian\" onchange='baojia(this)'>\n" +
+                    jiudian+
+                    "                                </select>\n" +
+                    "                            </td>\n" +
+                    "                            <td><label class=\"layui-form-label\">成本价</label></td>\n" +
+                    "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
+                    "                            <td><label class=\"layui-form-label\">报价</label></td>\n" +
+                    "                            <td><input type=\"text\" name='offer' class=\"layui-input\"></td>\n" +
+                    "                        </tr>\n" +
+                    "                        <!--点击新增景点-->\n" +
+                    "                        <tr id=\"onClickjd\">\n" +
+                    "                            <td colspan=\"2\">\n" +
+                    "                                <button class=\"layui-btn\" type=\"button\" style=\"font-size: 12px\"\n" +
+                    "                                        onclick=\"insertJingdian(this)\">添加景点+\n" +
+                    "                                </button>\n" +
+                    "                            </td>\n" +
+                    "                        </tr>\n" +
+                    " <tr id=\"scenic\">\n" +
+                    "                            <td><label class=\"layui-form-label\">景点</label></td>\n" +
+                    "                            <td>\n" +
+                    "                                <select name=\"city\" lay-ignore spot=\"jingdian\"onchange=\"baojia(this)\">\n" +
+                    jingdian+
+                    "                                </select>\n" +
+                    "                            </td>\n" +
+                    "                            <td><label class=\"layui-form-label\">成本价:</label></td>\n" +
+                    "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
+                    "                            <td><label class=\"layui-form-label\">报价:</label></td>\n" +
+                    "                            <td><input type=\"text\" name='offer' class=\"layui-input\"></td>\n" +
+                    "                        </tr>"+
+                    "                        <tr>\n" +
+                    "                            <td><label class=\"layui-form-label\">午餐</label></td>\n" +
+                    "                            <td>\n" +
+                    "                                <select name=\"city\" lay-ignore wc=\"wucan\" onchange='baojia(this)'>\n" +
+                    wucan+
+                    "\n" +
+                    "                                </select>\n" +
+                    "                            </td>\n" +
+                    "                            <td><label class=\"layui-form-label\">成本价</label></td>\n" +
+                    "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
+                    "                            <td><label class=\"layui-form-label\">报价</label></td>\n" +
+                    "                            <td><input type=\"text\" name='offer' class=\"layui-input\"></td>\n" +
+                    "                        </tr>\n" +
+                    "                        <tr>\n" +
+                    "                            <td><label class=\"layui-form-label\">晚餐</label></td>\n" +
+                    "                            <td>\n" +
+                    "                                <select name=\"city\" lay-ignore wac=\"wancan\" onchange='baojia(this)'>\n" +
+                    wancan+
+                    "                                </select>\n" +
+                    "                            </td>\n" +
+                    "                            <td><label class=\"layui-form-label\">成本价</label></td>\n" +
+                    "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
+                    "                            <td><label class=\"layui-form-label\">报价</label></td>\n" +
+                    "                            <td><input type=\"text\" name='offer' class=\"layui-input\"></td>\n" +
+                    "                        </tr>\n" +
+                    "                        <tr>\n" +
+                    "                            <td><label class=\"layui-form-label\">行程</label></td>\n" +
+                    "                            <td colspan=\"5\"><textarea placeholder=\"请输入内容\" class=\"layui-textarea\" name=\"desc\"></textarea>\n" +
+                    "                            </td>\n" +
+                    "                        </tr>\n" +
+                    "                    </table>\n" +
+                    "                </form>\n" +
+                    "            </div>\n" +
+                    "        </div>";
 				$("#zong").append(a);
 						layui.use(['form', 'layedit', 'laydate','element'], function() {
 								var form = layui.form,
@@ -199,6 +187,54 @@ function insertJingdian(onClickjd) {
 				var f = "<button class='layui-btn layui-btn-normal layui-btn-radius' onclick='addss()' id='add'>十</button>";
 				$("#zong").append(f);
 			}
+function showInfo3() {
+    zongxinalu = "<option value='-1'>请选择</option>";
+    jingdian = "<option value='-1'>请选择</option>";
+    jiudian = "<option value='-1'>请选择</option>";
+    wancan = "<option value='-1'>请选择</option>";
+    wucan = "<option value='-1'>请选择</option>";
+    xianluinfo = "<option value='-1'>请选择</option>";
+    $.ajax({
+        url: "/offer/listAllShow",
+        data: "",
+        dataType: "json",
+        type: "get",
+        async:false,
+        success: function (data) {
+            //查询所有线路名
+            $.each(data.data[0], function (i, e) {
+                zongxinalu += "<option  value='" + e.lineid + "'>" + e.linename + "</option>";
+            })
+
+            //查询所有当日行程
+            $.each(data.data[1], function (i, e) {
+                xianluinfo += "<option value='" + e.templateId + "'>" + e.templateName + "</option>";
+            })
+
+            //查询所有景点
+            $.each(data.data[2], function (i, e) {
+                jingdian += "<option value='" + e.scenicSpotId + "' costPrice='"+e.costprice+"' offer='"+e.offer+"'>" + e.scenicSpotName + "</option>";
+            })
+
+            //查询所有酒店
+            $.each(data.data[3], function (i, e) {
+                jiudian += "<option value='" + e.hotelId + "' costPrice='"+e.costprice+"' offer='"+e.offer+"'>" + e.hotelName + "</option>";
+            })
+
+            //查询所有饭菜类型
+            $.each(data.data[4], function (i, e) {
+                wancan += "<option value='" + e.dictionariesId + "' costPrice='"+e.valueContent2+"' offer='"+e.valueContent3+"'>" + e.valueContent1 + "</option>";
+                wucan += "<option value='" + e.dictionariesId + "' costPrice='"+e.valueContent2+"' offer='"+e.valueContent3+"'>" + e.valueContent1 + "</option>";
+            })
+            $.each(data.data[5], function (i, e) {
+                chedui += "<option value='" + e.dictionariesId + "' costPrice='"+e.valueContent2+"' offer='"+e.valueContent3+"'>" + e.valueContent1 + "</option>";
+            })
+        }, error: function () {
+            alert(123);
+        }
+    })
+}
+
 
 function gouwudiyes(obj){
 

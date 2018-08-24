@@ -49,12 +49,27 @@ public class Scenicspot {
     private String value2;
     private String value3;
 
-
     @Transient
     private String parentScenicSpotName; // 父景点名称
 
     @Transient
+    private List<Scenicspot> scenicspots; // 所有的子景点
+
+    @Transient
     private String typeName; // 等级名
+
+    @Transient
+    private List<Shopping> scenicspotList;
+
+    @Transient
+    public List<Shopping> getScenicspotList() {
+        return scenicspotList;
+    }
+
+    @Transient
+    public void setScenicspotList(List<Shopping> scenicspotList) {
+        this.scenicspotList = scenicspotList;
+    }
 
     public String getParentScenicSpotName() {
         return parentScenicSpotName;
@@ -64,23 +79,20 @@ public class Scenicspot {
         this.parentScenicSpotName = parentScenicSpotName;
     }
 
+    public List<Scenicspot> getScenicspots() {
+        return scenicspots;
+    }
+
+    public void setScenicspots(List<Scenicspot> scenicspots) {
+        this.scenicspots = scenicspots;
+    }
+
     public String getTypeName() {
         return typeName;
     }
 
     public void setTypeName(String typeName) {
         this.typeName = typeName;
-    }
-
-    @Transient
-    private List<Shopping> scenicspotList;
-    @Transient
-    public List<Shopping> getScenicspotList() {
-        return scenicspotList;
-    }
-    @Transient
-    public void setScenicspotList(List<Shopping> scenicspotList) {
-        this.scenicspotList = scenicspotList;
     }
 
     @Id

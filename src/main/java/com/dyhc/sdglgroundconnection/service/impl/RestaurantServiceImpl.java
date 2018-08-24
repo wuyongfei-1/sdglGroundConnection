@@ -1,6 +1,7 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
 import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
+import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.exception.MealTypeException;
 import com.dyhc.sdglgroundconnection.mapper.DictionariesMapper;
 import com.dyhc.sdglgroundconnection.mapper.MealTypeMapper;
@@ -38,6 +39,17 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Autowired
     private DictionariesService dictionariesService; // 字典业务
+
+    /**
+     * 获取所有的餐馆信息（不分页）（wuyongfei）
+     *
+     * @return 餐馆列表
+     * @throws DispatchException 调度异常
+     */
+    @Override
+    public List<Restaurant> listAllRestaurants() throws DispatchException {
+        return restaurantMapper.selectAll();
+    }
 
     /**
      * 查询符合条件的餐馆和饮食类型（wuyongfei）

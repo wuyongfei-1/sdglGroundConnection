@@ -15,8 +15,10 @@ public class Offercar {
     @Id
     @Column(name = "offerCarId")
     private int offerCarId; // 主键编号
-    @Column(name = "typeId")
-    private Integer typeId; // 用车类型编号（外键，与用车类型表关联）
+    @Column(name = "typeCode")
+    private String  typeCode; // 编码类型（外键，与字典表关联）
+    @Column(name = "valueId")
+    private Integer valueId; // 类型编号（外键，与字典表关联）
     @Column(name = "offerId")
     private Integer offerId; // 报价信息编号（外键，与报价信息表关联）
     @Column(name = "costPrice")
@@ -47,15 +49,6 @@ public class Offercar {
         this.offerCarId = offerCarId;
     }
 
-    @Basic
-    @Column(name = "typeId")
-    public Integer getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(Integer typeId) {
-        this.typeId = typeId;
-    }
 
     @Basic
     @Column(name = "offerId")
@@ -177,30 +170,20 @@ public class Offercar {
         this.value3 = value3;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Offercar offercar = (Offercar) o;
-        return offerCarId == offercar.offerCarId &&
-                Objects.equals(typeId, offercar.typeId) &&
-                Objects.equals(offerId, offercar.offerId) &&
-                Objects.equals(costPrice, offercar.costPrice) &&
-                Objects.equals(offer, offercar.offer) &&
-                Objects.equals(number, offercar.number) &&
-                Objects.equals(whetherDel, offercar.whetherDel) &&
-                Objects.equals(creater, offercar.creater) &&
-                Objects.equals(modifier, offercar.modifier) &&
-                Objects.equals(modifiedData, offercar.modifiedData) &&
-                Objects.equals(creationDate, offercar.creationDate) &&
-                Objects.equals(value1, offercar.value1) &&
-                Objects.equals(value2, offercar.value2) &&
-                Objects.equals(value3, offercar.value3);
+
+    public String getTypeCode() {
+        return typeCode;
     }
 
-    @Override
-    public int hashCode() {
+    public void setTypeCode(String typeCode) {
+        this.typeCode = typeCode;
+    }
 
-        return Objects.hash(offerCarId, typeId, offerId, costPrice, offer, number, whetherDel, creater, modifier, modifiedData, creationDate, value1, value2, value3);
+    public Integer getValueId() {
+        return valueId;
+    }
+
+    public void setValueId(Integer valueId) {
+        this.valueId = valueId;
     }
 }

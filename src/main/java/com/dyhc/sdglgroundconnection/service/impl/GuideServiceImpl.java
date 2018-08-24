@@ -1,17 +1,23 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
 import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
+import com.dyhc.sdglgroundconnection.exception.DispatchException;
+import com.dyhc.sdglgroundconnection.jms.ActiveMQUtil;
 import com.dyhc.sdglgroundconnection.mapper.GuideMapper;
 import com.dyhc.sdglgroundconnection.pojo.Guide;
+import com.dyhc.sdglgroundconnection.pojo.GuideExample;
 import com.dyhc.sdglgroundconnection.service.GuideService;
 import com.dyhc.sdglgroundconnection.utils.EncryUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.annotation.JmsListener;
+import org.springframework.jms.support.JmsUtils;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -24,8 +30,52 @@ public class GuideServiceImpl implements GuideService {
     @Autowired
     private GuideMapper guideMapper;
 
+    @Autowired
+    private ActiveMQUtil activeMQUtil;
+
+    private Guide guide; // 存放消息队列处理完返回的信息
+
+    /**
+     * 获取所有的导游信息（不分页）（wuyongfei）
+     *
+     * @return 导游列表
+     * @throws DispatchException 调度异常
+     */
+    @Override
+    public List<Guide> listAllGuides() throws DispatchException {
+        return guideMapper.selectAll();
+    }
+
+    /**
+     * 导游登陆业务实现（wuyongfei）
+     *
+     * @param username 用户名
+     * @return 导游对象
+     * @throws Exception 全局异常
+     */
+    @Override
+    public Guide login(String username) throws Exception {
+        activeMQUtil.sendMessage("guide.login", username);
+        return guide;
+    }
+
+    /**
+     * MQ监听器 & 导游登陆（wuyongfei）
+     *
+     * @param username 用户名
+     */
+    @JmsListener(destination = "guide.login")
+    public void reveiveQueueFromLogin(String username) {
+        GuideExample guideExample = new GuideExample();
+        GuideExample.Criteria criteria = guideExample.createCriteria();
+        criteria.andUsernameEqualTo(username);
+        List<Guide> guides = guideMapper.selectByExample(guideExample);
+        guide = (guides != null && guides.size() > 0) ? guides.get(0) : null;
+    }
+
     /**
      * 导游名称分页查询(yunguohao)
+     *
      * @param pageNo
      * @param PageSize
      * @param guide
@@ -41,6 +91,7 @@ public class GuideServiceImpl implements GuideService {
 
     /**
      * 导游添加(yunguohao)
+     *
      * @param guide
      * @return
      */
@@ -64,8 +115,10 @@ public class GuideServiceImpl implements GuideService {
         guide.setUsername(TheUserName);
         return guideMapper.insert(guide);
     }
+
     /**
      * 导游修改(yunguohao)
+     *
      * @param guide
      * @return
      */
@@ -75,8 +128,10 @@ public class GuideServiceImpl implements GuideService {
         guide.setWhetherDel(0);
         return guideMapper.updateByPrimaryKey(guide);
     }
+
     /**
      * 导游删除(yunguohao)
+     *
      * @param guideid
      * @return
      */
@@ -85,8 +140,10 @@ public class GuideServiceImpl implements GuideService {
     public int deleteGuideByIDs(int guideid) {
         return guideMapper.deleteGuide(guideid);
     }
+
     /**
      * 导游id查询(yunguohao)
+     *
      * @param id
      * @return
      */

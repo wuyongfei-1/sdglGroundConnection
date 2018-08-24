@@ -1,6 +1,7 @@
 package com.dyhc.sdglgroundconnection.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -8,7 +9,7 @@ import java.util.Objects;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
- *  调度表
+ * 调度表
  **/
 @Table(name = "dispatch")
 public class Dispatch {
@@ -21,29 +22,37 @@ public class Dispatch {
     private String groupNumber; // 组团社团号
     @Column(name = "sendLine")
     private String sendLine; // 发往线路
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "travelStartTime")
     private Date travelStartTime; // 旅行开始时间
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "travelEndTime")
     private Date travelEndTime; // 旅行结束时间
     private Integer num; // 人数
     private String tourist; // 客源地
     private String trip; // 行程
     private Double offer; // 报价(按人数算)
+    @Transient
+    private Guide guide;
     @Column(name = "aVariance")
     private Double aVariance; // 单间房差
     private Double fare; // 车费
     @Column(name = "wineFee")
     private Double wineFee; // 酒水费
+    @Column(name = "`not`")
     private String not; // 不含
     private String remarks; // 备注
     private String supervision; // 团体监督
     private String reception; // 接待标准
     private Double total; // 总计
     private Double loan; // 导游借款
+    @Column(name = "`status`")
+    private Integer status; // 审核状态  调度状态（1、已审核  2、未审核）
     private Integer state; // 状态（1、未开始2、进行中3、已结束）
     @Column(name = "whetherDel")
     private Integer whetherDel; // 是否删除（1代表已删除，0代表未删除）
     private Integer creater; // 创建人 （外键，与人员表关联）
+    @Column(name = "`modifier`")
     private Integer modifier; // 修改人（外键，与人员表关联）
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "modifiedData")
@@ -103,6 +112,14 @@ public class Dispatch {
 
     public void setTravelStartTime(Date travelStartTime) {
         this.travelStartTime = travelStartTime;
+    }
+
+    public Guide getGuide() {
+        return guide;
+    }
+
+    public void setGuide(Guide guide) {
+        this.guide = guide;
     }
 
     @Basic
@@ -374,5 +391,13 @@ public class Dispatch {
     public int hashCode() {
 
         return Objects.hash(dispatchId, groundConnectionNumber, groupNumber, sendLine, travelStartTime, travelEndTime, num, tourist, trip, offer, aVariance, fare, wineFee, not, remarks, supervision, reception, total, loan, state, whetherDel, creater, modifier, modifiedData, creationDate, value1, value2, value3);
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
 import java.util.Date;
@@ -21,12 +20,12 @@ public class Offer {
     @Column(name = "travelId")
     private Integer travelId; // 组团社编号（外键，与组团社关联）
     @Column(name = "travelStartTime")
-    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date travelStartTime; // 旅行开始时间
     @Column(name = "travelEndTime")
-    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date travelEndTime; // 旅行结束时间
     private Integer number; // 人数
     private String tourist; // 客源地
@@ -35,8 +34,8 @@ public class Offer {
     @Column(name = "aVariance")
     private Double aVariance; // 单间房差
     private String shopping; // 购物
-    @Column(name = "`not`")
-    private String not; // 不含
+    @Column(name = "notExclude")
+    private String notExclude; // 不含
     private String remarks; // 备注
     private String supervision; // 团体监督
     private String reception; // 接待标准
@@ -171,17 +170,6 @@ public class Offer {
     public void setShopping(String shopping) {
         this.shopping = shopping;
     }
-
-    @Basic
-    @Column(name = "not")
-    public String getNot() {
-        return not;
-    }
-
-    public void setNot(String not) {
-        this.not = not;
-    }
-
     @Basic
     @Column(name = "remarks")
     public String getRemarks() {
@@ -356,7 +344,7 @@ public class Offer {
                 Objects.equals(offer, offer1.offer) &&
                 Objects.equals(aVariance, offer1.aVariance) &&
                 Objects.equals(shopping, offer1.shopping) &&
-                Objects.equals(not, offer1.not) &&
+                Objects.equals(notExclude, offer1.notExclude) &&
                 Objects.equals(remarks, offer1.remarks) &&
                 Objects.equals(supervision, offer1.supervision) &&
                 Objects.equals(reception, offer1.reception) &&
@@ -370,4 +358,11 @@ public class Offer {
                 Objects.equals(value3, offer1.value3);
     }
 
+    public String getNotExclude() {
+        return notExclude;
+    }
+
+    public void setNotExclude(String notExclude) {
+        this.notExclude = notExclude;
+    }
 }

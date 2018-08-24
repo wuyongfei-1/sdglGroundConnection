@@ -80,41 +80,62 @@ public class OfferServiceImpl implements OfferService {
     @Transactional
     @RecordOperation(type = "报价", desc = "添加了一条报价信息")
     public Integer insertOffer(OfferParam offerParam) throws OfferException {
-        List<Offercar> listOffercar = offerParam.getListOffercar();//用车报价信息
+        Offercar offercar = offerParam.getOffercar();//用车报价信息
         List<OfferHotel> listOfferHotel = offerParam.getListOfferHotel();//酒店报价信息
         List<Offerscenic> listOfferscenic = offerParam.getListOfferscenic();//景点报价信息
         List<Offerrestaurant> listOfferrestaurant = offerParam.getListOfferrestaurant();//餐厅报价信息
-        List<Offerother> listOfferother = offerParam.getListOfferother();//其它报价信息
+        Offerother offerother = offerParam.getOfferother();//其它报价信息
         List<Offerline> listOfferline = offerParam.getListOfferline();//线路报价信息
-
         Date day = new Date();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         //System.out.println(df.format(day));
-
-        int a = offerMapper.insert(offerParam.getOffer());
-
+        Offer offer=offerParam.getOffer();
+        int a = offerMapper.insert(offer);
+        int maxOfferId=offerMapper.getIntegerByOfferId();//获取最新添加的offerid
         //用车
-        if (listOffercar != null) {
-            offercarService.insertOffercar(listOffercar);
+        if (offercar != null) {
+            offercar.setOfferId(maxOfferId);
+            offercar.setWhetherDel(0);
+            offercar.setTypeCode("VEHICLE");
+            offercarService.insertOffercar(offercar);
         }
         //酒店
-        if (listOfferHotel != null) {
+        if (listOfferHotel != null && listOfferHotel.size()>0) {
+            for (OfferHotel item:listOfferHotel) {
+                item.setOfferId(maxOfferId);
+                item.setWhetherDel(0);
+            }
             offerHotelService.insertOfferHotel(listOfferHotel);
         }
         //景点
-        if (listOfferscenic != null) {
+        if (listOfferscenic != null && listOfferscenic.size()>0) {
+            for (Offerscenic item:listOfferscenic) {
+                item.setOfferId(maxOfferId);
+                item.setWhetherDel(0);
+            }
             offerscenicService.insertOfferscenic(listOfferscenic);
         }
         //餐馆
-        if (listOfferrestaurant != null) {
+        if (listOfferrestaurant != null && listOfferrestaurant.size()>0) {
+            for (Offerrestaurant item:listOfferrestaurant) {
+                item.setOfferId(maxOfferId);
+                item.setTypeCode("DIET");
+                item.setWhetherDel(0);
+            }
             offerrestaurantService.insertOfferrestaurant(listOfferrestaurant);
         }
         //其它
-        if (listOfferother != null) {
-            offerotherService.insertOfferother(listOfferother);
+        if (offerother != null) {
+            offerother.setOfferId(maxOfferId);
+            offerother.setWhetherDel(0);
+            offerotherService.insertOfferother(offerother);
         }
         //线路
-        if (listOfferline != null) {
+        if (listOfferline != null && listOfferline.size()>0) {
+            for (Offerline item:listOfferline) {
+                item.setOfferId(maxOfferId);
+                item.setWhetherDel(0);
+            }
             offerlineService.insertOfferline(listOfferline);
         }
 
@@ -126,5 +147,10 @@ public class OfferServiceImpl implements OfferService {
     @RecordOperation(type = "报价", desc = "修改了一条报价信息")
     public Integer updateOffer(Offer offer) throws OfferException {
         return offerMapper.updateByPrimaryKey(offer);
+    }
+
+    @Override
+    public Integer getIntegerByOfferId() {
+        return offerMapper.getIntegerByOfferId();
     }
 }

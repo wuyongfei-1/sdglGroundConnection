@@ -1,6 +1,7 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
 import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
+import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.mapper.CarrentalMapper;
 import com.dyhc.sdglgroundconnection.mapper.DictionariesMapper;
 import com.dyhc.sdglgroundconnection.mapper.VehicleTypeMapper;
@@ -30,6 +31,17 @@ public class CarrentalServiceImpl implements CarrentalService {
     private DictionariesMapper dictionariesMapper;
 
     /**
+     * 获取所有的汽车租赁公司信息（不分页）（wuyongfei）
+     *
+     * @return 汽车租赁列表
+     * @throws DispatchException 调度异常
+     */
+    @Override
+    public List<Carrental> listAllCarrentals() throws DispatchException {
+        return carrentalMapper.selectAll();
+    }
+
+    /**
      * 根据用车公司id删除 用车信息（lixiaojie)
      *
      * @param carrentalId
@@ -40,17 +52,18 @@ public class CarrentalServiceImpl implements CarrentalService {
     public Integer deleteCarrentalInfoByCarrentalId(Integer carrentalId) {
         Carrental carrental = carrentalMapper.selectByPrimaryKey(carrentalId);
         carrental.setWhetherDel(1);
-       int result= carrentalMapper.updateByPrimaryKey(carrental);
+        int result = carrentalMapper.updateByPrimaryKey(carrental);
         List<VehicleType> vehicleTypes = vehicleTypeMapper.getVehiclesTypeByCarRentalId(carrentalId);
         for (VehicleType vehicleType : vehicleTypes) {
             vehicleType.setWhetherDel(1);
-            result= vehicleTypeMapper.updateByPrimaryKey(vehicleType);
+            result = vehicleTypeMapper.updateByPrimaryKey(vehicleType);
         }
         return result;
     }
 
     /**
      * 根据用车公司获取用车公司信息（lixiaojie)
+     *
      * @param carrentalId
      * @return
      */
@@ -61,6 +74,7 @@ public class CarrentalServiceImpl implements CarrentalService {
 
     /**
      * 修改租车公司信息(lixiaojie)
+     *
      * @param carrental
      * @return
      */

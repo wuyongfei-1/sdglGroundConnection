@@ -27,15 +27,15 @@
          <table border="1" cellspacing="0" cellpadding="0">
          	<tr>
             	<td style="width:15%; text-align:center">团&nbsp;&nbsp;&nbsp;名</td>
-                <td style="width:35%">STS-RJ-20180415JD</td>
+                <td style="width:35%" id="travelName"></td>
                 <td style="width:15%; text-align:center">客源地</td>
-                <td style="width:35%">台湾</td>
+                <td style="width:35%" id="tourist"></td>
             </tr>
          </table>
          <table border="1" cellspacing="0" cellpadding="0">
          	<tr>
             	<td style="width:15%; text-align:center">人&nbsp;&nbsp;&nbsp;数</td>
-                <td style="width:10%">19人</td>
+                <td style="width:10%" id="num"></td>
                 <td style="width:20%">全陪/领队</td>
                 <td style="width:20%">1人</td>
                 <td style="width:15%; text-align:center">地陪司机</td>
@@ -48,7 +48,7 @@
                 <td style="width:25%; text-align:center">宾馆名称</td>
                 <td style="width:50%; text-align:center">团队用房</td>
             </tr>
-            <tr>
+            <!--<tr>
             	<td>415-4.16</td>
                 <td>锦江都城酒店</td>
                 <td>10标</td>
@@ -62,12 +62,12 @@
             	<td>417-4.18</td>
                 <td>宏源国际酒店</td>
                 <td>10标+2司陪</td>
-            </tr>
+            </tr>-->
          </table>
          <table border="1" cellspacing="0" cellpadding="0">
          	<tr>
             	<td style="width:25%; text-align:center">备 注</td>
-                <td style="width:75%">
+                <td style="width:75%" id="remarks">
                 	1、请安排无烟房或做无烟处理<br/>
                     2、请安排高层、相同或相近楼层、相近房间<br/>
                     3、收到请<strong style="font-size:24px">签字并盖章</strong>回传确认<br/>
@@ -85,7 +85,8 @@
          <table>
          	<tr>
             	<td style="width:8%">团控:</td>
-                <td style="width:30%">崔俊娜 18603416895</td>
+                <td style="width:30%" id="guideName">崔俊娜 18603416895</td>
+                <td style="width:30%" id="telephone">崔俊娜 18603416895</td>
                 <td style="width:8%">TEL：</td>
                 <td style="width:26%">0351-7896890</td>
                 <td style="width:8%">FAX：</td>
@@ -95,3 +96,36 @@
     </div>
 </body>
 </html>
+<script src="/js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    $(function () {
+        dispatchShow();
+    })
+    //数据渲染
+    function dispatchShow() {
+        $.ajax({
+            url: "",
+            data: {dispatchId:1},
+            dataType: "json",
+            type: "get",
+            success: function (e) {
+                var str="";
+                $(e.data).each(function (i, result) {
+                    alert(e.data);
+                    $("#travelName").val();//团名
+                    $("#remarks").val();//备注
+                    $("#tourist").val();//客源地
+                    $("#num").val();//人数
+                    $("#guideName").val();//团控
+                    $("#telephone").val();//团控
+                    str +="<tr>\n" +
+                        "\t<td>415-4.16</td>\n" +
+                        " <td>锦江都城酒店</td>\n" +
+                        "<td>10标</td>\n" +
+                        "</tr>";
+                })
+                $('tbody').html(str);
+            }
+        })
+    }
+</script>

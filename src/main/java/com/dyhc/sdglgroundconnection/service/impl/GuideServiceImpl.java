@@ -4,8 +4,11 @@ import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.jms.ActiveMQUtil;
 import com.dyhc.sdglgroundconnection.mapper.GuideMapper;
+import com.dyhc.sdglgroundconnection.mapper.GuideScheduleMapper;
 import com.dyhc.sdglgroundconnection.pojo.Guide;
 import com.dyhc.sdglgroundconnection.pojo.GuideExample;
+import com.dyhc.sdglgroundconnection.pojo.GuideSchedule;
+import com.dyhc.sdglgroundconnection.pojo.GuideScheduleExample;
 import com.dyhc.sdglgroundconnection.service.GuideService;
 import com.dyhc.sdglgroundconnection.utils.EncryUtil;
 import com.github.pagehelper.PageHelper;
@@ -33,6 +36,9 @@ public class GuideServiceImpl implements GuideService {
     @Autowired
     private ActiveMQUtil activeMQUtil;
 
+    @Autowired
+    private GuideScheduleMapper guideScheduleMapper;
+
     private Guide guide; // 存放消息队列处理完返回的信息
 
     /**
@@ -51,7 +57,7 @@ public class GuideServiceImpl implements GuideService {
      *
      * @param username 用户名
      * @return 导游对象
-     * @throws Exception 全局异常
+     * @throws Exception 全局异常0
      */
     @Override
     public Guide login(String username) throws Exception {
@@ -150,5 +156,29 @@ public class GuideServiceImpl implements GuideService {
     @Override
     public Guide selectGuideByIds(int id) {
         return guideMapper.selectByPrimaryKey(id);
+    }
+
+    /**
+     * 获取所有导游和导游日程（lixiaojie)
+     * @return
+     */
+    @Override
+    public List<Guide> selectGuideInfoAndGuideSchedule() {
+        GuideExample guideExample =new GuideExample();
+        GuideExample.Criteria guideCriteria=guideExample.createCriteria();
+        guideCriteria.andWhetherdelEqualTo(0);
+        List<Guide> guides=guideMapper.selectByExample(guideExample);  //根据条件获取所有导游信息
+
+
+        for (Guide item:guides) {  //循环导游信息  为每位导游赋上导游日程信息
+            GuideScheduleExample guideScheduleExample =new GuideScheduleExample();
+            GuideScheduleExample.Criteria guideScheduleCriteria=guideScheduleExample.createCriteria();
+            guideScheduleCriteria.andGuideidEqualTo(item.getGuideId());
+            guideScheduleExample.setOrderByClause("schedulebegintime");   //设置导游日程条件
+            List<GuideSchedule> guideSchedules=guideScheduleMapper.selectByExample(guideScheduleExample);//查询
+            item.setGuideScheduleList(guideSchedules);//将每次查到的放入集合
+        }
+
+        return guides;
     }
 }

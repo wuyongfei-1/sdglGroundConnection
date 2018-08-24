@@ -11,20 +11,37 @@
     <link rel="stylesheet" type="text/css" href="/admin/layui/css/layui.css"/>
     <link rel="stylesheet" type="text/css" href="/admin/css/admin.css"/>
     <style type="text/css">
-
-        #daoyouricheng td {
+        ::-webkit-scrollbar{
+            /*垂直滚动条的宽*/
+            width: 6px;
+            height: 2px;
+        }
+        #daoyouricheng td p{
             text-align: center;
-
-            width: 30px;
-            height: 5px;
+            width: 24px;
+            height: 16px;
 
         }
+        #tbodyinfo td {
+            text-align: center;
+            width: 24px;
+            height: 14px;
+
+        }
+
+
         .jidiaoinfo {
-            width: 370px; height: 170px; border:1px solid #2B2E37; margin: 10px; padding: 15px;
+            width: 370px;
+            height: 170px;
+            border: 1px solid #2B2E37;
+            margin: 10px;
+            padding: 15px;
         }
+
         .jidiaoinfo dd {
             height: 28px;
         }
+
         #daoyouxinxi {
 
         }
@@ -56,7 +73,7 @@
 
 <div class="page-content-wrap">
     <div style="height:600px; width: 450px;float: left;">
-        <ul class="flow-default" style="height:600px; overflow-y: auto;  " id="LAY_demo2"  ></ul>
+        <ul class="flow-default" style="height:600px; overflow-y: auto;  " id="LAY_demo2"></ul>
     </div>
 
     <div style="height:600px; overflow-y: auto; overflow-x: auto; width: 820px;float: left;">
@@ -65,146 +82,42 @@
 
             <thead>
             <tr id="daoyouricheng">
-                <td><span style="width: 90px;"></span></td>
-                <td><span style="width: 120px;">aaaaaa</span></td>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-                <td>7</td>
-                <td>8</td>
-                <td>9</td>
-                <td>10</td>
-                <td>11</td>
-                <td>12</td>
-                <td>13</td>
-                <td>14</td>
-                <td>15</td>
-                <td>16</td>
-                <td>17</td>
-                <td>18</td>
-                <td>19</td>
-                <td>20</td>
-                <td>21</td>
-                <td>22</td>
-                <td>23</td>
-                <td>24</td>
-                <td>25</td>
-                <td>26</td>
-                <td>27</td>
-                <td>28</td>
-                <td>29</td>
-                <td>30</td>
-                <td>31</td>
+                <td ><p style="width: 80px">证件号</p></td>
+                <td><p>1</p></td>
+                <td><p>2</p></td>
+                <td><p>3</p></td>
+                <td><p>4</p></td>
+                <td><p>5</p></td>
+                <td><p>6</p></td>
+                <td><p>7</p></td>
+                <td><p>8</p></td>
+                <td><p>9</p></td>
+                <td><p>10</p></td>
+                <td><p>11</p></td>
+                <td><p>12</p></td>
+                <td><p>13</p></td>
+                <td><p>14</p></td>
+                <td><p>15</p></td>
+                <td><p>16</p></td>
+                <td><p>17</p></td>
+                <td><p>18</p></td>
+                <td><p>19</p></td>
+                <td><p>20</p></td>
+                <td><p>21</p></td>
+                <td><p>22</p></td>
+                <td><p>23</p></td>
+                <td><p>24</p></td>
+                <td><p>25</p></td>
+                <td><p>26</p></td>
+                <td><p>27</p></td>
+                <td><p>28</p></td>
+                <td><p>29</p></td>
+                <td><p>30</p></td>
+                <td><p>31</p></td>
             </tr>
             </thead>
             <tbody id="tbodyinfo">
-            <tr>
-                <td>李晓杰</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="bunengyong">√</td>
-                <td class="bunengyong">√</td>
-                <td class="bunengyong">√</td>
-                <td class="bunengyong">√</td>
-                <td class="bunengyong">√</td>
-                <td class="bunengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
 
-
-            </tr>
-            <tr>
-                <td>李晓杰</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="bunengyong"></td>
-                <td class="bunengyong"></td>
-                <td class="bunengyong"></td>
-                <td class="bunengyong"></td>
-                <td class="bunengyong"></td>
-                <td class="bunengyong"></td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-            </tr>
-            <tr>
-                <td>李晓杰</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="bunengyong"></td>
-                <td class="bunengyong"></td>
-                <td class="bunengyong"></td>
-                <td class="bunengyong"></td>
-                <td class="bunengyong"></td>
-                <td class="bunengyong"></td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-                <td class="nengyong">√</td>
-            </tr>
             </tbody>
         </table>
     </div>
@@ -212,6 +125,96 @@
 
 <script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 <script src="/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/jquery-3.2.1.js"></script>
+<script type="text/javascript">
+    $(function () {
+
+        selectGuideInfoAndGuideSchedule();
+    });
+
+    /*
+    * 判断日程集合内是否有该值（lixiaojie)
+    *
+    */
+    function getTdRiChengInfo(allDay,allshiqing) {
+
+        var result;
+        $.each(allshiqing, function (i, e) {
+            var myBeginDate = e.schedulebegintime;
+            var thisDay = myBeginDate.substr(8, 2);
+            thisDay = thisDay * 1;
+            if (thisDay==allDay){
+                result= e;
+            }
+
+        });
+        return result;
+    }
+    /**
+     * 获取所有导游和导游日程(lixiaojie)
+     */
+    function selectGuideInfoAndGuideSchedule() {
+        $.ajax({
+            url: "/guide/selectGuideInfoAndGuideSchedule",
+            data: {},
+            async: false,
+            dataType: "json",
+            type: "post",
+            success: function (ReponseResult) {
+                var content = "";
+                $.each(ReponseResult.data, function (i, e) {
+
+                    content += "<tr>";
+                    content += " <td style='text-align: center'>" + e.guideName + "</td>";
+
+                    for (var s=1;s<32;s++){
+                        var result=getTdRiChengInfo(s,e.guideScheduleList)
+                        if (result!="" && result!=null && result!=undefined){
+                            if (result.schedulestate==1) {
+                                content += "<td ></td>";
+                            }
+                            if (result.schedulestate==2) {
+                                content += "<td >休</td>";
+                            }
+                            if (result.schedulestate==3) {
+                                content += "<td>√</td>";
+                            }
+
+                        }else {
+                            content += "<td></td>";
+                        }
+                    }
+
+                    /*for (var p = 0; p < 31; p++) {
+                        if ( e.guideScheduleList[p]==""||e.guideScheduleList[p]==null){
+                            content += "<td></td>";
+                            continue;
+                        }else {
+                            var myBeginDate=e.guideScheduleList[p].schedulebegintime;
+                            var thisDay=myBeginDate.substr(8, 2);
+                            thisDay = thisDay * 1;
+                            if (thisDay != p+1) {
+                                content += "<td></td>";
+                            }
+                            if (thisDay == p+1) {
+                                content += "<td>对</td>";
+                            }
+                        }
+                    }*/
+                    content += " </tr>";
+                });
+
+
+                $("#tbodyinfo").html(content);
+
+
+            }
+        })
+        ;
+    }
+</script>
+
+
 <script>
     layui.use(['form', 'jquery', 'layer', 'dialog'], function () {
         var $ = layui.jquery;
@@ -233,8 +236,6 @@
 </script>
 
 
-
-
 <script>
     /**
      * 加载流显示 调度信息(lixiaojie)
@@ -242,9 +243,9 @@
     layui.use('flow', function () {
         $ = layui.jquery;
         var form = layui.form
-            ,layer = layui.layer;
+            , layer = layui.layer;
         var flow = layui.flow;
-        var  limitcount =3;
+        var limitcount = 3;
         flow.load({
 
             elem: '#LAY_demo2' //流加载容器
@@ -256,7 +257,7 @@
             done: function (page, next) { //加载下一页
                 //模拟插入
                 var lis = [];
-                 // 当前页码
+                // 当前页码
                 setTimeout(function () {
                     $.ajax({
                         url: "/dispatch/selectDispatchs",
@@ -268,18 +269,19 @@
                         dataType: "json",
                         type: "post",
                         success: function (ReponseResult) {
-                            pagecount=ReponseResult.count/limitcount;
+                            pagecount = ReponseResult.count / limitcount;
                             $(ReponseResult.data.list).each(function (i, e) {
                                 var content = "<div class='jidiaoinfo' >";
                                 content += "<dl>";
-                                content += "<dd style='float: right'><p style='line-height: 40px'>姓名："+e.guide.guideName+"</p><p>证件号："+e.guide.certificate+"</p></dd>";
-                                content += "<dd><span>团号:"+e.groundConnectionNumber+"</span></dd>";
+                                content += "<dd style='float: right'><p style='line-height: 40px'>姓名：" + e.guide.guideName + "</p><p>证件号：" + e.guide.certificate + "</p></dd>";
+                                content += "<dd><span>团号:" + e.groundConnectionNumber + "</span></dd>";
 
-                                content += "<dd>发往路线："+e.sendLine+"</dd>";
-                                content += "<dd>人数："+e.num+"</dd>";
-                                content += "<dd><span style=''>beginTime："+e.travelStartTime+"</span><span style='margin-left: 20px'>endTime："+e.travelEndTime+"</span></dd>";
-                                content += "<dd>报价："+e.offer+"</dd>";
-                                content += "<dd ><button onclick='onCheckDispatchInfo("+e.dispatchId+")' class='layui-btn layui-btn-normal layui-btn-radius'>通过</button>&nbsp;&nbsp;<button onclick='noCheckDispatchInfo("+e.dispatchId+")' class='layui-btn layui-btn-normal layui-btn-radius'>打回</button></dd>";content += "<dd ></dd>";
+                                content += "<dd>发往路线：" + e.sendLine + "</dd>";
+                                content += "<dd>人数：" + e.num + "</dd>";
+                                content += "<dd><span style=''>beginTime：" + e.travelStartTime + "</span><span style='margin-left: 20px'>endTime：" + e.travelEndTime + "</span></dd>";
+                                content += "<dd>报价：" + e.offer + "</dd>";
+                                content += "<dd ><button onclick='onCheckDispatchInfo(" + e.dispatchId + ")' class='layui-btn layui-btn-normal layui-btn-radius'>通过</button>&nbsp;&nbsp;<button onclick='noCheckDispatchInfo(" + e.dispatchId + ")' class='layui-btn layui-btn-normal layui-btn-radius'>打回</button></dd>";
+                                content += "<dd ></dd>";
                                 content += "</dl>";
                                 content += "</div>";
                                 lis.push(content);
@@ -290,9 +292,9 @@
                     });
 
                 }, 500);
-    }
-    })
-    ;
+            }
+        })
+        ;
 
     })
     ;
@@ -307,16 +309,20 @@
         $.ajax({
             url: "/dispatch/onCheckDispatchInfo",
             data: {
-              "dispatchId":dispatchId
+                "dispatchId": dispatchId
             },
             async: false,
             dataType: "json",
             type: "post",
             success: function (ReponseResult) {
-                if (ReponseResult.data==0||ReponseResult.data=='0') {
+                if (ReponseResult.data == 0 || ReponseResult.data == '0') {
                     alert("审核失败")
                 }
-                if (ReponseResult.data==1||ReponseResult.data=='1') {
+                if (ReponseResult.data == 2 || ReponseResult.data == '2') {
+                    alert("该导游当日已有安排");
+                    return;
+                }
+                if (ReponseResult.data == 1 || ReponseResult.data == '1') {
                     alert("审核成功")
                 }
                 location.reload();
@@ -333,16 +339,16 @@
         $.ajax({
             url: "/dispatch/noCheckDispatchInfo",
             data: {
-                "dispatchId":dispatchId
+                "dispatchId": dispatchId
             },
             async: false,
             dataType: "json",
             type: "post",
             success: function (ReponseResult) {
-                if (ReponseResult.data==0||ReponseResult.data=='0') {
+                if (ReponseResult.data == 0 || ReponseResult.data == '0') {
                     alert("打回失败")
                 }
-                if (ReponseResult.data==1||ReponseResult.data=='1') {
+                if (ReponseResult.data == 1 || ReponseResult.data == '1') {
                     alert("打回成功")
                 }
                 location.reload();

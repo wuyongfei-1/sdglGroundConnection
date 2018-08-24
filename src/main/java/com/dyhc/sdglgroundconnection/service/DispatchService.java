@@ -5,6 +5,7 @@ import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.pojo.Dispatch;
 import com.github.pagehelper.PageInfo;
 
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -33,7 +34,7 @@ public interface DispatchService {
     /** 总控审核通过（lixiaojie)
      * @return
      */
-    Integer onCheckDispatchInfo(Integer dispatchId);
+    Integer onCheckDispatchInfo(Integer dispatchId) throws ParseException;
 
     /**
      * 总控审核不通过(lixiaojie)

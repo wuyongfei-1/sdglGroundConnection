@@ -65,6 +65,8 @@ public class Dispatch {
     private String value3;
 
 
+    @Transient
+    private Discar discar; // 调度用车对象
 
     @Transient
     private Dispatchtourgroup dispatchtourgroup; // 调度旅行团对象
@@ -76,6 +78,13 @@ public class Dispatch {
     @Transient
     private Disguide disguide; // 调度导游表对象
 
+    public Discar getDiscar() {
+        return discar;
+    }
+
+    public void setDiscar(Discar discar) {
+        this.discar = discar;
+    }
 
     public List<Dispatchhotel> getDispatchhotel() {
         return dispatchhotel;

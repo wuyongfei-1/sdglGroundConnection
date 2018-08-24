@@ -18,7 +18,7 @@
                 <tr>
                     <td><label class="layui-form-label">组团社名称</label></td>
                     <td>
-                        <select id="zutuanshe" id="travelId" lay-verify="required">
+                        <select id="zutuanshe" lay-verify="required">
                         </select>
                     </td>
                     <td><label class="layui-form-label">人数</label></td>
@@ -228,6 +228,26 @@
 <script type="text/javascript" src="/layui.js"></script>
 <script type="text/javascript" src="/js/baojiadan.js"></script>
 <script type="text/javascript" src="/js/offer.js"></script>
+<script type="text/javascript" src="/lodop/jquery-3.2.1.js"></script>
+<script type="text/javascript" src="/lodop/LodopFuncs.js"></script>
+<script>
+    // var LODOP;//声明为全局变量
+    // //打印预览
+    // function readLoad(){
+    //     alert(123)
+    //     LODOP.PRINT_INIT("打印控件功能演示_Lodop功能_按网址打印");
+    //     LODOP.ADD_PRINT_URL(30,20,746,"95%","/voucher/Confirmation.html");
+    //     // LODOP.SET_PRINT_STYLEA(0,"HOrient",3);
+    //     // LODOPDOP.SET_PRINT_STYLEA(0,"VOrient",3);
+    //     //LODOP.SET_SHOW_MODE("MESSAGE_GETING_URL",""); //该语句隐藏进度条或修改提示信息
+    //     //LODOP.SET_SHOW_MODE("MESSAGE_PARSING_URL","");//该语句隐藏进度条或修改提示信息
+    //     LODOP.PREVIEW();
+    // }
+    // //报价预览按钮单击事件
+    // $("#yulan").click(function () {
+    //     readLoad();
+    // })
+</script>
 <script>
     var selectJson=[];//存放总线路中的酒店id以及景点id等信息
     var selectJson2=[];//存放线路中的酒店id以及景点id等信息
@@ -601,7 +621,7 @@
         var travelStartTime=$("#date").val();//开团日期
         var travelEndTime=$("#date1").val();//结束日期
         var number=$("#number").val();//人数
-        var travelId=$("#travelId").val();//组团社
+        var travelId=$("#zutuanshe").val();//组团社
         var offer=0;//报价
         var trip="";//行程
         var shopping=$("[name='shopping']").val();//购物
@@ -765,10 +785,6 @@
     //报价按钮单击事件
     $("#baocun").click(function () {
         insertOffer();
-    })
-    //报价预览按钮单击事件
-    $("#yulan").click(function () {
-        alert(123)
     })
 </script>
 <script type="text/javascript">

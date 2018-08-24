@@ -1,20 +1,16 @@
 package com.dyhc.sdglgroundconnection.web;
 
 import com.dyhc.sdglgroundconnection.pojo.Dispatch;
-import com.dyhc.sdglgroundconnection.pojo.Shopping;
-import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.dyhc.sdglgroundconnection.service.DispatchService;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
@@ -31,6 +27,21 @@ public class DispatchController {
     private DispatchService dispatchService;
 
 
+    @RequestMapping("/getDispatchInfoByDispatchId")
+    public ReponseResult getDispatchInfoByDispatchId(@RequestParam("dispatchId")Integer dispatchId){
+        try {
+            Dispatch dispatch=dispatchService.getDispatchInfoByDispatchInfoId(dispatchId);
+            ReponseResult<Dispatch> data = ReponseResult.ok(dispatch, "根据调度编号获取调度表信息成功！");
+
+            logger.info(" method:selectDispatchs  根据调度编号获取调度表信息成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:selectDispatchs  根据调度编号获取调度表信息失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
 
     /**
      * 分页获取调度表信息 (lixiaojie)

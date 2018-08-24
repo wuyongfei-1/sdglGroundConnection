@@ -5,13 +5,19 @@ import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.pojo.Dispatch;
 import com.github.pagehelper.PageInfo;
 
-import java.util.List;
-
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
  * 调度业务接口
  **/
 public interface DispatchService {
+
+
+    /**
+     * 根据调度编号查询调度信息 （wangtao）
+     * @param dispatchId 调度编号
+     * @return 返回调度表信息对象
+     */
+    Dispatch getDispatchInfoByDispatchInfoId(Integer dispatchId);
 
     /**
      * 添加一条调度信息（wuyongfei）

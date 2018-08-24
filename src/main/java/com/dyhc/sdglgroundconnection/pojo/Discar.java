@@ -18,7 +18,7 @@ public class Discar {
     @Column(name = "typeId")
     private Integer typeId; // 用车类型编号（外键，与用车类型表关联）
     @Column(name = "offerId")
-    private Integer offerId; // 调度信息编号（外键，与报价信息表关联）
+    private Integer offerId; // 调度信息编号（外键，与调度信息表关联）
     @Column(name = "costPrice")
     private Double costPrice; // 成本价
     @Column(name = "quotePrice")
@@ -35,8 +35,8 @@ public class Discar {
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "createDate")
     private Date createDate; // 创建时间
-    private String value1;
-    private String value2;
+    private String value1;//团队用车车牌号
+    private String value2;//驾驶员姓名
     private String value3;
 
     @Id

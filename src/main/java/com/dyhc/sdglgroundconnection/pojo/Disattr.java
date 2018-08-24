@@ -18,7 +18,7 @@ public class Disattr {
     @Column(name = "scenicSpotId")
     private Integer scenicSpotId; // 景点编号（外键，与景点表关联）
     @Column(name = "offerId")
-    private Integer offerId; // 调度信息编号（外键，与报价信息表关联）
+    private Integer offerId; // 调度信息编号（外键，与调度信息表关联）
     private Date date; // 日期
     private Integer buynum; // 购买人数
     @Column(name = "weight")

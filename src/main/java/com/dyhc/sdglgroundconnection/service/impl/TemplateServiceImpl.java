@@ -85,7 +85,14 @@ public class TemplateServiceImpl implements TemplateService {
      */
     @Override
     public List<Template> listAllTemplate() throws Exception {
-        return templateMapper.selectAll();
+        List<Template> templateList=templateMapper.selectAll();
+        for (Template t: templateList) {
+            //给每个模板的模板景点、模板酒店集合进行赋值
+            t.setTemplateHotel(templateHotelService.getTemplateHotelInfoByTemplateId(t.getTemplateId()));
+            t.setTemplateScenicspotList(templateScenicspotService.listTemplateScenicspotByTemplateId(t.getTemplateId()));
+            t.setStaff(staffService.getStaffInfoByStaffId(t.getCreater()));
+        }
+        return templateList;
     }
 
     /**

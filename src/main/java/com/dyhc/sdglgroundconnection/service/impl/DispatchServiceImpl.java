@@ -56,6 +56,9 @@ public class DispatchServiceImpl implements DispatchService {
     @Autowired
     private DisattrService disattrService; // 调度景点业务
 
+    @Autowired
+    private DispatchtourgroupServer dispatchtourgroupServer; // 调度旅游表业务
+
 
     /**
      * 根据调度编号查询调度信息 （wangtao）
@@ -67,6 +70,7 @@ public class DispatchServiceImpl implements DispatchService {
         Dispatch dispatch=dispatchMapper.selectByPrimaryKey(dispatchId);
         dispatch.setDispatchhotel(dispatchhotelService.getDispatchhotelInfoByDispatchId(dispatchId));
         dispatch.setDisguide(disguideService.getDisguideByDispatchId(dispatchId));
+        dispatch.setDispatchtourgroup(dispatchtourgroupServer.getDispatchtourgroupByOffId(dispatchId));
         return dispatch;
     }
 

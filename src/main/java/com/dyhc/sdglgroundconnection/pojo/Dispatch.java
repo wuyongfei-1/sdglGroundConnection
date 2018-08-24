@@ -64,6 +64,8 @@ public class Dispatch {
     private String value2; // 组团社联系电话
     private String value3;
 
+
+
     @Transient
     private Dispatchtourgroup dispatchtourgroup; // 调度旅行团对象
 
@@ -91,7 +93,13 @@ public class Dispatch {
         this.disguide = disguide;
     }
 
+    public Dispatchtourgroup getDispatchtourgroup() {
+        return dispatchtourgroup;
+    }
 
+    public void setDispatchtourgroup(Dispatchtourgroup dispatchtourgroup) {
+        this.dispatchtourgroup = dispatchtourgroup;
+    }
 
     @Id
     @Column(name = "dispatchId")

@@ -2,6 +2,8 @@ package com.dyhc.sdglgroundconnection.web;
 
 import com.dyhc.sdglgroundconnection.pojo.Guide;
 import com.dyhc.sdglgroundconnection.service.GuideService;
+import com.dyhc.sdglgroundconnection.utils.ConditionValidation;
+import com.dyhc.sdglgroundconnection.utils.DateTimeUtil;
 import com.dyhc.sdglgroundconnection.utils.EncryUtil;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import com.github.pagehelper.PageInfo;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.concurrent.locks.Condition;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
@@ -38,27 +41,37 @@ public class GuideController {
      * @param userName 用户名
      * @param password 密码
      * @param request  请求对象
-     * @return 响应结果
+     * @return 响应结果 <前端只需判断该接口返回的json对象中的status为1则校验成功，否则登陆失败>
      */
     @GetMapping("/login.do")
-    public ReponseResult login(String userName, String password, HttpServletRequest request) {
+    public ReponseResult login(@RequestParam(value = "userName", required = true) String userName,
+                               @RequestParam(value = "password", required = true) String password,
+                               HttpServletRequest request) {
         try {
-            Guide guide = guideService.login(userName);
-            if (guide != null) {
-                if (guide.getPassword().equals(EncryUtil.encrypt(password))) {
-                    // 保存信息到session中
-                    request.getSession().setAttribute("guide", guide);
-                    // 登陆成功
-                    return ReponseResult.ok("登陆成功！");
+            // 验证用户名和密码
+            if (ConditionValidation.validation(userName) && ConditionValidation.validation(password)) {
+                // 请求数据
+                Guide guide = guideService.login(userName);
+                if (guide != null) {
+                    // 校验密码
+                    if (guide.getPassword().equals(EncryUtil.encrypt(password))) {
+                        // 保存信息到session中
+                        request.getSession().setAttribute("guide", guide);
+                        logger.info(userName + " " + DateTimeUtil.getCurrentDate("yyyy-MM-dd HH:mm:ss") + " 登陆成功！");
+                        // 登陆成功
+                        return ReponseResult.ok("{\"status\";1}", " 登陆成功！");
+                    } else {
+                        // 用户名正确，密码错误
+                        return ReponseResult.ok("{\"status\";0}", "用户名和密码不匹配！");
+                    }
                 } else {
-                    // 用户名正确，密码错误
-                    return ReponseResult.err("用户名和密码不匹配！");
+                    // 用户名不存在
+                    return ReponseResult.ok("{\"status\";0}", "用户名和密码不匹配！");
                 }
-            } else {
-                // 用户名不存在
-                return ReponseResult.err("用户名和密码不匹配！");
             }
+            return ReponseResult.ok("{\"status\";0}", "用户名或密码不能为空！");
         } catch (Exception e) {
+            logger.error(" method:login  导游登陆出现异常，登陆失败！" + e.getMessage());
             e.printStackTrace();
             return ReponseResult.err("系统出现异常，登陆失败！");
         }
@@ -73,7 +86,8 @@ public class GuideController {
      * @return
      */
     @RequestMapping("/showAllGuide")
-    public ReponseResult showHotel(@RequestParam("page") Integer pageNo, @RequestParam("limit") Integer pageSize, Guide guide) {
+    public ReponseResult showHotel(@RequestParam("page") Integer pageNo, @RequestParam("limit") Integer
+            pageSize, Guide guide) {
         try {
             pageSize = 6;
             PageInfo<Guide> pageInfo = guideService.listGuide(pageNo, pageSize, guide);

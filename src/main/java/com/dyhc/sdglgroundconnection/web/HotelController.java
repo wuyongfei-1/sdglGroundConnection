@@ -5,21 +5,19 @@ import com.dyhc.sdglgroundconnection.pojo.RoomType;
 import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.dyhc.sdglgroundconnection.service.HotelService;
 import com.dyhc.sdglgroundconnection.service.RoomTypeService;
-import com.dyhc.sdglgroundconnection.utils.FileUploadUtil;
+import com.dyhc.sdglgroundconnection.utils.ClientFileUploadUtil;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -188,7 +186,7 @@ public class HotelController {
      */
     @RequestMapping("/insertHotel")
     public ReponseResult insertHotel(HttpServletRequest request,@RequestParam("fileObj") MultipartFile file, @RequestParam("savePath") String savePath){
-        String uploadResult = FileUploadUtil.uploadImage(file, savePath, ".jpg");
+        String uploadResult = ClientFileUploadUtil.uploadImage(file, savePath, ".jpg");
         String parameter = request.getParameter("form");
         int result= 0;
         ObjectMapper objectMapper = new ObjectMapper();
@@ -247,7 +245,7 @@ public class HotelController {
                 Hotel hotel1=hotelService.selectHotelById(hotel.getHotelId());
                 hotel.setPicturePath(hotel1.getPicturePath());
             }else{
-                uploadResult= FileUploadUtil.uploadImage(file, savePath, ".jpg");
+                uploadResult= ClientFileUploadUtil.uploadImage(file, savePath, ".jpg");
                 hotel.setPicturePath(uploadResult);
             }
             int result=hotelService.updateHotel(hotel);

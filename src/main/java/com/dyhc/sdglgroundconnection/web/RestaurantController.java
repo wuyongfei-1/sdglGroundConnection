@@ -4,22 +4,19 @@ import com.dyhc.sdglgroundconnection.dto.RestaurantParam;
 import com.dyhc.sdglgroundconnection.pojo.MealType;
 import com.dyhc.sdglgroundconnection.pojo.Restaurant;
 import com.dyhc.sdglgroundconnection.pojo.Staff;
-import com.dyhc.sdglgroundconnection.service.DictionariesService;
 import com.dyhc.sdglgroundconnection.service.RestaurantService;
 import com.dyhc.sdglgroundconnection.utils.ConditionValidation;
-import com.dyhc.sdglgroundconnection.utils.FileUploadUtil;
+import com.dyhc.sdglgroundconnection.utils.ClientFileUploadUtil;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -195,7 +192,7 @@ public class RestaurantController {
                 restaurant.setPicturePath("");
             } else { // 改变文件
                 // 上传
-                String uploadResult = FileUploadUtil.uploadImage(restaurantImg);
+                String uploadResult = ClientFileUploadUtil.uploadImage(restaurantImg);
                 if (ConditionValidation.validation(uploadResult)) {  // 上传成功
                     restaurant.setPicturePath(uploadResult);
                 } else {  // 上传失败
@@ -259,7 +256,7 @@ public class RestaurantController {
             ObjectMapper objectMapper = new ObjectMapper();
             Restaurant restaurant = objectMapper.readValue(restaurantObj, Restaurant.class);
             // 上传图片
-            String uploadResult = FileUploadUtil.uploadImage(restaurantImg);
+            String uploadResult = ClientFileUploadUtil.uploadImage(restaurantImg);
             if (ConditionValidation.validation(uploadResult)) {  // 上传成功
                 restaurant.setPicturePath(uploadResult);
                 Staff user = (Staff) request.getSession().getAttribute("user");

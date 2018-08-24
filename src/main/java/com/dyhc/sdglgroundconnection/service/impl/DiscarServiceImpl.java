@@ -6,6 +6,7 @@ import com.dyhc.sdglgroundconnection.mapper.DiscarMapper;
 import com.dyhc.sdglgroundconnection.pojo.Discar;
 import com.dyhc.sdglgroundconnection.pojo.DiscarExample;
 import com.dyhc.sdglgroundconnection.service.DiscarService;
+import com.dyhc.sdglgroundconnection.service.VehicleTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,9 @@ public class DiscarServiceImpl implements DiscarService {
 
     @Autowired
     private DiscarMapper discarMapper;
+
+    @Autowired
+    private VehicleTypeService vehicleTypeService;
 
     /**
      * 根据调度编号获取调度用车信息
@@ -36,6 +40,7 @@ public class DiscarServiceImpl implements DiscarService {
         if(discarList!=null){
             discar=discarList.get(0);
         }
+        discar.setVehicleType(vehicleTypeService.getVehicleTypeInfoByTypeId(discar.getTypeId()));
         return discar;
     }
 

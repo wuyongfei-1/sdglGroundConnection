@@ -18,7 +18,7 @@ public class Disguide {
     @Column(name = "guideId")
     private Integer guideId; // 导游编号（外键，与导游表关联）
     @Column(name = "offerId")
-    private Integer offerId; // 调度信息编号（外键，与报价信息表关联）
+    private Integer offerId; // 调度信息编号（外键，与调度表关联）
     private Integer status; // 是否删除（1代表已删除，0代表未删除）
     @Column(name = "createBy")
     private Integer createBy; // 创建人 （外键，与人员表关联）
@@ -33,6 +33,18 @@ public class Disguide {
     private String value1;
     private String value2;
     private String value;
+
+    @Transient
+    private Guide guide; // 导游对象
+
+    public Guide getGuide() {
+        return guide;
+    }
+
+    public void setGuide(Guide guide) {
+        this.guide = guide;
+    }
+
     @Transient
     private Integer num; // 人数
     @Transient

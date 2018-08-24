@@ -55,6 +55,19 @@ public class DispatchServiceImpl implements DispatchService {
 
 
     /**
+     * 根据调度编号查询调度信息 （wangtao）
+     * @param dispatchId 调度编号
+     * @return 返回调度表信息集合
+     */
+    @Override
+    public Dispatch getDispatchInfoByDispatchInfoId(Integer dispatchId) {
+        Dispatch dispatch=dispatchMapper.selectByPrimaryKey(dispatchId);
+        dispatch.setDispatchhotel(dispatchhotelService.getDispatchhotelInfoByDispatchId(dispatchId));
+        dispatch.setDisguide(disguideService.getDisguideByDispatchId(dispatchId));
+        return dispatch;
+    }
+
+    /**
      * 保存一条调度信息（wuyongfei）
      * （保存该调度下的购物、餐馆、酒店、导游、用车、景点、调度、其他）
      *

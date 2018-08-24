@@ -59,6 +59,8 @@ public class DispatchServiceImpl implements DispatchService {
     @Autowired
     private DispatchtourgroupServer dispatchtourgroupServer; // 调度旅游表业务
 
+    @Autowired
+    private CompanyService companyService;
 
 
     /**
@@ -67,12 +69,14 @@ public class DispatchServiceImpl implements DispatchService {
      * @return 返回调度表信息集合
      */
     @Override
-    public Dispatch getDispatchInfoByDispatchInfoId(Integer dispatchId) {
+    public Dispatch getDispatchInfoByDispatchInfoId(Integer dispatchId) throws Exception{
         Dispatch dispatch=dispatchMapper.selectByPrimaryKey(dispatchId);
         dispatch.setDispatchhotel(dispatchhotelService.getDispatchhotelInfoByDispatchId(dispatchId));
         dispatch.setDisguide(disguideService.getDisguideByDispatchId(dispatchId));
         dispatch.setDispatchtourgroup(dispatchtourgroupServer.getDispatchtourgroupByOffId(dispatchId));
         dispatch.setDiscar(discarService.getDiscarByOffId(dispatchId));
+        dispatch.setDisattrList(disattrService.listDisattrByOffId(dispatchId));
+        dispatch.setCompany(companyService.selectCompanyByIds(1));
         return dispatch;
     }
 

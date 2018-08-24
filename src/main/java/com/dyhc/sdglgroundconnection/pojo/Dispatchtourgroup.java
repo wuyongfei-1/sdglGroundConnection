@@ -48,10 +48,10 @@ public class Dispatchtourgroup {
     private Date createdate; // 创建时间
 
     @Column(name="value1")
-    private String value1;
+    private String value1; // 送团日期
 
     @Column(name="value2")
-    private String value2;
+    private String value2; // 送团地点
 
     @Column(name="value3")
     private String value3;

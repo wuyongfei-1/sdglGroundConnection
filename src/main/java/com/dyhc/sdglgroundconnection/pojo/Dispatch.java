@@ -60,13 +60,16 @@ public class Dispatch {
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "creationDate")
     private Date creationDate; // 创建日期
-    private String value1;
-    private String value2;
+    private String value1; // 组团社联系人（团控）
+    private String value2; // 组团社联系电话
     private String value3;
 
-    @Transient
-    private Travel travel; // 组团社对象
 
+    @Transient
+    private Discar discar; // 调度用车对象
+
+    @Transient
+    private Dispatchtourgroup dispatchtourgroup; // 调度旅行团对象
 
     @Transient
     private List<Dispatchhotel> dispatchhotel; // 调度酒店表对象
@@ -75,12 +78,12 @@ public class Dispatch {
     @Transient
     private Disguide disguide; // 调度导游表对象
 
-    public Travel getTravel() {
-        return travel;
+    public Discar getDiscar() {
+        return discar;
     }
 
-    public void setTravel(Travel travel) {
-        this.travel = travel;
+    public void setDiscar(Discar discar) {
+        this.discar = discar;
     }
 
     public List<Dispatchhotel> getDispatchhotel() {
@@ -99,7 +102,13 @@ public class Dispatch {
         this.disguide = disguide;
     }
 
+    public Dispatchtourgroup getDispatchtourgroup() {
+        return dispatchtourgroup;
+    }
 
+    public void setDispatchtourgroup(Dispatchtourgroup dispatchtourgroup) {
+        this.dispatchtourgroup = dispatchtourgroup;
+    }
 
     @Id
     @Column(name = "dispatchId")

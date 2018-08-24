@@ -14,13 +14,13 @@ import java.util.Random;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
- * 文件上传工具类
+ * 文件上传工具类（wuyongfei）
  **/
 @Component
-public class FileUploadUtil {
+public class ClientFileUploadUtil {
 
     // 日志实例
-    private static Logger logger = LoggerFactory.getLogger(FileUploadUtil.class);
+    private static Logger logger = LoggerFactory.getLogger(ClientFileUploadUtil.class);
 
     // windows真实绝对路径
     private static String windowsUploadFolder;
@@ -40,11 +40,11 @@ public class FileUploadUtil {
 
     /**
      * 上传图片至服务器（wuyongfei）
-     * 返回""则上传失败，否则成功
      *
      * @param multipartFile  文件实例
-     * @param suffixNameList 可允许上传的文件前缀
-     * @return 文件名称
+     * @param suffixNameList 可上传的图片类型（后缀 .jpg/.png等）可传入多个
+     *                       <如果不传入任何值，则默认可允许上传任何文件>
+     * @return 文件名称 <返回数据不为空字符串（“”）说明上传成功，否则上传失败>
      */
     public static String uploadImage(MultipartFile multipartFile, String... suffixNameList) {
         // 获取当前系统信息
@@ -94,11 +94,11 @@ public class FileUploadUtil {
             File file = new File(folderName + File.separator + newFileName);
             try {
                 multipartFile.transferTo(file); // copy file
-                logger.info(" method:uploadImage 文件上传成功!");
+                logger.info(" method:uploadImage  " + DateTimeUtil.getCurrentDate("yyyy-MM-dd HH:mm:ss") + " 文件上传成功!");
                 return newFileName;
             } catch (IOException e) {
                 e.printStackTrace(); // appear error
-                logger.error(" method:uploadImage 文件上传出现错误!");
+                logger.error(" method:uploadImage  " + DateTimeUtil.getCurrentDate("yyyy-MM-dd HH:mm:ss") + " 文件上传出现错误!");
                 return "";
             }
         } else {

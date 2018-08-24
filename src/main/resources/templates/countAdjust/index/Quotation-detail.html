@@ -1,384 +1,503 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
-	<meta name="renderer" content="webkit">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-	<title>网站后台管理模版</title>
-        <link rel="stylesheet" type="text/css" href="/css/layui.css" />
-		<link rel="stylesheet" type="text/css" href="/css/baojiadan.css" />
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>网站后台管理模版</title>
+    <link rel="stylesheet" type="text/css" href="/css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/baojiadan.css"/>
+    <style>
+        select{
+            width: 140px;
+            height: 36px;
+        }
+    </style>
 </head>
 <body>
+
+<!-- 资源管理 start -->
+<div style="display: none">
+    <!-- 线路列表 -->
+    <select name="templates" id="templates" lay-ignore>
+        <option th:each="template:${templates}" th:value="${template.templateId}"
+                th:text="${template.templateName}" ></option>
+    </select>
+
+    <!-- 酒店列表 -->
+    <select name="hotels" id="hotels" lay-ignore>
+        <option th:each="hotel:${hotels}" th:value="${hotel.hotelId}" th:text="${hotel.hotelName}" ></option>
+    </select>
+
+    <!-- 房间类型列表 -->
+    <select name="therooms" id="therooms" lay-ignore>
+        <option th:each="theroom:${therooms}" th:value="${theroom.valueId}" th:text="${theroom.valueContent1}"></option>
+    </select>
+
+    <!-- 景点列表 -->
+    <select name="scenicspots" id="scenicspots" lay-ignore>
+        <option th:each="scenicspot:${scenicspots}" th:value="${scenicspot.scenicSpotId}"
+                th:text="${scenicspot.scenicSpotName}"></option>
+    </select>
+
+    <!-- 购物地点列表 -->
+    <select name="shoppings" id="shoppings" lay-ignore>
+        <option th:each="shopping:${shoppings}" th:value="${shopping.shoppingId}"
+                th:text="${shopping.shoppingSite}"></option>
+    </select>
+
+    <!-- 餐馆列表 -->
+    <select name="restaurants" id="restaurants" lay-ignore>
+        <option th:each="restaurant:${restaurants}" th:value="${restaurant.restaurantId}"
+                th:text="${restaurant.restaurantName}"></option>
+    </select>
+
+    <!-- 饮食类型列表 -->
+    <select name="diets" id="diets" lay-ignore>
+        <option th:each="diet:${diets}" th:value="${diet.valueId}" th:text="${diet.valueContent1}"></option>
+    </select>
+
+    <!-- 导游列表 -->
+    <select name="guides" id="guides" lay-ignore>
+        <option th:each="guide:${guides}" th:value="${guide.guideId}" th:text="${guide.guideName}"></option>
+    </select>
+
+    <!-- 汽车租赁公司列表 -->
+    <select name="carrentals" id="carrentals" lay-ignore>
+        <option th:each="carrental:${carrentals}" th:value="${carrental.carRentalId}"
+                th:text="${carrental.carRentalName}"></option>
+    </select>
+
+    <!-- 车辆类型列表 -->
+    <select name="vehicles" id="vehicles" lay-ignore>
+        <option th:each="vehicle:${vehicles}" th:value="${vehicle.valueId}" th:text="${vehicle.valueContent1}"></option>
+    </select>
+</div>
+<!-- 资源管理 end -->
+
+
 <div class="page-content-wrap">
-	<div id="divhead">
-	<form class="layui-form layui-form-pane" action="">
-			<table border="0" cellspacing="0" cellpadding="0">
-				<tr>
-					<td><label class="layui-form-label">组团社名称</label></td>
-					<td>
-						<select name="city" lay-verify="required">
-							<option value=""></option>
-							<option value="0">哈红祖</option>
-							<option value="1">无敌组</option>
-							<option value="2">哈皮组</option>
-							<option value="3">66组</option>
-							<option value="4">纪检组</option>
-						</select>
-					</td>
-					<td><label class="layui-form-label">人数</label></td>
-					<td><input type="text" class="layui-input"></td>
-				</tr>
-				<tr>
-					<td><label class="layui-form-label">开始时间</label></td>
-					<td> <input type="text" name="date" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input"></td>
-					<td><label class="layui-form-label">结束时间</label></td>
-					<td> <input type="text" name="date" id="date1" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input"></td>
-				</tr>
-			</table>
-		</form>
-	</div>
+    <div id="divhead">
+        <form class="layui-form layui-form-pane" action="">
+            <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td><label class="layui-form-label">组团社名称</label></td>
+                    <td>
+                        <select name="city" lay-verify="required">
+                            <option value=""></option>
+                            <option value="0">哈红祖</option>
+                            <option value="1">无敌组</option>
+                            <option value="2">哈皮组</option>
+                            <option value="3">66组</option>
+                            <option value="4">纪检组</option>
+                        </select>
+                    </td>
+                    <td><label class="layui-form-label">人数</label></td>
+                    <td><input type="text" class="layui-input"></td>
+                </tr>
+                <tr>
+                    <td><label class="layui-form-label">开始时间</label></td>
+                    <td><input type="text" name="date" id="date" lay-verify="date" placeholder="yyyy-MM-dd"
+                               autocomplete="off" class="layui-input"></td>
+                    <td><label class="layui-form-label">结束时间</label></td>
+                    <td><input type="text" name="date" id="date1" lay-verify="date" placeholder="yyyy-MM-dd"
+                               autocomplete="off" class="layui-input"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
 
-	<div id="zong" >
-		<div style='margin-bottom: 30px;width: 800px'>
-			<input type="image" src="/images/up.PNG" style="height: 30px;width: 35px;" id="toggle" onclick='qiehuan(this)'/>
+    <div id="zong">
+        <div style='margin-bottom: 30px;width: 800px'>
+            <input type="image" src="/images/up.PNG" style="height: 30px;width: 35px;" id="toggle"
+                   onclick='qiehuan(this)'/>
 
-			<input type="image" id="sc" src="/images/del.PNG" onclick='shanchu(this)' style="display:inline-block;float: right; height: 30px;width: 35px;"/>
-			<div id="content">
-					<form class="layui-form layui-form-pane" action="">
-						<table border="0" cellspacing="0" cellpadding="0">
+            <input type="image" id="sc" src="/images/del.PNG" onclick='shanchu(this)'
+                   style="display:inline-block;float: right; height: 30px;width: 35px;"/>
+            <div id="content">
+                <form class="layui-form layui-form-pane" action="">
+                    <table border="0" cellspacing="0" cellpadding="0">
 
-							<tr>
-								<td><label class="layui-form-label">线路</label></td>
-								<td>
-									<select name="city" lay-verify="required" lay-search>
-										<option value=""></option>
-										<option value="0">哈红祖</option>
-										<option value="1">无敌组</option>
-										<option value="2">哈皮组</option>
-										<option value="3">66组</option>
-										<option value="4">纪检组</option>
-									</select>
-								</td>
-								<td colspan="2">&nbsp;<button type="button" class='layui-btn layui-btn-normal layui-btn-radius' style='height: 30px;width: 100px;' onclick="xianlu(this)">自行填写</button></td>
-								<td colspan="2">&nbsp;<button type="button"  class='layui-btn layui-btn-normal layui-btn-radius' style='height: 30px;width: 100px'>保存模板</button></td>
-							</tr>
-							<tr>
-							<td><label class="layui-form-label">日期</label></td>
-							<td>
-								<input type="text" name="date" id="date2" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
-							</td>
-						</tr>
+                        <tr>
+                            <td><label class="layui-form-label">线路</label></td>
+                            <td>
+                                <select name="city" lay-verify="required" lay-search>
+                                    <option value=""></option>
+                                    <option value="0">哈红祖</option>
+                                    <option value="1">无敌组</option>
+                                    <option value="2">哈皮组</option>
+                                    <option value="3">66组</option>
+                                    <option value="4">纪检组</option>
+                                </select>
+                            </td>
+                            <td colspan="2">&nbsp;<button type="button"
+                                                          class='layui-btn layui-btn-normal layui-btn-radius'
+                                                          style='height: 30px;width: 100px;' onclick="xianlu(this)">自行填写
+                            </button>
+                            </td>
+                            <td colspan="2">&nbsp;<button type="button"
+                                                          class='layui-btn layui-btn-normal layui-btn-radius'
+                                                          style='height: 30px;width: 100px'>保存模板
+                            </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label class="layui-form-label">日期</label></td>
+                            <td>
+                                <input type="text" name="date" id="date2" lay-verify="date" placeholder="yyyy-MM-dd"
+                                       autocomplete="off" class="layui-input">
+                            </td>
+                        </tr>
 
-							<tr>
-								<td><label class="layui-form-label">酒店</label></td>
-								<td>
-									<select name="city" lay-verify="required">
-										<option value=""></option>
-										<option value="0">哈红祖</option>
-										<option value="1">无敌组</option>
-										<option value="2">哈皮组</option>
-										<option value="3">66组</option>
-										<option value="4">纪检组</option>
-									</select>
-								</td>
-								<td>
-									<select name="city" lay-verify="required">
-										<option value=""selected="selected">请选择酒店</option>
-										<option value="0">哈红祖</option>
-										<option value="1">无敌组</option>
-										<option value="2">哈皮组</option>
-										<option value="3">66组</option>
-										<option value="4">纪检组</option>
-									</select>
-								</td>
-								<td><label class="layui-form-label">数量：</label></td>
-								<td><input type="text" class="layui-input"></td>
-								<td><label class="layui-form-label">成本价</label></td>
-								<td><input type="text" class="layui-input"></td>
-							</tr>
-							<tr>
-								<td><label class="layui-form-label">司陪：</label></td>
-								<td><label class="layui-form-label" style="width: 140px;">房间数：</label></td>
-								<td><input type="text" class="layui-input"></td>
-								<td><label class="layui-form-label">成本价：</label></td>
-								<td><input type="text" class="layui-input"></td>
-							</tr>
-							<!--点击新增景点-->
-							<tr id="onClickjd">
-								<td colspan="2"><button class="layui-btn" type="button" style="font-size: 12px" onclick="add(this)">添加景点+</button></td>
-							</tr>
-							<!--点击新增结束-->
-							<tr id="scenic">
-								<td><label class="layui-form-label">景点</label></td>
-								<td>
-									<select name="city" lay-verify="required">
-										<option value=""></option>
-										<option value="0">哈红祖</option>
-										<option value="1">无敌组</option>
-										<option value="2">哈皮组</option>
-										<option value="3">66组</option>
-										<option value="4">纪检组</option>
-									</select>
-								</td>
-								<td><label class="layui-form-label">成本价:</label></td>
-								<td><input type="text" class="layui-input"></td>
-								<td><label class="layui-form-label">报价:</label></td>
-								<td><input type="text" class="layui-input"></td>
-							</tr>
-							<tr>
-									<td><label class="layui-form-label">购物地：</label></td>
-									<td colspan="3">
-										<select name="city" lay-verify="required">
-											<option value="">无</option>
-											<option value="0">啊</option>
-											<option value="1">北大青鸟</option>
-											<option value="2">哈皮组</option>
-											<option value="3">66组</option>
-											<option value="4">纪检组</option>
-										</select>
-									</td>
-									<td></td>
-									<td></td>
-							</tr>
-							<tr>
-									<td><label class="layui-form-label">午餐</label></td>
-								<td>
-									<select name="city" lay-verify="required">
-										<option value=""></option>
-										<option value="0">哈红祖</option>
-										<option value="1">无敌组</option>
-										<option value="2">哈皮组</option>
-										<option value="3">66组</option>
-										<option value="4">纪检组</option>
-									</select>
-								</td>
-								<td>
-									<select name="city" lay-verify="required">
-										<option value=""selected="selected">请选择酒店</option>
-										<option value="0">哈红祖</option>
-										<option value="1">无敌组</option>
-										<option value="2">哈皮组</option>
-										<option value="3">66组</option>
-										<option value="4">纪检组</option>
-									</select>
-								</td>
-								<td><label class="layui-form-label">成本价</label></td>
-								<td colspan="3"><input type="text" class="layui-input"></td>
-							</tr>
-							<tr>
-								<td><label class="layui-form-label">晚餐</label></td>
-								<td>
-									<select name="city" lay-verify="required">
-										<option value=""></option>
-										<option value="0">哈红祖</option>
-										<option value="1">无敌组</option>
-										<option value="2">哈皮组</option>
-										<option value="3">66组</option>
-										<option value="4">纪检组</option>
-									</select>
-								</td>
-								<td>
-									<select name="city" lay-verify="required">
-										<option value=""selected="selected">请选择酒店</option>
-										<option value="0">哈红祖</option>
-										<option value="1">无敌组</option>
-										<option value="2">哈皮组</option>
-										<option value="3">66组</option>
-										<option value="4">纪检组</option>
-									</select>
-								</td>
-								<td><label class="layui-form-label">成本价</label></td>
-								<td colspan="3"><input type="text" class="layui-input"></td>
-							</tr>
-							<tr>
-								<td><label class="layui-form-label">行程</label></td>
-								<td colspan="5"> <textarea placeholder="请输入内容" class="layui-textarea" name="desc"></textarea></td>
-							</tr>
-						</table>
-					</form>
-			</div>
-		</div>
-		<button class='layui-btn layui-btn-normal layui-btn-radius' onclick='addss()' id="add">十</button>
-		<!---中结束-->
-	</div>
+                        <tr>
+                            <td><label class="layui-form-label">酒店</label></td>
+                            <td>
+                                <select name="city" lay-verify="required">
+                                    <option value=""></option>
+                                    <option value="0">哈红祖</option>
+                                    <option value="1">无敌组</option>
+                                    <option value="2">哈皮组</option>
+                                    <option value="3">66组</option>
+                                    <option value="4">纪检组</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="city" lay-verify="required">
+                                    <option value="" selected="selected">请选择酒店</option>
+                                    <option value="0">哈红祖</option>
+                                    <option value="1">无敌组</option>
+                                    <option value="2">哈皮组</option>
+                                    <option value="3">66组</option>
+                                    <option value="4">纪检组</option>
+                                </select>
+                            </td>
+                            <td><label class="layui-form-label">数量：</label></td>
+                            <td><input type="text" class="layui-input"></td>
+                            <td><label class="layui-form-label">成本价</label></td>
+                            <td><input type="text" class="layui-input"></td>
+                        </tr>
+                        <tr>
+                            <td><label class="layui-form-label">司陪：</label></td>
+                            <td><label class="layui-form-label" style="width: 140px;">房间数：</label></td>
+                            <td><input type="text" class="layui-input"></td>
+                            <td><label class="layui-form-label">成本价：</label></td>
+                            <td><input type="text" class="layui-input"></td>
+                        </tr>
+                        <!--点击新增景点-->
+                        <tr id="onClickjd">
+                            <td colspan="2">
+                                <button class="layui-btn" type="button" style="font-size: 12px" onclick="add(this)">
+                                    添加景点+
+                                </button>
+                            </td>
+                        </tr>
+                        <!--点击新增结束-->
+                        <tr id="scenic">
+                            <td><label class="layui-form-label">景点</label></td>
+                            <td>
+                                <select name="city" lay-verify="required">
+                                    <option value=""></option>
+                                    <option value="0">哈红祖</option>
+                                    <option value="1">无敌组</option>
+                                    <option value="2">哈皮组</option>
+                                    <option value="3">66组</option>
+                                    <option value="4">纪检组</option>
+                                </select>
+                            </td>
+                            <td><label class="layui-form-label">成本价:</label></td>
+                            <td><input type="text" class="layui-input"></td>
+                            <td><label class="layui-form-label">报价:</label></td>
+                            <td><input type="text" class="layui-input"></td>
+                        </tr>
+                        <tr>
+                            <td><label class="layui-form-label">购物地：</label></td>
+                            <td colspan="3">
+                                <select name="city" lay-verify="required">
+                                    <option value="">无</option>
+                                    <option value="0">啊</option>
+                                    <option value="1">北大青鸟</option>
+                                    <option value="2">哈皮组</option>
+                                    <option value="3">66组</option>
+                                    <option value="4">纪检组</option>
+                                </select>
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><label class="layui-form-label">午餐</label></td>
+                            <td>
+                                <select name="city" lay-verify="required">
+                                    <option value=""></option>
+                                    <option value="0">哈红祖</option>
+                                    <option value="1">无敌组</option>
+                                    <option value="2">哈皮组</option>
+                                    <option value="3">66组</option>
+                                    <option value="4">纪检组</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="city" lay-verify="required">
+                                    <option value="" selected="selected">请选择酒店</option>
+                                    <option value="0">哈红祖</option>
+                                    <option value="1">无敌组</option>
+                                    <option value="2">哈皮组</option>
+                                    <option value="3">66组</option>
+                                    <option value="4">纪检组</option>
+                                </select>
+                            </td>
+                            <td><label class="layui-form-label">成本价</label></td>
+                            <td colspan="3"><input type="text" class="layui-input"></td>
+                        </tr>
+                        <tr>
+                            <td><label class="layui-form-label">晚餐</label></td>
+                            <td>
+                                <select name="city" lay-verify="required">
+                                    <option value=""></option>
+                                    <option value="0">哈红祖</option>
+                                    <option value="1">无敌组</option>
+                                    <option value="2">哈皮组</option>
+                                    <option value="3">66组</option>
+                                    <option value="4">纪检组</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="city" lay-verify="required">
+                                    <option value="" selected="selected">请选择酒店</option>
+                                    <option value="0">哈红祖</option>
+                                    <option value="1">无敌组</option>
+                                    <option value="2">哈皮组</option>
+                                    <option value="3">66组</option>
+                                    <option value="4">纪检组</option>
+                                </select>
+                            </td>
+                            <td><label class="layui-form-label">成本价</label></td>
+                            <td colspan="3"><input type="text" class="layui-input"></td>
+                        </tr>
+                        <tr>
+                            <td><label class="layui-form-label">行程</label></td>
+                            <td colspan="5"><textarea placeholder="请输入内容" class="layui-textarea" name="desc"></textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+        </div>
+    </div>
+        <button class='layui-btn layui-btn-normal layui-btn-radius' onclick='addss()' id="add">十</button>
+        <!---中结束-->
+    </div>
 
-	<div id="divfoot">
-		<form class="layui-form layui-form-pane" action="">
-				<table border="0	" cellspacing="0" cellpadding="0" style="width: 900px;">
-					<tr>
-						<td><label class="layui-form-label">导游：</label></td>
-						<td>
-							<select name="city" lay-verify="required">
-								<option value="" selected="selected">导游一</option>
-								<option value="0">哈红祖</option>
-								<option value="1">无敌组</option>
-								<option value="2">哈皮组</option>
-								<option value="3">66组</option>
-								<option value="4">纪检组</option>
-							</select>
-						</td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-							<td><label class="layui-form-label">车费：</label></td>
-							<td width="300px"><input type="text" class="layui-input"></td>
-							<td>
-								<table border="0" cellspacing="0" cellpadding="0">
-									<tr>
-										<td><label class="layui-form-label">报停费：</label></td>
-							<td><input type="text" class="layui-input"></td>
-									</tr>
-								</table>
-							</td>
-					</tr>
-					<tr>
-						<td><label class="layui-form-label">酒水：</label></td>
-						<td width="300px"><input type="text" class="layui-input"></td>
-					</tr>
-					<tr>
-						<td><label class="layui-form-label">车队：</label></td>
-								<td>
-									<select name="city" lay-verify="required">
-										<option value="" selected="selected">请选择车辆类型</option>
-										<option value="0">哈红祖</option>
-										<option value="1">无敌组</option>
-										<option value="2">哈皮组</option>
-										<option value="3">66组</option>
-										<option value="4">纪检组</option>
-									</select>
-								</td>
-								<td>
-									<select name="city" lay-verify="required">
-										<option value=""selected="selected">请选择车辆公司</option>
-										<option value="0">哈红祖</option>
-										<option value="1">无敌组</option>
-										<option value="2">哈皮组</option>
-										<option value="3">66组</option>
-										<option value="4">纪检组</option>
-									</select>
-								</td>
-							<td>
-								<table border="0" cellspacing="0" cellpadding="0">
-									<tr>
-											<td><label class="layui-form-label" >成本价:</label></td>
-								<td><input type="text" class="layui-input"></td>
-									</tr>
-								</table>
-							</td>
-						<td>
-							<table border="0" cellspacing="0" cellpadding="0">
-								<tr>
-									<td><label class="layui-form-label" >数量:</label></td>
-									<td><input type="text" class="layui-input"></td>
-								</tr>
-							</table>
-						</td>
-					</tr>
+    <div id="divfoot">
+        <form class="layui-form layui-form-pane" action="">
+            <table border="0	" cellspacing="0" cellpadding="0" style="width: 900px;">
+                <tr>
+                    <td><label class="layui-form-label">导游：</label></td>
+                    <td id="guideContext" >
 
-					<tr>
-										<td><label class="layui-form-label">其他：</label></td>
-										<td>
-											<table border="0"  cellspacing="0"  cellpadding="0">
-											<tr>
-												<td><label class="layui-form-label">成本价：</label></td>
-						             	<td width="300px"><input type="text" class="layui-input"></td>
-											</tr>
-											</table>
-										</td>
-					</tr>
-					<tr>
-										<td><label class="layui-form-label"><小费></小费>：</label></td>
-										<td width="300px"><input type="text" class="layui-input"></td>
-					</tr>
-					<tr>
-						<td><label class="layui-form-label">备注：</label></td>
-						<td colspan="5"><textarea placeholder="请输入内容" class="layui-textarea" name="desc"></textarea></td>
-					</tr>
-					<tr>
-						<td><label class="layui-form-label">接待标准：</label></td>
-						<td colspan="5"><textarea placeholder="请输入内容" class="layui-textarea" name="desc"></textarea></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td><button class='layui-btn layui-btn-normal layui-btn-radius'>预览报价单</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-						<td><button class='layui-btn layui-btn-normal layui-btn-radius' id="baocun">打印报价单</button></td>
-					</tr>
-				</table>
-			</form>
-		<!--底部div结束-->
-	</div>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><label class="layui-form-label">车费：</label></td>
+                    <td width="300px"><input type="text" class="layui-input"></td>
+                    <td>
+                        <table border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td><label class="layui-form-label">报停费：</label></td>
+                                <td><input type="text" class="layui-input"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label class="layui-form-label">酒水：</label></td>
+                    <td width="300px"><input type="text" class="layui-input"></td>
+                </tr>
+                <tr>
+                    <td><label class="layui-form-label">车队：</label></td>
+                    <td id="carrentalsContext">
+
+                    </td>
+                    <td id="vehiclesContext">
+
+                    </td>
+                    <td>
+                        <table border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td><label class="layui-form-label">成本价:</label></td>
+                                <td><input type="text" class="layui-input"></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td><label class="layui-form-label">数量:</label></td>
+                                <td><input type="text" class="layui-input"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><label class="layui-form-label">其他：</label></td>
+                    <td>
+                        <table border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td><label class="layui-form-label">成本价：</label></td>
+                                <td width="300px"><input type="text" class="layui-input"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label class="layui-form-label">
+                        <小费></小费>
+                        ：</label></td>
+                    <td width="300px"><input type="text" class="layui-input"></td>
+                </tr>
+                <tr>
+                    <td><label class="layui-form-label">备注：</label></td>
+                    <td colspan="5"><textarea placeholder="请输入内容" class="layui-textarea" name="desc"></textarea></td>
+                </tr>
+                <tr>
+                    <td><label class="layui-form-label">接待标准：</label></td>
+                    <td colspan="5"><textarea placeholder="请输入内容" class="layui-textarea" name="desc"></textarea></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button class='layui-btn layui-btn-normal layui-btn-radius'>预览报价单</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td>
+                        <button class='layui-btn layui-btn-normal layui-btn-radius' id="baocun">打印报价单</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <!--底部div结束-->
+    </div>
 
 </div>
-		<script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
-		<script type="text/javascript" src="/layui.js"></script>
-		<script type="text/javascript" src="/js/scheduling.js"></script>
-		<script type="text/javascript">
-            function san(dang) {
-                $(dang).parent().parent().remove();
-            }
+<script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/layui.js"></script>
+<script type="text/javascript" src="/js/scheduling.js"></script>
+<script type="text/javascript">
+    var scenicspots = $('[name=scenicspots]').prop("outerHTML"); // 景点列表
+    var hotels = $('[name=hotels]').prop("outerHTML");	// 酒店列表
+    var therooms = $('[name=therooms]').prop("outerHTML"); // 房间类型列表
+    var scenicspots = $('[name=scenicspots]').prop("outerHTML"); // 景点列表
+    var shoppings = $('[name=shoppings]').prop("outerHTML"); // 购物地点列表
+    var restaurants = $('[name=restaurants]').prop("outerHTML"); // 餐馆列表
+    var diets = $('[name=diets]').prop("outerHTML"); // 饮食类型列表
+    var guides = $('[name=guides]').prop("outerHTML"); // 导游列表
+    var carrentals = $('[name=carrentals]').prop("outerHTML"); // 租赁公司列表
+    var vehicles = $('[name=vehicles]').prop("outerHTML"); // 车辆类型列表
+    $('#guideContext').html(guides);
+    $('#carrentalsContext').html(carrentals);
+    $('#vehiclesContext').html(vehicles);
+    layui.use('form', function(){
 
-            function add(onClickjd) {
-                $(onClickjd).parent().parent().next().after("<tr id='scenic'>" +
-                    "<td><label class='layui-form-label'>景点</label></td>" +
-                    "<td>" +
-                    "<select name='city' lay-verify='required'>" +
-                    "<option value=''></option>" +
-                    "<option value='0'>哈红祖</option>" +
-                    "<option value='1'>无敌组</option>" +
-                    "<option value='2'>哈皮组</option>" +
-                    "<option value='3'>66组</option>" +
-                    "<option value='4'>纪检组</option>" +
-                    "</select>" +
-                    "</td>" +
-                    "<td><label class='layui-form-label'>成本价:</label></td>" +
-                    "<td><input type='text' class='layui-input'></td>" +
-                    "<td><label class='layui-form-label'>报价:</label></td>" +
-                    "<td><input type='text' class='layui-input'></td>" +
-                    "<td style='bottom: 0px;'><label class='layui-form-label' onclick='san(this)'>×</label></td>" +
-                    "</tr>");
-                layui.use(['form', 'layedit', 'laydate', 'element'], function () {
-                    var form = layui.form,
-                        layer = layui.layer,
-                        layedit = layui.layedit,
-                        element = layui.element,
-                        laydate = layui.laydate,
-                        a;
-                    form.render(); //更新全部
-                    form.render('select'); //刷新select选择框渲染
-                });
-            }
+        var form = layui.form;
+        // 监听酒店
+        form.on('select(hotels)', function(data){
+            var hotelId = data.value; // 酒店编号
+            $(this).parents('td').next().html(guides);
+            $(this).parents('td').next().next().next().find('input').val('数量');
+            $(this).parents('td').next().next().next().next().next().find('input').val('成本价');
+            // 发送请求
+            $.ajax({
+                url: "",
+                data: "",
+                dataType: "json",
+                type: "get",
+                success: function (result) {
 
-			$(function() {
-				layui.use(['form', 'layedit', 'laydate','element'], function() {
-					var form = layui.form,
-							layer = layui.layer,
-							layedit = layui.layedit,
-							element=layui.element,
-							laydate = layui.laydate;
-                    //日期
-                    laydate.render({
-                        elem: '#date'
-                    });
-                    laydate.render({
-                        elem: '#date1'
-                    });
-                    laydate.render({
-                        elem: '#date2'
-                    });
-					element.render( 'test1');
-					form.render('select', 'test1');
-					form.on('radio(*)', function(data){
-						/*console.log(data.elem); //得到radio原始DOM对象
-						 console.log(data.value); //被点击的radio的value值*/
-						alert("是是是");
+                },
+                error: function (res) {
+                    alert(res);
+                }
+            })
+            console.log(data.elem);  //得到select原始DOM对象
+            console.log(data.value); //得到被选中的值
+            console.log(data.othis); //得到美化后的DOM对象
+        });
+        //各种基于事件的操作，下面会有进一步介绍
+    });
 
-					});
-				});
-			});
 
-		</script>
+
+
+
+    function san(dang) {
+        $(dang).parent().parent().remove();
+    }
+
+    function add(onClickjd) {
+
+        $(onClickjd).parent().parent().next().after("<tr id='scenic'>" +
+            "<td><label class='layui-form-label'>景点</label></td>" +
+            "<td>" +
+            "<select name='city' lay-verify='required'>" +
+            "<option value=''></option>" +
+            "<option value='0' >哈红祖</option>" +
+            "<option value='1'>无敌组</option>" +
+            "<option value='2'>哈皮组</option>" +
+            "<option value='3'>66组</option>" +
+            "<option value='4'>纪检组</option>" +
+            "</select>" +
+            "</td>" +
+            "<td><label class='layui-form-label'>成本价:</label></td>" +
+            "<td><input type='text' class='layui-input'></td>" +
+            "<td><label class='layui-form-label'>报价:</label></td>" +
+            "<td><input type='text' class='layui-input'></td>" +
+            "<td style='bottom: 0px;'><label class='layui-form-label' onclick='san(this)'>×</label></td>" +
+            "</tr>");
+        layui.use(['form', 'layedit', 'laydate', 'element'], function () {
+            var form = layui.form,
+                layer = layui.layer,
+                layedit = layui.layedit,
+                element = layui.element,
+                laydate = layui.laydate,
+                a;
+            form.render(); //更新全部
+            form.render('select'); //刷新select选择框渲染
+        });
+    }
+
+
+    $(function () {
+        layui.use(['form', 'layedit', 'laydate', 'element'], function () {
+            var form = layui.form,
+                layer = layui.layer,
+                layedit = layui.layedit,
+                element = layui.element,
+                laydate = layui.laydate;
+            //日期
+            laydate.render({
+                elem: '#date'
+            });
+            laydate.render({
+                elem: '#date1'
+            });
+            laydate.render({
+                elem: '#date2'
+            });
+            element.render('test1');
+            form.render('select', 'test1');
+            form.on('radio(*)', function (data) {
+                /*console.log(data.elem); //得到radio原始DOM对象
+                 console.log(data.value); //被点击的radio的value值*/
+                alert("是是是");
+
+            });
+        });
+    });
+
+</script>
 </body>
 
 </html>

@@ -10,11 +10,11 @@ import java.util.List;
  */
 public class OfferParam {
     private Offer offer;//报价信息
-    private List<Offercar> listOffercar;//用车报价信息
+    private Offercar offercar;//用车报价信息
     private List<OfferHotel> listOfferHotel;//酒店报价信息
     private List<Offerscenic> listOfferscenic;//景点报价信息
     private List<Offerrestaurant> listOfferrestaurant;//餐厅报价信息
-    private List<Offerother> listOfferother;//其它报价信息
+    private Offerother offerother;//其它报价信息
     private List<Offerline>listOfferline;//线路报价信息
 
 
@@ -26,12 +26,20 @@ public class OfferParam {
         this.offer = offer;
     }
 
-    public List<Offercar> getListOffercar() {
-        return listOffercar;
+    public Offercar getOffercar() {
+        return offercar;
     }
 
-    public void setListOffercar(List<Offercar> listOffercar) {
-        this.listOffercar = listOffercar;
+    public void setOffercar(Offercar offercar) {
+        this.offercar = offercar;
+    }
+
+    public Offerother getOfferother() {
+        return offerother;
+    }
+
+    public void setOfferother(Offerother offerother) {
+        this.offerother = offerother;
     }
 
     public List<OfferHotel> getListOfferHotel() {
@@ -58,13 +66,7 @@ public class OfferParam {
         this.listOfferrestaurant = listOfferrestaurant;
     }
 
-    public List<Offerother> getListOfferother() {
-        return listOfferother;
-    }
 
-    public void setListOfferother(List<Offerother> listOfferother) {
-        this.listOfferother = listOfferother;
-    }
 
     public List<Offerline> getListOfferline() {
         return listOfferline;

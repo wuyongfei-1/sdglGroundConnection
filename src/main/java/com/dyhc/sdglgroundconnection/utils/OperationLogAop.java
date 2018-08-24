@@ -21,7 +21,7 @@ import java.util.Date;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
- * 操作日志切面类（wuyongfie）
+ * 操作日志切面类（wuyongfei）
  **/
 @Component
 @Aspect

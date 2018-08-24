@@ -1,12 +1,11 @@
 package com.dyhc.sdglgroundconnection.web;
 
-import com.dyhc.sdglgroundconnection.pojo.Hotel;
-import com.dyhc.sdglgroundconnection.pojo.RoomType;
-import com.dyhc.sdglgroundconnection.service.HotelService;
-import com.dyhc.sdglgroundconnection.service.RoomTypeService;
+import com.dyhc.sdglgroundconnection.pojo.*;
+import com.dyhc.sdglgroundconnection.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,13 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
  * 进入页面-控制器
  **/
 @Controller
-@RequestMapping("/countAdjust")
+    @RequestMapping("/countAdjust")
 public class EnterCountAdjustPageController {
     @Autowired
     private RoomTypeService roomTypeService;
@@ -494,13 +494,68 @@ public class EnterCountAdjustPageController {
         return "countAdjust/index/Scheduling-detail";
     }
 
+    @Autowired
+    private TemplateService templateService;
+
+    @Autowired
+    private DictionariesService dictionariesService;
+
+    @Autowired
+    private ScenicspotService scenicspotService;
+
+    @Autowired
+    private ShoppingService shoppingService;
+
+    @Autowired
+    private RestaurantService restaurantService;
+
+    @Autowired
+    private GuideService guideService;
+
+    @Autowired
+    private CarrentalService carrentalService;
+
     /**
      * 进入Quotation-detail.html页
      *
      * @return
      */
     @RequestMapping("/Quotation-detail.html")
-    public String QuotationDetail() {
+    public String QuotationDetail(HttpServletRequest request) {
+        try {
+            // 所有的线路
+            List<Template> templates = templateService.listAllTemplate();
+            // 酒店名称
+            List<Hotel> hotels = hotelService.listByaHotel();
+            // 房间类型
+            List<Dictionaries> therooms = dictionariesService.listDictionaries("THEROOM");
+            // 景点
+            List<Scenicspot> scenicspots = scenicspotService.listScenicspotByParentId(0);
+            // 购物地
+            List<Shopping> shoppings = shoppingService.listAllShoppings();
+            // 所有的餐馆
+            List<Restaurant> restaurants = restaurantService.listAllRestaurants();
+            // 所有的饮食类型
+            List<Dictionaries> diets = dictionariesService.listDictionaries("DIET");
+            // 所有的导游
+            List<Guide> guides = guideService.listAllGuides();
+            // 所有的汽车租赁公司
+            List<Carrental> carrentals = carrentalService.listAllCarrentals();
+            // 所有的车辆类型
+            List<Dictionaries> vehicles = dictionariesService.listDictionaries("VEHICLE");
+            request.setAttribute("templates", templates);
+            request.setAttribute("hotels", hotels);
+            request.setAttribute("therooms", therooms);
+            request.setAttribute("scenicspots", scenicspots);
+            request.setAttribute("shoppings", shoppings);
+            request.setAttribute("restaurants", restaurants);
+            request.setAttribute("diets", diets);
+            request.setAttribute("guides", guides);
+            request.setAttribute("carrentals", carrentals);
+            request.setAttribute("vehicles", vehicles);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "countAdjust/index/Quotation-detail";
     }
 
@@ -527,69 +582,75 @@ public class EnterCountAdjustPageController {
 
     /**
      * 进入savetemplate.html页面
+     *
      * @return
      */
     @RequestMapping("/savetemplate.html")
-    public String saveTemplate(){
+    public String saveTemplate() {
         return "countAdjust/index/savetemplate";
     }
 
     /**
      * 进入savetemplate.html页面
+     *
      * @return
      */
     @RequestMapping("/savetemplate1.html")
-    public String saveTemplate1(@RequestParam("templateId")Integer templateId,HttpServletRequest request){
-        request.setAttribute("templateId",templateId);
+    public String saveTemplate1(@RequestParam("templateId") Integer templateId, HttpServletRequest request) {
+        request.setAttribute("templateId", templateId);
         return "countAdjust/index/savetemplate";
     }
 
     /**
      * 进入line-template.html页面
+     *
      * @return
      */
     @RequestMapping("/line-template.html")
-    public String lineTemplate(){
+    public String lineTemplate() {
         return "countAdjust/index/line-template";
     }
 
     /**
      * 进入总线路模板列表页面 （wangtao）
+     *
      * @return
      */
     @RequestMapping("/LineTemplate_list.html")
-    public String tolineTemplateList(){
-        return  "countAdjust/index/LineTemplate_list";
+    public String tolineTemplateList() {
+        return "countAdjust/index/LineTemplate_list";
     }
 
     /**
      * 进入总线路模板列表页面 （wangtao）
+     *
      * @return
      */
     @RequestMapping("/LineTemplate_add.html")
-    public String tolineTemplateadd(){
-        return  "countAdjust/index/LineTemplate_add";
+    public String tolineTemplateadd() {
+        return "countAdjust/index/LineTemplate_add";
     }
 
     /**
      * 进入总线路模板列表页面 （wangtao）
+     *
      * @return
      */
     @RequestMapping("/LineTemplate_add1.html")
-    public String tolineTemplateadd1(@RequestParam("lineTemplateId")Integer lineTemplateId,HttpServletRequest request){
-        request.setAttribute("lineTemplateId",lineTemplateId);
-        return  "countAdjust/index/LineTemplate_add";
+    public String tolineTemplateadd1(@RequestParam("lineTemplateId") Integer lineTemplateId, HttpServletRequest request) {
+        request.setAttribute("lineTemplateId", lineTemplateId);
+        return "countAdjust/index/LineTemplate_add";
     }
 
     @RequestMapping("/template_add.html")
-    public String toTemplateadd(@RequestParam("lineid")Integer lineid,HttpServletRequest request){
-        request.setAttribute("lineid",lineid);
+    public String toTemplateadd(@RequestParam("lineid") Integer lineid, HttpServletRequest request) {
+        request.setAttribute("lineid", lineid);
         return "countAdjust/index/template_add";
     }
 
     @RequestMapping("/showTemplate.html")
-    public String toShowTemplate(@RequestParam("templateid")Integer templateId,HttpServletRequest request){
-        request.setAttribute("templateid",templateId);
+    public String toShowTemplate(@RequestParam("templateid") Integer templateId, HttpServletRequest request) {
+        request.setAttribute("templateid", templateId);
         return "countAdjust/index/showTemplate";
     }
 

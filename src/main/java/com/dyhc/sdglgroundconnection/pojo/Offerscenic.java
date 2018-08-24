@@ -109,9 +109,17 @@ public class Offerscenic {
     }
 
     @Basic
-    @Column(name = "modifier")
+    @Column(name = "`modifier`")
     public Integer getModifier() {
         return modifier;
+    }
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
     }
 
     public void setModifier(Integer modifier) {

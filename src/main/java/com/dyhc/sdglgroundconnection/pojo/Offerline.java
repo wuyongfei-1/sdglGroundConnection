@@ -12,8 +12,17 @@ import java.util.Objects;
  **/
 @Table(name = "offerline")
 public class Offerline {
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
+
     @Id
     @Column(name = "offerLineRecordId")
+
     private int offerLineRecordId; // 报价线路信息记录id
     @Column(name = "offerId")
     private Integer offerId; // 报价信息编号（外键，与报价信息表关联）

@@ -43,11 +43,13 @@
             </tr>
          </table>
          <table border="1" cellspacing="0" cellpadding="0">
-         	<tr>
-            	<td style="width:25%">用房时间</td>
-                <td style="width:25%; text-align:center">宾馆名称</td>
-                <td style="width:50%; text-align:center">团队用房</td>
-            </tr>
+             <tr>
+                 <td style="width:25%">用房时间</td>
+                 <td style="width:25%; text-align:center">宾馆名称</td>
+                 <td style="width:50%; text-align:center">团队用房</td>
+             </tr>
+         	<tbody id="t">
+
             <!--<tr>
             	<td>415-4.16</td>
                 <td>锦江都城酒店</td>
@@ -63,14 +65,15 @@
                 <td>宏源国际酒店</td>
                 <td>10标+2司陪</td>
             </tr>-->
+            </tbody>
          </table>
          <table border="1" cellspacing="0" cellpadding="0">
          	<tr>
             	<td style="width:25%; text-align:center">备 注</td>
                 <td style="width:75%" id="remarks">
-                	1、请安排无烟房或做无烟处理<br/>
+                	<!--1、请安排无烟房或做无烟处理<br/>
                     2、请安排高层、相同或相近楼层、相近房间<br/>
-                    3、收到请<strong style="font-size:24px">签字并盖章</strong>回传确认<br/>
+                    3、收到请<strong style="font-size:24px">签字并盖章</strong>回传确认<br/>-->
                 </td>
             </tr>
          </table>
@@ -85,14 +88,21 @@
          <table>
          	<tr>
             	<td style="width:8%">团控:</td>
-                <td style="width:30%" id="guideName">崔俊娜 18603416895</td>
-                <td style="width:30%" id="telephone">崔俊娜 18603416895</td>
+                <td style="width:30%" id="guideName"></td>
+                <td style="width:30%" id="telephone"></td>
                 <td style="width:8%">TEL：</td>
                 <td style="width:26%">0351-7896890</td>
                 <td style="width:8%">FAX：</td>
                 <td style="width:20%">0351-7925068</td>
             </tr>
          </table>
+        <div style="border: 1px #000 solid;width: 900px;height: 150px">
+
+        </div>
+        <br>
+        <div style="border: 1px #000 solid;width: 900px;height: 300px">
+
+        </div>
     </div>
 </body>
 </html>
@@ -104,27 +114,35 @@
     //数据渲染
     function dispatchShow() {
         $.ajax({
-            url: "",
+            url: "/dispatch/getDispatchInfoByDispatchId",
             data: {dispatchId:1},
             dataType: "json",
-            type: "get",
+            type: "post",
             success: function (e) {
                 var str="";
-                $(e.data).each(function (i, result) {
-                    alert(e.data);
-                    $("#travelName").val();//团名
-                    $("#remarks").val();//备注
-                    $("#tourist").val();//客源地
-                    $("#num").val();//人数
-                    $("#guideName").val();//团控
-                    $("#telephone").val();//团控
+                var date="";
+                var date1="";
+                var date2="";
+                var date3="";
+                var num1="";
+                $("#travelName").text(e.data.groupNumber);//团名
+                $("#remarks").text(e.data.remarks)//备注);
+                $("#tourist").text(e.data.tourist);//客源地
+                $("#num").text(e.data.num);//人数
+                $.each(e.data.dispatchhotel,function (i, result) {
+                    date=result.date.substring(5,10);
+                    date2=result.date.substring(5,9);
+                    date1=date.substring(4);
+                    date1++;
+                    date3=date2+date1;
+                    num1= Math.ceil(e.data.num/2);
                     str +="<tr>\n" +
-                        "\t<td>415-4.16</td>\n" +
-                        " <td>锦江都城酒店</td>\n" +
-                        "<td>10标</td>\n" +
+                        "\t<td>"+date+"-"+date3+"</td>\n" +
+                        " <td>"+result.hotel.hotelName+"</td>\n" +
+                        "<td>"+num1+"标+"+result.companyBedNum+"司陪</td>\n" +
                         "</tr>";
                 })
-                $('tbody').html(str);
+                $("#t").html(str);
             }
         })
     }

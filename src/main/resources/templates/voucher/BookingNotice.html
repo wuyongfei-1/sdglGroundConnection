@@ -131,13 +131,15 @@
                 $("#teamContactsName").text(e.data.dispatchtourgroup.teamcontactsname+"  "+e.data.dispatchtourgroup.contactnumber);//团控
                 $.each(e.data.dispatchhotel,function (i, result) {
                     date=result.date.substring(5,10);
+                    var ss1=date.replace("-",".");
                     date2=result.date.substring(5,9);
                     date1=date.substring(4);
                     date1++;
                     date3=date2+date1;
+                    var ss2=date3.replace("-",".");
                     num1= Math.ceil(e.data.num/2);
                     str +="<tr>\n" +
-                        "\t<td>"+date+"-"+date3+"</td>\n" +
+                        "\t<td>"+ss1+"-"+ss2+"</td>\n" +
                         " <td>"+result.hotel.hotelName+"</td>\n" +
                         "<td>"+num1+"标+"+result.companyBedNum+"司陪</td>\n" +
                         "</tr>";

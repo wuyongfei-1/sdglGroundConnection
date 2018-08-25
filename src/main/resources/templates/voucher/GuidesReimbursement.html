@@ -21,23 +21,23 @@
 			</tr>
 			<tr>
 				<td colspan="2">团号</td>
-				<td colspan="4"></td>
+				<td colspan="4" class="travelName"></td>
 				<td colspan="2">抵离时间</td>
-				<td colspan="4"></td>
+				<td colspan="4" class="offset"></td>
 				<td>线路</td>
-				<td colspan="4"></td>
+				<td colspan="4" class="sendLine"></td>
 			</tr>
 			<tr>
 				<td colspan="3">组团社（单位）</td>
-				<td colspan="3"></td>
+				<td colspan="3" class="groupNumber"></td>
 				<td>人数</td>
-				<td colspan="4"></td>
+				<td colspan="4" class="num"></td>
 				<td>天数</td>
-				<td colspan="2"></td>
+				<td colspan="2" class="day"></td>
 				<td colspan="1">客源地</td>
-				<td colspan="2"></td>
+				<td colspan="2"class="tourist"></td>
 			</tr>
-			<tr>
+			<!--<tr>
 				<td rowspan="9">住<br>宿</td>				
 				<td>日期</td>
 				<td colspan="2">酒店名称</td>
@@ -48,9 +48,12 @@
 				<td colspan="2">天数</td>
 				<td colspan="2">小计</td>
 				<td colspan="2">支付方式</td>
-			</tr>
-			<tr>				
-				<td></td>
+			</tr>-->
+			<tbody class="zhu"></tbody>
+			<tbody class="can"></tbody>
+			<tbody class="jin"></tbody>
+			<!--<tr>
+				<td ></td>
 				<td colspan="2"></td>
 				<td colspan="2"></td>
 				<td></td>
@@ -125,16 +128,9 @@
 				<td colspan="2"></td>
 				<td colspan="2"></td>
 				<td colspan="2"></td>
-			</tr>
-			<tr>
-				<td colspan="2">住宿合计</td>
-				<td colspan="3"></td>
-				<td colspan="2">其中导游付</td>
-				<td colspan="4"></td>
-				<td colspan="2">签单合计</td>
-				<td colspan="3"></td>
-			</tr>
-			<tr>
+			</tr>-->
+
+			<!--<tr>
 					<td rowspan="8">餐厅</td>
 					<td>午餐日期</td>
 					<td>餐厅名称</td>
@@ -152,8 +148,8 @@
 					<td>其它</td>
 					<td>小计</td>
 					<td>支付方式</td>
-				</tr>
-				<tr>
+				</tr>-->
+				<!--<tr>
 					<td></td>
 					<td></td>
 					<td></td>
@@ -260,16 +256,16 @@
 					<td></td>
 					<td></td>
 					<td></td>
-				</tr>
-				<tr>
+				</tr>-->
+				<!--<tr>
 					<td colspan="2">用餐合计</td>
 					<td colspan="3"></td>
 					<td colspan="2">其中导游付</td>
 					<td colspan="4"></td>
 					<td colspan="2">签单合计</td>
 					<td colspan="3"></td>
-				</tr>
-				<tr>
+				</tr>-->
+				<!--<tr>
 					<td rowspan="9">门票</td>
 					<td colspan="2">景点门票</td>
 					<td colspan="2">单价</td>
@@ -281,8 +277,8 @@
 					<td>人数</td>
 					<td>小计</td>
 					<td colspan="3">支付方式</td>
-				</tr>
-				<tr>
+				</tr>-->
+				<!--<tr>
 					<td colspan="2"></td>
 					<td colspan="2"></td>
 					<td></td>
@@ -372,15 +368,15 @@
 					<td></td>
 					<td></td>
 					<td></td>
-				</tr>
-				<tr>
+				</tr>-->
+				<!--<tr>
 					<td colspan="2">门票合计</td>
 					<td colspan="3"></td>
 					<td colspan="2">其中导游付</td>
 					<td colspan="4"></td>
 					<td colspan="2">签单合计</td>
 					<td colspan="3"></td>
-				</tr>
+				</tr>-->
 				<tr>
 					<td rowspan="2">车费</td>
 					<td>过路费</td>
@@ -395,33 +391,33 @@
 					<td>支付方式</td>
 				</tr>
 				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td colspan="2"></td>
-					<td colspan="3"></td>
-					<td colspan="2"></td>
-					<td colspan="2"></td>
-					<td colspan="2"></td>
-					<td colspan="2"></td>
+					<td class="tolls"></td>
+					<td class="parkingFee"></td>
+					<td class="prepaidFare"></td>
+					<td colspan="2" class="cfhj"></td>
+					<td colspan="3" class="dailyCost"></td>
+					<td colspan="2" class="nums"></td>
+					<td colspan="2" class="guideNum"></td>
+					<td colspan="2" class="guidehj"></td>
+					<td colspan="2">导游付</td>
 				</tr>
 				<tr>
 					<td rowspan="4" colspan="2">其他支出</td>
 					<td colspan="15">请列出项目及计算过程：</td>
 				</tr>
 				<tr>
-					<td colspan="15"></td>
+					<td colspan="15" class="remarks"></td>
 				</tr>
 				<tr>
 					<td colspan="15"></td>
 				</tr>
 				<tr>
 					<td>导游付</td>
-					<td colspan="3"></td>
+					<td colspan="3" class="guidedTour"></td>
 					<td>签单</td>
-					<td colspan="5"></td>
+					<td colspan="5" class="signing"></td>
 					<td>合计</td>
-					<td colspan="4"></td>
+					<td colspan="4" class="total"></td>
 				</tr>
 				<tr>
 					<td class="cc" colspan="17">交回其它单据及内容（包括购物签单）：</td>
@@ -439,9 +435,9 @@
 					<td colspan="2">原借贷</td>
 					<td colspan="3"></td>
 					<td>外售团款</td>
-					<td colspan="3"></td>
+					<td colspan="3" class="receipt"></td>
 					<td colspan="2">导游现付合计</td>
-					<td colspan="2"></td>
+					<td colspan="2" class="totalPayable"></td>
 					<td colspan="2">报/退款</td>
 					<td colspan="2"></td>
 				</tr>
@@ -451,7 +447,7 @@
 				</tr>
 				<tr>
 					<td colspan="2">报账日期</td>
-					<td colspan="3"></td>
+					<td colspan="3" class="reportDate"></td>
 					<td>导游签字</td>
 					<td colspan="5"></td>
 					<td colspan="2">审核人批示</td>
@@ -468,25 +464,197 @@
     //数据渲染
     function dispatchShow() {
         $.ajax({
-            url: "/dispatch/getDispatchInfoByDispatchId",
-            data: {dispatchId:1},
+            url: "/reportdetail/selectReportdetailById",
+            data: {reportDetailId:1},
             dataType: "json",
             type: "post",
             success: function (e) {
-               /* $(".companyName").text(e.data.company.companyName);//旅行社
-                $(".companyPhone").text(e.data.company.companyPhone);//电话
-                $(".fax").text(e.data.company.fax);//传真
-                $(".carRentalName").text(e.data.discar.vehicleType.carrental.carRentalName);//承运方
-                $(".phone").text(e.data.discar.vehicleType.carrental.phone);//电话
-                $(".valueContent1").text(e.data.discar.vehicleType.carType);//旅游客车
-                $(".number").text(e.data.discar.number);//量数
-                $(".clusteraddress").text(e.data.dispatchtourgroup.clusteraddress);//接团地点
-                $(".value2").text(e.data.dispatchtourgroup.value2);//送团地点
-                var scenicSpotName="";*/
-                $.each(e.data.disattrList,function (i, result) {
-                    scenicSpotName+=" "+result.scenicspot.scenicSpotName;
-                    $(".scenicSpotName").text(scenicSpotName+" "+e.data.disattrList.length);//景点
+				var ss=e.data.reportDate;
+				var reg=new RegExp("-","g");
+				var ss1=ss.replace(reg,".");
+                $(".receipt").text(e.data.receipt);
+                $(".totalPayable").text(e.data.totalPayable);
+                $(".reportDate").text(ss1);
+                var total=e.data.reportingotherexpenses.guidedTour+e.data.reportingotherexpenses.signing;
+                $(".remarks").text(e.data.reportingotherexpenses.remarks);
+                $(".guidedTour").text(e.data.reportingotherexpenses.guidedTour);
+                $(".signing").text(e.data.reportingotherexpenses.signing);
+                $(".total").text(total);
+                var guidehj=e.data.reportqutsubsidy.dailyCost*e.data.reportqutsubsidy.nums*e.data.reportqutsubsidy.guideNum;
+                $(".dailyCost").text(e.data.reportqutsubsidy.dailyCost);
+                $(".nums").text(e.data.reportqutsubsidy.nums);
+                $(".guideNum").text(e.data.reportqutsubsidy.guideNum);
+                $(".guidehj").text(guidehj);
+                var cfhj=e.data.reportfare.tolls+e.data.reportfare.parkingFee+e.data.reportfare.prepaidFare;
+                $(".tolls").text(e.data.reportfare.tolls);
+                $(".parkingFee").text(e.data.reportfare.parkingFee);
+                $(".prepaidFare").text(e.data.reportfare.prepaidFare);
+                $(".cfhj").text(cfhj);
+                var travelEndTime=e.data.dispatch.travelEndTime.substring(0,10);
+                var travelEndTime2=travelEndTime.replace(reg,".");
+				var travelStartTime=e.data.dispatch.travelStartTime.substring(0,10);
+                var travelStartTime3=travelStartTime.replace(reg,".");
+                var travelEndTime1=e.data.dispatch.travelEndTime.substring(8,10);
+                var travelStartTime1=e.data.dispatch.travelStartTime.substring(8,10);
+                var day=travelEndTime1-travelStartTime1;
+                $(".offset").text(travelStartTime3+"到"+travelEndTime2);
+                $(".travelName").text(e.data.dispatch.groupNumber);
+                $(".sendLine").text(e.data.dispatch.sendLine);
+                $(".num").text(e.data.dispatch.num);
+                $(".day").text(day);
+                $(".tourist").text(e.data.dispatch.tourist);
+               var subtotal="";
+               var content2="<tr>\n" +
+                   "\t\t\t\t\t<td rowspan=\""+(e.data.reportticketList.length+2)+"\">门票</td>\n" +
+                   "\t\t\t\t\t<td colspan=\"2\">景点门票</td>\n" +
+                   "\t\t\t\t\t<td colspan=\"2\">单价</td>\n" +
+                   "\t\t\t\t\t<td>人数</td>\n" +
+                   "\t\t\t\t\t<td colspan=\"2\">小计</td>\n" +
+                   "\t\t\t\t\t<td colspan=\"2\">支付方式</td>\n" +
+                   "\t\t\t\t\t<td colspan=\"2\">景点门票</td>\n" +
+                   "\t\t\t\t\t<td>单价</td>\n" +
+                   "\t\t\t\t\t<td>人数</td>\n" +
+                   "\t\t\t\t\t<td>小计</td>\n" +
+                   "\t\t\t\t\t<td colspan=\"3\">支付方式</td>\n" +
+                   "\t\t\t\t</tr>";
+
+               var content1="<tr>\n" +
+                   "\t\t\t\t\t<td rowspan=\""+(e.data.reportrestaurantList.length+2)+"\">餐厅</td>\n" +
+                   "\t\t\t\t\t<td>午餐日期</td>\n" +
+                   "\t\t\t\t\t<td>餐厅名称</td>\n" +
+                   "\t\t\t\t\t<td>餐标</td>\n" +
+                   "\t\t\t\t\t<td>人数</td>\n" +
+                   "\t\t\t\t\t<td>次数</td>\n" +
+                   "\t\t\t\t\t<td>其它</td>\n" +
+                   "\t\t\t\t\t<td>小计</td>\n" +
+                   "\t\t\t\t\t<td>支付方式</td>\n" +
+                   "\t\t\t\t\t<td>晚餐日期</td>\n" +
+                   "\t\t\t\t\t<td>餐厅名称</td>\n" +
+                   "\t\t\t\t\t<td>餐标</td>\n" +
+                   "\t\t\t\t\t<td>人数</td>\n" +
+                   "\t\t\t\t\t<td>次数</td>\n" +
+                   "\t\t\t\t\t<td>其它</td>\n" +
+                   "\t\t\t\t\t<td>小计</td>\n" +
+                   "\t\t\t\t\t<td>支付方式</td>\n" +
+                   "\t\t\t\t</tr>";
+
+               var content="<tr>\n" +
+                   "\t\t\t\t<td rowspan=\""+(e.data.reportaccommodationList.length+2)+"\">住<br>宿</td>\t\t\t\t\n" +
+                   "\t\t\t\t<td>日期</td>\n" +
+                   "\t\t\t\t<td colspan=\"2\">酒店名称</td>\n" +
+                   "\t\t\t\t<td colspan=\"2\">房价</td>\n" +
+                   "\t\t\t\t<td>间数</td>\n" +
+                   "\t\t\t\t<td colspan=\"2\">陪同床位</td>\n" +
+                   "\t\t\t\t<td colspan=\"2\">陪同床价</td>\n" +
+                   "\t\t\t\t<td colspan=\"2\">天数</td>\n" +
+                   "\t\t\t\t<td colspan=\"2\">小计</td>\n" +
+                   "\t\t\t\t<td colspan=\"2\">支付方式</td>\n" +
+                   "\t\t\t</tr>";
+                var riqi="";
+                var wuriqi="";
+                var wanriqi="";
+                var zong="";
+                var xj=0;
+                var wuxj=0;
+                var wanxj=0;
+                var yongzhong=0;
+                var jinxj=0;
+                var mp=0;
+                //住宿
+                $.each(e.data.reportaccommodationList,function (i, result) {
+                    if(result.liveDate!=null){
+                        riqi=result.liveDate.substring(8,10);
+					}
+                    subtotal=(result.housePrice*result.roomNum)+(result.accompanyingBed*result.accompanyingPrice)
+					content+="<tr>\n" +
+                        "\t\t\t\t<td>"+riqi+"</td>\n" +
+                        "\t\t\t\t<td colspan=\"2\">"+result.hotelName+"</td>\n" +
+                        "\t\t\t\t<td colspan=\"2\">"+result.housePrice+"</td>\n" +
+                        "\t\t\t\t<td>"+result.roomNum+"</td>\n" +
+                        "\t\t\t\t<td colspan=\"2\">"+result.accompanyingBed+"</td>\n" +
+                        "\t\t\t\t<td colspan=\"2\">"+result.accompanyingPrice+"</td>\n" +
+                        "\t\t\t\t<td colspan=\"2\">1</td>\n" +
+                        "\t\t\t\t<td colspan=\"2\">"+subtotal+"</td>\n" +
+                        "\t\t\t\t<td colspan=\"2\">"+result.payMethods+"</td>\n" +
+                        "\t\t\t</tr>";
+                    	xj+=subtotal;
                 })
+
+				//餐厅
+                $.each(e.data.reportrestaurantList,function (i, result) {
+                    wuxj=(result.lunchMeal)*(result.lunchMeal);
+                    wanxj=(result.dinnerMeal)*(result.dinnerEatNum);
+                    if(result.lunchDate!=null){
+                        wuriqi=result.lunchDate.substring(8,10);
+                    }
+                    if(result.dinnerDate!=null){
+                        wanriqi=result.dinnerDate.substring(8,10);
+                    }
+                    content1+="<tr>\n" +
+                        "\t\t\t\t\t<td>"+wuriqi+"</td>\n" +
+                        "\t\t\t\t\t<td>"+result.luncheonName+"</td>\n" +
+                        "\t\t\t\t\t<td>"+result.lunchMeal+"</td>\n" +
+                        "\t\t\t\t\t<td>"+result.lunchEatNum+"</td>\n" +
+                        "\t\t\t\t\t<td>1</td>\n" +
+                        "\t\t\t\t\t<td>"+result.lunchother+"</td>\n" +
+                        "\t\t\t\t\t<td>"+wuxj+"</td>\n" +
+                        "\t\t\t\t\t<td>"+result.lunchPayMethods+"</td>\n" +
+                        "\t\t\t\t\t<td>"+wanriqi+"</td>\n" +
+                        "\t\t\t\t\t<td>"+result.dinnerName+"</td>\n" +
+                        "\t\t\t\t\t<td>"+result.dinnerMeal+"</td>\n" +
+                        "\t\t\t\t\t<td>"+result.dinnerEatNum+"</td>\n" +
+                        "\t\t\t\t\t<td>1</td>\n" +
+                        "\t\t\t\t\t<td>"+result.dinnerother+"</td>\n" +
+                        "\t\t\t\t\t<td>"+wanxj+"</td>\n" +
+                        "\t\t\t\t\t<td>"+result.dinnerPayMethods+"</td>\n" +
+                        "\t\t\t\t</tr>";
+                    yongzhong+=(wuxj+wanxj);
+                })
+				//门票
+                $.each(e.data.reportticketList,function (i, result) {
+                    jinxj=(result.price)*(result.nums);
+                    content2+="<tr>\n" +
+                        "\t\t\t\t\t<td colspan=\"2\">"+result.attrName+"</td>\n" +
+                        "\t\t\t\t\t<td colspan=\"2\">"+result.price+"</td>\n" +
+                        "\t\t\t\t\t<td>"+result.nums+"</td>\n" +
+                        "\t\t\t\t\t<td colspan=\"2\">"+jinxj+"</td>\n" +
+                        "\t\t\t\t\t<td colspan=\"2\">"+result.payMethods+"</td>\n" +
+                        "\t\t\t\t\t<td colspan=\"2\"></td>\n" +
+                        "\t\t\t\t\t<td></td>\n" +
+                        "\t\t\t\t\t<td></td>\n" +
+                        "\t\t\t\t\t<td></td>\n" +
+                        "\t\t\t\t\t<td></td>\n" +
+                        "\t\t\t\t\t<td></td>\n" +
+                        "\t\t\t\t</tr>";
+                    mp+=jinxj;
+                })
+				content+="<tr>\n" +
+                    "\t\t\t\t<td colspan=\"2\">住宿合计</td>\n" +
+                    "\t\t\t\t<td colspan=\"3\">"+xj+"</td>\n" +
+                    "\t\t\t\t<td colspan=\"2\">其中导游付</td>\n" +
+                    "\t\t\t\t<td colspan=\"4\"></td>\n" +
+                    "\t\t\t\t<td colspan=\"2\">签单合计</td>\n" +
+                    "\t\t\t\t<td colspan=\"3\"></td>\n" +
+                    "\t\t\t</tr>";
+                content1+="<tr>\n" +
+                    "\t\t\t\t\t<td colspan=\"2\">用餐合计</td>\n" +
+                    "\t\t\t\t\t<td colspan=\"3\">"+yongzhong+"</td>\n" +
+                    "\t\t\t\t\t<td colspan=\"2\">其中导游付</td>\n" +
+                    "\t\t\t\t\t<td colspan=\"4\"></td>\n" +
+                    "\t\t\t\t\t<td colspan=\"2\">签单合计</td>\n" +
+                    "\t\t\t\t\t<td colspan=\"3\"></td>\n" +
+                    "\t\t\t\t</tr>";
+                content2+="<tr>\n" +
+                    "\t\t\t\t\t<td colspan=\"2\">门票合计</td>\n" +
+                    "\t\t\t\t\t<td colspan=\"3\">"+mp+"</td>\n" +
+                    "\t\t\t\t\t<td colspan=\"2\">其中导游付</td>\n" +
+                    "\t\t\t\t\t<td colspan=\"4\"></td>\n" +
+                    "\t\t\t\t\t<td colspan=\"2\">签单合计</td>\n" +
+                    "\t\t\t\t\t<td colspan=\"3\"></td>\n" +
+                    "\t\t\t\t</tr>";
+				$(".zhu").html(content);
+                $(".can").html(content1);
+                $(".jin").html(content2);
             }
         })
     }

@@ -40,6 +40,17 @@ public class Discar {
     private String value2; // 驾驶员姓名
     private String value3; // 驾驶员联系电话
 
+    public VehicleType getVehicleType() {
+        return vehicleType;
+    }
+
+    public void setVehicleType(VehicleType vehicleType) {
+        this.vehicleType = vehicleType;
+    }
+
+    @Transient
+    private VehicleType vehicleType; // 车辆类型表
+
     @Id
     @Column(name = "disCarId")
     public int getDisCarId() {

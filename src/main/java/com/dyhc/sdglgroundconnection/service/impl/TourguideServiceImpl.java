@@ -30,7 +30,7 @@ public class TourguideServiceImpl implements TourguideService {
      * @return 返回导游带团日志对象
      */
     @Override
-    public Tourguide getTourguideInfoByTourguideId(Integer tourguideId) {
+    public Tourguide getTourguideInfoByTourguideId(Integer tourguideId) throws Exception{
         Tourguide tourguide=tourguideMapper.selectByPrimaryKey(tourguideId);
         tourguide.setDispatch(dispatchService.getDispatchInfoByDispatchInfoId(tourguide.getOffid()));
         tourguide.setGuide(guideService.selectGuideByIds(tourguide.getGuideid()));

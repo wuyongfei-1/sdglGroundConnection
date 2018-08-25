@@ -62,6 +62,9 @@ public class DispatchServiceImpl implements DispatchService {
     @Autowired
     private CompanyService companyService;
 
+    @Autowired
+    private StaffService staffService;
+
 
     /**
      * 根据调度编号查询调度信息 （wangtao）
@@ -77,6 +80,8 @@ public class DispatchServiceImpl implements DispatchService {
         dispatch.setDiscar(discarService.getDiscarByOffId(dispatchId));
         dispatch.setDisattrList(disattrService.listDisattrByOffId(dispatchId));
         dispatch.setCompany(companyService.selectCompanyByIds(1));
+        dispatch.setStaff(staffService.getStaffInfoByStaffId(dispatch.getCreater()));
+        dispatch.setDisrestaurantList(disrestaurantService.listDisrestaurantByOffId(dispatchId));
         return dispatch;
     }
 

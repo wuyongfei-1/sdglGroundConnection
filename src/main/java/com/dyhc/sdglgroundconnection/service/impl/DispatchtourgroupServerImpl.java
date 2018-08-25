@@ -31,7 +31,7 @@ public class DispatchtourgroupServerImpl implements DispatchtourgroupServer {
         criteria.andOfferidEqualTo(offId);
         List<Dispatchtourgroup> dispatchtourgroupList=dispatchtourgroupMapper.selectByExample(dispatchtourgroupExample);
         Dispatchtourgroup dispatchtourgroup=null;
-        if(dispatchtourgroupList!=null){
+        if(dispatchtourgroupList!=null&&dispatchtourgroupList.size()!=0){
             dispatchtourgroup=dispatchtourgroupList.get(0);
         }
         return dispatchtourgroup;

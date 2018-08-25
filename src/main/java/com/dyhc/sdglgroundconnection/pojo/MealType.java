@@ -38,6 +38,17 @@ public class MealType {
     private String value3;
 
     @Transient
+    private Restaurant restaurant; // 餐厅对象
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
+
+    @Transient
     private String mealTypeName; // 饮食类型名称
 
     @Id

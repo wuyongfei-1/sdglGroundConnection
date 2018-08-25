@@ -37,7 +37,6 @@ public class DispatchController {
         try {
             Dispatch dispatch=dispatchService.getDispatchInfoByDispatchInfoId(dispatchId);
             ReponseResult<Dispatch> data = ReponseResult.ok(dispatch, "根据调度编号获取调度表信息成功！");
-
             logger.info(" method:selectDispatchs  根据调度编号获取调度表信息成功！");
             return data;
         } catch (Exception e) {

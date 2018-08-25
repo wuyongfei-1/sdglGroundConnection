@@ -743,7 +743,8 @@
         lineJson = [];
         $("[xl='xianlu']").each(function (i, e) {
             var json = {
-                "lineArriveName": $(this).text(),
+                "lineArriveName": $(this).find("option:selected").text(),
+                "date":$(this).parent().parent().parent().find("[id='date2']").val(),
                 "travelContent": $(this).parent().parent().parent().find("[name='desc']").val(),
                 "weight": i
             }

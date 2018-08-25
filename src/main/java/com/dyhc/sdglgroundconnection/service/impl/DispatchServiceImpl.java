@@ -130,6 +130,7 @@ public class DispatchServiceImpl implements DispatchService {
         DispatchExample.Criteria criteria= dispatchExample.createCriteria();
         criteria.andWhetherdelEqualTo(0);
         criteria.andStatusEqualTo(1);
+        criteria.andWhetherdelEqualTo(0);
         List<Dispatch> dispatches=dispatchMapper.selectByExample(dispatchExample);
 
         //查询调度导游表
@@ -156,7 +157,7 @@ public class DispatchServiceImpl implements DispatchService {
 
             Dispatch dispatch=dispatchMapper.selectByPrimaryKey(dispatchId);
             dispatch.setStatus(2);
-
+/*
             //查询调度导游表   ，根据调度表的id查询
             DisguideExample disguideExample=new DisguideExample();
             DisguideExample.Criteria disguideExamplecriteria=disguideExample.createCriteria();
@@ -170,10 +171,10 @@ public class DispatchServiceImpl implements DispatchService {
             beginTime = format.parse(beginDateStr);
             endTime= format.parse(endDateStr);
             Long Number=(endTime.getTime()-beginTime.getTime())/(24*60*60*1000)+1;  //相减  得到 旅游天数
-            Calendar c = Calendar.getInstance();
-            c.setTime(beginTime);
-            for (int i=0;i<Number;i++){
 
+            for (int i=0;i<Number;i++){
+                Calendar c = Calendar.getInstance();
+                c.setTime(beginTime);
                 c.add(Calendar.DAY_OF_MONTH, i);  //然后做出旅游天数每天的时间对象 填入 导游日程表中
                 Date tomorrow = c.getTime();
 
@@ -182,6 +183,7 @@ public class DispatchServiceImpl implements DispatchService {
                 GuideScheduleExample.Criteria guideScheduleCriteria=guideScheduleExample.createCriteria();
                 guideScheduleCriteria.andSchedulebegintimeEqualTo(tomorrow);
                 guideScheduleCriteria.andGuideidEqualTo(disguides.get(0).getGuideId());
+                guideScheduleCriteria.andValue1EqualTo(0+"");
                 List<GuideSchedule> guideSchedules =guideScheduleMapper.selectByExample(guideScheduleExample);
                 //有的话 跳出方法   返回3
                 if (guideSchedules.size()>0){
@@ -194,9 +196,11 @@ public class DispatchServiceImpl implements DispatchService {
                 guideSchedule.setGuideid(disguides.get(0).getGuideId());
                 guideSchedule.setSchedulebegintime(tomorrow);
                 guideSchedule.setSchedulestate(3);
+                guideSchedule.setValue1(0+"");
+                guideSchedule.setValue2(dispatchId+"");
                 guideScheduleMapper.insert(guideSchedule);
 
-            }
+            }*/
             result =dispatchMapper.updateByPrimaryKey(dispatch);
 
         return result;

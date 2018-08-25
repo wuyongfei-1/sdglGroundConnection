@@ -14,7 +14,7 @@
         ::-webkit-scrollbar{
             /*垂直滚动条的宽*/
             width: 6px;
-            height: 2px;
+            height: 6px;
         }
         #daoyouricheng td p{
             text-align: center;
@@ -150,6 +150,78 @@
         });
         return result;
     }
+
+    /**
+     * 总控为团选择导游(lixiaojie)
+     *
+     */
+    function zongKongDianJiRiQi(nowDay,guideId) {
+        /*if (!confirm("你确定要为团修改导游行程吗？")){
+            return;
+        }*/
+        var offerId=$('input:radio[name="okIndex"]:checked').val();
+        if(offerId==null){
+            alert("请选择旅行团!");
+            return ;
+        }
+
+        $.ajax({
+            url: "/disguide/getDisGuideByOfferIdAndGuideId",
+            data: {
+                "guideId":guideId,
+                "offerId":offerId
+            },
+            async: false,
+            dataType: "json",
+            type: "post",
+            success: function (ReponseResult) {
+
+                if (ReponseResult.data.guideId==guideId) {
+
+                }else {
+                   /* if (!confirm("该团的导游将被改成"+ReponseResult.data.guide.guideName)){
+                        return;
+                    }else {*/
+                        //执行修改团 导游
+                        $.ajax({
+                            url: "/disguide/updateDispatchGuide",
+                            data: {
+                                "guideId":guideId,
+                                "offerId":offerId
+                            },
+                            async: false,
+                            dataType: "json",
+                            type: "post",
+                            success: function (ReponseResult) {
+                                location.reload();
+                            }
+                        });
+                   /* }*/
+                }
+            }
+        });
+
+        $.ajax({
+            url: "/guideSchedule/insertGuideScheduleInfo",
+            data: {
+                "guideId":guideId,
+                "Day":nowDay,
+                "offerId":offerId
+            },
+            async: false,
+            dataType: "json",
+            type: "post",
+            success: function (ReponseResult) {
+
+                selectGuideInfoAndGuideSchedule();
+            }
+        });
+        //不管 执行不执行团导游修改 都执行 新增操作
+
+
+
+
+    }
     /**
      * 获取所有导游和导游日程(lixiaojie)
      */
@@ -165,23 +237,22 @@
                 $.each(ReponseResult.data, function (i, e) {
 
                     content += "<tr>";
-                    content += " <td style='text-align: center'>" + e.guideName + "</td>";
+                    content += " <td style='text-align: center'>" + e.certificate + "</td>";
 
                     for (var s=1;s<32;s++){
                         var result=getTdRiChengInfo(s,e.guideScheduleList)
                         if (result!="" && result!=null && result!=undefined){
                             if (result.schedulestate==1) {
-                                content += "<td ></td>";
+                                content += "<td >无</td>";
                             }
                             if (result.schedulestate==2) {
-                                content += "<td >休</td>";
+                                content += "<td>休</td>";
                             }
                             if (result.schedulestate==3) {
                                 content += "<td>√</td>";
                             }
-
                         }else {
-                            content += "<td></td>";
+                            content += "<td  onclick='zongKongDianJiRiQi("+(s+1)+","+e.guideId+")'></td>";
                         }
                     }
 
@@ -235,6 +306,18 @@
     });
 </script>
 
+<!--点击调度信息 变redio 按钮  变边框颜色(lixiaojie)-->
+<script>
+    function OnDivSelect(myElement) {
+        $(".jidiaoinfo").attr("style","border:1px solid #2B2E37;");
+        $(myElement).attr("style","border:1px solid #3385ff;");
+        $(".jidiaoinfo").children("dl").children(".redioDD").children("input[name='okIndex']").removeAttr("checked");
+        $(myElement).children("dl").children("dd").eq(6).children("input[name='okIndex']").attr("checked","checked");
+
+    }
+
+</script>
+
 
 <script>
     /**
@@ -245,9 +328,8 @@
         var form = layui.form
             , layer = layui.layer;
         var flow = layui.flow;
-        var limitcount = 3;
+        var limitcount = 10;
         flow.load({
-
             elem: '#LAY_demo2' //流加载容器
             ,
             scrollElem: '#LAY_demo2' //滚动条所在元素，一般不用填，此处只是演示需要。
@@ -271,26 +353,25 @@
                         success: function (ReponseResult) {
                             pagecount = ReponseResult.count / limitcount;
                             $(ReponseResult.data.list).each(function (i, e) {
-                                var content = "<div class='jidiaoinfo' >";
+                                var content = "<div class='jidiaoinfo' onclick='OnDivSelect(this)'  >";
                                 content += "<dl>";
-                                content += "<dd style='float: right'><p style='line-height: 40px'>姓名：" + e.guide.guideName + "</p><p>证件号：" + e.guide.certificate + "</p></dd>";
+                                content += "<dd style='float: right;margin-right: 70px'><p style='line-height: 40px'>姓名：" + e.guide.guideName + "</p><p>证件号：" + e.guide.certificate + "</p></dd>";
                                 content += "<dd><span>团号:" + e.groundConnectionNumber + "</span></dd>";
 
                                 content += "<dd>发往路线：" + e.sendLine + "</dd>";
                                 content += "<dd>人数：" + e.num + "</dd>";
-                                content += "<dd><span style=''>beginTime：" + e.travelStartTime + "</span><span style='margin-left: 20px'>endTime：" + e.travelEndTime + "</span></dd>";
+                                content += "<dd><span style=''>开始日期：" + e.travelStartTime + "</span><span style='margin-left: 50px'>截至日期：" + e.travelEndTime + "</span></dd>";
                                 content += "<dd>报价：" + e.offer + "</dd>";
-                                content += "<dd ><button onclick='onCheckDispatchInfo(" + e.dispatchId + ")' class='layui-btn layui-btn-normal layui-btn-radius'>通过</button>&nbsp;&nbsp;<button onclick='noCheckDispatchInfo(" + e.dispatchId + ")' class='layui-btn layui-btn-normal layui-btn-radius'>打回</button></dd>";
+                                content += "<dd class='redioDD' ><input type='radio' style='opacity: 0'  value='"+e.dispatchId+"' name='okIndex'><button onclick='onCheckDispatchInfo(" + e.dispatchId + ")' class='layui-btn layui-btn-normal layui-btn-radius' style='width: 120px;margin-left: 180px;'>通过</button>&nbsp;&nbsp;</dd>";
                                 content += "<dd ></dd>";
                                 content += "</dl>";
                                 content += "</div>";
                                 lis.push(content);
                             });
-
+            /*<button onclick='noCheckDispatchInfo(" + e.dispatchId + ")' class='layui-btn layui-btn-normal layui-btn-radius'>打回</button>*/
                             next(lis.join(''), page < ReponseResult.data.pages);
                         }
                     });
-
                 }, 500);
             }
         })

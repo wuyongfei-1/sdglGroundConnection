@@ -10,6 +10,13 @@ import java.util.List;
  * 调度导游业务接口
  **/
 public interface DisguideService {
+    /**
+     * 根据导游id  和调度id获取  调度导游信息(lixiaojie)
+     * @param guideId   导游id
+     * @param offerId   调度id
+     * @return
+     */
+    Disguide getDisGuideByOfferIdAndGuideId(Integer guideId,Integer offerId);
 
     /**
      * 根据调度表编号查询调度导游表信息 （wangtao）

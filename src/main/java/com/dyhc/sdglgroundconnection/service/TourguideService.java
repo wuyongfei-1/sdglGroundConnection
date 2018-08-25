@@ -12,6 +12,6 @@ public interface TourguideService {
      * @param tourguideId 导游带团日志编号
      * @return 返回导游带团日志对象
      */
-    Tourguide getTourguideInfoByTourguideId(Integer tourguideId);
+    Tourguide getTourguideInfoByTourguideId(Integer tourguideId) throws Exception;
 
 }

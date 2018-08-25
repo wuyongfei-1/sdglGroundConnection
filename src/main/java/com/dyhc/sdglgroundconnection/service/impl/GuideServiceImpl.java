@@ -158,6 +158,8 @@ public class GuideServiceImpl implements GuideService {
         return guideMapper.selectByPrimaryKey(id);
     }
 
+
+
     /**
      * 获取所有导游和导游日程（lixiaojie)
      * @return
@@ -174,11 +176,11 @@ public class GuideServiceImpl implements GuideService {
             GuideScheduleExample guideScheduleExample =new GuideScheduleExample();
             GuideScheduleExample.Criteria guideScheduleCriteria=guideScheduleExample.createCriteria();
             guideScheduleCriteria.andGuideidEqualTo(item.getGuideId());
+            guideScheduleCriteria.andValue1EqualTo("0");
             guideScheduleExample.setOrderByClause("schedulebegintime");   //设置导游日程条件
             List<GuideSchedule> guideSchedules=guideScheduleMapper.selectByExample(guideScheduleExample);//查询
             item.setGuideScheduleList(guideSchedules);//将每次查到的放入集合
         }
-
         return guides;
     }
 

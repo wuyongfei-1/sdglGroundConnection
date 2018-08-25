@@ -3,10 +3,12 @@ package com.dyhc.sdglgroundconnection.web;
 import com.dyhc.sdglgroundconnection.pojo.Reportdetail;
 import com.dyhc.sdglgroundconnection.service.ReportdetailService;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -114,6 +116,25 @@ public class ReportdetailController {
             return date;
         }catch (Exception e){
             logger.error(" method:insertGuide  增加报账明细数据失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
+    /**
+     * 根据团号获取报账信息（dubingkun）
+     * @param groupNumber 团号
+     * @return
+     */
+    @GetMapping("/showInfoAll")
+    public ReponseResult showInfoAll(Integer pageNo,Integer pageSize,String groupNumber,Integer states){
+        try {
+            PageInfo<Reportdetail> pageInfo=reportdetailService.listReportdetail(pageNo,pageSize,groupNumber,states);
+            ReponseResult<Object> data = ReponseResult.ok(pageInfo,"分页获取导游报账信息成功！");
+            return data;
+        }catch (Exception e){
+            logger.error(" method:showInfoAll  分页获取导游报账信息失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
             return err;

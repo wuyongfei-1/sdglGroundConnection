@@ -12,6 +12,7 @@ import java.util.List;
  * 导游报账明细
  **/
 @Mapper
+@Component
 public interface ReportdetailMapper extends CommonMapper<Reportdetail>{
     /**
      * 报账日期区间查询

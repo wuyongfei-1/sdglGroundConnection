@@ -48,7 +48,7 @@ public class Reportrestaurant {
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "createDate")
     private Date createDate; // 创建时间
-    private String value1;
+    private String value1; // 导游报账明细表编号
     private String value2;
     private String value3;
 

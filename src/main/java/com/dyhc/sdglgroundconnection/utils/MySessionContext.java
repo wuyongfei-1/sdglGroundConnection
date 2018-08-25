@@ -17,7 +17,7 @@ public class MySessionContext {
      * @param session session对象
      */
     public static synchronized void addSession(HttpSession session) {
-        session.setMaxInactiveInterval(60); // 会话有效时间为30秒
+        //session.setMaxInactiveInterval(30*60); // 会话有效时间为30秒
         if (session != null) {
             sessionContext.put(session.getId(), session);
         }

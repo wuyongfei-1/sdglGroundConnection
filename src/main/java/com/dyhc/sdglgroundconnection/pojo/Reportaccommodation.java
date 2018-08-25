@@ -37,7 +37,7 @@ public class Reportaccommodation {
     private Integer createBy; // 创建人 （外键，与人员表关联）
     @Column(name = "updateBy")
     private Integer updateBy; // 修改人（外键，与人员表关联）
-    @Column(name = "upDate")
+    @Column(name = "`upDate`")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date upDate; // 修改日期
     @JsonFormat(pattern = "yyyy-MM-dd")

@@ -6,6 +6,7 @@ import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.mapper.DisguideMapper;
 import com.dyhc.sdglgroundconnection.mapper.DispatchMapper;
 import com.dyhc.sdglgroundconnection.mapper.GuideMapper;
+import com.dyhc.sdglgroundconnection.mapper.GuideScheduleMapper;
 import com.dyhc.sdglgroundconnection.pojo.*;
 import com.dyhc.sdglgroundconnection.service.*;
 import com.github.pagehelper.PageHelper;
@@ -14,6 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,6 +34,9 @@ public class DispatchServiceImpl implements DispatchService {
 
     @Autowired
     private DisguideMapper disguideMapper; //调度导游dao
+
+    @Autowired
+    private GuideScheduleMapper guideScheduleMapper; //调度导游dao
 
     @Autowired
     private GuideMapper guideMapper; //导游dao
@@ -122,6 +130,7 @@ public class DispatchServiceImpl implements DispatchService {
         DispatchExample.Criteria criteria= dispatchExample.createCriteria();
         criteria.andWhetherdelEqualTo(0);
         criteria.andStatusEqualTo(1);
+        criteria.andWhetherdelEqualTo(0);
         List<Dispatch> dispatches=dispatchMapper.selectByExample(dispatchExample);
 
         //查询调度导游表
@@ -140,10 +149,60 @@ public class DispatchServiceImpl implements DispatchService {
      * @return
      */
     @Override
-    public Integer onCheckDispatchInfo(Integer dispatchId) {
-        Dispatch dispatch=dispatchMapper.selectByPrimaryKey(dispatchId);
-        dispatch.setStatus(2);
-        Integer result =dispatchMapper.updateByPrimaryKey(dispatch);
+    public Integer onCheckDispatchInfo(Integer dispatchId) throws ParseException {
+        Integer result=0;
+
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            //修改团状态
+
+            Dispatch dispatch=dispatchMapper.selectByPrimaryKey(dispatchId);
+            dispatch.setStatus(2);
+/*
+            //查询调度导游表   ，根据调度表的id查询
+            DisguideExample disguideExample=new DisguideExample();
+            DisguideExample.Criteria disguideExamplecriteria=disguideExample.createCriteria();
+            disguideExamplecriteria.andOfferidEqualTo(dispatchId);
+            List<Disguide> disguides=disguideMapper.selectByExample(disguideExample);
+            //从调度表里获取开团时间 和开团结束时间
+            Date beginTime=dispatch.getTravelStartTime();
+            Date endTime=dispatch.getTravelEndTime();
+            String beginDateStr = format.format(beginTime);
+            String endDateStr =format.format(endTime);
+            beginTime = format.parse(beginDateStr);
+            endTime= format.parse(endDateStr);
+            Long Number=(endTime.getTime()-beginTime.getTime())/(24*60*60*1000)+1;  //相减  得到 旅游天数
+
+            for (int i=0;i<Number;i++){
+                Calendar c = Calendar.getInstance();
+                c.setTime(beginTime);
+                c.add(Calendar.DAY_OF_MONTH, i);  //然后做出旅游天数每天的时间对象 填入 导游日程表中
+                Date tomorrow = c.getTime();
+
+                //判断数据库中有没有这个值
+                GuideScheduleExample guideScheduleExample =new GuideScheduleExample();
+                GuideScheduleExample.Criteria guideScheduleCriteria=guideScheduleExample.createCriteria();
+                guideScheduleCriteria.andSchedulebegintimeEqualTo(tomorrow);
+                guideScheduleCriteria.andGuideidEqualTo(disguides.get(0).getGuideId());
+                guideScheduleCriteria.andValue1EqualTo(0+"");
+                List<GuideSchedule> guideSchedules =guideScheduleMapper.selectByExample(guideScheduleExample);
+                //有的话 跳出方法   返回3
+                if (guideSchedules.size()>0){
+
+                    throw new NullPointerException();
+
+                }
+                //没有的话新增数据
+                GuideSchedule guideSchedule=new GuideSchedule();
+                guideSchedule.setGuideid(disguides.get(0).getGuideId());
+                guideSchedule.setSchedulebegintime(tomorrow);
+                guideSchedule.setSchedulestate(3);
+                guideSchedule.setValue1(0+"");
+                guideSchedule.setValue2(dispatchId+"");
+                guideScheduleMapper.insert(guideSchedule);
+
+            }*/
+            result =dispatchMapper.updateByPrimaryKey(dispatch);
+
         return result;
     }
     /** 总控审核未通过（lixiaojie)

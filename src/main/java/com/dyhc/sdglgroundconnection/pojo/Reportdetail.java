@@ -48,6 +48,26 @@ public class Reportdetail {
     private String value2;
     private String value3;
 
+    public String getGroupNumber() {
+        return groupNumber;
+    }
+
+    public void setGroupNumber(String groupNumber) {
+        this.groupNumber = groupNumber;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Transient
+    private String groupNumber;//团号
+    @Transient
+    private String username;//导游名称
     @Transient
     private List<Reportaccommodation> reportaccommodationList; // 导游报账住宿集合
 

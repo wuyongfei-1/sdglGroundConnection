@@ -1,6 +1,7 @@
 package com.dyhc.sdglgroundconnection.service;
 
 import com.dyhc.sdglgroundconnection.pojo.Reportdetail;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -35,4 +36,13 @@ public interface ReportdetailService {
      * @return
      */
     int insertReportdetail(Reportdetail reportdetail);
+
+    /**
+     * 按照团号分页查询所有导游报账明细（dubingkun）
+     * @param pageNo
+     * @param pageSize
+     * @param groupNumber
+     * @return
+     */
+    PageInfo<Reportdetail> listReportdetail(Integer pageNo, Integer pageSize, String groupNumber,Integer states);
 }

@@ -27,7 +27,7 @@ public class Reportticket {
     @Column(name = "updateBy")
     private Integer updateBy; //  修改人（外键，与人员表关联）
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "upDate")
+    @Column(name = "`upDate`")
     private Date upDate; //  修改日期
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "createDate")

@@ -37,13 +37,14 @@ public class Reportrestaurant {
     private Double dinnerother; // 晚餐其他
     @Column(name = "dinnerPayMethods")
     private String dinnerPayMethods; // 晚餐支付方式
+    @Column(name = "`status`")
     private Integer status; // 是否删除（1代表已删除，0代表未删除）
     @Column(name = "createBy")
     private Integer createBy; // 创建人 （外键，与人员表关联）
     @Column(name = "updateBy")
     private Integer updateBy; // 修改人（外键，与人员表关联）
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "upDate")
+    @Column(name = "`upDate`")
     private Date upDate; // 修改日期
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "createDate")

@@ -406,18 +406,18 @@
 					<td colspan="15">请列出项目及计算过程：</td>
 				</tr>
 				<tr>
-					<td colspan="15"></td>
+					<td colspan="15" class="remarks"></td>
 				</tr>
 				<tr>
 					<td colspan="15"></td>
 				</tr>
 				<tr>
 					<td>导游付</td>
-					<td colspan="3"></td>
+					<td colspan="3" class="guidedTour"></td>
 					<td>签单</td>
-					<td colspan="5"></td>
+					<td colspan="5" class="signing"></td>
 					<td>合计</td>
-					<td colspan="4"></td>
+					<td colspan="4" class="total"></td>
 				</tr>
 				<tr>
 					<td class="cc" colspan="17">交回其它单据及内容（包括购物签单）：</td>
@@ -435,9 +435,9 @@
 					<td colspan="2">原借贷</td>
 					<td colspan="3"></td>
 					<td>外售团款</td>
-					<td colspan="3"></td>
+					<td colspan="3" class="receipt"></td>
 					<td colspan="2">导游现付合计</td>
-					<td colspan="2"></td>
+					<td colspan="2" class="totalPayable"></td>
 					<td colspan="2">报/退款</td>
 					<td colspan="2"></td>
 				</tr>
@@ -447,7 +447,7 @@
 				</tr>
 				<tr>
 					<td colspan="2">报账日期</td>
-					<td colspan="3"></td>
+					<td colspan="3" class="reportDate"></td>
 					<td>导游签字</td>
 					<td colspan="5"></td>
 					<td colspan="2">审核人批示</td>
@@ -469,6 +469,17 @@
             dataType: "json",
             type: "post",
             success: function (e) {
+				var ss=e.data.reportDate;
+				var reg=new RegExp("-","g");
+				var ss1=ss.replace(reg,".");
+                $(".receipt").text(e.data.receipt);
+                $(".totalPayable").text(e.data.totalPayable);
+                $(".reportDate").text(ss1);
+                var total=e.data.reportingotherexpenses.guidedTour+e.data.reportingotherexpenses.signing;
+                $(".remarks").text(e.data.reportingotherexpenses.remarks);
+                $(".guidedTour").text(e.data.reportingotherexpenses.guidedTour);
+                $(".signing").text(e.data.reportingotherexpenses.signing);
+                $(".total").text(total);
                 var guidehj=e.data.reportqutsubsidy.dailyCost*e.data.reportqutsubsidy.nums*e.data.reportqutsubsidy.guideNum;
                 $(".dailyCost").text(e.data.reportqutsubsidy.dailyCost);
                 $(".nums").text(e.data.reportqutsubsidy.nums);
@@ -480,11 +491,13 @@
                 $(".prepaidFare").text(e.data.reportfare.prepaidFare);
                 $(".cfhj").text(cfhj);
                 var travelEndTime=e.data.dispatch.travelEndTime.substring(0,10);
+                var travelEndTime2=travelEndTime.replace(reg,".");
 				var travelStartTime=e.data.dispatch.travelStartTime.substring(0,10);
+                var travelStartTime3=travelStartTime.replace(reg,".");
                 var travelEndTime1=e.data.dispatch.travelEndTime.substring(8,10);
                 var travelStartTime1=e.data.dispatch.travelStartTime.substring(8,10);
                 var day=travelEndTime1-travelStartTime1;
-                $(".offset").text(travelStartTime+"到"+travelEndTime);
+                $(".offset").text(travelStartTime3+"到"+travelEndTime2);
                 $(".travelName").text(e.data.dispatch.groupNumber);
                 $(".sendLine").text(e.data.dispatch.sendLine);
                 $(".num").text(e.data.dispatch.num);

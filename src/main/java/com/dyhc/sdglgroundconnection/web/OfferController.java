@@ -3,9 +3,12 @@ package com.dyhc.sdglgroundconnection.web;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.dyhc.sdglgroundconnection.dto.OfferParam;
+import com.dyhc.sdglgroundconnection.dto.OfferTravelParam;
+import com.dyhc.sdglgroundconnection.dto.PreviewOfferParam;
 import com.dyhc.sdglgroundconnection.exception.OfferException;
 import com.dyhc.sdglgroundconnection.pojo.*;
 import com.dyhc.sdglgroundconnection.service.*;
+import com.dyhc.sdglgroundconnection.utils.MySessionContext;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -13,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.sound.sampled.Line;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,6 +51,8 @@ public class OfferController {
     private DictionariesService dictionariesService;
     @Autowired
     private TravelService travelService;
+    @Autowired
+    private CompanyService companyService;
 
     /**
      * 获取报价详细信息（wuyongfei）
@@ -145,8 +152,58 @@ public class OfferController {
             return err;
         }
     }
+    @RequestMapping("/previewOffer")
+    public ReponseResult previewOffer(HttpServletRequest httpServletRequest,@RequestBody JSONObject jsonObject){
+        try {
+            ReponseResult<String> date;
+            httpServletRequest.getSession().setAttribute("str",jsonObject);
+            date= ReponseResult.ok("预览报价成功！");
+            logger.info(" method:updateHotel  预览报价成功！");
+            return date;
+        }catch (Exception e){
+            logger.error(" method:updateHotel  预览报价失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+    @RequestMapping("/previewInfoOffer")
+    public ReponseResult previewInfoOffer(String callback,HttpServletRequest httpServletRequest){
+        try {
+            httpServletRequest.setAttribute("id",1);
+            JSONObject jsonObject=null;
+            jsonObject=(JSONObject) httpServletRequest.getSession().getAttribute("str");
+            String s = JSON.toJSONString(jsonObject);
+            ObjectMapper objectMapper = new ObjectMapper();
+            PreviewOfferParam previewOfferParam = objectMapper.readValue(s, PreviewOfferParam.class);
+            for (OfferTravelParam item :
+                    previewOfferParam.getList()) {
+                Integer id=Integer.parseInt(item.getZsdh());//获取酒店id
+                Hotel hotel=hotelService.selectHotelById(id);
+                item.setZsdh(hotel.getPhone());
+            }
+            Staff staff=(Staff) httpServletRequest.getSession().getAttribute("user");
+            if(staff!=null){
+                //发件人信息
+                previewOfferParam.setStr21(staff.getStaffname());//姓名
+                previewOfferParam.setStr22(staff.getPhone());//电话
+            }
+            //收件人信息
+            Travel travel=travelService.selectTravelByIds(previewOfferParam.getOffer().getTravelId());
+            previewOfferParam.setStr11(travel.getTravelName());//组团社名称
+            previewOfferParam.setStr12(travel.getPersonName());//负责人
+            previewOfferParam.setStr13(travel.getPersonPost());//职位
 
-
+            ReponseResult<PreviewOfferParam> ok = ReponseResult.ok(previewOfferParam,"系统出现异常！");
+            logger.info(" method:updateHotel  添加报价成功！");
+            return ok;
+        }catch (Exception e){
+            logger.error(" method:updateHotel  添加报价失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
     @RequestMapping("/insertOffer")
     public ReponseResult insertOffer(@RequestBody JSONObject jsonObject){
         try {

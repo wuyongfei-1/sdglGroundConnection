@@ -20,7 +20,7 @@ public class Dispatchtourgroup {
     @Column(name="offerId")
     private Integer offerid; // 调度信息编号（外键与调度表关联）
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     @Column(name="clusterTime")
     private Date clustertime; // 接团时间
 

@@ -47,8 +47,75 @@ public class Reportdetail {
     private String value1;
     private String value2;
     private String value3;
+
     @Transient
-    private Dispatch dispatch;
+    private List<Reportaccommodation> reportaccommodationList; // 导游报账住宿集合
+
+    @Transient
+    private Reportfare reportfare; // 导游报账车费对象
+
+    @Transient
+    private List<Reportrestaurant> reportrestaurantList; // 导游报账餐厅集合
+
+    @Transient
+    private Reportingotherexpenses reportingotherexpenses; // 导游报账其他支出对象
+
+    @Transient
+    private Reportqutsubsidy reportqutsubsidy; // 导游报账出团补助对象
+
+    @Transient
+    private List<Reportticket> reportticketList; // 导游报账门票集合
+
+    public List<Reportaccommodation> getReportaccommodationList() {
+        return reportaccommodationList;
+    }
+
+    public void setReportaccommodationList(List<Reportaccommodation> reportaccommodationList) {
+        this.reportaccommodationList = reportaccommodationList;
+    }
+
+    public Reportfare getReportfare() {
+        return reportfare;
+    }
+
+    public void setReportfare(Reportfare reportfare) {
+        this.reportfare = reportfare;
+    }
+
+    public List<Reportrestaurant> getReportrestaurantList() {
+        return reportrestaurantList;
+    }
+
+    public void setReportrestaurantList(List<Reportrestaurant> reportrestaurantList) {
+        this.reportrestaurantList = reportrestaurantList;
+    }
+
+    public Reportingotherexpenses getReportingotherexpenses() {
+        return reportingotherexpenses;
+    }
+
+    public void setReportingotherexpenses(Reportingotherexpenses reportingotherexpenses) {
+        this.reportingotherexpenses = reportingotherexpenses;
+    }
+
+    public Reportqutsubsidy getReportqutsubsidy() {
+        return reportqutsubsidy;
+    }
+
+    public void setReportqutsubsidy(Reportqutsubsidy reportqutsubsidy) {
+        this.reportqutsubsidy = reportqutsubsidy;
+    }
+
+    public List<Reportticket> getReportticketList() {
+        return reportticketList;
+    }
+
+    public void setReportticketList(List<Reportticket> reportticketList) {
+        this.reportticketList = reportticketList;
+    }
+
+    @Transient
+    private Dispatch dispatch; // 调度表对象
 
     public Dispatch getDispatch() {
         return dispatch;

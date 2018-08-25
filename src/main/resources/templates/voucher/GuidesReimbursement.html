@@ -460,3 +460,34 @@
 		</table>
 	</body>
 </html>
+<script src="/js/jquery-1.8.2.min.js"></script>
+<script>
+    $(function () {
+        dispatchShow();
+    })
+    //数据渲染
+    function dispatchShow() {
+        $.ajax({
+            url: "/dispatch/getDispatchInfoByDispatchId",
+            data: {dispatchId:1},
+            dataType: "json",
+            type: "post",
+            success: function (e) {
+               /* $(".companyName").text(e.data.company.companyName);//旅行社
+                $(".companyPhone").text(e.data.company.companyPhone);//电话
+                $(".fax").text(e.data.company.fax);//传真
+                $(".carRentalName").text(e.data.discar.vehicleType.carrental.carRentalName);//承运方
+                $(".phone").text(e.data.discar.vehicleType.carrental.phone);//电话
+                $(".valueContent1").text(e.data.discar.vehicleType.carType);//旅游客车
+                $(".number").text(e.data.discar.number);//量数
+                $(".clusteraddress").text(e.data.dispatchtourgroup.clusteraddress);//接团地点
+                $(".value2").text(e.data.dispatchtourgroup.value2);//送团地点
+                var scenicSpotName="";*/
+                $.each(e.data.disattrList,function (i, result) {
+                    scenicSpotName+=" "+result.scenicspot.scenicSpotName;
+                    $(".scenicSpotName").text(scenicSpotName+" "+e.data.disattrList.length);//景点
+                })
+            }
+        })
+    }
+</script>

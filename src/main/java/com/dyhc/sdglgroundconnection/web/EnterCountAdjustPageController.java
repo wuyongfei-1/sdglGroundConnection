@@ -20,7 +20,7 @@ import java.util.List;
  * 进入页面-控制器
  **/
 @Controller
-    @RequestMapping("/countAdjust")
+@RequestMapping("/countAdjust")
 public class EnterCountAdjustPageController {
     @Autowired
     private RoomTypeService roomTypeService;
@@ -652,6 +652,27 @@ public class EnterCountAdjustPageController {
     public String toShowTemplate(@RequestParam("templateid") Integer templateId, HttpServletRequest request) {
         request.setAttribute("templateid", templateId);
         return "countAdjust/index/showTemplate";
+    }
+
+    /**
+     * 进入计调个人信息页面
+     * @return
+     */
+    @RequestMapping("/countAdjust-info.html")
+    public String countAdjustInfo() {
+        return "countAdjust/index/countAdjust-info";
+    }
+
+    /**
+     * 进入计调修改个人信息页面
+     * @param userId
+     * @param request
+     * @return
+     */
+    @RequestMapping("/countAdjust-update.html")
+    public String countAdjustUpdate(String userId, HttpServletRequest request) {
+        request.setAttribute("userId", userId);
+        return "countAdjust/index/countAdjust-update";
     }
 
 }

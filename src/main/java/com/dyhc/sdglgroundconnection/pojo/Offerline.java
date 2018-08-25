@@ -32,6 +32,7 @@ public class Offerline {
     private Integer weight;//权重（天数）
     @Column(name = "travelContent")
     private String travelContent; // 行程内容
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date; // 日期
     @Column(name = "whetherDel")
     private Integer whetherDel; // 是否删除（1代表已删除，0代表未删除）

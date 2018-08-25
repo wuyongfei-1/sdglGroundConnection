@@ -1,10 +1,7 @@
 package com.dyhc.sdglgroundconnection.service;
 
 import com.dyhc.sdglgroundconnection.pojo.Reportdetail;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,7 +14,7 @@ public interface ReportdetailService {
      * @param reportDetailId
      * @return
      */
-    Reportdetail selectReportdetailById(int reportDetailId);
+    Reportdetail selectReportdetailById(int reportDetailId) throws Exception;
 
     /**
      * 按调度编号查询（yunguohao）

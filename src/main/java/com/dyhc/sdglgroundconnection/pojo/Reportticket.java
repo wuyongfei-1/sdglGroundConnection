@@ -27,12 +27,12 @@ public class Reportticket {
     @Column(name = "updateBy")
     private Integer updateBy; //  修改人（外键，与人员表关联）
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "upDate")
+    @Column(name = "`upDate`")
     private Date upDate; //  修改日期
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "createDate")
     private Date createDate; //  创建时间
-    private String value1;
+    private String value1; // 导游报账明细表编号
     private String value2;
     private String value3;
 

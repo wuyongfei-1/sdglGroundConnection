@@ -12,6 +12,8 @@ import java.util.List;
  * 车辆类型业务接口
  **/
 public interface VehicleTypeService {
+
+
     /**
      * 根据汽车公司类型id删除公司汽车(lixiaojie)
      * @param VehicleTypeId

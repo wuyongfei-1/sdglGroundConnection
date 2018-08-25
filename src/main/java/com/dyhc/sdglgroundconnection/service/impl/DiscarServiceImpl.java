@@ -4,9 +4,13 @@ import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.mapper.DiscarMapper;
 import com.dyhc.sdglgroundconnection.pojo.Discar;
+import com.dyhc.sdglgroundconnection.pojo.DiscarExample;
 import com.dyhc.sdglgroundconnection.service.DiscarService;
+import com.dyhc.sdglgroundconnection.service.VehicleTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
@@ -17,6 +21,28 @@ public class DiscarServiceImpl implements DiscarService {
 
     @Autowired
     private DiscarMapper discarMapper;
+
+    @Autowired
+    private VehicleTypeService vehicleTypeService;
+
+    /**
+     * 根据调度编号获取调度用车信息
+     * @param offId 调度编号
+     * @return 返回调度用车对象
+     */
+    @Override
+    public Discar getDiscarByOffId(Integer offId) {
+        DiscarExample discarExample=new DiscarExample();
+        DiscarExample.Criteria criteria=discarExample.createCriteria();
+        criteria.andOfferidEqualTo(offId);
+        List<Discar> discarList=discarMapper.selectByExample(discarExample);
+        Discar discar=null;
+        if(discarList!=null){
+            discar=discarList.get(0);
+        }
+        discar.setVehicleType(vehicleTypeService.getVehicleTypeInfoByTypeId(discar.getTypeId()));
+        return discar;
+    }
 
     /**
      * 添加调度用车信息（wuyongfei）

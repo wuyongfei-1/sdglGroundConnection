@@ -18,7 +18,7 @@ public class Dispatchhotel {
     @Column(name = "hotelId")
     private Integer hotelId; // 酒店编号（外键，与酒店表关联）
     @Column(name = "offerId")
-    private Integer offerId; // 调度信息编号（外键，与报价信息表关联）
+    private Integer offerId; // 调度信息编号（外键，与调度表关联）
     @Column(name = "weight")
     private Integer weight;//权重（天数）
     @Column(name = "costPrice")
@@ -43,6 +43,25 @@ public class Dispatchhotel {
     private String value1;
     private String value2;
     private String value3;
+
+    @Transient
+    private Hotel hotel; // 酒店对象
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
+    }
 
     @Id
     @Column(name = "dispatchHotelId")

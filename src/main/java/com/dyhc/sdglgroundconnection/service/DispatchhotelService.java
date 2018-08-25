@@ -2,8 +2,6 @@ package com.dyhc.sdglgroundconnection.service;
 
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.pojo.Dispatchhotel;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -12,6 +10,13 @@ import java.util.List;
  * 调度酒店业务接口
  **/
 public interface DispatchhotelService {
+
+    /**
+     * 根据调度表编号查询调度酒店信息 （wangtao）
+     * @param dispatchId 调度表编号
+     * @return 返回调度酒店对象
+     */
+    List<Dispatchhotel> getDispatchhotelInfoByDispatchId(Integer dispatchId);
 
     /**
      * 批量添加多条调度酒店信息（wuyongfei）

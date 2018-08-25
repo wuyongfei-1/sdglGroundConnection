@@ -36,6 +36,9 @@ public class DispatchServiceImpl implements DispatchService {
     private DisshoppService disshoppService; // 调度购物业务
 
     @Autowired
+    private TravelService travelService; // 组团社业务
+
+    @Autowired
     private DisrestaurantService disrestaurantService; // 调度餐馆业务
 
     @Autowired
@@ -53,6 +56,29 @@ public class DispatchServiceImpl implements DispatchService {
     @Autowired
     private DisattrService disattrService; // 调度景点业务
 
+    @Autowired
+    private DispatchtourgroupServer dispatchtourgroupServer; // 调度旅游表业务
+
+    @Autowired
+    private CompanyService companyService;
+
+
+    /**
+     * 根据调度编号查询调度信息 （wangtao）
+     * @param dispatchId 调度编号
+     * @return 返回调度表信息集合
+     */
+    @Override
+    public Dispatch getDispatchInfoByDispatchInfoId(Integer dispatchId) throws Exception{
+        Dispatch dispatch=dispatchMapper.selectByPrimaryKey(dispatchId);
+        dispatch.setDispatchhotel(dispatchhotelService.getDispatchhotelInfoByDispatchId(dispatchId));
+        dispatch.setDisguide(disguideService.getDisguideByDispatchId(dispatchId));
+        dispatch.setDispatchtourgroup(dispatchtourgroupServer.getDispatchtourgroupByOffId(dispatchId));
+        dispatch.setDiscar(discarService.getDiscarByOffId(dispatchId));
+        dispatch.setDisattrList(disattrService.listDisattrByOffId(dispatchId));
+        dispatch.setCompany(companyService.selectCompanyByIds(1));
+        return dispatch;
+    }
 
     /**
      * 保存一条调度信息（wuyongfei）

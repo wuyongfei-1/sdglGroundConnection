@@ -2,12 +2,16 @@ package com.dyhc.sdglgroundconnection.service.impl;
 
 import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.dto.DispatchParam;
+import com.dyhc.sdglgroundconnection.dto.MissionParam;
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.mapper.DisguideMapper;
 import com.dyhc.sdglgroundconnection.mapper.DispatchMapper;
 import com.dyhc.sdglgroundconnection.mapper.GuideMapper;
 import com.dyhc.sdglgroundconnection.mapper.GuideScheduleMapper;
-import com.dyhc.sdglgroundconnection.pojo.*;
+import com.dyhc.sdglgroundconnection.pojo.Disguide;
+import com.dyhc.sdglgroundconnection.pojo.DisguideExample;
+import com.dyhc.sdglgroundconnection.pojo.Dispatch;
+import com.dyhc.sdglgroundconnection.pojo.DispatchExample;
 import com.dyhc.sdglgroundconnection.service.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -17,8 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -73,6 +75,28 @@ public class DispatchServiceImpl implements DispatchService {
     @Autowired
     private StaffService staffService;
 
+
+    /**
+     * 获取派团单信息根据调度编号 （wangtao）
+     * @param dispatchId 调度编号
+     * @return 返回派团单参数对象
+     * @throws Exception
+     */
+    @Override
+    public MissionParam getMissionParam(Integer dispatchId) throws Exception {
+        MissionParam missionParam=new MissionParam();
+        //获取午餐集合
+        missionParam.setZdisrestaurantList(disrestaurantService.listDisrestaurantByDispatchId(dispatchId,2));
+        //获取晚餐集合
+        missionParam.setWdisrestaurantList(disrestaurantService.listDisrestaurantByDispatchId(dispatchId,3));
+        //获取住宿集合
+        missionParam.setDispatchhotelList(dispatchhotelService.getDispatchhotelInfoByDispatchId(dispatchId));
+        //获取景点门票集合
+        missionParam.setDisattrList(disattrService.listDisattrByOffId(dispatchId));
+        //获取调度对象
+        missionParam.setDispatch(getDispatchInfoByDispatchInfoId(dispatchId));
+        return missionParam;
+    }
 
     /**
      * 根据调度编号查询调度信息 （wangtao）

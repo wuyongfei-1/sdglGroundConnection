@@ -45,7 +45,7 @@ public class Disrestaurant {
     private String value3;
 
     @Transient
-    private MealType mealType; // 餐馆类型编号
+    private MealType mealType; // 餐馆类型对象
 
     public Integer getWeight() {
         return weight;

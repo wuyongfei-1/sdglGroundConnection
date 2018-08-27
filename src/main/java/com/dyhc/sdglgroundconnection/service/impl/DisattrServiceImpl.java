@@ -35,6 +35,7 @@ public class DisattrServiceImpl implements DisattrService {
         DisattrExample disattrExample=new DisattrExample();
         DisattrExample.Criteria criteria=disattrExample.createCriteria();
         criteria.andOfferidEqualTo(offerId);
+        disattrExample.setOrderByClause("weight asc");
         List<Disattr> disattrList=disattrMapper.selectByExample(disattrExample);
         for (Disattr disattr: disattrList) {
             disattr.setScenicspot(scenicspotService.getScenicspotById(disattr.getScenicSpotId()));

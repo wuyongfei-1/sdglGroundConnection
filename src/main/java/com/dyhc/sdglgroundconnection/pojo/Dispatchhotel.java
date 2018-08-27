@@ -27,7 +27,7 @@ public class Dispatchhotel {
     private Date date; // 日期
     private String payment; // 付款方式
     @Column(name = "companyBedNum")
-    private Integer companyBedNum; // 付款方式
+    private Integer companyBedNum; // 司陪床位数
     @Column(name = "companyBedoffer")
     private Double companyBedoffer; // 司陪床价
     @Column(name = "whetherDel")

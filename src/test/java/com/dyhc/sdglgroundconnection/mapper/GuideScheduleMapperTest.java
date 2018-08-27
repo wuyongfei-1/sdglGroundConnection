@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
- * 导游调度
+ * 导游调度mapper单元测试类
  **/
 @RunWith(SpringRunner.class)
 @SpringBootTest

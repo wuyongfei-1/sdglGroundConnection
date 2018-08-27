@@ -41,6 +41,17 @@ public class VehicleType {
     private String value3; // 预备
 
     @Transient
+    private String vehicleTypeName; // 车辆类型名称
+
+    public String getVehicleTypeName() {
+        return vehicleTypeName;
+    }
+
+    public void setVehicleTypeName(String vehicleTypeName) {
+        this.vehicleTypeName = vehicleTypeName;
+    }
+
+    @Transient
     private Carrental carrental; // 车辆公司对象
 
     @Transient

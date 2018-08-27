@@ -58,7 +58,8 @@ public class EnterFinancePageController {
      * @return
      */
     @RequestMapping("/detail.html")
-    public String  showQuotationdetail() {
+    public String  showQuotationdetail(Integer id) {
+
         return "finance/index/detail";
     }
 

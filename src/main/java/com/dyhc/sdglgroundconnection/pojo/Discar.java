@@ -24,13 +24,14 @@ public class Discar {
     @Column(name = "quotePrice")
     private Double quotePrice; // 报价
     private Integer number; // 数量
+    @Column(name = "`status`")
     private Integer status; // 是否删除（1代表已删除，0代表未删除）
     @Column(name = "createBy")
     private Integer createBy; // 创建人 （外键，与人员表关联）
     @Column(name = "updateBy")
     private Integer updateBy; // 修改人（外键，与人员表关联）
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "upDate")
+    @Column(name = "`upDate`")
     private Date upDate; // 修改日期
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "createDate")
@@ -38,6 +39,17 @@ public class Discar {
     private String value1; // 团队用车车牌号
     private String value2; // 驾驶员姓名
     private String value3; // 驾驶员联系电话
+
+    public VehicleType getVehicleType() {
+        return vehicleType;
+    }
+
+    public void setVehicleType(VehicleType vehicleType) {
+        this.vehicleType = vehicleType;
+    }
+
+    @Transient
+    private VehicleType vehicleType; // 车辆类型表
 
     @Id
     @Column(name = "disCarId")

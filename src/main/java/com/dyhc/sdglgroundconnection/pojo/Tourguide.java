@@ -1,27 +1,72 @@
 package com.dyhc.sdglgroundconnection.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Date;
 
+/**
+ * 带团日志表 （wangtao）
+ */
+@Table(name="tourguide")
 public class Tourguide {
+
+    @Id
+    @Column(name = "tourguideId")
     private Integer tourguideid;
 
+    @Column(name = "guideId")
     private Integer guideid;
 
+    @Column(name = "offId")
     private Integer offid;
 
+    @Column(name = "logContent")
     private String logcontent;
 
+    @Column(name = "houseStandard")
     private String housestandard;
 
+    @Column(name = "foodStandard")
     private String foodstandard;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "createDate")
     private Date createdate;
 
+    @Column(name = "value1")
     private String value1;
 
+    @Column(name = "value2")
     private String value2;
 
+    @Column(name = "value3")
     private String value3;
+
+    @Transient
+    private Guide guide; // 导游对象
+
+    @Transient
+    private Dispatch dispatch; // 调度信息对象
+
+    public Guide getGuide() {
+        return guide;
+    }
+
+    public void setGuide(Guide guide) {
+        this.guide = guide;
+    }
+
+    public Dispatch getDispatch() {
+        return dispatch;
+    }
+
+    public void setDispatch(Dispatch dispatch) {
+        this.dispatch = dispatch;
+    }
 
     public Integer getTourguideid() {
         return tourguideid;

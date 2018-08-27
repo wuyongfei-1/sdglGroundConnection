@@ -51,6 +51,28 @@ public class VehicleType {
         this.vehicleTypeName = vehicleTypeName;
     }
 
+    @Transient
+    private Carrental carrental; // 车辆公司对象
+
+    @Transient
+    private String carType; // 车型
+
+    public Carrental getCarrental() {
+        return carrental;
+    }
+
+    public void setCarrental(Carrental carrental) {
+        this.carrental = carrental;
+    }
+
+    public String getCarType() {
+        return carType;
+    }
+
+    public void setCarType(String carType) {
+        this.carType = carType;
+    }
+
     @Id
     @Column(name = "typeId")
     public int getTypeId() {

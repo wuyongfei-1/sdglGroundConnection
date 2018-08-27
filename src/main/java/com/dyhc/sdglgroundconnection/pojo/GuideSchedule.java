@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 导游日程安排表
@@ -22,11 +24,13 @@ public class GuideSchedule {
     @Column(name = "scheduleState")
     private Integer schedulestate;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "scheduleBeginTime")
     private Date schedulebegintime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "scheduleEndTime")
     private Date scheduleendtime;
 

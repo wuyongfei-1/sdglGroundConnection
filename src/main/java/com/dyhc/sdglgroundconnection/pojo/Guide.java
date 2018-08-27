@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -37,6 +38,17 @@ public class Guide {
     private String value1;
     private String value2;
     private String value3;
+    public List<GuideSchedule> getGuideScheduleList() {
+        return guideScheduleList;
+    }
+
+    public void setGuideScheduleList(List<GuideSchedule> guideScheduleList) {
+        this.guideScheduleList = guideScheduleList;
+    }
+
+    @Transient
+
+    private List<GuideSchedule> guideScheduleList;
 
     @Id
     @Column(name = "guideId")

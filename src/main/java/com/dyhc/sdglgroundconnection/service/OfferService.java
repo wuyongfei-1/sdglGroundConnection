@@ -4,6 +4,8 @@ package com.dyhc.sdglgroundconnection.service;
 import com.dyhc.sdglgroundconnection.dto.OfferParam;
 import com.dyhc.sdglgroundconnection.exception.OfferException;
 import com.dyhc.sdglgroundconnection.pojo.Offer;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -40,4 +42,10 @@ public interface OfferService {
      * 查询最大的offerId（dubingkun）
      */
     Integer getIntegerByOfferId();
+
+    /**
+     * 分页获取所有报价信息以及线路详情（dubingkun）
+     * @return
+     */
+    PageInfo<Offer> listOffer(Integer pageNo, Integer PageSize)throws Exception;
 }

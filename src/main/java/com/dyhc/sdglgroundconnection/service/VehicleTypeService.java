@@ -22,6 +22,8 @@ public interface VehicleTypeService {
      */
     List<VehicleType> listVehicleTypesByRentalId(Integer rentalId) throws Exception;
 
+
+
     /**
      * 根据汽车公司类型id删除公司汽车(lixiaojie)
      *

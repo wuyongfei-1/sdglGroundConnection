@@ -3,8 +3,10 @@ package com.dyhc.sdglgroundconnection.service.impl;
 import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.mapper.DisguideMapper;
+import com.dyhc.sdglgroundconnection.mapper.GuideMapper;
 import com.dyhc.sdglgroundconnection.pojo.Disguide;
 import com.dyhc.sdglgroundconnection.pojo.DisguideExample;
+import com.dyhc.sdglgroundconnection.pojo.Guide;
 import com.dyhc.sdglgroundconnection.service.DisguideService;
 import com.dyhc.sdglgroundconnection.service.GuideService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class DisguideServiceImpl implements DisguideService {
     private DisguideMapper disguideMapper;
 
     @Autowired
+    private GuideMapper guideMapper;
+
+    @Autowired
     private GuideService guideService;
 
     /**
@@ -33,6 +38,32 @@ public class DisguideServiceImpl implements DisguideService {
     @Override
     public List<Disguide> selectdisGuideId(int disGuideId) {
         return disguideMapper.selectdisGuideId(disGuideId);
+    }
+
+    /**
+     * 根据导游id  和调度id获取  调度导游信息(lixiaojie)
+     * @param guideId   导游id
+     * @param offerId   调度id
+     * @return
+     */
+    @Override
+    public Disguide getDisGuideByOfferIdAndGuideId(Integer guideId, Integer offerId) {
+
+        //查询调度导游表
+        DisguideExample disguideExample =new DisguideExample();
+        DisguideExample.Criteria disguideExampleCriteria=disguideExample.createCriteria();
+        disguideExampleCriteria.andOfferidEqualTo(offerId);
+        List<Disguide> disguides=disguideMapper.selectByExample(disguideExample);
+        //查询导游
+        Guide guide=guideMapper.selectByPrimaryKey(guideId);
+
+        Disguide disguide=null;
+        if (disguides.size()>0){
+            disguide=  disguides.get(0);
+            disguide.setGuide(guide);
+        }
+
+        return disguide;
     }
 
     /**

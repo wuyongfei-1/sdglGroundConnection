@@ -19,6 +19,7 @@ public class Disattr {
     private Integer scenicSpotId; // 景点编号（外键，与景点表关联）
     @Column(name = "offerId")
     private Integer offerId; // 调度信息编号（外键，与调度信息表关联）
+    @Column(name = "`date`")
     private Date date; // 日期
     private Integer buynum; // 购买人数
     @Column(name = "weight")
@@ -29,13 +30,14 @@ public class Disattr {
     private Double quotePrice; // 报价
     @Column(name = "payMethods")
     private String payMethods; // 付款方式
+    @Column(name = "`status`")
     private Integer status; // 是否删除（1代表已删除，0代表未删除）
     @Column(name = "createBy")
     private Integer createBy; // 创建人 （外键，与人员表关联）
     @Column(name = "updateBy")
     private Integer updateBy; // 修改人（外键，与人员表关联）
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "upDate")
+    @Column(name = "`upDate`")
     private Date upDate; // 修改日期
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "createDate")
@@ -43,6 +45,25 @@ public class Disattr {
     private String value1;
     private String value2;
     private String value3;
+
+    @Transient
+    private Scenicspot scenicspot; // 景点对象
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
+
+    public Scenicspot getScenicspot() {
+        return scenicspot;
+    }
+
+    public void setScenicspot(Scenicspot scenicspot) {
+        this.scenicspot = scenicspot;
+    }
 
     @Id
     @Column(name = "disAttrId")

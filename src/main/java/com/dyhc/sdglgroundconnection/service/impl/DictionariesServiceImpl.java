@@ -67,4 +67,25 @@ public class DictionariesServiceImpl implements DictionariesService {
         return dictionariesMapper.selectByExample(dictionariesExample);
     }
 
+    /**
+     * 根据类型编码获取对应的所有字典信息（wuyongfei）（不分页，所有）
+     *
+     * @param typeCode 类型编码
+     * @param valueid 内容编号
+     * @return 对应的所有字典信息
+     */
+    @Override
+    public String listDictionaries1(String typeCode, Integer valueid) {
+        DictionariesExample dictionariesExample=new DictionariesExample();
+        DictionariesExample.Criteria criteria=dictionariesExample.createCriteria();
+        criteria.andTypecodeEqualTo(typeCode);
+        criteria.andValueidEqualTo(valueid);
+        List<Dictionaries> dictionariesList=dictionariesMapper.selectByExample(dictionariesExample);
+        String typecode="";
+        if(dictionariesList!=null){
+            typeCode=dictionariesList.get(0).getValueContent1();
+        }
+        return typeCode;
+    }
+
 }

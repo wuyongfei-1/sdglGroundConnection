@@ -23,7 +23,7 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping("/staff")
-public class StaffController  {
+public class StaffController {
 
     // 日志对象
     private Logger logger = LoggerFactory.getLogger(StaffController.class);
@@ -32,20 +32,21 @@ public class StaffController  {
     private StaffService staffService;
 
     /**
-     * 根据用户id查询用户信息
+     * 根据用户id查询用户信息(lixiaojie)
+     *
      * @param staffId
      * @return
      */
-    @RequestMapping(value = "/getStaffInfoByStaffId",method = RequestMethod.POST)
-    public ReponseResult getStaffInfoByStaffId(Integer staffId ) {
+    @RequestMapping(value = "/getStaffInfoByStaffId", method = RequestMethod.POST)
+    public ReponseResult getStaffInfoByStaffId(Integer staffId) {
 
         ReponseResult<Staff> data;
         try {
 
-            Staff staff=staffService.getStaffInfoByStaffId(staffId);
+            Staff staff = staffService.getStaffInfoByStaffId(staffId);
 
 
-           data = ReponseResult.ok(staff, "根据用户id获取用户信息成功！");
+            data = ReponseResult.ok(staff, "根据用户id获取用户信息成功！");
 
             logger.info(" method:getStaffInfoByStaffId  根据用户id获取用户信息成功！");
             return data;
@@ -58,15 +59,16 @@ public class StaffController  {
     }
 
     /**
-     * 从session中获取用户id
+     * 从session中获取用户id(lixiaojie)
+     *
      * @return
      */
-    @RequestMapping(value = "/getStaffIdBySession",method = RequestMethod.POST)
+    @RequestMapping(value = "/getStaffIdBySession", method = RequestMethod.POST)
     public ReponseResult getStaffIdBySession(HttpServletRequest request) {
-        Staff oldStaff= (Staff) request.getSession().getAttribute("user");
+        Staff oldStaff = (Staff) request.getSession().getAttribute("user");
         ReponseResult<Staff> data;
         try {
-            Staff staff=staffService.getStaffInfoByStaffId(1);
+            Staff staff = staffService.getStaffInfoByStaffId(oldStaff != null ? oldStaff.getStaffId() : 1);
             data = ReponseResult.ok(staff, "从session中获取用户id成功！");
             logger.info(" method:getStaffIdBySession  从session中获取用户id成功！");
             return data;
@@ -78,12 +80,22 @@ public class StaffController  {
         }
     }
 
-
-    @RequestMapping(value = "/listPageGetStaffByNameAndCreateDateAndRoleId",method = RequestMethod.POST)
-    public ReponseResult listPageGetStaffByNameAndCreateDateAndRoleId(Integer pageNo, Integer pageSize, String staffname, String firstDate,String lastDate, Integer roleId) {
+    /**
+     * 分页获取用户信息(lixiaojie)
+     *
+     * @param pageNo    当前页
+     * @param pageSize  每页大小
+     * @param staffname 姓名
+     * @param firstDate 开始时间
+     * @param lastDate  结束时间
+     * @param roleId    职务
+     * @return
+     */
+    @RequestMapping(value = "/listPageGetStaffByNameAndCreateDateAndRoleId", method = RequestMethod.POST)
+    public ReponseResult listPageGetStaffByNameAndCreateDateAndRoleId(Integer pageNo, Integer pageSize, String staffname, String firstDate, String lastDate, Integer roleId) {
         try {
             pageSize = 6;
-            PageInfo<Staff> pageInfo = staffService.listPageGetStaffByNameAndCreateDateAndRoleId( pageNo,  pageSize,  staffname,   firstDate, lastDate,  roleId);
+            PageInfo<Staff> pageInfo = staffService.listPageGetStaffByNameAndCreateDateAndRoleId(pageNo, pageSize, staffname, firstDate, lastDate, roleId);
             ReponseResult<List> data = ReponseResult.ok(pageInfo.getList(), pageInfo.getTotal(), "分页获取人員信息成功！");
 
             logger.info(" method:listPageGetStaffByNameAndCreateDateAndRoleId  分页获取人員信息成功！");
@@ -95,24 +107,25 @@ public class StaffController  {
             return err;
         }
     }
+
     /**
-     * 删除
+     * 删除用户(lixiaojie)
      */
-    @RequestMapping(value = "/deleteStaffBystaffId",method = RequestMethod.POST )
-    public ReponseResult deleteStaffBystaffId(Integer staffId){
+    @RequestMapping(value = "/deleteStaffBystaffId", method = RequestMethod.POST)
+    public ReponseResult deleteStaffBystaffId(Integer staffId) {
         try {
-            int result=staffService.deleteStaffBystaffId(staffId);
+            int result = staffService.deleteStaffBystaffId(staffId);
             ReponseResult<String> date;
-            if (result>0){
-                date= ReponseResult.ok("1","删除用户信息成功！");
+            if (result > 0) {
+                date = ReponseResult.ok("1", "删除用户信息成功！");
                 logger.info(" method:deleteStaffBystaffId  删除用户信息成功！");
 
-            }else{
-                date= ReponseResult.ok("0","删除用户信息失败！");
+            } else {
+                date = ReponseResult.ok("0", "删除用户信息失败！");
                 logger.info(" method:deleteStaffBystaffId  删除用户信息失败！");
             }
             return date;
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error(" method:deleteStaffBystaffId  删除用户信息失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
@@ -123,96 +136,96 @@ public class StaffController  {
     /**
      * 增加
      */
-    @RequestMapping(value = "/saveStaffInfo",method = RequestMethod.POST )
-    public ReponseResult saveStaffInfo(Staff staff){
+    @RequestMapping(value = "/saveStaffInfo", method = RequestMethod.POST)
+    public ReponseResult saveStaffInfo(Staff staff) {
         try {
-            int result=staffService.saveStaffInfo(staff);
+            int result = staffService.saveStaffInfo(staff);
             ReponseResult<String> date;
-            if (result>0){
-                date= ReponseResult.ok("1","增加用户信息成功！");
+            if (result > 0) {
+                date = ReponseResult.ok("1", "增加用户信息成功！");
                 logger.info(" method:saveStaffInfo  增加用户信息成功！");
 
-            }else{
-                date= ReponseResult.ok("0","增加用户信息失败！");
+            } else {
+                date = ReponseResult.ok("0", "增加用户信息失败！");
                 logger.info(" method:saveStaffInfo  增加用户信息失败！");
             }
             return date;
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error(" method:saveStaffInfo  增加用户信息失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
             return err;
         }
     }
+
     /**
-     * 修改删除状态
+     * 修改删除状态(lixiaojie)
      */
-    @RequestMapping(value = "/updateStaffWhetherDel",method = RequestMethod.POST )
-    public ReponseResult updateStaffWhetherDel(Integer staffId){
+    @RequestMapping(value = "/updateStaffWhetherDel", method = RequestMethod.POST)
+    public ReponseResult updateStaffWhetherDel(Integer staffId) {
         try {
-            int result=staffService.updateStaffWhetherDel(staffId);
+            int result = staffService.updateStaffWhetherDel(staffId);
             ReponseResult<String> date;
-            if (result>0){
-                date= ReponseResult.ok("1","修改用户删除状态成功！");
+            if (result > 0) {
+                date = ReponseResult.ok("1", "修改用户删除状态成功！");
                 logger.info(" method:updateStaffWhetherDel  修改用户删除状态成功！");
 
-            }else{
-                date= ReponseResult.ok("0","修改用户删除状态失败！");
+            } else {
+                date = ReponseResult.ok("0", "修改用户删除状态失败！");
                 logger.info(" method:updateStaffWhetherDel  修改用户删除状态失败！");
             }
             return date;
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error(" method:updateStaffWhetherDel  修改用户删除状态失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
             return err;
         }
     }
+
     /**
-     * 修改
+     * 修改用户信息(lixiaojie)
      */
-    @RequestMapping(value = "/updateStaffInfo",method = RequestMethod.POST )
-    public ReponseResult updateStaffInfo(Staff staff){
+    @RequestMapping(value = "/updateStaffInfo", method = RequestMethod.POST)
+    public ReponseResult updateStaffInfo(Staff staff) {
         try {
-            int result=staffService.updateStaffInfo(staff);
+            int result = staffService.updateStaffInfo(staff);
             ReponseResult<String> date;
-            if (result>0){
-                date= ReponseResult.ok("1","修改用户信息成功！");
+            if (result > 0) {
+                date = ReponseResult.ok("1", "修改用户信息成功！");
                 logger.info(" method:updateStaffInfo  修改用户信息成功！");
 
-            }else{
-                date= ReponseResult.ok("0","修改用户信息失败！");
+            } else {
+                date = ReponseResult.ok("0", "修改用户信息失败！");
                 logger.info(" method:updateStaffInfo  修改用户信息失败！");
             }
             return date;
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error(" method:updateStaffInfo  修改用户信息失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
             return err;
         }
     }
+
     /**
-     *  修改用户信息并且修改图片上传（yunguohao）(lixiaojie)
+     * 修改用户信息并且修改图片上传（yunguohao）(lixiaojie)
      *
      * @param multipartFile 文件对象
      * @param
      * @return 保存结果updateStaff
      */
     @RequestMapping("/updateUserInfo")
-    public ReponseResult updateUserInfo(Staff staff,@RequestParam("fileObj") MultipartFile multipartFile ) {
+    public ReponseResult updateUserInfo(Staff staff, @RequestParam("fileObj") MultipartFile multipartFile) {
         Staff oldStaff = staffService.getStaffInfoByStaffId(staff.getStaffId());
         try {
             //判断是否有上传图片 判断multipartFile和savePath是否为null
-
-
             if (!multipartFile.isEmpty() && "a.txt".equals(multipartFile.getOriginalFilename())) {
                 //如果为空则根据编号查询信息把用户之前的图片地址赋值给要修改的对象
                 staff.setHeadPortraitPath(oldStaff.getHeadPortraitPath());
-
             } else {
                 // 上传图片操作
-                String uploadResult = ClientFileUploadUtil.uploadImage(multipartFile,".jpg");
+                String uploadResult = ClientFileUploadUtil.uploadImage(multipartFile, ".jpg");
                 if (!"".equals(uploadResult)) {
                     staff.setHeadPortraitPath(uploadResult);
                     logger.info(" method:updateUserInfo  上传图片成功！");
@@ -223,18 +236,17 @@ public class StaffController  {
             staff.setTheUserName(oldStaff.getTheUserName());
             staff.setRoleId(oldStaff.getRoleId());
             staff.setPassword(oldStaff.getPassword());
-            int result=staffService.updateStaffs(staff);
+            int result = staffService.updateStaffs(staff);
             ReponseResult<String> date;
-            if (result>0){
-                date= ReponseResult.ok("1","修改用户信息成功！");
+            if (result > 0) {
+                date = ReponseResult.ok("1", "修改用户信息成功！");
                 logger.info(" method:updateUserInfo  修改用户信息成功！");
-
-            }else{
-                date= ReponseResult.ok("0","修改用户信息失败！");
+            } else {
+                date = ReponseResult.ok("0", "修改用户信息失败！");
                 logger.info(" method:updateUserInfo  修改用户信息失败！");
             }
             return date;
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error(" method:updateUserInfo  修改用户信息失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
@@ -242,25 +254,24 @@ public class StaffController  {
         }
     }
 
-
     /**
-     * 修改
+     * 修改公司(lixiaojie)
      */
     @RequestMapping("/updateStaff1")
-    public ReponseResult updateCompany(Staff staff){
+    public ReponseResult updateCompany(Staff staff) {
         try {
-            int result=staffService.updateStaffpas(staff);
+            int result = staffService.updateStaffpas(staff);
             ReponseResult<String> date;
-            if (result>0){
-                date= ReponseResult.ok("1","修改公司成功！");
+            if (result > 0) {
+                date = ReponseResult.ok("1", "修改公司成功！");
                 logger.info("method:updateStaff1  修改公司成功！");
 
-            }else{
-                date= ReponseResult.ok("0","修改公司失败！");
+            } else {
+                date = ReponseResult.ok("0", "修改公司失败！");
                 logger.info(" method:updateStaff1  修改公司失败！");
             }
             return date;
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error(" method:updateStaff1  修改公司失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
@@ -271,32 +282,33 @@ public class StaffController  {
 
     /**
      * 登录验证（dubingkun）
+     *
      * @param username 用户名
      * @param password 密码
      * @return
      */
     @RequestMapping("/loginCheck")
-    public ReponseResult loginCheck(HttpServletRequest httpServletRequest, String username, String password){
+    public ReponseResult loginCheck(HttpServletRequest httpServletRequest, String username, String password) {
         ReponseResult<Integer> success;
-        Staff sf=null;
+        Staff sf = null;
         try {
-            sf=staffService.loginCheck(username);
+            sf = staffService.loginCheck(username);
             logger.info(" method:loginCheck  获取对应用户信息成功！");
-            if(sf==null){
-                success= ReponseResult.ok(-1,"用户名或密码不匹配！");
+            if (sf == null) {
+                success = ReponseResult.ok(-1, "用户名或密码不匹配！");
                 return success;
             }
-            if(!sf.getPassword().equals(EncryUtil.encrypt(password))){
-                success= ReponseResult.ok(-1,"用户名或密码不匹配！");
+            if (!sf.getPassword().equals(EncryUtil.encrypt(password))) {
+                success = ReponseResult.ok(-1, "用户名或密码不匹配！");
                 return success;
             }
-            httpServletRequest.getSession().setAttribute("user",sf);
+            httpServletRequest.getSession().setAttribute("user", sf);
         } catch (Exception e) {
             e.printStackTrace();
             logger.info(" method:loginCheck  获取对应用户信息失败，系统出现异常！");
-            success= ReponseResult.ok(-1,password);
+            success = ReponseResult.ok(-1, password);
         }
-        success= ReponseResult.ok(sf.getRoleId(),"验证成功！");
+        success = ReponseResult.ok(sf.getRoleId(), "验证成功！");
         return success;
     }
 }

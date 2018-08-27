@@ -1,7 +1,9 @@
 package com.dyhc.sdglgroundconnection.web;
 
 import com.dyhc.sdglgroundconnection.pojo.Disguide;
+import com.dyhc.sdglgroundconnection.pojo.Guide;
 import com.dyhc.sdglgroundconnection.service.DisguideService;
+import com.dyhc.sdglgroundconnection.service.GuideScheduleService;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +29,59 @@ public class DisguideController {
 
     @Autowired
     private DisguideService disguideService;
+    @Autowired
+    private GuideScheduleService guideScheduleService;
+
+    /**
+     * 给团修改导游 （lixiaojie)
+     * @param guideId
+     * @param offerId
+     * @return
+     */
+    @RequestMapping("/updateDispatchGuide")
+    public ReponseResult updateDispatchGuide(Integer guideId, Integer offerId) {
+        try {
+            int result = guideScheduleService.updateDispatchGuide( guideId,  offerId);
+            ReponseResult<String> date;
+            if (result > 0) {
+                date = ReponseResult.ok("1", "给团修改导游成功！");
+                logger.info("method:updateDispatchGuide  给团修改导游成功！");
+
+            } else {
+                date = ReponseResult.ok("0", "给团修改导游失败！");
+                logger.info(" method:updateDispatchGuide  给团修改导游失败！");
+            }
+            return date;
+        } catch (Exception e) {
+            logger.error(" method:updateDispatchGuide  修改导游失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
+    /**
+     * 根据导游id和调度id获取调度导游信息(lixiaojie)
+     * @param guideId   导游id
+     * @param offerId   调度id
+     * @return
+     */
+    @RequestMapping("/getDisGuideByOfferIdAndGuideId")
+    public ReponseResult getDisGuideByOfferIdAndGuideId(Integer guideId, Integer offerId){
+        try {
+            Disguide disguide=disguideService.getDisGuideByOfferIdAndGuideId(guideId,offerId);
+            ReponseResult<Disguide> data = ReponseResult.ok( disguide,"根据导游id和调度id获取调度导游信息成功！");
+            logger.info(" method:getDisGuideByOfferIdAndGuideId  根据导游id和调度id获取调度导游信息成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:getDisGuideByOfferIdAndGuideId  根据导游id和调度id获取调度导游信息失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
+
 
     /**
      * 按调度导游编号查询(yunguohao)

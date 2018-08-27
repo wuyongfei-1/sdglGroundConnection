@@ -3,6 +3,7 @@ package com.dyhc.sdglgroundconnection.service;
 import com.dyhc.sdglgroundconnection.pojo.MealType;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
+import com.dyhc.sdglgroundconnection.pojo.MealType;
 
 import java.util.List;
 
@@ -11,6 +12,13 @@ import java.util.List;
  * 饮食类型业务接口
  **/
 public interface MealTypeService {
+
+    /**
+     * 根据类型编号查询类型信息
+     * @param typeId 类型编号
+     * @return 类型信息对象
+     */
+    MealType getMealTypeById(Integer typeId) throws Exception;
     /**
      * 通过餐馆编号查询饮食类型列表（wuyongfei）
      *

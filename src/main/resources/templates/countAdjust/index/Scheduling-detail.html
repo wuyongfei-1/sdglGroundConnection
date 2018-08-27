@@ -18,7 +18,7 @@
                 <tr>
                     <td><label class="layui-form-label">组团社名称</label></td>
                     <td>
-                        <select id="zutuanshe" id="travelId" lay-verify="required">
+                        <select id="zutuanshe" lay-verify="required">
                         </select>
                     </td>
                     <td><label class="layui-form-label">人数</label></td>
@@ -234,6 +234,8 @@
 <script type="text/javascript" src="/layui.js"></script>
 <script type="text/javascript" src="/js/baojiadan.js"></script>
 <script type="text/javascript" src="/js/offer.js"></script>
+<script type="text/javascript" src="/lodop/jquery-3.2.1.js"></script>
+<script type="text/javascript" src="/lodop/LodopFuncs.js"></script>
 <script>
     var selectJson = [];//存放总线路中的酒店id以及景点id等信息
     var selectJson2 = [];//存放线路中的酒店id以及景点id等信息
@@ -305,7 +307,7 @@
                         "                            <td><label class=\"layui-form-label\">日期</label></td>\n" +
                         "                            <td>\n" +
                         "                                <input type=\"text\" name=\"date\" id=\"date2\" lay-verify=\"date\" placeholder=\"yyyy-MM-dd\"\n" +
-                        "                                       autocomplete=\"off\" class=\"layui-input\" value='" + data.data[key].creationDate + "'>\n" +
+                        "                                       autocomplete=\"off\" class=\"layui-input\" value=''>\n" +
                         "                            </td>\n" +
                         "                        </tr>\n" +
                         "\n" +
@@ -454,7 +456,7 @@
                 //获取最外层td
                 var trs = $(zhege).parent().parent();
                 //日期赋值
-                trs.next().find("input").val(data.data.creationDate);
+                //trs.next().find("input").val(data.data.creationDate);
                 var json2 = [];
                 var context = "";
                 tempYs.find("[id='scenic']").remove();
@@ -618,7 +620,7 @@
         var travelStartTime = $("#date").val();//开团日期
         var travelEndTime = $("#date1").val();//结束日期
         var number = $("#number").val();//人数
-        var travelId = $("#travelId").val();//组团社
+        var travelId = $("#zutuanshe").val();//组团社
         var offer = 0;//报价
         var trip = "";//行程
         var shopping = $("[name='shopping']").val();//购物
@@ -741,7 +743,8 @@
         lineJson = [];
         $("[xl='xianlu']").each(function (i, e) {
             var json = {
-                "lineArriveName": $(this).text(),
+                "lineArriveName": $(this).find("option:selected").text(),
+                "date":$(this).parent().parent().parent().find("[id='date2']").val(),
                 "travelContent": $(this).parent().parent().parent().find("[name='desc']").val(),
                 "weight": i
             }
@@ -795,8 +798,56 @@
     })
     //报价预览按钮单击事件
     $("#yulan").click(function () {
-        alert(123)
+        offerTable();
+        var xingcheng = [];
+        $("[xl='xianlu']").each(function (i, e) {
+            var parent = $(this).parent().parent().parent();
+            var day = parent.find("[name='date']").val();//天数
+            day = day.substring(day.indexOf("-") + 1);
+            var dl = parent.find("[xl='xianlu']").find("option:selected").text();//线路
+            var xc = parent.find("[name='desc']").val();//行程
+            var cs = "";//餐食
+            if (i != 0) {
+                cs += "B酒店自助 ";
+            }
+            var wu = parent.find("[wc='wucan']").find("option:selected").text();//午餐
+            var wub = parent.find("[wc='wucan']").find("option:selected").attr("offer");//午餐报价
+            if (parent.find("[wc='wucan']").val() != "-1") {
+                cs += "L" + wu + " " + wub + " ";
+            }
+            var wac = parent.find("[wac='wancan']").find("option:selected").text();//晚餐
+            var wacb = parent.find("[wac='wancan']").find("option:selected").attr("offer");//晚餐报价
+            if (parent.find("[wac='wancan']").val()!= "-1") {
+                cs += "D" + wac + " " + wacb;
+            }
+            var zs = parent.find("[hotel='jiudian']").find("option:selected").text();//住宿
+            var zsdh = parent.find("[hotel='jiudian']").val();//住宿电话
+            var json = {
+                "day": day,
+                "dl": dl,
+                "xc": xc,
+                "cs": cs,
+                "zs": zs,
+                "zsdh": zsdh
+            }
+            xingcheng.push(json);
+        })
+        var previewJson={"offer":offerJson,"list":xingcheng};//预览报价json
+        $.ajax({
+            url:"/offer/previewOffer",
+            data:JSON.stringify(previewJson),
+            dataType:"json",
+            type:"post",
+            contentType:"application/json",
+            async:false,
+            success:function (data) {
+            },error:function () {
+                alert("程序异常")
+            }
+        })
+        window.open("http://localhost:8888/voucher/Confirmation.html");
     })
+
 </script>
 <script type="text/javascript">
     function san(dang) {
@@ -806,9 +857,11 @@
     function add(onClickjd) {
         $(onClickjd).parent().parent().next().after("<tr id='scenic'>" +
             "<td><label class='layui-form-label'>景点</label></td>" +
-            "<td>" + scenicspots +
-            "</td>" +
-            "<td>" + scenicspots +
+            "<td>" +
+            "<select name='city' lay-verify='required'>" +
+            "<option value=''></option>" +
+            jingdian +
+            "</select>" +
             "</td>" +
             "<td><label class='layui-form-label'>成本价:</label></td>" +
             "<td><input type='text'  class='layui-input'></td>" +

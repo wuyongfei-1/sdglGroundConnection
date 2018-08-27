@@ -40,4 +40,12 @@ public interface DictionariesService {
      * @throws Exception 全局异常
      */
     List<Dictionaries> listDictionaries(String typeCode) throws Exception;
+
+    /**
+     * 根据类型编码和内容编号获取所有的字典信息（yunguohao）
+     * @param typeCode 类型编码
+     * @param valueid 内容编号
+     * @return
+     */
+    String listDictionaries1(String typeCode,Integer valueid);
 }

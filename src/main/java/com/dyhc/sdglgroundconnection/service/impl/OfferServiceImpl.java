@@ -6,6 +6,8 @@ import com.dyhc.sdglgroundconnection.exception.OfferException;
 import com.dyhc.sdglgroundconnection.mapper.OfferMapper;
 import com.dyhc.sdglgroundconnection.pojo.*;
 import com.dyhc.sdglgroundconnection.service.*;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -170,5 +172,17 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public Integer getIntegerByOfferId() {
         return offerMapper.getIntegerByOfferId();
+    }
+
+    @Override
+    public PageInfo<Offer> listOffer(Integer pageNo, Integer PageSize)throws Exception {
+        PageHelper.startPage(pageNo, PageSize, true);
+        List<Offer> list=offerMapper.selectAll();
+        for (Offer item:list) {
+            List<Offerline> offerlines=offerlineService.listOfferlineByOfferId(item.getOfferId());
+            item.setOfferlineList(offerlines);
+        }
+        PageInfo<Offer> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 }

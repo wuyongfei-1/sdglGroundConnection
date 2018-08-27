@@ -11,10 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -35,6 +32,24 @@ public class GuideController {
     @Autowired
     private GuideService guideService;
 
+    /**
+     * 获取所有导游和导游日程（lixiaojie)
+     * @return
+     */
+    @RequestMapping(value = "/selectGuideInfoAndGuideSchedule",method = RequestMethod.POST)
+    public ReponseResult selectGuideInfoAndGuideSchedule() {
+        try {
+            ReponseResult<List> data = ReponseResult.ok(guideService.selectGuideInfoAndGuideSchedule(), "获取所有导游和导游日程成功！");
+
+            logger.info(" method:selectGuideInfoAndGuideSchedule   获取所有导游和导游日程成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:selectGuideInfoAndGuideSchedule  获取所有导游和导游日程失败！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
     /**
      * 导游登陆接口（wuyongfei）
      *

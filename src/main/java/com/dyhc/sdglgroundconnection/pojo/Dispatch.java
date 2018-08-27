@@ -64,6 +64,11 @@ public class Dispatch {
     private String value2; // 组团社联系电话
     private String value3;
 
+    @Transient
+    private Staff staff; // 计调人员信息对象
+
+    @Transient
+    private List<Disrestaurant> disrestaurantList; // 调度餐厅集合
 
     @Transient
     private Discar discar; // 调度用车对象
@@ -74,9 +79,46 @@ public class Dispatch {
     @Transient
     private List<Dispatchhotel> dispatchhotel; // 调度酒店表对象
 
+    @Transient
+    private List<Disattr> disattrList; // 调度景点表集合
 
     @Transient
     private Disguide disguide; // 调度导游表对象
+
+    @Transient
+    private Company company; // 本公司对象
+
+    public List<Disrestaurant> getDisrestaurantList() {
+        return disrestaurantList;
+    }
+
+    public void setDisrestaurantList(List<Disrestaurant> disrestaurantList) {
+        this.disrestaurantList = disrestaurantList;
+    }
+
+    public Staff getStaff() {
+        return staff;
+    }
+
+    public void setStaff(Staff staff) {
+        this.staff = staff;
+    }
+
+    public List<Disattr> getDisattrList() {
+        return disattrList;
+    }
+
+    public void setDisattrList(List<Disattr> disattrList) {
+        this.disattrList = disattrList;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
 
     public Discar getDiscar() {
         return discar;

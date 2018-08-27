@@ -8,9 +8,7 @@ import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
@@ -29,6 +27,25 @@ public class ScenicspotController {
 
     @Autowired
     private ScenicspotService scenicspotService;
+
+    /**
+     * 根据父级景点查询所属的所有子景点（wuyongfei）
+     *
+     * @param parentId 父景点编号
+     * @return 响应结果
+     */
+    @GetMapping("/scenicspot/childrens/{parentId}.html")
+    public ReponseResult getScenicspotInfoByParentId(@PathVariable Integer parentId) {
+        try {
+            List<Scenicspot> scenicspots = scenicspotService.listScenicspotByParentId(parentId);
+            logger.info("method: getScenicspotInfoByParentId 根据父景点查询所属的子景点信息成功！");
+            return ReponseResult.ok(scenicspots, "根据父景点查询所属的子景点信息成功！");
+        } catch (Exception e) {
+            logger.error("method: getScenicspotInfoByParentId 根据父景点查询所属的子景点信息失败，系统异常！" + e.getMessage());
+            e.printStackTrace();
+            return ReponseResult.err("根据父景点查询所属的子景点信息失败，系统异常！");
+        }
+    }
 
     /**
      * 查询景点信息 （wangtao）
@@ -105,6 +122,7 @@ public class ScenicspotController {
 
     /**
      * 查询所有景点的信息  （wangtao）
+     *
      * @return 返回景点集合
      */
     @RequestMapping("/ListScenicspotByParentId")
@@ -127,6 +145,7 @@ public class ScenicspotController {
 
     /**
      * 根据id获取信息 （wangtao）
+     *
      * @param scenicSpotId id
      * @return 景点对象
      */

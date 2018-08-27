@@ -35,7 +35,7 @@ public class ScenicspotServiceImpl implements ScenicspotService {
     private ShoppingMapper shoppingMapper;
 
     /**
-     * 通过父级编号查询景点的所有信息（wuyongfei）
+     * 通过父级编号查询子景点的所有信息（wuyongfei）
      *
      * @param parentId 父级编号
      * @return 景点列表

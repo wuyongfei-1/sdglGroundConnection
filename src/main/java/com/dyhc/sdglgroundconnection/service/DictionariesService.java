@@ -15,6 +15,16 @@ import java.util.List;
 public interface DictionariesService {
 
     /**
+     * 通过编码和编号查询字典的饮食类型信息（wuyongfei）
+     *
+     * @param typeCode 编码
+     * @param valueId   值编号
+     * @return 字典对象
+     * @throws Exception 全局异常
+     */
+    Dictionaries getDictionariesByTypeCodeAndValueId(String typeCode, Integer valueId) throws Exception;
+
+    /**
      * 查询所有景点相关字典信息 （wangtao）（分页）
      *
      * @param typeCode 类型编码

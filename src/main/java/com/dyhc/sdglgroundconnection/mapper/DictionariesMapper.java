@@ -13,9 +13,11 @@ import java.util.List;
  **/
 @Mapper
 @Component
-public interface DictionariesMapper extends CommonMapper<Dictionaries>{
+public interface DictionariesMapper extends CommonMapper<Dictionaries> {
+
     /**
      * 查询所有景点类型字典信息 wangtao
+     *
      * @param typeCode 类型编码
      * @return 返回字典集合
      */
@@ -23,7 +25,7 @@ public interface DictionariesMapper extends CommonMapper<Dictionaries>{
 
 
     /**
-     *  根据typeCode查询所有字典表类型    （lixiaojie) 可共用
+     * 根据typeCode查询所有字典表类型    （lixiaojie) 可共用
      */
     List<Dictionaries> listDictionariesByTypeCode(@Param("typeCode") String typeCode) throws Exception;
 }

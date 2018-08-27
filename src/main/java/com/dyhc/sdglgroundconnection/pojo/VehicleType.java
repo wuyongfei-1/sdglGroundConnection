@@ -40,6 +40,17 @@ public class VehicleType {
     private String value2; // 预备
     private String value3; // 预备
 
+    @Transient
+    private String vehicleTypeName; // 车辆类型名称
+
+    public String getVehicleTypeName() {
+        return vehicleTypeName;
+    }
+
+    public void setVehicleTypeName(String vehicleTypeName) {
+        this.vehicleTypeName = vehicleTypeName;
+    }
+
     @Id
     @Column(name = "typeId")
     public int getTypeId() {

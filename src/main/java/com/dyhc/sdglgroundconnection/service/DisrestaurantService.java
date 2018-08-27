@@ -2,8 +2,6 @@ package com.dyhc.sdglgroundconnection.service;
 
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.pojo.Disrestaurant;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -12,6 +10,13 @@ import java.util.List;
  * 调度餐厅业务接口
  **/
 public interface DisrestaurantService {
+
+    /**
+     * 根据调度编号查询调度餐厅信息
+     * @param offId 调度编号
+     * @return 调度餐厅集合
+     */
+    List<Disrestaurant> listDisrestaurantByOffId(Integer offId)throws Exception;
 
     /**
      * 批量添加调度餐厅信息（wuyongfei）

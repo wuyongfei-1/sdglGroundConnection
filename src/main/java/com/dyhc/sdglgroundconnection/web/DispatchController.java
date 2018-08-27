@@ -37,7 +37,6 @@ public class DispatchController {
         try {
             Dispatch dispatch=dispatchService.getDispatchInfoByDispatchInfoId(dispatchId);
             ReponseResult<Dispatch> data = ReponseResult.ok(dispatch, "根据调度编号获取调度表信息成功！");
-
             logger.info(" method:selectDispatchs  根据调度编号获取调度表信息成功！");
             return data;
         } catch (Exception e) {
@@ -76,19 +75,23 @@ public class DispatchController {
      */
     @RequestMapping(value = "/onCheckDispatchInfo",method = RequestMethod.POST )
     public ReponseResult onCheckDispatchInfo(Integer dispatchId){
+        ReponseResult<String> date=null;
         try {
             int result=dispatchService.onCheckDispatchInfo(dispatchId);
-            ReponseResult<String> date;
-            if (result>0){
-                date= ReponseResult.ok("1","总控审核通过成功！");
-                logger.info(" method:onCheckDispatchInfo  总控审核通过成功！");
 
+            if (result>0){
+                    date= ReponseResult.ok("1","总控审核通过成功！");
+                    logger.info(" method:onCheckDispatchInfo  总控审核通过成功！");
             }else{
                 date= ReponseResult.ok("0","总控审核通过失败！");
                 logger.info(" method:onCheckDispatchInfo  总控审核通过失败！");
             }
             return date;
-        }catch (Exception e){
+        }catch (NullPointerException e){
+            date= ReponseResult.ok("2","总控审核冲突！");
+            logger.info(" method:onCheckDispatchInfo  总控审核冲突！");
+            return date;
+        } catch (Exception e){
             logger.error(" method:onCheckDispatchInfo  总控审核通过失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");

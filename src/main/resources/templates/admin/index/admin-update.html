@@ -126,10 +126,12 @@
         var savePath = "D://upload-images-test";
         var fileObj = document.getElementById("browsefile").files[0];
          if (fileObj == undefined) {
+
             var file = new File(["first Line Text", "Second Line Text"], "a.txt");
             fileObj = file;
         }
         var formData = new FormData();
+
         formData.append("savePath", savePath);
         formData.append("staffname", staffname);
         formData.append("theUserName", theUserName);
@@ -159,6 +161,7 @@
             }
         })
     }
+
     //根据用户id查询用户信息
     function getStaffIdBySession() {
         $.ajax({
@@ -166,7 +169,9 @@
             dataType: "json",
             type: "post",
             success: function (ReponseResult) {
+
                 $("input[name='staffname']").val(ReponseResult.data.staffname);
+
                 $("input[name='password']").val(ReponseResult.data.password);
                 $("input[name='sex'][value='" + ReponseResult.data.sex + "']").attr("checked", true);
                 $("input[name='cardId']").val(ReponseResult.data.cardId);
@@ -185,6 +190,7 @@
             }
         })
     }
+
 </script>
 <script>
     //Demo
@@ -193,6 +199,7 @@
         form.render();
         //监听提交
         form.on('submit(formDemo)', function (data) {
+
             return false;
         });
     });

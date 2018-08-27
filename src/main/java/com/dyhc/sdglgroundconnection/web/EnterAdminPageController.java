@@ -338,6 +338,18 @@ public class EnterAdminPageController {
         request.setAttribute("staffId", staffId);
         return "admin/index/staff-update";
     }
+    /**
+     * 进入管理员修改个人信息页面
+     * @param userId
+     * @param request
+     * @return
+     */
+    @RequestMapping("/admin-update.html")
+    public String adminUpdate(String userId, HttpServletRequest request) {
+        request.setAttribute("userId", userId);
+        return "admin/index/admin-update";
+    }
+
 
 
 }

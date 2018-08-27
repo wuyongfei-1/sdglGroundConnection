@@ -63,4 +63,10 @@ public interface GuideService {
      * @return
      */
     Guide selectGuideByIds(int id);
+
+    /**
+     *  获取所有导游  和导游的日程 （lixiaojie)
+     * @return
+     */
+    List<Guide> selectGuideInfoAndGuideSchedule();
 }

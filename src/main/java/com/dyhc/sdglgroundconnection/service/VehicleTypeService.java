@@ -13,9 +13,20 @@ import java.util.List;
  **/
 public interface VehicleTypeService {
 
+    /**
+     * 根据公司编号查询所属的车辆类型列表（wuyongfei）
+     *
+     * @param rentalId 公司编号
+     * @return 车辆类型列表
+     * @throws Exception 全局异常
+     */
+    List<VehicleType> listVehicleTypesByRentalId(Integer rentalId) throws Exception;
+
+
 
     /**
      * 根据汽车公司类型id删除公司汽车(lixiaojie)
+     *
      * @param VehicleTypeId
      * @return
      */
@@ -24,6 +35,7 @@ public interface VehicleTypeService {
 
     /**
      * 添加车辆类型信息(lixiaojie)
+     *
      * @param vehicleType
      * @return
      */
@@ -31,12 +43,14 @@ public interface VehicleTypeService {
 
     /**
      * 根据车辆类型id查询车辆类型信息(lixiaojie)
+     *
      * @return
      */
     VehicleType getVehicleTypeInfoByTypeId(Integer TypeId);
 
     /**
      * 修改车辆类型信息(lixiaojie)
+     *
      * @param vehicleType
      * @return
      */

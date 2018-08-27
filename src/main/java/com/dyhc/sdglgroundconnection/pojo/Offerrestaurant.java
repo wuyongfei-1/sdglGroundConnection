@@ -42,6 +42,9 @@ public class Offerrestaurant {
     private String value2;
     private String value3;
 
+    @Transient
+    private Dictionaries dictionaries; // 字典中的饮食类型对象
+
     public Integer getWeight() {
         return weight;
     }
@@ -237,5 +240,13 @@ public class Offerrestaurant {
     public int hashCode() {
 
         return Objects.hash(offerRestaurantId, offerId, typeCode, dictionariesId, costPrice, offer, date, havemealsdate, whetherDel, creater, modifier, modifiedData, creationDate, value1, value2, value3);
+    }
+
+    public Dictionaries getDictionaries() {
+        return dictionaries;
+    }
+
+    public void setDictionaries(Dictionaries dictionaries) {
+        this.dictionaries = dictionaries;
     }
 }

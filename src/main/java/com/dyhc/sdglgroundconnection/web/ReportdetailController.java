@@ -7,7 +7,6 @@ import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,17 +28,16 @@ public class ReportdetailController {
     private ReportdetailService reportdetailService;
 
     /**
-     * 按导游报账明细表编号查询查询(yunguohao)
+     * 按导游报账明细表编号查询查询 (yunguohao)
      */
     @RequestMapping("/selectReportdetailById")
-    public ReponseResult selectHotelById(int reportDetailId){
+    public ReponseResult selectHotelById(Integer reportDetailId){
         try {
             Reportdetail result=reportdetailService.selectReportdetailById(reportDetailId);
             ReponseResult<Reportdetail> date;
             if (result!=null){
                 date= ReponseResult.ok(result,"按导游报账明细表编号查询成功");
                 logger.info(" method:selectReportdetailById  按导游报账明细表编号查询成功！");
-
             }else{
                 date= ReponseResult.ok("按导游报账明细表编号查询导游失败！");
                 logger.info(" method:selectReportdetailById  按导游报账明细表编号查询导游失败！");

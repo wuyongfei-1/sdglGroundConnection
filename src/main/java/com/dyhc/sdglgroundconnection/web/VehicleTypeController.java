@@ -60,7 +60,6 @@ public class VehicleTypeController {
             if (result > 0) {
                 date = ReponseResult.ok("1", "删除公司车辆类型信息成功！");
                 logger.info(" method:deleteVehicleTypeByVehicleTypeId  删除公司车辆类型信息成功！");
-
             } else {
                 date = ReponseResult.ok("0", "删除公司车辆类型信息失败！");
                 logger.info(" method:deleteVehicleTypeByVehicleTypeId  删除公司车辆类型信息失败！");

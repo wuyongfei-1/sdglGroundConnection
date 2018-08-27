@@ -20,6 +20,7 @@
 				font-size: 14px;
 			}
 		</style>
+
 	</head>
 	<body>
 		<div id="tupian" style="width: 635px;margin-left: 355px;">
@@ -34,29 +35,29 @@
 		    <thead>
 		    	<tr>
 		    		<td>导游</td>
-		    		<td>李金虎 18835107476</td>
+		    		<td id="guideName">李金虎 18835107476</td>
 		    		<td>司机</td>
-		    		<td>晋AA9279张师傅15255588847</td>
+		    		<td  id="carInfo">晋AA9279张师傅15255588847</td>
 		    		<td>计调</td>
-		    		<td>崔俊娜18603416895</td>
+		    		<td id="staffName">崔俊娜18603416895</td>
 		    	</tr>
 		    	   	<tr>
 		    		<td>时间</td>
-		    		<td>2018.4.15-4.22</td>
+		    		<td id="qztime">2018.4.15-4.22</td>
 		    		<td>人数</td>
 		    		<td colspan="3" style="border: 0px;">
 		    			<table border="1" cellspacing="0" cellpadding="0">
-		    				<tr><td>9+1T/L</td>
+		    				<tr><td id="num">9+1T/L</td>
 		    		<td>用房</td>
-		    		<td>5间+2司陪</td>
+		    		<td> &nbsp; &nbsp; &nbsp; &nbsp;</td>
 		    		<td>客源地</td>
-		    		 <td>台湾</td></tr>
+		    		 <td id="tourist">台湾</td></tr>
 		    			</table>
 		    		</td>
 		    	</tr>
 		    </thead>
 		    <tbody>
-		    	<table border="2" cellspacing="0" cellpadding="0">
+		    	<table border="2" cellspacing="0" cellpadding="0" id="info1">
 		    		<tr>
 		    			<td>日期</td>
 		    			<td>午餐</td>
@@ -242,8 +243,44 @@
 			<p>3. 请严格按照我公司有关地接导游带团规范进行作业，以进一步确保接待质量。</p>
 		</div>
 	</body>
-	<script type="text/javascript" src="js/jquery-3.2.1.js" ></script>
+	<script type="text/javascript" src="/js/jquery-3.2.1.js" ></script>
 	<script>
-		
+		$(function () {
+            onloadInfo();
+        });
+        var dispatchId=1;
+		function onloadInfo() {
+			$.post("/dispatch/getDispatchInfoByDispatchId","dispatchId="+dispatchId,function (data) {
+			    console.log(data.data);
+				$("#guideName").text(data.data.disguide.guide.guideName+"  "+data.data.disguide.guide.telephone);
+				$("#carInfo").text(data.data.discar.value1+" "+data.data.discar.value2+" "+data.data.discar.value3);
+				$("#staffName").text(data.data.staff.staffname+" "+data.data.staff.phone);
+				var ztime=data.data.travelEndTime.substring(5,10);
+				var qtime=data.data.travelStartTime;
+                var reg = new RegExp("-","g");
+                ztime=ztime.replace('-','.');
+                qtime=qtime.replace(reg,'.');
+				$("#qztime").text(qtime+"-"+ztime);
+				$("#num").text(data.data.num);
+				$("#tourist").text(data.data.tourist);
+				var time=data.data.travelStartTime.substring(5,10);
+                time=time.replace('-','.');
+				var content1="<tr>\n" +
+                    "\t\t    \t\t\t<td>日期</td>\n" +
+                    "\t\t    \t\t\t<td>午餐</td>\n" +
+                    "\t\t    \t\t\t<td>餐标，元/人</td>\n" +
+                    "\t\t    \t\t\t<td>晚餐</td>\n" +
+                    "\t\t    \t\t\t<td>餐标，元/人</td>\n" +
+                    "\t\t    \t\t\t<td>客人住宿，元/间天*间</td>\n" +
+                    "\t\t    \t\t\t<td>司陪</td>\n" +
+                    "\t\t    \t\t</tr>";
+				$.each(data.data.disrestaurantList,function (i,e) {
+				    alert(data.data.dispatchhotel[i].date.substring(5,10))
+                    content1+="<td>"+data.data.dispatchhotel[i].date.substring(5,10)+"</td>\n" ;
+
+                })
+				$("#info1").html();
+            },"json");
+        }
 	</script>
 </html>

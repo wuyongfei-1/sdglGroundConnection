@@ -54,6 +54,9 @@ public class Offer {
     private String value3;
 
     @Transient
+    private String travelName; // 组团社名称
+
+    @Transient
     private Offercar offercar; // 报价用车详细信息
 
     @Transient
@@ -170,6 +173,7 @@ public class Offer {
     public void setShopping(String shopping) {
         this.shopping = shopping;
     }
+
     @Basic
     @Column(name = "remarks")
     public String getRemarks() {
@@ -364,5 +368,13 @@ public class Offer {
 
     public void setNotExclude(String notExclude) {
         this.notExclude = notExclude;
+    }
+
+    public String getTravelName() {
+        return travelName;
+    }
+
+    public void setTravelName(String travelName) {
+        this.travelName = travelName;
     }
 }

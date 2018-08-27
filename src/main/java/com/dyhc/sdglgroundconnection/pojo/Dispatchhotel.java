@@ -40,7 +40,7 @@ public class Dispatchhotel {
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "creationDate")
     private Date creationDate; // 创建时间
-    private String value1;
+    private String value1;  //外键，酒店房间类型与roomtype表关联
     private String value2;
     private String value3;
 

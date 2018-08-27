@@ -32,6 +32,36 @@ public class BillController  {
     private BillService billService;
 
     /**
+     *  根据调度团id和单据类型id获取单据信息（lixiaojie)
+     * @param dispatchId
+     * @param billTypeId
+     * @return
+     */
+    @RequestMapping("/selectBillByDispatchIdAndBillTypeId")
+    public ReponseResult selectBillByDispatchIdAndBillTypeId(Integer dispatchId, Integer billTypeId){
+        try {
+            Bill result=billService.selectBillByDispatchIdAndBillTypeId(dispatchId,billTypeId);
+            ReponseResult<Bill> date;
+            if (result!=null){
+                date= ReponseResult.ok(result,"根据调度团id和单据类型id获取单据信息成功");
+                logger.info(" method:selectBillByDispatchIdAndBillTypeId  根据调度团id和单据类型id获取单据信息成功！");
+
+            }else{
+                date= ReponseResult.ok("根据调度团id和单据类型id获取单据信息失败！");
+                logger.info(" method:selectBillByDispatchIdAndBillTypeId  根据调度团id和单据类型id获取单据信息失败！");
+            }
+            return date;
+        }catch (Exception e){
+            logger.error(" method:selectBillByDispatchIdAndBillTypeId  根据调度团id和单据类型id获取单据信息失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
+
+
+    /**
      * 上传凭证
      * @param request
      * @param multipartFile

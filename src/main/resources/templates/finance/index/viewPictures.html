@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" >
 <head>
     <meta charset="UTF-8">
     <meta name="renderer" content="webkit">
@@ -10,7 +10,10 @@
     <link rel="stylesheet" type="text/css" href="/css/layui.css"/>
 </head>
 <body>
+
 <div style="margin-left: 100px;margin-top: 40px">
+    <input type="hidden" name="billTypeId" id="hiddenbillTypeId" th:value="${billTypeId}">
+    <input type="hidden" name="dispatchId" id="hiddendispatchId" th:value="${dispatchId}">
     <div class="layui-carousel" id="test10" lay-anim="" lay-indicator="inside" lay-arrow="hover" style="width: 200px" >
         <div carousel-item="" id="viewPictures">
             <div class=""><img src="//res.layui.com/images/layui/demo/1.png"></div>
@@ -37,15 +40,17 @@
      *  显示票价图片信息(lixiaojie)
      */
     function viewPictures() {
-
-        var dispatchId = 1;
-        var billTypeId = 1;
+        var billTypeId=$("#hiddenbillTypeId").val();
+        var dispatchId=$("#hiddendispatchId").val();
+/*        var dispatchId = 1;
+        var billTypeId = 1;*/
         $.ajax({
             url: "/bill/selectBillByDispatchIdAndBillTypeId",
             data: {
                 "dispatchId": dispatchId,
                 "billTypeId": billTypeId
             },
+            async:false,
             dataType: "json",
             type: "post",
             success: function (ReponseResult) {

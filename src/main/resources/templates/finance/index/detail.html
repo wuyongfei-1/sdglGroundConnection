@@ -45,7 +45,7 @@ td{ text-align:center}
             <td><input type="text" disabled value="北京" style="width:60px; text-align:center"></td>
             <td style="padding-left:20px">单据类型<select style="margin-left:10px"><option>请选择</option></select></td>
 			<td><div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
-<button data-method="offset" data-type="auto" class="layui-btn layui-btn-normal" style="height:23px; line-height:23px; margin-left:10px">
+<button data-method="offset" data-type="auto" onclick="alertViewPictures()" class="layui-btn layui-btn-normal" style="height:23px; line-height:23px; margin-left:10px">
            查询
         </button>
     </div></td>            
@@ -257,8 +257,40 @@ td{ text-align:center}
 </table>
 </div>
 </div>
-<script src="/admin/layui/layui.js"></script>
+<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="/layui.js"></script>
+<script src="/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/jquery-3.2.1.js"></script>
+
+
 <script>
+    $(function () {
+        
+    });
+
+    //点击查询按钮进入查看图片页面
+    //为修改模块添加弹出层
+    function alertViewPictures() {
+        layer.open({
+            type: 2,
+            title: '查看票据',
+            maxmin: true,
+            shadeClose: true, //点击遮罩关闭层
+            area : ['700px' , '500px'],
+            content: 'viewPictures.html'
+        });
+    }
+
+</script>
+
+
+
+
+
+
+
+
+<!--<script>
 layui.use('element', function(){
   var element = layui.element;
 
@@ -298,7 +330,7 @@ layui.use('layer', function(){ //独立版的layer无需执行这一句
         });
 
 
-    });
+    });-->
 </script>
 </body>
 </html>

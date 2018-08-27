@@ -61,4 +61,13 @@ public class EnterFinancePageController {
     public String  showQuotationdetail() {
         return "finance/index/detail";
     }
+
+    /**
+     * 进入预览图片界面
+     * @return
+     */
+    @RequestMapping("/viewPictures.html")
+    public String EnterViewPictures(){
+        return "finance/index/viewPictures";
+    }
 }

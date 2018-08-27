@@ -12,6 +12,14 @@ import java.util.List;
  **/
 public interface BillService {
     /**
+     *  根据调度团id和单据类型id获取单据信息（lixiaojie)
+     * @param dispatchId
+     * @param billTypeId
+     * @return
+     */
+    Bill selectBillByDispatchIdAndBillTypeId(Integer dispatchId,Integer billTypeId);
+
+    /**
      * 添加上传凭证(yunguohao)
      * @param bill
      * @return

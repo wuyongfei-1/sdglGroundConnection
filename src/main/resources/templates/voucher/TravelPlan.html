@@ -122,16 +122,17 @@
     <tr>
     	<td colspan="8">团队运行接待计划表(旅行社盖章)</td>       
     </tr>
+        <tr>
+            <td>序号</td>
+            <td>行程日期</td>
+            <td>所在地区</td>
+            <td>行程内容</td>
+            <td>购物地点</td>
+            <td>用餐地点</td>
+            <td>住宿地点</td>
+        </tr>
     <tbody class="tb">
-    <tr>
-        <td>序号</td>
-        <td>行程日期</td>
-        <td>所在地区</td>
-        <td>行程内容</td>
-        <td>购物地点</td>
-        <td>用餐地点</td>
-        <td>住宿地点</td>
-    </tr>
+
     <tr>
         <td>1</td>
         <td>2017-02-02</td>
@@ -154,18 +155,18 @@
     //数据渲染
     function TravelplanShow() {
         $.ajax({
-            url: "/dispatch/getDispatchInfoByDispatchId",
+            url: "/dispatch/getTravelPathById",
             data: {dispatchId:1},
             dataType: "json",
             type: "post",
             success: function (e) {
                 $(".Vehicleunit").text(e.data.company.companyName)
-                $(".Groupnumber").text(e.data.groundConnectionNumber)
-                $(".destination").text(e.data.tourist)
-                $(".Grournum").text(e.data.num)
-                $(".address").text(e.data.tourist)
-                $(".Startdate").text(e.data.travelStartTime)
-                $(".Enddate").text(e.data.travelEndTime)
+                $(".Groupnumber").text(e.data.dispatch.groundConnectionNumber)
+                $(".destination").text(e.data.dispatch.tourist)
+                $(".Grournum").text(e.data.dispatch.num)
+                $(".address").text(e.data.dispatch.tourist)
+                $(".Startdate").text(e.data.dispatch.travelStartTime)
+                $(".Enddate").text(e.data.dispatch.travelEndTime)
                 $(".guideName").text(e.data.disguide.guide.guideName)
                 $(".guidephone").text(e.data.disguide.guide.telephone)
                 $(".dispathname").text(e.data.staff.staffname)
@@ -173,14 +174,70 @@
                 $(".carunit").text(e.data.discar.vehicleType.carrental.carRentalName)
                 $(".carnumber").text(e.data.discar.value1)
                 $(".carname").text(e.data.discar.value2)
-                $(".bz").text(e.data.remarks)
-                $(".creationDate").text(e.data.creationDate)
-                $(".modifiedData").text(e.data.modifiedData)
+                $(".bz").text(e.data.dispatch.remarks)
+                $(".creationDate").text(e.data.dispatch.creationDate)
+                $(".modifiedData").text(e.data.dispatch.modifiedData)
                 var count="";
-                $.each(e.data.disrestaurantList,function (i,result) {
-
+                var s="";
+               /* $.each(e.data,function (i,result) {
+                    if (result.szaddress==null){
+                        s="武"
+                    }
+                        count+=" <tr>\n" +
+                            "        <td>"+(i+1)+"</td>\n" +
+                            "        <td></td>\n" +
+                            "        <td>"+s+"</td>\n" +
+                            "        <td>"+result.xctext+"</td>\n" +
+                            "        <td>"+result.shoppaddress+"</td>\n" +
+                            "        <td>"+result.eataddress+"</td>\n" +
+                            "        <td>"+result.zhuaddress+"</td>\n" +
+                            "    </tr>";
+                })*/
+               /* $.each(e.data.dispatchhotelList,function (i,result) {
+                    count+=" <tr>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "        <td>"+result.hotel.hotelName+"</td>\n" +
+                        "    </tr>";
                 })
-
+                $.each(e.data.disattrList,function (i,result) {
+                    count+=" <tr>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "        <td>"+result.scenicspot.scenicSpotAddress+"</td>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "    </tr>";
+                })
+                $.each(e.data.dislineList,function (i,result) {
+                    count+=" <tr>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "        <td>"+result.lineContent+"</td>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "    </tr>";
+                })
+                $.each(e.data.disshoppList,function (i,result) {
+                    count+=" <tr>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "        <td>"+result.shopping.shoppingSite+"</td>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "    </tr>";
+                })*/
+                $(".tb").html(count);
             }
         })
     }

@@ -11,8 +11,17 @@ import java.util.List;
  **/
 public interface DisrestaurantService {
 
+
     /**
-     * 根据调度编号查询调度餐厅信息
+     * 根据调度编号和用餐时间进行查询 按权重升序排序 （wangtao）
+     * @param dispatchId 调度编号
+     * @param dinDate 用餐时间
+     * @return 返回调度餐厅集合
+     */
+    List<Disrestaurant> listDisrestaurantByDispatchId(Integer dispatchId,Integer dinDate)throws Exception;
+
+    /**
+     * 根据调度编号查询调度餐厅信息 （wangtao）
      * @param offId 调度编号
      * @return 调度餐厅集合
      */

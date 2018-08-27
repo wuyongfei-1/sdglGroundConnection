@@ -11,9 +11,20 @@ import java.util.List;
  * 酒店类型业务接口
  **/
 public interface RoomTypeService {
+    /**
+     * 通过酒店编号查询所属的所有房间类型（wuyongfei）
+     *
+     * @param hotelId 酒店编号
+     * @return 房间类型列表
+     * @throws Exception 全局异常
+     */
+    List<RoomType> listRoomTypesByHotelId(Integer hotelId) throws Exception;
+
     RoomType getTypeId(Integer id) throws Exception;
+
     /**
      * 添加房屋类型（dubingkun）
+     *
      * @param roomType
      * @return
      */
@@ -21,15 +32,17 @@ public interface RoomTypeService {
 
     /**
      * 修改房屋类型信息（dubingkun）
+     *
      * @param roomType
      * @return
      */
-    int updateRoomType(RoomType roomType)throws Exception;
+    int updateRoomType(RoomType roomType) throws Exception;
 
     /**
      * 删除房屋信息（dubingkun）
+     *
      * @param id
      * @return
      */
-    int deleteRoomType(Integer id)throws Exception;
+    int deleteRoomType(Integer id) throws Exception;
 }

@@ -10,9 +10,13 @@
     <link rel="stylesheet" type="text/css" href="/css/layui.css"/>
     <link rel="stylesheet" type="text/css" href="/css/baojiadan.css"/>
     <style>
-        select{
+        select {
             width: 140px;
             height: 36px;
+        }
+
+        textarea {
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -23,39 +27,48 @@
     <!-- 线路列表 -->
     <select name="templates" id="templates" lay-ignore>
         <option th:each="template:${templates}" th:value="${template.templateId}"
-                th:text="${template.templateName}" ></option>
+                th:text="${template.templateName}" th:attr="data-text=${template.templateName}"></option>
     </select>
 
     <!-- 酒店列表 -->
-    <select name="hotels" id="hotels" lay-ignore>
-        <option th:each="hotel:${hotels}" th:value="${hotel.hotelId}" th:text="${hotel.hotelName}" ></option>
+    <select name="hotels" id="hotels" lay-ignore onchange="listenerSelectChange(this)">
+        <option value="0">无需提供</option>
+        <option th:each="hotel:${hotels}" th:value="${hotel.hotelId}" th:text="${hotel.hotelName}"></option>
     </select>
 
     <!-- 房间类型列表 -->
-    <select name="therooms" id="therooms" lay-ignore>
-        <option th:each="theroom:${therooms}" th:value="${theroom.valueId}" th:text="${theroom.valueContent1}"></option>
+    <select name="therooms" id="therooms" lay-ignore onchange="listenerSelectChange(this)">
+        <option value="0">请选择房间类型</option>
+        <option value="0">无需提供</option>
+       <!-- <option th:each="theroom:${therooms}" th:value="${theroom.valueId}" th:text="${theroom.valueContent1}"></option>-->
     </select>
 
     <!-- 景点列表 -->
-    <select name="scenicspots" id="scenicspots" lay-ignore>
+    <select name="scenicspots" id="scenicspots" lay-ignore onchange="listenerSelectChange(this)">
+        <option value="0">无需提供</option>
         <option th:each="scenicspot:${scenicspots}" th:value="${scenicspot.scenicSpotId}"
                 th:text="${scenicspot.scenicSpotName}"></option>
     </select>
 
     <!-- 购物地点列表 -->
-    <select name="shoppings" id="shoppings" lay-ignore>
+    <select name="shoppings" id="shoppings" lay-ignore style="width: 285px; height: 38px;">
+        <option value="0">请选择购物地点</option>
+        <option value="0">无需提供</option>
         <option th:each="shopping:${shoppings}" th:value="${shopping.shoppingId}"
                 th:text="${shopping.shoppingSite}"></option>
     </select>
 
     <!-- 餐馆列表 -->
-    <select name="restaurants" id="restaurants" lay-ignore>
+    <select name="restaurants" id="restaurants" lay-ignore onchange="listenerSelectChange(this)">
+        <option value="0">请选择餐馆</option>
+        <option value="0">无需提供</option>
         <option th:each="restaurant:${restaurants}" th:value="${restaurant.restaurantId}"
                 th:text="${restaurant.restaurantName}"></option>
     </select>
 
     <!-- 饮食类型列表 -->
-    <select name="diets" id="diets" lay-ignore>
+    <select name="diets" id="diets" lay-ignore onchange="listenerSelectChange(this)">
+        <option value="0">无需提供</option>
         <option th:each="diet:${diets}" th:value="${diet.valueId}" th:text="${diet.valueContent1}"></option>
     </select>
 
@@ -65,13 +78,14 @@
     </select>
 
     <!-- 汽车租赁公司列表 -->
-    <select name="carrentals" id="carrentals" lay-ignore>
+    <select name="carrentals" id="carrentals" lay-ignore style="width:140px" onchange="listenerSelectChange(this)">
+        <option value="0">请选择车辆公司</option>
         <option th:each="carrental:${carrentals}" th:value="${carrental.carRentalId}"
                 th:text="${carrental.carRentalName}"></option>
     </select>
 
     <!-- 车辆类型列表 -->
-    <select name="vehicles" id="vehicles" lay-ignore>
+    <select name="vehicles" id="vehicles" lay-ignore onchange="listenerSelectChange(this)">
         <option th:each="vehicle:${vehicles}" th:value="${vehicle.valueId}" th:text="${vehicle.valueContent1}"></option>
     </select>
 </div>
@@ -83,296 +97,115 @@
         <form class="layui-form layui-form-pane" action="">
             <table border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                    <td><label class="layui-form-label">组团社名称</label></td>
+                    <td style="width: 135px"><label class="layui-form-label" style="width:135px">组团社名称</label></td>
                     <td>
-                        <select name="city" lay-verify="required">
-                            <option value=""></option>
-                            <option value="0">哈红祖</option>
-                            <option value="1">无敌组</option>
-                            <option value="2">哈皮组</option>
-                            <option value="3">66组</option>
-                            <option value="4">纪检组</option>
-                        </select>
+                        <input type="text" class="layui-input" id="travelName"/>
                     </td>
-                    <td><label class="layui-form-label">人数</label></td>
-                    <td><input type="text" class="layui-input"></td>
+                    <td><label class="layui-form-label" style="width: 135px">人数</label></td>
+                    <td><input type="text" class="layui-input" id="peopleNumber"></td>
+                    <td><label class="layui-form-label" style="width:135px">抵达航班/车次号</label></td>
+                    <td><input type="text" name="date" class="layui-input" id="carNum"></td>
                 </tr>
                 <tr>
-                    <td><label class="layui-form-label">开始时间</label></td>
-                    <td><input type="text" name="date" id="date" lay-verify="date" placeholder="yyyy-MM-dd"
+                    <td><label class="layui-form-label" style="width:135px">接团时间</label></td>
+                    <td><input type="text" name="date" id="beginDate" lay-verify="date" placeholder="yyyy-MM-dd"
                                autocomplete="off" class="layui-input"></td>
-                    <td><label class="layui-form-label">结束时间</label></td>
-                    <td><input type="text" name="date" id="date1" lay-verify="date" placeholder="yyyy-MM-dd"
+                    <td><label class="layui-form-label" style="width: 135px">接团地点</label></td>
+                    <td><input type="text" name="date" class="layui-input" id="beginAddress"></td>
+                    <td><label class="layui-form-label" style="width: 135px">送团地点</label></td>
+                    <td><input type="text" name="date" class="layui-input" id="endAddress"></td>
+                </tr>
+                <tr>
+                    <td><label class="layui-form-label" style="width:135px">送团时间</label></td>
+                    <td><input type="text" name="date" id="endDate" lay-verify="date" placeholder="yyyy-MM-dd"
                                autocomplete="off" class="layui-input"></td>
+                    <td><label class="layui-form-label" style="width:135px">团队联系人</label></td>
+                    <td><input type="text" name="date" class="layui-input" id="concat"></td>
+                    <td><label class="layui-form-label" style="width: 135px">联系电话</label></td>
+                    <td><input type="text" name="date" class="layui-input" id="concatPhone"></td>
                 </tr>
             </table>
         </form>
     </div>
-
     <div id="zong">
-        <div style='margin-bottom: 30px;width: 800px'>
-            <input type="image" src="/images/up.PNG" style="height: 30px;width: 35px;" id="toggle"
-                   onclick='qiehuan(this)'/>
-
-            <input type="image" id="sc" src="/images/del.PNG" onclick='shanchu(this)'
-                   style="display:inline-block;float: right; height: 30px;width: 35px;"/>
-            <div id="content">
-                <form class="layui-form layui-form-pane" action="">
-                    <table border="0" cellspacing="0" cellpadding="0">
-
-                        <tr>
-                            <td><label class="layui-form-label">线路</label></td>
-                            <td>
-                                <select name="city" lay-verify="required" lay-search>
-                                    <option value=""></option>
-                                    <option value="0">哈红祖</option>
-                                    <option value="1">无敌组</option>
-                                    <option value="2">哈皮组</option>
-                                    <option value="3">66组</option>
-                                    <option value="4">纪检组</option>
-                                </select>
-                            </td>
-                            <td colspan="2">&nbsp;<button type="button"
-                                                          class='layui-btn layui-btn-normal layui-btn-radius'
-                                                          style='height: 30px;width: 100px;' onclick="xianlu(this)">自行填写
-                            </button>
-                            </td>
-                            <td colspan="2">&nbsp;<button type="button"
-                                                          class='layui-btn layui-btn-normal layui-btn-radius'
-                                                          style='height: 30px;width: 100px'>保存模板
-                            </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label class="layui-form-label">日期</label></td>
-                            <td>
-                                <input type="text" name="date" id="date2" lay-verify="date" placeholder="yyyy-MM-dd"
-                                       autocomplete="off" class="layui-input">
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td><label class="layui-form-label">酒店</label></td>
-                            <td>
-                                <select name="city" lay-verify="required">
-                                    <option value=""></option>
-                                    <option value="0">哈红祖</option>
-                                    <option value="1">无敌组</option>
-                                    <option value="2">哈皮组</option>
-                                    <option value="3">66组</option>
-                                    <option value="4">纪检组</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select name="city" lay-verify="required">
-                                    <option value="" selected="selected">请选择酒店</option>
-                                    <option value="0">哈红祖</option>
-                                    <option value="1">无敌组</option>
-                                    <option value="2">哈皮组</option>
-                                    <option value="3">66组</option>
-                                    <option value="4">纪检组</option>
-                                </select>
-                            </td>
-                            <td><label class="layui-form-label">数量：</label></td>
-                            <td><input type="text" class="layui-input"></td>
-                            <td><label class="layui-form-label">成本价</label></td>
-                            <td><input type="text" class="layui-input"></td>
-                        </tr>
-                        <tr>
-                            <td><label class="layui-form-label">司陪：</label></td>
-                            <td><label class="layui-form-label" style="width: 140px;">房间数：</label></td>
-                            <td><input type="text" class="layui-input"></td>
-                            <td><label class="layui-form-label">成本价：</label></td>
-                            <td><input type="text" class="layui-input"></td>
-                        </tr>
-                        <!--点击新增景点-->
-                        <tr id="onClickjd">
-                            <td colspan="2">
-                                <button class="layui-btn" type="button" style="font-size: 12px" onclick="add(this)">
-                                    添加景点+
-                                </button>
-                            </td>
-                        </tr>
-                        <!--点击新增结束-->
-                        <tr id="scenic">
-                            <td><label class="layui-form-label">景点</label></td>
-                            <td>
-                                <select name="city" lay-verify="required">
-                                    <option value=""></option>
-                                    <option value="0">哈红祖</option>
-                                    <option value="1">无敌组</option>
-                                    <option value="2">哈皮组</option>
-                                    <option value="3">66组</option>
-                                    <option value="4">纪检组</option>
-                                </select>
-                            </td>
-                            <td><label class="layui-form-label">成本价:</label></td>
-                            <td><input type="text" class="layui-input"></td>
-                            <td><label class="layui-form-label">报价:</label></td>
-                            <td><input type="text" class="layui-input"></td>
-                        </tr>
-                        <tr>
-                            <td><label class="layui-form-label">购物地：</label></td>
-                            <td colspan="3">
-                                <select name="city" lay-verify="required">
-                                    <option value="">无</option>
-                                    <option value="0">啊</option>
-                                    <option value="1">北大青鸟</option>
-                                    <option value="2">哈皮组</option>
-                                    <option value="3">66组</option>
-                                    <option value="4">纪检组</option>
-                                </select>
-                            </td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td><label class="layui-form-label">午餐</label></td>
-                            <td>
-                                <select name="city" lay-verify="required">
-                                    <option value=""></option>
-                                    <option value="0">哈红祖</option>
-                                    <option value="1">无敌组</option>
-                                    <option value="2">哈皮组</option>
-                                    <option value="3">66组</option>
-                                    <option value="4">纪检组</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select name="city" lay-verify="required">
-                                    <option value="" selected="selected">请选择酒店</option>
-                                    <option value="0">哈红祖</option>
-                                    <option value="1">无敌组</option>
-                                    <option value="2">哈皮组</option>
-                                    <option value="3">66组</option>
-                                    <option value="4">纪检组</option>
-                                </select>
-                            </td>
-                            <td><label class="layui-form-label">成本价</label></td>
-                            <td colspan="3"><input type="text" class="layui-input"></td>
-                        </tr>
-                        <tr>
-                            <td><label class="layui-form-label">晚餐</label></td>
-                            <td>
-                                <select name="city" lay-verify="required">
-                                    <option value=""></option>
-                                    <option value="0">哈红祖</option>
-                                    <option value="1">无敌组</option>
-                                    <option value="2">哈皮组</option>
-                                    <option value="3">66组</option>
-                                    <option value="4">纪检组</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select name="city" lay-verify="required">
-                                    <option value="" selected="selected">请选择酒店</option>
-                                    <option value="0">哈红祖</option>
-                                    <option value="1">无敌组</option>
-                                    <option value="2">哈皮组</option>
-                                    <option value="3">66组</option>
-                                    <option value="4">纪检组</option>
-                                </select>
-                            </td>
-                            <td><label class="layui-form-label">成本价</label></td>
-                            <td colspan="3"><input type="text" class="layui-input"></td>
-                        </tr>
-                        <tr>
-                            <td><label class="layui-form-label">行程</label></td>
-                            <td colspan="5"><textarea placeholder="请输入内容" class="layui-textarea" name="desc"></textarea>
-                            </td>
-                        </tr>
-                    </table>
-                </form>
-        </div>
-    </div>
-        <button class='layui-btn layui-btn-normal layui-btn-radius' onclick='addss()' id="add">十</button>
+        <!--<button class='layui-btn layui-btn-normal layui-btn-radius' onclick='addss()' id="add"-->
+                <!--style="width:50px;margin-left: 1000px;">十-->
+        <!--</button>-->
         <!---中结束-->
     </div>
-
     <div id="divfoot">
         <form class="layui-form layui-form-pane" action="">
-            <table border="0	" cellspacing="0" cellpadding="0" style="width: 900px;">
+            <table border="0	" cellspacing="0" cellpadding="0" style="width: 1100px">
                 <tr>
                     <td><label class="layui-form-label">导游：</label></td>
-                    <td id="guideContext" >
-
+                    <td id="guideContext">
                     </td>
                     <td></td>
                     <td></td>
-                </tr>
-                <tr>
-                    <td><label class="layui-form-label">车费：</label></td>
-                    <td width="300px"><input type="text" class="layui-input"></td>
-                    <td>
-                        <table border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td><label class="layui-form-label">报停费：</label></td>
-                                <td><input type="text" class="layui-input"></td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label class="layui-form-label">酒水：</label></td>
-                    <td width="300px"><input type="text" class="layui-input"></td>
                 </tr>
                 <tr>
                     <td><label class="layui-form-label">车队：</label></td>
-                    <td id="carrentalsContext">
+                    <td id="carrentalsContext" style="width:140px">
+                    </td>
+                    <td id="vehiclesContext" style="width: 140px">
+                    </td>
+                    <td><label class="layui-form-label" style="width: 140px">数量:</label></td>
+                    <td><input type="text" class="layui-input"></td>
 
-                    </td>
-                    <td id="vehiclesContext">
-
-                    </td>
-                    <td>
-                        <table border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td><label class="layui-form-label">成本价:</label></td>
-                                <td><input type="text" class="layui-input"></td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td>
-                        <table border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td><label class="layui-form-label">数量:</label></td>
-                                <td><input type="text" class="layui-input"></td>
-                            </tr>
-                        </table>
-                    </td>
+                    <td><label class="layui-form-label" style="width: 119px">成本价：</label></td>
+                    <td width="140px"><input type="text" class="layui-input"></td>
+                    <td><label class='layui-form-label'>报价:</label></td>
+                    <td><input type='text' name='offer' class='layui-input'></td>
                 </tr>
-
+                <tr>
+                    <td><label class="layui-form-label">车费：</label></td>
+                    <td width="140px"><input type="text" style="width: 140px" class="layui-input"></td>
+                    <td width="140px"><label class="layui-form-label" style="width: 140px">报停费：</label></td>
+                    <td><input type="text" class="layui-input"></td>
+                </tr>
+                <tr>
+                    <td><label class="layui-form-label">酒水：</label></td>
+                    <td width="140px"><input type="text" class="layui-input" style="width: 140px"></td>
+                    <td width="140px"><label class="layui-form-label" style="width: 140px">成本价：</label></td>
+                    <td width="140px"><input type="text" class="layui-input"></td>
+                    <td><label class='layui-form-label' style="width: 119px">报价:</label></td>
+                    <td><input type='text' name='offer' class='layui-input'></td>
+                </tr>
                 <tr>
                     <td><label class="layui-form-label">其他：</label></td>
-                    <td>
-                        <table border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td><label class="layui-form-label">成本价：</label></td>
-                                <td width="300px"><input type="text" class="layui-input"></td>
-                            </tr>
-                        </table>
+                    <td><label class="layui-form-label" style="width: 140px">成本价：</label></td>
+                    <td width="140px"><input type="text" class="layui-input" style="width: 140px" id="otherCostPrice">
                     </td>
+                    <td><label class='layui-form-label' style="width: 140px">报价:</label></td>
+                    <td><input type='text' name='offer' class='layui-input' id="otherOffer"></td>
                 </tr>
                 <tr>
                     <td><label class="layui-form-label">
                         <小费></小费>
                         ：</label></td>
-                    <td width="300px"><input type="text" class="layui-input"></td>
+                    <td colspan="5"><input type="text" class="layui-input"></td>
                 </tr>
                 <tr>
                     <td><label class="layui-form-label">备注：</label></td>
-                    <td colspan="5"><textarea placeholder="请输入内容" class="layui-textarea" name="desc"></textarea></td>
+                    <td colspan="8"><textarea placeholder="请输入内容" class="layui-textarea" name="desc"
+                                              id="remarks"></textarea></td>
                 </tr>
                 <tr>
                     <td><label class="layui-form-label">接待标准：</label></td>
-                    <td colspan="5"><textarea placeholder="请输入内容" class="layui-textarea" name="desc"></textarea></td>
+                    <td colspan="8"><textarea placeholder="请输入内容" class="layui-textarea" name="desc"
+                                              id="reception"></textarea></td>
+                </tr>
+                <tr>
+                    <td><label class="layui-form-label">团队监督：</label></td>
+                    <td colspan="8"><textarea placeholder="请输入内容" class="layui-textarea" name="desc"
+                                              id="supervision"></textarea></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td>
+                    <td colspan="2" height="80px">
                         <button class='layui-btn layui-btn-normal layui-btn-radius'>预览报价单</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
-                    <td>
+                    <td colspan="2">
                         <button class='layui-btn layui-btn-normal layui-btn-radius' id="baocun">打印报价单</button>
                     </td>
                 </tr>
@@ -385,7 +218,283 @@
 <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="/layui.js"></script>
 <script type="text/javascript" src="/js/scheduling.js"></script>
+<script>
+
+    // 保存调度信息
+    function saveDispatchInfo(boxNum) {
+        // 获取线路编号
+        // 获取时间
+        // 获取酒店
+    }
+
+    $('select').change(function () {
+        listenerSelectChange($(this));
+    })
+
+    function listenerSelectChange(obj) {
+        // 获取选中的下拉框的值
+        var id = $(obj).find('option:selected').val();
+        if ($(obj).attr('id') == "hotels") {  // 改变酒店，查询该酒店的所有房间类型
+            $.ajax({
+                url: "/roomType/roomType/details/" + id + ".html",
+                data: "",
+                dataType: "json",
+                type: "get",
+                success: function (result) {
+                    var allRoomType = result.data;
+                    var options = "";
+                    $(allRoomType).each(function (i, e) {    // 遍历所有的房间类型
+                        options += "<option value='" + (e.typeId) + "'>" + (e.typeName) + "</option>";
+                    })
+                    if (allRoomType.length>0){
+                        // 获取成本价
+                        var costprice = allRoomType[0].costprice;
+                        // 报价
+                        var offer = allRoomType[0].offer;
+                    }
+                    // 将所有的房间类型附上值
+                    $(obj).parent().next().find('#therooms').html(options);
+                    $(obj).parent().next().next().next().next().next().find('input').val(costprice);
+                    $(obj).parent().next().next().next().next().next().next().next().find('input').val(offer);
+                },
+                error: function (res) {
+                    alert(res);
+                }
+            })
+
+        }
+        else if ($(obj).attr('id') == "therooms") {  // 根据指定的房间类型查询所属信息（成本价/报价）
+            $.ajax({
+                url: "/roomType/roomType/detail/" + id + ".html",
+                data: "",
+                dataType: "json",
+                type: "get",
+                success: function (result) {
+                    var roomType = result.data;
+                    // 成本价
+                    var costPrice = roomType.costprice;
+                    // 报价
+                    var offer = roomType.offer;
+                    $(obj).parent().next().next().next().next().find('input').val(costPrice);
+                    $(obj).parent().next().next().next().next().next().next().find('input').val(offer);
+                },
+                error: function (res) {
+                    alert(res);
+                }
+            })
+        }
+        else if ($(obj).attr('box') == "true") {  // 根据大景点查询小的景点信息
+            $.ajax({
+                url: "/scenicspot/scenicspot/childrens/" + id + ".html",
+                data: "",
+                dataType: "json",
+                type: "get",
+                success: function (result) {
+                    var allScenicspots = result.data;
+                    var options = "";
+                    $(allScenicspots).each(function (i, e) {    // 遍历所有的房间类型
+                        options += "<option value='" + (e.scenicSpotId) + "' costPrice='" + (e.costprice) + "' offer='" + (e.offer) + "'>" + (e.scenicSpotName) + "</option>";
+                    })
+                    if (allScenicspots.length>0) {
+                        // 获取成本价
+                        var costprice = allScenicspots[0].costprice;
+                        // 报价
+                        var offer = allScenicspots[0].offer;
+                    }
+                    // 将所有的房间类型附上值
+                    $(obj).parent().next().find('#scenicspots').html(options);
+                    $(obj).parent().next().next().next().find('input').val(costprice);
+                    $(obj).parent().next().next().next().next().next().find('input').val(offer);
+                },
+                error: function (res) {
+                    alert(res);
+                }
+            })
+        }
+        else if ($(obj).attr('id') == "scenicspots" && $(obj).attr('box') != "true") { // 根据小景点查询成本价和报价
+            // 成本价
+            var costPrice = $(obj).find('option:selected').attr('costPrice');
+            // 报价
+            var offer = $(obj).find('option:selected').attr('offer');
+            // 赋值
+            $(obj).parent().next().next().find('input').val(costPrice);
+            $(obj).parent().next().next().next().next().find('input').val(offer);
+        }
+        else if ($(obj).attr('id') == "restaurants") { // 根据餐馆查询所属的饮食类型
+            $.ajax({
+                url: "/mealType/mealType/detail/"+id+".html",
+                data: "",
+                dataType: "json",
+                type: "get",
+                success: function (result) {
+                    var allMealType = result.data;
+                    var options = "";
+                    $(allMealType).each(function (i, e) {    // 遍历所有的饮食类型
+                        options += "<option value='" + (e.typeId) + "' costprice='"+(e.costprice)+"' offer='"+(e.offer)+"'>" + (e.mealTypeName) + "</option>";
+                    })
+                    if (allMealType.length>0) {
+                        // 获取成本价
+                        var costprice = allMealType[0].costprice;
+                        // 报价
+                        var offer = allMealType[0].offer;
+                    }
+                    // 将所有的房间类型附上值
+                    $(obj).parent().next().find('#diets').html(options);
+                    $(obj).parent().next().next().next().find('input').val(costprice);
+                    $(obj).parent().next().next().next().next().next().find('input').val(offer);
+                },
+                error: function (res) {
+                    alert(res);
+                }
+            })
+        }
+        else if ($(obj).attr('id') == "diets") { // 根据饮食类型编号和餐馆编号查询成本价和报价
+            // 将所选的餐馆的饮食类型的成本价和报价附上值
+            var costprice = $(obj).find('option:selected').attr("costprice");
+            var offer = $(obj).find('option:selected').attr("offer");;
+            $(obj).parent().next().next().find('input').val(costprice);
+            $(obj).parent().next().next().next().next().find('input').val(offer);
+        }
+
+        else if ($(obj).attr('id') == "carrentals") { // 根据餐馆查询所属的饮食类型
+            $.ajax({
+                url: "/vehicleType/vehicleType/details/"+(id)+".html",
+                data: "",
+                dataType: "json",
+                type: "get",
+                success: function (result) {
+                    var allVehicleType = result.data;
+                    var options = "";
+                    $(allVehicleType).each(function (i, e) {    // 遍历所有的饮食类型
+                        options += "<option value='" + (e.typeId) + "' costprice='"+(e.costprice)+"' offer='"+(e.offer)+"'>" + (e.vehicleTypeName) + "</option>";
+                    })
+                    if (allVehicleType.length>0) {
+                        // 获取成本价
+                        var costprice = allVehicleType[0].costprice;
+                        // 报价
+                        var offer = allVehicleType[0].offer;
+                    }
+                    // 将所有的车辆类型附上值
+                    $(obj).parent().next().find('#vehicles').html(options);
+                    $(obj).parent().next().next().next().next().next().find('input').val(costprice);
+                    $(obj).parent().next().next().next().next().next().next().next().find('input').val(offer);
+                },
+                error: function (res) {
+                    alert(res);
+                }
+            })
+        }
+        else if ($(obj).attr('id') == "vehicles") { // 根据饮食类型编号和餐馆编号查询成本价和报价
+            // 将所选的餐馆的饮食类型的成本价和报价附上值
+            var costprice = $(obj).find('option:selected').attr("costprice");
+            var offer = $(obj).find('option:selected').attr("offer");;
+            $(obj).parent().next().next().next().next().find('input').val(costprice);
+            $(obj).parent().next().next().next().next().next().next().find('input').val(offer);
+        }
+
+    }
+
+
+    loadData();
+
+    // 发送请求查询指定的报价信息
+    function loadData() {
+        // 获取报价的编号
+        var offerId = 1;
+        // 发送请求
+        $.ajax({
+            url: "/offer/offer/detail/" + offerId + ".html",
+            data: "",
+            dataType: "json",
+            type: "get",
+            success: function (result) {
+                // start
+                var data = result.data;
+                var travelName = data.travelName; // 组团社名称
+                var personNum = data.number; // 人数
+                var startTime = data.travelStartTime; // 接团时间
+                var endTime = data.travelEndTime; // 送团时间
+                var carType = data.offercar.valueId; // 车队类型编号
+                var carTypeCost = data.offercar.costPrice; // 车队类型编号
+                var carTypeOffer = data.offercar.offer; // 车队类型编号
+                var otherCostPrice = data.offerother.costPrice;// 其他的成本价
+                var otherOffer = data.offerother.costPrice;// 其他的报价
+                var remarks = data.remarks;// 备注
+                var supervision = data.supervision; // 团队监督
+                var reception = data.reception; // 接待标准
+                // 公共json串
+                var commonsJsonStr = {
+                    travelName: travelName, personNum: personNum, startTime: startTime,
+                    endTime: endTime, carType: carType, otherCostPrice: otherCostPrice,
+                    otherOffer: otherOffer, remarks: remarks, supervision: supervision,
+                    reception: reception, carTypeCost: carTypeCost, carTypeOffer: carTypeOffer
+                };
+                // 获取行程
+                var offerLine = data.offerlineList; // 所有行程内容
+                // 循环所有的行程
+                var offerNum = 0; // 记录行程个数
+                var offerLineArray = new Array();
+                $(offerLine).each(function (i, e) {
+                    var lineArriveName = e.lineArriveName; // 线路名称
+                    var lineDate = e.date; // 日期
+                    var travelContent = e.travelContent; // 行程内容
+                    var jsonStr = {lineArriveName: lineArriveName, lineDate: lineDate, travelContent: travelContent};
+                    offerLineArray[offerNum] = jsonStr;
+                    offerNum++;
+                })
+                var offerHotelList = data.offerHotelList; // 所有酒店列表
+                // 遍历所有的酒店
+                offerNum = 0;
+                var offerHotelArray = new Array();
+                $(offerHotelList).each(function (i, e) {
+                    var hotelId = e.hotelId;
+                    var costPrice = e.costPrice; // 成本价
+                    var offer = e.offer; // 报价
+                    var jsonStr = {hotelId: hotelId, costPrice: costPrice, offer: offer};
+                    offerHotelArray[offerNum] = jsonStr;
+                    offerNum++;
+                })
+                var offerscenicList = data.offerscenicList; // 所有景点列表
+                // 遍历所有景点
+                offerNum = 0;
+                var offerscenicJsonArray = [];
+                $(offerscenicList).each(function (i, e) {
+                    var scenicId = e.scenicSpotId;
+                    var costPrice = e.costPrice; // 成本价
+                    var offer = e.offer; // 报价
+                    var weight = e.weight; // 权重
+                    var jsonStr = {scenicId: scenicId, costPrice: costPrice, offer: offer, weight: weight};
+                    offerscenicJsonArray.push(jsonStr);
+                })
+                var offerrestaurantList = data.offerrestaurantList; // 所有饮食类型列表
+                // 遍历所有饮食类型
+                var offerrestaurantJsonArray = [];
+                $(offerrestaurantList).each(function (i, e) {
+                    var dictionariesId = e.dictionariesId;
+                    var costPrice = e.dictionaries.valueContent2; // 成本价
+                    var offer = e.dictionaries.valueContent3; // 报价
+                    var weight = e.weight; // 权重
+                    var havemealsdate = e.havemealsdate; // 用餐时间
+                    var jsonStr = {
+                        dictionariesId: dictionariesId, costPrice: costPrice, offer: offer,
+                        weight: weight, havemealsdate: havemealsdate
+                    };
+                    offerrestaurantJsonArray.push(jsonStr);
+                })
+                for (var i = 0; i < offerLineArray.length; i++) {
+                    addss(i, offerLineArray[i], offerHotelArray[i], offerscenicJsonArray,
+                        offerrestaurantJsonArray, commonsJsonStr);
+                }
+                // end
+            },
+            error: function (res) {
+                alert(res);
+            }
+        })
+    }
+</script>
 <script type="text/javascript">
+    var templates = $('[name=templates]').prop("outerHTML"); // 景点列表
     var scenicspots = $('[name=scenicspots]').prop("outerHTML"); // 景点列表
     var hotels = $('[name=hotels]').prop("outerHTML");	// 酒店列表
     var therooms = $('[name=therooms]').prop("outerHTML"); // 房间类型列表
@@ -399,11 +508,10 @@
     $('#guideContext').html(guides);
     $('#carrentalsContext').html(carrentals);
     $('#vehiclesContext').html(vehicles);
-    layui.use('form', function(){
-
+    layui.use('form', function () {
         var form = layui.form;
         // 监听酒店
-        form.on('select(hotels)', function(data){
+        form.on('select(hotels)', function (data) {
             var hotelId = data.value; // 酒店编号
             $(this).parents('td').next().html(guides);
             $(this).parents('td').next().next().next().find('input').val('数量');
@@ -429,33 +537,39 @@
     });
 
 
-
-
-
     function san(dang) {
         $(dang).parent().parent().remove();
     }
 
-    function add(onClickjd) {
-
-        $(onClickjd).parent().parent().next().after("<tr id='scenic'>" +
+    function add(onClickjd, rowNum) {
+        // 获取最后一个景点的id值
+        var scenicId = $('#offer' + rowNum + ' #shopping').prev('tr').attr('id');
+        // 截取字符串
+        var id = scenicId.substring(6);
+        id = parseInt(id);
+        $(onClickjd).parent().parent().nextAll('#' + scenicId).after("<tr id='scenic" + (id + 1) + "'>" +
             "<td><label class='layui-form-label'>景点</label></td>" +
-            "<td>" +
-            "<select name='city' lay-verify='required'>" +
-            "<option value=''></option>" +
-            "<option value='0' >哈红祖</option>" +
-            "<option value='1'>无敌组</option>" +
-            "<option value='2'>哈皮组</option>" +
-            "<option value='3'>66组</option>" +
-            "<option value='4'>纪检组</option>" +
-            "</select>" +
+            "<td>" + scenicspots +
+            "</td>" +
+            "<td>" + scenicspots +
             "</td>" +
             "<td><label class='layui-form-label'>成本价:</label></td>" +
             "<td><input type='text' class='layui-input'></td>" +
             "<td><label class='layui-form-label'>报价:</label></td>" +
             "<td><input type='text' class='layui-input'></td>" +
-            "<td style='bottom: 0px;'><label class='layui-form-label' onclick='san(this)'>×</label></td>" +
+            "<td><label class='layui-form-label'>需购票人数:</label></td>\" +\n" +
+            "<td><input type='text'  class='layui-input'></td>\" +\n" +
+            "<td colspan='2' width='300px'>" +
+            "<input type='radio' name='payMethods' value='现付' title='现付' />" +
+            "<input type='radio' name='payMethods' value='签单' title='签单' checked></td>" +
             "</tr>");
+        renderCss();  // 刷新Lay样式
+    }
+
+    var deletes = "<label class='layui-form-label' onclick='san(this)'>×</label></td>";
+
+    // 刷新Lay样式
+    function renderCss() {
         layui.use(['form', 'layedit', 'laydate', 'element'], function () {
             var form = layui.form,
                 layer = layui.layer,

@@ -62,7 +62,7 @@
                 <td>抵离时间:</td>
                 <td><input type="date" id="didashijian" value="2018-05-05" disabled>-<input type="date" id="likaishijian" value="2018-05-10" disabled></td>
                 <td>线路:</td>
-                <td><input type="text" id="xianlu1" value="北京" style="width:60px; text-align:center" disabled>-<input type="text" id="xianlu2" value="太原" style="width:60px; text-align:center" disabled></td>
+                <td><input type="text" id="xianlu" value="北京" style="width:60px; text-align:center" disabled></td>
             </tr>
         </table>
         <table width="1300px">
@@ -478,11 +478,11 @@
                     "<td>" + ReponseResult.data.reportfare.tolls + "</td>" +
                     "<td>" + ReponseResult.data.reportfare.parkingFee + "</td>" +
                     "<td>" + ReponseResult.data.reportfare.prepaidFare + "</td>" +
-                    "<td>" + "合计" + "</td>" +
+                    "<td>" + (ReponseResult.data.reportfare.tolls+ReponseResult.data.reportfare.parkingFee+ReponseResult.data.reportfare.prepaidFare) + "</td>" +
                     "<td>" + ReponseResult.data.reportqutsubsidy.dailyCost + "</td>" +
                     "<td>" + ReponseResult.data.reportqutsubsidy.nums + "</td>" +
                     "<td>" + ReponseResult.data.reportqutsubsidy.guideNum + "</td>" +
-                    "<td>合计</td>" +
+                    "<td>"+ReponseResult.data.reportqutsubsidy.dailyCost+"</td>" +
                     "</tr>";
                 $("#reportfare").html(reportfare);
 
@@ -502,6 +502,9 @@
                 $("#yuanjiekuan").text(ReponseResult.data.dispatch.loan);
                 $("#keyuandi").val(ReponseResult.data.dispatch.tourist);
                 $("#waishoutuankuan").text(ReponseResult.data.receipt);
+
+                //线路
+                $("#xianlu").val(ReponseResult.data.disline.lineName);
 
                 $("#daoyouxianfuheji").text(ReponseResult.data.totalPayable);//导游现付合计
                 $("#baozhangriqi").text(ReponseResult.data.reportDate);

@@ -28,70 +28,70 @@
         </table>
         <br/>
         <div style="border:1px #000000 solid; height:1px; border-left:none; border-right:none"></div><br/>
-	<table border="1px" bordercolor="#000000" cellspacing="0" cellpadding="2" style="border-collapse:collapse;" id="two">
+	<table border="1px" bordercolor="#000000" cellspacing="0" cellpadding="2" style="border-collapse:collapse;" >
     	<tr>
     	<td width="20%">订单编号</td>
-        <td width="30%"></td>
+        <td width="30%" class="Ordernumber"></td>
         <td width="20%">用车单位</td>
-        <td width="30%"></td>
+        <td width="30%" class="Vehicleunit"></td>
     </tr>
     <tr>
     	<td width="21%">团号</td>
-        <td width="22%"></td>
+        <td width="22%" class="Groupnumber"></td>
         <td width="21%">团队人数</td>
-        <td width="22%"></td>
+        <td width="22%" class="Grournum"></td>
     </tr>
     <tr>
     	<td width="21%">客源地</td>
-        <td width="22%"></td>
+        <td width="22%" class="destination"></td>
         <td width="21%">客源国别</td>
-        <td width="22%"></td>
+        <td width="22%">--------------</td>
     </tr>
     <tr>
     	<td width="21%">由何地入太原</td>
-        <td width="22%"></td>
+        <td width="22%" class="address"></td>
         <td width="21%">行程摘要</td>
-        <td width="22%"></td>
+        <td width="22%" class="summary"></td>
     </tr>
     <tr>
     	<td width="21%">起始日期</td>
-        <td width="22%"></td>
+        <td width="22%" class="Startdate"></td>
         <td width="21%">终止日期</td>
-        <td width="22%"></td>
+        <td width="22%" class="Enddate"></td>
     </tr>
     <tr>
     	<td width="21%">导游姓名(正证号)</td>
-        <td width="22%"></td>
+        <td width="22%" class="guideName"></td>
         <td width="21%">导游电话</td>
-        <td width="22%"></td>
+        <td width="22%" class="guidephone"></td>
     </tr>
     <tr>
     	<td width="21%">计调员</td>
-        <td width="22%"></td>
+        <td width="22%" class="dispathname"></td>
         <td width="21%">联系电话</td>
-        <td width="22%"></td>
+        <td width="22%" class="disphone"></td>
     </tr>
     <tr>
     	<td width="21%">备注</td>
-        <td colspan="5">如团队交通方式为汽车,应填写一下内容</td>
+        <td colspan="5" class="bz">如团队交通方式为汽车,应填写一下内容</td>
     </tr>
     <tr>
     	<td width="21%">车属单位</td>
-        <td width="22%"></td>
+        <td width="22%" class="carunit"></td>
         <td width="21%">车牌号</td>
-        <td width="22%"></td>
+        <td width="22%" class="carnumber"></td>
     </tr>
     <tr>
     	<td width="21%">驾驶员</td>
-        <td width="22%"></td>
+        <td width="22%" class="carname"></td>
         <td width="21%">上岗证号</td>
-        <td width="22%"></td>
+        <td width="22%" class="cardnumber"></td>
     </tr>
     <tr>
     	<td width="21%">起点</td>
-        <td width="22%"></td>
+        <td width="22%" class="point"></td>
         <td width="21%">终点</td>
-        <td width="22%"></td>
+        <td width="22%" class="end"></td>
     </tr>
     <tr>
     	<td width="21%">总里程</td>
@@ -113,34 +113,132 @@
     </tr>
     <tr>
     	<td width="21%">建立日期</td>
-        <td width="22%"></td>
+        <td width="22%" class="creationDate"></td>
         <td width="21%">修改日期</td>
-        <td width="22%"></td>
+        <td width="22%" class="modifiedData"></td>
     </tr> 	
     </table>
     <table border="1px" bordercolor="#000000" cellspacing="0" cellpadding="2" style="border-collapse:collapse;" id="two">
     <tr>
     	<td colspan="8">团队运行接待计划表(旅行社盖章)</td>       
     </tr>
+        <tr>
+            <td>序号</td>
+            <td>行程日期</td>
+            <td>所在地区</td>
+            <td>行程内容</td>
+            <td>购物地点</td>
+            <td>用餐地点</td>
+            <td>住宿地点</td>
+        </tr>
+    <tbody class="tb">
+
     <tr>
-    	<td>序号</td>
-        <td>行程日期</td>
-        <td>所在地区</td>
-        <td>行程内容</td>
-        <td>购物地点</td>
-        <td>用餐地点</td>
-        <td>住宿地点</td>
-    </tr>  
-    <tr>
-    	<td>1</td>
+        <td>1</td>
         <td>2017-02-02</td>
         <td>太原</td>
         <td>流向</td>
         <td>无</td>
         <td>铁道</td>
-        <td>锦江</td>   
+        <td>锦江</td>
     </tr>
+    </tbody>
     </table>
 </div>
 </body>
 </html>
+<script src="/js/jquery-1.8.2.min.js"></script>
+<script>
+    $(function () {
+        TravelplanShow();
+    })
+    //数据渲染
+    function TravelplanShow() {
+        $.ajax({
+            url: "/dispatch/getTravelPathById",
+            data: {dispatchId:1},
+            dataType: "json",
+            type: "post",
+            success: function (e) {
+                $(".Vehicleunit").text(e.data.company.companyName)
+                $(".Groupnumber").text(e.data.dispatch.groundConnectionNumber)
+                $(".destination").text(e.data.dispatch.tourist)
+                $(".Grournum").text(e.data.dispatch.num)
+                $(".address").text(e.data.dispatch.tourist)
+                $(".Startdate").text(e.data.dispatch.travelStartTime)
+                $(".Enddate").text(e.data.dispatch.travelEndTime)
+                $(".guideName").text(e.data.disguide.guide.guideName)
+                $(".guidephone").text(e.data.disguide.guide.telephone)
+                $(".dispathname").text(e.data.staff.staffname)
+                $(".disphone").text(e.data.staff.phone)
+                $(".carunit").text(e.data.discar.vehicleType.carrental.carRentalName)
+                $(".carnumber").text(e.data.discar.value1)
+                $(".carname").text(e.data.discar.value2)
+                $(".bz").text(e.data.dispatch.remarks)
+                $(".creationDate").text(e.data.dispatch.creationDate)
+                $(".modifiedData").text(e.data.dispatch.modifiedData)
+                var count="";
+                var s="";
+               /* $.each(e.data,function (i,result) {
+                    if (result.szaddress==null){
+                        s="武"
+                    }
+                        count+=" <tr>\n" +
+                            "        <td>"+(i+1)+"</td>\n" +
+                            "        <td></td>\n" +
+                            "        <td>"+s+"</td>\n" +
+                            "        <td>"+result.xctext+"</td>\n" +
+                            "        <td>"+result.shoppaddress+"</td>\n" +
+                            "        <td>"+result.eataddress+"</td>\n" +
+                            "        <td>"+result.zhuaddress+"</td>\n" +
+                            "    </tr>";
+                })*/
+               /* $.each(e.data.dispatchhotelList,function (i,result) {
+                    count+=" <tr>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "        <td>"+result.hotel.hotelName+"</td>\n" +
+                        "    </tr>";
+                })
+                $.each(e.data.disattrList,function (i,result) {
+                    count+=" <tr>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "        <td>"+result.scenicspot.scenicSpotAddress+"</td>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "    </tr>";
+                })
+                $.each(e.data.dislineList,function (i,result) {
+                    count+=" <tr>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "        <td>"+result.lineContent+"</td>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "    </tr>";
+                })
+                $.each(e.data.disshoppList,function (i,result) {
+                    count+=" <tr>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "        <td>"+result.shopping.shoppingSite+"</td>\n" +
+                        "        <td></td>\n" +
+                        "        <td></td>\n" +
+                        "    </tr>";
+                })*/
+                $(".tb").html(count);
+            }
+        })
+    }
+</script>

@@ -2,6 +2,7 @@ package com.dyhc.sdglgroundconnection.service;
 
 import com.dyhc.sdglgroundconnection.dto.DispatchParam;
 import com.dyhc.sdglgroundconnection.dto.MissionParam;
+import com.dyhc.sdglgroundconnection.dto.TravelPathParam;
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.pojo.Dispatch;
 import com.github.pagehelper.PageInfo;
@@ -13,6 +14,14 @@ import java.text.ParseException;
  * 调度业务接口
  **/
 public interface DispatchService {
+
+    /**
+     * 获取计划表的信息根据调度编号（yunguohao）
+     * @param dispathId 调度编号
+     * @return
+     */
+    TravelPathParam getTravelPathParam(Integer dispathId) throws  Exception;
+
 
     /**
      * 获取派团单信息根据调度编号 （wangtao）

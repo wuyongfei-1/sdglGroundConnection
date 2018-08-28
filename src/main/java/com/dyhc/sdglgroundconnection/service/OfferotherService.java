@@ -33,4 +33,11 @@ public interface OfferotherService {
      * @throws Exception
      */
     Integer updateOfferother(Offerother offerother)throws OfferException;
+    /**
+     * 删除报价其它信息（dubingkun）
+     * @param id
+     * @return
+     * @throws OfferException
+     */
+    Integer deleteOfferother(Integer id)throws OfferException;
 }

@@ -33,4 +33,11 @@ public interface OfferrestaurantService {
      * @throws Exception
      */
     Integer updateOfferrestaurant(Offerrestaurant offerrestaurant)throws OfferException;
+    /**
+     * 删除报价餐厅信息（dubingkun）
+     * @param id
+     * @return
+     * @throws OfferException
+     */
+    Integer deleteOfferrestaurant(Integer id)throws OfferException;
 }

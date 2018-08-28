@@ -21,10 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.sound.sampled.Line;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
@@ -55,6 +52,18 @@ public class OfferController {
     private TravelService travelService;
     @Autowired
     private CompanyService companyService;
+    @Autowired
+    private OffercarService offercarService;
+    @Autowired
+    private OfferHotelService offerHotelService;
+    @Autowired
+    private OfferscenicService offerscenicService;
+    @Autowired
+    private OfferotherService offerotherService;
+    @Autowired
+    private OfferlineService offerlineService;
+    @Autowired
+    private OfferrestaurantService offerrestaurantService;
 
     /**
      * 获取报价详细信息（wuyongfei）
@@ -258,10 +267,10 @@ public class OfferController {
      * @return
      */
     @GetMapping("/listAllOfferInfo")
-    public ReponseResult listAllOfferInfo(Integer pageNo,Integer pageSize) {
+    public ReponseResult listAllOfferInfo(Integer pageNo, Integer pageSize) {
         try {
 
-            PageInfo<Offer> pageInfo=offerService.listOffer(pageNo,pageSize);
+            PageInfo<Offer> pageInfo = offerService.listOffer(pageNo, pageSize);
             ReponseResult<List> data = ReponseResult.ok(pageInfo.getList(), pageInfo.getTotal(), "分页获取报价成功！");
             logger.info(" method:listAllOfferInfo  获取报价成功！");
             return data;
@@ -275,18 +284,122 @@ public class OfferController {
 
     /**
      * 根据id获取组团社名称
+     *
      * @param travelId
      * @return
      */
     @GetMapping("/getTravel")
-    public ReponseResult getTravel(Integer travelId){
+    public ReponseResult getTravel(Integer travelId) {
         try {
-            Travel travel=travelService.selectTravelByIds(travelId);
+            Travel travel = travelService.selectTravelByIds(travelId);
             ReponseResult<Travel> data = ReponseResult.ok(travel, "获取组团社名称成功！");
             logger.info(" method:getTravel  获取组团社名称成功！");
             return data;
         } catch (Exception e) {
             logger.error(" method:getTravel  获取组团社名称失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
+    /**
+     * 根据报价编号查看报价详情（dubingkun）
+     * @param offerId
+     * @return
+     */
+    @RequestMapping("/getOfferByOfferId")
+    public ReponseResult getOfferByOfferId(Integer offerId) {
+        try {
+            Offer offer = offerService.getOfferByOfferId(offerId);//获取报价信息
+            Map<String,List> map=new HashMap<String,List>();
+            Integer day=offer.getOfferlineList().size();
+            for (Integer i=1;i<=day;i++){
+                List list=new ArrayList();
+                Offerline offerline=null;
+                for(Offerline item:offer.getOfferlineList()){
+                    if(item.getWeight()==i){
+                        offerline=item;
+                        break;
+                    }
+                }
+                list.add(offerline);
+                OfferHotel offerHotel=null;
+                for (OfferHotel item :offer.getOfferHotelList()) {
+                    if(item.getWeight()==i){
+                        //酒店
+                        offerHotel=item;
+                        break;
+                    }
+                }
+                list.add(offerHotel);
+                List list1=new ArrayList();
+                for (Offerscenic item : offer.getOfferscenicList()) {
+                    if(item.getWeight()==i){
+                        //景点
+                        list1.add(item);
+                    }
+                }
+                list.add(list1);
+                Offerrestaurant offerrestaurant = null;
+                Offerrestaurant offerrestaurant1=null;
+                for (Offerrestaurant item:offer.getOfferrestaurantList()){
+                    if(item.getWeight()==i){
+                        if(item.getHavemealsdate()==2){
+                            //午餐
+                            offerrestaurant=item;
+                        }else if(item.getHavemealsdate()==3){
+                            //晚餐
+                           offerrestaurant1=item;
+                        }
+                    }
+                }
+                list.add(offerrestaurant);
+                list.add(offerrestaurant1);
+                map.put(i.toString(),list);
+            }
+            //报价用车
+            List listcar=new ArrayList();
+            listcar.add(offer.getOffercar());
+            //报价其它
+            List listother=new ArrayList();
+            listother.add(offer.getOfferother());
+            List list=new ArrayList();
+            offer.setOfferlineList(null);
+            offer.setOffercar(null);
+            offer.setOfferHotelList(null);
+            offer.setOfferother(null);
+            offer.setOfferrestaurantList(null);
+            offer.setOfferscenicList(null);
+            list.add(offer);
+            map.put("-1",list);
+            map.put("-2",listcar);
+            map.put("-3",listother);
+            ReponseResult<Map<String,List>> data = ReponseResult.ok(map,"获取报价信息成功！");
+            logger.info(" method:getOfferByOfferId  获取报价信息成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:getOfferByOfferId  获取报价信息失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
+    @RequestMapping("/deleteOffer")
+    public ReponseResult deleteOffer(Integer id){
+        try {
+            ReponseResult<String> data=null;
+            Integer result=offerService.deleteOffer(id);
+            if(result>0){
+                data = ReponseResult.ok("删除报价信息成功！");
+            }else{
+                data = ReponseResult.ok("删除报价信息失败！");
+            }
+            logger.info(" method:deleteOffer  删除报价信息成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:deleteOffer  删除报价信息失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
             return err;

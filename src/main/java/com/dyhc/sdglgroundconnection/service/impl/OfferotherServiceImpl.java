@@ -41,4 +41,12 @@ public class OfferotherServiceImpl implements OfferotherService {
     public Integer updateOfferother(Offerother offerother) throws OfferException {
         return offerotherMapper.updateByPrimaryKey(offerother);
     }
+
+    @Override
+    public Integer deleteOfferother(Integer id) throws OfferException {
+        OfferotherExample offerhotelExample=new OfferotherExample();
+        OfferotherExample.Criteria criteria=offerhotelExample.createCriteria();
+        criteria.andOfferidEqualTo(id);
+        return offerotherMapper.deleteByExample(offerhotelExample);
+    }
 }

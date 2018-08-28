@@ -39,10 +39,11 @@ function shanchu(aa){
 }
 
 function insertJingdian(onClickjd) {
+        var count=$(onClickjd).parent().parent().next().find("[spot='jingdian']").attr("weight");
         $(onClickjd).parent().parent().next().after("<tr id=\"scenic\">\n" +
             "                            <td><label class=\"layui-form-label\">景点</label></td>\n" +
             "                            <td>\n" +
-            "                                <select name=\"city\" lay-ignore spot=\"jingdian\"onchange=\"baojia(this)\">\n" +
+            "                                <select name=\"city\" weight='"+count+"' lay-ignore spot=\"jingdian\"onchange=\"baojia(this)\">\n" +
             jingdian+
             "                                </select>\n" +
             "                            </td>\n" +
@@ -69,6 +70,8 @@ function insertJingdian(onClickjd) {
 	}
 		showInfo3();
 			function addss() {
+                var count=$("#add").prev().find("[spot='jingdian']").attr("weight");
+                count++;
 				var a= "<div style='margin-bottom: 30px;width: 800px'>\n" +
                     "            <input type=\"image\" src=\"/images/up.PNG\" style=\"height: 30px;width: 35px;\" id=\"toggle\"\n" +
                     "                   onclick='qiehuan(this)'/>\n" +
@@ -126,7 +129,7 @@ function insertJingdian(onClickjd) {
                     " <tr id=\"scenic\">\n" +
                     "                            <td><label class=\"layui-form-label\">景点</label></td>\n" +
                     "                            <td>\n" +
-                    "                                <select name=\"city\" lay-ignore spot=\"jingdian\"onchange=\"baojia(this)\">\n" +
+                    "                                <select name=\"city\" weight='"+count+"' lay-ignore spot=\"jingdian\"onchange=\"baojia(this)\">\n" +
                     jingdian+
                     "                                </select>\n" +
                     "                            </td>\n" +

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -189,11 +188,10 @@ public class ShoppingController  {
      * @return 返回ReponseResult对象
      */
     @RequestMapping("/insertInfo")
-    public ReponseResult insertInfo(Shopping shopping, HttpServletRequest request){
+    public ReponseResult insertInfo(Shopping shopping){
         try {
             //一、修改景点信息
-            Staff staff = (Staff) request.getSession().getAttribute("user");
-            shopping.setCreater(staff == null ? 1 : staff.getStaffId());
+            shopping.setCreater(1);
             shopping.setCreationDate(new Date());
             shopping.setWhetherDel(0);
             Integer result =shoppingService.insertInfo(shopping);

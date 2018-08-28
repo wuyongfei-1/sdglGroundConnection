@@ -636,7 +636,7 @@
         var supervision = $("[name='supervision']").val();//团体监督
         var tourist = $("#tourist").val();//客源地
         $("[name='offer']").each(function (i, e) {
-            if($(this).val()!=""){
+            if($().val()!=null){
                 offer += parseInt($(this).val());
             }
         })
@@ -644,6 +644,7 @@
             trip += $(this).val();
             trip += "--";
         })
+        alert(offer)
         //报价信息字符串
         offerJson = {
             "travelId": travelId,
@@ -792,18 +793,18 @@
             "offerother": otherJson,
             "listOfferline": lineJson
         };
-        $.ajax({
-            url: "/offer/insertOffer",
-            data: JSON.stringify(offerJsonPlus),
-            dataType: "json",
-            type: "post",
-            contentType: "application/json",
-            success: function (data) {
-                alert(data.msg)
-            }, error: function () {
-                alert("程序异常")
-            }
-        })
+        // $.ajax({
+        //     url: "/offer/insertOffer",
+        //     data: JSON.stringify(offerJsonPlus),
+        //     dataType: "json",
+        //     type: "post",
+        //     contentType: "application/json",
+        //     success: function (data) {
+        //         alert(data.msg)
+        //     }, error: function () {
+        //         alert("程序异常")
+        //     }
+        // })
     }
 
     //报价按钮单击事件

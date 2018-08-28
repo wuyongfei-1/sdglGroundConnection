@@ -64,6 +64,7 @@
             success: function (result) {
                 if (result.code == 0) {
                     alert(result.msg); // 上传成功
+                    parent.location.reload();
                 } else {
                     alert(result.msg); // 上传失败
                 }

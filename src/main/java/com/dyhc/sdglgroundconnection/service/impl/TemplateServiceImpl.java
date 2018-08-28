@@ -52,19 +52,18 @@ public class TemplateServiceImpl implements TemplateService {
     @Transactional
     public Integer insertTemplateInfo(Template template)throws Exception {
         //新增时给一些默认的参数赋值
-        template.setCreater(1);
         template.setCreationDate(new Date());
         template.setWhetherDel(0);
         Integer result=templateMapper.insertUseGeneratedKeys(template);
         Integer id=templateMapper.selectMaxId();
         //新增时给模板酒店信息一些默认的参数赋值
-        template.getTemplateHotel().setCreater(1);
+        template.getTemplateHotel().setCreater(template.getCreater());
         template.getTemplateHotel().setCreationDate(new Date());
         template.getTemplateHotel().setWhetherDel(0);
         template.getTemplateHotel().setTemplateId(id);
         //新增时给模板景点信息一些默认的参数赋值
         for (TemplateScenicspot templateScenicspot: template.getTemplateScenicspotList()) {
-            templateScenicspot.setCreater(1);
+            templateScenicspot.setCreater(template.getCreater());
             templateScenicspot.setCreationDate(new Date());
             templateScenicspot.setWhetherDel(0);
             templateScenicspot.setTemplateId(id);
@@ -125,6 +124,12 @@ public class TemplateServiceImpl implements TemplateService {
         return pageInfo;
     }
 
+    /**
+     * 根据模板编号查询模板信息
+     * @param templateId 模板id
+     * @return 返回模板对象
+     * @throws Exception
+     */
     @Override
     public Template listTemplateByTemplateId(Integer templateId) throws Exception {
         Template template=templateMapper.selectByPrimaryKey(templateId);
@@ -162,7 +167,6 @@ public class TemplateServiceImpl implements TemplateService {
     @RecordOperation(type = "模板信息",desc = "修改了一条模板信息")
     public Integer updateTemplateInfo(Template template) throws Exception{
         //调用templateHotelService的update方法
-        template.getTemplateHotel().setModifier(1);
         template.getTemplateHotel().setModifiedData(new Date());
         TemplateHotel templateHotel=templateHotelService.getTemplateHotelInfoByTemplateHotelId(template.getTemplateHotel().getTemplateHotelId());
         template.getTemplateHotel().setCreater(templateHotel.getCreater());
@@ -175,7 +179,7 @@ public class TemplateServiceImpl implements TemplateService {
         templateScenicspotService.deleteTemplateScenicspotByTemplateId(template.getTemplateId());
         //循环TemplateScenicspot集合调用新增景点信息
         for (TemplateScenicspot t : template.getTemplateScenicspotList()) {
-            t.setCreater(1);
+            t.setCreater(template.getModifier());
             t.setCreationDate(new Date());
             t.setTemplateId(template.getTemplateId());
             t.setWhetherDel(0);
@@ -186,7 +190,7 @@ public class TemplateServiceImpl implements TemplateService {
         template.setCreater(template1.getCreater());
         template.setCreationDate(template1.getCreationDate());
         template.setWhetherDel(template1.getWhetherDel());
-        template.setModifier(1);
+        template.setModifier(template.getModifier());
         template.setModifiedData(new Date());
         //修改模板
         Integer result=templateMapper.updateByPrimaryKey(template);

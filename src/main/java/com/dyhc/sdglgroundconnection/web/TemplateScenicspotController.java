@@ -5,7 +5,6 @@ import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +23,11 @@ public class TemplateScenicspotController  {
     @Autowired
     private TemplateScenicspotService templateScenicspotService;
 
+    /**
+     * 删除模板景点信息根据模板景点编号 （wangtao）
+     * @param TemplateScenicspotId 模板景点编号
+     * @return 返回ReponseResult对象
+     */
     @RequestMapping("/deleteTemplateScenicspotByTemplateScenicspotId")
     public ReponseResult deleteTemplateScenicspotByTemplateScenicspotId(@RequestParam("TemplateScenicspotId")Integer TemplateScenicspotId){
         try {

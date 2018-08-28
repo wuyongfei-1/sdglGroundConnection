@@ -6,7 +6,6 @@ import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,8 +23,7 @@ public class TourguideController {
     private TourguideService tourguideService;
 
     /**
-     * 根据导游带团日志编号查询导游带团日志信息
-     *
+     * 根据导游带团日志编号查询导游带团日志信息 （wangtao）
      * @param tourguideId 导游带团日志编号
      * @return 返回导游带团日志对象
      */

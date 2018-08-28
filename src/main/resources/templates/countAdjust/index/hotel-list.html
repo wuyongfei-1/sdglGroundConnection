@@ -263,26 +263,26 @@
                                             "\t\t\t\t\t\t\t</tr>";
                                     })
                                 }
-                                $("tbody").html(context2);
-                                // 分页插件
-                                layui.use('table', function () {
-                                    var laypage = layui.laypage;
-                                    laypage.render({
-                                        elem: 'laypage'
-                                        , count: data.count
-                                        , curr: curnum
-                                        , limit: 6
-                                        , layout: ['prev', 'page', 'next', 'skip', 'count']
-                                        , jump: function (obj, first) {
-                                            if (!first) {
-                                                //obj包含了当前分页的所有参数，比如：
-                                                curnum = obj.curr; // 当前页面
-                                                limitcount = obj.limit; // 每页记录数
-                                                // 查询新数据
-                                                search();
-                                            }
+                            })
+                            $("tbody").html(context2);
+                            // 分页插件
+                            layui.use('table', function () {
+                                var laypage = layui.laypage;
+                                laypage.render({
+                                    elem: 'laypage'
+                                    , count: data.count
+                                    , curr: curnum
+                                    , limit: 6
+                                    , layout: ['prev', 'page', 'next', 'skip', 'count']
+                                    , jump: function (obj, first) {
+                                        if (!first) {
+                                            //obj包含了当前分页的所有参数，比如：
+                                            curnum = obj.curr; // 当前页面
+                                            limitcount = obj.limit; // 每页记录数
+                                            // 查询新数据
+                                            search();
                                         }
-                                    })
+                                    }
                                 })
                             })
                         },error:function () {

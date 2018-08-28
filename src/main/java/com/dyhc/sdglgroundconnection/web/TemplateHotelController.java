@@ -5,7 +5,6 @@ import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +23,11 @@ public class TemplateHotelController  {
     @Autowired
     private TemplateHotelService templateHotelService;
 
+    /**
+     * 根据模板酒店编号删除模板酒店信息
+     * @param templateHotelId 返回模板酒店编号
+     * @return 返回ReponseResult对象
+     */
     @RequestMapping("/deleteTemplateHotelById")
     public ReponseResult deleteTemplateHotelById(@RequestParam("templateHotelId")Integer templateHotelId){
         try {

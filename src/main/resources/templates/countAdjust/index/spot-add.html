@@ -28,7 +28,7 @@
 								<div class="layui-form-item">
 									<label class="layui-form-label">父景点：</label>
 									<div class="layui-inline" id="parent">
-										<select name="parentId" lay-filter="status" id="parentId">
+										<select name="parentId" id="parentId"  style="height: 35px;width: 200px" lay-ignore>
 											<option value="0">无</option>
 											<option value="1">AAA</option>
 											<option value="2">AAAA</option>
@@ -39,7 +39,7 @@
 								<div class="layui-form-item">
 									<label class="layui-form-label">等级：</label>
 									<div class="layui-inline" id="level">
-										<select name="typeId" lay-filter="status" id="typeId">
+										<select name="typeId" lay-filter="status" id="typeId" lay-ignore style="height: 35px;width: 200px">
 											<option value="0">请选择景点等级</option>
 											<option value="5">A</option>
 											<option value="4">AA</option>
@@ -177,7 +177,7 @@
         function getScenicSpotLevel() {
             //获取景点等级
             $.post("/dictionaries/ListDictionariesByScenicspot","",function (data) {
-                var content1="<select name=\"typeId\" lay-filter=\"status\" id=\"typeId\"><option value=\"0\">请选择景点等级</option>";
+                var content1="<select name=\"typeId\" lay-filter=\"status\" id=\"typeId\" lay-ignore style=\"height: 37px;width: 200px\"><option value=\"0\">请选择景点等级</option>";
                 $.each(data.data,function (i,e) {
                     content1+="<option value=\""+e.valueId+"\">"+e.valueContent1+"</option>";
                 });
@@ -186,9 +186,9 @@
             },"json");
         }
         function parentScenicSpot() {
-            //获取父景点信息
+            //获取父景点信息s
             $.post("/scenicspot/ListScenicspotByParentId","",function (data) {
-                var content="<select name=\"parentId\" lay-filter=\"status\" id=\"parentId\"><option value=\"0\">请选择父景点</option>";
+                var content="<select name=\"parentId\" lay-filter=\"status\" id=\"parentId\" lay-ignore style=\"height: 37px;width: 200px\"><option value=\"0\">请选择父景点</option>";
                 $.each(data.data,function (i,e) {
                     content+="<option value=\""+e.scenicSpotId+"\">"+e.scenicSpotName+"</option>";
                 });
@@ -218,6 +218,7 @@
                 $("#imgs").attr('src', path);
 				$("#path").val(data.data.picturePath);
                 $("#imgs").show();
+                //renderCss();
             },"json");
         }
         function updateScenicSpot(id) {
@@ -268,53 +269,6 @@
                 }
             })
         }
-		layui.use(['form', 'jquery', 'laydate', 'layer', 'laypage', 'dialog', 'common', 'tool', 'element', 'upload', 'layedit'], function() {
-				var form = layui.form(),
-					layer = layui.layer,
-					$ = layui.jquery,
-					laypage = layui.laypage,
-					laydate = layui.laydate,
-					layedit = layui.layedit,
-					common = layui.common,
-					tool = layui.tool,
-					element = layui.element(),
-					dialog = layui.dialog;
-
-				//获取当前iframe的name值
-				var iframeObj = $(window.frameElement).attr('name');
-				//创建一个编辑器
-				var editIndex = layedit.build('LAY_demo_editor', {
-					tool: ['strong' //加粗
-						, 'italic' //斜体
-						, 'underline' //下划线
-						, 'del' //删除线
-						, '|' //分割线
-						, 'left' //左对齐
-						, 'center' //居中对齐
-						, 'right' //右对齐
-						, 'link' //超链接
-						, 'unlink' //清除链接
-						, 'image' //插入图片
-					],
-					height: 100
-				})
-				//全选
-				form.on('checkbox(allChoose)', function(data) {
-					var child = $(data.elem).parents('table').find('tbody input[type="checkbox"]');
-					child.each(function(index, item) {
-						item.checked = data.elem.checked;
-					});
-					form.render('checkbox');
-				});
-				form.render();
-
-				layui.upload({
-					url: '上传接口url',
-					success: function(res) {
-						console.log(res); //上传成功返回值，必须为json格式
-					}
-				});
-			});
 	</script>
 	</body>
 </html>

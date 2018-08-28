@@ -199,7 +199,7 @@ public class HotelController {
             Hotel hotel = objectMapper.readValue(parameter, Hotel.class);
             hotel.setStatus(1);
             hotel.setWhetherDel(0);
-            if (staff!=null) hotel.setCreateBy(staff.getStaffId());
+            hotel.setCreateBy(staff!=null?staff.getStaffId():1);
             hotel.setCreateDate(new Date());
             hotel.setPicturePath(uploadResult);
             Staff sf=(Staff) request.getSession().getAttribute("user");
@@ -243,6 +243,8 @@ public class HotelController {
             Staff staff=(Staff) request.getSession().getAttribute("user");
             if(staff!=null){
                 hotel.setUpdateBy(staff.getStaffId());
+            }else{
+                hotel.setUpdateBy(1);
             }
             hotel.setUpdateDate(new Date());
             hotel.setStatus(1);

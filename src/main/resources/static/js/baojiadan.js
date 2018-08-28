@@ -70,8 +70,7 @@ function insertJingdian(onClickjd) {
 	}
 		showInfo3();
 			function addss() {
-                var count=$("#add").prev().find("[spot='jingdian']").attr("weight");
-                alert(count);
+                var count=$("#add").prev().children("div:last-child").find("[spot='jingdian']").attr("weight");
                 count++;
 				var a= "<div style='margin-bottom: 30px;width: 800px'>\n" +
                     "            <input type=\"image\" src=\"/images/up.PNG\" style=\"height: 30px;width: 35px;\" id=\"toggle\"\n" +

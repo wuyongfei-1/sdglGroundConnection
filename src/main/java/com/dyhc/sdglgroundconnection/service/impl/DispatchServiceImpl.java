@@ -98,51 +98,42 @@ public class DispatchServiceImpl implements DispatchService {
         travelPathParam.setDisshoppList(disshoppService.getDisshopp(dispathId));
         travelPathParam.setDisrestaurantList(disrestaurantService.listDisrestaurantByOffId(dispathId));
         travelPathParam.setDispatchhotelList(dispatchhotelService.getDispatchhotelInfoByDispatchId(dispathId));
-        TravelPathParam travelPathParam2=new TravelPathParam();
-        TravelPathParam travelPathParam3=new TravelPathParam();
-        TravelPathParam travelPathParam4=new TravelPathParam();
-        TravelPathParam travelPathParam5=new TravelPathParam();
-        TravelPathParam travelPathParam6=new TravelPathParam();
-        TravelPathParam travelPathParam7=new TravelPathParam();
-        TravelPathParam travelPathParam8=new TravelPathParam();
+
         List<TravelPathParam> travelPathParams=new ArrayList<>();
-        travelPathParams.add(travelPathParam2);
-        travelPathParams.add(travelPathParam3);
-        travelPathParams.add(travelPathParam4);
-        travelPathParams.add(travelPathParam5);
-        travelPathParams.add(travelPathParam6);
-        travelPathParams.add(travelPathParam7);
-        travelPathParams.add(travelPathParam8);
+
         for (int i=0;i<travelPathParam.getDisattrList().size();i++){
             TravelPathParam travelPathParam1=new TravelPathParam();
             travelPathParam1.setSzaddress(travelPathParam.getDisattrList().get(i).getScenicspot().getScenicSpotAddress());
             travelPathParams.add(travelPathParam1);
+            System.out.println(travelPathParam1.getSzaddress());
         }
 
         for (int i=0;i<travelPathParam.getDispatchhotelList().size();i++){
 
             travelPathParams.get(i).setZhuaddress(travelPathParam.getDispatchhotelList().get(i).getHotel().getHotelName());
+
+            System.out.println(travelPathParams.get(i).getZhuaddress());
         }
 
         for (int i=0;i<travelPathParam.getDisshoppList().size();i++){
 
             travelPathParams.get(i).setShoppaddress(travelPathParam.getDisshoppList().get(i).getShopping().getShoppingSite());
-
+            System.out.println(travelPathParams.get(i).getShoppaddress());
         }
 
         for (int i=0;i<travelPathParam.getDisrestaurantList().size();i++){
 
             travelPathParams.get(i).setEataddress(travelPathParam.getDisrestaurantList().get(i).getMealType().getRestaurant().getRestaurantAddress());
-
+            System.out.println(travelPathParams.get(i).getEataddress());
         }
 
         for (int i=0;i<travelPathParam.getDislineList().size();i++){
 
             travelPathParams.get(i).setXctext(travelPathParam.getDislineList().get(i).getLineContent());
-
+            System.out.println(travelPathParams.get(i).getXctext());
         }
 
-
+        travelPathParam.setTravelPathParamList(travelPathParams);
         return travelPathParam;
     }
 

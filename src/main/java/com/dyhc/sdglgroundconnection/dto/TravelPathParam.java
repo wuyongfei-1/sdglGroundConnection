@@ -20,6 +20,15 @@ public class TravelPathParam {
     private List<Disshopp> disshoppList; // 调度购物集合
     private List<Disrestaurant> disrestaurantList; // 调度餐厅集合
     private List<Dispatchhotel> dispatchhotelList; // 调度酒店集合
+    private List<TravelPathParam> travelPathParamList;
+
+    public List<TravelPathParam> getTravelPathParamList() {
+        return travelPathParamList;
+    }
+
+    public void setTravelPathParamList(List<TravelPathParam> travelPathParamList) {
+        this.travelPathParamList = travelPathParamList;
+    }
 
     private String xcdata; // 行程日期
     private String szaddress; // 所在地区

@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -88,8 +90,11 @@ public class CarrentalController  {
      */
 
     @RequestMapping(value = "/updateCarrentalInfo",method = RequestMethod.POST )
-    public ReponseResult updateCarrentalInfo(Carrental carrental){
+    public ReponseResult updateCarrentalInfo(Carrental carrental, HttpServletRequest request){
         try {
+            Staff staff= (Staff) request.getSession().getAttribute("user");
+            carrental.setUpdateBy(staff!=null?staff.getStaffId():1);
+            carrental.setUpdateDate(new Date());
             int result=carrentalService.updateCarrentalInfo(carrental);
             ReponseResult<String> date;
             if (result>0){
@@ -116,9 +121,11 @@ public class CarrentalController  {
      */
 
     @RequestMapping(value = "/saveCarrentalInfo",method = RequestMethod.POST )
-    public ReponseResult saveCarrentalInfo(Carrental carrental){
+    public ReponseResult saveCarrentalInfo(Carrental carrental,HttpServletRequest request){
         try {
-
+            Staff staff= (Staff) request.getSession().getAttribute("user");
+            carrental.setCreateBy(staff!=null?staff.getStaffId():1);
+            carrental.setCreateDate(new Date());
             int result=carrentalService.saveCarrentalInfo(carrental);
             ReponseResult<String> date;
             if (result>0){

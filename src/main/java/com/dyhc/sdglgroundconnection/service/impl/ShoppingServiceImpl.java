@@ -13,6 +13,12 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+import java.util.ArrayList;
+
+import javax.persistence.criteria.CriteriaBuilder;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -86,6 +92,7 @@ public class ShoppingServiceImpl implements ShoppingService {
     @Override
     public Integer saveShoppingInfo(Shopping shopping) {
         shopping.setWhetherDel(0);
+        shopping.setCreationDate(new Date());
         return shoppingMapper.insert(shopping);
     }
 
@@ -110,6 +117,9 @@ public class ShoppingServiceImpl implements ShoppingService {
     @Override
     @RecordOperation(type = "购物地点", desc = "修改了一条购物地点信息！")
     public Integer updateShoppingInfo(Shopping shopping) {
+        Shopping oldShopping=shoppingMapper.selectByPrimaryKey(shopping.getShoppingId());
+        shopping.setCreationDate(oldShopping.getCreationDate());
+        shopping.setCreater(oldShopping.getCreater());
         shopping.setWhetherDel(0);
         return shoppingMapper.updateByPrimaryKey(shopping);
     }

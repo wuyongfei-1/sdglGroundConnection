@@ -105,32 +105,32 @@ public class DispatchServiceImpl implements DispatchService {
             TravelPathParam travelPathParam1=new TravelPathParam();
             travelPathParam1.setSzaddress(travelPathParam.getDisattrList().get(i).getScenicspot().getScenicSpotAddress());
             travelPathParams.add(travelPathParam1);
-            System.out.println(travelPathParam1.getSzaddress());
+
         }
 
         for (int i=0;i<travelPathParam.getDispatchhotelList().size();i++){
 
             travelPathParams.get(i).setZhuaddress(travelPathParam.getDispatchhotelList().get(i).getHotel().getHotelName());
 
-            System.out.println(travelPathParams.get(i).getZhuaddress());
+
         }
 
         for (int i=0;i<travelPathParam.getDisshoppList().size();i++){
 
             travelPathParams.get(i).setShoppaddress(travelPathParam.getDisshoppList().get(i).getShopping().getShoppingSite());
-            System.out.println(travelPathParams.get(i).getShoppaddress());
+
         }
 
         for (int i=0;i<travelPathParam.getDisrestaurantList().size();i++){
 
             travelPathParams.get(i).setEataddress(travelPathParam.getDisrestaurantList().get(i).getMealType().getRestaurant().getRestaurantAddress());
-            System.out.println(travelPathParams.get(i).getEataddress());
+
         }
 
         for (int i=0;i<travelPathParam.getDislineList().size();i++){
 
             travelPathParams.get(i).setXctext(travelPathParam.getDislineList().get(i).getLineContent());
-            System.out.println(travelPathParams.get(i).getXctext());
+
         }
 
         travelPathParam.setTravelPathParamList(travelPathParams);
@@ -220,7 +220,6 @@ public class DispatchServiceImpl implements DispatchService {
         DispatchExample.Criteria criteria= dispatchExample.createCriteria();
         criteria.andWhetherdelEqualTo(0);
         criteria.andStatusEqualTo(1);
-        criteria.andWhetherdelEqualTo(0);
         List<Dispatch> dispatches=dispatchMapper.selectByExample(dispatchExample);
 
         //查询调度导游表

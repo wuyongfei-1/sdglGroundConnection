@@ -73,6 +73,7 @@
             url: "/carrental/listDictionariesInfoByVEHICLE",
             data: {
             },
+            async:false,
             dataType: "json",
             type: "post",
             success: function (ReponseResult) {
@@ -80,7 +81,9 @@
                 $.each(ReponseResult.data,function (i,e) {
                     content+="<option style='width: 300px' value='"+e.valueId+"'>"+e.valueContent1+"</option>";
                 });
+
                 $("#typeName").html(content);
+                form.render();
             },
             error: function (res) {
                 /*  alert(res);*/

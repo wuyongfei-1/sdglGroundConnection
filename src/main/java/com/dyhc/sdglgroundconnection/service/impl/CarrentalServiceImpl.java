@@ -82,6 +82,10 @@ public class CarrentalServiceImpl implements CarrentalService {
     @Override
     @RecordOperation(type = "租车公司", desc = "修改了一条租车公司信息")
     public Integer updateCarrentalInfo(Carrental carrental) {
+
+        Carrental oldCarrental=carrentalMapper.selectByPrimaryKey(carrental.getCarRentalId());
+        carrental.setCreateBy(oldCarrental.getCreateBy());
+        carrental.setCreateDate(oldCarrental.getCreateDate());
         carrental.setWhetherDel(0);
         return carrentalMapper.updateByPrimaryKey(carrental);
     }

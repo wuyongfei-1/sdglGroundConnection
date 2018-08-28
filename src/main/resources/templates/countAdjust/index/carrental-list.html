@@ -96,6 +96,7 @@
             url: "/carrental/deleteCarrentalInfoByCarrentalId",
             data: {"carrentalId":carrentalId},
             dataType: "json",
+			async:false,
             type: "post",
             success: function (ReponseResult) {
                 if (ReponseResult.data==0||ReponseResult.data=='0') {
@@ -114,7 +115,6 @@
 
     //根据公司车辆类型id删除公司车辆类型信息（lixiaojie）
     function deleteVehicleTypeByVehicleTypeId(VehicleTypeId){
-        alert(VehicleTypeId);
         if(!confirm("确定要删除吗？")){
             return;
         }
@@ -123,6 +123,7 @@
             url: "/vehicleType/deleteVehicleTypeByVehicleTypeId",
             data: {"VehicleTypeId":VehicleTypeId},
             dataType: "json",
+			async:false,
             type: "post",
             success: function (ReponseResult) {
                 if (ReponseResult.data==0||ReponseResult.data=='0') {
@@ -215,6 +216,7 @@
                 "carRentalName": carRentalName
 
             },
+			async:false,
             dataType:"json",
             type:"post",
             success:function (data) {
@@ -273,26 +275,28 @@
                                 "\t\t\t\t\t\t\t</tr>";
                         })
                     }
-                    $("#showCarRentalInfo").html(context2);
-                    // 分页插件
-                    layui.use('table', function () {
-                        var laypage = layui.laypage;
-                        laypage.render({
-                            elem: 'laypage'
-                            , count: data.count
-                            , curr: curnum
-                            , limit: 6
-                            , layout: ['prev', 'page', 'next', 'skip', 'count']
-                            , jump: function (obj, first) {
-                                if (!first) {
-                                    //obj包含了当前分页的所有参数，比如：
-                                    curnum = obj.curr; // 当前页面
-                                    limitcount = obj.limit; // 每页记录数
-                                    // 查询新数据
-                                    listPageInfoByCarRentalName();
-                                }
+
+
+                });
+                $("#showCarRentalInfo").html(context2);
+                // 分页插件
+                layui.use('table', function () {
+                    var laypage = layui.laypage;
+                    laypage.render({
+                        elem: 'laypage'
+                        , count: data.count
+                        , curr: curnum
+                        , limit: 6
+                        , layout: ['prev', 'page', 'next', 'skip', 'count']
+                        , jump: function (obj, first) {
+                            if (!first) {
+                                //obj包含了当前分页的所有参数，比如：
+                                curnum = obj.curr; // 当前页面
+                                limitcount = obj.limit; // 每页记录数
+                                // 查询新数据
+                                listPageInfoByCarRentalName();
                             }
-                        })
+                        }
                     })
                 })
             },error:function () {

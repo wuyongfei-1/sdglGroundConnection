@@ -20,4 +20,10 @@ public interface DisshoppService {
      * @throws DispatchException 调度异常
      */
     Integer saveDisShopInfo(List<Disshopp> disshopp) throws DispatchException;
+    /**
+     * 根据调度表编号查询购物信息 （yunguohao）
+     * @param dispatchId 调度表编号
+     * @return 返回调度酒店对象
+     */
+    List<Disshopp> getDisshopp(Integer dispatchId) throws Exception;
 }

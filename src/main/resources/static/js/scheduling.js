@@ -10,6 +10,21 @@ function qiehuan(dd) {
 
 }
 
+function qiehuan2(dd) {
+    var a = $(dd).next("");
+    // var b = $(a).is(":hidden") ? 0 : 1;
+    // if (b == 0) {
+    //     $(dd).attr("src", "../images/up.PNG");
+    // } else {
+    //     $(dd).attr("src", "../images/down.PNG");
+    // }
+    if ($(a).is(':hidden')){
+        $(a).show();
+    } else{
+        $(a).hide();
+    }
+}
+
 function xianlu(obj) {
     var text = $(obj).html();
     if (text == "自行填写") {
@@ -129,11 +144,10 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
         num = dayNum;
         dayNum++;
     }
-    var a = "<div style='margin-bottom: 30px;margin-top:10px;width: 1340px;' id='offer" + (num) + "'>" +
-        "<button class=\"layui-btn\" type=\"button\" style=\"font-size: 12px;display: inline;float: left\" onclick=\"qiehuan(this)\">\n" +
+    var a = "<div style='margin-bottom: 30px;margin-top:30px;width: 1340px;' id='offer" + (num) + "'>" +
+        "<button class=\"layui-btn\" type=\"button\" style=\"font-size: 12px;margin-left:5px;width:1340px;display: inline;float: left\" onclick=\"qiehuan2(this)\">\n" +
         "第" + (num + 1) + "天" +
         "</button>" +
-        "<input type='image' id='sc'  src='/images/del.PNG' onclick='shanchu(this)'  style='display:inline;height: 30px;width: 35px;margin-left:1000px ;' />" +
         "<div id='content'>" +
         "<form class='layui-form layui-form-pane' action=''>" +
         "<table border='0'  cellspacing='0' cellpadding='0' style=\"width: 1340px\">" +
@@ -175,7 +189,7 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
         "</tr>" +
         "<tr id=\"onClickjd\">\n" +
         "<td colspan=\"2\">\n" +
-        "<button class=\"layui-btn\" type=\"button\" style=\"font-size: 12px\" onclick=\"add(this," + num + ")\">\n" +
+        "<button class=\"layui-btn\" type=\"button\" style=\"font-size: 12px;margin-left:5px;\" onclick=\"add(this," + num + ")\">\n" +
         "添加景点+\n" +
         "</button>\n" +
         "</td>\n" +
@@ -223,10 +237,10 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
         "	</form></div></div> <br />";
     $("#zong").append(a);
 
-    var b = $("#add");
-    b.remove();
-    var f = "<button class='layui-btn layui-btn-normal layui-btn-radius' onclick='addss()' id='add' style=\"width:50px;margin-left: 1000px;\">十</button>";
-    $("#zong").append(f);
+    // var b = $("#add");
+    // b.remove();
+    // var f = "<button class='layui-btn layui-btn-normal layui-btn-radius' onclick='addss()' id='add' style=\"width:50px;margin-left: 1000px;\">十</button>";
+    // $("#zong").append(f);
 
     // start
 

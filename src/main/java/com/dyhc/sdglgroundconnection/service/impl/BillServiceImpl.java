@@ -2,6 +2,7 @@ package com.dyhc.sdglgroundconnection.service.impl;
 
 import com.dyhc.sdglgroundconnection.mapper.BillMapper;
 import com.dyhc.sdglgroundconnection.pojo.Bill;
+import com.dyhc.sdglgroundconnection.pojo.BillExample;
 import com.dyhc.sdglgroundconnection.service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,26 @@ public class BillServiceImpl implements BillService {
 
     @Autowired
     private BillMapper billMapper;
+    /**
+     *  根据调度团id和单据类型id获取单据信息（lixiaojie)
+     * @param dispatchId
+     * @param billTypeId
+     * @return
+     */
+    @Override
+    public Bill selectBillByDispatchIdAndBillTypeId(Integer dispatchId, Integer billTypeId) {
+        BillExample billExample=new BillExample();
+        Bill bill=null;
+        BillExample.Criteria billExampleCriteria=billExample.createCriteria();
+        billExampleCriteria.andDispatchidEqualTo(dispatchId);
+        billExampleCriteria.andBilltypeidEqualTo(billTypeId);
+        List<Bill> bills=billMapper.selectByExample(billExample);//按条件查询票据表
+        if (bills.size()>0){//查出来的结果大于0返回 第一个对象  ， 不大于0  返回null
+            bill=bills.get(0);
+        }
+
+        return bill;
+    }
 
     /**
      * 上传凭证（yunguohao）

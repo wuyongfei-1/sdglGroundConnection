@@ -2,6 +2,8 @@ package com.dyhc.sdglgroundconnection.service.impl;
 
 import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.dto.DispatchParam;
+import com.dyhc.sdglgroundconnection.dto.MissionParam;
+import com.dyhc.sdglgroundconnection.dto.TravelPathParam;
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.mapper.DisguideMapper;
 import com.dyhc.sdglgroundconnection.mapper.DispatchMapper;
@@ -17,8 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -73,6 +74,99 @@ public class DispatchServiceImpl implements DispatchService {
     @Autowired
     private StaffService staffService;
 
+    @Autowired
+    private DislineService dislineService;
+
+    @Autowired
+    private ShoppingService shoppingService;
+
+    /**
+     * 获取计划表的信息根据调度编号（yunguohao）
+     * @param dispathId 调度编号
+     * @return
+     */
+    @Override
+    public TravelPathParam getTravelPathParam(Integer dispathId) throws Exception{
+        TravelPathParam travelPathParam=new TravelPathParam();
+        travelPathParam.setDispatch(dispatchMapper.selectByPrimaryKey(dispathId));
+        travelPathParam.setDiscar(discarService.getDiscarByOffId(dispathId));
+        travelPathParam.setCompany(companyService.selectCompanyByIds(1));
+        travelPathParam.setDisguide(disguideService.getDisguideByDispatchId(dispathId));
+        travelPathParam.setStaff(staffService.getStaffInfoByStaffId(travelPathParam.getDispatch().getCreater()));
+        travelPathParam.setDisattrList(disattrService.listDisattrByOffId(dispathId));
+        travelPathParam.setDislineList(dislineService.dislineList(dispathId));
+        travelPathParam.setDisshoppList(disshoppService.getDisshopp(dispathId));
+        travelPathParam.setDisrestaurantList(disrestaurantService.listDisrestaurantByOffId(dispathId));
+        travelPathParam.setDispatchhotelList(dispatchhotelService.getDispatchhotelInfoByDispatchId(dispathId));
+        TravelPathParam travelPathParam2=new TravelPathParam();
+        TravelPathParam travelPathParam3=new TravelPathParam();
+        TravelPathParam travelPathParam4=new TravelPathParam();
+        TravelPathParam travelPathParam5=new TravelPathParam();
+        TravelPathParam travelPathParam6=new TravelPathParam();
+        TravelPathParam travelPathParam7=new TravelPathParam();
+        TravelPathParam travelPathParam8=new TravelPathParam();
+        List<TravelPathParam> travelPathParams=new ArrayList<>();
+        travelPathParams.add(travelPathParam2);
+        travelPathParams.add(travelPathParam3);
+        travelPathParams.add(travelPathParam4);
+        travelPathParams.add(travelPathParam5);
+        travelPathParams.add(travelPathParam6);
+        travelPathParams.add(travelPathParam7);
+        travelPathParams.add(travelPathParam8);
+        for (int i=0;i<travelPathParam.getDisattrList().size();i++){
+            TravelPathParam travelPathParam1=new TravelPathParam();
+            travelPathParam1.setSzaddress(travelPathParam.getDisattrList().get(i).getScenicspot().getScenicSpotAddress());
+            travelPathParams.add(travelPathParam1);
+        }
+
+        for (int i=0;i<travelPathParam.getDispatchhotelList().size();i++){
+
+            travelPathParams.get(i).setZhuaddress(travelPathParam.getDispatchhotelList().get(i).getHotel().getHotelName());
+        }
+
+        for (int i=0;i<travelPathParam.getDisshoppList().size();i++){
+
+            travelPathParams.get(i).setShoppaddress(travelPathParam.getDisshoppList().get(i).getShopping().getShoppingSite());
+
+        }
+
+        for (int i=0;i<travelPathParam.getDisrestaurantList().size();i++){
+
+            travelPathParams.get(i).setEataddress(travelPathParam.getDisrestaurantList().get(i).getMealType().getRestaurant().getRestaurantAddress());
+
+        }
+
+        for (int i=0;i<travelPathParam.getDislineList().size();i++){
+
+            travelPathParams.get(i).setXctext(travelPathParam.getDislineList().get(i).getLineContent());
+
+        }
+
+
+        return travelPathParam;
+    }
+
+    /**
+     * 获取派团单信息根据调度编号 （wangtao）
+     * @param dispatchId 调度编号
+     * @return 返回派团单参数对象
+     * @throws Exception
+     */
+    @Override
+    public MissionParam getMissionParam(Integer dispatchId) throws Exception {
+        MissionParam missionParam=new MissionParam();
+        //获取午餐集合
+        missionParam.setZdisrestaurantList(disrestaurantService.listDisrestaurantByDispatchId(dispatchId,2));
+        //获取晚餐集合
+        missionParam.setWdisrestaurantList(disrestaurantService.listDisrestaurantByDispatchId(dispatchId,3));
+        //获取住宿集合
+        missionParam.setDispatchhotelList(dispatchhotelService.getDispatchhotelInfoByDispatchId(dispatchId));
+        //获取景点门票集合
+        missionParam.setDisattrList(disattrService.listDisattrByOffId(dispatchId));
+        //获取调度对象
+        missionParam.setDispatch(getDispatchInfoByDispatchInfoId(dispatchId));
+        return missionParam;
+    }
 
     /**
      * 根据调度编号查询调度信息 （wangtao）

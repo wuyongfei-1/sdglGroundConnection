@@ -35,6 +35,7 @@ public class DispatchhotelServiceImpl implements DispatchhotelService {
         DispatchhotelExample dispatchhotelExample=new DispatchhotelExample();
         DispatchhotelExample.Criteria criteria=dispatchhotelExample.createCriteria();
         criteria.andOfferidEqualTo(dispatchId);
+        dispatchhotelExample.setOrderByClause("weight asc");
         List<Dispatchhotel> dispatchhotelList=dispatchhotelMapper.selectByExample(dispatchhotelExample);
         for (Dispatchhotel dispatchhote1: dispatchhotelList) {
             dispatchhote1.setHotel(hotelService.selectHotelById(dispatchhote1.getHotelId()));

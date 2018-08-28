@@ -1,5 +1,7 @@
 package com.dyhc.sdglgroundconnection.web;
 
+import com.dyhc.sdglgroundconnection.dto.MissionParam;
+import com.dyhc.sdglgroundconnection.dto.TravelPathParam;
 import com.dyhc.sdglgroundconnection.pojo.Dispatch;
 import com.dyhc.sdglgroundconnection.service.DispatchService;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
@@ -26,6 +28,46 @@ public class DispatchController {
     @Autowired
     private DispatchService dispatchService;
 
+    /**
+     * 根据调度编号查询计划信息（yunguohao）
+     * @param dispatchId 调度编号
+     * @return
+     */
+    @RequestMapping("/getTravelPathById")
+    public ReponseResult getTravelPathById(@RequestParam("dispatchId")Integer dispatchId){
+        try {
+            TravelPathParam travelPathParam=dispatchService.getTravelPathParam(dispatchId);
+            ReponseResult<TravelPathParam> data = ReponseResult.ok(travelPathParam, "根据调度编号获取计划信息成功！");
+            logger.info(" method:selectDispatchs  根据调度编号获取计划信息成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:selectDispatchs  根据调度编号获取计划信息失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
+
+    /**
+     * 根据调度编号查询派团单信息
+     * @param dispatchId 调度编号
+     * @return 返回派团单对象
+     */
+    @RequestMapping("/getMissionInfoByDisId")
+    public ReponseResult getMissionInfoByDisId(@RequestParam("dispatchId")Integer dispatchId){
+        try {
+            MissionParam missionParam=dispatchService.getMissionParam(dispatchId);
+            ReponseResult<MissionParam> data = ReponseResult.ok(missionParam, "根据调度编号获取派团单信息成功！");
+            logger.info(" method:selectDispatchs  根据调度编号获取派团单信息成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:selectDispatchs  根据调度编号获取派团单信息失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
 
     /**
      * 根据调度编号查询调度信息 （wangtao）

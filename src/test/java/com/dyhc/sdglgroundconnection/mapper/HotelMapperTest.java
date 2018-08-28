@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
- * 酒店mapper测试类
+ * 酒店mapper单元测试类
  **/
 @RunWith(SpringRunner.class)
 @SpringBootTest

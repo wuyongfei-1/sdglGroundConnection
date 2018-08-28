@@ -52,7 +52,7 @@ dispatchhotel 调度酒店
 disrestaurant 调度餐厅
 disshopp  调度购物
 guide 导游
-hotel 酒店
+hotel 酒店 -
 hoteroomtype 调度酒店房间类型
 log  日志
 mealtype 饮食类型

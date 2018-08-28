@@ -4,6 +4,8 @@ package com.dyhc.sdglgroundconnection.web;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping("/finance")
 public class EnterFinancePageController {
@@ -58,8 +60,19 @@ public class EnterFinancePageController {
      * @return
      */
     @RequestMapping("/detail.html")
-    public String  showQuotationdetail(Integer id) {
-
+    public String  showQuotationdetail(Integer reportDetailId, HttpServletRequest request) {
+        request.setAttribute("reportDetailId",reportDetailId);
         return "finance/index/detail";
+    }
+
+    /**
+     * 进入预览图片界面
+     * @return
+     */
+    @RequestMapping("/viewPictures.html")
+    public String EnterViewPictures(HttpServletRequest request,Integer dispatchId,Integer billTypeId){
+        request.setAttribute("dispatchId",dispatchId);
+        request.setAttribute("billTypeId",billTypeId);
+        return "finance/index/viewPictures";
     }
 }

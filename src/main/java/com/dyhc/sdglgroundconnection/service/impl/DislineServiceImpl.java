@@ -18,7 +18,7 @@ import java.util.List;
 public class DislineServiceImpl implements DislineService {
 
     @Autowired
-    private DislineMapper dislineMapper;W
+    private DislineMapper dislineMapper;
 
     /**
      * 根据调度编号查询调度线路

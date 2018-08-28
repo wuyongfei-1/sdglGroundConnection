@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -82,12 +83,13 @@ public class DispatchServiceImpl implements DispatchService {
 
     /**
      * 获取计划表的信息根据调度编号（yunguohao）
+     *
      * @param dispathId 调度编号
      * @return
      */
     @Override
-    public TravelPathParam getTravelPathParam(Integer dispathId) throws Exception{
-        TravelPathParam travelPathParam=new TravelPathParam();
+    public TravelPathParam getTravelPathParam(Integer dispathId) throws Exception {
+        TravelPathParam travelPathParam = new TravelPathParam();
         travelPathParam.setDispatch(dispatchMapper.selectByPrimaryKey(dispathId));
         travelPathParam.setDiscar(discarService.getDiscarByOffId(dispathId));
         travelPathParam.setCompany(companyService.selectCompanyByIds(1));
@@ -99,38 +101,38 @@ public class DispatchServiceImpl implements DispatchService {
         travelPathParam.setDisrestaurantList(disrestaurantService.listDisrestaurantByOffId(dispathId));
         travelPathParam.setDispatchhotelList(dispatchhotelService.getDispatchhotelInfoByDispatchId(dispathId));
 
-        List<TravelPathParam> travelPathParams=new ArrayList<>();
+        List<TravelPathParam> travelPathParams = new ArrayList<>();
 
-        for (int i=0;i<travelPathParam.getDisattrList().size();i++){
-            TravelPathParam travelPathParam1=new TravelPathParam();
+        for (int i = 0; i < travelPathParam.getDisattrList().size(); i++) {
+            TravelPathParam travelPathParam1 = new TravelPathParam();
             travelPathParam1.setSzaddress(travelPathParam.getDisattrList().get(i).getScenicspot().getScenicSpotAddress());
             travelPathParams.add(travelPathParam1);
-            System.out.println(travelPathParam1.getSzaddress());
+
         }
 
-        for (int i=0;i<travelPathParam.getDispatchhotelList().size();i++){
+        for (int i = 0; i < travelPathParam.getDispatchhotelList().size(); i++) {
 
             travelPathParams.get(i).setZhuaddress(travelPathParam.getDispatchhotelList().get(i).getHotel().getHotelName());
 
-            System.out.println(travelPathParams.get(i).getZhuaddress());
+
         }
 
-        for (int i=0;i<travelPathParam.getDisshoppList().size();i++){
+        for (int i = 0; i < travelPathParam.getDisshoppList().size(); i++) {
 
             travelPathParams.get(i).setShoppaddress(travelPathParam.getDisshoppList().get(i).getShopping().getShoppingSite());
-            System.out.println(travelPathParams.get(i).getShoppaddress());
+
         }
 
-        for (int i=0;i<travelPathParam.getDisrestaurantList().size();i++){
+        for (int i = 0; i < travelPathParam.getDisrestaurantList().size(); i++) {
 
             travelPathParams.get(i).setEataddress(travelPathParam.getDisrestaurantList().get(i).getMealType().getRestaurant().getRestaurantAddress());
-            System.out.println(travelPathParams.get(i).getEataddress());
+
         }
 
-        for (int i=0;i<travelPathParam.getDislineList().size();i++){
+        for (int i = 0; i < travelPathParam.getDislineList().size(); i++) {
 
             travelPathParams.get(i).setXctext(travelPathParam.getDislineList().get(i).getLineContent());
-            System.out.println(travelPathParams.get(i).getXctext());
+
         }
 
         travelPathParam.setTravelPathParamList(travelPathParams);
@@ -139,17 +141,18 @@ public class DispatchServiceImpl implements DispatchService {
 
     /**
      * 获取派团单信息根据调度编号 （wangtao）
+     *
      * @param dispatchId 调度编号
      * @return 返回派团单参数对象
      * @throws Exception
      */
     @Override
     public MissionParam getMissionParam(Integer dispatchId) throws Exception {
-        MissionParam missionParam=new MissionParam();
+        MissionParam missionParam = new MissionParam();
         //获取午餐集合
-        missionParam.setZdisrestaurantList(disrestaurantService.listDisrestaurantByDispatchId(dispatchId,2));
+        missionParam.setZdisrestaurantList(disrestaurantService.listDisrestaurantByDispatchId(dispatchId, 2));
         //获取晚餐集合
-        missionParam.setWdisrestaurantList(disrestaurantService.listDisrestaurantByDispatchId(dispatchId,3));
+        missionParam.setWdisrestaurantList(disrestaurantService.listDisrestaurantByDispatchId(dispatchId, 3));
         //获取住宿集合
         missionParam.setDispatchhotelList(dispatchhotelService.getDispatchhotelInfoByDispatchId(dispatchId));
         //获取景点门票集合
@@ -161,12 +164,13 @@ public class DispatchServiceImpl implements DispatchService {
 
     /**
      * 根据调度编号查询调度信息 （wangtao）
+     *
      * @param dispatchId 调度编号
      * @return 返回调度表信息集合
      */
     @Override
-    public Dispatch getDispatchInfoByDispatchInfoId(Integer dispatchId) throws Exception{
-        Dispatch dispatch=dispatchMapper.selectByPrimaryKey(dispatchId);
+    public Dispatch getDispatchInfoByDispatchInfoId(Integer dispatchId) throws Exception {
+        Dispatch dispatch = dispatchMapper.selectByPrimaryKey(dispatchId);
         dispatch.setDispatchhotel(dispatchhotelService.getDispatchhotelInfoByDispatchId(dispatchId));
         dispatch.setDisguide(disguideService.getDisguideByDispatchId(dispatchId));
         dispatch.setDispatchtourgroup(dispatchtourgroupServer.getDispatchtourgroupByOffId(dispatchId));
@@ -207,45 +211,52 @@ public class DispatchServiceImpl implements DispatchService {
         // 添加调度信息
         return dispatchMapper.insert(disParam.getDispatch());
     }
+
     /**
      * 查询所有未审核且删除状态为1的调度信息 (lixiaojie)
      * 1表示未审核
+     *
      * @return
      */
     @Override
     public PageInfo<Dispatch> selectDispatchs(Integer pageNo, Integer pageSize) {
         PageHelper.startPage(pageNo, pageSize, true);
         //查询调度表
-        DispatchExample dispatchExample=new DispatchExample();
-        DispatchExample.Criteria criteria= dispatchExample.createCriteria();
+        DispatchExample dispatchExample = new DispatchExample();
+        DispatchExample.Criteria criteria = dispatchExample.createCriteria();
         criteria.andWhetherdelEqualTo(0);
         criteria.andStatusEqualTo(1);
-        List<Dispatch> dispatches=dispatchMapper.selectByExample(dispatchExample);
+        List<Dispatch> dispatches = dispatchMapper.selectByExample(dispatchExample);
 
         //查询调度导游表
 
-        for (Dispatch dispatch: dispatches) {
-            DisguideExample disguideExample=new DisguideExample();
-            DisguideExample.Criteria disguideExamplecriteria=disguideExample.createCriteria();
+        for (Dispatch dispatch : dispatches) {
+            DisguideExample disguideExample = new DisguideExample();
+            DisguideExample.Criteria disguideExamplecriteria = disguideExample.createCriteria();
             disguideExamplecriteria.andOfferidEqualTo(dispatch.getDispatchId());
-            List<Disguide> disguides=disguideMapper.selectByExample(disguideExample);
+            List<Disguide> disguides = disguideMapper.selectByExample(disguideExample);
             dispatch.setGuide(guideMapper.selectByPrimaryKey(disguides.get(0).getGuideId()));
         }
-        PageInfo<Dispatch> pageInfo =new PageInfo<Dispatch>(dispatches);
+        PageInfo<Dispatch> pageInfo = new PageInfo<Dispatch>(dispatches);
         return pageInfo;
     }
-    /** 总控审核通过（lixiaojie)
+
+    /**
+     * 总控审核通过（lixiaojie)
+     *
      * @return
      */
     @Override
-    public Integer onCheckDispatchInfo(Integer dispatchId) throws ParseException {
-        Integer result=0;
+    public Integer onCheckDispatchInfo(Integer dispatchId, int staffId) throws ParseException {
+        Integer result = 0;
 
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            //修改团状态
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        //修改团状态
 
-            Dispatch dispatch=dispatchMapper.selectByPrimaryKey(dispatchId);
-            dispatch.setStatus(2);
+        Dispatch dispatch = dispatchMapper.selectByPrimaryKey(dispatchId);
+        dispatch.setStatus(2);
+        dispatch.setModifiedData(new Date());
+        dispatch.setModifier(staffId);
 /*
             //查询调度导游表   ，根据调度表的id查询
             DisguideExample disguideExample=new DisguideExample();
@@ -290,18 +301,21 @@ public class DispatchServiceImpl implements DispatchService {
                 guideScheduleMapper.insert(guideSchedule);
 
             }*/
-            result =dispatchMapper.updateByPrimaryKey(dispatch);
+        result = dispatchMapper.updateByPrimaryKey(dispatch);
 
         return result;
     }
-    /** 总控审核未通过（lixiaojie)
+
+    /**
+     * 总控审核未通过（lixiaojie)
+     *
      * @return
      */
     @Override
     public Integer noCheckDispatchInfo(Integer dispatchId) {
-        Dispatch dispatch=dispatchMapper.selectByPrimaryKey(dispatchId);
+        Dispatch dispatch = dispatchMapper.selectByPrimaryKey(dispatchId);
         dispatch.setStatus(3);
-        Integer result =dispatchMapper.updateByPrimaryKey(dispatch);
+        Integer result = dispatchMapper.updateByPrimaryKey(dispatch);
         return result;
     }
 }

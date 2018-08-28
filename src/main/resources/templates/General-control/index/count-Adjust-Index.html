@@ -25,7 +25,7 @@
 				      <dd><a href="javascript:;" data-url="menu2.html" data-id='2' data-text="为旅行团安排导游"><span class="l-line"></span>为旅行团安排导游</a></dd>
 
 				    </dl>
-				  </li>
+				<!--  </li>
 				  
 				  </li>
 				  <li class="layui-nav-item">
@@ -33,7 +33,7 @@
 				  </li>
 				  <li class="layui-nav-item">
 				  	<a href="javascript:;" data-url="system.html" data-id='6' data-text="系统设置"><i class="iconfont">&#xe60b;</i>系统设置</a>
-				  </li>
+				  </li>-->
 				</ul>
 			</div>
 			<!--右侧内容-->
@@ -46,7 +46,7 @@
 					  <li class="layui-nav-item">
 					    <a href="javascript:;" data-url="admin-info.html" data-id='5' data-text="个人信息">个人信息</a>
 					  </li>
-					  <li class="layui-nav-item"><a href="javascript:;">退出</a></li>
+					  <li class="layui-nav-item" onclick="exit()"><a href="javascript:;">退出</a></li>
 					</ul>
 				</div>
 				<!--主体内容-->
@@ -79,6 +79,19 @@
 		<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/admin/js/main.js" type="text/javascript" charset="utf-8"></script>
-		
+		<script src="/js/jquery-1.8.3.min.js"></script>
+		<script>
+            $(function () {
+
+            })
+            function exit() {
+                var con=confirm("确认删除么?");
+                if(con==true){
+                    window.location.href = "/admins/exit.html";
+                }else{
+                    alert("取消操作！");
+                }
+            }
+		</script>
 	</body>
 </html>

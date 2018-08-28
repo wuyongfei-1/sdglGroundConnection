@@ -217,7 +217,7 @@
                 <tr>
                     <td></td>
                     <td>
-                        <input value="打印报价单" type="button" class='layui-btn layui-btn-normal layui-btn-radius'
+                        <input value="保存修改" type="button" class='layui-btn layui-btn-normal layui-btn-radius'
                                id="baocun">
                     </td>
                 </tr>
@@ -1060,7 +1060,7 @@
             type: "post",
             contentType: "application/json",
             success: function (data) {
-                alert(data.msg)
+                alert("修改成功！")
             }, error: function () {
                 alert("程序异常")
             }
@@ -1074,7 +1074,6 @@
             dataType: "json",
             type: "post",
             success: function (data) {
-                alert(data.msg)
             }, error: function () {
                 alert("程序异常")
             }

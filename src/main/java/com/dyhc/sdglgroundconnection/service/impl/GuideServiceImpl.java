@@ -131,6 +131,14 @@ public class GuideServiceImpl implements GuideService {
     @Override
     @RecordOperation(type = "导游", desc = "修改了一条导游信息")
     public int updateGuide(Guide guide) {
+        Guide offguide=guideMapper.selectByPrimaryKey(guide.getGuideId());
+        System.out.println(offguide.getModifiedData());
+        guide.setModifier(guide.getModifier());
+        guide.setModifiedData(guide.getModifiedData());
+        guide.setUsername(offguide.getUsername());
+        guide.setPassword(offguide.getPassword());
+        guide.setCreater(offguide.getCreater());
+        guide.setCreationDate(offguide.getCreationDate());
         guide.setWhetherDel(0);
         return guideMapper.updateByPrimaryKey(guide);
     }

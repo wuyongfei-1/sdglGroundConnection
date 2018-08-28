@@ -899,7 +899,9 @@
         var supervision = $("[name='supervision']").val();//团体监督
         var tourist = $("#tourist").val();//客源地
         $("[name='offer']").each(function (i, e) {
-            offer += parseInt($(this).val());
+            if($(this).val()!=""){
+                offer += parseInt($(this).val());
+            }
         })
         $("[name='desc']").each(function (i, e) {
             trip += $(this).val();
@@ -1017,9 +1019,15 @@
     function lineTable() {
         lineJson = [];
         $("[xl='xianlu']").each(function (i, e) {
+            var lineArriveName
+            if($(this).attr("name")=="texts"){
+                lineArriveName=$(this).val();
+            }else{
+                lineArriveName=$(this).find("option:selected").text()
+            }
             var json = {
-                "lineArriveName": $(this).find("option:selected").text(),
-                "date": $(this).parent().parent().parent().find("[id='date2']").val(),
+                "lineArriveName": lineArriveName,
+                "date":$(this).parent().parent().parent().find("[id='date2']").val(),
                 "travelContent": $(this).parent().parent().parent().find("[name='desc']").val(),
                 "weight": (i+1)
             }

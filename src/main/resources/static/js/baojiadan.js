@@ -12,10 +12,10 @@ function qiehuan(dd){
 function xianlu(obj){
     var text=$(obj).html();
     if(text=="自行填写"){
-        $(obj).parent().prev().html("<input type='text' class='layui-input'>");
+        $(obj).parent().prev().html("<input type='text'xl='xianlu' class='layui-input' name='texts'>");
 		$(obj).html("选择模板");
     }else{
-        $(obj).parent().prev().html("<select name='city' lay-verify='required' lay-search>"+
+        $(obj).parent().prev().html("<select name=\"city\" lay-ignore lay-search xl=\"xianlu\" onchange=\"chengZi(this)\">"+
 		xianluinfo+
 			"</select>");
 		$(obj).html("自行填写");

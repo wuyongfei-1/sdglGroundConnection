@@ -105,8 +105,10 @@ public class VehicleTypeServiceImpl implements VehicleTypeService {
     @Override
     @RecordOperation(type = "车辆类型", desc = "修改了一条车辆类型信息")
     public Integer updateVehicleTypesInfo(VehicleType vehicleType) {
+        VehicleType oldVehicleType=vehicleTypeMapper.selectByPrimaryKey(vehicleType.getTypeId());
+        vehicleType.setCreateBy(oldVehicleType.getCreateBy());
+        vehicleType.setCreateDate(oldVehicleType.getCreateDate());
         vehicleType.setTypeCode("VEHICLET");
-
         vehicleType.setWhetherDel(0);
         return vehicleTypeMapper.updateByPrimaryKey(vehicleType);
     }

@@ -107,6 +107,10 @@ public class LinetemplatethirdServiceImpl implements LinetemplatethirdService {
         return weight;
     }
 
+    /**
+     * 查询所有第三方表信息
+     * @return 返回第三方表集合
+     */
     @Override
     public List<Linetemplatethird> listLinetemplatethird() {
         return linetemplatethirdMapper.selectAll();

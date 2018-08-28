@@ -105,6 +105,7 @@
             type: "post",
             success: function (result) {
                 alert(result.msg);
+                parent.location.reload();
             },
             error: function (res) {
                 alert(res);

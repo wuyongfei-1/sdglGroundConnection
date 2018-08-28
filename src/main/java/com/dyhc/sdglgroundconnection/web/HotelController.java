@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -95,6 +96,7 @@ public class HotelController {
         if(sf!=null){
             roomType.setCreateBy(sf.getStaffId());
         }
+        roomType.setCreateDate(new Date());
         roomType.setWhetherDel(0);
         int result= 0;
         try {
@@ -125,9 +127,10 @@ public class HotelController {
     public ReponseResult updateHotelRoom(HttpServletRequest request,RoomType roomType){
         Staff sf=(Staff) request.getSession().getAttribute("user");
         if(sf!=null){
-            roomType.setCreateBy(sf.getStaffId());
+            roomType.setUpdateBy(sf.getStaffId());
         }
         roomType.setWhetherDel(0);
+        roomType.setUpdateDate(new Date());
         int result= 0;
         try {
             result = roomTypeService.updateRoomType(roomType);
@@ -188,6 +191,7 @@ public class HotelController {
     public ReponseResult insertHotel(HttpServletRequest request,@RequestParam("fileObj") MultipartFile file, @RequestParam("savePath") String savePath){
         String uploadResult = ClientFileUploadUtil.uploadImage(file, savePath, ".jpg");
         String parameter = request.getParameter("form");
+        Staff staff=(Staff) request.getSession().getAttribute("user");
         int result= 0;
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -195,6 +199,8 @@ public class HotelController {
             Hotel hotel = objectMapper.readValue(parameter, Hotel.class);
             hotel.setStatus(1);
             hotel.setWhetherDel(0);
+            hotel.setCreateBy(staff!=null?staff.getStaffId():1);
+            hotel.setCreateDate(new Date());
             hotel.setPicturePath(uploadResult);
             Staff sf=(Staff) request.getSession().getAttribute("user");
             if(sf!=null){
@@ -237,7 +243,10 @@ public class HotelController {
             Staff staff=(Staff) request.getSession().getAttribute("user");
             if(staff!=null){
                 hotel.setUpdateBy(staff.getStaffId());
+            }else{
+                hotel.setUpdateBy(1);
             }
+            hotel.setUpdateDate(new Date());
             hotel.setStatus(1);
             hotel.setWhetherDel(0);
             //判断是否重新上传图片

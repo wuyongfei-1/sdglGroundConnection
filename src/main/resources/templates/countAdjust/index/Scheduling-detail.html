@@ -259,9 +259,11 @@
                 var context = "";
                 var jiudian = "";
                 var jingdian = "";
+                var count=0;
                 selectJson = [];
                 var countspot=0;//景点权重
                 for (var key in data.data) {
+                    count++;
                     var context2 = "";
                     countspot++;
                     $.each(data.data[key].templateScenicspotList, function (i, e) {
@@ -384,7 +386,7 @@
                 }
                 $("#zong").html(context);
                 showInfo();
-                selectOption();
+                selectOption(count);
             }, error: function () {
                 alert("服务器异常！")
             }
@@ -416,7 +418,7 @@
     }
 
     //选中下拉列表（总线路）
-    function selectOption() {
+    function selectOption(count) {
         $("[xl='xianlu']").each(function (i, e) {
             var xlid = selectJson[i].xianlu;
             $(this).children("option[value=" + xlid + "]").attr("selected", "selected");
@@ -428,14 +430,15 @@
             baojia($(this));
         })
         var jdJson = [];
-
-        $("[spot='jingdian']").each(function (i, e) {
-            var id;
-            var temp = $(this);
+        for(var i=0;i<count;i++){
             $.each(selectJson[i].sopt, function (j, p) {
                 var json = {id: selectJson[i].sopt[j].soptid};
                 jdJson.push(json);
             })
+        }
+        $("[spot='jingdian']").each(function (i, e) {
+            var id;
+            var temp = $(this);
             id = jdJson[i].id;
             temp.children("option[value=" + id + "]").attr("selected", "selected");
             baojia($(this));
@@ -633,12 +636,15 @@
         var supervision = $("[name='supervision']").val();//团体监督
         var tourist = $("#tourist").val();//客源地
         $("[name='offer']").each(function (i, e) {
-            offer += parseInt($(this).val());
+            if($().val()!=null){
+                offer += parseInt($(this).val());
+            }
         })
         $("[name='desc']").each(function (i, e) {
             trip += $(this).val();
             trip += "--";
         })
+        alert(offer)
         //报价信息字符串
         offerJson = {
             "travelId": travelId,
@@ -787,18 +793,18 @@
             "offerother": otherJson,
             "listOfferline": lineJson
         };
-        $.ajax({
-            url: "/offer/insertOffer",
-            data: JSON.stringify(offerJsonPlus),
-            dataType: "json",
-            type: "post",
-            contentType: "application/json",
-            success: function (data) {
-                alert(data.msg)
-            }, error: function () {
-                alert("程序异常")
-            }
-        })
+        // $.ajax({
+        //     url: "/offer/insertOffer",
+        //     data: JSON.stringify(offerJsonPlus),
+        //     dataType: "json",
+        //     type: "post",
+        //     contentType: "application/json",
+        //     success: function (data) {
+        //         alert(data.msg)
+        //     }, error: function () {
+        //         alert("程序异常")
+        //     }
+        // })
     }
 
     //报价按钮单击事件

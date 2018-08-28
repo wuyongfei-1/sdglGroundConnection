@@ -61,6 +61,10 @@ public class StaffServiceImpl implements StaffService {
     @Override
     @RecordOperation(type = "用户", desc = "修改了一条用户信息")
     public int updateStaffs(Staff staff) throws Exception {
+        Staff oldStaff=staffMapper.selectByPrimaryKey(staff.getStaffId());
+        staff.setCreateBy(oldStaff.getCreateBy());
+        staff.setCreateDate(oldStaff.getCreateDate());
+        staff.setWhetherDel(0);
         staff.setWhetherDel(0);
         return  staffMapper.updateByPrimaryKey(staff);
     }

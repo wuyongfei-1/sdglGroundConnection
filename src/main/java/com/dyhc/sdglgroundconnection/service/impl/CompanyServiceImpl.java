@@ -52,6 +52,11 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     @RecordOperation(type = "公司", desc = "修改了一条公司信息")
     public int updateCompanys(Company company) {
+        Company offcompany=companyMapper.selectByPrimaryKey(company.getCompanyId());
+        company.setModifier(company.getModifier());
+        company.setModifiedData(company.getModifiedData());
+        company.setCreater(offcompany.getCreater());
+        company.setCreationDate(offcompany.getCreationDate());
         company.setWhetherDel(0);
         return companyMapper.updateByPrimaryKey(company);
     }

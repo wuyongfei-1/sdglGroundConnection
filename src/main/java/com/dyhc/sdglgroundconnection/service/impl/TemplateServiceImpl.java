@@ -167,6 +167,7 @@ public class TemplateServiceImpl implements TemplateService {
     @RecordOperation(type = "模板信息",desc = "修改了一条模板信息")
     public Integer updateTemplateInfo(Template template) throws Exception{
         //调用templateHotelService的update方法
+        template.getTemplateHotel().setModifier(template.getModifier());
         template.getTemplateHotel().setModifiedData(new Date());
         TemplateHotel templateHotel=templateHotelService.getTemplateHotelInfoByTemplateHotelId(template.getTemplateHotel().getTemplateHotelId());
         template.getTemplateHotel().setCreater(templateHotel.getCreater());

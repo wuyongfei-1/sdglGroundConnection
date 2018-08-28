@@ -91,7 +91,6 @@ public class ScenicspotServiceImpl implements ScenicspotService {
 
     /**
      * 新增方法 （wangtao）
-     *
      * @param s 景点信息参数对象
      * @return 返回受影响行数
      * @throws Exception

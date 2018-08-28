@@ -1,25 +1,21 @@
 package com.dyhc.sdglgroundconnection.web;
 
-import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.pojo.Shopping;
 import com.dyhc.sdglgroundconnection.pojo.Staff;
-import com.dyhc.sdglgroundconnection.pojo.Shopping;
 import com.dyhc.sdglgroundconnection.service.ShoppingService;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import com.github.pagehelper.PageInfo;
-import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.List;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
@@ -47,8 +43,6 @@ public class ShoppingController  {
         try {
 
             Shopping shopping=shoppingService.getShoppingInfoByShoppingId(shoppingId);
-
-
             data = ReponseResult.ok(shopping, "根据用户id获取购物信息成功！");
 
             logger.info(" method:getStaffInfoByStaffId  根据用户id获取购物信息成功！");
@@ -189,10 +183,11 @@ public class ShoppingController  {
      * @return 返回ReponseResult对象
      */
     @RequestMapping("/insertInfo")
-    public ReponseResult insertInfo(Shopping shopping){
+    public ReponseResult insertInfo(Shopping shopping, HttpServletRequest request){
         try {
             //一、修改景点信息
-            shopping.setCreater(1);
+            Staff staff = (Staff) request.getSession().getAttribute("user");
+            shopping.setCreater(staff == null ? 1 : staff.getStaffId());
             shopping.setCreationDate(new Date());
             shopping.setWhetherDel(0);
             Integer result =shoppingService.insertInfo(shopping);
@@ -223,14 +218,15 @@ public class ShoppingController  {
      * @return 返回受影响行数
      */
     @RequestMapping("/updateShoppingById")
-    public ReponseResult updateShoppingById(Shopping shopping){
+    public ReponseResult updateShoppingById(Shopping shopping,HttpServletRequest request){
         try {
             //根据编号查询Shoping对象获取创建时间创建人等信息给修改对象
             Shopping shopping1=shoppingService.getShoppingById(shopping.getShoppingId());
             shopping.setCreater(shopping1.getCreater());
             shopping.setCreationDate(shopping1.getCreationDate());
             shopping.setWhetherDel(shopping1.getWhetherDel());
-            shopping.setModifier(1);
+            Staff staff = (Staff) request.getSession().getAttribute("user");
+            shopping.setModifier(staff == null ? 1 : staff.getStaffId());
             shopping.setModifiedData(new Date());
             shopping.setScenicSpotId(shopping1.getScenicSpotId());
             //一、删除景点信息
@@ -285,6 +281,11 @@ public class ShoppingController  {
         }
     }
 
+    /**
+     * 根据购物编号删除购物信息
+     * @param id
+     * @return
+     */
     @RequestMapping("/deleteInfoById")
     public ReponseResult deleteInfoById(@RequestParam("id")Integer id){
         try {

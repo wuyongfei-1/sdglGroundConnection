@@ -220,7 +220,6 @@ public class DispatchServiceImpl implements DispatchService {
         DispatchExample.Criteria criteria= dispatchExample.createCriteria();
         criteria.andWhetherdelEqualTo(0);
         criteria.andStatusEqualTo(1);
-        criteria.andWhetherdelEqualTo(0);
         List<Dispatch> dispatches=dispatchMapper.selectByExample(dispatchExample);
 
         //查询调度导游表

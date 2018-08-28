@@ -74,7 +74,6 @@
 
                 var hiddenCarrentalId=$("#hiddenCarrentalId").val();
                 CarrentalInfo=CarrentalInfo+"&carRentalId="+hiddenCarrentalId
-				alert(CarrentalInfo);
                 $.ajax({
                     url: "/carrental/updateCarrentalInfo",
                     data: CarrentalInfo

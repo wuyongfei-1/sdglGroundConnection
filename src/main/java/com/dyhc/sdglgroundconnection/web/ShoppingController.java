@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import java.util.Date;
@@ -45,12 +46,8 @@ public class ShoppingController  {
 
         ReponseResult<Shopping> data;
         try {
-
             Shopping shopping=shoppingService.getShoppingInfoByShoppingId(shoppingId);
-
-
             data = ReponseResult.ok(shopping, "根据用户id获取购物信息成功！");
-
             logger.info(" method:getStaffInfoByStaffId  根据用户id获取购物信息成功！");
             return data;
         } catch (Exception e) {
@@ -107,8 +104,12 @@ public class ShoppingController  {
      * @return
      */
     @RequestMapping(value = "/updateShoppingInfo",method = RequestMethod.POST )
-    public ReponseResult updateShoppingInfo(Shopping shopping){
+    public ReponseResult updateShoppingInfo(Shopping shopping,HttpServletRequest request){
+
         try {
+            Staff staff= (Staff) request.getSession().getAttribute("user");
+            shopping.setModifier(staff!=null?staff.getStaffId():1);
+            shopping.setModifiedData(new Date());
             int result=shoppingService.updateShoppingInfo(shopping);
             ReponseResult<String> date;
             if (result>0){
@@ -159,8 +160,11 @@ public class ShoppingController  {
      * @return
      */
     @RequestMapping(value = "/saveShoppingInfo",method = RequestMethod.POST )
-    public ReponseResult saveShoppingInfo(Shopping shopping){
+    public ReponseResult saveShoppingInfo(Shopping shopping, HttpServletRequest request){
+
         try {
+            Staff staff= (Staff) request.getSession().getAttribute("user");
+            shopping.setCreater(staff!=null?staff.getStaffId():1);
             int result=shoppingService.saveShoppingInfo(shopping);
             ReponseResult<String> date;
             if (result>0){

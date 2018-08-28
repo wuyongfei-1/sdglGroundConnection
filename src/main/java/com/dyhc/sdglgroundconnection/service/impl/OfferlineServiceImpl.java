@@ -41,4 +41,12 @@ public class OfferlineServiceImpl implements OfferlineService {
     public Integer updateOfferline(Offerline offerline) throws OfferException {
         return offerlineMapper.updateByPrimaryKey(offerline);
     }
+
+    @Override
+    public Integer deleteOfferline(Integer id) throws OfferException {
+        OfferlineExample offerhotelExample=new OfferlineExample();
+        OfferlineExample.Criteria criteria=offerhotelExample.createCriteria();
+        criteria.andOfferidEqualTo(id);
+        return offerlineMapper.deleteByExample(offerhotelExample);
+    }
 }

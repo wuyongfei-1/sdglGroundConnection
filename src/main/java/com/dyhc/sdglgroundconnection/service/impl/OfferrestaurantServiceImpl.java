@@ -41,4 +41,12 @@ public class OfferrestaurantServiceImpl implements OfferrestaurantService {
     public Integer updateOfferrestaurant(Offerrestaurant offerrestaurant) throws OfferException {
         return offerrestaurantMapper.updateByPrimaryKey(offerrestaurant);
     }
+
+    @Override
+    public Integer deleteOfferrestaurant(Integer id) throws OfferException {
+        OfferrestaurantExample offerhotelExample=new OfferrestaurantExample();
+        OfferrestaurantExample.Criteria criteria=offerhotelExample.createCriteria();
+        criteria.andOfferidEqualTo(id);
+        return offerrestaurantMapper.deleteByExample(offerhotelExample);
+    }
 }

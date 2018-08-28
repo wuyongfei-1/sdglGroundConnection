@@ -32,4 +32,12 @@ public interface OffercarService {
      * @throws Exception
      */
     Integer updateOffercar(Offercar offercar)throws OfferException;
+
+    /**
+     * 删除报价汽车信息（dubingkun）
+     * @param id
+     * @return
+     * @throws OfferException
+     */
+    Integer deleteOffercar(Integer id)throws OfferException;
 }

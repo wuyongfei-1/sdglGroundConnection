@@ -48,4 +48,12 @@ public interface OfferService {
      * @return
      */
     PageInfo<Offer> listOffer(Integer pageNo, Integer PageSize)throws Exception;
+
+    /**
+     * 根据id删除报价信息（dubingkun）
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    Integer deleteOffer(Integer id)throws Exception;
 }

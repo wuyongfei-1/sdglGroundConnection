@@ -36,4 +36,12 @@ public interface OfferHotelService {
      * @throws Exception
      */
     Integer updateOfferHotel(OfferHotel offerHotel)throws OfferException;
+
+    /**
+     * 删除报价酒店信息（dubingkun）
+     * @param id
+     * @return
+     * @throws OfferException
+     */
+    Integer deleteOfferHotel(Integer id)throws OfferException;
 }

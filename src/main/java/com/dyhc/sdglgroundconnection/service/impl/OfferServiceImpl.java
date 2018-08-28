@@ -185,4 +185,25 @@ public class OfferServiceImpl implements OfferService {
         PageInfo<Offer> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }
+
+    @Override
+    @Transactional
+    @RecordOperation(type = "报价", desc = "修改了一条报价信息")
+    public Integer deleteOffer(Integer id) throws Exception {
+        //用车
+        offercarService.deleteOffercar(id);
+        //酒店
+        offerHotelService.deleteOfferHotel(id);
+        //景点
+        offerscenicService.deleteOfferscenic(id);
+        //餐馆
+        offerrestaurantService.deleteOfferrestaurant(id);
+        //其它
+        offerotherService.deleteOfferother(id);
+        //线路
+        offerlineService.deleteOfferline(id);
+        //报价
+        Integer a=offerMapper.deleteByPrimaryKey(id);
+        return a;
+    }
 }

@@ -238,13 +238,15 @@ public class OfferController {
     }
 
     @RequestMapping("/insertOffer")
-    public ReponseResult insertOffer(@RequestBody JSONObject jsonObject) {
+    public ReponseResult insertOffer(HttpServletRequest httpServletRequest,@RequestBody JSONObject jsonObject) {
         try {
             String s = JSON.toJSONString(jsonObject);
             ObjectMapper objectMapper = new ObjectMapper();
             OfferParam offerParam = objectMapper.readValue(s, OfferParam.class);
             ReponseResult<String> date = null;
-            int result = offerService.insertOffer(offerParam);
+            //创建人
+            Staff staff=(Staff) httpServletRequest.getSession().getAttribute("user");
+            int result = offerService.insertOffer(staff,offerParam);
             if (result > 0) {
                 date = ReponseResult.ok("添加报价成功！");
                 logger.info(" method:updateHotel  添加报价成功！");

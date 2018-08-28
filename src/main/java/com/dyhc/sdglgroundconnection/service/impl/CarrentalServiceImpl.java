@@ -12,6 +12,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -120,17 +121,40 @@ public class CarrentalServiceImpl implements CarrentalService {
      */
     @Override
     public PageInfo<Carrental> listPageInfoByCarRentalName(Integer pageNo, Integer pageSize, String carRentalName) {
+
         PageHelper.startPage(pageNo, pageSize, true);
         CarrentalExample carrentalExample = new CarrentalExample();
         CarrentalExample.Criteria criteria = carrentalExample.createCriteria();
         criteria.andCarrentalnameLike("%" + carRentalName + "%");
-
         criteria.andWhetherdelEqualTo(0);
         List<Carrental> carrentalList = carrentalMapper.selectByExample(carrentalExample);
 
+        VehicletypeExample vehicletypeExample=new VehicletypeExample();
+        VehicletypeExample.Criteria vehicletypeExampleCriteria=vehicletypeExample.createCriteria();
+        vehicletypeExampleCriteria.andWhetherdelEqualTo(0);
+        List<VehicleType> list2=vehicleTypeMapper.selectByExample(vehicletypeExample);
+
+
         for (Carrental carrental : carrentalList) {
-            carrental.setVehicleTypes(vehicleTypeMapper.getVehiclesTypeByCarRentalId(carrental.getCarRentalId()));
+
+            List<VehicleType> a=new ArrayList<>();
+            for (VehicleType v:list2){
+                if (v.getCarRentalId()==carrental.getCarRentalId()){
+                    DictionariesExample dictionariesExample=new DictionariesExample();
+                    DictionariesExample.Criteria dictionariesExampleCriteria=dictionariesExample.createCriteria();
+                    dictionariesExampleCriteria.andValueidEqualTo(v.getValueId());
+                    dictionariesExampleCriteria.andTypecodeEqualTo("VEHICLE");
+                    v.setDictionaries(dictionariesMapper.selectByExample(dictionariesExample).get(0));
+                    a.add(v);
+                }
+            }
+            carrental.setVehicleTypes(a);
         }
+
+
+       /* for (Carrental carrental : carrentalList) {
+            carrental.setVehicleTypes(vehicleTypeMapper.getVehiclesTypeByCarRentalId(carrental.getCarRentalId()));
+        }*/
         PageInfo<Carrental> pageInfo = new PageInfo<>(carrentalList);
 
         return pageInfo;

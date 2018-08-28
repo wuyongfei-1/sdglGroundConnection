@@ -83,6 +83,7 @@ public class StaffServiceImpl implements StaffService {
      * @return
      */
     @Override
+    @RecordOperation(type = "用户", desc = "删除了一条用户信息")
     public Integer deleteStaffBystaffId(Integer id) {
         return staffMapper.deleteByPrimaryKey(id);
     }

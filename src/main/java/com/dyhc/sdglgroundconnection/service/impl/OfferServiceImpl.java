@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -99,7 +100,7 @@ public class OfferServiceImpl implements OfferService {
     @Override
     @Transactional
     @RecordOperation(type = "报价", desc = "添加了一条报价信息")
-    public Integer insertOffer(OfferParam offerParam) throws OfferException {
+    public Integer insertOffer(Staff staff,OfferParam offerParam) throws OfferException {
         Offercar offercar = offerParam.getOffercar();//用车报价信息
         List<OfferHotel> listOfferHotel = offerParam.getListOfferHotel();//酒店报价信息
         List<Offerscenic> listOfferscenic = offerParam.getListOfferscenic();//景点报价信息
@@ -107,9 +108,13 @@ public class OfferServiceImpl implements OfferService {
         Offerother offerother = offerParam.getOfferother();//其它报价信息
         List<Offerline> listOfferline = offerParam.getListOfferline();//线路报价信息
         Date day = new Date();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         //System.out.println(df.format(day));
         Offer offer = offerParam.getOffer();
+        offer.setWhetherDel(0);
+        if(staff!=null){
+            offer.setCreater(staff.getStaffId());
+        }
         int a = offerMapper.insert(offer);
         int maxOfferId = offerMapper.getIntegerByOfferId();//获取最新添加的offerid
         //用车
@@ -117,6 +122,9 @@ public class OfferServiceImpl implements OfferService {
             offercar.setOfferId(maxOfferId);
             offercar.setWhetherDel(0);
             offercar.setTypeCode("VEHICLE");
+            if(staff!=null){
+                offercar.setCreater(staff.getStaffId());
+            }
             offercarService.insertOffercar(offercar);
         }
         //酒店
@@ -124,6 +132,9 @@ public class OfferServiceImpl implements OfferService {
             for (OfferHotel item : listOfferHotel) {
                 item.setOfferId(maxOfferId);
                 item.setWhetherDel(0);
+                if(staff!=null){
+                    item.setCreater(staff.getStaffId());
+                }
             }
             offerHotelService.insertOfferHotel(listOfferHotel);
         }
@@ -132,6 +143,9 @@ public class OfferServiceImpl implements OfferService {
             for (Offerscenic item : listOfferscenic) {
                 item.setOfferId(maxOfferId);
                 item.setWhetherDel(0);
+                if(staff!=null){
+                    item.setCreater(staff.getStaffId());
+                }
             }
             offerscenicService.insertOfferscenic(listOfferscenic);
         }
@@ -141,6 +155,9 @@ public class OfferServiceImpl implements OfferService {
                 item.setOfferId(maxOfferId);
                 item.setTypeCode("DIET");
                 item.setWhetherDel(0);
+                if(staff!=null){
+                    item.setCreater(staff.getStaffId());
+                }
             }
             offerrestaurantService.insertOfferrestaurant(listOfferrestaurant);
         }
@@ -148,6 +165,9 @@ public class OfferServiceImpl implements OfferService {
         if (offerother != null) {
             offerother.setOfferId(maxOfferId);
             offerother.setWhetherDel(0);
+            if(staff!=null){
+                offerother.setCreater(staff.getStaffId());
+            }
             offerotherService.insertOfferother(offerother);
         }
         //线路
@@ -155,6 +175,9 @@ public class OfferServiceImpl implements OfferService {
             for (Offerline item : listOfferline) {
                 item.setOfferId(maxOfferId);
                 item.setWhetherDel(0);
+                if(staff!=null){
+                    item.setCreater(staff.getStaffId());
+                }
             }
             offerlineService.insertOfferline(listOfferline);
         }

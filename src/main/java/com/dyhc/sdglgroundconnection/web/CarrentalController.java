@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.web;
 
+import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.pojo.Carrental;
 import com.dyhc.sdglgroundconnection.pojo.Shopping;
 import com.dyhc.sdglgroundconnection.pojo.Staff;
@@ -35,6 +36,7 @@ public class CarrentalController  {
      * @param carrentalId
      * @return
      */
+
     @RequestMapping(value = "/deleteCarrentalInfoByCarrentalId",method = RequestMethod.POST )
     public ReponseResult deleteCarrentalInfoByCarrentalId(Integer carrentalId){
         try {
@@ -84,6 +86,7 @@ public class CarrentalController  {
     /**
      * 修改公司信息 (lixiaojie)
      */
+
     @RequestMapping(value = "/updateCarrentalInfo",method = RequestMethod.POST )
     public ReponseResult updateCarrentalInfo(Carrental carrental){
         try {
@@ -111,6 +114,7 @@ public class CarrentalController  {
      * @param carrental
      * @return
      */
+
     @RequestMapping(value = "/saveCarrentalInfo",method = RequestMethod.POST )
     public ReponseResult saveCarrentalInfo(Carrental carrental){
         try {

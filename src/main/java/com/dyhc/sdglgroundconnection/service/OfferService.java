@@ -4,9 +4,11 @@ package com.dyhc.sdglgroundconnection.service;
 import com.dyhc.sdglgroundconnection.dto.OfferParam;
 import com.dyhc.sdglgroundconnection.exception.OfferException;
 import com.dyhc.sdglgroundconnection.pojo.Offer;
+import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -28,7 +30,7 @@ public interface OfferService {
      * @param offerParam
      * @return
      */
-    Integer insertOffer(OfferParam offerParam) throws OfferException;
+    Integer insertOffer(Staff staff, OfferParam offerParam) throws OfferException;
 
     /**
      * 修改报价信息（dubingkun）

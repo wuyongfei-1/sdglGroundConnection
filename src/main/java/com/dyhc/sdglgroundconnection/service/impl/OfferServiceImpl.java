@@ -107,24 +107,22 @@ public class OfferServiceImpl implements OfferService {
         List<Offerrestaurant> listOfferrestaurant = offerParam.getListOfferrestaurant();//餐厅报价信息
         Offerother offerother = offerParam.getOfferother();//其它报价信息
         List<Offerline> listOfferline = offerParam.getListOfferline();//线路报价信息
-        Date day = new Date();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         //System.out.println(df.format(day));
         Offer offer = offerParam.getOffer();
         offer.setWhetherDel(0);
         if(staff!=null){
             offer.setCreater(staff.getStaffId());
         }
+        offer.setCreationDate(new Date());
         int a = offerMapper.insert(offer);
         int maxOfferId = offerMapper.getIntegerByOfferId();//获取最新添加的offerid
         //用车
         if (offercar != null) {
             offercar.setOfferId(maxOfferId);
             offercar.setWhetherDel(0);
+            if(staff!=null)offercar.setCreater(staff.getStaffId());
+            offercar.setCreationDate(new Date());
             offercar.setTypeCode("VEHICLE");
-            if(staff!=null){
-                offercar.setCreater(staff.getStaffId());
-            }
             offercarService.insertOffercar(offercar);
         }
         //酒店
@@ -132,9 +130,8 @@ public class OfferServiceImpl implements OfferService {
             for (OfferHotel item : listOfferHotel) {
                 item.setOfferId(maxOfferId);
                 item.setWhetherDel(0);
-                if(staff!=null){
-                    item.setCreater(staff.getStaffId());
-                }
+                if(staff!=null)item.setCreater(staff.getStaffId());
+                item.setCreationDate(new Date());
             }
             offerHotelService.insertOfferHotel(listOfferHotel);
         }
@@ -142,10 +139,9 @@ public class OfferServiceImpl implements OfferService {
         if (listOfferscenic != null && listOfferscenic.size() > 0) {
             for (Offerscenic item : listOfferscenic) {
                 item.setOfferId(maxOfferId);
+                if(staff!=null)item.setCreater(staff.getStaffId());
+                item.setCreationDate(new Date());
                 item.setWhetherDel(0);
-                if(staff!=null){
-                    item.setCreater(staff.getStaffId());
-                }
             }
             offerscenicService.insertOfferscenic(listOfferscenic);
         }
@@ -154,10 +150,9 @@ public class OfferServiceImpl implements OfferService {
             for (Offerrestaurant item : listOfferrestaurant) {
                 item.setOfferId(maxOfferId);
                 item.setTypeCode("DIET");
+                if(staff!=null)item.setCreater(staff.getStaffId());
+                item.setCreationDate(new Date());
                 item.setWhetherDel(0);
-                if(staff!=null){
-                    item.setCreater(staff.getStaffId());
-                }
             }
             offerrestaurantService.insertOfferrestaurant(listOfferrestaurant);
         }
@@ -165,9 +160,8 @@ public class OfferServiceImpl implements OfferService {
         if (offerother != null) {
             offerother.setOfferId(maxOfferId);
             offerother.setWhetherDel(0);
-            if(staff!=null){
-                offerother.setCreater(staff.getStaffId());
-            }
+            if(staff!=null)offerother.setCreater(staff.getStaffId());
+            offerother.setCreationDate(new Date());
             offerotherService.insertOfferother(offerother);
         }
         //线路
@@ -175,9 +169,8 @@ public class OfferServiceImpl implements OfferService {
             for (Offerline item : listOfferline) {
                 item.setOfferId(maxOfferId);
                 item.setWhetherDel(0);
-                if(staff!=null){
-                    item.setCreater(staff.getStaffId());
-                }
+                if(staff!=null)item.setCreater(staff.getStaffId());
+                item.setCreationDate(new Date());
             }
             offerlineService.insertOfferline(listOfferline);
         }

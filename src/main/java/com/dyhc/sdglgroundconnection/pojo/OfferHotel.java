@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -40,10 +41,10 @@ public class OfferHotel {
     private Integer modifier; // 修改人（外键，与人员表关联）
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "modifiedData")
-    private Timestamp modifiedData; // 修改日期
+    private Date modifiedData; // 修改日期
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "creationDate")
-    private Timestamp creationDate; // 创建时间
+    private Date creationDate; // 创建时间
     private String value1;
     private String value2;
     private String value3;
@@ -130,21 +131,21 @@ public class OfferHotel {
 
     @Basic
     @Column(name = "modifiedData")
-    public Timestamp getModifiedData() {
+    public Date getModifiedData() {
         return modifiedData;
     }
 
-    public void setModifiedData(Timestamp modifiedData) {
+    public void setModifiedData(Date modifiedData) {
         this.modifiedData = modifiedData;
     }
 
     @Basic
     @Column(name = "creationDate")
-    public Timestamp getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Timestamp creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 

@@ -33,4 +33,11 @@ public interface OfferlineService {
      * @throws Exception
      */
     Integer updateOfferline(Offerline offerline)throws OfferException;
+    /**
+     * 删除报价线路信息（dubingkun）
+     * @param id
+     * @return
+     * @throws OfferException
+     */
+    Integer deleteOfferline(Integer id)throws OfferException;
 }

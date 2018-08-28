@@ -28,7 +28,7 @@
         </table>
         <br/>
         <div style="border:1px #000000 solid; height:1px; border-left:none; border-right:none"></div><br/>
-	<table border="1px" bordercolor="#000000" cellspacing="0" cellpadding="2" style="border-collapse:collapse;" >
+	<table width="100%" border="1px" bordercolor="#000000" cellspacing="0" cellpadding="2" style="border-collapse:collapse;" >
     	<tr>
     	<td width="20%">订单编号</td>
         <td width="30%" class="Ordernumber"></td>
@@ -123,13 +123,13 @@
     	<td colspan="8">团队运行接待计划表(旅行社盖章)</td>       
     </tr>
         <tr>
-            <td>序号</td>
-            <td>行程日期</td>
-            <td>所在地区</td>
-            <td>行程内容</td>
-            <td>购物地点</td>
-            <td>用餐地点</td>
-            <td>住宿地点</td>
+            <td width>序号</td>
+            <td width>行程日期</td>
+            <td width>所在地区</td>
+            <td width>行程内容</td>
+            <td width>购物地点</td>
+            <td width>用餐地点</td>
+            <td width>住宿地点</td>
         </tr>
     <tbody class="tb">
 
@@ -160,6 +160,10 @@
             dataType: "json",
             type: "post",
             success: function (e) {
+                var jie=e.data.dispatch.travelStartTime.substring(8,10);
+                var q=e.data.dispatch.travelStartTime+1
+
+                var z=e.data.dispatch.travelEndTime
                 $(".Vehicleunit").text(e.data.company.companyName)
                 $(".Groupnumber").text(e.data.dispatch.groundConnectionNumber)
                 $(".destination").text(e.data.dispatch.tourist)
@@ -179,64 +183,18 @@
                 $(".modifiedData").text(e.data.dispatch.modifiedData)
                 var count="";
                 var s="";
-               /* $.each(e.data,function (i,result) {
-                    if (result.szaddress==null){
-                        s="武"
-                    }
-                        count+=" <tr>\n" +
+               $.each(e.data.travelPathParamList,function (i,result) {
+                       count+=" <tr>\n" +
                             "        <td>"+(i+1)+"</td>\n" +
-                            "        <td></td>\n" +
-                            "        <td>"+s+"</td>\n" +
+                            "        <td>"+(jie++)+"日</td>\n" +
+                            "        <td>"+result.szaddress+"</td>\n" +
                             "        <td>"+result.xctext+"</td>\n" +
                             "        <td>"+result.shoppaddress+"</td>\n" +
                             "        <td>"+result.eataddress+"</td>\n" +
                             "        <td>"+result.zhuaddress+"</td>\n" +
                             "    </tr>";
-                })*/
-               /* $.each(e.data.dispatchhotelList,function (i,result) {
-                    count+=" <tr>\n" +
-                        "        <td></td>\n" +
-                        "        <td></td>\n" +
-                        "        <td></td>\n" +
-                        "        <td></td>\n" +
-                        "        <td></td>\n" +
-                        "        <td></td>\n" +
-                        "        <td>"+result.hotel.hotelName+"</td>\n" +
-                        "    </tr>";
                 })
-                $.each(e.data.disattrList,function (i,result) {
-                    count+=" <tr>\n" +
-                        "        <td></td>\n" +
-                        "        <td></td>\n" +
-                        "        <td>"+result.scenicspot.scenicSpotAddress+"</td>\n" +
-                        "        <td></td>\n" +
-                        "        <td></td>\n" +
-                        "        <td></td>\n" +
-                        "        <td></td>\n" +
-                        "    </tr>";
-                })
-                $.each(e.data.dislineList,function (i,result) {
-                    count+=" <tr>\n" +
-                        "        <td></td>\n" +
-                        "        <td></td>\n" +
-                        "        <td></td>\n" +
-                        "        <td>"+result.lineContent+"</td>\n" +
-                        "        <td></td>\n" +
-                        "        <td></td>\n" +
-                        "        <td></td>\n" +
-                        "    </tr>";
-                })
-                $.each(e.data.disshoppList,function (i,result) {
-                    count+=" <tr>\n" +
-                        "        <td></td>\n" +
-                        "        <td></td>\n" +
-                        "        <td></td>\n" +
-                        "        <td></td>\n" +
-                        "        <td>"+result.shopping.shoppingSite+"</td>\n" +
-                        "        <td></td>\n" +
-                        "        <td></td>\n" +
-                        "    </tr>";
-                })*/
+
                 $(".tb").html(count);
             }
         })

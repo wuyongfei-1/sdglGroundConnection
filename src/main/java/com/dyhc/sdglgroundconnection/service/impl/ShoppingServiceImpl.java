@@ -4,12 +4,7 @@ import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.mapper.ScenicspotMapper;
 import com.dyhc.sdglgroundconnection.mapper.ShoppingMapper;
-
-import com.dyhc.sdglgroundconnection.pojo.HotelExample;
 import com.dyhc.sdglgroundconnection.pojo.Scenicspot;
-
-import com.dyhc.sdglgroundconnection.pojo.Dictionaries;
-
 import com.dyhc.sdglgroundconnection.pojo.Shopping;
 import com.dyhc.sdglgroundconnection.pojo.ShoppingExample;
 import com.dyhc.sdglgroundconnection.service.ShoppingService;
@@ -17,11 +12,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
-import java.util.ArrayList;
-
-import javax.persistence.criteria.CriteriaBuilder;
 
 import java.util.List;
 
@@ -110,11 +100,7 @@ public class ShoppingServiceImpl implements ShoppingService {
         return shoppingMapper.selectByPrimaryKey(shoppingId);
     }
 
-    /**
-     * 根据购物点编号修改购物点信息 （wangtao）
-     * @param shopping
-     * @return
-     */
+
     /**
      * 根据id修改购物信息(lixiaojie）
      *
@@ -201,7 +187,6 @@ public class ShoppingServiceImpl implements ShoppingService {
     @Override
     @RecordOperation(type = "购物地点", desc = "修改了一条购物地点信息")
     public Integer updateShopping(Shopping shopping) throws Exception {
-
         return shoppingMapper.updateByPrimaryKey(shopping);
     }
 

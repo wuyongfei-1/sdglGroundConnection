@@ -2,12 +2,9 @@ package com.dyhc.sdglgroundconnection.web;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.dto.TemplateParam;
-import com.dyhc.sdglgroundconnection.pojo.Scenicspot;
+import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.dyhc.sdglgroundconnection.pojo.Template;
-import com.dyhc.sdglgroundconnection.pojo.TemplateHotel;
-import com.dyhc.sdglgroundconnection.pojo.TemplateScenicspot;
 import com.dyhc.sdglgroundconnection.service.TemplateHotelService;
 import com.dyhc.sdglgroundconnection.service.TemplateScenicspotService;
 import com.dyhc.sdglgroundconnection.service.TemplateService;
@@ -17,13 +14,12 @@ import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -74,11 +70,13 @@ public class TemplateController {
      * @return ReponseResult对象
      */
     @RequestMapping("/insertTemplateInfo")
-    public ReponseResult insertTemplateInfo(@RequestBody JSONObject template){
+    public ReponseResult insertTemplateInfo(@RequestBody JSONObject template, HttpServletRequest request){
         try {
             String jsonStr = JSON.toJSONString(template);
             ObjectMapper objectMapper = new ObjectMapper();
             Template template2 = objectMapper.readValue(jsonStr, Template.class);
+            Staff staff = (Staff) request.getSession().getAttribute("user");
+            template2.setCreater(staff == null ? 1 : staff.getStaffId());
             //创建返回的ReponseResult对象
             ReponseResult<Integer> data=null;
             //一、新增模板信息
@@ -155,12 +153,14 @@ public class TemplateController {
      * @return 返回ReponseResult对象
      */
     @RequestMapping("/updateTemplateByTemplateId")
-    public ReponseResult updateTemplateByTemplateId(@RequestBody JSONObject template){
+    public ReponseResult updateTemplateByTemplateId(@RequestBody JSONObject template,HttpServletRequest request){
         try {
             ReponseResult<Integer> data=null;
             String jsonStr = JSON.toJSONString(template);
             ObjectMapper objectMapper = new ObjectMapper();
             Template template2 = objectMapper.readValue(jsonStr, Template.class);
+            Staff staff = (Staff) request.getSession().getAttribute("user");
+            template2.setModifier(staff == null ? 1 : staff.getStaffId());
             //一、修改模板信息
             Integer result = templateService.updateTemplateInfo(template2);
             if(result>0){

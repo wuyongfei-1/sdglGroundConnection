@@ -35,9 +35,18 @@ public class StaffServiceImpl implements StaffService {
         return staffMapper.updateStaffWhetherDel(staffId);
     }
 
+    /**
+     * 修改个人信息（lixiaojie）
+     * @param staff
+     * @return
+     */
     @Override
     @RecordOperation(type = "用户", desc = "修改了一条用户信息")
     public Integer updateStaffInfo(Staff staff) {
+        Staff oldStaff=staffMapper.selectByPrimaryKey(staff.getStaffId());
+        staff.setCreateBy(oldStaff.getCreateBy());
+        staff.setCreateDate(oldStaff.getCreateDate());
+        staff.setWhetherDel(0);
         return staffMapper.updateStaffInfo(staff);
     }
 
@@ -124,6 +133,7 @@ public class StaffServiceImpl implements StaffService {
 
         String TheUserName = "SDGL" + currentDateTime + flag;//拼接这些字符
         staff.setTheUserName(TheUserName);
+        staff.setHeadPortraitPath("aaa.jpg");
         return staffMapper.insert(staff);
     }
 

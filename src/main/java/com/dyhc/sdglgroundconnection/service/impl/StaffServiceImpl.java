@@ -1,6 +1,7 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
 import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
+import com.dyhc.sdglgroundconnection.mapper.RoleMapper;
 import com.dyhc.sdglgroundconnection.mapper.StaffMapper;
 import com.dyhc.sdglgroundconnection.pojo.Hotel;
 import com.dyhc.sdglgroundconnection.pojo.Staff;
@@ -27,6 +28,8 @@ public class StaffServiceImpl implements StaffService {
 
     @Autowired
     private StaffMapper staffMapper;
+    @Autowired
+    private RoleMapper roleMapper;
     private int flag;
 
     @Override
@@ -83,7 +86,11 @@ public class StaffServiceImpl implements StaffService {
      */
     @Override
     public Staff getStaffInfoByStaffId(Integer staffId) {
-        return staffMapper.selectByPrimaryKey(staffId);
+
+        String Rolename=roleMapper.selectByPrimaryKey(staffMapper.selectByPrimaryKey(staffId).getRoleId()).getRolename();
+        Staff staff=staffMapper.selectByPrimaryKey(staffId);
+        staff.setRolename(Rolename);
+        return staff;
     }
 
     /**

@@ -39,7 +39,8 @@ public class VehicleType {
     private String value1; // 预备
     private String value2; // 预备
     private String value3; // 预备
-
+    @Transient
+    private Dictionaries dictionaries;
     @Transient
     private String vehicleTypeName; // 车辆类型名称
 
@@ -112,6 +113,14 @@ public class VehicleType {
 
     public void setCostprice(Integer costprice) {
         this.costprice = costprice;
+    }
+
+    public Dictionaries getDictionaries() {
+        return dictionaries;
+    }
+
+    public void setDictionaries(Dictionaries dictionaries) {
+        this.dictionaries = dictionaries;
     }
 
     @Basic

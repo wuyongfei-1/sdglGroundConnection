@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.web;
 
+import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.dyhc.sdglgroundconnection.pojo.VehicleType;
 import com.dyhc.sdglgroundconnection.service.VehicleTypeService;
@@ -127,6 +128,7 @@ public class VehicleTypeController {
     @RequestMapping(value = "/saveVehicleTypeInfo", method = RequestMethod.POST)
     public ReponseResult saveVehicleTypeInfo(VehicleType vehicleType) {
         try {
+            vehicleType.setTypeCode("VEHICLE");
             int result = vehicleTypeService.saveVehicleTypeInfo(vehicleType);
             ReponseResult<String> date;
             if (result > 0) {

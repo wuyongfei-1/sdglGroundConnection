@@ -14,33 +14,34 @@
 <div class="wrap-container" style="height:370px; ">
     <input type="hidden" name="hiddenCarrentalId" id="hiddenCarrentalId" th:value="${carrentalId}">
     <form id="shoppingInfo" class="layui-form" style="width: 90%;padding-top: 20px;">
+
         <div class="layui-form-item">
-            <label style="width: 120px" class="layui-form-label">车辆类型名称：</label>
-            <div class="layui-input-block">
-                <input  style="width: 550px" type="text" name="typeName"  placeholder="请输入车辆公司名称"
-                       autocomplete="off" class="layui-input">
+            <label style="width: 80px" class="layui-form-label">车辆类型：</label>
+            <div class="layui-input-block" style="width: 550px"  >
+                <select class="layui-select" name="typeName" id="typeName" >
+                </select>
             </div>
         </div>
         <div class="layui-form-item">
-            <label style="width: 120px"  class="layui-form-label">载客量：</label>
+            <label style="width: 120px" class="layui-form-label">载客量：</label>
             <div class="layui-input-block">
-                <input type="text" style="width: 550px"  name="passengervolume"  placeholder="请输入车辆公司地址"
+                <input type="text" style="width: 550px" name="passengervolume" placeholder="请输入车辆公司地址"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
-            <label style="width: 120px"  class="layui-form-label">成本价：</label>
+            <label style="width: 120px" class="layui-form-label">成本价：</label>
             <div class="layui-input-block">
-                <input type="text" style="width: 550px"  name="costprice"  placeholder="请输入车辆公司联系人"
+                <input type="text" style="width: 550px" name="costprice" placeholder="请输入车辆公司联系人"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
-            <label style="width: 120px"  class="layui-form-label">报价：</label>
+            <label style="width: 120px" class="layui-form-label">报价：</label>
             <div class="layui-input-block">
-                <input type="text" style="width: 550px"  name="offer"  placeholder="请输入联系人电话"
+                <input type="text" style="width: 550px" name="offer" placeholder="请输入联系人电话"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -61,31 +62,71 @@
 <script src="/js/jquery-1.8.3.min.js"></script>
 <script>
     $(function () {
-
+        listDictionariesInfoByVEHICLE();
     });
 
+    /**
+     *  绑定车辆类型（lixiaojie)
+     */
+    function listDictionariesInfoByVEHICLE() {
+        $.ajax({
+            url: "/carrental/listDictionariesInfoByVEHICLE",
+            data: {
+            },
+            dataType: "json",
+            type: "post",
+            success: function (ReponseResult) {
+                var content="<option value='0' style='width: 300px'>请选择车辆类型</option>";
+                $.each(ReponseResult.data,function (i,e) {
+                    content+="<option style='width: 300px' value='"+e.valueId+"'>"+e.valueContent1+"</option>";
+                });
+                $("#typeName").html(content);
+            },
+            error: function (res) {
+                /*  alert(res);*/
+            }
+        });
+
+
+
+
+    }
     /**
      *  新增用车类型 李晓杰
      */
     function saveVehicleTypeInfo() {
 
-
-
-        var typeName = $("input[name='typeName']").val();
+        var typeName= $("#typeName  option:selected").val();
+        /* var typeName = $("input[name='typeName']").val();*/
         var passengervolume = $("input[name='passengervolume']").val();
         var costprice = $("input[name='costprice']").val();
         var offer = $("input[name='offer']").val();
         var hiddenCarrentalId = $("input[name='hiddenCarrentalId']").val();
-
+        if (typeName==0||typeName=='0'){
+            alert("请选择用车类型");
+            return;
+        }
+        if (passengervolume==undefined||passengervolume==''||passengervolume==null) {
+            alert("载客量不能未空");
+            return;
+        }
+        if (costprice==undefined||costprice==''||costprice==null) {
+            alert("成本价不能未空");
+            return;
+        }
+        if (offer==undefined||offer==''||offer==null) {
+            alert("报价不能未空");
+            return;
+        }
 
         $.ajax({
             url: "/vehicleType/saveVehicleTypeInfo",
             data: {
-                "typeName":typeName,
-                "passengervolume":passengervolume,
-                "costprice":costprice,
-                "carRentalId":hiddenCarrentalId,
-                "offer":offer
+                "valueId": typeName,
+                "passengervolume": passengervolume,
+                "costprice": costprice,
+                "carRentalId": hiddenCarrentalId,
+                "offer": offer
 
             },
             dataType: "json",
@@ -102,9 +143,8 @@
             error: function (res) {
                 /*  alert(res);*/
             }
-        })
+        });
     }
-
 </script>
 <script>
     //Demo

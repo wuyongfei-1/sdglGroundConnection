@@ -114,6 +114,7 @@
 
     //根据公司车辆类型id删除公司车辆类型信息（lixiaojie）
     function deleteVehicleTypeByVehicleTypeId(VehicleTypeId){
+        alert(VehicleTypeId);
         if(!confirm("确定要删除吗？")){
             return;
         }
@@ -258,7 +259,7 @@
                             context2+="<tr id='"+fuqinid+"' class=\""+erziclass+"\" style=\"display:none ;\" parentid=\"1\">\n" +
                                 "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
                                 "\t\t\t\t\t\t\t\t<td class=\"\">"+p.typeId+"</td>\n" +
-                                "\t\t\t\t\t\t\t\t<td class=\"\">"+p.typeName+"</td>\n" +
+                                "\t\t\t\t\t\t\t\t<td class=\"\">"+p.dictionaries.valueContent1+"</td>\n" +
                                 "\t\t\t\t\t\t\t\t<td class=\"\">"+p.passengervolume+"</td>\n" +
                                 "\t\t\t\t\t\t\t\t<td class=\"\">"+p.costprice+"</td>\n" +
                                 "\t\t\t\t\t\t\t\t<td class=\"\">"+p.offer+"</td>\n" +
@@ -266,7 +267,7 @@
                                 "\t\t\t\t\t\t\t\t<td>\n" +
                                 "\t\t\t\t\t\t\t\t\t<div class=\"layui-inline\">\n" +
                                 "\t\t\t\t\t\t\t\t\t\t<button class=\"layui-btn layui-btn-mini layui-btn-normal\" onclick='updatetypeAlert("+p.typeId+","+e.carRentalId+")'><i class=\"layui-icon\">&#xe642;</i></button>\n" +
-                                "\t\t\t\t\t\t\t\t\t\t<button class=\"layui-btn layui-btn-mini layui-btn-danger\" onclick='deleteVehicleTypeByVehicleTypeId("+e.typeId+")' ><i class=\"layui-icon\">&#xe640;</i></button>\n" +
+                                "\t\t\t\t\t\t\t\t\t\t<button class=\"layui-btn layui-btn-mini layui-btn-danger\" onclick='deleteVehicleTypeByVehicleTypeId("+p.typeId+")' ><i class=\"layui-icon\">&#xe640;</i></button>\n" +
                                 "\t\t\t\t\t\t\t\t\t</div>\n" +
                                 "\t\t\t\t\t\t\t\t</td>\n" +
                                 "\t\t\t\t\t\t\t</tr>";

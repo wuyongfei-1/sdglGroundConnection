@@ -66,7 +66,7 @@ public class VehicleTypeServiceImpl implements VehicleTypeService {
     @RecordOperation(type = "车辆类型", desc = "删除了一条车辆类型信息")
     public Integer deleteVehicleTypeByVehicleTypeId(Integer VehicleTypeId) {
         VehicleType vehicleType = vehicleTypeMapper.selectByPrimaryKey(VehicleTypeId);
-        vehicleType.setWhetherDel(0);
+        vehicleType.setWhetherDel(1);
         return vehicleTypeMapper.updateByPrimaryKey(vehicleType);
     }
 
@@ -91,8 +91,8 @@ public class VehicleTypeServiceImpl implements VehicleTypeService {
     @Override
     public VehicleType getVehicleTypeInfoByTypeId(Integer TypeId) {
         VehicleType vehicleType=vehicleTypeMapper.selectByPrimaryKey(TypeId);
-        vehicleType.setCarrental(carrentalService.getCarrentalInfoByCarrentalId(vehicleType.getCarRentalId()));
-        vehicleType.setCarType(dictionariesService.listDictionaries1(vehicleType.getTypeCode(),vehicleType.getValueId()));
+/*        vehicleType.setCarrental(carrentalService.getCarrentalInfoByCarrentalId(vehicleType.getCarRentalId()));
+        vehicleType.setCarType(dictionariesService.listDictionaries1(vehicleType.getTypeCode(),vehicleType.getValueId()));*/
         return vehicleType;
     }
 
@@ -105,6 +105,8 @@ public class VehicleTypeServiceImpl implements VehicleTypeService {
     @Override
     @RecordOperation(type = "车辆类型", desc = "修改了一条车辆类型信息")
     public Integer updateVehicleTypesInfo(VehicleType vehicleType) {
+        vehicleType.setTypeCode("VEHICLET");
+
         vehicleType.setWhetherDel(0);
         return vehicleTypeMapper.updateByPrimaryKey(vehicleType);
     }

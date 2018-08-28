@@ -1,6 +1,7 @@
 package com.dyhc.sdglgroundconnection.web;
 
 import com.dyhc.sdglgroundconnection.pojo.Scenicspot;
+import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.dyhc.sdglgroundconnection.service.ScenicspotService;
 import com.dyhc.sdglgroundconnection.utils.ClientFileUploadUtil;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 
@@ -81,7 +83,7 @@ public class ScenicspotController {
      * @return ReponseResult对象
      */
     @RequestMapping("/insertScenicspot")
-    public ReponseResult insertScenicspot(Scenicspot scenicspot, @RequestParam("multipartFile") MultipartFile multipartFile) {
+    public ReponseResult insertScenicspot(Scenicspot scenicspot, @RequestParam("multipartFile") MultipartFile multipartFile, HttpServletRequest request) {
         try {
             // 上传图片操作
             String uploadResult = ClientFileUploadUtil.uploadImage(multipartFile, ".jpg");
@@ -92,7 +94,8 @@ public class ScenicspotController {
                 logger.info(" method:insertScenicspot  上传图片失败！");
             }
             //设置默认参数
-            scenicspot.setCreateBy(1);
+            Staff staff = (Staff) request.getSession().getAttribute("user");
+            scenicspot.setCreateBy(staff == null ? 1 : staff.getStaffId());
             scenicspot.setCreateDate(new Date());
             scenicspot.setWhetherDel(0);
             scenicspot.setDescribe("景点");
@@ -174,7 +177,7 @@ public class ScenicspotController {
      * @return 返回受影响行数
      */
     @RequestMapping("/updateInfoById")
-    public ReponseResult updateInfoById(Scenicspot scenicspot, @RequestParam("multipartFile") MultipartFile multipartFile) {
+    public ReponseResult updateInfoById(Scenicspot scenicspot, @RequestParam("multipartFile") MultipartFile multipartFile,HttpServletRequest request) {
         try {
             //判断是否有上传图片 判断multipartFile和savePath是否为null
             if (!multipartFile.isEmpty() && "a.txt".equals(multipartFile.getOriginalFilename())) {
@@ -192,7 +195,8 @@ public class ScenicspotController {
                     logger.info(" method:insertScenicspot  上传图片失败！");
                 }
             }
-            scenicspot.setUpdateBy(1);
+            Staff staff = (Staff) request.getSession().getAttribute("user");
+            scenicspot.setUpdateBy(staff == null ? 1 : staff.getStaffId());
             scenicspot.setUpdateDate(new Date());
             //一、修改景点信息
             Integer result = scenicspotService.updateScenicspot(scenicspot);

@@ -1,7 +1,7 @@
 package com.dyhc.sdglgroundconnection.web;
 
-import com.dyhc.sdglgroundconnection.pojo.Linetemplate;
 import com.dyhc.sdglgroundconnection.pojo.Linetemplatethird;
+import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.dyhc.sdglgroundconnection.service.LinetemplatethirdService;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import org.slf4j.Logger;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
@@ -33,9 +33,11 @@ public class LinetemplatethirdController {
      * @return 返回ReponseResult对象
      */
     @RequestMapping("/insertLinetemplatethirdInfo")
-    public ReponseResult insertLinetemplatethirdInfo(Linetemplatethird linetemplatethird, @RequestParam("templateId")Integer templateId){
+    public ReponseResult insertLinetemplatethirdInfo(Linetemplatethird linetemplatethird, @RequestParam("templateId")Integer templateId, HttpServletRequest request){
         try {
             linetemplatethird.setTemplateid(templateId);
+            Staff staff = (Staff) request.getSession().getAttribute("user");
+            linetemplatethird.setCreateby(staff == null ? 1 : staff.getStaffId());
             Integer result =linetemplatethirdService.insertLinetemplatethirdInfo(linetemplatethird);
             ReponseResult<Integer> data = null;
             //二、判断是否成功
@@ -58,6 +60,11 @@ public class LinetemplatethirdController {
         }
     }
 
+    /**
+     * 删除第三方表信息根据第三方表编号 （wangtao）
+     * @param thirdId 第三方表编号
+     * @return
+     */
     @RequestMapping("/deleteLinetemplatethirdInfo")
     public ReponseResult deleteLinetemplatethirdInfo(@RequestParam("thirdId")Integer thirdId){
         try {

@@ -203,6 +203,7 @@ public class RestaurantServiceImpl implements RestaurantService {
             Restaurant restaurant1 = restaurantMapper.selectByPrimaryKey(restaurant);
             restaurant.setPicturePath(restaurant1.getPicturePath());
             restaurant.setCreateDate(restaurant1.getCreateDate());
+            restaurant.setCreateBy(restaurant1.getCreateBy());
         }
         restaurant.setWhetherDel(0);
         restaurant.setUpdateDate(new Date());

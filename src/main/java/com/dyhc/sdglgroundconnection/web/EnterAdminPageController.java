@@ -4,11 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -21,6 +17,16 @@ public class EnterAdminPageController {
 
     // 日志对象
     private Logger logger = LoggerFactory.getLogger(EnterAdminPageController.class);
+
+    /**
+     * 退出功能
+     * @return 返回到登录页面
+     */
+    @RequestMapping("/exit.html")
+    public String exitHtml(HttpServletRequest request){
+        request.getSession().invalidate();
+        return "admin/index/login";
+    }
 
     /**
      * git测试页面

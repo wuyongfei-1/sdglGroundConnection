@@ -58,7 +58,7 @@ public interface DispatchService {
     /** 总控审核通过（lixiaojie)
      * @return
      */
-    Integer onCheckDispatchInfo(Integer dispatchId) throws ParseException;
+    Integer onCheckDispatchInfo(Integer dispatchId,int staffId) throws ParseException;
 
     /**
      * 总控审核不通过(lixiaojie)

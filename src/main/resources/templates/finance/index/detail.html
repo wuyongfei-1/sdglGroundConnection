@@ -62,7 +62,7 @@
                 <td>抵离时间:</td>
                 <td><input type="date" id="didashijian" value="2018-05-05" disabled>-<input type="date" id="likaishijian" value="2018-05-10" disabled></td>
                 <td>线路:</td>
-                <td><input type="text" id="xianlu1" value="北京" style="width:60px; text-align:center" disabled>-<input type="text" id="xianlu2" value="太原" style="width:60px; text-align:center" disabled></td>
+                <td><input type="text" id="xianlu" value="北京" style="width:60px; text-align:center" disabled></td>
             </tr>
         </table>
         <table width="1300px">
@@ -178,7 +178,7 @@
                             <td>1</td>
                             <td>60</td>
                             <td>4000</td>
-                            <td>付现</td>
+                            <td>现付</td>
                         </tr>
                         </tbody>
 
@@ -212,7 +212,7 @@
                             <td>100</td>
                             <td>10</td>
                             <td>1000</td>
-                            <td>付现</td>
+                            <td>现付</td>
                         </tr>
                         </tbody>
                     </table>
@@ -366,7 +366,7 @@
                     if(e.payMethods=="签单"){
                         zhusuqiandanheji+=subtotal;
                     }
-                    if(e.payMethods=="导游付"){
+                    if(e.payMethods=="现付"){
                         zhusudaoyoufu+=subtotal;
                     }
                     zhusuheji+=subtotal;//计算住宿合计
@@ -404,14 +404,14 @@
                     if(e.lunchPayMethods=="签单"){
                         yongcanqiandanheji+=wucanxiaoji;
                     }
-                    if(e.dinnerPayMethods=="付现"){
+                    if(e.dinnerPayMethods=="现付"){
                         yongcandaoyoufu+=wancanxiaoji;
                     }
 
                     if(e.dinnerPayMethods=="签单"){
                         yongcanqiandanheji+=wancanxiaoji;
                     }
-                    if(e.lunchPayMethods=="付现"){
+                    if(e.lunchPayMethods=="现付"){
                         yongcandaoyoufu+=wucanxiaoji;
                     }
 
@@ -457,7 +457,7 @@
                     if(e.payMethods=="签单"){
                         menpiaoqiandanheji+=menpiaoxiaoji;
                     }
-                    if(e.payMethods=="付现"){
+                    if(e.payMethods=="现付"){
                         menpiaodaoyoufu+=menpiaoxiaoji;
                     }
                     menpiaoheji+=menpiaoxiaoji;
@@ -478,11 +478,11 @@
                     "<td>" + ReponseResult.data.reportfare.tolls + "</td>" +
                     "<td>" + ReponseResult.data.reportfare.parkingFee + "</td>" +
                     "<td>" + ReponseResult.data.reportfare.prepaidFare + "</td>" +
-                    "<td>" + "合计" + "</td>" +
+                    "<td>" + (ReponseResult.data.reportfare.tolls+ReponseResult.data.reportfare.parkingFee+ReponseResult.data.reportfare.prepaidFare) + "</td>" +
                     "<td>" + ReponseResult.data.reportqutsubsidy.dailyCost + "</td>" +
                     "<td>" + ReponseResult.data.reportqutsubsidy.nums + "</td>" +
                     "<td>" + ReponseResult.data.reportqutsubsidy.guideNum + "</td>" +
-                    "<td>合计</td>" +
+                    "<td>"+ReponseResult.data.reportqutsubsidy.dailyCost+"</td>" +
                     "</tr>";
                 $("#reportfare").html(reportfare);
 
@@ -502,6 +502,9 @@
                 $("#yuanjiekuan").text(ReponseResult.data.dispatch.loan);
                 $("#keyuandi").val(ReponseResult.data.dispatch.tourist);
                 $("#waishoutuankuan").text(ReponseResult.data.receipt);
+
+                //线路
+                $("#xianlu").val(ReponseResult.data.disline.lineName);
 
                 $("#daoyouxianfuheji").text(ReponseResult.data.totalPayable);//导游现付合计
                 $("#baozhangriqi").text(ReponseResult.data.reportDate);

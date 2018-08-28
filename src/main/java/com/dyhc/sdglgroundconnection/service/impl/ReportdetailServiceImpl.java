@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
+import com.dyhc.sdglgroundconnection.mapper.DislineMapper;
 import com.dyhc.sdglgroundconnection.mapper.DispatchMapper;
 import com.dyhc.sdglgroundconnection.mapper.ReportdetailMapper;
 import com.dyhc.sdglgroundconnection.pojo.*;
@@ -46,6 +47,8 @@ public class ReportdetailServiceImpl implements ReportdetailService {
     private DisguideService disguideService;
     @Autowired
     private GuideService guideService;
+    @Autowired
+    private DislineMapper dislineMapper;
 
     /**
      * 按导游报账明细表编号查询（yunguohao）
@@ -57,6 +60,11 @@ public class ReportdetailServiceImpl implements ReportdetailService {
         Reportdetail reportdetail=reportdetailMapper.selectByPrimaryKey(reportDetailId);
         //给调度表对象赋值
         reportdetail.setDispatch(dispatchMapper.selectByPrimaryKey(reportdetail.getDispatchId()));
+        //给线路对象赋值
+        DislineExample dislineExample=new DislineExample();
+        DislineExample.Criteria dislineExampleCriteria=dislineExample.createCriteria();
+        dislineExampleCriteria.andOfferidEqualTo(dispatchMapper.selectByPrimaryKey(reportdetail.getDispatchId()).getDispatchId());
+        reportdetail.setDisline(dislineMapper.selectByExample(dislineExample).get(0));
         //给导游报账住宿集合赋值
         reportdetail.setReportaccommodationList(reportaccommodationService.listReportaccommodationByValueId(reportDetailId));
         //给导游报账餐厅集合赋值

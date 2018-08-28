@@ -1,6 +1,7 @@
 package com.dyhc.sdglgroundconnection.web;
 
 import com.dyhc.sdglgroundconnection.pojo.Guide;
+import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.dyhc.sdglgroundconnection.service.GuideService;
 import com.dyhc.sdglgroundconnection.utils.ConditionValidation;
 import com.dyhc.sdglgroundconnection.utils.DateTimeUtil;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.locks.Condition;
 
@@ -121,8 +123,11 @@ public class GuideController {
      * 增加(yunguohao)
      */
     @RequestMapping("/insertGuide")
-    public ReponseResult insertCompany(Guide guide) {
+    public ReponseResult insertCompany(Guide guide,HttpServletRequest request) {
         try {
+            Staff sessionStaff=(Staff) request.getSession().getAttribute("user");
+            guide.setCreater(sessionStaff!=null?sessionStaff.getStaffId():1);
+            guide.setCreationDate(new Date());
             int result = guideService.insertGuide(guide);
             System.out.println(result);
             ReponseResult<String> date;
@@ -148,8 +153,11 @@ public class GuideController {
      * 修改(yunguohao)
      */
     @RequestMapping("/updateGuide")
-    public ReponseResult updateCompany(Guide guide) {
+    public ReponseResult updateCompany(Guide guide,HttpServletRequest request) {
         try {
+            Staff sessionstaff= (Staff) request.getSession().getAttribute("user");
+            guide.setModifier(sessionstaff!=null?sessionstaff.getStaffId():1);
+            guide.setModifiedData(new Date());
             int result = guideService.updateGuide(guide);
             ReponseResult<String> date;
             if (result > 0) {

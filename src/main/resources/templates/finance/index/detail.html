@@ -178,7 +178,7 @@
                             <td>1</td>
                             <td>60</td>
                             <td>4000</td>
-                            <td>付现</td>
+                            <td>现付</td>
                         </tr>
                         </tbody>
 
@@ -212,7 +212,7 @@
                             <td>100</td>
                             <td>10</td>
                             <td>1000</td>
-                            <td>付现</td>
+                            <td>现付</td>
                         </tr>
                         </tbody>
                     </table>
@@ -366,7 +366,7 @@
                     if(e.payMethods=="签单"){
                         zhusuqiandanheji+=subtotal;
                     }
-                    if(e.payMethods=="导游付"){
+                    if(e.payMethods=="现付"){
                         zhusudaoyoufu+=subtotal;
                     }
                     zhusuheji+=subtotal;//计算住宿合计
@@ -404,14 +404,14 @@
                     if(e.lunchPayMethods=="签单"){
                         yongcanqiandanheji+=wucanxiaoji;
                     }
-                    if(e.dinnerPayMethods=="付现"){
+                    if(e.dinnerPayMethods=="现付"){
                         yongcandaoyoufu+=wancanxiaoji;
                     }
 
                     if(e.dinnerPayMethods=="签单"){
                         yongcanqiandanheji+=wancanxiaoji;
                     }
-                    if(e.lunchPayMethods=="付现"){
+                    if(e.lunchPayMethods=="现付"){
                         yongcandaoyoufu+=wucanxiaoji;
                     }
 
@@ -457,7 +457,7 @@
                     if(e.payMethods=="签单"){
                         menpiaoqiandanheji+=menpiaoxiaoji;
                     }
-                    if(e.payMethods=="付现"){
+                    if(e.payMethods=="现付"){
                         menpiaodaoyoufu+=menpiaoxiaoji;
                     }
                     menpiaoheji+=menpiaoxiaoji;

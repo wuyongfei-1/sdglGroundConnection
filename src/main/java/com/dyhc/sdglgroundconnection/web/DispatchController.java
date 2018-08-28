@@ -3,6 +3,7 @@ package com.dyhc.sdglgroundconnection.web;
 import com.dyhc.sdglgroundconnection.dto.MissionParam;
 import com.dyhc.sdglgroundconnection.dto.TravelPathParam;
 import com.dyhc.sdglgroundconnection.pojo.Dispatch;
+import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.dyhc.sdglgroundconnection.service.DispatchService;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import com.github.pagehelper.PageInfo;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
@@ -116,10 +120,14 @@ public class DispatchController {
      * @return
      */
     @RequestMapping(value = "/onCheckDispatchInfo",method = RequestMethod.POST )
-    public ReponseResult onCheckDispatchInfo(Integer dispatchId){
+    public ReponseResult onCheckDispatchInfo(Integer dispatchId, HttpServletRequest request){
         ReponseResult<String> date=null;
         try {
-            int result=dispatchService.onCheckDispatchInfo(dispatchId);
+
+            Staff sessionstaff= (Staff) request.getSession().getAttribute("user");
+            int staffId=sessionstaff!=null?sessionstaff.getStaffId():1;
+
+            int result=dispatchService.onCheckDispatchInfo(dispatchId,staffId);
 
             if (result>0){
                     date= ReponseResult.ok("1","总控审核通过成功！");

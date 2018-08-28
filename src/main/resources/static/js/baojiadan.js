@@ -70,7 +70,7 @@ function insertJingdian(onClickjd) {
 	}
 		showInfo3();
 			function addss() {
-                var count=$("#add").prev().find("[spot='jingdian']").attr("weight");
+                var count=$("#add").prev().children("div:last-child").find("[spot='jingdian']").attr("weight");
                 count++;
 				var a= "<div style='margin-bottom: 30px;width: 800px'>\n" +
                     "            <input type=\"image\" src=\"/images/up.PNG\" style=\"height: 30px;width: 35px;\" id=\"toggle\"\n" +
@@ -188,7 +188,7 @@ function insertJingdian(onClickjd) {
 				var b = $("#add");
 				b.remove();
 				var f = "<button class='layui-btn layui-btn-normal layui-btn-radius' onclick='addss()' id='add'>十</button>";
-				$("#zong").append(f);
+				$("#zong").after(f);
 			}
 function showInfo3() {
     zongxinalu = "<option value='-1'>请选择</option>";

@@ -21,12 +21,11 @@ public class Disrestaurant {
     private Integer offerId; // 调度信息编号（外键，与调度信息表关联）
     @Column(name = "weight")
     private Integer weight;//权重（天数）
+    private String payment; // 付款方式
     @Column(name = "costPrice")
     private Double costPrice; // 成本价
     @Column(name = "quotePrice")
     private Double quotePrice; // 报价
-    @Column(name = "numDays")
-    private Integer numDays; // 天数
     @Column(name = "dinDate")
     private Integer dinDate; // 用餐时间（早、中、晚）
     private Integer status; // 是否删除（1代表已删除，0代表未删除）
@@ -113,15 +112,7 @@ public class Disrestaurant {
         this.quotePrice = quotePrice;
     }
 
-    @Basic
-    @Column(name = "numDays")
-    public Integer getNumDays() {
-        return numDays;
-    }
 
-    public void setNumDays(Integer numDays) {
-        this.numDays = numDays;
-    }
 
     @Basic
     @Column(name = "dinDate")
@@ -213,31 +204,12 @@ public class Disrestaurant {
         this.value3 = value3;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Disrestaurant that = (Disrestaurant) o;
-        return disRestaurantId == that.disRestaurantId &&
-                Objects.equals(typeId, that.typeId) &&
-                Objects.equals(offerId, that.offerId) &&
-                Objects.equals(costPrice, that.costPrice) &&
-                Objects.equals(quotePrice, that.quotePrice) &&
-                Objects.equals(numDays, that.numDays) &&
-                Objects.equals(dinDate, that.dinDate) &&
-                Objects.equals(status, that.status) &&
-                Objects.equals(createBy, that.createBy) &&
-                Objects.equals(updateBy, that.updateBy) &&
-                Objects.equals(upDate, that.upDate) &&
-                Objects.equals(createDate, that.createDate) &&
-                Objects.equals(value1, that.value1) &&
-                Objects.equals(value2, that.value2) &&
-                Objects.equals(value3, that.value3);
+
+    public String getPayment() {
+        return payment;
     }
 
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(disRestaurantId, typeId, offerId, costPrice, quotePrice, numDays, dinDate, status, createBy, updateBy, upDate, createDate, value1, value2, value3);
+    public void setPayment(String payment) {
+        this.payment = payment;
     }
 }

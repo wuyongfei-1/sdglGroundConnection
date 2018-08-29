@@ -1,6 +1,7 @@
 package com.dyhc.sdglgroundconnection.service;
 
 import com.dyhc.sdglgroundconnection.dto.DispatchParam;
+import com.dyhc.sdglgroundconnection.dto.PatchParam;
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.pojo.Dispatch;
 import com.github.pagehelper.PageInfo;
@@ -17,10 +18,11 @@ public interface DispatchService {
 
     /**
      * 根据调度编号查询调度信息 （wangtao）
+     *
      * @param dispatchId 调度编号
      * @return 返回调度表信息对象
      */
-    Dispatch getDispatchInfoByDispatchInfoId(Integer dispatchId)throws Exception;
+    Dispatch getDispatchInfoByDispatchInfoId(Integer dispatchId) throws Exception;
 
     /**
      * 添加一条调度信息（wuyongfei）
@@ -39,13 +41,16 @@ public interface DispatchService {
      */
     PageInfo<Dispatch> selectDispatchs(Integer pageNo, Integer pageSize);
 
-    /** 总控审核通过（lixiaojie)
+    /**
+     * 总控审核通过（lixiaojie)
+     *
      * @return
      */
     Integer onCheckDispatchInfo(Integer dispatchId) throws ParseException;
 
     /**
      * 总控审核不通过(lixiaojie)
+     *
      * @return
      */
     Integer noCheckDispatchInfo(Integer dispatchId);

@@ -8,7 +8,7 @@ import javax.persistence.Table;
 import java.util.Date;
 
 /**
- *  调度旅行团表
+ * 调度旅行团表
  */
 @Table(name = "dispatchtourgroup")
 public class Dispatchtourgroup {
@@ -17,44 +17,44 @@ public class Dispatchtourgroup {
     @Column(name = "dispatchtourgroupId")
     private Integer dispatchtourgroupid; // 编号
 
-    @Column(name="offerId")
+    @Column(name = "offerId")
     private Integer offerid; // 调度信息编号（外键与调度表关联）
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-    @Column(name="clusterTime")
+    @Column(name = "clusterTime")
     private Date clustertime; // 接团时间
 
-    @Column(name="clusterAddress")
+    @Column(name = "clusterAddress")
     private String clusteraddress; // 接团地点
 
-    @Column(name="flightId")
+    @Column(name = "flightId")
     private String flightid; // 团队抵达航班/车次号
 
-    @Column(name="teamContactsName")
+    @Column(name = "teamContactsName")
     private String teamcontactsname; // 团队联系人
 
-    @Column(name="contactNumber")
+    @Column(name = "contactNumber")
     private String contactnumber; // 联系电话
 
-    @Column(name="updateBy")
+    @Column(name = "updateBy")
     private Integer updateby; // 修改人
 
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column(name="`upDate`")
+    @Column(name = "`upDate`")
     private Date update; // 修改时间
 
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column(name="createDate")
+    @Column(name = "createDate")
     private Date createdate; // 创建时间
 
-    @Column(name="value1")
+    @Column(name = "value1")
     private String value1; // 送团日期
 
-    @Column(name="value2")
+    @Column(name = "value2")
     private String value2; // 送团地点
 
-    @Column(name="value3")
-    private String value3;
+    @Column(name = "value3")
+    private String value3;  // 旅行社名称
 
     public Integer getDispatchtourgroupid() {
         return dispatchtourgroupid;

@@ -18,9 +18,9 @@ function qiehuan2(dd) {
     // } else {
     //     $(dd).attr("src", "../images/down.PNG");
     // }
-    if ($(a).is(':hidden')){
+    if ($(a).is(':hidden')) {
         $(a).show();
-    } else{
+    } else {
         $(a).hide();
     }
 }
@@ -118,8 +118,8 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
                 "<td><label class='layui-form-label'>需购票人数:</label></td>\" +\n" +
                 "<td><input type='text'  class='layui-input'></td>\" +\n" +
                 "<td colspan='2' width='300px'>" +
-                "<input type='radio' name='scenic"+(i)+"' value='现付' title='现付' />"+
-                "<input type='radio' name='scenic"+(i)+"' value='签单' title='签单' checked></td>" +
+                "<input type='radio' name='scenic" + (i) + "' value='现付' title='现付' />" +
+                "<input type='radio' name='scenic" + (i) + "' value='签单' title='签单' checked></td>" +
                 "</tr>";
             var scenic = {scenicId: scenicId, costPrice: costPrice, offer: offer};
             scenicsArray.push(scenic);
@@ -153,7 +153,7 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
         "<table border='0'  cellspacing='0' cellpadding='0' style=\"width: 1340px\">" +
         "<tr>" +
         "<td><label class='layui-form-label'>线路</label></td>" +
-        "<td>" + templates +
+        "<td><input id='lineName' type='text' value='" + (lineArriveName) + "' class='layui-input' />" +
         "</td>" +
         "</tr>" +
         "<tr>" +
@@ -161,7 +161,7 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
         "<td><input type=\"text\" name=\"date3\" id=\"date3\" lay-verify=\"date\" placeholder=\"yyyy-MM-dd\"\n" +
         "autocomplete=\"off\" class=\"layui-input\"></td>" +
         "</tr>" +
-        "	<tr>" +
+        "	<tr id='hotelItem'>" +
         "	<td><label class='layui-form-label'>酒店</label></td>" +
         "	<td>" + hotels +
         "</td>" +
@@ -174,18 +174,18 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
         "<td><label class='layui-form-label'>报价：</label></td>" +
         "<td><input type='text' class='layui-input'></td>" +
         "<td colspan='2'> " +
-        "<input type='radio' name='hotel' value='现付' title='现付' />"+
+        "<input type='radio' name='hotel' value='现付' title='现付' />" +
         "<input type='radio' name='hotel' value='签单' title='签单' checked></td>" +
         "</tr>" +
         "<tr>" +
         "<td><label class='layui-form-label'>司陪：</label></td>" +
         "<td><label class='layui-form-label' style='width: 140px;'>房间数：</label></td>" +
-        "<td><input type='text' class='layui-input'></td>" +
-        "<td><label class='layui-form-label'>成本价：</label></td>" +
-        "<td><input type='text' class='layui-input'></td>" +
-        "<td colspan='2'> " +
-        "<input type='radio' name='privatePany' value='免费' title='免费' />"+
-         "<input type='radio' name='privatePany' value='付费' title='付费' checked></td>" +
+        "<td><input type='text' class='layui-input' id='companyBedNum'></td>" +
+        "<td><label class='layui-form-label' >成本价：</label></td>" +
+        "<td><input type='text' class='layui-input' id='companyBedoffer'></td>" +
+        "<td colspan='2' id='privateAccompany'> " +
+        "<input type='radio' name='privatePany' value='免费' title='免费' />" +
+        "<input type='radio' name='privatePany' value='付费' title='付费' checked></td>" +
         "</tr>" +
         "<tr id=\"onClickjd\">\n" +
         "<td colspan=\"2\">\n" +
@@ -210,9 +210,9 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
         "<td><label class='layui-form-label'>报价:</label></td>" +
         "<td><input type='text' name='offer' class='layui-input'></td>" +
         "<td colspan='2'>" +
-        "<input type='radio' name='lunch' value='现付' title='现付' />"+
+        "<input type='radio' name='lunch' value='现付' title='现付' />" +
         "<input type='radio' name='lunch' value='签单' title='签单' checked></td>" +
-        "</td>"+
+        "</td>" +
         "</tr>" +
         "	<tr id='dinner'>" +
         "<td><label class='layui-form-label'>晚餐</label></td>" +
@@ -225,9 +225,9 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
         "<td><label class='layui-form-label'>报价:</label></td>" +
         "<td><input type='text' name='offer' class='layui-input'></td>" +
         "<td colspan='2'>" +
-        "<input type='radio' name='dinner' value='现付' title='现付' />"+
+        "<input type='radio' name='dinner' value='现付' title='现付' />" +
         "<input type='radio' name='dinner' value='签单' title='签单' checked></td>" +
-        "</td>"+
+        "</td>" +
         "	</tr>" +
         "	<tr>" +
         "	<td><label class='layui-form-label'>行程</label></td>" +
@@ -246,8 +246,8 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
 
     // 导游借款
     // 总计
-    // 线路绑定
-    $('#offer' + num).find("#templates [data-text=" + lineArriveName + "]").attr('selected', 'selected');
+    // // 线路绑定
+    // $('#offer' + num).find("#templates [data-text=" + lineArriveName + "]").attr('selected', 'selected');
     // 时间绑定
     $('#offer' + num).find("#date3").val(lineDate);
     // 酒店绑定
@@ -288,7 +288,7 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
         var scenicId = e["scenicId"]; // 景点编号
         var costPrice = e["costPrice"]; // 成本价
         var offer = e["offer"]; // 报价
-        $('#offer' + num + ' #scenic' + i).find('#scenicspots').first().attr("box","true");
+        $('#offer' + num + ' #scenic' + i).find('#scenicspots').first().attr("box", "true");
         $('#offer' + num + ' #scenic' + i).find('#scenicspots').first().find('option[value=' + scenicId + ']')
             .attr('selected', 'selected');
         // 绑定成本价
@@ -322,7 +322,8 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
     // 接待标准绑定
     $('#reception').text(reception);
     // end
-
+    // 刷新lay样式
+    renderCss();
 }
 
 

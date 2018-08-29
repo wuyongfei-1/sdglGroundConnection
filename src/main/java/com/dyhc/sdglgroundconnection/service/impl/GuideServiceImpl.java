@@ -39,7 +39,7 @@ public class GuideServiceImpl implements GuideService {
     @Autowired
     private GuideScheduleMapper guideScheduleMapper;
 
-    private Guide guide; // 存放消息队列处理完返回的信息
+    //private Guide guide; // 存放消息队列处理完返回的信息
 
     /**
      * 获取所有的导游信息（不分页）（wuyongfei）
@@ -61,23 +61,26 @@ public class GuideServiceImpl implements GuideService {
      */
     @Override
     public Guide login(String username) throws Exception {
-        activeMQUtil.sendMessage("guide.login", username);
-        return guide;
-    }
-
-    /**
-     * MQ监听器 & 导游登陆（wuyongfei）
-     *
-     * @param username 用户名
-     */
-    @JmsListener(destination = "guide.login")
-    public void reveiveQueueFromLogin(String username) {
         GuideExample guideExample = new GuideExample();
         GuideExample.Criteria criteria = guideExample.createCriteria();
         criteria.andUsernameEqualTo(username);
         List<Guide> guides = guideMapper.selectByExample(guideExample);
-        guide = (guides != null && guides.size() > 0) ? guides.get(0) : null;
+        return (guides != null && guides.size() > 0) ? guides.get(0) : null;
     }
+
+//    /**
+//     * MQ监听器 & 导游登陆（wuyongfei）
+//     *
+//     * @param username 用户名
+//     */
+//    @JmsListener(destination = "guide.login")
+//    public void reveiveQueueFromLogin(String username) {
+//        GuideExample guideExample = new GuideExample();
+//        GuideExample.Criteria criteria = guideExample.createCriteria();
+//        criteria.andUsernameEqualTo(username);
+//        List<Guide> guides = guideMapper.selectByExample(guideExample);
+//        guide = (guides != null && guides.size() > 0) ? guides.get(0) : null;
+//    }
 
     /**
      * 导游名称分页查询(yunguohao)

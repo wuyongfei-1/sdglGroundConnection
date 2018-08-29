@@ -54,17 +54,17 @@ public class GuideAccountController {
                         request.getSession().setAttribute("guide", guide);
                         logger.info(userName + " " + DateTimeUtil.getCurrentDate("yyyy-MM-dd HH:mm:ss") + " 登陆成功！");
                         // 登陆成功
-                        return ReponseResult.ok(guide, "登陆成功");
+                        return ReponseResult.ok("{\"status\":" + (guide.getGuideId()) + "}", "登陆成功");
                     } else {
                         // 用户名正确，密码错误
-                        return ReponseResult.ok("{\"status\";0}", "用户名和密码不匹配！");
+                        return ReponseResult.ok("{\"status\":0}", "用户名和密码不匹配！");
                     }
                 } else {
                     // 用户名不存在
-                    return ReponseResult.ok("{\"status\";0}", "用户名和密码不匹配！");
+                    return ReponseResult.ok("{\"status\":0}", "用户名和密码不匹配！");
                 }
             }
-            return ReponseResult.ok("{\"status\";0}", "用户名或密码不能为空！");
+            return ReponseResult.ok("{\"status\":0}", "用户名或密码不能为空！");
         } catch (Exception e) {
             logger.error(" method:login  导游登陆出现异常，登陆失败！" + e.getMessage());
             e.printStackTrace();

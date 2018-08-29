@@ -65,7 +65,6 @@ public class StaffServiceImpl implements StaffService {
         staff.setCreateBy(oldStaff.getCreateBy());
         staff.setCreateDate(oldStaff.getCreateDate());
         staff.setWhetherDel(0);
-        staff.setWhetherDel(0);
         return  staffMapper.updateByPrimaryKey(staff);
     }
 

@@ -71,47 +71,7 @@ public class GuideController {
             return err;
         }
     }
-    /**
-     * 导游登陆接口（wuyongfei）
-     *
-     * @param userName 用户名
-     * @param password 密码
-     * @param request  请求对象
-     * @return 响应结果 <前端只需判断该接口返回的json对象中的status为1则校验成功，否则登陆失败>
-     */
-    @GetMapping("/login.do")
-    public ReponseResult login(@RequestParam(value = "userName", required = true) String userName,
-                               @RequestParam(value = "password", required = true) String password,
-                               HttpServletRequest request) {
-        try {
-            // 验证用户名和密码
-            if (ConditionValidation.validation(userName) && ConditionValidation.validation(password)) {
-                // 请求数据
-                Guide guide = guideService.login(userName);
-                if (guide != null) {
-                    // 校验密码
-                    if (guide.getPassword().equals(EncryUtil.encrypt(password))) {
-                        // 保存信息到session中
-                        request.getSession().setAttribute("guide", guide);
-                        logger.info(userName + " " + DateTimeUtil.getCurrentDate("yyyy-MM-dd HH:mm:ss") + " 登陆成功！");
-                        // 登陆成功
-                        return ReponseResult.ok(guide, "登陆成功");
-                    } else {
-                        // 用户名正确，密码错误
-                        return ReponseResult.ok("{\"status\";0}", "用户名和密码不匹配！");
-                    }
-                } else {
-                    // 用户名不存在
-                    return ReponseResult.ok("{\"status\";0}", "用户名和密码不匹配！");
-                }
-            }
-            return ReponseResult.ok("{\"status\";0}", "用户名或密码不能为空！");
-        } catch (Exception e) {
-            logger.error(" method:login  导游登陆出现异常，登陆失败！" + e.getMessage());
-            e.printStackTrace();
-            return ReponseResult.err("系统出现异常，登陆失败！");
-        }
-    }
+
 
     /**
      * 导游分页查询(yunguohao)
@@ -215,32 +175,6 @@ public class GuideController {
             return date;
         } catch (Exception e) {
             logger.error(" method:deleteCompanyByID  删除导游失败，系统出现异常！");
-            e.printStackTrace();
-            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
-            return err;
-        }
-    }
-
-    /**
-     * id查询(yunguohao)
-     */
-    @RequestMapping("/selectGuideById")
-    public ReponseResult selectHotelById(int id) {
-        try {
-            Guide result = guideService.selectGuideByIds(id);
-            System.out.println(result.getGuideName());
-            ReponseResult<Guide> date;
-            if (result != null) {
-                date = ReponseResult.ok(result, "id查询成功");
-                logger.info(" method:selectGuideById  id查询成功！");
-
-            } else {
-                date = ReponseResult.ok("id查询导游失败！");
-                logger.info(" method:selectGuideById  id查询导游失败！");
-            }
-            return date;
-        } catch (Exception e) {
-            logger.error(" method:selectGuideById  id查询导游失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
             return err;

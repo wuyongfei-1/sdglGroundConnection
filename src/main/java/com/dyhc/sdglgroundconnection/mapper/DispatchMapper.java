@@ -10,5 +10,14 @@ import org.springframework.stereotype.Component;
  **/
 @Mapper
 @Component
-public interface DispatchMapper extends CommonMapper<Dispatch>{
+public interface DispatchMapper extends CommonMapper<Dispatch> {
+
+    /**
+     * 添加调度信息（wuyongfei）
+     *
+     * @param dispatch 调度实例对象
+     * @return 自增编号
+     * @throws Exception 全局异常
+     */
+    Integer saveDispatchInfo(Dispatch dispatch) throws Exception;
 }

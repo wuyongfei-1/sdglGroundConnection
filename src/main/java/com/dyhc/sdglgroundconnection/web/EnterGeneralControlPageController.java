@@ -200,4 +200,20 @@ public class EnterGeneralControlPageController {
     {   request.setAttribute("userId",userId);
         return "General-control/index/user-update";
     }
+    /**
+     * 进入导游请假页
+     * @return
+     */
+    @RequestMapping("/guideschedule.html")
+    public String  guideschedule() {
+        return "General-control/index/guideschedule";
+    }
+    /**
+     * 进入导游添加请假页
+     * @return
+     */
+    @RequestMapping("/guideschedule-add.html")
+    public String  guidescheduleadd() {
+        return "General-control/index/guideschedule-add";
+    }
 }

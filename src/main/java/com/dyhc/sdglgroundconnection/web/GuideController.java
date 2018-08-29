@@ -35,6 +35,25 @@ public class GuideController {
     private GuideService guideService;
 
     /**
+     * 查询所有导游信息(lixiaojie)
+     * @return
+     */
+    @RequestMapping(value = "/selectAllGuideInfo",method = RequestMethod.POST)
+    public ReponseResult selectAllGuideInfo() {
+        try {
+            ReponseResult<List> data = ReponseResult.ok(guideService.selectAllGuideInfo(), "查询所有导游信息成功！");
+
+            logger.info(" method:selectAllGuideInfo   查询所有导游信息成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:selectAllGuideInfo  查询所有导游信息失败！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
+    /**
      * 获取所有导游和导游日程（lixiaojie)
      * @return
      */

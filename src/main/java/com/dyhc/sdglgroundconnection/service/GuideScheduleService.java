@@ -1,6 +1,12 @@
 package com.dyhc.sdglgroundconnection.service;
 
+import com.dyhc.sdglgroundconnection.pojo.GuideSchedule;
+import com.dyhc.sdglgroundconnection.pojo.Staff;
+import com.github.pagehelper.PageInfo;
+import org.hibernate.validator.constraints.Range;
+
 import java.text.ParseException;
+import java.util.List;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
@@ -26,5 +32,18 @@ public interface GuideScheduleService {
      * @throws ParseException
      */
     Integer insertGuideScheduleInfo(Integer guideId, String Day, Integer offerId ) throws ParseException;
+
+    /**
+     * 查询请假的导游信息  和 日程信息(lixiaojie)
+     * @return
+     */
+    PageInfo<GuideSchedule> selectScheduleScheduleStateBy2(Integer pageNo, Integer pageSize, String guideName, String firstDate, String lastDate) throws ParseException;
+
+    /**
+     * 新增导游请假信息
+     * @param guideSchedule
+     * @return
+     */
+    Integer insertGuideScheduleStatus2(GuideSchedule guideSchedule) throws ParseException;
 
 }

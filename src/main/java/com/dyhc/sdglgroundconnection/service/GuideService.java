@@ -69,4 +69,11 @@ public interface GuideService {
      * @return
      */
     List<Guide> selectGuideInfoAndGuideSchedule();
+
+    /**
+     * 查询所有导游信息(lixiaojie)
+     * @return
+     */
+    List<Guide> selectAllGuideInfo();
+
 }

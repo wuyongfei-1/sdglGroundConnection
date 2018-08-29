@@ -6,6 +6,7 @@
 </head>
 
 <body>
+<div id="dy">
 <div style="width:55%; margin:0 auto">
 	  <div id="tupian" style="width: 800px;">
                 <img src="/images/logo.jpg" width="640px" height="50px">
@@ -47,9 +48,14 @@
 <p align="right" style="clear:both">合同订立日期:<strong style="text-decoration:underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>年<strong style="text-decoration:underline">&nbsp;&nbsp;&nbsp;</strong>月<strong style="text-decoration:underline">&nbsp;&nbsp;&nbsp;</strong>日</p>
 <p align="right" style="clear:both">-2-</p>
 </div>
+</div>
+<input type="button" value="打印预览" onclick="printview()">&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="button" value="打印维护" onclick="updatePrint()">
 </body>
 </html>
 <script src="/js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="/lodop/jquery-3.2.1.js"></script>
+<script type="text/javascript" src="/lodop/LodopFuncs.js"></script>
 <script>
     $(function () {
         dispatchShow();
@@ -90,5 +96,26 @@
 
             }
         })
+    }
+    var LODOP;//声明为全局变量
+    function printview(){
+        createPage();
+        LODOP.PREVIEW(); //打印预览
+    }
+    function updatePrint(){
+        createPage();
+        LODOP.PRINT_SETUP();//打印维护
+    }
+    function print(){
+        createPage();
+        LODOP.PRINT_DESIGN();//直接打印
+    }
+
+    function createPage(){
+        LODOP=getLodop();  //获取打印对象
+        //var style="<style>"+document.getElementById("style").innerHTML+"</style>";
+        var html="<body>"+document.getElementById("dy").innerHTML+"</body>";
+        LODOP.SET_PRINT_STYLE("Bold",1); //字体加粗
+        LODOP.ADD_PRINT_HTM(20,-70,640,890,html); //打印HTML
     }
 </script>

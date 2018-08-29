@@ -162,8 +162,6 @@
                     <td><input type="text" id="carcostPrice" class="layui-input"></td>
                     <td><label class="layui-form-label">报价</label></td>
                     <td><input type="text" id="caroffer" name='offer' class="layui-input"></td>
-                    <td><label class="layui-form-label">数量</label></td>
-                    <td><input type="text" id='carnumber' class="layui-input"></td>
                 </tr>
                 <tr>
                     <td><label class="layui-form-label">其他:</label></td>
@@ -418,7 +416,7 @@
                 $("#tourist").val(data.data["-1"][0].tourist);//客源地
                 //报价用车
 
-                $("#carnumber").val(data.data["-2"][0].number);//数量
+
                 $("#carcostPrice").val(data.data["-2"][0].costPrice);//成本价
                 $("#caroffer").val(data.data["-2"][0].offer)//报价
                 //报价其它
@@ -793,8 +791,8 @@
 
                 //查询所有饭菜类型
                 $.each(data.data[4], function (i, e) {
-                    wancan += "<option value='" + e.dictionariesId + "' costPrice='" + e.valueContent2 + "' offer='" + e.valueContent3 + "'>" + e.valueContent1 + "</option>";
-                    wucan += "<option value='" + e.dictionariesId + "' costPrice='" + e.valueContent2 + "' offer='" + e.valueContent3 + "'>" + e.valueContent1 + "</option>";
+                    wancan += "<option value='" + e.valueId + "' costPrice='" + e.valueContent2 + "' offer='" + e.valueContent3 + "'>" + e.valueContent1 + "</option>";
+                    wucan += "<option value='" + e.valueId + "' costPrice='" + e.valueContent2 + "' offer='" + e.valueContent3 + "'>" + e.valueContent1 + "</option>";
                 })
                 $.each(data.data[5], function (i, e) {
                     chedui += "<option value='" + e.valueId + "' costPrice='" + e.valueContent2 + "' offer='" + e.valueContent3 + "'>" + e.valueContent1 + "</option>";
@@ -914,7 +912,7 @@
     function carTbale() {
         carJson = {};
         var valueId = $("#yongche").val();//类型编号
-        var number = $("#carnumber").val();//数量
+        var number = 1//$("#carnumber").val()数量
         var costPrice = $("#carcostPrice").val();//成本价
         var offer = $("#caroffer").val()//报价
         carJson = {

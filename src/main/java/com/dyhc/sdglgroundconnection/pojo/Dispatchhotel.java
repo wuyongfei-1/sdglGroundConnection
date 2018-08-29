@@ -21,15 +21,19 @@ public class Dispatchhotel {
     private Integer offerId; // 调度信息编号（外键，与调度表关联）
     @Column(name = "weight")
     private Integer weight;//权重（天数）
+    @Column(name = "roomNumber")
+    private Integer roomNumber; // 房间数量
     @Column(name = "costPrice")
     private Double costPrice; // 成本价
     private Double offer; // 报价
     private Date date; // 日期
     private String payment; // 付款方式
     @Column(name = "companyBedNum")
-    private Integer companyBedNum; // 司陪床位数
+    private Integer companyBedNum; // 司陪房间数
     @Column(name = "companyBedoffer")
-    private Double companyBedoffer; // 司陪床价
+    private Double companyBedoffer; // 司陪成本价
+    @Column(name = "companyPaymeny")
+    private String companyPaymeny; // 司陪付款方式
     @Column(name = "whetherDel")
     private Integer whetherDel; // 是否删除（1代表已删除，0代表未删除）
     private Integer creater; // 创建人 （外键，与人员表关联）
@@ -261,5 +265,21 @@ public class Dispatchhotel {
     public int hashCode() {
 
         return Objects.hash(dispatchHotelId, hotelId, offerId, costPrice, offer, date, payment, companyBedNum, companyBedoffer, whetherDel, creater, modifier, modifiedData, creationDate, value1, value2, value3);
+    }
+
+    public Integer getRoomNumber() {
+        return roomNumber;
+    }
+
+    public void setRoomNumber(Integer roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
+    public String getCompanyPaymeny() {
+        return companyPaymeny;
+    }
+
+    public void setCompanyPaymeny(String companyPaymeny) {
+        this.companyPaymeny = companyPaymeny;
     }
 }

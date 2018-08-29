@@ -1,6 +1,8 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
+import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.mapper.DislineMapper;
+import com.dyhc.sdglgroundconnection.pojo.Disline;
 import com.dyhc.sdglgroundconnection.pojo.DisattrExample;
 import com.dyhc.sdglgroundconnection.pojo.Disline;
 import com.dyhc.sdglgroundconnection.pojo.DislineExample;
@@ -33,5 +35,18 @@ public class DislineServiceImpl implements DislineService {
         List<Disline> dislines=dislineMapper.selectByExample(dislineExample);
         System.out.println(dislines.size());
         return dislines;
+    }
+
+    /**
+     * 批量添加多条调度线路信息（wuyongfei）
+     *
+     * @param dislines 调度信息列表
+     * @return 受影响行数
+     * @throws Exception 全局异常
+     */
+    @Override
+    @RecordOperation(type = "调度线路", desc = "批量添加了多条调度线路信息")
+    public Integer saveDisLineInfo(List<Disline> dislines) throws Exception {
+        return dislineMapper.insertList(dislines);
     }
 }

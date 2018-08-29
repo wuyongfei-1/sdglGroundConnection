@@ -38,15 +38,15 @@ public class DispatchServiceImpl implements DispatchService {
     private DisguideMapper disguideMapper; //调度导游dao
 
     @Autowired
-    private GuideScheduleMapper guideScheduleMapper; //调度导游dao
-
-    @Autowired
     private GuideMapper guideMapper; //导游dao
     @Autowired
     private DisshoppService disshoppService; // 调度购物业务
 
     @Autowired
     private TravelService travelService; // 组团社业务
+
+    @Autowired
+    private DislineService dislineService; // 调度线路业务
 
     @Autowired
     private DisrestaurantService disrestaurantService; // 调度餐馆业务
@@ -64,10 +64,10 @@ public class DispatchServiceImpl implements DispatchService {
     private DiscarService discarService; // 调度用车业务
 
     @Autowired
-    private DisattrService disattrService; // 调度景点业务
+    private DispatchtourgroupServer dispatchtourgroupServer; // 调度旅行社业务
 
     @Autowired
-    private DispatchtourgroupServer dispatchtourgroupServer; // 调度旅游表业务
+    private DisattrService disattrService; // 调度景点业务
 
     @Autowired
     private CompanyService companyService;
@@ -75,11 +75,6 @@ public class DispatchServiceImpl implements DispatchService {
     @Autowired
     private StaffService staffService;
 
-    @Autowired
-    private DislineService dislineService;
-
-    @Autowired
-    private ShoppingService shoppingService;
 
     /**
      * 获取计划表的信息根据调度编号（yunguohao）
@@ -184,7 +179,7 @@ public class DispatchServiceImpl implements DispatchService {
 
     /**
      * 保存一条调度信息（wuyongfei）
-     * （保存该调度下的购物、餐馆、酒店、导游、用车、景点、调度、其他）
+     * （保存该调度下的基础信息、购物、餐馆、酒店、导游、用车、景点、调度、其他）
      *
      * @param disParam 调度信息参数对象
      * @return 受影响行数
@@ -194,22 +189,69 @@ public class DispatchServiceImpl implements DispatchService {
     @Transactional
     @RecordOperation(type = "调度信息", desc = "添加了一条调度信息")
     public Integer saveDispatchInfo(DispatchParam disParam) throws DispatchException {
-        // 添加购物信息
-        disshoppService.saveDisShopInfo(disParam.getDisshoppList());
-        // 添加餐馆信息
-        disrestaurantService.saveDisrestaurantInfo(disParam.getDisrestaurantList());
-        // 添加酒店信息
-        dispatchhotelService.saveDispatchhotelInfo(disParam.getDispatchhotelList());
-        // 添加导游信息
-        disguideService.saveDisguideInfo(disParam.getDisguide());
-        // 添加用车信息
-        discarService.saveDiscarInfo(disParam.getDiscar());
-        // 添加景点信息
-        disattrService.saveDisattrInfoes(disParam.getDisattrList());
-        // 添加其他信息
-        disotherService.saveDisotherInfo(disParam.getDisother());
-        // 添加调度信息
-        return dispatchMapper.insert(disParam.getDispatch());
+        try {
+            // 添加调度基础信息
+            dispatchMapper.insert(disParam.getDispatch());
+            // 获取添加完返回的基础信息编号，用于更新其他数据
+            Dispatch dispatch = disParam.getDispatch();
+            // 根据时间获取
+            DispatchExample dispatchExample = new DispatchExample();
+            DispatchExample.Criteria criteria = dispatchExample.createCriteria();
+            criteria.andCreationdateEqualTo(dispatch.getCreationDate());
+            List<Dispatch> dispatches = dispatchMapper.selectByExample(dispatchExample);
+            // 返回的基础数据编号
+            int baseId = dispatches != null && dispatches.size() > 0 ?
+                    dispatches.get(0).getDispatchId() : 1;
+            // 添加线路信息
+            List<Disline> dislineList = disParam.getDislineList();
+            for (Disline disline : dislineList) {
+                disline.setOfferId(baseId);
+            }
+            dislineService.saveDisLineInfo(dislineList);
+            // 添加购物信息
+            List<Disshopp> disshoppList = disParam.getDisshoppList();
+            for (Disshopp disshopp : disshoppList) {
+                disshopp.setOfferId(baseId);
+            }
+            disshoppService.saveDisShopInfo(disshoppList);
+            // 添加餐馆信息
+            List<Disrestaurant> disrestaurantList = disParam.getDisrestaurantList();
+            for (Disrestaurant disrestaurant : disrestaurantList) {
+                disrestaurant.setOfferId(baseId);
+            }
+            disrestaurantService.saveDisrestaurantInfo(disrestaurantList);
+            // 添加酒店信息
+            List<Dispatchhotel> dispatchhotelList = disParam.getDispatchhotelList();
+            for (Dispatchhotel dispatchhotel : dispatchhotelList) {
+                dispatchhotel.setOfferId(baseId);
+            }
+            dispatchhotelService.saveDispatchhotelInfo(dispatchhotelList);
+            // 添加导游信息
+            Disguide disguide = disParam.getDisguide();
+            disguide.setOfferId(baseId);
+            disguideService.saveDisguideInfo(disguide);
+            // 添加用车信息
+            Discar discar = disParam.getDiscar();
+            discar.setOfferId(baseId);
+            discarService.saveDiscarInfo(discar);
+            // 添加景点信息
+            List<Disattr> disattrList = disParam.getDisattrList();
+            for (Disattr disattr : disattrList) {
+                disattr.setOfferId(baseId);
+            }
+            disattrService.saveDisattrInfoes(disattrList);
+            // 添加其他信息
+            Disother disother = disParam.getDisother();
+            disother.setOfferId(baseId);
+            disotherService.saveDisotherInfo(disother);
+            // 添加旅行社信息
+            Dispatchtourgroup dispatchtourgroup = disParam.getDispatchtourgroup();
+            dispatchtourgroup.setOfferid(baseId);
+            return dispatchtourgroupServer.saveDispatchtourgroupInfo(dispatchtourgroup);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
@@ -226,6 +268,7 @@ public class DispatchServiceImpl implements DispatchService {
         DispatchExample.Criteria criteria = dispatchExample.createCriteria();
         criteria.andWhetherdelEqualTo(0);
         criteria.andStatusEqualTo(1);
+        criteria.andWhetherdelEqualTo(0);
         List<Dispatch> dispatches = dispatchMapper.selectByExample(dispatchExample);
 
         //查询调度导游表

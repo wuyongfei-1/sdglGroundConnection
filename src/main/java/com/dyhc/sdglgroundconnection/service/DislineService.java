@@ -16,4 +16,12 @@ public interface DislineService {
      * @return
      */
     List<Disline> dislineList(Integer dispathId) throws  Exception;
+    /**
+     * 批量添加多条调度线路信息（wuyongfei）
+     *
+     * @param dislines 调度信息列表
+     * @return 受影响行数
+     * @throws Exception 全局异常
+     */
+    Integer saveDisLineInfo(List<Disline> dislines) throws Exception;
 }

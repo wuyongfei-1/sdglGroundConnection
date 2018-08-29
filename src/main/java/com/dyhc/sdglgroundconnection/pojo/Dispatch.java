@@ -39,8 +39,8 @@ public class Dispatch {
     private Double fare; // 车费
     @Column(name = "wineFee")
     private Double wineFee; // 酒水费
-    @Column(name = "`not`")
-    private String not; // 不含
+    @Column(name = "notContain")
+    private String notContain; // 不含
     private String remarks; // 备注
     private String supervision; // 团体监督
     private String reception; // 接待标准
@@ -290,15 +290,7 @@ public class Dispatch {
         this.wineFee = wineFee;
     }
 
-    @Basic
-    @Column(name = "not")
-    public String getNot() {
-        return not;
-    }
 
-    public void setNot(String not) {
-        this.not = not;
-    }
 
     @Basic
     @Column(name = "remarks")
@@ -440,45 +432,12 @@ public class Dispatch {
         this.value3 = value3;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Dispatch dispatch = (Dispatch) o;
-        return dispatchId == dispatch.dispatchId &&
-                Objects.equals(groundConnectionNumber, dispatch.groundConnectionNumber) &&
-                Objects.equals(groupNumber, dispatch.groupNumber) &&
-                Objects.equals(sendLine, dispatch.sendLine) &&
-                Objects.equals(travelStartTime, dispatch.travelStartTime) &&
-                Objects.equals(travelEndTime, dispatch.travelEndTime) &&
-                Objects.equals(num, dispatch.num) &&
-                Objects.equals(tourist, dispatch.tourist) &&
-                Objects.equals(trip, dispatch.trip) &&
-                Objects.equals(offer, dispatch.offer) &&
-                Objects.equals(aVariance, dispatch.aVariance) &&
-                Objects.equals(fare, dispatch.fare) &&
-                Objects.equals(wineFee, dispatch.wineFee) &&
-                Objects.equals(not, dispatch.not) &&
-                Objects.equals(remarks, dispatch.remarks) &&
-                Objects.equals(supervision, dispatch.supervision) &&
-                Objects.equals(reception, dispatch.reception) &&
-                Objects.equals(total, dispatch.total) &&
-                Objects.equals(loan, dispatch.loan) &&
-                Objects.equals(state, dispatch.state) &&
-                Objects.equals(whetherDel, dispatch.whetherDel) &&
-                Objects.equals(creater, dispatch.creater) &&
-                Objects.equals(modifier, dispatch.modifier) &&
-                Objects.equals(modifiedData, dispatch.modifiedData) &&
-                Objects.equals(creationDate, dispatch.creationDate) &&
-                Objects.equals(value1, dispatch.value1) &&
-                Objects.equals(value2, dispatch.value2) &&
-                Objects.equals(value3, dispatch.value3);
+    public String getNotContain() {
+        return notContain;
     }
 
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(dispatchId, groundConnectionNumber, groupNumber, sendLine, travelStartTime, travelEndTime, num, tourist, trip, offer, aVariance, fare, wineFee, not, remarks, supervision, reception, total, loan, state, whetherDel, creater, modifier, modifiedData, creationDate, value1, value2, value3);
+    public void setNotContain(String notContain) {
+        this.notContain = notContain;
     }
 
     public Integer getStatus() {

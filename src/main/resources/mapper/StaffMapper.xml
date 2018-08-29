@@ -89,10 +89,10 @@
                 AND  r.`roleId` =#{roleId}
             </if>
             <if test="firstDate!=null and firstDate != ''">
-                AND `createDate` >  #{firstDate}
+                AND s.`createDate` >  #{firstDate}
             </if>
             <if test="lastDate!=null and firstDate != ''">
-                AND #{lastDate}  >  `createDate`
+                AND #{lastDate}  >  s.`createDate`
             </if>
 
 

@@ -1,6 +1,7 @@
 package com.dyhc.sdglgroundconnection.dto;
 
 import com.dyhc.sdglgroundconnection.pojo.*;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -8,6 +9,7 @@ import java.util.List;
  * this class by created wuyongfei on 2018/6/5 13:50
  * 调度参数类（wuyongfei）
  **/
+@Component
 public class DispatchParam {
 
     private Dispatch dispatch; // 调度信息
@@ -18,6 +20,8 @@ public class DispatchParam {
 
     private Disother disother; // 调度其他
 
+    private Dispatchtourgroup dispatchtourgroup; // 调度旅行社
+
     private List<Disattr> disattrList; // 调度景点列表
 
     private List<Dispatchhotel> dispatchhotelList; // 调度酒店列表
@@ -25,6 +29,9 @@ public class DispatchParam {
     private List<Disrestaurant> disrestaurantList; // 调度餐厅列表
 
     private List<Disshopp> disshoppList; // 调度购物列表
+
+    private List<Disline> dislineList; // 调度线路信息列表
+
 
     public Dispatch getDispatch() {
         return dispatch;
@@ -90,4 +97,19 @@ public class DispatchParam {
         this.disshoppList = disshoppList;
     }
 
+    public List<Disline> getDislineList() {
+        return dislineList;
+    }
+
+    public void setDislineList(List<Disline> dislineList) {
+        this.dislineList = dislineList;
+    }
+
+    public Dispatchtourgroup getDispatchtourgroup() {
+        return dispatchtourgroup;
+    }
+
+    public void setDispatchtourgroup(Dispatchtourgroup dispatchtourgroup) {
+        this.dispatchtourgroup = dispatchtourgroup;
+    }
 }

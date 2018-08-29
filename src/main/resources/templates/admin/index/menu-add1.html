@@ -198,6 +198,10 @@
 
             //添加方法
             function insertGuide() {
+                var oInp = $("#age").val();
+                    if(isNaN(oInp)) {  //当输入不是数字的时候，Number后返回的值是NaN;然后用isNaN判断。
+                        alert('年龄必须为数字！')
+                    }
                 var certificate=$("#certificate").val();
                 var guideName=$("#guideName").val();
                 /*var username=$("#username").val();*/

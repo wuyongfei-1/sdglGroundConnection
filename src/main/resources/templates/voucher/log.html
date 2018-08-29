@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<meta charset="UTF-8">
 		<meta name="renderer" content="webkit">
@@ -13,6 +12,7 @@
 	</head>
 	
 	<body>
+	<div id="dy">
 		<div id="tupian" style="width: 635px;margin-left: 335px;">
                 <img src="/images/logo.jpg" width="640px" height="50px">
        		 </div>
@@ -63,74 +63,97 @@
 				</table>
 			</table>
 		</div>
-		<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
-		<script>
-			layui.use(['jquery'], function() {
-				var $=layui.jquery;
-				//修改状态
-				$('#table-list').on('click', '.table-list-status', function() {
-					var That = $(this);
-					var status = That.attr('data-status');
-					var id = That.parent().attr('data-id');
-					if(status == 1) {
-						That.removeClass('layui-btn-normal').addClass('layui-btn-warm').html('隐藏').attr('data-status', 2);
-					} else if(status == 2) {
-						That.removeClass('layui-btn-warm').addClass('layui-btn-normal').html('显示').attr('data-status', 1);
-
-					}
-				})
-				//栏目展示隐藏
-				$('.showSubBtn').on('click', function() {
-					var _this = $(this);
-					var id = _this.attr('data-id');
-					var parent = _this.parents('.parent');
-					var child = $('.child-node-' + id);
-					var childAll = $('tr[parentid=' + id + ']');
-					if(parent.hasClass('collapsed')) {
-						_this.html('-');
-						parent.addClass('expanded').removeClass('collapsed');
-						child.css('display', '');
-					} else {
-						_this.html('+');
-						parent.addClass('collapsed').removeClass('expanded');
-						child.css('display', 'none');
-						childAll.addClass('collapsed').removeClass('expanded').css('display', 'none');
-						childAll.find('.showSubBtn').html('+');
-					}
-
-				})
-			});
-
-            $(function () {
-                dispatchtourgroupShow();
-            })
-            //数据渲染
-            function dispatchtourgroupShow() {
-                $.ajax({
-                    url: "/tourguide/getTourguideInfoByTourguideId",
-                    data: {tourguideId:1},
-                    dataType: "json",
-                    type: "post",
-                    success: function (e) {
-                        var sex1="";
-                        if (e.data.guide.sex==1){
-                            sex1="男";
-						} if(e.data.guide.sex==0){
-                            sex1="女"
-						}
-                        $(".guideName").text(e.data.guide.guideName);
-                        $(".sex").text(sex1);
-                        $(".certificate").text(e.data.guide.certificate);
-                        $(".ly").text(e.data.dispatch.groupNumber);
-                        $(".housestandard").text(e.data.housestandard);
-                        $(".foodstandard").text(e.data.foodstandard);
-                        $(".sendLine").text(e.data.dispatch.sendLine);
-                        $(".logcontent").text(e.data.logcontent);
-                    }
-                })
-            }
-		</script>
+	</div>
 	</body>
+	<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="/lodop/jquery-3.2.1.js"></script>
+	<script type="text/javascript" src="/lodop/LodopFuncs.js"></script>
+	<script>
+        layui.use(['jquery'], function() {
+            var $=layui.jquery;
+            //修改状态
+            $('#table-list').on('click', '.table-list-status', function() {
+                var That = $(this);
+                var status = That.attr('data-status');
+                var id = That.parent().attr('data-id');
+                if(status == 1) {
+                    That.removeClass('layui-btn-normal').addClass('layui-btn-warm').html('隐藏').attr('data-status', 2);
+                } else if(status == 2) {
+                    That.removeClass('layui-btn-warm').addClass('layui-btn-normal').html('显示').attr('data-status', 1);
 
+                }
+            })
+            //栏目展示隐藏
+            $('.showSubBtn').on('click', function() {
+                var _this = $(this);
+                var id = _this.attr('data-id');
+                var parent = _this.parents('.parent');
+                var child = $('.child-node-' + id);
+                var childAll = $('tr[parentid=' + id + ']');
+                if(parent.hasClass('collapsed')) {
+                    _this.html('-');
+                    parent.addClass('expanded').removeClass('collapsed');
+                    child.css('display', '');
+                } else {
+                    _this.html('+');
+                    parent.addClass('collapsed').removeClass('expanded');
+                    child.css('display', 'none');
+                    childAll.addClass('collapsed').removeClass('expanded').css('display', 'none');
+                    childAll.find('.showSubBtn').html('+');
+                }
+
+            })
+        });
+
+        $(function () {
+            dispatchtourgroupShow();
+        })
+        //数据渲染
+        function dispatchtourgroupShow() {
+            $.ajax({
+                url: "/tourguide/getTourguideInfoByTourguideId",
+                data: {tourguideId:1},
+                dataType: "json",
+                type: "post",
+                success: function (e) {
+                    var sex1="";
+                    if (e.data.guide.sex==1){
+                        sex1="男";
+                    } if(e.data.guide.sex==0){
+                        sex1="女"
+                    }
+                    $(".guideName").text(e.data.guide.guideName);
+                    $(".sex").text(sex1);
+                    $(".certificate").text(e.data.guide.certificate);
+                    $(".ly").text(e.data.dispatch.groupNumber);
+                    $(".housestandard").text(e.data.housestandard);
+                    $(".foodstandard").text(e.data.foodstandard);
+                    $(".sendLine").text(e.data.dispatch.sendLine);
+                    $(".logcontent").text(e.data.logcontent);
+                }
+            })
+        }
+        var LODOP;//声明为全局变量
+        function printview(){
+            createPage();
+            LODOP.PREVIEW(); //打印预览
+        }
+        function updatePrint(){
+            createPage();
+            LODOP.PRINT_SETUP();//打印维护
+        }
+        function print(){
+            createPage();
+            LODOP.PRINT_DESIGN();//直接打印
+        }
+
+        function createPage(){
+            LODOP=getLodop();  //获取打印对象
+            //var style="<style>"+document.getElementById("style").innerHTML+"</style>";
+            var html="<body>"+document.getElementById("dy").innerHTML+"</body>";
+            LODOP.SET_PRINT_STYLE("Bold",1); //字体加粗
+            LODOP.ADD_PRINT_HTM(20,50,640,890,html); //打印HTML
+        }
+	</script>
 </html>

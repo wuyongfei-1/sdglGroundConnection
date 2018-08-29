@@ -75,11 +75,6 @@ public class DispatchServiceImpl implements DispatchService {
     @Autowired
     private StaffService staffService;
 
-    @Autowired
-    private DislineService dislineService;
-
-    @Autowired
-    private ShoppingService shoppingService;
 
     /**
      * 获取计划表的信息根据调度编号（yunguohao）
@@ -275,7 +270,6 @@ public class DispatchServiceImpl implements DispatchService {
         criteria.andStatusEqualTo(1);
         criteria.andWhetherdelEqualTo(0);
         List<Dispatch> dispatches = dispatchMapper.selectByExample(dispatchExample);
-        List<Dispatch> dispatches = dispatchMapper.selectByExample(dispatchExample);
 
         //查询调度导游表
 
@@ -298,8 +292,6 @@ public class DispatchServiceImpl implements DispatchService {
     @Override
     public Integer onCheckDispatchInfo(Integer dispatchId, int staffId) throws ParseException {
         Integer result = 0;
-    public Integer onCheckDispatchInfo(Integer dispatchId) throws ParseException {
-        Integer result = 0;
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         //修改团状态
@@ -308,8 +300,6 @@ public class DispatchServiceImpl implements DispatchService {
         dispatch.setStatus(2);
         dispatch.setModifiedData(new Date());
         dispatch.setModifier(staffId);
-        Dispatch dispatch = dispatchMapper.selectByPrimaryKey(dispatchId);
-        dispatch.setStatus(2);
 /*
             //查询调度导游表   ，根据调度表的id查询
             DisguideExample disguideExample=new DisguideExample();

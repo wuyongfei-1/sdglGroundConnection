@@ -47,9 +47,9 @@
 							<colgroup>
 								<col width="50">
 								<col class="hidden-xs" width="100">
-								<col class="hidden-xs" width="100">
-								<col class="hidden-xs" width="100">
 								<col class="hidden-xs" width="120">
+								<col class="hidden-xs" width="100">
+								<col class="hidden-xs" width="220">
 								<col width="150">
 								<col width="130">
 								<col width="130">
@@ -63,7 +63,7 @@
 									<th class="">名称</th>
 									<th class="">星级</th>
 									<th class="">地址</th>
-									<th class="">是否提供早餐</th>
+									<th class="">早餐提供</th>
 									<th class="">联系电话</th>
 									<th class="">报价</th>
 									<th>状态</th>
@@ -220,7 +220,7 @@
                                 context2+="<tr id='"+fuqinid+"' class=\"parent collapsed\">\n" +
                                     "\t\t\t\t\t\t\t\t<td>\n" +
                                     "\t\t\t\t\t\t\t\t\t<a class=\"layui-btn layui-btn-mini layui-btn-normal showSubBtn\" data-id='"+count2+"'>+</a></td>\n" +
-                                    "\t\t\t\t\t\t\t\t<td class=\"\">"+e.hotelId+"</td>\n" +
+                                    "\t\t\t\t\t\t\t\t<td class=\"\">"+((curnum-1)*6+(i+1))+"</td>\n" +
                                     "\t\t\t\t\t\t\t\t<td class=\"\">"+e.hotelName+"</td>\n" +
                                     "\t\t\t\t\t\t\t\t<td class=\"\">"+star+"</td>\n" +
                                     "\t\t\t\t\t\t\t\t<td class=\"\">"+e.hotelAddress+"</td>\n" +

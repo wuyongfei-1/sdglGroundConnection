@@ -240,6 +240,9 @@ public class HotelController {
         try {
             ReponseResult<String> date=null;
             Hotel hotel = objectMapper.readValue(parameter, Hotel.class);
+            Hotel hotel2=hotelService.selectHotelById(hotel.getHotelId());
+            hotel.setCreateBy(hotel2.getCreateBy());
+            hotel.setCreateDate(hotel2.getCreateDate());
             Staff staff=(Staff) request.getSession().getAttribute("user");
             if(staff!=null){
                 hotel.setUpdateBy(staff.getStaffId());

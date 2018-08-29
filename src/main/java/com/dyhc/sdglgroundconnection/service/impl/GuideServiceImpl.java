@@ -191,6 +191,18 @@ public class GuideServiceImpl implements GuideService {
         }
         return guides;
     }
+    /**
+     * 查询所有导游信息(lixiaojie)
+     * @return
+     */
+    @Override
+    public List<Guide> selectAllGuideInfo() {
+        GuideExample guideExample =new GuideExample();
+        GuideExample.Criteria guideCriteria=guideExample.createCriteria();
+        guideCriteria.andWhetherdelEqualTo(0);
+        List<Guide> guides=guideMapper.selectByExample(guideExample);
+        return guides;
+    }
 
 
 }

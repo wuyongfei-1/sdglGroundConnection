@@ -56,10 +56,9 @@
 				<thead>
 				<tr>
 
-					<th class="hidden-xs" width="90px">购物编号</th>
-					<th width="200px">购物地名称</th>
-					<th width="200px">临近景点</th>
-
+					<th class="hidden-xs" width="200px">购物编号</th>
+					<th width="300px">购物地名称</th>
+					<th width="400px">临近景点</th>
 					<th>操作</th>
 				</tr>
 				</thead>
@@ -158,7 +157,7 @@
                 $(ReponseResult.data).each(function (i, e) {
                     pageNo++;
                     content+= "<tr>";
-                    content+= "<td class=hidden-xs>"+e.shoppingId+"</td>";
+                    content+= "<td class=hidden-xs>"+pageNo+"</td>";
                     content+= "<td>"+e.shoppingSite+"</td>";
                     content+= "<td>"+e.scenicspot.scenicSpotName+"</td>";
                     content+= "<td>";

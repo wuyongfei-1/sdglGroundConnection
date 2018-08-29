@@ -46,18 +46,14 @@
 									<label class="layui-form-label">图片地址：</label>
 									<div class="layui-input-block">
 										<input onchange="FirstImg()" style="opacity:0;position:absolute" type="file" id="FirstfileImg" multiple="">
-										<div>
-											<span> 点击这里上传图片</span>
-										</div>
-										<fieldset style="width:500px;">
-											<legend>图片预览</legend>
-											<div style="position: relative;" id="ccc">
-											</div>
+										<fieldset style="width:180px;">
+											<legend>上传图片</legend>
+											<div style="position: relative;" id="ccc"></div>
 										</fieldset>
 									</div>
 								</div>
 								<div class="layui-form-item">
-									<label class="layui-form-label">是否提供早餐：</label>
+									<label class="layui-form-label">早餐提供：</label>
 									<div class="layui-input-block">
 										<input type="radio" name="breakfast" value="1" title="是" th:checked="${pan!=0 and ht.breakfast==1}"/>
 										<input type="radio" name="breakfast" value="0" title="否" th:checked="${pan!=0 and ht.breakfast==0}"/>
@@ -96,7 +92,7 @@
 								<div class="layui-form-item">
 									<label class="layui-form-label">酒店描述：</label>
 									<div class="layui-input-block">
-										<textarea th:text="${pan!=0?ht.hotelDescribe:''}" name="hotelDescribe" placeholder="请输入酒店描述"></textarea>
+										<textarea cols="84" rows="6" th:text="${pan!=0?ht.hotelDescribe:''}" name="hotelDescribe" placeholder="请输入酒店描述"></textarea>
 									</div>
 								</div>
 								<div>

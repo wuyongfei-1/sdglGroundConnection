@@ -132,7 +132,7 @@
     function updateById(){
         var id=$("#guiid").val();
         $.ajax({
-            url:"/guide/selectGuideById",
+            url:"/account/selectGuideById",
             data:{id:id},
             dataType: "json",
             type: "get",

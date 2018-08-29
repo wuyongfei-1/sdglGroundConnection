@@ -45,7 +45,7 @@ public class VehicleTypeServiceImpl implements VehicleTypeService {
         for (VehicleType vehicleType : vehicleTypes) {
             // 查询车辆类型名称
             Dictionaries vehicle = dictionariesService.getDictionariesByTypeCodeAndValueId("VEHICLE",
-                    rentalId != null ? rentalId : 1);
+                    vehicleType != null ? vehicleType.getValueId() : 1);
             // 完善（填充）对象
             vehicleType.setVehicleTypeName(vehicle.getValueContent1());
         }

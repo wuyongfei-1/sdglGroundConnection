@@ -1,17 +1,18 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
 import com.dyhc.sdglgroundconnection.mapper.DisguideMapper;
+import com.dyhc.sdglgroundconnection.mapper.GuideMapper;
 import com.dyhc.sdglgroundconnection.mapper.GuideScheduleMapper;
-import com.dyhc.sdglgroundconnection.pojo.Disguide;
-import com.dyhc.sdglgroundconnection.pojo.DisguideExample;
-import com.dyhc.sdglgroundconnection.pojo.GuideSchedule;
-import com.dyhc.sdglgroundconnection.pojo.GuideScheduleExample;
+import com.dyhc.sdglgroundconnection.pojo.*;
 import com.dyhc.sdglgroundconnection.service.GuideScheduleService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -27,6 +28,8 @@ public class GuideScheduleServiceImpl implements GuideScheduleService {
     @Autowired
     private DisguideMapper disguideMapper;
 
+    @Autowired
+    private GuideMapper guideMapper;
 
 
 
@@ -89,5 +92,65 @@ public class GuideScheduleServiceImpl implements GuideScheduleService {
         Date date=simpleDateFormat.parse(beginDate);
         guideSchedule.setSchedulebegintime(date);
         return guideScheduleMapper.insert(guideSchedule);
+    }
+    /**
+     * 查询请假的导游信息  和 日程信息(lixiaojie)
+     * @return
+     */
+    @Override
+    public PageInfo<GuideSchedule> selectScheduleScheduleStateBy2(Integer pageNo, Integer pageSize, String guideName, String firstDate, String lastDate) throws ParseException {
+        PageHelper.startPage(pageNo, pageSize, true);
+        GuideScheduleExample guideScheduleExample=new GuideScheduleExample();
+        GuideScheduleExample.Criteria guideScheduleExampleCriteria=guideScheduleExample.createCriteria();
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+        if (!"".equals(firstDate)){
+            guideScheduleExampleCriteria.andSchedulebegintimeBetween(simpleDateFormat.parse(firstDate),simpleDateFormat.parse("2099-09-23"));
+        }
+        if (!"".equals(lastDate)){
+            guideScheduleExampleCriteria.andSchedulebegintimeBetween(simpleDateFormat.parse("1099-09-23"),simpleDateFormat.parse(lastDate));
+        }
+        guideScheduleExampleCriteria.andValue1EqualTo("0");
+        guideScheduleExampleCriteria.andSchedulestateEqualTo(2);
+        List<GuideSchedule> guideSchedules=guideScheduleMapper.selectByExample(guideScheduleExample);
+
+        for (GuideSchedule items:guideSchedules) {
+            items.setGuide(guideMapper.selectByPrimaryKey(items.getGuideid()));
+            if (items.getGuide().getGuideName().equals(guideName)){
+                items=null;
+            }
+        }
+        return new PageInfo<GuideSchedule>(guideSchedules);
+    }
+
+    /**
+     * 新增导游请假信息
+     * @param guideSchedule
+     * @return
+     */
+    @Override
+    public Integer insertGuideScheduleStatus2(GuideSchedule guideSchedule) throws ParseException {
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+        Date beginTime=guideSchedule.getSchedulebegintime();
+        Date endTime=guideSchedule.getScheduleendtime();
+        String beginDateStr = format.format(beginTime);
+        String endDateStr =format.format(endTime);
+        beginTime = format.parse(beginDateStr);
+        endTime= format.parse(endDateStr);
+        int result=0;
+        Long Number=(endTime.getTime()-beginTime.getTime())/(24*60*60*1000)+1;  //相减  得到 旅游天数
+        for (int i=0;i<Number;i++) {
+            Calendar c = Calendar.getInstance();
+            c.setTime(beginTime);
+            c.add(Calendar.DAY_OF_MONTH, i);  //然后做出旅游天数每天的时间对象 填入 导游日程表中
+            Date tomorrow = c.getTime();
+            GuideSchedule gs=new GuideSchedule();
+            gs.setGuideid(guideSchedule.getGuideid());
+            gs.setSchedulebegintime(tomorrow);
+            gs.setSchedulestate(2);
+            gs.setValue1(0+"");
+           result= guideScheduleMapper.insert(gs);
+        }
+
+        return result;
     }
 }

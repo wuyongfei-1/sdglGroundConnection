@@ -1,6 +1,7 @@
 package com.dyhc.sdglgroundconnection.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -26,12 +27,23 @@ public class GuideSchedule {
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "scheduleBeginTime")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date schedulebegintime;
 
+    @Transient
+    private Guide guide;
 
+    public Guide getGuide() {
+        return guide;
+    }
+
+    public void setGuide(Guide guide) {
+        this.guide = guide;
+    }
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "scheduleEndTime")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date scheduleendtime;
 
     private String value1;

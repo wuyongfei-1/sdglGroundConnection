@@ -2,84 +2,89 @@
 <html class="iframe-h">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="renderer" content="webkit">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport"
-		  content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
-	<title>网站后台管理模版</title>
-	<link rel="stylesheet" type="text/css" href="/admin/layui/css/layui.css"/>
-	<link rel="stylesheet" type="text/css" href="/admin/css/admin.css"/>
-	<link rel="stylesheet" href="/css/layui.css" media="all">
-	<style>
-		#showstaffInfo tr {
-			/*        height: 70px;*/
-		}
-		#showstaffInfo tr  td{
-			text-align: center;
-		}
-		#staffHead th{
-			text-align: center;
-		}
-	</style>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>网站后台管理模版</title>
+    <link rel="stylesheet" type="text/css" href="/admin/layui/css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="/admin/css/admin.css"/>
+    <link rel="stylesheet" href="/css/layui.css" media="all">
+    <style>
+        #showstaffInfo tr {
+            /*        height: 70px;*/
+        }
+
+        #showstaffInfo tr td {
+            text-align: center;
+        }
+
+        #staffHead th {
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
 <div class="wrap-container clearfix">
-	<div class="column-content-detail">
-		<form class="layui-form" action="">
-			<div class="layui-form-item">
-				<div class="layui-inline tool-btn">
-					<input style="font-size: 20px" type="button" class="layui-btn layui-btn-small layui-btn-normal addBtn hidden-xs" id="insert" value="+" />
+    <div class="column-content-detail">
+        <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <div class="layui-inline tool-btn">
+                    <input style="font-size: 20px" type="button"
+                           class="layui-btn layui-btn-small layui-btn-normal addBtn hidden-xs" id="insert" value="+"/>
 
-					<!-- <button class="layui-btn layui-btn-small layui-btn-normal addBtn" id="enterAddStaffInfo" ><i
+                    <!-- <button class="layui-btn layui-btn-small layui-btn-normal addBtn" id="enterAddStaffInfo" ><i
                              class="layui-icon">&#xe654;</i></button>-->
-				</div>
-				<div class="layui-inline">
-					<input type="text" name="title" id="guideName" placeholder="请输入导游姓名" autocomplete="off" class="layui-input">
-				</div>
-				<div class="layui-inline">
-					开始时间
-					<input type="date"  id="firstDate" />
-				</div>
-				<div class="layui-inline">
-					结束时间
-					<input type="date"  id="lastDate"/>
-				</div>
-				<input class="layui-btn layui-btn-normal" type="button" onclick="selectScheduleScheduleStateBy2()" value="搜索" />
-			</div>
-		</form>
-		<div class="layui-form" id="table-list">
-			<table class="layui-table" lay-even lay-skin="nob">
-				<colgroup>
-					<col width="50">
-					<col class="hidden-xs" width="50">
-					<col class="hidden-xs" width="100">
-					<col>
-					<col class="hidden-xs" width="150">
-					<col class="hidden-xs" width="150">
-					<col width="80">
-					<col width="150">
-				</colgroup>
-				<thead>
-				<tr>
+                </div>
+                <div class="layui-inline">
+                    <input type="text" name="title" id="guideName" placeholder="请输入导游姓名" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <div class="layui-inline">
+                    开始时间
+                    <input type="date" id="firstDate"/>
+                </div>
+                <div class="layui-inline">
+                    结束时间
+                    <input type="date" id="lastDate"/>
+                </div>
+                <input class="layui-btn layui-btn-normal" type="button" onclick="selectScheduleScheduleStateBy2()"
+                       value="搜索"/>
+            </div>
+        </form>
+        <div class="layui-form" id="table-list">
+            <table class="layui-table"  lay-skin="nob">
+                <colgroup>
+                    <col width="50">
+                    <col class="hidden-xs" width="50">
+                    <col class="hidden-xs" width="100">
+                    <col>
+                    <col class="hidden-xs" width="150">
+                    <col class="hidden-xs" width="150">
+                    <col width="80">
+                    <col width="150">
+                </colgroup>
+                <thead>
+                <tr>
 
-					<th class="hidden-xs" width="90px">编号</th>
-					<th width="200px">导游姓名</th>
-					<th width="200px">证件号</th>
-					<th width="200px">日程状态</th>
-					<th width="200px">日程开始时间</th>
-					<th width="200px">日程结束是时间</th>
-				</tr>
-				</thead>
-				<tbody  id="showGuidescheduleInfo">
+                    <th class="hidden-xs" width="90px">编号</th>
+                    <th width="200px">导游姓名</th>
+                    <th width="200px">证件号</th>
+                    <th width="200px">日程状态</th>
+                    <th width="200px">日程开始时间</th>
+                    <th width="200px">日程结束是时间</th>
+                </tr>
+                </thead>
+                <tbody id="showGuidescheduleInfo">
 
-				</tbody>
-			</table>
-			<div id="laypage" style="text-align: center"></div>
+                </tbody>
+            </table>
+            <div id="laypage" style="text-align: center"></div>
 
-		</div>
-	</div>
+        </div>
+    </div>
 </div>
 <script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 <script src="/layui.js"></script>
@@ -87,11 +92,14 @@
 <script type="text/javascript" src="/js/jquery-3.2.1.js"></script>
 
 <script type="text/javascript">
-	$(function () {
+    $(function () {
         selectScheduleScheduleStateBy2();
+        chaxunsuoyoucaiwuxinxi();
     });
+
+
     /**
-	 * 查询请假的导游信息和日程信息(lixiaojie)
+     * 查询请假的导游信息和日程信息(lixiaojie)
      */
     var limitcount = 6; // 每页总记录数
     var curnum = 1;  // 当前页码
@@ -109,7 +117,7 @@
                 "firstDate": firstDate,
                 "lastDate": lastDate
             },
-            async:false,
+            async: false,
             dataType: "json",
             type: "post",
             success: function (ReponseResult) {
@@ -117,12 +125,12 @@
                 var content = "";
                 $(ReponseResult.data).each(function (i, e) {
                     pageNo++;
-                    content+="<tr><td>"+pageNo+"</td>";
-                    content+="<td>"+e.guide.guideName+"</td>";
-                    content+="<td>"+e.guide.certificate+"</td>";
-                    content+="<td>请假</td>";
-                    content+="<td>"+e.schedulebegintime+"</td>";
-                    content+="<td>"+e.scheduleendtime+"</td></tr>";
+                    content += "<tr><td>" + pageNo + "</td>";
+                    content += "<td>" + e.guideName + "</td>";
+                    content += "<td>" + e.certificate + "</td>";
+                    content += "<td>请假</td>";
+                    content += "<td>" + e.schedulebegintime.substring(0,10) + "</td>";
+                    content += "<td>" + e.scheduleendtime.substring(0,10) + "</td></tr>";
 
                 })
 
@@ -156,30 +164,19 @@
             }
         })
     }
-	
+
 </script>
-
-
-
-
-
-
-
-
-
-
-
 
 
 <script type="text/javascript" charset="utf-8">
     //添加酒店按钮
-    $(document).on("click","#insert",function () {
+    $(document).on("click", "#insert", function () {
         layer.open({
             type: 2,
             title: '添加日程安排',
             maxmin: true,
             shadeClose: true, //点击遮罩关闭层
-            area : ['800px' , '520px'],
+            area: ['800px', '520px'],
             content: 'guideschedule-add.html'
         });
     })

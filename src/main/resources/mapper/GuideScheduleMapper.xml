@@ -2,5 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dyhc.sdglgroundconnection.mapper.GuideScheduleMapper">
+    <select id="selectGroupByGuideScheduleByValue3" resultType="java.lang.String">
 
+        SELECT gs.value3 AS values3 FROM `guideschedule` AS gs
+        INNER JOIN `guide` AS g ON gs.`guideId` =g.`guideId`
+        WHERE 1=1
+        <if test="guideName!=null and guideName!=''">
+            AND  g.`guideName` LIKE CONCAT('%',#{guideName},'%')
+        </if>
+        <if test="firstDate!='' and firstDate!=null">
+            AND gs.`scheduleBeginTime`>#{firstDate}
+        </if>
+        <if test="lastDate!='' and lastDate!=null">
+            AND #{lastDate}> gs.`scheduleBeginTime`
+        </if>
+        GROUP BY gs.`value3`
+    </select>
 </mapper>

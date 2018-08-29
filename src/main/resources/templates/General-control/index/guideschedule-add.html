@@ -64,12 +64,12 @@
         selectAllGuideInfo();
     });
 
+
     function insertGuideScheduleStatus2() {
         var showGuideInfo = $("#showGuideInfo option:selected").val();
         var firstDate = $("#firstDate").val();
         var lastDate = $("#lastDate").val();
         var guidescheduleInfo=$("#guideScheduleInfo").serialize();
-        alert(guidescheduleInfo);
         $.ajax({
             url: "/guideSchedule/insertGuideScheduleStatus2",
             data:{

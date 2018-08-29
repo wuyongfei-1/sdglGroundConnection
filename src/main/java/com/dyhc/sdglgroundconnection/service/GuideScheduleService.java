@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.service;
 
+import com.dyhc.sdglgroundconnection.dto.GuidescheduleParam;
 import com.dyhc.sdglgroundconnection.pojo.GuideSchedule;
 import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.github.pagehelper.PageInfo;
@@ -41,7 +42,7 @@ public interface GuideScheduleService {
      * 查询请假的导游信息  和 日程信息(lixiaojie)
      * @return
      */
-    PageInfo<GuideSchedule> selectScheduleScheduleStateBy2(Integer pageNo, Integer pageSize, String guideName, String firstDate, String lastDate) throws ParseException;
+    PageInfo<GuidescheduleParam> selectScheduleScheduleStateBy2(Integer pageNo, Integer pageSize, String guideId, String firstDate, String lastDate) throws ParseException;
 
     /**
      * 新增导游请假信息
@@ -49,5 +50,11 @@ public interface GuideScheduleService {
      * @return
      */
     Integer insertGuideScheduleStatus2(GuideSchedule guideSchedule) throws ParseException;
+
+    /**
+     * 请假信息
+     * @return
+     */
+    PageInfo<GuidescheduleParam> chaxunsuoyoucaiwuxinxi();
 
 }

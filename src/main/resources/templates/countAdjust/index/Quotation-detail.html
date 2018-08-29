@@ -24,7 +24,7 @@
 
 <!-- 资源管理 start -->
 <div style="display: none">
-    <input type="hidden" th:value="${offerId}" id="offerId" />
+    <input type="hidden" th:value="${offerId}" id="offerId"/>
     <!-- 线路列表 -->
     <select name="templates" id="templates" lay-ignore>
         <option th:each="template:${templates}" th:value="${template.templateId}"
@@ -130,8 +130,8 @@
     </div>
     <div id="zong">
         <!--<button class='layui-btn layui-btn-normal layui-btn-radius' onclick='addss()' id="add"-->
-                  <!--style="width:50px;margin-left: 1000px;">十
-          <!--</button>-->
+        <!--style="width:50px;margin-left: 1000px;">十
+<!--</button>-->
         <!---中结束-->
     </div>
     <div id="divfoot">
@@ -207,7 +207,7 @@
                         <button class='layui-btn layui-btn-normal layui-btn-radius'>预览报价单</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td colspan="2">
-                        <input type="button" value="保存" onclick="saveDispatchInfo()">
+                        <!--<input type="button" value="保存" onclick="saveDispatchInfo()">-->
                         <button class='layui-btn layui-btn-normal layui-btn-radius' id="baocun"
                                 onclick="saveDispatchInfo()">打印报价单
                         </button>
@@ -216,6 +216,15 @@
             </table>
         </form>
         <!--底部div结束-->
+        <!--<div class="layui-input-block" style="margin-bottom: 20px;" id="bills">-->
+            <!--<input type="radio" name="bill" value="1" title="安全提示单" checked/>安全提示单 &nbsp;&nbsp;-->
+            <!--<input type="radio" name="bill" value="2" title="运输合同"/>运输合同 &nbsp;&nbsp;-->
+            <!--<input type="radio" name="bill" value="3" title="旅订房通知单"/>旅订房通知单 &nbsp;&nbsp;-->
+            <!--<input type="radio" name="bill" value="4" title="派团单"/> 派团单 &nbsp;&nbsp;-->
+            <!--<input type="radio" name="bill" value="5" title="行程计划单"/>行程计划单 &nbsp;&nbsp;-->
+            <!--<input type="radio" name="bill" value="6" title="经费预算单"/>经费预算单 &nbsp;&nbsp;-->
+            <!--<button class="layui-btn" lay-submit lay-filter="formDemo" onclick="saveOfferInfo()">打印</button>-->
+        <!--</div>-->
     </div>
 
 </div>
@@ -225,14 +234,39 @@
 <script type="text/javascript" src="/js/scheduling.js"></script>
 
 <script>
+    // 点击打印报价信息
+    function saveOfferInfo() {
+        // 报价单编号
+        var billType = $('#bills input[name=bill]').val();
+        var url = "";
+        // 判断报价单
+        if (billType==1){
+            url = "/SecurityHints.html";
+        }
+        else if(billType==2){
+            url = "/SecurityHints.html";
+        }
+        else if(billType==3){
 
+        }
+        else if(billType==4){
+
+        }
+        else if(billType==5){
+
+        }
+        else if(billType==6){
+
+        }
+
+    }
 
     // 保存调度信息
     function saveDispatchInfo() {
         var patchJsonObj = {}; // 调度信息的json对象
         var patchGuideJsonObj = {}; // 调度导游的json对象
         var patchCarJsonObj = {}; // 调度用车的json对象
-
+        alert('enter……')
         // 旅行社名称
         patchJsonObj.travelName = $('#travelName').val();
         // 旅行开始时间
@@ -356,9 +390,6 @@
             hotelInfo.companyBedoffer = $(e).find('#companyBedoffer').val();
             hotelInfo.companyPaymeny = $(e).find('#privateAccompany').find('.layui-form-radioed').find('div').html();
             hotelJsonArray.push(hotelInfo);
-            alert(hotelInfo["companyBedNum"])
-            alert(hotelInfo["companyBedoffer"])
-            alert(hotelInfo["companyPaymeny"])
             // 获取当前下的所有景点
             var scenicSpotId = -1;
             var allScenicpot = $(e).find('tr[id^=scenic]');
@@ -618,7 +649,6 @@
     function loadData() {
         // 获取报价的编号
         var offerId = $('#offerId').val();
-        alert(offerId);
         // 发送请求
         $.ajax({
             url: "/offer/offer/detail/" + offerId + ".html",
@@ -794,8 +824,10 @@
                 layedit = layui.layedit,
                 element = layui.element,
                 laydate = layui.laydate,
-                a;
-            form.render(); //更新全部
+
+                form
+        .
+            render(); //更新全部
             form.render('select'); //刷新select选择框渲染
         });
     }

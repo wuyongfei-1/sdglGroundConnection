@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
@@ -87,6 +86,17 @@ public class Dispatch {
 
     @Transient
     private Company company; // 本公司对象
+
+    @Transient
+    private Bill bill; // 集体照对象
+
+    public Bill getBill() {
+        return bill;
+    }
+
+    public void setBill(Bill bill) {
+        this.bill = bill;
+    }
 
     public List<Disrestaurant> getDisrestaurantList() {
         return disrestaurantList;

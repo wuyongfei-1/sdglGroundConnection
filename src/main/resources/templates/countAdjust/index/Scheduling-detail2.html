@@ -69,11 +69,6 @@
                                                           style='height: 30px;width: 100px;' onclick="xianlu(this)">自行填写
                             </button>
                             </td>
-                            <td colspan="2">&nbsp;<button type="button"
-                                                          class='layui-btn layui-btn-normal layui-btn-radius'
-                                                          style='height: 30px;width: 100px'>保存模板
-                            </button>
-                            </td>
                         </tr>
                         <tr>
                             <td><label class="layui-form-label">日期</label></td>
@@ -187,10 +182,6 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><label class="layui-form-label">司机导游:</label></td>
-                    <td colspan="5"><input type="text" class="layui-input"></td>
-                </tr>
-                <tr>
                     <td><label class="layui-form-label">备注：</label></td>
                     <td colspan="5"><textarea placeholder="请输入内容" class="layui-textarea" name="remarks"></textarea></td>
                 </tr>
@@ -302,11 +293,6 @@
                             "                            <td colspan=\"2\">&nbsp;<button type=\"button\"\n" +
                             "                                                          class='layui-btn layui-btn-normal layui-btn-radius'\n" +
                             "                                                          style='height: 30px;width: 100px;' onclick=\"xianlu(this)\">自行填写\n" +
-                            "                            </button>\n" +
-                            "                            </td>\n" +
-                            "                            <td colspan=\"2\">&nbsp;<button type=\"button\"\n" +
-                            "                                                          class='layui-btn layui-btn-normal layui-btn-radius'\n" +
-                            "                                                          style='height: 30px;width: 100px'>保存模板\n" +
                             "                            </button>\n" +
                             "                            </td>\n" +
                             "                        </tr>\n" +
@@ -862,8 +848,8 @@
 
                 //查询所有饭菜类型
                 $.each(data.data[4], function (i, e) {
-                    wancan += "<option value='" + e.dictionariesId + "' costPrice='" + e.valueContent2 + "' offer='" + e.valueContent3 + "'>" + e.valueContent1 + "</option>";
-                    wucan += "<option value='" + e.dictionariesId + "' costPrice='" + e.valueContent2 + "' offer='" + e.valueContent3 + "'>" + e.valueContent1 + "</option>";
+                    wancan += "<option value='" + e.valueId + "' costPrice='" + e.valueContent2 + "' offer='" + e.valueContent3 + "'>" + e.valueContent1 + "</option>";
+                    wucan += "<option value='" + e.valueId + "' costPrice='" + e.valueContent2 + "' offer='" + e.valueContent3 + "'>" + e.valueContent1 + "</option>";
                 })
                 $.each(data.data[5], function (i, e) {
                     chedui += "<option value='" + e.dictionariesId + "' costPrice='" + e.valueContent2 + "' offer='" + e.valueContent3 + "'>" + e.valueContent1 + "</option>";

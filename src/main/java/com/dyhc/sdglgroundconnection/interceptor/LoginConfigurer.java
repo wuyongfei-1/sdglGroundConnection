@@ -12,7 +12,7 @@ public class LoginConfigurer implements WebMvcConfigurer {
     final String[] notLoginInterceptPaths =
             {"/static/**", "/account/**", "/account/**", "/log/**", "/moneyBudget/**"
                     , "/quoteDetails/**", "/record/**", "/route/**", "/bill/**", "/admins/login.html"
-                    , "/staff/loginCheck", "/admin/**", "/css/**", "/font/**", "/images/**"
+                    , "/staff/loginCheck", "/admin/**", "/css/**", "/font/**", "/images/**","/api/image/**"
                     , "/js/**", "/lay/**"};//禁止拦截
 
     @Override

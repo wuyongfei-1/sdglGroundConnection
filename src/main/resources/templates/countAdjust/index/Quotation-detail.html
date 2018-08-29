@@ -24,6 +24,7 @@
 
 <!-- 资源管理 start -->
 <div style="display: none">
+    <input type="hidden" th:value="${offerId}" id="offerId" />
     <!-- 线路列表 -->
     <select name="templates" id="templates" lay-ignore>
         <option th:each="template:${templates}" th:value="${template.templateId}"
@@ -616,7 +617,8 @@
     // 发送请求查询指定的报价信息
     function loadData() {
         // 获取报价的编号
-        var offerId = 1;
+        var offerId = $('#offerId').val();
+        alert(offerId);
         // 发送请求
         $.ajax({
             url: "/offer/offer/detail/" + offerId + ".html",

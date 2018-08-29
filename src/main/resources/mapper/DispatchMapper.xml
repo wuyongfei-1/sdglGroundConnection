@@ -2,5 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dyhc.sdglgroundconnection.mapper.DispatchMapper">
-
+    <insert id="saveDispatchInfo" useGeneratedKeys="true" keyProperty="dispatchId">
+        insert into  dispatch(groundConnectionNumber,groupNumber,sendLine,travelStartTime,travelEndTime
+        ,num,tourist,trip,offer,aVariance,fare,wineFee,notContain,remarks,supervision,reception,total
+        ,loan,status,state,whetherDel,creater,modifier,modifiedData,creationDate,value1,value2,value3)
+         values (#{groundConnectionNumber},#{groupNumber},#{sendLine},#{travelStartTime},#{travelEndTime}
+         ,#{num},#{tourist},#{trip},#{offer},#{aVariance},#{fare},#{wineFee},#{notContain},#{remarks},#{supervision}
+         ,#{reception},#{total},#{loan},#{status},#{});
+    </insert>
 </mapper>

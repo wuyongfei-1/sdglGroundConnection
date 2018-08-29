@@ -1,141 +1,171 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" >
-	<head>
-		<meta charset="UTF-8">
-		<meta name="renderer" content="webkit">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<title>网站后台管理模版</title>
-		<link rel="stylesheet" type="text/css" href="/admin/layui/css/layui.css" />
-		<link rel="stylesheet" type="text/css" href="/admin/css/admin.css" />
-	</head>
-	<body>
-		<div class="wrap-container" style="height: 320px">
-			<form id="VehicleTypeInfo"  class="layui-form" style="width: 90%;padding-top: 20px;">
-				<input type="hidden" name="hiddenVehicleTypeId" id="hiddenVehicleTypeId"  th:value="${vehicleTypeId}">
-				<input type="hidden" name="hiddenCarRentalId" id="hiddenCarRentalId"  th:value="${carRentalId}">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>网站后台管理模版</title>
+    <link rel="stylesheet" type="text/css" href="/admin/layui/css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="/admin/css/admin.css"/>
+</head>
+<body>
+<div class="wrap-container" style="height: 320px">
+    <form id="VehicleTypeInfo" class="layui-form" style="width: 90%;padding-top: 20px;">
+        <input type="hidden" name="hiddenVehicleTypeId" id="hiddenVehicleTypeId" th:value="${vehicleTypeId}">
+        <input type="hidden" name="hiddenCarRentalId" id="hiddenCarRentalId" th:value="${carRentalId}">
 
-				<div class="layui-form-item">
-					<label style="width: 120px" class="layui-form-label">车辆类型名称：</label>
-					<div class="layui-input-block">
-						<input  style="width: 550px" type="text" name="typeName"  placeholder="请输入车辆公司名称"
-								autocomplete="off" class="layui-input">
-					</div>
-				</div>
-				<div class="layui-form-item">
-					<label style="width: 120px"  class="layui-form-label">载客量：</label>
-					<div class="layui-input-block">
-						<input type="text" style="width: 550px"  name="passengervolume"  placeholder="请输入车辆公司地址"
-							   autocomplete="off" class="layui-input">
-					</div>
-				</div>
+        <div class="layui-form-item">
+            <label style="width: 80px" class="layui-form-label">车辆类型：</label>
+            <div class="layui-input-block" style="width: 550px">
+                <select class="layui-select" name="typeName" id="typeName">
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label style="width: 120px" class="layui-form-label">载客量：</label>
+            <div class="layui-input-block">
+                <input type="text" style="width: 550px" name="passengervolume" placeholder="请输入车辆公司地址"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
 
-				<div class="layui-form-item">
-					<label style="width: 120px"  class="layui-form-label">成本价：</label>
-					<div class="layui-input-block">
-						<input type="text" style="width: 550px"  name="costprice"  placeholder="请输入车辆公司联系人"
-							   autocomplete="off" class="layui-input">
-					</div>
-				</div>
+        <div class="layui-form-item">
+            <label style="width: 120px" class="layui-form-label">成本价：</label>
+            <div class="layui-input-block">
+                <input type="text" style="width: 550px" name="costprice" placeholder="请输入车辆公司联系人"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
 
-				<div class="layui-form-item">
-					<label style="width: 120px"  class="layui-form-label">报价：</label>
-					<div class="layui-input-block">
-						<input type="text" style="width: 550px"  name="offer"  placeholder="请输入联系人电话"
-							   autocomplete="off" class="layui-input">
-					</div>
-				</div>
-
-
-					<div class="layui-form-item">
-						<div class="layui-input-block">
-							<button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo" onclick="updateVehicleTypesInfo()">立即提交</button>
-							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
-						</div>
-					</div>
-				</form>
-		</div>
-
-		<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/js/jquery-1.8.3.min.js"></script>
-		<script>
+        <div class="layui-form-item">
+            <label style="width: 120px" class="layui-form-label">报价：</label>
+            <div class="layui-input-block">
+                <input type="text" style="width: 550px" name="offer" placeholder="请输入联系人电话"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
 
 
-			$(function () {
-                getVehicleTypeInfoByTypeId();//页面加载绑定事件
-            });
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo"
+                        onclick="updateVehicleTypesInfo()">立即提交
+                </button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/jquery-1.8.3.min.js"></script>
+<script>
 
 
-			/*修改公司车辆类型信息（lixiaojie)*/
-			function updateVehicleTypesInfo() {
+    $(function () {
 
-                var VehicleTypeInfo = $("#VehicleTypeInfo").serialize();
+        listDictionariesInfoByVEHICLE();
+        getVehicleTypeInfoByTypeId();//页面加载绑定事件
 
-                var hiddenVehicleTypeId=$("#hiddenVehicleTypeId").val();
-                var hiddenCarRentalId=$("#hiddenCarRentalId").val();
+    });
+    //根据用户id查询用户信息 (lixiaojie)
+    function getVehicleTypeInfoByTypeId() {
+        var hiddenVehicleTypeId = $("#hiddenVehicleTypeId").val();
 
-                VehicleTypeInfo=VehicleTypeInfo+"&typeId="+hiddenVehicleTypeId+"&carRentalId="+hiddenCarRentalId
-                $.ajax({
-                    url: "/vehicleType/updateVehicleTypesInfo",
-                    data: VehicleTypeInfo,
-                    dataType: "json",
-                    type: "post",
-                    success: function (ReponseResult) {
-                        if (ReponseResult.data==0||ReponseResult.data=='0') {
-                            alert("修改失败")
-                        }
-                        if (ReponseResult.data==1||ReponseResult.data=='1') {
-                            alert("修改成功")
-                        }
-                        parent.location.reload();
-                    },
-                    error: function (res) {
-                        /*  alert(res);*/
-                    }
-                })
+        $.ajax({
+            url: "/vehicleType/getVehicleTypeInfoByTypeId",
+            data: {
+                "VehicleTypeId": hiddenVehicleTypeId
+            },
+            async: false,
+            dataType: "json",
+            type: "post",
+            success: function (ReponseResult) {
+                /*    $("input[name='typeName']").val(ReponseResult.data.typeName);*/
+                $("#typeName option[value='" + ReponseResult.data.valueId + "']").attr("selected", "selected");
+
+                $("input[name='passengervolume']").val(ReponseResult.data.passengervolume);
+                $("input[name='costprice']").val(ReponseResult.data.costprice);
+                $("input[name='offer']").val(ReponseResult.data.offer);
+
+            },
+            error: function (res) {
+                /*  alert(res);*/
             }
-            //根据用户id查询用户信息 (lixiaojie)
-            function getVehicleTypeInfoByTypeId() {
-                var hiddenVehicleTypeId=$("#hiddenVehicleTypeId").val();
-                $.ajax({
-                    url: "/vehicleType/getVehicleTypeInfoByTypeId",
-                    data: {
-                        "VehicleTypeId":hiddenVehicleTypeId
-					},
-                    dataType: "json",
-                    type: "post",
-                    success: function (ReponseResult) {
-                        $("input[name='typeName']").val(ReponseResult.data.typeName);
-
-
-                        $("input[name='passengervolume']").val(ReponseResult.data.passengervolume);
-                        $("input[name='costprice']").val(ReponseResult.data.costprice);
-                        $("input[name='offer']").val(ReponseResult.data.offer);
-
-                    },
-                    error: function (res) {
-                        /*  alert(res);*/
-                    }
-                })
+        })
+    }
+    /**
+     *  绑定车辆类型（lixiaojie)
+     */
+    function listDictionariesInfoByVEHICLE() {
+        $.ajax({
+            url: "/carrental/listDictionariesInfoByVEHICLE",
+            data: {},
+            async: false,
+            dataType: "json",
+            type: "post",
+            success: function (ReponseResult) {
+                var content = "<option value='0' style='width: 300px'>请选择车辆类型</option>";
+                $.each(ReponseResult.data, function (i, e) {
+                    content += "<option style='width: 300px' value='" + e.valueId + "'>" + e.valueContent1 + "</option>";
+                });
+                $("#typeName").html(content);
+            },
+            error: function (res) {
+                /*  alert(res);*/
             }
+        });
 
 
-			
+    }
+    /*修改公司车辆类型信息（lixiaojie)*/
+    function updateVehicleTypesInfo() {
+
+        var VehicleTypeInfo = $("#VehicleTypeInfo").serialize();
+        var typeName= $("#typeName  option:selected").val();
+        var hiddenVehicleTypeId = $("#hiddenVehicleTypeId").val();
+        var hiddenCarRentalId = $("#hiddenCarRentalId").val();
+        if (typeName==0||typeName=='0'){
+            alert("请选择用车类型");
+            return;
+        }
+        VehicleTypeInfo = VehicleTypeInfo + "&typeId=" + hiddenVehicleTypeId + "&carRentalId=" + hiddenCarRentalId+"&valueId="+typeName
+        $.ajax({
+            url: "/vehicleType/updateVehicleTypesInfo",
+            data: VehicleTypeInfo,
+            dataType: "json",
+            type: "post",
+            success: function (ReponseResult) {
+                if (ReponseResult.data == 0 || ReponseResult.data == '0') {
+                    alert("修改失败")
+                }
+                if (ReponseResult.data == 1 || ReponseResult.data == '1') {
+                    alert("修改成功")
+                }
+                parent.location.reload();
+            },
+            error: function (res) {
+                /*  alert(res);*/
+            }
+        })
+    }
 
 
-		</script>
-		<script>
-			//Demo
-			layui.use(['form'], function() {
-				var form = layui.form();
-				form.render();
-				//监听提交
-				form.on('submit(formDemo)', function(data) {
+</script>
+<script>
+    //Demo
+    layui.use(['form'], function () {
+        var form = layui.form();
+        form.render();
+        //监听提交
+        form.on('submit(formDemo)', function (data) {
 
-					return false;
-				});
-			});
-		</script>
-	</body>
+            return false;
+        });
+    });
+</script>
+</body>
 
 </html>

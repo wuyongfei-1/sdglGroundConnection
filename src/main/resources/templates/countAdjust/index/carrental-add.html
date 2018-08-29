@@ -87,8 +87,8 @@
                 "companyAddress":companyAddress,
                 "contacts":contacts,
                 "phone":phone
-
             },
+            async:false,
             dataType: "json",
             type: "post",
             success: function (ReponseResult) {
@@ -108,15 +108,6 @@
 
 </script>
 <script>
-    //Demo
-    layui.use(['form'], function () {
-        var form = layui.form();
-        form.render();
-        //监听提交
-        form.on('submit(formDemo)', function (data) {
-            return false;
-        });
-    });
 </script>
 </body>
 

@@ -12,10 +12,10 @@ function qiehuan(dd){
 function xianlu(obj){
     var text=$(obj).html();
     if(text=="自行填写"){
-        $(obj).parent().prev().html("<input type='text' class='layui-input'>");
+        $(obj).parent().prev().html("<input type='text'xl='xianlu' class='layui-input' name='texts'>");
 		$(obj).html("选择模板");
     }else{
-        $(obj).parent().prev().html("<select name='city' lay-verify='required' lay-search>"+
+        $(obj).parent().prev().html("<select name=\"city\" lay-ignore lay-search xl=\"xianlu\" onchange=\"chengZi(this)\">"+
 		xianluinfo+
 			"</select>");
 		$(obj).html("自行填写");
@@ -39,10 +39,11 @@ function shanchu(aa){
 }
 
 function insertJingdian(onClickjd) {
+        var count=$(onClickjd).parent().parent().next().find("[spot='jingdian']").attr("weight");
         $(onClickjd).parent().parent().next().after("<tr id=\"scenic\">\n" +
             "                            <td><label class=\"layui-form-label\">景点</label></td>\n" +
             "                            <td>\n" +
-            "                                <select name=\"city\" lay-ignore spot=\"jingdian\"onchange=\"baojia(this)\">\n" +
+            "                                <select name=\"city\" weight='"+count+"' lay-ignore spot=\"jingdian\"onchange=\"baojia(this)\">\n" +
             jingdian+
             "                                </select>\n" +
             "                            </td>\n" +
@@ -69,6 +70,8 @@ function insertJingdian(onClickjd) {
 	}
 		showInfo3();
 			function addss() {
+                var count=$("#add").prev().children("div:last-child").find("[spot='jingdian']").attr("weight");
+                count++;
 				var a= "<div style='margin-bottom: 30px;width: 800px'>\n" +
                     "            <input type=\"image\" src=\"/images/up.PNG\" style=\"height: 30px;width: 35px;\" id=\"toggle\"\n" +
                     "                   onclick='qiehuan(this)'/>\n" +
@@ -126,7 +129,7 @@ function insertJingdian(onClickjd) {
                     " <tr id=\"scenic\">\n" +
                     "                            <td><label class=\"layui-form-label\">景点</label></td>\n" +
                     "                            <td>\n" +
-                    "                                <select name=\"city\" lay-ignore spot=\"jingdian\"onchange=\"baojia(this)\">\n" +
+                    "                                <select name=\"city\" weight='"+count+"' lay-ignore spot=\"jingdian\"onchange=\"baojia(this)\">\n" +
                     jingdian+
                     "                                </select>\n" +
                     "                            </td>\n" +
@@ -185,7 +188,7 @@ function insertJingdian(onClickjd) {
 				var b = $("#add");
 				b.remove();
 				var f = "<button class='layui-btn layui-btn-normal layui-btn-radius' onclick='addss()' id='add'>十</button>";
-				$("#zong").append(f);
+				$("#zong").after(f);
 			}
 function showInfo3() {
     zongxinalu = "<option value='-1'>请选择</option>";

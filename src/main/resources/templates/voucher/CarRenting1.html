@@ -53,6 +53,7 @@
             dataType: "json",
             type: "post",
             success: function (e) {
+                console.log(e)
                 $(".companyName").text(e.data.company.companyName);//旅行社
                 $(".companyPhone").text(e.data.company.companyPhone);//电话
                 $(".fax").text(e.data.company.fax);//传真

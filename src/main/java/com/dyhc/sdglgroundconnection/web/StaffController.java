@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -137,8 +138,11 @@ public class StaffController {
      * 增加
      */
     @RequestMapping(value = "/saveStaffInfo", method = RequestMethod.POST)
-    public ReponseResult saveStaffInfo(Staff staff) {
+    public ReponseResult saveStaffInfo(Staff staff,HttpServletRequest request) {
         try {
+            Staff sessionstaff= (Staff) request.getSession().getAttribute("user");
+            staff.setCreateBy(sessionstaff!=null?sessionstaff.getStaffId():1);
+            staff.setCreateDate(new Date());
             int result = staffService.saveStaffInfo(staff);
             ReponseResult<String> date;
             if (result > 0) {
@@ -162,8 +166,9 @@ public class StaffController {
      * 修改删除状态(lixiaojie)
      */
     @RequestMapping(value = "/updateStaffWhetherDel", method = RequestMethod.POST)
-    public ReponseResult updateStaffWhetherDel(Integer staffId) {
+    public ReponseResult updateStaffWhetherDel(Integer staffId,HttpServletRequest request) {
         try {
+
             int result = staffService.updateStaffWhetherDel(staffId);
             ReponseResult<String> date;
             if (result > 0) {
@@ -187,8 +192,11 @@ public class StaffController {
      * 修改用户信息(lixiaojie)
      */
     @RequestMapping(value = "/updateStaffInfo", method = RequestMethod.POST)
-    public ReponseResult updateStaffInfo(Staff staff) {
+    public ReponseResult updateStaffInfo(Staff staff,HttpServletRequest request) {
         try {
+            Staff sessionstaff= (Staff) request.getSession().getAttribute("user");
+            staff.setUpdateBy(sessionstaff!=null?sessionstaff.getStaffId():1);
+            staff.setUpdateDate(new Date());
             int result = staffService.updateStaffInfo(staff);
             ReponseResult<String> date;
             if (result > 0) {
@@ -216,9 +224,12 @@ public class StaffController {
      * @return 保存结果updateStaff
      */
     @RequestMapping("/updateUserInfo")
-    public ReponseResult updateUserInfo(Staff staff, @RequestParam("fileObj") MultipartFile multipartFile) {
+    public ReponseResult updateUserInfo(Staff staff, @RequestParam("fileObj") MultipartFile multipartFile,HttpServletRequest request) {
         Staff oldStaff = staffService.getStaffInfoByStaffId(staff.getStaffId());
         try {
+            Staff sessionstaff= (Staff) request.getSession().getAttribute("user");
+            staff.setUpdateBy(sessionstaff!=null?sessionstaff.getStaffId():1);
+            staff.setUpdateDate(new Date());
             //判断是否有上传图片 判断multipartFile和savePath是否为null
             if (!multipartFile.isEmpty() && "a.txt".equals(multipartFile.getOriginalFilename())) {
                 //如果为空则根据编号查询信息把用户之前的图片地址赋值给要修改的对象

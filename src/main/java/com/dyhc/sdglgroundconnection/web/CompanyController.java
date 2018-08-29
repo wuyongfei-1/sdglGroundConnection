@@ -2,6 +2,7 @@ package com.dyhc.sdglgroundconnection.web;
 
 import com.dyhc.sdglgroundconnection.pojo.Company;
 import com.dyhc.sdglgroundconnection.pojo.Hotel;
+import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.dyhc.sdglgroundconnection.service.CompanyService;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import com.github.pagehelper.PageInfo;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -57,8 +60,11 @@ public class CompanyController  {
      * 增加
      */
     @RequestMapping("/insertCompany")
-    public ReponseResult insertCompany(Company company){
+    public ReponseResult insertCompany(Company company,HttpServletRequest request){
         try {
+            Staff sessionstaff= (Staff) request.getSession().getAttribute("user");
+            company.setCreater(sessionstaff!=null?sessionstaff.getStaffId():1);
+            company.setCreationDate(new Date());
             int result=companyService.insertCompanys(company);
             System.out.println(result);
             ReponseResult<String> date;
@@ -83,8 +89,11 @@ public class CompanyController  {
      * 修改
      */
     @RequestMapping("/updateCompany")
-    public ReponseResult updateCompany(Company company){
+    public ReponseResult updateCompany(Company company,HttpServletRequest request){
         try {
+            Staff sessionstaff= (Staff) request.getSession().getAttribute("user");
+            company.setModifier(sessionstaff!=null?sessionstaff.getStaffId():1);
+            company.setModifiedData(new Date());
             int result=companyService.updateCompanys(company);
             ReponseResult<String> date;
             if (result>0){

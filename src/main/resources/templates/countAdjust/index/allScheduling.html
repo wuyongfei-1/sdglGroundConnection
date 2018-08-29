@@ -29,7 +29,7 @@
 				<col width="150">
 				<col width="130">
 				<col width="130">
-				<col width="130">
+				<col width="60">
 			</colgroup>
 			<thead>
 			<tr>
@@ -41,7 +41,7 @@
 				<th class="">报价</th>
 				<th class="">开团时间</th>
 				<th class="">结束时间</th>
-				<th>操作</th>
+				<th colspan="2">操作</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -97,6 +97,7 @@
                         "\t\t\t\t\t\t\t\t<td class=\"\">"+e.offer+"</td>\n" +
                         "\t\t\t\t\t\t\t\t<td class=\"\">"+e.travelStartTime+"</td>\n" +
                         "\t\t\t\t\t\t\t\t<td class=\"\">"+e.travelEndTime+"</td>\n" +
+                        "\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"upOffer\" value=\""+e.offerId+"\">报价详情</button></td>\n"+
                         "\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"jinyong\" value=\""+e.offerId+"\">调度详情</button></td>\n"+
                         "\t\t\t\t\t\t\t</tr>";
                     if(e.offerlineList.length>0){
@@ -158,7 +159,11 @@
         })
         //$("tbody").html(fuqin);
     };
-    //禁用按钮（dubingkun）
+    //报价按钮（dubingkun）
+    $(document).on("click","#upOffer",function () {
+		location.href="http://localhost:8888/countAdjust/Scheduling-detail.html2?offerId="+$(this).val()+"";
+    })
+    //调度按钮（dubingkun）
     $(document).on("click","#jinyong",function () {
         alert($(this).val())
     })

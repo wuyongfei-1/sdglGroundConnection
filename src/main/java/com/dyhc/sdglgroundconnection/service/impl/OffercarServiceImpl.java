@@ -41,4 +41,12 @@ public class OffercarServiceImpl implements OffercarService {
     public Integer updateOffercar(Offercar offercar) throws OfferException {
         return offercarMapper.updateByPrimaryKey(offercar);
     }
+
+    @Override
+    public Integer deleteOffercar(Integer id) throws OfferException {
+        OffercarExample offercarExample=new OffercarExample();
+        OffercarExample.Criteria criteria=offercarExample.createCriteria();
+        criteria.andOfferidEqualTo(id);
+        return offercarMapper.deleteByExample(offercarExample);
+    }
 }

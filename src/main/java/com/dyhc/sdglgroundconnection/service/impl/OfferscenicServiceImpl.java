@@ -41,4 +41,12 @@ public class OfferscenicServiceImpl implements OfferscenicService {
     public Integer updateOfferscenic(Offerscenic offerscenic) throws OfferException {
         return offerscenicMapper.updateByPrimaryKey(offerscenic);
     }
+
+    @Override
+    public Integer deleteOfferscenic(Integer id) throws OfferException {
+        OfferscenicExample offerhotelExample=new OfferscenicExample();
+        OfferscenicExample.Criteria criteria=offerhotelExample.createCriteria();
+        criteria.andOfferidEqualTo(id);
+        return offerscenicMapper.deleteByExample(offerhotelExample);
+    }
 }

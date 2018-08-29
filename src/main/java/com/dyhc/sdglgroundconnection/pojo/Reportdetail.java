@@ -133,6 +133,16 @@ public class Reportdetail {
     public void setReportticketList(List<Reportticket> reportticketList) {
         this.reportticketList = reportticketList;
     }
+    @Transient
+    private Disline disline;
+
+    public Disline getDisline() {
+        return disline;
+    }
+
+    public void setDisline(Disline disline) {
+        this.disline = disline;
+    }
 
     @Transient
     private Dispatch dispatch; // 调度表对象

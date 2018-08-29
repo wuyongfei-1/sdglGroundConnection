@@ -35,8 +35,26 @@ public class DisattrServiceImpl implements DisattrService {
         DisattrExample disattrExample=new DisattrExample();
         DisattrExample.Criteria criteria=disattrExample.createCriteria();
         criteria.andOfferidEqualTo(offerId);
+        disattrExample.setOrderByClause("weight asc");
         List<Disattr> disattrList=disattrMapper.selectByExample(disattrExample);
         for (Disattr disattr: disattrList) {
+            disattr.setScenicspot(scenicspotService.getScenicspotById(disattr.getScenicSpotId()));
+        }
+        return disattrList;
+    }
+
+    /**
+     * 根据调度编号查询调度景点信息
+     * @param dispathId 调度编号
+     * @return 调度景点集合
+     */
+    @Override
+    public List<Disattr> listDisattrBydispathId(Integer dispathId) throws Exception{
+        DisattrExample disattrExample=new DisattrExample();
+        DisattrExample.Criteria criteria=disattrExample.createCriteria();
+        criteria.andBuynumEqualTo(dispathId);
+        List<Disattr> disattrList=disattrMapper.selectByExample(disattrExample);
+        for (Disattr disattr:disattrList) {
             disattr.setScenicspot(scenicspotService.getScenicspotById(disattr.getScenicSpotId()));
         }
         return disattrList;

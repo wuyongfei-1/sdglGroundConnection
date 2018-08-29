@@ -101,7 +101,6 @@ public class LinetemplateServiceImpl implements LinetemplateService {
     @Override
     @RecordOperation(type = "总线路模板信息",desc = "新增一条总线路模板信息")
     public Integer insertLinetemplateInfo(Linetemplate linetemplate) throws Exception {
-        linetemplate.setCreateby(1);
         linetemplate.setCreatetime(new Date());
         return linetemplateMapper.insert(linetemplate);
     }
@@ -117,7 +116,6 @@ public class LinetemplateServiceImpl implements LinetemplateService {
         Linetemplate linetemplate1=getLinetemplateBylineId(linetemplate.getLineid());
         linetemplate.setCreateby(linetemplate1.getCreateby());
         linetemplate.setCreatetime(linetemplate1.getCreatetime());
-        linetemplate.setUpdateby(1);
         linetemplate.setUpdatetime(new Date());
         return linetemplateMapper.updateByPrimaryKey(linetemplate);
     }

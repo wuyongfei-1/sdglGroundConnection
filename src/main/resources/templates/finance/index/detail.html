@@ -1,262 +1,309 @@
 <!doctype html>
-<html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-<meta charset="utf-8">
-<title>无标题文档</title>
-<style>
-.gradient{
-    
-    background:#fff;
-background: -webkit-linear-gradient(left, #1E9FFF , #FFF); /* Safari 5.1 - 6.0 */
-    background: -o-linear-gradient(right,  #1E9FFF, #FFF); /* Opera 11.1 - 12.0 */
-    background: -moz-linear-gradient(right,  #1E9FFF, #FFF); /* Firefox 3.6 - 15 */
-background: linear-gradient(to right,#1E9FFF , #FFF); color:#FFF;
-height:30px; line-height:30px;
-width:100%; padding-left:20px; margin-top:5px
-}
-td{ text-align:center}
-</style>
-<link rel="stylesheet" type="text/css" href="/admin/layui/css/layui.css">
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <style>
+        * {
+            padding: 0px;
+        }
+
+        .gradient {
+
+            background: #fff;
+            background: -webkit-linear-gradient(left, #34bde2, #FFF); /* Safari 5.1 - 6.0 */
+            background: -o-linear-gradient(right, #34bde2, #FFF); /* Opera 11.1 - 12.0 */
+            background: -moz-linear-gradient(right, #34bde2, #FFF); /* Firefox 3.6 - 15 */
+            background: linear-gradient(to right, #34bde2, #FFF);
+            color: #FFF;
+            height: 30px;
+            line-height: 30px;
+            width: 100px;
+            padding-left: 20px;
+            margin-top: 5px
+        }
+        .heji{
+
+        }
+
+        .heji td:nth-child(0){
+            font-size: 40px;
+        }
+
+
+        .mokuaitable {
+            width: 1300px
+        }
+
+        .mokuaitable td{
+
+        }
+
+        td {
+            height: 32px;
+            text-align: center;
+
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="/admin/layui/css/layui.css">
 </head>
 
 <body>
-<div style="margin:0 auto; width:100%;">
-	<h3 class="gradient">地接导游报账明细表</h3>
-    <div style="padding-left:20px">
-    <table>
-    	<tr>
-        	<td height="40px">团号:</td>
-            <td><input type="text" value="你真好" disabled></td>
-            <td style="padding-left:50px">抵离时间:</td>
-            <td><input type="date" value="2018-05-05" disabled>-<input type="date" value="2018-05-10" disabled></td>
-            <td style="padding-left:45px">线路:</td>
-            <td><input type="text" value="北京" style="width:60px; text-align:center" disabled>-<input type="text" value="太原"  style="width:60px; text-align:center" disabled></td>
-        </tr>
-    </table>
-    <table>
-    	<tr>
-        	<td>组团社(单位):</td>
-            <td><input type="text" disabled value="号锡组团社" style="width:120px; text-align:center"></td>
-            <td style="padding-left:30px">人数:</td>
-            <td><input type="text" disabled value="10" style="width:60px; text-align:center"></td>
-            <td style="padding-left:20px">天数:</td>
-            <td><input type="text" disabled value="3" style="width:60px; text-align:center"></td>
-            <td style="padding-left:20px">客源地:</td>
-            <td><input type="text" disabled value="北京" style="width:60px; text-align:center"></td>
-            <td style="padding-left:20px">单据类型<select style="margin-left:10px"><option>请选择</option></select></td>
-			<td><div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
-<button data-method="offset" data-type="auto" onclick="alertViewPictures()" class="layui-btn layui-btn-normal" style="height:23px; line-height:23px; margin-left:10px">
-           查询
-        </button>
-    </div></td>            
-        </tr>
-    </table>
-    
-    
-    <div class="layui-tab">
-  <ul class="layui-tab-title">
-    <li class="layui-this">住宿报账</li>
-    <li>餐厅报账</li>
-    <li>门票报账</li>
-    <li>车费报账</li>
-    <li>其他支出报账</li>
-  </ul>
-  <div class="layui-tab-content">
-    <div class="layui-tab-item layui-show">
-    	<table border="1" cellspacing="0" cellpadding="2" bordercolor="#0000FF" style="width:80%">
-        	<tr style="background-color:#1E9FFF">
-            	<td style="width:10%;"><strong>日期</strong></td>
-                <td style="width:15%;"><strong>酒店名称</strong></td>
-                <td style="width:10%;"><strong>房价</strong></td>
-                <td style="width:10%;"><strong>间数</strong></td>
-                <td style="width:12.5%;"><strong>陪同床位</strong></td>
-                <td style="width:12.5%;"><strong>陪同床价</strong></td>
-                <td style="width:10%;"><strong>天数</strong></td>
-                <td style="width:10%;"><strong>小计</strong></td>
-                <td style="width:10%;"><strong>支付方式</strong></td>
-            </tr>
+
+<div style="margin:0 auto;margin-left: 20px">
+    <h3 class="gradient">地接导游报账明细表</h3>
+    <div>
+        <input type="hidden" name="reportDetailId" id="hiddenreportDetailId" th:value="${reportDetailId}">
+        <input type="hidden" name="dispatchId" id="hiddendispatchId"  >
+        <table width="1300px">
             <tr>
-            	<td>4.15</td>
-                <td>海悦酒店</td>
-                <td>100</td>
-                <td>5</td>
-                <td>2</td>
-                <td>50</td>
-                <td>1</td>
-                <td>550</td>
-                <td>签单</td>
+                <td height="40px">团号:</td>
+                <td><input type="text" id="tuanhao" value="你真好" disabled></td>
+                <td>抵离时间:</td>
+                <td><input type="date" id="didashijian" value="2018-05-05" disabled>-<input type="date" id="likaishijian" value="2018-05-10" disabled></td>
+                <td>线路:</td>
+                <td><input type="text" id="xianlu" value="北京" style="width:60px; text-align:center" disabled></td>
             </tr>
         </table>
-        <table border="1" cellspacing="0" cellpadding="2" bordercolor="#0000FF" width="80%">
-        	<tr>
-            	<td style="width:12%;background-color:#09F"><strong>住宿合计</strong></td>
-                <td style="width:20%">10000</td>
-                <td style="width:15%;background-color:#09F"><strong>其中导游付</strong></td>
-                <td style="width:20%">3000</td>
-                <td style="width:13%;background-color:#09F"><strong>签单合计</strong></td>
-                <td style="width:20%">7000</td>
-            </tr>
-        </table>
-    </div>
-    <div class="layui-tab-item">
-    	<table border="1" cellspacing="0" cellpadding="2" bordercolor="#0000FF" width="80%">
-        	<tr style="background-color:#09F">
-            	<td style="width:5%"><strong>午餐日期</strong></td>
-                <td style="width:5%"><strong>餐厅名称</strong></td>
-                <td style="width:7%"><strong>餐标</strong></td>
-                <td style="width:7%"><strong>人数</strong></td>
-                <td style="width:7%"><strong>次数</strong></td>
-                <td style="width:7%"><strong>其他</strong></td>
-                <td style="width:7%"><strong>小计</strong></td>
-                <td style="width:5%"><strong>支付方式</strong></td>
-                <td style="width:5%"><strong>晚餐日期</strong></td>
-                <td style="width:5%"><strong>餐厅名称</strong></td>
-                <td style="width:7%"><strong>餐标</strong></td>
-                <td style="width:7%"><strong>人数</strong></td>
-                <td style="width:3%"><strong>次数</strong></td>
-                <td style="width:7%"><strong>其他</strong></td>
-                <td style="width:7%"><strong>小计</strong></td>
-                <td style="width:9%"><strong>支付方式</strong></td>
-            </tr>
+        <table width="1300px">
             <tr>
-            	<td>4.15</td>
-                <td>海悦酒店</td>
-                <td>300</td>
-                <td>10</td>
-                <td>2</td>
-                <td>50</td>
-                <td>3000</td>
-                <td>签单</td>
-                <td>4.15</td>
-                <td>海神酒店</td>
-                <td>400</td>
-                <td>6</td>
-                <td>1</td>
-                <td>60</td>
-                <td>4000</td>
-                <td>付现</td>
+                <td>组团社(单位):</td>
+                <td><input type="text" id="zutuanshemingzi" disabled value="号锡组团社" style="width:120px; text-align:center"></td>
+                <td>人数:</td>
+                <td><input type="text" id="renshu" disabled value="10" style="width:60px; text-align:center"></td>
+                <td>客源地:</td>
+                <td><input type="text" id="keyuandi" disabled value="北京" style="width:60px; text-align:center"></td>
+                <td>单据类型<select style="margin-left:10px" id="billType">
+                    <option value="0">请选择</option>
+                </select></td>
+                <td>
+                    <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
+                        <button data-method="offset" data-type="auto" onclick="alertViewPictures()" class="layui-btn layui-btn-normal" style="height:23px; line-height:23px; margin-left:10px">
+                            查询
+                        </button>
+                    </div>
+                </td>
             </tr>
         </table>
-        <table border="1" cellspacing="0" cellpadding="2" bordercolor="#0000FF" width="80%">
-        	<tr>
-            	<td style="width:12%;background-color:#09F"><strong>用餐合计</strong></td>
-                <td style="width:20%">10000</td>
-                <td style="width:15%;background-color:#09F"><strong>其中导游付</strong></td>
-                <td style="width:20%">3000</td>
-                <td style="width:13%;background-color:#09F"><strong>签单合计</strong></td>
-                <td style="width:20%">7000</td>
-            </tr>
-        </table>
-    </div>
-    <div class="layui-tab-item">
-    	<table border="1" cellspacing="0" cellpadding="2" bordercolor="#0000FF" width="80%">
-        	<tr style="background-color:#09F">
-            	<td style="width:20%"><strong>景点门票</strong></td>
-                <td style="width:20%"><strong>单价</strong></td>
-                <td style="width:20%"><strong>人数</strong></td>
-                <td style="width:20%"><strong>小计</strong></td>
-                <td style="width:20%"><strong>支付方式</strong></td>
-            </tr>
-            <tr>
-            	<td>五台山门票</td>
-                <td>100</td>
-                <td>10</td>
-                <td>1000</td>
-                <td>付现</td>
-            </tr>
-        </table>
-        <table border="1" cellspacing="0" cellpadding="2" bordercolor="#0000FF" width="80%">
-        	<tr>
-            	<td style="width:12%;background-color:#09F"><strong>门票合计</strong></td>
-                <td style="width:20%">10000</td>
-                <td style="width:15%;background-color:#09F"><strong>其中导游付</strong></td>
-                <td style="width:20%">3000</td>
-                <td style="width:13%;background-color:#09F"><strong>签单合计</strong></td>
-                <td style="width:20%">7000</td>
-            </tr>
-        </table>
-    </div>
-    <div class="layui-tab-item">
-    	<table border="1" cellspacing="0" cellpadding="2" bordercolor="#0000FF" width="80%">
-        	<tr style="background-color:#09F">
-            	<td style="width:10%"><strong>过路费</strong></td>
-                <td style="width:10%"><strong>停车费</strong></td>
-                <td style="width:10%"><strong>预付车费</strong></td>
-                <td style="width:10%"><strong>合计</strong></td>
-                <td style="width:20%"><strong>出团补助(元/天)</strong></td>
-                <td style="width:10%"><strong>天数</strong></td>
-                <td style="width:10%"><strong>导游数</strong></td>
-                <td style="width:10%"><strong>合计</strong></td>
-                <td style="width:10%"><strong>支付方式</strong></td>
-            </tr>
-            <tr>
-            	<td>20</td>
-                <td>50</td>
-                <td>100</td>
-                <td>170</td>
-                <td>30</td>
-                <td>5</td>
-                <td>1</td>
-                <td>850</td>
-                <td>导游付</td>
-            </tr>
-        </table>
-    </div>
-    <div class="layui-tab-item">
-    	<table border="1" cellspacing="0" cellpadding="2" bordercolor="#0000FF" width="80%">
-        	<tr>
-            	<td valign="top"><p>请列出项目及计算过程:</p><p style="display:inline;">上厕所一个花了5快，一人买了一瓶营养快线，一瓶10快</p></td>
-            </tr>
-        </table>
-        <table border="1" cellspacing="0" cellpadding="2" bordercolor="#0000FF" width="80%">
-        	<tr>
-            	<td style="width:12%;background-color:#1E9FFF"><strong>导游付</strong></td>
-                <td style="width:20%">400</td>
-                <td style="width:15%;background-color:#1E9FFF"><strong>签单</strong></td>
-                <td style="width:20%">300</td>
-                <td style="width:13%;background-color:#1E9FFF"><strong>合计</strong></td>
-                <td style="width:20%">700</td>
-            </tr>
-        </table>
-    </div>
-  </div>
-</div>
-<textarea style="resize: none; height:100px; width:869px">
+
+
+        <div class="layui-tab">
+            <ul class="layui-tab-title" style="width: 1300px">
+                <li class="layui-this">住宿报账</li>
+                <li>餐厅报账</li>
+                <li>门票报账</li>
+                <li>车费报账</li>
+                <li>其他支出报账</li>
+            </ul>
+
+            <div class="layui-tab-content" style="width: 1300px">
+                <div class="layui-tab-item layui-show">
+                    <table class="mokuaitable" border="1" cellspacing="0" cellpadding="2" bordercolor="#0000FF">
+                        <thead>
+                        <tr style="background-color:#34bde2">
+                            <td><strong>日期</strong></td>
+                            <td><strong>酒店名称</strong></td>
+                            <td><strong>房价</strong></td>
+                            <td><strong>间数</strong></td>
+                            <td><strong>陪同床位</strong></td>
+                            <td><strong>陪同床价</strong></td>
+                            <td><strong>天数</strong></td>
+                            <td><strong>小计</strong></td>
+                            <td><strong>支付方式</strong></td>
+                        </tr>
+                        </thead>
+                        <tbody id="reportaccommodationList">
+                        <tr>
+                            <td>4.15</td>
+                            <td>海悦酒店</td>
+                            <td>100</td>
+                            <td>5</td>
+                            <td>2</td>
+                            <td>50</td>
+                            <td>1</td>
+                            <td>550</td>
+                            <td>签单</td>
+                        </tr>
+
+                        </tbody>
+
+                    </table>
+                    <table  class="mokuaitable" border="1" cellspacing="0" cellpadding="2" bordercolor="#0000FF">
+                        <tr class="heji">
+                            <td style=";background-color:#34bde2"><strong>住宿合计</strong></td>
+                            <td style="" id="zhusuheji">10000</td>
+                            <td style="background-color:#34bde2"><strong>其中导游付</strong></td>
+                            <td style="" id="zhusudaoyoufu">3000</td>
+                            <td style="background-color:#34bde2"><strong>签单合计</strong></td>
+                            <td style="" id="zhusuqiandanheji">7000</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="layui-tab-item">
+                    <table class="mokuaitable" border="1" cellspacing="0" cellpadding="2" bordercolor="#0000FF">
+                        <thead>
+                        <tr style="background-color:#34bde2">
+                            <td style=""><strong>午餐日期</strong></td>
+                            <td><strong>餐厅名称</strong></td>
+                            <td><strong>餐标</strong></td>
+                            <td><strong>人数</strong></td>
+                            <td><strong>次数</strong></td>
+                            <td><strong>其他</strong></td>
+                            <td><strong>小计</strong></td>
+                            <td><strong>支付方式</strong></td>
+                            <td><strong>晚餐日期</strong></td>
+                            <td><strong>餐厅名称</strong></td>
+                            <td><strong>餐标</strong></td>
+                            <td><strong>人数</strong></td>
+                            <td><strong>次数</strong></td>
+                            <td><strong>其他</strong></td>
+                            <td><strong>小计</strong></td>
+                            <td><strong>支付方式</strong></td>
+                        </tr>
+                        </thead>
+                        <tbody id="reportrestaurantList">
+                        <tr>
+                            <td>4.15</td>
+                            <td>海悦酒店</td>
+                            <td>300</td>
+                            <td>10</td>
+                            <td>2</td>
+                            <td>50</td>
+                            <td>3000</td>
+                            <td>签单</td>
+                            <td>4.15</td>
+                            <td>海神酒店</td>
+                            <td>400</td>
+                            <td>6</td>
+                            <td>1</td>
+                            <td>60</td>
+                            <td>4000</td>
+                            <td>现付</td>
+                        </tr>
+                        </tbody>
+
+
+                    </table>
+                    <table class="mokuaitable" border="1" cellspacing="0" cellpadding="2" bordercolor="#0000FF">
+                        <tr class="heji">
+                            <td style="background-color:#34bde2"><strong>用餐合计</strong></td>
+                            <td style="" id="yongcanheji">10000</td>
+                            <td style="background-color:#34bde2"><strong>其中导游付</strong></td>
+                            <td style="" id="yongcandaoyoufu">3000</td>
+                            <td style="background-color:#34bde2"><strong>签单合计</strong></td>
+                            <td style="" id="yongcanqiandanheji">7000</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="layui-tab-item">
+                    <table class="mokuaitable" border="1" cellspacing="0" cellpadding="2" bordercolor="#0000FF">
+                        <thead>
+                        <tr style="background-color:#34bde2">
+                            <td style=""><strong>景点门票</strong></td>
+                            <td style=""><strong>单价</strong></td>
+                            <td style=""><strong>人数</strong></td>
+                            <td style=""><strong>小计</strong></td>
+                            <td style=""><strong>支付方式</strong></td>
+                        </tr>
+                        </thead>
+                        <tbody id="reportticketList">
+                        <tr>
+                            <td>五台山门票</td>
+                            <td>100</td>
+                            <td>10</td>
+                            <td>1000</td>
+                            <td>现付</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="mokuaitable" border="1" cellspacing="0" cellpadding="2" bordercolor="#0000FF" >
+                        <tr class="heji">
+                            <td style="background-color:#34bde2"><strong>门票合计</strong></td>
+                            <td style="" id="menpiaoheji">10000</td>
+                            <td style="background-color:#34bde2"><strong>其中导游付</strong></td>
+                            <td style="" id="menpiaodaoyoufu">3000</td>
+                           <td style="background-color:#34bde2"><strong>签单合计</strong></td>
+                            <td style="" id="menpiaoqiandanheji">7000</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="layui-tab-item">
+                    <table class="mokuaitable" border="1" cellspacing="0" cellpadding="2" bordercolor="#0000FF">
+                        <thead>
+                        <tr style="background-color:#34bde2">
+                            <td style=""><strong>过路费</strong></td>
+                            <td style=""><strong>停车费</strong></td>
+                            <td style=""><strong>预付车费</strong></td>
+                            <td style=""><strong>合计</strong></td>
+                            <td style=""><strong>出团补助(元/天)</strong></td>
+                            <td style=""><strong>天数</strong></td>
+                            <td style=""><strong>导游数</strong></td>
+                            <td style=""><strong>合计</strong></td>
+                        </tr>
+                        </thead>
+                        <tbody id="reportfare">
+                        <tr>
+                            <td>20</td>
+                            <td>50</td>
+                            <td>100</td>
+                            <td>170</td>
+                            <td>30</td>
+                            <td>5</td>
+                            <td>1</td>
+                            <td>850</td>
+                            <td>导游付</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="layui-tab-item">
+                    <table class="mokuaitable" border="1" cellspacing="0" cellpadding="2" bordercolor="#0000FF">
+                        <thead>
+                        <tr>
+                            <td colspan="6" style="background-color:#34bde2"><strong>其他报账明细:</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" id="qitabaozhangmingxi">上厕所一个花了5快，一人买了一瓶营养快线，一瓶10快</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td style=";background-color:#34bde2"><strong>导游付</strong></td>
+                            <td id="qitadaoyoufu">400</td>
+                            <td style="background-color:#34bde2"><strong>签单</strong></td>
+                            <td id="qitaqiandan">300</td>
+                            <td style="background-color:#34bde2"><strong>合计</strong></td>
+                            <td id="=qitaheji">700</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <table border="1" cellspacing="0" cellpadding="2" bordercolor="#0000FF"  style="margin-top: 40px" width="1300px;">
+                    <tr>
+                        <td style="background-color:#34bde2"><strong >原借款</strong></td>
+                        <td style="" id="yuanjiekuan">100</td>
+                        <td style="background-color:#34bde2"><strong>外收团款</strong></td>
+                        <td style="" id="waishoutuankuan">200</td>
+                        <td style="background-color:#34bde2"><strong>导游现付合计</strong></td>
+                        <td style="" id="daoyouxianfuheji">5000</td>
+                        <td style="background-color:#34bde2"><strong>报账日期</strong></td>
+                        <td style="" id="baozhangriqi"></td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+<!--        <textarea style="resize: none; height:100px; width:869px">
  交回的其他单据及内容(包括购物签单):
 </textarea>
-<textarea style="resize: none; height:100px; width:869px">
+        <textarea style="resize: none; height:100px; width:869px">
  现收团款明细:
-</textarea>
-<table border="1" cellspacing="0" cellpadding="2" bordercolor="#0000FF" style="width:80%">
-	<tr>
-    	<td style="width:10%;background-color:#09F"><strong>原借款</strong></td>
-        <td style="width:15%">100</td>
-        <td style="width:10%;background-color:#09F"><strong>外售团款</strong></td>
-        <td style="width:15%">200</td>
-        <td style="width:15%;background-color:#09F"><strong>导游现付合计</strong></td>
-        <td style="width:10%">5000</td>
-        <td style="width:15%;background-color:#09F"><strong>报/退款</strong></td>
-        <td style="width:10%">1000</td>
-    </tr>
-</table>
-<table border="1" cellspacing="0" cellpadding="2" bordercolor="#0000FF" style="width:80%">
-	<tr>
-    	<th style="width:10%;background-color:#09F">备注</th>
-        <th>导游以全票制报销，………………</th>
-    </tr>
-</table>
-<table border="1" cellspacing="0" cellpadding="2" bordercolor="#0000FF" style="width:80%">
-	<tr>
-    	<td style="width:10%;background-color:#09F"><strong>报账日期</strong></td>
-        <td style="width:30%"></td>
-        <td style="width:10%;background-color:#09F"><strong>导游签字</strong></td>
-        <td style="width:20%"></td>
-        <td style="width:10%;background-color:#09F"><strong>审核人批示</strong></td>
-        <td style="width:20%"></td>
-    </tr>
-</table>
+</textarea>-->
+
+
+    </div>
 </div>
-</div>
+</body>
 <script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 <script src="/layui.js"></script>
 <script src="/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
@@ -265,29 +312,232 @@ td{ text-align:center}
 
 <script>
     $(function () {
-        
+        selectReportdetailById();
+        selectAllBillType();
     });
+    /**
+     *
+     * 为单据类型绑定信息(lixiaojie)
+     */
+    function selectAllBillType() {
+        $.ajax({
+            url: "/billType/selectAllBillType",
+            data: {
+            },
+            dataType: "json",
+            type: "post",
+            success: function (ReponseResult) {
+                content="<option value='0'>请选择</option>";
+                $.each(ReponseResult.data,function (i,e) {
+                    content+="<option value='"+e.billTypeId+"'>"+e.typeName+"</option>";
+                });
+
+                $("#billType").html(content);
+            },
+            error: function (res) {
+                alert(res);
+            }
+        });
+    }
+
+    /**
+     * 为各个模块绑定信息(lixiaojie)
+     */
+    function selectReportdetailById() {
+        $.ajax({
+            url: "/reportdetail/selectReportdetailById",
+            data: {
+                "reportDetailId": 1
+            },
+            dataType: "json",
+            type: "post",
+            success: function (ReponseResult) {
+                var reportaccommodationList = "";
+                var zhusuheji=0*1;//住宿合计
+                var zhusudaoyoufu=0*1;
+                var zhusuqiandanheji=0*1;
+                $.each(ReponseResult.data.reportaccommodationList, function (i, e) {
+                    var subtotal=0*1;
+                    subtotal=e.housePrice*e.roomNum+e.accompanyingBed*e.accompanyingPrice;
+                    if(e.liveDate!=null){       //日期
+                        monthDate=e.liveDate.substring(5,7);
+                        dayDate=e.liveDate.substring(8,10);
+                    }
+                    if(e.payMethods=="签单"){
+                        zhusuqiandanheji+=subtotal;
+                    }
+                    if(e.payMethods=="现付"){
+                        zhusudaoyoufu+=subtotal;
+                    }
+                    zhusuheji+=subtotal;//计算住宿合计
+                    reportaccommodationList += "<tr>" +
+                        "<td>" +monthDate +"."+dayDate + "</td>" +
+                        "<td >" + e.hotelName + "</td>" +
+                        "<td >" + e.housePrice + "</td>" +
+                        "<td>" + e.roomNum + "</td>" +
+                        "<td >" + e.accompanyingBed + "</td>" +
+                        "<td >" + e.accompanyingPrice + "</td>" +
+                        "<td >1</td>" +
+                        "<td >" + subtotal + "</td>" +
+                        "<td >" + e.payMethods + "</td>" +
+                        "</tr>";
+                });
+                $("#zhusuheji").html(zhusuheji);
+                $("#zhusudaoyoufu").html(zhusudaoyoufu);
+                $("#zhusuqiandanheji").html(zhusuqiandanheji);
+                $("#reportaccommodationList").html(reportaccommodationList);
+
+                $("#hiddendispatchId").val(ReponseResult.data.dispatchId);
+
+
+
+                //餐厅
+                var reportrestaurantList = "";
+                var yongcanheji=0*1;
+                var yongcandaoyoufu=0*1;
+                var yongcanqiandanheji=0*1;
+                $.each(ReponseResult.data.reportrestaurantList, function (i, e) {
+                    var wuheji=0*1;
+                    var wanheji=0*1;
+                    var wucanxiaoji=e.lunchMeal*e.lunchEatNum;
+                    var wancanxiaoji=e.dinnerMeal*e.dinnerEatNum;
+                    if(e.lunchPayMethods=="签单"){
+                        yongcanqiandanheji+=wucanxiaoji;
+                    }
+                    if(e.dinnerPayMethods=="现付"){
+                        yongcandaoyoufu+=wancanxiaoji;
+                    }
+
+                    if(e.dinnerPayMethods=="签单"){
+                        yongcanqiandanheji+=wancanxiaoji;
+                    }
+                    if(e.lunchPayMethods=="现付"){
+                        yongcandaoyoufu+=wucanxiaoji;
+                    }
+
+                    yongcanheji+=wucanxiaoji+wancanxiaoji;
+                    if(e.lunchDate!=null){       //日期
+                        wumonthDate=e.lunchDate.substring(5,7);
+                        wudayDate=e.lunchDate.substring(8,10);
+                    }
+                    if(e.dinnerDate!=null){       //日期
+                        wanmonthDate=e.dinnerDate.substring(5,7);
+                        wandayDate=e.dinnerDate.substring(8,10);
+                    }
+                    reportrestaurantList += "<tr>" +
+                        "<td>" + wumonthDate +"."+wudayDate  + "</td>" +
+                        "<td>" + e.luncheonName + "</td>" +
+                        "<td>" + e.lunchMeal + "</td>" +
+                        "<td>" + e.lunchEatNum + "</td>" +
+                        "<td>1</td>" +
+                        "<td>" + e.lunchother + "</td>" +
+                        "<td>" + wucanxiaoji + "</td>" +
+                        "<td>" + e.lunchPayMethods + "</td>" +
+                        "<td>" +  wanmonthDate +"."+wandayDate  + "</td>" +
+                        "<td>" + e.dinnerName + "</td>" +
+                        "<td>" + e.dinnerMeal + "</td>" +
+                        "<td>" + e.dinnerEatNum + "</td>" +
+                        "<td>1</td>" +
+                        "<td>" + e.dinnerother + "</td>" +
+                        "<td>" + wancanxiaoji + "</td>" +
+                        "<td>" + e.dinnerPayMethods + "</td>" +
+                        "</tr>";
+                })
+                $("#reportrestaurantList").html(reportrestaurantList);
+                $("#yongcanheji").html(yongcanheji);
+                $("#yongcandaoyoufu").html(yongcandaoyoufu);
+                $("#yongcanqiandanheji").html(yongcanqiandanheji);
+                //门票
+                var reportticketList = "";
+                var menpiaoheji=0*1;
+                var menpiaodaoyoufu=0*1;
+                var menpiaoqiandanheji=0*1;
+                $.each(ReponseResult.data.reportticketList, function (i, e) {
+                    var menpiaoxiaoji=e.price*e.nums;
+                    if(e.payMethods=="签单"){
+                        menpiaoqiandanheji+=menpiaoxiaoji;
+                    }
+                    if(e.payMethods=="现付"){
+                        menpiaodaoyoufu+=menpiaoxiaoji;
+                    }
+                    menpiaoheji+=menpiaoxiaoji;
+                    reportticketList += "<tr>" +
+                        "<td >" + e.attrName + "</td>" +
+                        "<td >" + e.price + "</td>" +
+                        "<td>" + e.nums + "</td>" +
+                        "<td >" + menpiaoxiaoji + "</td>" +
+                        "<td >" + e.payMethods + "</td>" +
+                        "</tr>";
+                })
+                $("#reportticketList").html(reportticketList);
+                $("#menpiaoheji").html(menpiaoheji);
+                $("#menpiaodaoyoufu").html(menpiaodaoyoufu);
+                $("#menpiaoqiandanheji").html(menpiaoqiandanheji);
+                //车费模块
+                var reportfare = "<tr>" +
+                    "<td>" + ReponseResult.data.reportfare.tolls + "</td>" +
+                    "<td>" + ReponseResult.data.reportfare.parkingFee + "</td>" +
+                    "<td>" + ReponseResult.data.reportfare.prepaidFare + "</td>" +
+                    "<td>" + (ReponseResult.data.reportfare.tolls+ReponseResult.data.reportfare.parkingFee+ReponseResult.data.reportfare.prepaidFare) + "</td>" +
+                    "<td>" + ReponseResult.data.reportqutsubsidy.dailyCost + "</td>" +
+                    "<td>" + ReponseResult.data.reportqutsubsidy.nums + "</td>" +
+                    "<td>" + ReponseResult.data.reportqutsubsidy.guideNum + "</td>" +
+                    "<td>"+ReponseResult.data.reportqutsubsidy.dailyCost+"</td>" +
+                    "</tr>";
+                $("#reportfare").html(reportfare);
+
+                //其他报账信息
+                $("#qitabaozhangmingxi").text(ReponseResult.data.reportingotherexpenses.remarks);
+                $("#qitadaoyoufu").html(ReponseResult.data.reportingotherexpenses.guidedTour);
+                $("#qitaqiandan").html(ReponseResult.data.reportingotherexpenses.signing);
+                $("#qitaheji").html(ReponseResult.data.reportingotherexpenses.total);
+
+
+                //调度信息
+                $("#tuanhao").val(ReponseResult.data.dispatch.groundConnectionNumber);
+                $("#zutuanshemingzi").val(ReponseResult.data.dispatch.groupNumber);
+                $("#didashijian").val(ReponseResult.data.dispatch.travelStartTime);
+                $("#likaishijian").val(ReponseResult.data.dispatch.travelEndTime);
+                $("#renshu").val(ReponseResult.data.dispatch.num);
+                $("#yuanjiekuan").text(ReponseResult.data.dispatch.loan);
+                $("#keyuandi").val(ReponseResult.data.dispatch.tourist);
+                $("#waishoutuankuan").text(ReponseResult.data.receipt);
+
+                //线路
+                $("#xianlu").val(ReponseResult.data.disline.lineName);
+
+                $("#daoyouxianfuheji").text(ReponseResult.data.totalPayable);//导游现付合计
+                $("#baozhangriqi").text(ReponseResult.data.reportDate);
+
+
+
+            },
+            error: function (res) {
+                alert(res);
+            }
+        })
+    }
 
     //点击查询按钮进入查看图片页面
     //为修改模块添加弹出层
     function alertViewPictures() {
+       var hiddendispatchId= $("#hiddendispatchId").val();
+        var billType= $('#billType option:selected') .val();
+        if (billType==0||billType=='billType'){
+            alert("请选择票据类型!");
+            return;
+        }
         layer.open({
             type: 2,
             title: '查看票据',
             maxmin: true,
             shadeClose: true, //点击遮罩关闭层
-            area : ['700px' , '500px'],
-            content: 'viewPictures.html'
+            area: ['700px', '500px'],
+            content: 'viewPictures.html?dispatchId='+hiddendispatchId+"&billTypeId="+billType
         });
     }
 
 </script>
-
-
-
-
-
-
 
 
 <!--<script>
@@ -331,6 +581,4 @@ layui.use('layer', function(){ //独立版的layer无需执行这一句
 
 
     });-->
-</script>
-</body>
 </html>

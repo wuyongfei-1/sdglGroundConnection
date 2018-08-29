@@ -1,6 +1,7 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
 import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
+import com.dyhc.sdglgroundconnection.mapper.RoleMapper;
 import com.dyhc.sdglgroundconnection.mapper.StaffMapper;
 import com.dyhc.sdglgroundconnection.pojo.Hotel;
 import com.dyhc.sdglgroundconnection.pojo.Staff;
@@ -27,6 +28,8 @@ public class StaffServiceImpl implements StaffService {
 
     @Autowired
     private StaffMapper staffMapper;
+    @Autowired
+    private RoleMapper roleMapper;
     private int flag;
 
     @Override
@@ -35,9 +38,18 @@ public class StaffServiceImpl implements StaffService {
         return staffMapper.updateStaffWhetherDel(staffId);
     }
 
+    /**
+     * 修改个人信息（lixiaojie）
+     * @param staff
+     * @return
+     */
     @Override
     @RecordOperation(type = "用户", desc = "修改了一条用户信息")
     public Integer updateStaffInfo(Staff staff) {
+        Staff oldStaff=staffMapper.selectByPrimaryKey(staff.getStaffId());
+        staff.setCreateBy(oldStaff.getCreateBy());
+        staff.setCreateDate(oldStaff.getCreateDate());
+        staff.setWhetherDel(0);
         return staffMapper.updateStaffInfo(staff);
     }
 
@@ -49,6 +61,10 @@ public class StaffServiceImpl implements StaffService {
     @Override
     @RecordOperation(type = "用户", desc = "修改了一条用户信息")
     public int updateStaffs(Staff staff) throws Exception {
+        Staff oldStaff=staffMapper.selectByPrimaryKey(staff.getStaffId());
+        staff.setCreateBy(oldStaff.getCreateBy());
+        staff.setCreateDate(oldStaff.getCreateDate());
+        staff.setWhetherDel(0);
         staff.setWhetherDel(0);
         return  staffMapper.updateByPrimaryKey(staff);
     }
@@ -74,7 +90,11 @@ public class StaffServiceImpl implements StaffService {
      */
     @Override
     public Staff getStaffInfoByStaffId(Integer staffId) {
-        return staffMapper.selectByPrimaryKey(staffId);
+
+        String Rolename=roleMapper.selectByPrimaryKey(staffMapper.selectByPrimaryKey(staffId).getRoleId()).getRolename();
+        Staff staff=staffMapper.selectByPrimaryKey(staffId);
+        staff.setRolename(Rolename);
+        return staff;
     }
 
     /**
@@ -83,6 +103,7 @@ public class StaffServiceImpl implements StaffService {
      * @return
      */
     @Override
+    @RecordOperation(type = "用户", desc = "删除了一条用户信息")
     public Integer deleteStaffBystaffId(Integer id) {
         return staffMapper.deleteByPrimaryKey(id);
     }
@@ -123,6 +144,7 @@ public class StaffServiceImpl implements StaffService {
 
         String TheUserName = "SDGL" + currentDateTime + flag;//拼接这些字符
         staff.setTheUserName(TheUserName);
+        staff.setHeadPortraitPath("aaa.jpg");
         return staffMapper.insert(staff);
     }
 

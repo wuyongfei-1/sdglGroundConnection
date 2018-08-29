@@ -2,6 +2,7 @@ package com.dyhc.sdglgroundconnection.web;
 
 import com.dyhc.sdglgroundconnection.dto.LineTemplateParam;
 import com.dyhc.sdglgroundconnection.pojo.Linetemplate;
+import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.dyhc.sdglgroundconnection.service.LinetemplateService;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import com.github.pagehelper.PageInfo;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -64,10 +66,12 @@ public class LinetemplateController {
      * @return 返回ReponseResult对象
      */
     @RequestMapping("/insertLineTemplateInfo")
-    public ReponseResult insertLineTemplateInfo(@RequestParam("linename")String linename){
+    public ReponseResult insertLineTemplateInfo(@RequestParam("linename")String linename, HttpServletRequest request){
         try {
             Linetemplate linetemplate=new Linetemplate();
             linetemplate.setLinename(linename);
+            Staff staff = (Staff) request.getSession().getAttribute("user");
+            linetemplate.setCreateby(staff == null ? 1 : staff.getStaffId());
             Integer result =linetemplateService.insertLinetemplateInfo(linetemplate);
             ReponseResult<Integer> data = null;
             //二、判断是否成功
@@ -119,8 +123,10 @@ public class LinetemplateController {
      * @return 返回ReponseResult对象
      */
     @RequestMapping("/updateLineTemplate")
-    public ReponseResult updateLineTemplate(Linetemplate linetemplate){
+    public ReponseResult updateLineTemplate(Linetemplate linetemplate,HttpServletRequest request){
         try {
+            Staff staff = (Staff) request.getSession().getAttribute("user");
+            linetemplate.setUpdateby(staff == null ? 1 : staff.getStaffId());
             Integer result =linetemplateService.updateLinetemplateInfo(linetemplate);
             ReponseResult<Integer> data = null;
             //二、判断是否成功

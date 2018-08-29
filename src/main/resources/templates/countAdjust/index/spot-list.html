@@ -27,7 +27,7 @@
 								<input type="text" name="scenicSpotAddress" placeholder="请输入景点地址" autocomplete="off" class="layui-input">
 							</div>
 							<div class="layui-inline">
-								<select name="typeId" lay-filter="status">
+								<select name="typeId" lay-filter="status" lay-ignore style="height: 37px;width: 200px">
 									<option value="0">请选择景点等级</option>
 									<option value="5">A</option>
 									<option value="4">AA</option>
@@ -37,7 +37,7 @@
 								</select>
 							</div>
 							<div class="layui-inline">
-								<select name="whetherDel" lay-filter="status">
+								<select name="whetherDel" lay-filter="status" lay-ignore style="height: 37px;width: 200px">
 									<option value="2">请选择一个状态</option>
 									<option value="1">禁用</option>
 									<option value="0">正常</option>
@@ -195,11 +195,6 @@
                 $("#selectbutton").click(function () {
                     ListScenicspot();
                 });
-
-
-
-
-
                 function ListScenicspot() {
 					var scenicSpotName=$("input[name='scenicSpotName']").val();
 					var scenicSpotAddress=$("input[name='scenicSpotAddress']").val();
@@ -227,7 +222,7 @@
                             "</colgroup>\n" +
                             "<thead>" +
                             "<tr>" +
-                            "<th><input type=\"checkbox\" name=\"\" lay-skin=\"primary\" lay-filter=\"allChoose\"></th>" +
+                            "<th></th>" +
                             "<th class=\"\">景点编号</th>" +
                             "<th class=\"\">名称</th>" +
                             "<th class=\"\">所属景点名称</th>" +
@@ -240,7 +235,7 @@
                             "</thead>";
                         $.each(data.data,function (i,e) {
                             content+="<tr id='node-"+e.scenicSpotId+"' class=\"parent collapsed\">" +
-                                "<td><input type=\"checkbox\" name=\"\" lay-skin=\"primary\" data-id=\"1\">" +
+                                "<td>" +
                                 "<a class=\"layui-btn layui-btn-mini layui-btn-normal showSubBtn\" data-id='"+e.scenicSpotId+"'>+</a></td>" +
                                 "<td class=\"\">"+e.scenicSpotId+"</td>" +
                                 "<td class=\"\">"+e.scenicSpotName+"</td>" +

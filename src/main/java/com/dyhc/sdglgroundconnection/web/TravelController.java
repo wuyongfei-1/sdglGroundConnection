@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.web;
 
+import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.dyhc.sdglgroundconnection.pojo.Travel;
 import com.dyhc.sdglgroundconnection.service.TravelService;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -77,8 +80,11 @@ public class TravelController {
      * 组团社增加（yunguohao）
      */
     @RequestMapping("/insertTravel")
-    public ReponseResult insertCompany(Travel travel) {
+    public ReponseResult insertCompany(Travel travel, HttpServletRequest request) {
         try {
+            Staff sessionStaff=(Staff) request.getSession().getAttribute("user");
+            travel.setCreateBy(sessionStaff!=null?sessionStaff.getStaffId():1);
+            travel.setCreateDate(new Date());
             int result = travelService.insertTravels(travel);
             ReponseResult<String> date;
             if (result > 0) {
@@ -104,8 +110,11 @@ public class TravelController {
      * 组团社修改（yunguohao）
      */
     @RequestMapping("/updateTravel")
-    public ReponseResult updateCompany(Travel travel) {
+    public ReponseResult updateCompany(Travel travel,HttpServletRequest request) {
         try {
+            Staff sessionstaff= (Staff) request.getSession().getAttribute("user");
+            travel.setUpdateBy(sessionstaff!=null?sessionstaff.getStaffId():1);
+            travel.setUpdateDate(new Date());
             int result = travelService.updateTravels(travel);
             ReponseResult<String> date;
             if (result > 0) {

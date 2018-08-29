@@ -59,7 +59,6 @@ public class LinetemplatethirdServiceImpl implements LinetemplatethirdService {
     @Override
     @RecordOperation(type = "模板关系表信息",desc = "新增一条模板关系表信息")
     public Integer insertLinetemplatethirdInfo(Linetemplatethird linetemplatethird) throws Exception {
-        linetemplatethird.setCreateby(1);
         linetemplatethird.setCreatedate(new Date());
         linetemplatethird.setWeight(getWeight(linetemplatethird.getLineid()));
         return linetemplatethirdMapper.insert(linetemplatethird);
@@ -108,6 +107,10 @@ public class LinetemplatethirdServiceImpl implements LinetemplatethirdService {
         return weight;
     }
 
+    /**
+     * 查询所有第三方表信息
+     * @return 返回第三方表集合
+     */
     @Override
     public List<Linetemplatethird> listLinetemplatethird() {
         return linetemplatethirdMapper.selectAll();

@@ -493,6 +493,16 @@ public class EnterCountAdjustPageController {
     public String SchedulingDetail() {
         return "countAdjust/index/Scheduling-detail";
     }
+    /**
+     * 进入Scheduling-detail页
+     *
+     * @return
+     */
+    @RequestMapping("/Scheduling-detail.html2")
+    public String SchedulingDetail2(HttpServletRequest httpServletRequest,Integer offerId) {
+        httpServletRequest.setAttribute("offerId",offerId);
+        return "countAdjust/index/Scheduling-detail2";
+    }
 
     @Autowired
     private TemplateService templateService;

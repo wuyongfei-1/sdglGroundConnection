@@ -30,6 +30,7 @@ public class Dispatchhotel {
     private String payment; // 付款方式
     @Column(name = "companyBedNum")
     private Integer companyBedNum; // 司陪房间数
+    private Integer companyBedNum; // 司陪床位数
     @Column(name = "companyBedoffer")
     private Double companyBedoffer; // 司陪成本价
     @Column(name = "companyPaymeny")

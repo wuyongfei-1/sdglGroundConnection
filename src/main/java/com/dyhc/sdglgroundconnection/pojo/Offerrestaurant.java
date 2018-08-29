@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -26,7 +27,7 @@ public class Offerrestaurant {
     @Column(name = "costPrice")
     private Double costPrice; // 成本价
     private Double offer; // 报价
-    private Timestamp date; // 日期
+    private Date date; // 日期
     private Integer havemealsdate; // 用餐时间（早、中、晚）
     @Column(name = "whetherDel")
     private Integer whetherDel; // 是否删除（1代表已删除，0代表未删除）
@@ -34,10 +35,10 @@ public class Offerrestaurant {
     private Integer modifier; // 修改人（外键，与人员表关联）
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "modifiedData")
-    private Timestamp modifiedData; // 修改日期
+    private Date modifiedData; // 修改日期
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "creationDate")
-    private Timestamp creationDate; // 创建时间
+    private Date creationDate; // 创建时间
     private String value1;
     private String value2;
     private String value3;
@@ -115,11 +116,11 @@ public class Offerrestaurant {
 
     @Basic
     @Column(name = "date")
-    public Timestamp getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -165,21 +166,21 @@ public class Offerrestaurant {
 
     @Basic
     @Column(name = "modifiedData")
-    public Timestamp getModifiedData() {
+    public Date getModifiedData() {
         return modifiedData;
     }
 
-    public void setModifiedData(Timestamp modifiedData) {
+    public void setModifiedData(Date modifiedData) {
         this.modifiedData = modifiedData;
     }
 
     @Basic
     @Column(name = "creationDate")
-    public Timestamp getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Timestamp creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 

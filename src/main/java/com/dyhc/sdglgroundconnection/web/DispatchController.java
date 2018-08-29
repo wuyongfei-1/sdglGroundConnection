@@ -5,6 +5,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.dyhc.sdglgroundconnection.dto.*;
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.pojo.*;
+import com.dyhc.sdglgroundconnection.pojo.Dispatch;
+import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.dyhc.sdglgroundconnection.service.DispatchService;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,6 +22,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
+
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
  * 调度 控制层
@@ -34,6 +39,46 @@ public class DispatchController {
     @Autowired
     private DispatchService dispatchService;
 
+    /**
+     * 根据调度编号查询计划信息（yunguohao）
+     * @param dispatchId 调度编号
+     * @return
+     */
+    @RequestMapping("/getTravelPathById")
+    public ReponseResult getTravelPathById(@RequestParam("dispatchId")Integer dispatchId){
+        try {
+            TravelPathParam travelPathParam=dispatchService.getTravelPathParam(dispatchId);
+            ReponseResult<TravelPathParam> data = ReponseResult.ok(travelPathParam, "根据调度编号获取计划信息成功！");
+            logger.info(" method:selectDispatchs  根据调度编号获取计划信息成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:selectDispatchs  根据调度编号获取计划信息失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
+
+    /**
+     * 根据调度编号查询派团单信息
+     * @param dispatchId 调度编号
+     * @return 返回派团单对象
+     */
+    @RequestMapping("/getMissionInfoByDisId")
+    public ReponseResult getMissionInfoByDisId(@RequestParam("dispatchId")Integer dispatchId){
+        try {
+            MissionParam missionParam=dispatchService.getMissionParam(dispatchId);
+            ReponseResult<MissionParam> data = ReponseResult.ok(missionParam, "根据调度编号获取派团单信息成功！");
+            logger.info(" method:selectDispatchs  根据调度编号获取派团单信息成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:selectDispatchs  根据调度编号获取派团单信息失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
     @Autowired
     private DispatchParam dispatchParam; // 调度参数对象
 
@@ -268,11 +313,15 @@ public class DispatchController {
      * @param dispatchId
      * @return
      */
-    @RequestMapping(value = "/onCheckDispatchInfo", method = RequestMethod.POST)
-    public ReponseResult onCheckDispatchInfo(Integer dispatchId) {
-        ReponseResult<String> date = null;
+    @RequestMapping(value = "/onCheckDispatchInfo",method = RequestMethod.POST )
+    public ReponseResult onCheckDispatchInfo(Integer dispatchId, HttpServletRequest request){
+        ReponseResult<String> date=null;
         try {
-            int result = dispatchService.onCheckDispatchInfo(dispatchId);
+
+            Staff sessionstaff= (Staff) request.getSession().getAttribute("user");
+            int staffId=sessionstaff!=null?sessionstaff.getStaffId():1;
+
+            int result=dispatchService.onCheckDispatchInfo(dispatchId,staffId);
 
             if (result > 0) {
                 date = ReponseResult.ok("1", "总控审核通过成功！");

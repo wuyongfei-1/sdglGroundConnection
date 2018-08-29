@@ -19,6 +19,13 @@ public interface DisattrService {
     List<Disattr> listDisattrByOffId(Integer offerId)throws Exception;
 
     /**
+     * 根据调度编号查询调度景点信息
+     * @param dispathId 调度编号
+     * @return 调度景点集合
+     */
+    List<Disattr> listDisattrBydispathId(Integer dispathId)throws Exception;
+
+    /**
      * 批量添加调度景点列表（wuyongfei）
      *
      * @param disattrList 调度景点列表

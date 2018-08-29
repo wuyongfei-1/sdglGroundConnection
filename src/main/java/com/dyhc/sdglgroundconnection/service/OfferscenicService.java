@@ -33,5 +33,12 @@ public interface OfferscenicService {
      * @throws Exception
      */
     Integer updateOfferscenic(Offerscenic offerscenic)throws OfferException;
+    /**
+     * 删除报价景点信息（dubingkun）
+     * @param id
+     * @return
+     * @throws OfferException
+     */
+    Integer deleteOfferscenic(Integer id)throws OfferException;
 }
    

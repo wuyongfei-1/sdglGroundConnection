@@ -96,6 +96,7 @@
             url: "/carrental/deleteCarrentalInfoByCarrentalId",
             data: {"carrentalId":carrentalId},
             dataType: "json",
+			async:false,
             type: "post",
             success: function (ReponseResult) {
                 if (ReponseResult.data==0||ReponseResult.data=='0') {
@@ -122,6 +123,7 @@
             url: "/vehicleType/deleteVehicleTypeByVehicleTypeId",
             data: {"VehicleTypeId":VehicleTypeId},
             dataType: "json",
+			async:false,
             type: "post",
             success: function (ReponseResult) {
                 if (ReponseResult.data==0||ReponseResult.data=='0') {
@@ -214,6 +216,7 @@
                 "carRentalName": carRentalName
 
             },
+			async:false,
             dataType:"json",
             type:"post",
             success:function (data) {
@@ -258,7 +261,7 @@
                             context2+="<tr id='"+fuqinid+"' class=\""+erziclass+"\" style=\"display:none ;\" parentid=\"1\">\n" +
                                 "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
                                 "\t\t\t\t\t\t\t\t<td class=\"\">"+p.typeId+"</td>\n" +
-                                "\t\t\t\t\t\t\t\t<td class=\"\">"+p.typeName+"</td>\n" +
+                                "\t\t\t\t\t\t\t\t<td class=\"\">"+p.dictionaries.valueContent1+"</td>\n" +
                                 "\t\t\t\t\t\t\t\t<td class=\"\">"+p.passengervolume+"</td>\n" +
                                 "\t\t\t\t\t\t\t\t<td class=\"\">"+p.costprice+"</td>\n" +
                                 "\t\t\t\t\t\t\t\t<td class=\"\">"+p.offer+"</td>\n" +
@@ -266,32 +269,34 @@
                                 "\t\t\t\t\t\t\t\t<td>\n" +
                                 "\t\t\t\t\t\t\t\t\t<div class=\"layui-inline\">\n" +
                                 "\t\t\t\t\t\t\t\t\t\t<button class=\"layui-btn layui-btn-mini layui-btn-normal\" onclick='updatetypeAlert("+p.typeId+","+e.carRentalId+")'><i class=\"layui-icon\">&#xe642;</i></button>\n" +
-                                "\t\t\t\t\t\t\t\t\t\t<button class=\"layui-btn layui-btn-mini layui-btn-danger\" onclick='deleteVehicleTypeByVehicleTypeId("+e.typeId+")' ><i class=\"layui-icon\">&#xe640;</i></button>\n" +
+                                "\t\t\t\t\t\t\t\t\t\t<button class=\"layui-btn layui-btn-mini layui-btn-danger\" onclick='deleteVehicleTypeByVehicleTypeId("+p.typeId+")' ><i class=\"layui-icon\">&#xe640;</i></button>\n" +
                                 "\t\t\t\t\t\t\t\t\t</div>\n" +
                                 "\t\t\t\t\t\t\t\t</td>\n" +
                                 "\t\t\t\t\t\t\t</tr>";
                         })
                     }
-                    $("#showCarRentalInfo").html(context2);
-                    // 分页插件
-                    layui.use('table', function () {
-                        var laypage = layui.laypage;
-                        laypage.render({
-                            elem: 'laypage'
-                            , count: data.count
-                            , curr: curnum
-                            , limit: 6
-                            , layout: ['prev', 'page', 'next', 'skip', 'count']
-                            , jump: function (obj, first) {
-                                if (!first) {
-                                    //obj包含了当前分页的所有参数，比如：
-                                    curnum = obj.curr; // 当前页面
-                                    limitcount = obj.limit; // 每页记录数
-                                    // 查询新数据
-                                    listPageInfoByCarRentalName();
-                                }
+
+
+                });
+                $("#showCarRentalInfo").html(context2);
+                // 分页插件
+                layui.use('table', function () {
+                    var laypage = layui.laypage;
+                    laypage.render({
+                        elem: 'laypage'
+                        , count: data.count
+                        , curr: curnum
+                        , limit: 6
+                        , layout: ['prev', 'page', 'next', 'skip', 'count']
+                        , jump: function (obj, first) {
+                            if (!first) {
+                                //obj包含了当前分页的所有参数，比如：
+                                curnum = obj.curr; // 当前页面
+                                limitcount = obj.limit; // 每页记录数
+                                // 查询新数据
+                                listPageInfoByCarRentalName();
                             }
-                        })
+                        }
                     })
                 })
             },error:function () {

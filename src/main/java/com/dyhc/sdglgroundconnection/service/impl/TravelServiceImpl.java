@@ -72,6 +72,11 @@ public class TravelServiceImpl implements TravelService {
     @Override
     @RecordOperation(type = "组团社", desc = "修改了一条组团社信息")
     public int updateTravels(Travel travel) {
+        Travel offtrave=travelMapper.selectByPrimaryKey(travel.getTravelId());
+        travel.setUpdateBy(travel.getUpdateBy());
+        travel.setUpdateDate(travel.getUpdateDate());
+        travel.setCreateBy(offtrave.getCreateBy());
+        travel.setCreateDate(offtrave.getCreateDate());
         travel.setWhetherDel(0);
         return travelMapper.updateByPrimaryKey(travel);
     }

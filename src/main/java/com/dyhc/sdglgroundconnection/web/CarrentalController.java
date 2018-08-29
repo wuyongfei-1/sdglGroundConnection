@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.web;
 
+import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.pojo.Carrental;
 import com.dyhc.sdglgroundconnection.pojo.Shopping;
 import com.dyhc.sdglgroundconnection.pojo.Staff;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,6 +38,7 @@ public class CarrentalController  {
      * @param carrentalId
      * @return
      */
+
     @RequestMapping(value = "/deleteCarrentalInfoByCarrentalId",method = RequestMethod.POST )
     public ReponseResult deleteCarrentalInfoByCarrentalId(Integer carrentalId){
         try {
@@ -84,9 +88,13 @@ public class CarrentalController  {
     /**
      * 修改公司信息 (lixiaojie)
      */
+
     @RequestMapping(value = "/updateCarrentalInfo",method = RequestMethod.POST )
-    public ReponseResult updateCarrentalInfo(Carrental carrental){
+    public ReponseResult updateCarrentalInfo(Carrental carrental, HttpServletRequest request){
         try {
+            Staff staff= (Staff) request.getSession().getAttribute("user");
+            carrental.setUpdateBy(staff!=null?staff.getStaffId():1);
+            carrental.setUpdateDate(new Date());
             int result=carrentalService.updateCarrentalInfo(carrental);
             ReponseResult<String> date;
             if (result>0){
@@ -111,10 +119,13 @@ public class CarrentalController  {
      * @param carrental
      * @return
      */
-    @RequestMapping(value = "/saveCarrentalInfo",method = RequestMethod.POST )
-    public ReponseResult saveCarrentalInfo(Carrental carrental){
-        try {
 
+    @RequestMapping(value = "/saveCarrentalInfo",method = RequestMethod.POST )
+    public ReponseResult saveCarrentalInfo(Carrental carrental,HttpServletRequest request){
+        try {
+            Staff staff= (Staff) request.getSession().getAttribute("user");
+            carrental.setCreateBy(staff!=null?staff.getStaffId():1);
+            carrental.setCreateDate(new Date());
             int result=carrentalService.saveCarrentalInfo(carrental);
             ReponseResult<String> date;
             if (result>0){

@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.web;
 
+import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.dyhc.sdglgroundconnection.pojo.VehicleType;
 import com.dyhc.sdglgroundconnection.service.VehicleTypeService;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -99,8 +102,11 @@ public class VehicleTypeController {
      * 修改公司车辆类型信息 (lixiaojie)
      */
     @RequestMapping(value = "/updateVehicleTypesInfo", method = RequestMethod.POST)
-    public ReponseResult updateVehicleTypesInfo(VehicleType vehicleType) {
+    public ReponseResult updateVehicleTypesInfo(VehicleType vehicleType,HttpServletRequest request) {
         try {
+            Staff staff= (Staff) request.getSession().getAttribute("user");
+            vehicleType.setUpdateBy(staff!=null?staff.getStaffId():1);
+            vehicleType.setUpdateDate(new Date());
             int result = vehicleTypeService.updateVehicleTypesInfo(vehicleType);
 
             ReponseResult<String> date;
@@ -125,8 +131,12 @@ public class VehicleTypeController {
      * 增加车辆类型信息 (lixiaojie)
      */
     @RequestMapping(value = "/saveVehicleTypeInfo", method = RequestMethod.POST)
-    public ReponseResult saveVehicleTypeInfo(VehicleType vehicleType) {
+    public ReponseResult saveVehicleTypeInfo(VehicleType vehicleType, HttpServletRequest request) {
         try {
+            Staff staff= (Staff) request.getSession().getAttribute("user");
+            vehicleType.setCreateBy(staff!=null?staff.getStaffId():1);
+            vehicleType.setCreateDate(new Date());
+            vehicleType.setTypeCode("VEHICLE");
             int result = vehicleTypeService.saveVehicleTypeInfo(vehicleType);
             ReponseResult<String> date;
             if (result > 0) {

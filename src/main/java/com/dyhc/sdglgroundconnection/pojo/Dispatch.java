@@ -57,7 +57,7 @@ public class Dispatch {
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "modifiedData")
     private Date modifiedData; // 修改日期
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "creationDate")
     private Date creationDate; // 创建日期
     private String value1; // 组团社联系人（团控）

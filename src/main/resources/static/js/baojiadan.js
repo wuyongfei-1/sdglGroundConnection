@@ -11,7 +11,6 @@ function qiehuan(dd){
 }
 function xianlu(obj){
     var text=$(obj).html();
-    alert(text);
     if(text=="自行填写\n" +
         "                            "){
         alert(1213)

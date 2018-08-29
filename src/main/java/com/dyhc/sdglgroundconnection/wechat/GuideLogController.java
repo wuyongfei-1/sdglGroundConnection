@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
  * this class by created wuyongfei on 2018/6/5 13:50
  * 导游带团日志交互接口
  **/
-@RequestMapping("/log")
+@RequestMapping("/tourLog")
 @RestController
 public class GuideLogController {
 

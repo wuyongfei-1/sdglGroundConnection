@@ -168,6 +168,7 @@
             url: "/staff/getStaffIdBySession",
             dataType: "json",
             type: "post",
+            async:false,
             success: function (ReponseResult) {
 
                 $("input[name='staffname']").val(ReponseResult.data.staffname);

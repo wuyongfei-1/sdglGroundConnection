@@ -224,9 +224,12 @@ public class StaffController {
      * @return 保存结果updateStaff
      */
     @RequestMapping("/updateUserInfo")
-    public ReponseResult updateUserInfo(Staff staff, @RequestParam("fileObj") MultipartFile multipartFile) {
+    public ReponseResult updateUserInfo(Staff staff, @RequestParam("fileObj") MultipartFile multipartFile,HttpServletRequest request) {
         Staff oldStaff = staffService.getStaffInfoByStaffId(staff.getStaffId());
         try {
+            Staff sessionstaff= (Staff) request.getSession().getAttribute("user");
+            staff.setUpdateBy(sessionstaff!=null?sessionstaff.getStaffId():1);
+            staff.setUpdateDate(new Date());
             //判断是否有上传图片 判断multipartFile和savePath是否为null
             if (!multipartFile.isEmpty() && "a.txt".equals(multipartFile.getOriginalFilename())) {
                 //如果为空则根据编号查询信息把用户之前的图片地址赋值给要修改的对象

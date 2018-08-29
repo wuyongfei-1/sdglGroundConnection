@@ -23,7 +23,7 @@
         }
 
         #userInfo div input {
-            padding-left: 70px;
+
             border: 0px;
             width: 200px;
 
@@ -174,7 +174,7 @@
             maxmin: true,
             shadeClose: true, //点击遮罩关闭层
             area : ['800px' , '600px'],
-            content: 'countAdjust-update.html?userId='+1
+            content: 'countAdjust-update.html?userId='+userId
         });
     }
     $(function () {
@@ -191,8 +191,9 @@
             data: {},
             dataType: "json",
             type: "post",
+            async:false,
             success: function (ReponseResult) {
-                $("input[name='roleId']").val(ReponseResult.data.roleId);
+                $("input[name='roleId']").val(ReponseResult.data.rolename);
                 $("input[name='staffname']").val(ReponseResult.data.staffname);
                 if (ReponseResult.data.sex==1){
                     $("input[name='sex']").val('男');

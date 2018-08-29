@@ -222,7 +222,7 @@
                             "</colgroup>\n" +
                             "<thead>" +
                             "<tr>" +
-                            "<th><input type=\"checkbox\" name=\"\" lay-skin=\"primary\" lay-filter=\"allChoose\"></th>" +
+                            "<th></th>" +
                             "<th class=\"\">景点编号</th>" +
                             "<th class=\"\">名称</th>" +
                             "<th class=\"\">所属景点名称</th>" +
@@ -235,7 +235,7 @@
                             "</thead>";
                         $.each(data.data,function (i,e) {
                             content+="<tr id='node-"+e.scenicSpotId+"' class=\"parent collapsed\">" +
-                                "<td><input type=\"checkbox\" name=\"\" lay-skin=\"primary\" data-id=\"1\">" +
+                                "<td>" +
                                 "<a class=\"layui-btn layui-btn-mini layui-btn-normal showSubBtn\" data-id='"+e.scenicSpotId+"'>+</a></td>" +
                                 "<td class=\"\">"+e.scenicSpotId+"</td>" +
                                 "<td class=\"\">"+e.scenicSpotName+"</td>" +

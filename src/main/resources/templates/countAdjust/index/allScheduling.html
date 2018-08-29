@@ -89,8 +89,7 @@
                     var erziclass="child-node-"+count2+" parent collapsed";
                     context2+="<tr id='"+fuqinid+"' class=\"parent collapsed\">\n" +
                         "\t\t\t\t\t\t\t\t<td>" +
-                        "\t\t\t\t\t\t\t\t\t<a class=\"layui-btn layui-btn-mini layui-btn-normal showSubBtn\" data-id='"+count2+"'>+</a></td>\n" +
-                        "\t\t\t\t\t\t\t\t<td class=\"\">"+e.offerId+"</td>\n" +
+                        "\t\t\t\t\t\t\t\t<td class=\"\">"+((curnum-1)*6+(i+1))+"</td>\n" +
                         "\t\t\t\t\t\t\t\t<td class=\"\">"+travelName+"</td>\n" +
                         "\t\t\t\t\t\t\t\t<td class=\"\">"+e.number+"</td>\n" +
                         "\t\t\t\t\t\t\t\t<td class=\"\">"+e.tourist+"</td>\n" +
@@ -100,57 +99,57 @@
                         "\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"upOffer\" value=\""+e.offerId+"\">报价详情</button></td>\n"+
                         "\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"jinyong\" value=\""+e.offerId+"\">调度详情</button></td>\n"+
                         "\t\t\t\t\t\t\t</tr>";
-                    if(e.offerlineList.length>0){
-                        count++;
-                        context2+="<tr id='"+fuqinid+"' class=\""+erziclass+"\" style=\"display:none ;background-color: #D6E9C6;\" parentid=\"1\">\n" +
-                            "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
-                            "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
-                            "\t\t\t\t\t\t\t\t<td class=\"\">线路名称</td>\n" +
-                            "\t\t\t\t\t\t\t\t<td class=\"\">日期</td>\n" +
-                            "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
-                            "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
-                            "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
-                            "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
-                            "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
-                            "\t\t\t\t\t\t\t</tr>";
-                        $.each(e.offerlineList,function (j,p) {
-                            count++;
-                            context2+="<tr id='"+fuqinid+"' class=\""+erziclass+"\" style=\"display:none ;\" parentid=\"1\">\n" +
-                                "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
-                                "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
-                                "\t\t\t\t\t\t\t\t<td class=\"\">"+p.lineArriveName+"</td>\n" +
-                                "\t\t\t\t\t\t\t\t<td class=\"\">"+p.date+"</td>\n" +
-                                "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
-                                "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
-                                "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
-                                "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
-                                "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
-                                "\t\t\t\t\t\t\t\t\t<div class=\"layui-inline\">\n" +
-                                "\t\t\t\t\t\t\t\t\t</div>\n" +
-                                "\t\t\t\t\t\t\t\t</td>\n" +
-                                "\t\t\t\t\t\t\t</tr>";
-                        })
-                    }
-                    $("tbody").html(context2);
-                    // 分页插件
-                    layui.use('table', function () {
-                        var laypage = layui.laypage;
-                        laypage.render({
-                            elem: 'laypage'
-                            , count: data.count
-                            , curr: curnum
-                            , limit: 6
-                            , layout: ['prev', 'page', 'next', 'skip', 'count']
-                            , jump: function (obj, first) {
-                                if (!first) {
-                                    //obj包含了当前分页的所有参数，比如：
-                                    curnum = obj.curr; // 当前页面
-                                    limitcount = obj.limit; // 每页记录数
-                                    // 查询新数据
-                                    search();
-                                }
+                    // if(e.offerlineList.length>0){
+                    //     count++;
+                    //     context2+="<tr id='"+fuqinid+"' class=\""+erziclass+"\" style=\"display:none ;background-color: #D6E9C6;\" parentid=\"1\">\n" +
+                    //         "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                    //         "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                    //         "\t\t\t\t\t\t\t\t<td class=\"\">线路名称</td>\n" +
+                    //         "\t\t\t\t\t\t\t\t<td class=\"\">日期</td>\n" +
+                    //         "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                    //         "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                    //         "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                    //         "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                    //         "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                    //         "\t\t\t\t\t\t\t</tr>";
+                    //     $.each(e.offerlineList,function (j,p) {
+                    //         count++;
+                    //         context2+="<tr id='"+fuqinid+"' class=\""+erziclass+"\" style=\"display:none ;\" parentid=\"1\">\n" +
+                    //             "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                    //             "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                    //             "\t\t\t\t\t\t\t\t<td class=\"\">"+p.lineArriveName+"</td>\n" +
+                    //             "\t\t\t\t\t\t\t\t<td class=\"\">"+p.date+"</td>\n" +
+                    //             "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                    //             "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                    //             "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                    //             "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                    //             "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
+                    //             "\t\t\t\t\t\t\t\t\t<div class=\"layui-inline\">\n" +
+                    //             "\t\t\t\t\t\t\t\t\t</div>\n" +
+                    //             "\t\t\t\t\t\t\t\t</td>\n" +
+                    //             "\t\t\t\t\t\t\t</tr>";
+                    //     })
+                    // }
+                })
+                $("tbody").html(context2);
+                // 分页插件
+                layui.use('table', function () {
+                    var laypage = layui.laypage;
+                    laypage.render({
+                        elem: 'laypage'
+                        , count: data.count
+                        , curr: curnum
+                        , limit: 6
+                        , layout: ['prev', 'page', 'next', 'skip', 'count']
+                        , jump: function (obj, first) {
+                            if (!first) {
+                                //obj包含了当前分页的所有参数，比如：
+                                curnum = obj.curr; // 当前页面
+                                limitcount = obj.limit; // 每页记录数
+                                // 查询新数据
+                                search();
                             }
-                        })
+                        }
                     })
                 })
             },error:function () {
@@ -165,7 +164,7 @@
     })
     //调度按钮（dubingkun）
     $(document).on("click","#jinyong",function () {
-        alert($(this).val())
+        location.href="http://localhost:8888/countAdjust/Quotation-detail.html?offerId="+$(this).val()+"";
     })
 </script>
 <script>

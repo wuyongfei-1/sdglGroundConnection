@@ -493,14 +493,15 @@ public class EnterCountAdjustPageController {
     public String SchedulingDetail() {
         return "countAdjust/index/Scheduling-detail";
     }
+
     /**
      * 进入Scheduling-detail页
      *
      * @return
      */
     @RequestMapping("/Scheduling-detail.html2")
-    public String SchedulingDetail2(HttpServletRequest httpServletRequest,Integer offerId) {
-        httpServletRequest.setAttribute("offerId",offerId);
+    public String SchedulingDetail2(HttpServletRequest httpServletRequest, Integer offerId) {
+        httpServletRequest.setAttribute("offerId", offerId);
         return "countAdjust/index/Scheduling-detail2";
     }
 
@@ -527,11 +528,12 @@ public class EnterCountAdjustPageController {
 
     /**
      * 进入Quotation-detail.html页
+     * offerId 报价编号
      *
      * @return
      */
     @RequestMapping("/Quotation-detail.html")
-    public String QuotationDetail(HttpServletRequest request) {
+    public String QuotationDetail(HttpServletRequest request, Integer offerId) {
         try {
             // 所有的线路
             List<Template> templates = templateService.listAllTemplate();
@@ -563,6 +565,7 @@ public class EnterCountAdjustPageController {
             request.setAttribute("guides", guides);
             request.setAttribute("carrentals", carrentals);
             request.setAttribute("vehicles", vehicles);
+            request.setAttribute("offerId", offerId);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -666,6 +669,7 @@ public class EnterCountAdjustPageController {
 
     /**
      * 进入计调个人信息页面
+     *
      * @return
      */
     @RequestMapping("/countAdjust-info.html")
@@ -675,6 +679,7 @@ public class EnterCountAdjustPageController {
 
     /**
      * 进入计调修改个人信息页面
+     *
      * @param userId
      * @param request
      * @return

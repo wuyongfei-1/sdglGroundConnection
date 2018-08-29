@@ -2,6 +2,7 @@ package com.dyhc.sdglgroundconnection.service;
 
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.pojo.Disguide;
+import com.dyhc.sdglgroundconnection.pojo.Dispatch;
 
 import java.util.List;
 
@@ -10,6 +11,14 @@ import java.util.List;
  * 调度导游业务接口
  **/
 public interface DisguideService {
+
+    /**
+     * 根据导游编号查询该导游带团记录
+     * @param guideId 导游编号
+     * @return 返回调度信息集合
+     */
+    List<Dispatch> listDispatchGuideByGuideId(Integer guideId);
+
     /**
      * 根据导游id  和调度id获取  调度导游信息(lixiaojie)
      * @param guideId   导游id

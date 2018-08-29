@@ -35,6 +35,17 @@ public class Disguide {
     private String value;
 
     @Transient
+    private Dispatch dispatch; //模板对象
+
+    public Dispatch getDispatch() {
+        return dispatch;
+    }
+
+    public void setDispatch(Dispatch dispatch) {
+        this.dispatch = dispatch;
+    }
+
+    @Transient
     private Guide guide; // 导游对象
 
     public Guide getGuide() {

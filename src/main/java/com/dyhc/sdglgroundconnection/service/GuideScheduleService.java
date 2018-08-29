@@ -5,6 +5,8 @@ import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.github.pagehelper.PageInfo;
 import org.hibernate.validator.constraints.Range;
 
+import com.dyhc.sdglgroundconnection.pojo.Dispatch;
+
 import java.text.ParseException;
 import java.util.List;
 
@@ -13,6 +15,8 @@ import java.util.List;
  * 导游日程 业务接口
  **/
 public interface GuideScheduleService {
+
+
 
 
     /**

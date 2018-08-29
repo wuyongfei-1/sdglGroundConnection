@@ -35,8 +35,8 @@
             </table>
             <table border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                    <td><label class="layui-form-label">选择线路</label></td>
-                    <td>
+                    <td style="display: none"><label class="layui-form-label">选择线路</label></td>
+                    <td style="display: none">
                         <select id="zongxianlu" lay-ignore onchange="chengZhong(this)">
 
                         </select>
@@ -67,11 +67,6 @@
                             <td colspan="2">&nbsp;<button type="button"
                                                           class='layui-btn layui-btn-normal layui-btn-radius'
                                                           style='height: 30px;width: 100px;' onclick="xianlu(this)">自行填写
-                            </button>
-                            </td>
-                            <td colspan="2">&nbsp;<button type="button"
-                                                          class='layui-btn layui-btn-normal layui-btn-radius'
-                                                          style='height: 30px;width: 100px'>保存模板
                             </button>
                             </td>
                         </tr>
@@ -167,8 +162,6 @@
                     <td><input type="text" id="carcostPrice" class="layui-input"></td>
                     <td><label class="layui-form-label">报价</label></td>
                     <td><input type="text" id="caroffer" name='offer' class="layui-input"></td>
-                    <td><label class="layui-form-label">数量</label></td>
-                    <td><input type="text" id='carnumber' class="layui-input"></td>
                 </tr>
                 <tr>
                     <td><label class="layui-form-label">其他:</label></td>
@@ -185,10 +178,6 @@
                             </tr>
                         </table>
                     </td>
-                </tr>
-                <tr>
-                    <td><label class="layui-form-label">司机导游:</label></td>
-                    <td colspan="5"><input type="text" class="layui-input"></td>
                 </tr>
                 <tr>
                     <td><label class="layui-form-label">备注：</label></td>
@@ -302,11 +291,6 @@
                             "                            <td colspan=\"2\">&nbsp;<button type=\"button\"\n" +
                             "                                                          class='layui-btn layui-btn-normal layui-btn-radius'\n" +
                             "                                                          style='height: 30px;width: 100px;' onclick=\"xianlu(this)\">自行填写\n" +
-                            "                            </button>\n" +
-                            "                            </td>\n" +
-                            "                            <td colspan=\"2\">&nbsp;<button type=\"button\"\n" +
-                            "                                                          class='layui-btn layui-btn-normal layui-btn-radius'\n" +
-                            "                                                          style='height: 30px;width: 100px'>保存模板\n" +
                             "                            </button>\n" +
                             "                            </td>\n" +
                             "                        </tr>\n" +
@@ -432,7 +416,7 @@
                 $("#tourist").val(data.data["-1"][0].tourist);//客源地
                 //报价用车
 
-                $("#carnumber").val(data.data["-2"][0].number);//数量
+
                 $("#carcostPrice").val(data.data["-2"][0].costPrice);//成本价
                 $("#caroffer").val(data.data["-2"][0].offer)//报价
                 //报价其它
@@ -807,8 +791,8 @@
 
                 //查询所有饭菜类型
                 $.each(data.data[4], function (i, e) {
-                    wancan += "<option value='" + e.dictionariesId + "' costPrice='" + e.valueContent2 + "' offer='" + e.valueContent3 + "'>" + e.valueContent1 + "</option>";
-                    wucan += "<option value='" + e.dictionariesId + "' costPrice='" + e.valueContent2 + "' offer='" + e.valueContent3 + "'>" + e.valueContent1 + "</option>";
+                    wancan += "<option value='" + e.valueId + "' costPrice='" + e.valueContent2 + "' offer='" + e.valueContent3 + "'>" + e.valueContent1 + "</option>";
+                    wucan += "<option value='" + e.valueId + "' costPrice='" + e.valueContent2 + "' offer='" + e.valueContent3 + "'>" + e.valueContent1 + "</option>";
                 })
                 $.each(data.data[5], function (i, e) {
                     chedui += "<option value='" + e.valueId + "' costPrice='" + e.valueContent2 + "' offer='" + e.valueContent3 + "'>" + e.valueContent1 + "</option>";
@@ -862,11 +846,11 @@
 
                 //查询所有饭菜类型
                 $.each(data.data[4], function (i, e) {
-                    wancan += "<option value='" + e.dictionariesId + "' costPrice='" + e.valueContent2 + "' offer='" + e.valueContent3 + "'>" + e.valueContent1 + "</option>";
-                    wucan += "<option value='" + e.dictionariesId + "' costPrice='" + e.valueContent2 + "' offer='" + e.valueContent3 + "'>" + e.valueContent1 + "</option>";
+                    wancan += "<option value='" + e.valueId + "' costPrice='" + e.valueContent2 + "' offer='" + e.valueContent3 + "'>" + e.valueContent1 + "</option>";
+                    wucan += "<option value='" + e.valueId + "' costPrice='" + e.valueContent2 + "' offer='" + e.valueContent3 + "'>" + e.valueContent1 + "</option>";
                 })
                 $.each(data.data[5], function (i, e) {
-                    chedui += "<option value='" + e.dictionariesId + "' costPrice='" + e.valueContent2 + "' offer='" + e.valueContent3 + "'>" + e.valueContent1 + "</option>";
+                    chedui += "<option value='" + e.valueId + "' costPrice='" + e.valueContent2 + "' offer='" + e.valueContent3 + "'>" + e.valueContent1 + "</option>";
                 })
                 $.each(data.data[6], function (i, e) {
                     zutuanshe += "<option value='" + e.travelId + "'>" + e.travelName + "</option>";
@@ -928,7 +912,7 @@
     function carTbale() {
         carJson = {};
         var valueId = $("#yongche").val();//类型编号
-        var number = $("#carnumber").val();//数量
+        var number = 1//$("#carnumber").val()数量
         var costPrice = $("#carcostPrice").val();//成本价
         var offer = $("#caroffer").val()//报价
         carJson = {

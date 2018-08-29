@@ -2,16 +2,17 @@ package com.dyhc.sdglgroundconnection.service.impl;
 
 import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
+import com.dyhc.sdglgroundconnection.mapper.BillMapper;
 import com.dyhc.sdglgroundconnection.mapper.DisguideMapper;
+import com.dyhc.sdglgroundconnection.mapper.DispatchMapper;
 import com.dyhc.sdglgroundconnection.mapper.GuideMapper;
-import com.dyhc.sdglgroundconnection.pojo.Disguide;
-import com.dyhc.sdglgroundconnection.pojo.DisguideExample;
-import com.dyhc.sdglgroundconnection.pojo.Guide;
+import com.dyhc.sdglgroundconnection.pojo.*;
 import com.dyhc.sdglgroundconnection.service.DisguideService;
 import com.dyhc.sdglgroundconnection.service.GuideService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,6 +30,36 @@ public class DisguideServiceImpl implements DisguideService {
 
     @Autowired
     private GuideService guideService;
+
+    @Autowired
+    private DispatchMapper dispatchMapper;
+
+    @Autowired
+    private BillMapper billMapper;
+
+    /**
+     * 根据导游编号查询该导游带团记录
+     * @param guideId 导游编号
+     * @return 返回调度信息集合
+     */
+    @Override
+    public List<Dispatch> listDispatchGuideByGuideId(Integer guideId) {
+        DisguideExample disguideExample=new DisguideExample();
+        DisguideExample.Criteria criteria=disguideExample.createCriteria();
+        criteria.andGuideidEqualTo(guideId);
+        List<Disguide> disguideList=disguideMapper.selectByExample(disguideExample);
+        List<Dispatch> dispatchList=new ArrayList<>();
+        for (Disguide disguide: disguideList) {
+            Dispatch dispatch=dispatchMapper.selectByPrimaryKey(disguide.getOfferId());
+            BillExample billExample=new BillExample();
+            BillExample.Criteria criteria1=billExample.createCriteria();
+            criteria1.andDispatchidEqualTo(dispatch.getDispatchId());
+            criteria1.andBilltypeidEqualTo(3);
+            dispatch.setBill(billMapper.selectByExample(billExample).get(0));
+            dispatchList.add(dispatch);
+        }
+        return dispatchList;
+    }
 
     /**
      * 调度导游查询

@@ -11,14 +11,19 @@ function qiehuan(dd){
 }
 function xianlu(obj){
     var text=$(obj).html();
-    if(text=="自行填写"){
+    alert(text);
+    if(text=="自行填写\n" +
+        "                            "){
+        alert(1213)
         $(obj).parent().prev().html("<input type='text'xl='xianlu' class='layui-input' name='texts'>");
 		$(obj).html("选择模板");
     }else{
+        alert(456)
         $(obj).parent().prev().html("<select name=\"city\" lay-ignore lay-search xl=\"xianlu\" onchange=\"chengZi(this)\">"+
 		xianluinfo+
 			"</select>");
-		$(obj).html("自行填写");
+		$(obj).html("自行填写\n" +
+            "                            ");
 	}
 
 	layui.use(['form', 'layedit', 'laydate','element'], function() {

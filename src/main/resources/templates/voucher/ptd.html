@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 	<head>
 		<meta charset="utf-8">
@@ -22,6 +22,7 @@
 	</head>
 
 	<body >
+	<input type="hidden" th:value="${dispatchId}" id="dispatchId" />
 		<div id="dy">
 		<div style="height: 500px; width: 700px; margin: auto;">
 			<div class="tupian" style="width: 635px;">
@@ -91,7 +92,7 @@
     function dispatchtourgroupShow() {
         $.ajax({
             url: "/dispatch/getDispatchInfoByDispatchId",
-            data: {dispatchId:1},
+            data: {dispatchId:$('#dispatchId').val()},
             dataType: "json",
             type: "post",
             success: function (e) {

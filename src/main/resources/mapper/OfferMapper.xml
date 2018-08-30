@@ -5,4 +5,7 @@
     <select id="getIntegerByOfferId" resultType="Integer">
         SELECT MAX(offerId) FROM offer
     </select>
+    <update id="updateOfferByOfferId">
+        UPDATE offer SET value1=#{value1} WHERE offerId=#{id}
+    </update>
 </mapper>

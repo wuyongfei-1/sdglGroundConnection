@@ -51,10 +51,6 @@ public interface GuideScheduleService {
      */
     Integer insertGuideScheduleStatus2(GuideSchedule guideSchedule) throws ParseException;
 
-    /**
-     * 请假信息
-     * @return
-     */
-    PageInfo<GuidescheduleParam> chaxunsuoyoucaiwuxinxi();
+
 
 }

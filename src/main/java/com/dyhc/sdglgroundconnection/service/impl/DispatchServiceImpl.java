@@ -2,6 +2,7 @@ package com.dyhc.sdglgroundconnection.service.impl;
 
 import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.dto.DispatchParam;
+import com.dyhc.sdglgroundconnection.dto.GuideRouteParam;
 import com.dyhc.sdglgroundconnection.dto.MissionParam;
 import com.dyhc.sdglgroundconnection.dto.TravelPathParam;
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
@@ -95,44 +96,76 @@ public class DispatchServiceImpl implements DispatchService {
         travelPathParam.setDisshoppList(disshoppService.getDisshopp(dispathId));
         travelPathParam.setDisrestaurantList(disrestaurantService.listDisrestaurantByOffId(dispathId));
         travelPathParam.setDispatchhotelList(dispatchhotelService.getDispatchhotelInfoByDispatchId(dispathId));
-
         List<TravelPathParam> travelPathParams = new ArrayList<>();
-
         for (int i = 0; i < travelPathParam.getDisattrList().size(); i++) {
             TravelPathParam travelPathParam1 = new TravelPathParam();
             travelPathParam1.setSzaddress(travelPathParam.getDisattrList().get(i).getScenicspot().getScenicSpotAddress());
             travelPathParams.add(travelPathParam1);
-
         }
-
         for (int i = 0; i < travelPathParam.getDispatchhotelList().size(); i++) {
-
             travelPathParams.get(i).setZhuaddress(travelPathParam.getDispatchhotelList().get(i).getHotel().getHotelName());
-
-
         }
 
         for (int i = 0; i < travelPathParam.getDisshoppList().size(); i++) {
-
             travelPathParams.get(i).setShoppaddress(travelPathParam.getDisshoppList().get(i).getShopping().getShoppingSite());
-
         }
-
         for (int i = 0; i < travelPathParam.getDisrestaurantList().size(); i++) {
-
             travelPathParams.get(i).setEataddress(travelPathParam.getDisrestaurantList().get(i).getMealType().getRestaurant().getRestaurantAddress());
-
         }
-
         for (int i = 0; i < travelPathParam.getDislineList().size(); i++) {
-
             travelPathParams.get(i).setXctext(travelPathParam.getDislineList().get(i).getLineContent());
-
         }
-
         travelPathParam.setTravelPathParamList(travelPathParams);
         return travelPathParam;
     }
+
+
+    /**
+     * 微信根据导游id查询行程的信息（yunguohao）
+     * @param guideId 导游id
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public GuideRouteParam getGuideRouteParam(Integer guideId) throws Exception {
+        GuideRouteParam guideRouteParam=null;
+        DisguideExample disguideExample =new DisguideExample();
+        DisguideExample.Criteria disguideExampleCriteria=disguideExample.createCriteria();
+        disguideExampleCriteria.andGuideidEqualTo(guideId);
+        List<Disguide> disguideList =disguideMapper.selectByExample(disguideExample);  //查询调度导游表是否有该导游的带团信息， 没有的话  返回null
+        if (disguideList.size()==0){
+            return guideRouteParam;
+        }
+        //有的话，查询调度表  有没有 调度表里的调度  id   并且 状态为 2 的 信息
+        Dispatch dispatch=null;
+        for (Disguide disguide: disguideList) {
+            DispatchExample dispatchExample =new DispatchExample();
+            DispatchExample.Criteria dispatchExampleCriteria=dispatchExample.createCriteria();
+            dispatchExampleCriteria.andDispatchidEqualTo(disguide.getOfferId());
+            dispatchExampleCriteria.andStateEqualTo(2);
+            List<Dispatch> dispatchList=dispatchMapper.selectByExample(dispatchExample);
+            if (dispatchList.size()>0){
+                dispatch=dispatchList.get(0);
+            }
+        }
+        //要是没查到信息  返回null  不执行后续操作
+        if (dispatch==null){
+            return guideRouteParam;
+        }
+        guideRouteParam=new GuideRouteParam();
+        guideRouteParam.setClusterTime(dispatchtourgroupServer.getDispatchtourgroupByOffId(dispatch.getDispatchId()).getClustertime());
+        guideRouteParam.setClusterAddress(dispatchtourgroupServer.getDispatchtourgroupByOffId(dispatch.getDispatchId()).getClusteraddress());
+        guideRouteParam.setFlightId(dispatchtourgroupServer.getDispatchtourgroupByOffId(dispatch.getDispatchId()).getFlightid());
+        guideRouteParam.setNum(dispatch.getNum());
+        guideRouteParam.setDiscarvalue1(discarService.getDiscarByOffId(dispatch.getDispatchId()).getValue1());
+        guideRouteParam.setDiscarvalue2(discarService.getDiscarByOffId(dispatch.getDispatchId()).getValue2());
+        guideRouteParam.setDiscarvalue3(discarService.getDiscarByOffId(dispatch.getDispatchId()).getValue3());
+        guideRouteParam.setDispatchvalue1(dispatch.getValue1());
+        guideRouteParam.setDispatchvalue2(dispatch.getValue2());
+        return guideRouteParam;
+    }
+
+
 
     /**
      * 获取派团单信息根据调度编号 （wangtao）
@@ -191,17 +224,9 @@ public class DispatchServiceImpl implements DispatchService {
     public Integer saveDispatchInfo(DispatchParam disParam) throws DispatchException {
         try {
             // 添加调度基础信息
-            dispatchMapper.insert(disParam.getDispatch());
-            // 获取添加完返回的基础信息编号，用于更新其他数据
-            Dispatch dispatch = disParam.getDispatch();
-            // 根据时间获取
-            DispatchExample dispatchExample = new DispatchExample();
-            DispatchExample.Criteria criteria = dispatchExample.createCriteria();
-            criteria.andCreationdateEqualTo(dispatch.getCreationDate());
-            List<Dispatch> dispatches = dispatchMapper.selectByExample(dispatchExample);
+            Integer dispatchId = dispatchMapper.saveDispatchInfo(disParam.getDispatch());
             // 返回的基础数据编号
-            int baseId = dispatches != null && dispatches.size() > 0 ?
-                    dispatches.get(0).getDispatchId() : 1;
+            int baseId = dispatchId > 0 ? disParam.getDispatch().getDispatchId() : 1;
             // 添加线路信息
             List<Disline> dislineList = disParam.getDislineList();
             for (Disline disline : dislineList) {
@@ -247,7 +272,7 @@ public class DispatchServiceImpl implements DispatchService {
             // 添加旅行社信息
             Dispatchtourgroup dispatchtourgroup = disParam.getDispatchtourgroup();
             dispatchtourgroup.setOfferid(baseId);
-            return dispatchtourgroupServer.saveDispatchtourgroupInfo(dispatchtourgroup);
+            return baseId;
         } catch (Exception e) {
             e.printStackTrace();
             return null;

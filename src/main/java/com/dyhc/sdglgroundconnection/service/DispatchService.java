@@ -1,20 +1,39 @@
 package com.dyhc.sdglgroundconnection.service;
 
-import com.dyhc.sdglgroundconnection.dto.DispatchParam;
-import com.dyhc.sdglgroundconnection.dto.PatchParam;
-import com.dyhc.sdglgroundconnection.dto.MissionParam;
-import com.dyhc.sdglgroundconnection.dto.TravelPathParam;
+import com.dyhc.sdglgroundconnection.dto.*;
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.pojo.Dispatch;
 import com.github.pagehelper.PageInfo;
 
 import java.text.ParseException;
+import java.util.List;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
  * 调度业务接口
  **/
 public interface DispatchService {
+    /**
+     * 根据调度表id 和权重获取每天的吃饭信息和住宿信息(lixiaojie)
+     * @param dispatchId
+     * @param weight
+     * @return
+     */
+    WechatEatAndHotelParam selectDispatchInfoByWeightDispatchId(Integer dispatchId,Integer weight);
+
+    /**
+     *  根据调度id获取该团的所有天数(lixiaojie)
+     * @return
+     */
+    List<String> selectDispatchDaysByDispatchId(Integer dispatchId) throws ParseException;
+
+
+    /**
+     * 根据导游id查询调度表 (lixiaojie)
+     * @param guideId
+     * @return  微信基本信息参数类
+     */
+    WechatInformationParam selectDispatchInfoByGuideId(Integer guideId);
 
     /**
      * 获取计划表的信息根据调度编号（yunguohao）
@@ -70,5 +89,12 @@ public interface DispatchService {
      * @return
      */
     Integer noCheckDispatchInfo(Integer dispatchId);
+
+    /**
+     * 根据导游id获取调度信息id  没有则返回null(lixiaojie)
+     * @param guideId
+     * @return
+     */
+    Integer selectDisGuideInfoByguideId(Integer guideId);
 
 }

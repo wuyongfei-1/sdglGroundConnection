@@ -1,14 +1,9 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
 import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
-import com.dyhc.sdglgroundconnection.dto.DispatchParam;
-import com.dyhc.sdglgroundconnection.dto.MissionParam;
-import com.dyhc.sdglgroundconnection.dto.TravelPathParam;
+import com.dyhc.sdglgroundconnection.dto.*;
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
-import com.dyhc.sdglgroundconnection.mapper.DisguideMapper;
-import com.dyhc.sdglgroundconnection.mapper.DispatchMapper;
-import com.dyhc.sdglgroundconnection.mapper.GuideMapper;
-import com.dyhc.sdglgroundconnection.mapper.GuideScheduleMapper;
+import com.dyhc.sdglgroundconnection.mapper.*;
 import com.dyhc.sdglgroundconnection.pojo.*;
 import com.dyhc.sdglgroundconnection.service.*;
 import com.github.pagehelper.PageHelper;
@@ -20,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -35,8 +31,21 @@ public class DispatchServiceImpl implements DispatchService {
     private DispatchMapper dispatchMapper;  // 调度持久化
 
     @Autowired
+    private DispatchhotelMapper dispatchhotelMapper;  // 调度酒店持久化
+    @Autowired
+    private DiscarMapper discarMapper;  // 调度持久化
+    @Autowired
     private DisguideMapper disguideMapper; //调度导游dao
-
+    @Autowired
+    private StaffMapper staffMapper; //用户dao
+    @Autowired
+    private HotelMapper hotelMapper; //酒店dao
+    @Autowired
+    private MealTypeMapper mealTypeMapper; //餐馆类型dao
+    @Autowired
+    private RestaurantMapper restaurantMapper; //餐馆dao
+    @Autowired
+    private DisrestaurantMapper disrestaurantMapper; //调度餐厅dao
     @Autowired
     private GuideMapper guideMapper; //导游dao
     @Autowired
@@ -75,6 +84,136 @@ public class DispatchServiceImpl implements DispatchService {
     @Autowired
     private StaffService staffService;
 
+
+    /**
+     * 根据调度表id 和权重获取每天的吃饭信息和住宿信息(lixiaojie)
+     *
+     * @param dispatchId
+     * @param weight
+     * @return
+     */
+    @Override
+    public WechatEatAndHotelParam selectDispatchInfoByWeightDispatchId(Integer dispatchId, Integer weight) {
+        WechatEatAndHotelParam wechatEatAndHotelParam = new WechatEatAndHotelParam();
+
+        Dispatch dispatch=dispatchMapper.selectByPrimaryKey(dispatchId);
+        DisrestaurantExample noonDisrestaurantExample = new DisrestaurantExample();
+        DisrestaurantExample.Criteria noonDisrestaurantExampleCriteria = noonDisrestaurantExample.createCriteria();
+        noonDisrestaurantExampleCriteria.andOfferidEqualTo(dispatchId);
+        noonDisrestaurantExampleCriteria.andWeightEqualTo(weight);
+        noonDisrestaurantExampleCriteria.andDindateEqualTo(2);
+        List<Disrestaurant> noonDisrestaurant = disrestaurantMapper.selectByExample(noonDisrestaurantExample);
+/*        disrestaurantExampleCriteria.andDindateEqualTo(3);
+        List<Disrestaurant> nightDisrestaurant = disrestaurantMapper.selectByExample(noonDisrestaurantExample);*/
+
+        DisrestaurantExample nightDisrestaurantExample = new DisrestaurantExample();
+        DisrestaurantExample.Criteria nightDisrestaurantExampleCriteria = nightDisrestaurantExample.createCriteria();
+        nightDisrestaurantExampleCriteria.andOfferidEqualTo(dispatchId);
+        nightDisrestaurantExampleCriteria.andWeightEqualTo(weight);
+        nightDisrestaurantExampleCriteria.andDindateEqualTo(3);
+        List<Disrestaurant> nightDisrestaurant = disrestaurantMapper.selectByExample(nightDisrestaurantExample);
+
+        DispatchhotelExample dispatchhotelExample=new DispatchhotelExample();
+        DispatchhotelExample.Criteria dispatchhotelExampleCriteria=dispatchhotelExample.createCriteria();
+        dispatchhotelExampleCriteria.andOfferidEqualTo(dispatchId);
+        dispatchhotelExampleCriteria.andWeightEqualTo(weight);
+        List<Dispatchhotel> dispatchhotels=dispatchhotelMapper.selectByExample(dispatchhotelExample);
+         Dispatchhotel dispatchhotel=dispatchhotels.get(0);  //调度酒店对象
+         Disrestaurant noonDisrestaurantinfo=noonDisrestaurant.get(0);  //中午调度调度餐厅对象
+         Disrestaurant nightDisrestaurantinfo=nightDisrestaurant.get(0);
+        dispatchhotel.setHotel(hotelMapper.selectByPrimaryKey(dispatchhotel.getHotelId()));
+
+
+        MealType zhongmealType=mealTypeMapper.selectByPrimaryKey(noonDisrestaurantinfo.getMealType());
+        noonDisrestaurantinfo.setRestaurant(restaurantMapper.selectByPrimaryKey(zhongmealType.getTypeId()));
+
+        MealType wanmealType=mealTypeMapper.selectByPrimaryKey(nightDisrestaurantinfo.getMealType());
+        nightDisrestaurantinfo.setRestaurant(restaurantMapper.selectByPrimaryKey(wanmealType.getTypeId()));
+
+        wechatEatAndHotelParam.setDispatchhotel(dispatchhotel);
+        wechatEatAndHotelParam.setNoonDisrestaurant(noonDisrestaurantinfo);
+        wechatEatAndHotelParam.setNightDisrestaurant(nightDisrestaurantinfo);
+
+        wechatEatAndHotelParam.setDispatch(dispatch);
+
+        return wechatEatAndHotelParam;
+    }
+
+    /**
+     * 根据调度id获取该团的所有天数(lixiaojie)
+     *
+     * @return
+     */
+    @Override
+    public List<String> selectDispatchDaysByDispatchId(Integer dispatchId) throws ParseException {
+        List<String> Days = new ArrayList<>();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Dispatch dispatch = dispatchMapper.selectByPrimaryKey(dispatchId);//根据调度id获取调度对象
+        Date beginTime = dispatch.getTravelStartTime();//从调度对象中获取开始时间和结束时间
+        Date endTime = dispatch.getTravelEndTime();
+        String beginDateStr = dateFormat.format(beginTime);
+        String endDateStr = dateFormat.format(endTime);
+        beginTime = dateFormat.parse(beginDateStr);
+        endTime = dateFormat.parse(endDateStr);
+        Long Number = (endTime.getTime() - beginTime.getTime()) / (24 * 60 * 60 * 1000) + 1;//计算旅游天数
+
+        for (int i = 0; i < Number; i++) {
+            Calendar c = Calendar.getInstance();
+            c.setTime(beginTime);
+            c.add(Calendar.DAY_OF_MONTH, i);  //然后做出旅游天数每天的时间对象 填入 导游日程表中
+            Date tomorrow = c.getTime();
+            String dayString = dateFormat.format(tomorrow);
+            Days.add(dayString);
+        }
+
+
+        return Days;
+    }
+
+    /**
+     * 根据导游id查询调度表(lixiaojie)
+     *
+     * @param guideId
+     * @return 微信基本信息参数类
+     */
+    @Override
+    public WechatInformationParam selectDispatchInfoByGuideId(Integer guideId) {
+        //创建微信基本信息参数对象
+        WechatInformationParam wechatInformationParam = null;
+        DisguideExample disguideExample = new DisguideExample();
+        DisguideExample.Criteria disguideExampleCriteria = disguideExample.createCriteria();
+        disguideExampleCriteria.andGuideidEqualTo(guideId);
+        List<Disguide> disguideList = disguideMapper.selectByExample(disguideExample);  //查询调度导游表是否有该导游的带团信息， 没有的话  返回null
+        if (disguideList.size() == 0) {
+            return wechatInformationParam;
+        }
+        //有的话，查询调度表  有没有 调度表里的调度  id   并且 状态为 2 的 信息
+        Dispatch dispatch = null;
+        for (Disguide disguide : disguideList) {
+            DispatchExample dispatchExample = new DispatchExample();
+            DispatchExample.Criteria dispatchExampleCriteria = dispatchExample.createCriteria();
+            dispatchExampleCriteria.andDispatchidEqualTo(disguide.getOfferId());
+            dispatchExampleCriteria.andStateEqualTo(2);
+            List<Dispatch> dispatchList = dispatchMapper.selectByExample(dispatchExample);
+            if (dispatchList.size() > 0) {
+                dispatch = dispatchList.get(0);
+            }
+        }
+        //要是没查到信息  返回null  不执行后续操作
+        if (dispatch == null) {
+            return wechatInformationParam;
+        }
+        wechatInformationParam = new WechatInformationParam();
+        wechatInformationParam.setDispatch(dispatch);
+        wechatInformationParam.setGuide(guideMapper.selectByPrimaryKey(guideId));//给微信基本信息参数对象赋导游对象
+        wechatInformationParam.setStaff(staffMapper.selectByPrimaryKey(dispatch.getCreater()));//给staff 对象赋值
+        DiscarExample discarExample = new DiscarExample();
+        DiscarExample.Criteria discarExampleCriteria = discarExample.createCriteria();
+        discarExampleCriteria.andOfferidEqualTo(dispatch.getDispatchId());
+        List<Discar> discarList = discarMapper.selectByExample(discarExample);
+        wechatInformationParam.setDiscar(discarList != null ? discarList.get(0) : null);//给Discar对象赋值
+        return wechatInformationParam;
+    }
 
     /**
      * 获取计划表的信息根据调度编号（yunguohao）
@@ -360,5 +499,39 @@ public class DispatchServiceImpl implements DispatchService {
         dispatch.setStatus(3);
         Integer result = dispatchMapper.updateByPrimaryKey(dispatch);
         return result;
+    }
+
+    /**
+     * 根据导游id获取调度信息id  没有则返回null(lixiaojie)
+     *
+     * @param guideId
+     * @return
+     */
+    @Override
+    public Integer selectDisGuideInfoByguideId(Integer guideId) {
+        DisguideExample disguideExample = new DisguideExample();
+        DisguideExample.Criteria disguideExampleCriteria = disguideExample.createCriteria();
+        disguideExampleCriteria.andGuideidEqualTo(guideId);
+        List<Disguide> disguideList = disguideMapper.selectByExample(disguideExample);  //查询调度导游表是否有该导游的带团信息， 没有的话  返回null
+        if (disguideList.size() == 0) {
+            return null;
+        }
+        //有的话，查询调度表  有没有 调度表里的调度  id   并且 状态为 2 的 信息
+        Dispatch dispatch = null;
+        for (Disguide disguide : disguideList) {
+            DispatchExample dispatchExample = new DispatchExample();
+            DispatchExample.Criteria dispatchExampleCriteria = dispatchExample.createCriteria();
+            dispatchExampleCriteria.andDispatchidEqualTo(disguide.getOfferId());
+            dispatchExampleCriteria.andStateEqualTo(2);
+            List<Dispatch> dispatchList = dispatchMapper.selectByExample(dispatchExample);
+            if (dispatchList.size() > 0) {
+                dispatch = dispatchList.get(0);
+            }
+        }
+        //要是没查到信息  返回null  不执行后续操作
+        if (dispatch == null) {
+            return null;
+        }
+        return dispatch.getDispatchId();
     }
 }

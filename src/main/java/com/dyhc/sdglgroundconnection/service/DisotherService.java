@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.service;
 
+import com.dyhc.sdglgroundconnection.dto.WechatInformationParam;
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.pojo.Disother;
 import org.apache.ibatis.annotations.Mapper;
@@ -19,4 +20,7 @@ public interface DisotherService {
      * @throws DispatchException 调度异常
      */
     Integer saveDisotherInfo(Disother disother) throws DispatchException;
+
+
+
 }

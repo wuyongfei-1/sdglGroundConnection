@@ -1,12 +1,16 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
+import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.mapper.ReportingotherexpensesMapper;
+import com.dyhc.sdglgroundconnection.pojo.Reportdetail;
 import com.dyhc.sdglgroundconnection.pojo.Reportingotherexpenses;
 import com.dyhc.sdglgroundconnection.pojo.ReportingotherexpensesExample;
+import com.dyhc.sdglgroundconnection.service.ReportdetailService;
 import com.dyhc.sdglgroundconnection.service.ReportingotherexpensesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,6 +22,9 @@ public class ReportingotherexpensesServiceImpl implements Reportingotherexpenses
 
     @Autowired
     private ReportingotherexpensesMapper reportingotherexpensesMapper;
+
+    @Autowired
+    private ReportdetailService reportdetailService;
 
     /**
      * 根据报账编号查询报账其他支出信息
@@ -35,5 +42,22 @@ public class ReportingotherexpensesServiceImpl implements Reportingotherexpenses
             reportingotherexpenses=reportingotherexpensesList.get(0);
         }
         return reportingotherexpenses;
+    }
+
+    /**
+     * 添加报账其他支出信息
+     * @param reportingotherexpenses 报账其他支出对象
+     * @return 返回受影响行数
+     */
+    @Override
+    @RecordOperation(type = "报账其他支出信息",desc = "新增一条报账其他支出信息！")
+    public Integer insertReportingotherexpensesInfo(Reportingotherexpenses reportingotherexpenses) {
+        reportingotherexpenses.setCreateDate(new Date());
+        reportingotherexpenses.setStatus(0);
+        //根据调度表编号查询
+        Reportdetail reportdetail=reportdetailService.getReportdetailByDispatchId(Integer.parseInt(reportingotherexpenses.getValue1()));
+        Integer reportDetailId=reportdetail.getReportDetailId();
+        reportingotherexpenses.setValue1(reportDetailId.toString());
+        return reportingotherexpensesMapper.insert(reportingotherexpenses);
     }
 }

@@ -1,9 +1,12 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
+import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.mapper.ReportaccommodationMapper;
 import com.dyhc.sdglgroundconnection.pojo.Reportaccommodation;
 import com.dyhc.sdglgroundconnection.pojo.ReportaccommodationExample;
+import com.dyhc.sdglgroundconnection.pojo.Reportdetail;
 import com.dyhc.sdglgroundconnection.service.ReportaccommodationService;
+import com.dyhc.sdglgroundconnection.service.ReportdetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,9 @@ public class ReportaccommodationServiceImpl implements ReportaccommodationServic
 
     @Autowired
     private ReportaccommodationMapper reportaccommodationMapper;
+
+    @Autowired
+    private ReportdetailService reportdetailService;
 
     /**
      * 根据报账编号查询报账住宿信息
@@ -40,9 +46,14 @@ public class ReportaccommodationServiceImpl implements ReportaccommodationServic
      * @return 受影响行数
      */
     @Override
-    public Integer insertReportaccommodation(Reportaccommodation reportaccommodation) {
+    @RecordOperation(type = "报账酒店信息",desc = "新增一条报账酒店信息！")
+    public Integer insertReportaccommodation(Reportaccommodation reportaccommodation)throws Exception {
         reportaccommodation.setCreateDate(new Date());
         reportaccommodation.setStatus(0);
+        //根据调度表编号查询
+        Reportdetail reportdetail=reportdetailService.getReportdetailByDispatchId(Integer.parseInt(reportaccommodation.getValue1()));
+        Integer reportDetailId=reportdetail.getReportDetailId();
+        reportaccommodation.setValue1(reportDetailId.toString());
         return reportaccommodationMapper.insert(reportaccommodation);
     }
 }

@@ -5,9 +5,14 @@ import com.dyhc.sdglgroundconnection.service.BillService;
 import com.dyhc.sdglgroundconnection.utils.ConditionValidation;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import com.dyhc.sdglgroundconnection.utils.WechatFileUploadUtil;
+import com.dyhc.sdglgroundconnection.pojo.Tourguide;
+import com.dyhc.sdglgroundconnection.service.TourguideService;
+import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -65,6 +70,32 @@ public class GuideUploadBillController {
             e.printStackTrace();
             logger.error(" method: uploadBills 上传凭证失败！" + e.getMessage());
             return ReponseResult.err("上传失败！");
+        }
+    }
+    @Autowired
+    private TourguideService tourguideService;
+    /**
+     * 上传导游带团日志（dubingkun）
+     * @param tourguide
+     * @return
+     */
+    @RequestMapping(value = "upData")
+    public ReponseResult upData(@RequestBody Tourguide tourguide){
+        try {
+            ReponseResult<String> data;
+            int a=tourguideService.insertTourguide(tourguide);
+            if(a>0){
+                data= ReponseResult.ok("上传成功", "上传导游带团日志成功！");
+            }else{
+                data= ReponseResult.ok("上传失败", "上传导游带团日志成功！");
+            }
+            logger.info(" method:getTourguideInfoByTourguideId  上传导游带团日志成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:getTourguideInfoByTourguideId  上传导游带团日志数据失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
         }
     }
 }

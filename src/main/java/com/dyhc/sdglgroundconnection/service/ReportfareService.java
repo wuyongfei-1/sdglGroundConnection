@@ -14,4 +14,11 @@ public interface ReportfareService {
      * @return 报账车票信息对象
      */
     Reportfare getReportfareByValueId(Integer value1);
+
+    /**
+     * 新增报账车费信息
+     * @param reportfare 报账车费对象
+     * @return 返回受影响行数
+     */
+    Integer insertReportfareInfo(Reportfare reportfare);
 }

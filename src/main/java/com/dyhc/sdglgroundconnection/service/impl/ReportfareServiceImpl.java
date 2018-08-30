@@ -1,12 +1,16 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
+import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.mapper.ReportfareMapper;
+import com.dyhc.sdglgroundconnection.pojo.Reportdetail;
 import com.dyhc.sdglgroundconnection.pojo.Reportfare;
 import com.dyhc.sdglgroundconnection.pojo.ReportfareExample;
+import com.dyhc.sdglgroundconnection.service.ReportdetailService;
 import com.dyhc.sdglgroundconnection.service.ReportfareService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,6 +22,9 @@ public class ReportfareServiceImpl implements ReportfareService {
 
     @Autowired
     private ReportfareMapper reportfareMapper;
+
+    @Autowired
+    private ReportdetailService reportdetailService;
 
     /**
      * 根据报账编号查询报账车票信息
@@ -35,5 +42,22 @@ public class ReportfareServiceImpl implements ReportfareService {
             reportfare=reportfareList.get(0);
         }
         return reportfare;
+    }
+
+    /**
+     * 新增报账车费信息
+     * @param reportfare 报账车费对象
+     * @return 返回受影响行数
+     */
+    @Override
+    @RecordOperation(type = "报账车费信息",desc = "新增一条报账车费信息！")
+    public Integer insertReportfareInfo(Reportfare reportfare) {
+        reportfare.setCreateDate(new Date());
+        reportfare.setStatus(0);
+        //根据调度表编号查询
+        Reportdetail reportdetail=reportdetailService.getReportdetailByDispatchId(Integer.parseInt(reportfare.getValue1()));
+        Integer reportDetailId=reportdetail.getReportDetailId();
+        reportfare.setValue1(reportDetailId.toString());
+        return reportfareMapper.insert(reportfare);
     }
 }

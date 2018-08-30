@@ -7,10 +7,8 @@ import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import com.dyhc.sdglgroundconnection.utils.WechatFileUploadUtil;
 import com.dyhc.sdglgroundconnection.pojo.Tourguide;
 import com.dyhc.sdglgroundconnection.service.TourguideService;
-import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
-import java.util.Vector;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50

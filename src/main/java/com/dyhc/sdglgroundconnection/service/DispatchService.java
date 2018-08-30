@@ -1,9 +1,6 @@
 package com.dyhc.sdglgroundconnection.service;
 
-import com.dyhc.sdglgroundconnection.dto.DispatchParam;
-import com.dyhc.sdglgroundconnection.dto.PatchParam;
-import com.dyhc.sdglgroundconnection.dto.MissionParam;
-import com.dyhc.sdglgroundconnection.dto.TravelPathParam;
+import com.dyhc.sdglgroundconnection.dto.*;
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.pojo.Dispatch;
 import com.github.pagehelper.PageInfo;
@@ -23,7 +20,13 @@ public interface DispatchService {
      */
     TravelPathParam getTravelPathParam(Integer dispathId) throws  Exception;
 
-
+    /**
+     * 微信根据导游id查询行程的信息（yunguohao）
+     * @param guideId 导游id
+     * @return
+     * @throws Exception
+     */
+    GuideRouteParam getGuideRouteParam(Integer guideId) throws Exception;
     /**
      * 获取派团单信息根据调度编号 （wangtao）
      * @param dispatchId 调度编号

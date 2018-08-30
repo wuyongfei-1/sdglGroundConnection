@@ -89,6 +89,23 @@ public class ReportdetailServiceImpl implements ReportdetailService {
         return reportdetailMapper.selectDispatchId(dispatchId);
     }
 
+    /**
+     * 根据调度编号查询报账信息
+     * @param dispatchId 调度编号
+     * @return 返回报账信息对象
+     */
+    @Override
+    public Reportdetail getReportdetailByDispatchId(Integer dispatchId) {
+        ReportdetailExample reportdetailExample=new ReportdetailExample();
+        ReportdetailExample.Criteria criteria=reportdetailExample.createCriteria();
+        criteria.andDispatchidEqualTo(dispatchId);
+        List<Reportdetail> reportdetailList=reportdetailMapper.selectByExample(reportdetailExample);
+        Reportdetail reportdetail=new Reportdetail();
+        if(reportdetailList!=null&&reportdetailList.size()>0){
+            reportdetail=reportdetailList.get(0);
+        }
+        return reportdetail;
+    }
 
 
     /**

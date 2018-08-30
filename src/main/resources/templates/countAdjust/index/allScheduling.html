@@ -156,41 +156,45 @@
     })
     //确认成团按钮（dubingkun）
     $(document).on("click","#pass",function () {
-        var id=$(this).val()
-        $.ajax({
-            url:"/offer/updateOfferValue1",
-            data:{id:id,value1:1},
-            dataType:"json",
-            type:"get",
-			success:function(data){
-            },error:function () {
-				alert("服务器异常")
-            }
-        })
-		$(this).parent().next().html("<button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"jinyong\" value=\""+id+"\">调度详情</button>");
-        $(this).parent().next().after("<td></td>")
-        $(this).parent().remove();
+        if(confirm("确认成团么？")){
+            var id=$(this).val()
+            $.ajax({
+                url:"/offer/updateOfferValue1",
+                data:{id:id,value1:1},
+                dataType:"json",
+                type:"get",
+                success:function(data){
+                },error:function () {
+                    alert("服务器异常")
+                }
+            })
+            $(this).parent().next().html("<button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"jinyong\" value=\""+id+"\">调度详情</button>");
+            $(this).parent().next().after("<td></td>")
+            $(this).parent().remove();
+		}
     })
     //失效按钮（dubingkun）
     $(document).on("click","#nopass",function () {
-        var id=$(this).val()
-        $.ajax({
-            url:"/offer/updateOfferValue1",
-            data:{id:id,value1:2},
-            dataType:"json",
-            type:"get",
-            success:function(data){
-            },error:function () {
-                alert("服务器异常")
-            }
-        })
-        var id=$(this).val()
-        $(this).parent().prev().remove();
-        $(this).parent().prev().remove();
-        $(this).parent().after("<td></td>")
-        $(this).parent().after("\t\t\t\t\t\t\t\t<td><button style='background-color: #e2e2e2' disabled class=\"layui-btn layui-btn-primary\" id=\"nopass\" value=\""+id+"\">已经失效</button></td>\n");
-        $(this).parent().after("\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"upOffer2\" value=\""+id+"\">报价详情</button></td>\n");
-        $(this).parent().remove();
+        if(confirm("确认失效么？")){
+            var id=$(this).val()
+            $.ajax({
+                url:"/offer/updateOfferValue1",
+                data:{id:id,value1:2},
+                dataType:"json",
+                type:"get",
+                success:function(data){
+                },error:function () {
+                    alert("服务器异常")
+                }
+            })
+            var id=$(this).val()
+            $(this).parent().prev().remove();
+            $(this).parent().prev().remove();
+            $(this).parent().after("<td></td>")
+            $(this).parent().after("\t\t\t\t\t\t\t\t<td><button style='background-color: #e2e2e2' disabled class=\"layui-btn layui-btn-primary\" id=\"nopass\" value=\""+id+"\">已经失效</button></td>\n");
+            $(this).parent().after("\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"upOffer2\" value=\""+id+"\">报价详情</button></td>\n");
+            $(this).parent().remove();
+		}
     })
     //调度按钮（dubingkun）
     $(document).on("click","#jinyong",function () {

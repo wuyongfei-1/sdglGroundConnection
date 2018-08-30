@@ -38,6 +38,7 @@ function xianlu(obj){
 function shanchu(aa){
     var a=$(aa).parent();
     a.remove();
+    totalchange();
 }
 
 function insertJingdian(onClickjd) {
@@ -65,10 +66,12 @@ function insertJingdian(onClickjd) {
         form.render(); //更新全部
         form.render('select'); //刷新select选择框渲染
     });
+    totalchange();
 }
 
 	function  san(dang){
       $(dang).parent().parent().remove();
+        totalchange();
 	}
 		showInfo3();
 			function addss() {
@@ -191,6 +194,7 @@ function insertJingdian(onClickjd) {
 				b.remove();
 				var f = "<button class='layui-btn layui-btn-normal layui-btn-radius' onclick='addss()' id='add'>十</button>";
 				$("#zong").after(f);
+                totalchange();
 			}
 function showInfo3() {
     zongxinalu = "<option value='-1'>请选择</option>";

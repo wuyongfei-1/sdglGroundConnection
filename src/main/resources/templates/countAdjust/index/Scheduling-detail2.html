@@ -654,6 +654,7 @@
                 $("#zong").html(context);
                 showInfo();
                 selectOption();
+                totalchange();
             }, error: function () {
                 alert("服务器异常！")
             }
@@ -755,6 +756,7 @@
                 selectJson2.push(json);
                 showInfo2(zhege);
                 selectOption2(zhege);
+                totalchange();
             }, error: function () {
                 alert("程序异常！")
             }
@@ -1097,6 +1099,7 @@
 <script type="text/javascript">
     function san(dang) {
         $(dang).parent().parent().remove();
+        totalchange();
     }
 
     function add(onClickjd) {
@@ -1153,14 +1156,17 @@
             });
         });
     });
+    totalchange();
     //计算总价
-    total();
-    $("[name='offer']").each(function (i, e) {
-        $(e).attr("onchange","total()");
-    })
-    $("[name='costPrice']").each(function (i, e) {
-        $(e).attr("onchange","total()");
-    })
+    function totalchange(){
+        $("[name='offer']").each(function (i, e) {
+            $(e).attr("onchange","total()");
+        })
+        $("[name='costPrice']").each(function (i, e) {
+            $(e).attr("onchange","total()");
+        })
+        total();
+    }
     //计算总价
     function total() {
         var offer=0;

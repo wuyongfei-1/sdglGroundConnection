@@ -13,7 +13,7 @@ function xianlu(obj){
     var text=$(obj).html();
     if(text=="自行填写\n" +
         "                            "){
-        $(obj).parent().prev().html("<input type='text'xl='xianlu' placeholder='xxx-xxx' class='layui-input' name='texts'>");
+        $(obj).parent().prev().html("<input type='text'xl='xianlu' placeholder='例（太原-大同）' class='layui-input' name='texts'>");
 		$(obj).html("选择模板");
     }else{
         $(obj).parent().prev().html("<select name=\"city\" lay-ignore lay-search xl=\"xianlu\" onchange=\"chengZi(this)\">"+

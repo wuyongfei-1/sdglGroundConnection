@@ -13,11 +13,9 @@ function xianlu(obj){
     var text=$(obj).html();
     if(text=="自行填写\n" +
         "                            "){
-        alert(1213)
-        $(obj).parent().prev().html("<input type='text'xl='xianlu' class='layui-input' name='texts'>");
+        $(obj).parent().prev().html("<input type='text'xl='xianlu' placeholder='xxx-xxx' class='layui-input' name='texts'>");
 		$(obj).html("选择模板");
     }else{
-        alert(456)
         $(obj).parent().prev().html("<select name=\"city\" lay-ignore lay-search xl=\"xianlu\" onchange=\"chengZi(this)\">"+
 		xianluinfo+
 			"</select>");
@@ -52,7 +50,7 @@ function insertJingdian(onClickjd) {
             "                                </select>\n" +
             "                            </td>\n" +
             "                            <td><label class=\"layui-form-label\">成本价:</label></td>\n" +
-            "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
+            "                            <td><input type=\"text\" name='costPrice' class=\"layui-input\"></td>\n" +
             "                            <td><label class=\"layui-form-label\">报价:</label></td>\n" +
             "                            <td><input type=\"text\" name='offer' class=\"layui-input\"></td>\n" +
             "<td style='bottom: 0px;'><label class='layui-form-label' onclick='san(this)'>×</label></td>"+
@@ -118,7 +116,7 @@ function insertJingdian(onClickjd) {
                     "                                </select>\n" +
                     "                            </td>\n" +
                     "                            <td><label class=\"layui-form-label\">成本价</label></td>\n" +
-                    "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
+                    "                            <td><input type=\"text\" name='costPrice' class=\"layui-input\"></td>\n" +
                     "                            <td><label class=\"layui-form-label\">报价</label></td>\n" +
                     "                            <td><input type=\"text\" name='offer' class=\"layui-input\"></td>\n" +
                     "                        </tr>\n" +
@@ -138,7 +136,7 @@ function insertJingdian(onClickjd) {
                     "                                </select>\n" +
                     "                            </td>\n" +
                     "                            <td><label class=\"layui-form-label\">成本价:</label></td>\n" +
-                    "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
+                    "                            <td><input type=\"text\" name='costPrice' class=\"layui-input\"></td>\n" +
                     "                            <td><label class=\"layui-form-label\">报价:</label></td>\n" +
                     "                            <td><input type=\"text\" name='offer' class=\"layui-input\"></td>\n" +
                     "                        </tr>"+
@@ -151,7 +149,7 @@ function insertJingdian(onClickjd) {
                     "                                </select>\n" +
                     "                            </td>\n" +
                     "                            <td><label class=\"layui-form-label\">成本价</label></td>\n" +
-                    "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
+                    "                            <td><input type=\"text\" name='costPrice' class=\"layui-input\"></td>\n" +
                     "                            <td><label class=\"layui-form-label\">报价</label></td>\n" +
                     "                            <td><input type=\"text\" name='offer' class=\"layui-input\"></td>\n" +
                     "                        </tr>\n" +
@@ -163,7 +161,7 @@ function insertJingdian(onClickjd) {
                     "                                </select>\n" +
                     "                            </td>\n" +
                     "                            <td><label class=\"layui-form-label\">成本价</label></td>\n" +
-                    "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
+                    "                            <td><input type=\"text\" name='costPrice' class=\"layui-input\"></td>\n" +
                     "                            <td><label class=\"layui-form-label\">报价</label></td>\n" +
                     "                            <td><input type=\"text\" name='offer' class=\"layui-input\"></td>\n" +
                     "                        </tr>\n" +

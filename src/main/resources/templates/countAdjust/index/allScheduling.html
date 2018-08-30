@@ -42,7 +42,7 @@
 				<th class="">报价</th>
 				<th class="">开团时间</th>
 				<th class="">结束时间</th>
-				<th colspan="2">操作</th>
+				<th colspan="3">操作</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -73,6 +73,25 @@
                 var count2=0;
                 var context2="";
                 $.each(data.data,function (i,e) {
+                    var anniu;
+                    //报价中
+                    if(e.value1==3){
+						anniu="\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"upOffer\" value=\""+e.offerId+"\">报价详情</button></td>\n"+
+                            "\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-small layui-btn-warm listOrderBtn hidden-xs\" id=\"pass\" value=\""+e.offerId+"\">确认成团</button></td>\n"+
+                            "\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-danger\" id=\"nopass\" value=\""+e.offerId+"\">失效</button></td>\n";
+					}
+					//确认成团
+					if(e.value1==1){
+                        anniu="\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"upOffer\" value=\""+e.offerId+"\">报价详情</button></td>\n"+
+                            "\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"jinyong\" value=\""+e.offerId+"\">调度详情</button></td>\n"+
+                        	"<td></td>";
+					}
+                    //失效
+                    if(e.value1==2){
+                        anniu="\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"upOffer2\" value=\""+e.offerId+"\">报价详情</button></td>\n"+
+                            "\t\t\t\t\t\t\t\t<td><button  style='background-color: #e2e2e2'  disabled class=\"layui-btn layui-btn-primary\" id=\"nopass\" value=\""+e.offerId+"\">已经失效</button></td>\n"+
+                        "<td></td>";
+                    }
                     var travelName;
                     $.ajax({
                         url:"/offer/getTravel",
@@ -97,40 +116,8 @@
                         "\t\t\t\t\t\t\t\t<td class=\"\">"+e.offer+"</td>\n" +
                         "\t\t\t\t\t\t\t\t<td class=\"\">"+e.travelStartTime+"</td>\n" +
                         "\t\t\t\t\t\t\t\t<td class=\"\">"+e.travelEndTime+"</td>\n" +
-                        "\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"upOffer\" value=\""+e.offerId+"\">报价详情</button></td>\n"+
-                        "\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"jinyong\" value=\""+e.offerId+"\">调度详情</button></td>\n"+
+                        anniu
                         "\t\t\t\t\t\t\t</tr>";
-                    // if(e.offerlineList.length>0){
-                    //     count++;
-                    //     context2+="<tr id='"+fuqinid+"' class=\""+erziclass+"\" style=\"display:none ;background-color: #D6E9C6;\" parentid=\"1\">\n" +
-                    //         "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
-                    //         "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
-                    //         "\t\t\t\t\t\t\t\t<td class=\"\">线路名称</td>\n" +
-                    //         "\t\t\t\t\t\t\t\t<td class=\"\">日期</td>\n" +
-                    //         "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
-                    //         "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
-                    //         "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
-                    //         "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
-                    //         "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
-                    //         "\t\t\t\t\t\t\t</tr>";
-                    //     $.each(e.offerlineList,function (j,p) {
-                    //         count++;
-                    //         context2+="<tr id='"+fuqinid+"' class=\""+erziclass+"\" style=\"display:none ;\" parentid=\"1\">\n" +
-                    //             "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
-                    //             "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
-                    //             "\t\t\t\t\t\t\t\t<td class=\"\">"+p.lineArriveName+"</td>\n" +
-                    //             "\t\t\t\t\t\t\t\t<td class=\"\">"+p.date+"</td>\n" +
-                    //             "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
-                    //             "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
-                    //             "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
-                    //             "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
-                    //             "\t\t\t\t\t\t\t\t<td class=\"\"></td>\n" +
-                    //             "\t\t\t\t\t\t\t\t\t<div class=\"layui-inline\">\n" +
-                    //             "\t\t\t\t\t\t\t\t\t</div>\n" +
-                    //             "\t\t\t\t\t\t\t\t</td>\n" +
-                    //             "\t\t\t\t\t\t\t</tr>";
-                    //     })
-                    // }
                 })
                 $("tbody").html(context2);
                 // 分页插件
@@ -161,7 +148,49 @@
     };
     //报价按钮（dubingkun）
     $(document).on("click","#upOffer",function () {
-		location.href="http://localhost:8888/countAdjust/Scheduling-detail.html2?offerId="+$(this).val()+"";
+        location.href="http://localhost:8888/countAdjust/Scheduling-detail.html2?offerId="+$(this).val()+"&redonly=0";
+    })
+    //只读报价按钮（dubingkun）
+    $(document).on("click","#upOffer2",function () {
+        location.href="http://localhost:8888/countAdjust/Scheduling-detail.html2?offerId="+$(this).val()+"&redonly=1";
+    })
+    //确认成团按钮（dubingkun）
+    $(document).on("click","#pass",function () {
+        var id=$(this).val()
+        $.ajax({
+            url:"/offer/updateOfferValue1",
+            data:{id:id,value1:1},
+            dataType:"json",
+            type:"get",
+			success:function(data){
+            },error:function () {
+				alert("服务器异常")
+            }
+        })
+		$(this).parent().next().html("<button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"jinyong\" value=\""+id+"\">调度详情</button>");
+        $(this).parent().next().after("<td></td>")
+        $(this).parent().remove();
+    })
+    //失效按钮（dubingkun）
+    $(document).on("click","#nopass",function () {
+        var id=$(this).val()
+        $.ajax({
+            url:"/offer/updateOfferValue1",
+            data:{id:id,value1:2},
+            dataType:"json",
+            type:"get",
+            success:function(data){
+            },error:function () {
+                alert("服务器异常")
+            }
+        })
+        var id=$(this).val()
+        $(this).parent().prev().remove();
+        $(this).parent().prev().remove();
+        $(this).parent().after("<td></td>")
+        $(this).parent().after("\t\t\t\t\t\t\t\t<td><button style='background-color: #e2e2e2' disabled class=\"layui-btn layui-btn-primary\" id=\"nopass\" value=\""+id+"\">已经失效</button></td>\n");
+        $(this).parent().after("\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"upOffer2\" value=\""+id+"\">报价详情</button></td>\n");
+        $(this).parent().remove();
     })
     //调度按钮（dubingkun）
     $(document).on("click","#jinyong",function () {

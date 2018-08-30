@@ -58,4 +58,13 @@ public interface OfferService {
      * @throws Exception
      */
     Integer deleteOffer(Integer id)throws Exception;
+
+    /**
+     * 根据id修改报价单状态（dubingkun）
+     * @param id
+     * @param value1
+     * @return
+     * @throws Exception
+     */
+    Integer updateOfferValue1(Integer id,String value1)throws Exception;
 }

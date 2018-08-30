@@ -14,4 +14,11 @@ public interface ReportqutsubsidyService {
      * @return 报账出团补助信息对象
      */
     Reportqutsubsidy getReportqutsubsidyByValueId(Integer value1);
+
+    /**
+     * 添加出团补助信息
+     * @param reportqutsubsidy 出团补助对象
+     * @return 返回受影响行数
+     */
+    Integer insertReportqutsubsidyInfo(Reportqutsubsidy reportqutsubsidy);
 }

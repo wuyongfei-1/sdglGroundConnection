@@ -24,6 +24,13 @@ public interface ReportdetailService {
     List<Reportdetail> selectDispatchId(int dispatchId);
 
     /**
+     * 根据调度编号查询报账信息
+     * @param dispatchId 调度编号
+     * @return 返回报账信息对象
+     */
+    Reportdetail getReportdetailByDispatchId(Integer dispatchId);
+
+    /**
      * 按日期区间查询（yunguohao）
      * @param reportDate1
      * @return

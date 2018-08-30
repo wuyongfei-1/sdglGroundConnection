@@ -16,4 +16,11 @@ public interface ReportrestaurantService {
      * @return 返回报账餐厅信息集合
      */
     List<Reportrestaurant> listReportrestaurantByValueId(Integer value1);
+
+    /**
+     * 新增报账餐馆信息
+     * @param reportrestaurant 报账餐馆对象
+     * @return 返回受影响行数
+     */
+    Integer insertReportrestaurant(Reportrestaurant reportrestaurant);
 }

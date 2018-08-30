@@ -23,5 +23,5 @@ public interface ReportaccommodationService {
      * @param reportaccommodation 报账酒店对象
      * @return 受影响行数
      */
-    Integer insertReportaccommodation(Reportaccommodation reportaccommodation);
+    Integer insertReportaccommodation(Reportaccommodation reportaccommodation)throws Exception;
 }

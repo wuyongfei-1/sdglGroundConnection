@@ -500,8 +500,9 @@ public class EnterCountAdjustPageController {
      * @return
      */
     @RequestMapping("/Scheduling-detail.html2")
-    public String SchedulingDetail2(HttpServletRequest httpServletRequest, Integer offerId) {
+    public String SchedulingDetail2(HttpServletRequest httpServletRequest, Integer offerId,Integer redonly) {
         httpServletRequest.setAttribute("offerId", offerId);
+        httpServletRequest.setAttribute("redonly",redonly);//只读标识
         return "countAdjust/index/Scheduling-detail2";
     }
 

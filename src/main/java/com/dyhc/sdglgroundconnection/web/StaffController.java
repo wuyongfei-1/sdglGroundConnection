@@ -95,7 +95,6 @@ public class StaffController {
     @RequestMapping(value = "/listPageGetStaffByNameAndCreateDateAndRoleId", method = RequestMethod.POST)
     public ReponseResult listPageGetStaffByNameAndCreateDateAndRoleId(Integer pageNo, Integer pageSize, String staffname, String firstDate, String lastDate, Integer roleId) {
         try {
-            pageSize = 6;
             PageInfo<Staff> pageInfo = staffService.listPageGetStaffByNameAndCreateDateAndRoleId(pageNo, pageSize, staffname, firstDate, lastDate, roleId);
             ReponseResult<List> data = ReponseResult.ok(pageInfo.getList(), pageInfo.getTotal(), "分页获取人員信息成功！");
 

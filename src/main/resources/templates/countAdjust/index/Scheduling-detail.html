@@ -86,7 +86,7 @@
                                 </select>
                             </td>
                             <td><label class="layui-form-label">成本价</label></td>
-                            <td><input type="text" class="layui-input"></td>
+                            <td><input type="text" name='costPrice' class="layui-input"></td>
                             <td><label class="layui-form-label">报价</label></td>
                             <td><input type="text" name='offer' class="layui-input"></td>
                         </tr>
@@ -107,7 +107,7 @@
                                 </select>
                             </td>
                             <td><label class="layui-form-label">成本价:</label></td>
-                            <td><input type="text" class="layui-input"></td>
+                            <td><input type="text" name='costPrice' class="layui-input"></td>
                             <td><label class="layui-form-label">报价:</label></td>
                             <td><input type="text" name='offer' class="layui-input"></td>
                         </tr>
@@ -120,7 +120,7 @@
                                 </select>
                             </td>
                             <td><label class="layui-form-label">成本价</label></td>
-                            <td><input type="text" class="layui-input"></td>
+                            <td><input type="text" name='costPrice' class="layui-input"></td>
                             <td><label class="layui-form-label">报价</label></td>
                             <td><input type="text" name='offer' class="layui-input"></td>
                         </tr>
@@ -132,7 +132,7 @@
                                 </select>
                             </td>
                             <td><label class="layui-form-label">成本价</label></td>
-                            <td><input type="text" class="layui-input"></td>
+                            <td><input type="text" name='costPrice' class="layui-input"></td>
                             <td><label class="layui-form-label">报价</label></td>
                             <td><input type="text" name='offer' class="layui-input"></td>
                         </tr>
@@ -159,7 +159,7 @@
                         </select>
                     </td>
                     <td><label class="layui-form-label">成本价</label></td>
-                    <td><input type="text" id="carcostPrice" class="layui-input"></td>
+                    <td><input type="text" id="carcostPrice" name='costPrice' class="layui-input"></td>
                     <td><label class="layui-form-label">报价</label></td>
                     <td><input type="text" id="caroffer" name='offer' class="layui-input"></td>
                 </tr>
@@ -171,9 +171,23 @@
                                 <td><label class="layui-form-label">备注</label></td>
                                 <td width="300px"><input type="text" id="otherremarks" class="layui-input"></td>
                                 <td><label class="layui-form-label">成本价</label></td>
-                                <td width="300px"><input type="text" id="othercostPrice" class="layui-input"></td>
+                                <td width="300px"><input type="text" name='costPrice' id="othercostPrice" class="layui-input"></td>
                                 <td><label class="layui-form-label">报价</label></td>
                                 <td width="300px"><input type="text" id="otheroffer" name='offer' class="layui-input">
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label class="layui-form-label">总计:</label></td>
+                    <td colspan="5">
+                        <table border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td><label class="layui-form-label">总成本价</label></td>
+                                <td width="300px"><input type="text" id="costPriceTotal" class="layui-input"></td>
+                                <td><label class="layui-form-label">总报价</label></td>
+                                <td width="300px"><input type="text" id="offerTotal" class="layui-input">
                                 </td>
                             </tr>
                         </table>
@@ -264,7 +278,7 @@
                             "                                </select>\n" +
                             "                            </td>\n" +
                             "                            <td><label class=\"layui-form-label\">成本价:</label></td>\n" +
-                            "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
+                            "                            <td><input type=\"text\" name='costPrice' class=\"layui-input\"></td>\n" +
                             "                            <td><label class=\"layui-form-label\">报价:</label></td>\n" +
                             "                            <td><input type=\"text\" name='offer' class=\"layui-input\"></td>\n" +
                             "<td style='bottom: 0px;'><label class='layui-form-label' onclick='san(this)'>×</label></td>" +
@@ -306,7 +320,7 @@
                         "                                </select>\n" +
                         "                            </td>\n" +
                         "                            <td><label class=\"layui-form-label\">成本价</label></td>\n" +
-                        "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
+                        "                            <td><input type=\"text\" name='costPrice' class=\"layui-input\"></td>\n" +
                         "                            <td><label class=\"layui-form-label\">报价</label></td>\n" +
                         "                            <td><input type=\"text\" name='offer' class=\"layui-input\"></td>\n" +
                         "                        </tr>\n" +
@@ -328,7 +342,7 @@
                         "                                </select>\n" +
                         "                            </td>\n" +
                         "                            <td><label class=\"layui-form-label\">成本价</label></td>\n" +
-                        "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
+                        "                            <td><input type=\"text\" name='costPrice' class=\"layui-input\"></td>\n" +
                         "                            <td><label class=\"layui-form-label\">报价</label></td>\n" +
                         "                            <td><input type=\"text\" name='offer' class=\"layui-input\"></td>\n" +
                         "                        </tr>\n" +
@@ -340,7 +354,7 @@
                         "                                </select>\n" +
                         "                            </td>\n" +
                         "                            <td><label class=\"layui-form-label\">成本价</label></td>\n" +
-                        "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
+                        "                            <td><input type=\"text\" name='costPrice' class=\"layui-input\"></td>\n" +
                         "                            <td><label class=\"layui-form-label\">报价</label></td>\n" +
                         "                            <td><input type=\"text\" name='offer' class=\"layui-input\"></td>\n" +
                         "                        </tr>\n" +
@@ -370,6 +384,7 @@
                 $("#zong").html(context);
                 showInfo();
                 selectOption(count);
+                totalchange();
             }, error: function () {
                 alert("服务器异常！")
             }
@@ -458,7 +473,7 @@
                         "                                </select>\n" +
                         "                            </td>\n" +
                         "                            <td><label class=\"layui-form-label\">成本价:</label></td>\n" +
-                        "                            <td><input type=\"text\" class=\"layui-input\"></td>\n" +
+                        "                            <td><input type=\"text\" name='costPrice' class=\"layui-input\"></td>\n" +
                         "                            <td><label class=\"layui-form-label\">报价:</label></td>\n" +
                         "                            <td><input type=\"text\" name='offer' class=\"layui-input\"></td>\n" +
                         "<td style='bottom: 0px;'><label class='layui-form-label' onclick='san(this)'>×</label></td>" +
@@ -471,6 +486,7 @@
                 selectJson2.push(json);
                 showInfo2(zhege);
                 selectOption2(zhege);
+                totalchange();
             }, error: function () {
                 alert("程序异常！")
             }
@@ -485,6 +501,7 @@
         var cb = $(zhege).find("option:selected").attr("costPrice");
         $(zhege).parent().next().next().children().val(cb);
         $(zhege).parent().next().next().next().next().children().val(bj);
+        total();
     }
 
     showInfo();
@@ -850,11 +867,39 @@
         })
         window.open("http://localhost:8888/voucher/Confirmation.html");
     })
-
+    totalchange();
+    //计算总价
+    function totalchange(){
+        $("[name='offer']").each(function (i, e) {
+            $(e).attr("onchange","total()");
+        })
+        $("[name='costPrice']").each(function (i, e) {
+            $(e).attr("onchange","total()");
+        })
+        total();
+    }
+    //计算总价
+    function total() {
+        var offer=0;
+        var costPrice=0;
+        $("[name='offer']").each(function (i, e) {
+            if($(this).val()!=""){
+                offer += parseInt($(this).val());
+            }
+        })
+        $("[name='costPrice']").each(function (i, e) {
+            if($(this).val()!=""){
+                costPrice += parseInt($(this).val());
+            }
+        })
+        $("#costPriceTotal").val(costPrice);
+        $("#offerTotal").val(offer);
+    }
 </script>
 <script type="text/javascript">
     function san(dang) {
         $(dang).parent().parent().remove();
+        totalchange();
     }
 
     function add(onClickjd) {
@@ -867,7 +912,7 @@
             "</select>" +
             "</td>" +
             "<td><label class='layui-form-label'>成本价:</label></td>" +
-            "<td><input type='text'  class='layui-input'></td>" +
+            "<td><input type='text' name='costPrice'  class='layui-input'></td>" +
             "<td><label class='layui-form-label'>报价:</label></td>" +
             "<td><input type='text' name='offer' class='layui-input'></td>" +
             "<td style='bottom: 0px;'><label class='layui-form-label' onclick='san(this)'>×</label></td>" +

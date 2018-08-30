@@ -49,7 +49,7 @@ public class Offer {
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "creationDate")
     private Date creationDate; // 创建时间
-    private String value1;
+    private String value1;//报价单状态（1，确认成团  2，失效  3，报价中）
     private String value2;
     private String value3;
 

@@ -114,7 +114,7 @@ public class StaffServiceImpl implements StaffService {
      */
     @Override
     public PageInfo<Staff> listPageGetStaffByNameAndCreateDateAndRoleId(Integer pageNo, Integer pageSize, String staffname, String firstDate, String lastDate, Integer roleId) {
-        PageHelper.startPage(pageNo, pageSize, true);
+
         PageInfo<Staff> pageInfo = new PageInfo<Staff>(staffMapper.listGetStaffsByNameAndCreateDateAndRoleId(staffname, firstDate, lastDate, roleId));
         return pageInfo;
     }

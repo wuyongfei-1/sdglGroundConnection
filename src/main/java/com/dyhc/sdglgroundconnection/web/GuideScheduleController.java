@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.web;
 
+import com.dyhc.sdglgroundconnection.dto.GuidescheduleParam;
 import com.dyhc.sdglgroundconnection.pojo.Guide;
 import com.dyhc.sdglgroundconnection.pojo.GuideSchedule;
 import com.dyhc.sdglgroundconnection.pojo.Staff;
@@ -28,7 +29,25 @@ public class GuideScheduleController {
 
     @Autowired
     private GuideScheduleService guideScheduleService;
+    /**
+     * 查询请假的导游信息  和 日程信息(lixiaojie)
+     * @return
+     */
+    @RequestMapping(value = "/chaxunsuoyoucaiwuxinxi", method = RequestMethod.POST)
+    public ReponseResult chaxunsuoyoucaiwuxinxi() {
+        try {
+            PageInfo<GuidescheduleParam> pageInfo = guideScheduleService.chaxunsuoyoucaiwuxinxi();
+            ReponseResult<List> data = ReponseResult.ok(pageInfo.getList(), pageInfo.getTotal(), "查询请假的导游信息和日程信息成功！");
 
+            logger.info(" method:selectScheduleScheduleStateBy2  分页查询请假的导游信息和日程信息成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:selectScheduleScheduleStateBy2  分页查询请假的导游信息和日程信息失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
 
     /**
      * 查询请假的导游信息  和 日程信息(lixiaojie)
@@ -43,7 +62,7 @@ public class GuideScheduleController {
     public ReponseResult selectScheduleScheduleStateBy2(Integer pageNo, Integer pageSize, String guideName, String firstDate, String lastDate) {
         try {
             pageSize = 6;
-            PageInfo<GuideSchedule> pageInfo = guideScheduleService.selectScheduleScheduleStateBy2(pageNo, pageSize, guideName, firstDate, lastDate);
+            PageInfo<GuidescheduleParam> pageInfo = guideScheduleService.selectScheduleScheduleStateBy2(pageNo, pageSize, guideName, firstDate, lastDate);
             ReponseResult<List> data = ReponseResult.ok(pageInfo.getList(), pageInfo.getTotal(), "查询请假的导游信息和日程信息成功！");
 
             logger.info(" method:selectScheduleScheduleStateBy2  分页查询请假的导游信息和日程信息成功！");
@@ -81,6 +100,8 @@ public class GuideScheduleController {
             return err;
         }
     }
+
+
 
     /**
      * 新增导游日程(lixiaojie)

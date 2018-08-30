@@ -267,7 +267,7 @@ public class DispatchServiceImpl implements DispatchService {
         DispatchExample dispatchExample = new DispatchExample();
         DispatchExample.Criteria criteria = dispatchExample.createCriteria();
         criteria.andWhetherdelEqualTo(0);
-        criteria.andStatusEqualTo(1);
+        criteria.andStatusEqualTo(2);
         criteria.andWhetherdelEqualTo(0);
         List<Dispatch> dispatches = dispatchMapper.selectByExample(dispatchExample);
 
@@ -297,7 +297,7 @@ public class DispatchServiceImpl implements DispatchService {
         //修改团状态
 
         Dispatch dispatch = dispatchMapper.selectByPrimaryKey(dispatchId);
-        dispatch.setStatus(2);
+        dispatch.setStatus(1);
         dispatch.setModifiedData(new Date());
         dispatch.setModifier(staffId);
 /*

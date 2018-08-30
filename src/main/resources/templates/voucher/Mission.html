@@ -23,6 +23,7 @@
 
 	</head>
 	<body>
+	<div id="dy">
 		<div id="tupian" style="width: 655px;margin-left: 355px;">
                 <img src="/images/logo.jpg" width="640px" height="50px">
        		 </div>
@@ -242,8 +243,13 @@
 			<p>2. 如行程外发生计划外支出请务必及时联络公司有关计调，否则费用不予报销。</p>
 			<p>3. 请严格按照我公司有关地接导游带团规范进行作业，以进一步确保接待质量。</p>
 		</div>
+	</div>
+	<input type="button" value="打印预览" onclick="printview()">&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="button" value="打印维护" onclick="updatePrint()">
 	</body>
 	<script type="text/javascript" src="/js/jquery-3.2.1.js" ></script>
+	<script type="text/javascript" src="/lodop/jquery-3.2.1.js"></script>
+	<script type="text/javascript" src="/lodop/LodopFuncs.js"></script>
 	<script>
 		$(function () {
             onloadInfo();
@@ -372,6 +378,27 @@
                     $("#info2").css("margin-top","-7px");
 				}
             },"json");
+        }
+        var LODOP;//声明为全局变量
+        function printview(){
+            createPage();
+            LODOP.PREVIEW(); //打印预览
+        }
+        function updatePrint(){
+            createPage();
+            LODOP.PRINT_SETUP();//打印维护
+        }
+        function print(){
+            createPage();
+            LODOP.PRINT_DESIGN();//直接打印
+        }
+
+        function createPage(){
+            LODOP=getLodop();  //获取打印对象
+            //var style="<style>"+document.getElementById("style").innerHTML+"</style>";
+            var html="<body>"+document.getElementById("dy").innerHTML+"</body>";
+            LODOP.SET_PRINT_STYLE("Bold",1); //字体加粗
+            LODOP.ADD_PRINT_HTM(20,50,640,890,html); //打印HTML
         }
 	</script>
 </html>

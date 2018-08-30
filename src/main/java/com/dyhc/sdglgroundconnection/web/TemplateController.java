@@ -42,6 +42,7 @@ public class TemplateController {
     @Autowired
     private TemplateScenicspotService templateScenicspotService;
 
+
     /**
      * 查询所有模板信息 （wangtao）
      * @return 返回ReponseResult对象

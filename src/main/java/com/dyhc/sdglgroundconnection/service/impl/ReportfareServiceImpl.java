@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
+import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.mapper.ReportfareMapper;
 import com.dyhc.sdglgroundconnection.pojo.Reportdetail;
 import com.dyhc.sdglgroundconnection.pojo.Reportfare;
@@ -49,6 +50,7 @@ public class ReportfareServiceImpl implements ReportfareService {
      * @return 返回受影响行数
      */
     @Override
+    @RecordOperation(type = "报账车费信息",desc = "新增一条报账车费信息！")
     public Integer insertReportfareInfo(Reportfare reportfare) {
         reportfare.setCreateDate(new Date());
         reportfare.setStatus(0);

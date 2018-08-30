@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
+import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.mapper.ReportaccommodationMapper;
 import com.dyhc.sdglgroundconnection.pojo.Reportaccommodation;
 import com.dyhc.sdglgroundconnection.pojo.ReportaccommodationExample;
@@ -45,6 +46,7 @@ public class ReportaccommodationServiceImpl implements ReportaccommodationServic
      * @return 受影响行数
      */
     @Override
+    @RecordOperation(type = "报账酒店信息",desc = "新增一条报账酒店信息！")
     public Integer insertReportaccommodation(Reportaccommodation reportaccommodation)throws Exception {
         reportaccommodation.setCreateDate(new Date());
         reportaccommodation.setStatus(0);

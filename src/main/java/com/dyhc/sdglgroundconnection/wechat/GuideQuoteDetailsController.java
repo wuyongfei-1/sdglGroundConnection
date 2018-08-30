@@ -45,6 +45,9 @@ public class GuideQuoteDetailsController {
     @Autowired
     private ReportqutsubsidyService reportqutsubsidyService;
 
+    @Autowired
+    private ReportingotherexpensesService reportingotherexpensesService;
+
     /**
      * 根据酒店编号查询酒店类型信息
      * @param hotelId 酒店编号
@@ -229,6 +232,36 @@ public class GuideQuoteDetailsController {
             return data;
         } catch (Exception e) {
             logger.error(" method:insertReportfareInfo  新增报账车票数据失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
+    /**
+     * 添加报账其他支出信息
+     * @param reportingotherexpenses 报账其他支出对象
+     * @return 返回ReponseResult对象
+     */
+    @RequestMapping("/insertReportingotherexpensesInfo")
+    public ReponseResult insertReportingotherexpensesInfo(@RequestBody Reportingotherexpenses reportingotherexpenses){
+        try {
+            Integer result = reportingotherexpensesService.insertReportingotherexpensesInfo(reportingotherexpenses);
+            ReponseResult<Integer> data = null;
+            if(result>0){
+                //二、返回ReponseResult对象
+                data = ReponseResult.ok(result , "新增报账其他支出信息成功！");
+                //三、录入日志并返回
+                logger.info(" method:insertReportingotherexpensesInfo  新增报账其他支出信息成功！");
+            }else{
+                //二、返回ReponseResult对象
+                data = ReponseResult.ok(result , "新增报账其他支出信息失败！");
+                //三、录入日志并返回
+                logger.info(" method:insertReportingotherexpensesInfo  新增报账其他支出信息失败！");
+            }
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:insertReportingotherexpensesInfo  新增报账其他支出数据失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
             return err;

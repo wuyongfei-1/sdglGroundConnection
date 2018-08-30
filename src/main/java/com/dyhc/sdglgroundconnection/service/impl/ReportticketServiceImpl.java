@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
+import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.mapper.ReportticketMapper;
 import com.dyhc.sdglgroundconnection.pojo.Reportdetail;
 import com.dyhc.sdglgroundconnection.pojo.Reportticket;
@@ -45,6 +46,7 @@ public class ReportticketServiceImpl implements ReportticketService {
      * @return 返回报账门票对象
      */
     @Override
+    @RecordOperation(type = "报账门票信息",desc = "新增一条报账门票信息！")
     public Integer insertReportticketInfo(Reportticket reportticket) {
         reportticket.setCreateDate(new Date());
         reportticket.setStatus(0);

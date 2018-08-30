@@ -29,25 +29,6 @@ public class GuideScheduleController {
 
     @Autowired
     private GuideScheduleService guideScheduleService;
-    /**
-     * 查询请假的导游信息  和 日程信息(lixiaojie)
-     * @return
-     */
-    @RequestMapping(value = "/chaxunsuoyoucaiwuxinxi", method = RequestMethod.POST)
-    public ReponseResult chaxunsuoyoucaiwuxinxi() {
-        try {
-            PageInfo<GuidescheduleParam> pageInfo = guideScheduleService.chaxunsuoyoucaiwuxinxi();
-            ReponseResult<List> data = ReponseResult.ok(pageInfo.getList(), pageInfo.getTotal(), "查询请假的导游信息和日程信息成功！");
-
-            logger.info(" method:selectScheduleScheduleStateBy2  分页查询请假的导游信息和日程信息成功！");
-            return data;
-        } catch (Exception e) {
-            logger.error(" method:selectScheduleScheduleStateBy2  分页查询请假的导游信息和日程信息失败，系统出现异常！");
-            e.printStackTrace();
-            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
-            return err;
-        }
-    }
 
     /**
      * 查询请假的导游信息  和 日程信息(lixiaojie)

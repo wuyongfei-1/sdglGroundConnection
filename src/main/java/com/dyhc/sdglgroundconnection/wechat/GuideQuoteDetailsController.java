@@ -1,5 +1,7 @@
 package com.dyhc.sdglgroundconnection.wechat;
 
+import com.dyhc.sdglgroundconnection.pojo.Dispatchhotel;
+import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,5 +17,10 @@ public class GuideQuoteDetailsController {
 
     // 日志对象
     private Logger logger = LoggerFactory.getLogger(GuideQuoteDetailsController.class);
+
+
+    public ReponseResult insertHotelInfo(Dispatchhotel dispatchhotel){
+        return null;
+    }
 
 }

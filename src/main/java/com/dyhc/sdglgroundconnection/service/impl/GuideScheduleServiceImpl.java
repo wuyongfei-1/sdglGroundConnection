@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
+import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.dto.GuidescheduleParam;
 import com.dyhc.sdglgroundconnection.mapper.DisguideMapper;
 import com.dyhc.sdglgroundconnection.mapper.GuideMapper;
@@ -44,6 +45,7 @@ public class GuideScheduleServiceImpl implements GuideScheduleService {
      * @return
      */
     @Override
+    @RecordOperation(type = "用户", desc = "修改了团的导游")
     public Integer updateDispatchGuide(Integer guideId, Integer offerId) {
         int reuslt = 0;
         //修改团导游   将此表的  guideId修改成  传过来的值
@@ -67,10 +69,7 @@ public class GuideScheduleServiceImpl implements GuideScheduleService {
             guideSchedule.setValue1(1 + "");
             reuslt = guideScheduleMapper.updateByPrimaryKeySelective(guideSchedule);
         }
-
-
         //然后点一下插一条
-
         return reuslt;
     }
 
@@ -84,6 +83,7 @@ public class GuideScheduleServiceImpl implements GuideScheduleService {
      * @throws ParseException
      */
     @Override
+    @RecordOperation(type = "总控", desc = "新增了导游日程")
     public Integer insertGuideScheduleInfo(Integer guideId, String Day, Integer offerId) throws ParseException {
 
         GuideSchedule guideSchedule = new GuideSchedule();
@@ -99,9 +99,7 @@ public class GuideScheduleServiceImpl implements GuideScheduleService {
     }
 
 
-    /**
-     * @return
-     */
+/*
     public PageInfo<GuidescheduleParam> chaxunsuoyoucaiwuxinxi() {
         PageHelper.startPage(1, 6, true);
         List<String> Value3s = null;
@@ -127,8 +125,7 @@ public class GuideScheduleServiceImpl implements GuideScheduleService {
         }
 
         return new PageInfo<>(guidescheduleParams);
-    }
-
+    }*/
 
     /**
      * 查询请假的导游信息  和 日程信息(lixiaojie)
@@ -158,6 +155,7 @@ public class GuideScheduleServiceImpl implements GuideScheduleService {
             }
         }
         return new PageInfo<GuideSchedule>(guideSchedules);*/
+        List<String> Value2s = guideScheduleMapper.selectGroupByGuideScheduleByValue3(guideName, firstDate, lastDate);
         PageHelper.startPage(pageNo, pageSize, true);
         List<String> Value3s = guideScheduleMapper.selectGroupByGuideScheduleByValue3(guideName, firstDate, lastDate);
         List<GuidescheduleParam> guidescheduleParams = new ArrayList<>();
@@ -179,16 +177,18 @@ public class GuideScheduleServiceImpl implements GuideScheduleService {
             guidescheduleParams.add(guidescheduleParam);
         }
         PageInfo<GuidescheduleParam> guidescheduleParam=new  PageInfo<GuidescheduleParam>(guidescheduleParams);
+        guidescheduleParam.setTotal(Value2s.size());
         return guidescheduleParam;
     }
 
     /**
-     * 新增导游请假信息
+     * 新增导游请假信息(lixiaojie)
      *
      * @param guideSchedule
      * @return
      */
     @Override
+    @RecordOperation(type = "总控", desc = "新增了导游请假信息")
     public Integer insertGuideScheduleStatus2(GuideSchedule guideSchedule) throws ParseException {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date beginTime = guideSchedule.getSchedulebegintime();
@@ -203,7 +203,7 @@ public class GuideScheduleServiceImpl implements GuideScheduleService {
         for (int i = 0; i < Number; i++) {
             Calendar c = Calendar.getInstance();
             c.setTime(beginTime);
-            c.add(Calendar.DAY_OF_MONTH, i);  //然后做出旅游天数每天的时间对象 填入 导游日程表中
+            c.add(Calendar.DAY_OF_MONTH, i+1);  //然后做出旅游天数每天的时间对象 填入 导游日程表中
             Date tomorrow = c.getTime();
             GuideSchedule gs = new GuideSchedule();
             gs.setGuideid(guideSchedule.getGuideid());

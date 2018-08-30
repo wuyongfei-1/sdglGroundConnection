@@ -8,6 +8,8 @@ import com.dyhc.sdglgroundconnection.service.TourguideService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 /**
  * 导游带团日志 业务实现类 wangtao
  */
@@ -35,5 +37,11 @@ public class TourguideServiceImpl implements TourguideService {
         tourguide.setDispatch(dispatchService.getDispatchInfoByDispatchInfoId(tourguide.getOffid()));
         tourguide.setGuide(guideService.selectGuideByIds(tourguide.getGuideid()));
         return tourguide;
+    }
+
+    @Override
+    public Integer insertTourguide(Tourguide tourguide) throws Exception {
+        tourguide.setCreatedate(new Date());
+        return tourguideMapper.insert(tourguide);
     }
 }

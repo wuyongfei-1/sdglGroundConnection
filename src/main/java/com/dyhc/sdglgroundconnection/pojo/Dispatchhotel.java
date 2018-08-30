@@ -20,7 +20,7 @@ public class Dispatchhotel {
     @Column(name = "offerId")
     private Integer offerId; // 调度信息编号（外键，与调度表关联）
     @Column(name = "weight")
-    private Integer weight;//权重（天数）
+    private Integer weight; // 权重（天数）
     @Column(name = "roomNumber")
     private Integer roomNumber; // 房间数量
     @Column(name = "costPrice")

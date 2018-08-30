@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <title>山西世达国旅订房通知单</title>
@@ -9,6 +9,7 @@
 </head>
 
 <body>
+<input type="hidden" th:value="${dispatchId}" id="dispatchId" />
     <div id="dy">
 	<div style="width:60%; margin:0 auto">
 		<div id="tupian">
@@ -119,7 +120,7 @@
     function dispatchShow() {
         $.ajax({
             url: "/dispatch/getDispatchInfoByDispatchId",
-            data: {dispatchId:1},
+            data: {dispatchId:$('#dispatchId').val()},
             dataType: "json",
             type: "post",
             success: function (e) {

@@ -14,4 +14,11 @@ public interface TourguideService {
      */
     Tourguide getTourguideInfoByTourguideId(Integer tourguideId)throws Exception;
 
+    /**
+     * 上传导游带团日志信息（dubingkun）
+     * @param tourguide
+     * @return
+     * @throws Exception
+     */
+    Integer insertTourguide(Tourguide tourguide)throws Exception;
 }

@@ -19,6 +19,7 @@ public interface DisguideService {
      */
     List<Dispatch> listDispatchGuideByGuideId(Integer guideId);
 
+
     /**
      * 根据导游id  和调度id获取  调度导游信息(lixiaojie)
      * @param guideId   导游id

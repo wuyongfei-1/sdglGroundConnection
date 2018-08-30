@@ -10,6 +10,7 @@ import com.dyhc.sdglgroundconnection.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -54,5 +55,18 @@ public class DispatchhotelServiceImpl implements DispatchhotelService {
     @RecordOperation(type = "调度酒店", desc = "添加了一条酒店信息")
     public Integer saveDispatchhotelInfo(List<Dispatchhotel> dispatchhotelList) throws DispatchException {
         return dispatchhotelMapper.insertList(dispatchhotelList);
+    }
+
+    /**
+     * 新增调度酒店信息 （wangtao）
+     * @param dispatchhotel 调度酒店对象
+     * @return 受影响行数
+     * @throws DispatchException
+     */
+    @Override
+    public Integer insertDispatchhotelInfo(Dispatchhotel dispatchhotel) throws DispatchException {
+        dispatchhotel.setWhetherDel(0);
+        dispatchhotel.setCreationDate(new Date());
+        return dispatchhotelMapper.insert(dispatchhotel);
     }
 }

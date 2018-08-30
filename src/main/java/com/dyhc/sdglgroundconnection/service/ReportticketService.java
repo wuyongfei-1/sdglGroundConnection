@@ -16,4 +16,11 @@ public interface ReportticketService {
      * @return 返回报账门票信息集合
      */
     List<Reportticket> listReportticketByValueId(Integer value1);
+
+    /**
+     * 新增报账门票信息
+     * @param reportticket 报账门票对象
+     * @return 返回报账门票对象
+     */
+    Integer insertReportticketInfo(Reportticket reportticket);
 }

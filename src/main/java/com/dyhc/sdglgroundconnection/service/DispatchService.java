@@ -42,7 +42,13 @@ public interface DispatchService {
      */
     TravelPathParam getTravelPathParam(Integer dispathId) throws  Exception;
 
-
+    /**
+     * 微信根据导游id查询行程的信息（yunguohao）
+     * @param guideId 导游id
+     * @return
+     * @throws Exception
+     */
+    GuideRouteParam getGuideRouteParam(Integer guideId) throws Exception;
     /**
      * 获取派团单信息根据调度编号 （wangtao）
      * @param dispatchId 调度编号

@@ -26,4 +26,12 @@ public interface DispatchhotelService {
      * @throws DispatchException 调度异常
      */
     Integer saveDispatchhotelInfo(List<Dispatchhotel> dispatchhotelList) throws DispatchException;
+
+    /**
+     * 新增调度酒店信息 （wangtao）
+     * @param dispatchhotel 调度酒店对象
+     * @return 受影响行数
+     * @throws DispatchException
+     */
+    Integer insertDispatchhotelInfo(Dispatchhotel dispatchhotel) throws DispatchException;
 }

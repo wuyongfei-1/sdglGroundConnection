@@ -97,7 +97,7 @@ public class OfferController {
             //查询所有当日行程
             List<Template> templates = templateService.listAllTemplate();
             //查询所有景点
-            List<Scenicspot> scenicspotList = scenicspotService.listScenicspot();
+            List<Scenicspot> scenicspotList = scenicspotService.listScenicspotByParentId(0);
             //查询所有酒店
             List<Hotel> hotelList = hotelService.listByaHotel();
             //查询所有饭菜类型

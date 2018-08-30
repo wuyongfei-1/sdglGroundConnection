@@ -17,4 +17,11 @@ public interface ReportaccommodationService {
      * @return 返回报账住宿集合
      */
     List<Reportaccommodation> listReportaccommodationByValueId(Integer value1);
+
+    /**
+     * 新增报账酒店信息
+     * @param reportaccommodation 报账酒店对象
+     * @return 受影响行数
+     */
+    Integer insertReportaccommodation(Reportaccommodation reportaccommodation);
 }

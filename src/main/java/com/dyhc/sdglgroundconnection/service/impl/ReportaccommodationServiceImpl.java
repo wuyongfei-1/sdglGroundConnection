@@ -7,6 +7,7 @@ import com.dyhc.sdglgroundconnection.service.ReportaccommodationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,5 +32,17 @@ public class ReportaccommodationServiceImpl implements ReportaccommodationServic
         criteria.andValue1EqualTo(value1.toString());
         List<Reportaccommodation> reportaccommodationList=reportaccommodationMapper.selectByExample(reportaccommodationExample);
         return reportaccommodationList;
+    }
+
+    /**
+     * 新增报账酒店信息
+     * @param reportaccommodation 报账酒店对象
+     * @return 受影响行数
+     */
+    @Override
+    public Integer insertReportaccommodation(Reportaccommodation reportaccommodation) {
+        reportaccommodation.setCreateDate(new Date());
+        reportaccommodation.setStatus(0);
+        return reportaccommodationMapper.insert(reportaccommodation);
     }
 }

@@ -96,7 +96,7 @@ public class OfferController {
             List<Linetemplate> linetemplates = linetemplateService.listAllLinetemplateInfo();
             //查询所有当日行程
             List<Template> templates = templateService.listAllTemplate();
-            //查询所有景点
+            //查询所有父景点
             List<Scenicspot> scenicspotList = scenicspotService.listScenicspotByParentId(0);
             //查询所有酒店
             List<Hotel> hotelList = hotelService.listByaHotel();

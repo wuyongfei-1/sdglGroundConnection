@@ -198,7 +198,7 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
         "<td><label class='layui-form-label'>购物地：</label></td>" +
         "<td colspan='3'>" + shoppings +
         "</td>" +
-        "	</tr>" +
+        "</tr>" +
         "<tr id='lunch'>" +
         "<td><label class='layui-form-label'>午餐</label></td>" +
         "	<td>" + restaurants +

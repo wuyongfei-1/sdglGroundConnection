@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="utf-8" />
 		<title></title>
@@ -23,6 +23,7 @@
 
 	</head>
 	<body>
+	<input type="hidden" th:value="${dispatchId}" id="dispatchId" />
 	<div id="dy">
 		<div id="tupian" style="width: 655px;margin-left: 355px;">
                 <img src="/images/logo.jpg" width="640px" height="50px">
@@ -254,7 +255,7 @@
 		$(function () {
             onloadInfo();
         });
-        var dispatchId=1;
+        var dispatchId=$('#dispatchId').val();
         function DateDiff(sDate1, sDate2) {
             var aDate, oDate1, oDate2, iDays;
             aDate = sDate1.split("-");

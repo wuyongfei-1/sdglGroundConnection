@@ -9,7 +9,26 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("/finance")
 public class EnterFinancePageController {
+    /**
+     * 进入管理员修改个人信息页面
+     * @param userId
+     * @param request
+     * @return
+     */
+    @RequestMapping("/admin-update.html")
+    public String adminUpdate(String userId, HttpServletRequest request) {
+        request.setAttribute("userId", userId);
+        return "finance/index/admin-update";
+    }
 
+    /**
+     * 进入admin-info页面
+     * @return
+     */
+    @RequestMapping("/admin-info.html")
+    public String adminInfo() {
+        return "finance/index/admin-info";
+    }
     /**
      * 进入计调首页
      * @return

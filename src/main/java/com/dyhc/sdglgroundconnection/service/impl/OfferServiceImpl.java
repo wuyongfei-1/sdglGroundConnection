@@ -116,6 +116,7 @@ public class OfferServiceImpl implements OfferService {
             offer.setCreater(1);
         }
         offer.setCreationDate(new Date());
+        offer.setValue1("3");
         int a = offerMapper.insert(offer);
         int maxOfferId = offerMapper.getIntegerByOfferId();//获取最新添加的offerid
         //用车
@@ -223,5 +224,10 @@ public class OfferServiceImpl implements OfferService {
         //报价
         Integer a=offerMapper.deleteByPrimaryKey(id);
         return a;
+    }
+
+    @Override
+    public Integer updateOfferValue1(Integer id, String value1) throws Exception {
+        return offerMapper.updateOfferByOfferId(id,value1);
     }
 }

@@ -224,17 +224,9 @@ public class DispatchServiceImpl implements DispatchService {
     public Integer saveDispatchInfo(DispatchParam disParam) throws DispatchException {
         try {
             // 添加调度基础信息
-            dispatchMapper.insert(disParam.getDispatch());
-            // 获取添加完返回的基础信息编号，用于更新其他数据
-            Dispatch dispatch = disParam.getDispatch();
-            // 根据时间获取
-            DispatchExample dispatchExample = new DispatchExample();
-            DispatchExample.Criteria criteria = dispatchExample.createCriteria();
-            criteria.andCreationdateEqualTo(dispatch.getCreationDate());
-            List<Dispatch> dispatches = dispatchMapper.selectByExample(dispatchExample);
+            Integer dispatchId = dispatchMapper.saveDispatchInfo(disParam.getDispatch());
             // 返回的基础数据编号
-            int baseId = dispatches != null && dispatches.size() > 0 ?
-                    dispatches.get(0).getDispatchId() : 1;
+            int baseId = dispatchId > 0 ? disParam.getDispatch().getDispatchId() : 1;
             // 添加线路信息
             List<Disline> dislineList = disParam.getDislineList();
             for (Disline disline : dislineList) {
@@ -280,7 +272,7 @@ public class DispatchServiceImpl implements DispatchService {
             // 添加旅行社信息
             Dispatchtourgroup dispatchtourgroup = disParam.getDispatchtourgroup();
             dispatchtourgroup.setOfferid(baseId);
-            return dispatchtourgroupServer.saveDispatchtourgroupInfo(dispatchtourgroup);
+            return baseId;
         } catch (Exception e) {
             e.printStackTrace();
             return null;

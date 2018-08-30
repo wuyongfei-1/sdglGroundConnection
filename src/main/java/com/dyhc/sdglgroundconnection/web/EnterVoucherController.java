@@ -25,7 +25,8 @@ public class EnterVoucherController {
      * @return
      */
     @RequestMapping("/BookingNotice.html")
-    public String enterBookingNotice() {
+    public String enterBookingNotice(Integer dispatchId,HttpServletRequest request) {
+        request.setAttribute("dispatchId",dispatchId);
         return "voucher/BookingNotice";
     }
 
@@ -34,7 +35,8 @@ public class EnterVoucherController {
      * @return
      */
     @RequestMapping("/CarRenting1.html")
-    public String enterCarRenting1() {
+    public String enterCarRenting1(Integer dispatchId,HttpServletRequest request) {
+        request.setAttribute("dispatchId",dispatchId);
         return "voucher/CarRenting1";
     }
 
@@ -79,7 +81,8 @@ public class EnterVoucherController {
      * @return
      */
     @RequestMapping("/Mission.html")
-    public String enterMission() {
+    public String enterMission(Integer dispatchId, HttpServletRequest request) {
+        request.setAttribute("dispatchId",dispatchId);
         return "voucher/Mission";
     }
 
@@ -97,7 +100,8 @@ public class EnterVoucherController {
      * @return
      */
     @RequestMapping("/ptd.html")
-    public String enterPtd() {
+    public String enterPtd(Integer dispatchId,HttpServletRequest request) {
+        request.setAttribute("dispatchId",dispatchId);
         return "voucher/ptd";
     }
 
@@ -106,7 +110,8 @@ public class EnterVoucherController {
      * @return
      */
     @RequestMapping("/SecurityHints.html")
-    public String enterSecurityHints() {
+    public String enterSecurityHints(Integer dispatchId,HttpServletRequest request) {
+        request.setAttribute("dispatchId",dispatchId);
         return "voucher/SecurityHints";
     }
 
@@ -115,7 +120,8 @@ public class EnterVoucherController {
      * @return
      */
     @RequestMapping("/TravelPlan.html")
-    public String enterTravelPlan() {
+    public String enterTravelPlan(Integer dispatchId,HttpServletRequest request) {
+        request.setAttribute("dispatchId",dispatchId);
         return "voucher/TravelPlan";
     }
 

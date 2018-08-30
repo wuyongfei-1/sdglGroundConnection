@@ -5,10 +5,10 @@
     <insert id="saveDispatchInfo" useGeneratedKeys="true" keyProperty="dispatchId">
         insert into  dispatch(groundConnectionNumber,groupNumber,sendLine,travelStartTime,travelEndTime
         ,num,tourist,trip,offer,aVariance,fare,wineFee,notContain,remarks,supervision,reception,total
-        ,loan,status,state,whetherDel,creater,modifier,modifiedData,creationDate,value1,value2,value3)
+        ,loan,`status`,state,whetherDel,creater,`modifier`,modifiedData,creationDate,value1,value2,value3)
          values (#{groundConnectionNumber},#{groupNumber},#{sendLine},#{travelStartTime},#{travelEndTime}
          ,#{num},#{tourist},#{trip},#{offer},#{aVariance},#{fare},#{wineFee},#{notContain},#{remarks},#{supervision}
-         ,#{reception},#{total},#{loan},#{status},#{whetherDel},#{creater},#{modifier},#{modifiedData}
+         ,#{reception},#{total},#{loan},#{status},#{state},#{whetherDel},#{creater},#{modifier},#{modifiedData}
          ,#{creationDate},#{value1},#{value2},#{value3});
     </insert>
 </mapper>

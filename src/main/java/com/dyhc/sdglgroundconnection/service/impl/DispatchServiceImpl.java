@@ -7,9 +7,13 @@ import com.dyhc.sdglgroundconnection.dto.GuideRouteParam;
 import com.dyhc.sdglgroundconnection.dto.MissionParam;
 import com.dyhc.sdglgroundconnection.dto.TravelPathParam;
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
+import com.dyhc.sdglgroundconnection.mapper.DisguideMapper;
+import com.dyhc.sdglgroundconnection.mapper.DispatchMapper;
+import com.dyhc.sdglgroundconnection.mapper.GuideMapper;
 import com.dyhc.sdglgroundconnection.mapper.*;
 import com.dyhc.sdglgroundconnection.pojo.*;
 import com.dyhc.sdglgroundconnection.service.*;
+import com.dyhc.sdglgroundconnection.utils.ConditionValidation;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -368,15 +372,19 @@ public class DispatchServiceImpl implements DispatchService {
      */
     @Override
     public Dispatch getDispatchInfoByDispatchInfoId(Integer dispatchId) throws Exception {
-        Dispatch dispatch = dispatchMapper.selectByPrimaryKey(dispatchId);
-        dispatch.setDispatchhotel(dispatchhotelService.getDispatchhotelInfoByDispatchId(dispatchId));
-        dispatch.setDisguide(disguideService.getDisguideByDispatchId(dispatchId));
-        dispatch.setDispatchtourgroup(dispatchtourgroupServer.getDispatchtourgroupByOffId(dispatchId));
-        dispatch.setDiscar(discarService.getDiscarByOffId(dispatchId));
-        dispatch.setDisattrList(disattrService.listDisattrByOffId(dispatchId));
-        dispatch.setCompany(companyService.selectCompanyByIds(1));
-        dispatch.setStaff(staffService.getStaffInfoByStaffId(dispatch.getCreater()));
-        dispatch.setDisrestaurantList(disrestaurantService.listDisrestaurantByOffId(dispatchId));
+        Dispatch dispatch=null;
+        if(ConditionValidation.validation(dispatchId)==true){
+            dispatch = dispatchMapper.selectByPrimaryKey(dispatchId);
+            dispatch.setDispatchhotel(dispatchhotelService.getDispatchhotelInfoByDispatchId(dispatchId));
+            dispatch.setDisguide(disguideService.getDisguideByDispatchId(dispatchId));
+            dispatch.setDispatchtourgroup(dispatchtourgroupServer.getDispatchtourgroupByOffId(dispatchId));
+            dispatch.setDiscar(discarService.getDiscarByOffId(dispatchId));
+            dispatch.setDisattrList(disattrService.listDisattrByOffId(dispatchId));
+            dispatch.setCompany(companyService.selectCompanyByIds(1));
+            dispatch.setStaff(staffService.getStaffInfoByStaffId(dispatch.getCreater()));
+            dispatch.setDisrestaurantList(disrestaurantService.listDisrestaurantByOffId(dispatchId));
+        }
+
         return dispatch;
     }
 
@@ -456,7 +464,7 @@ public class DispatchServiceImpl implements DispatchService {
      * @return
      */
     @Override
-    public PageInfo<Dispatch> selectDispatchs(Integer pageNo, Integer pageSize)throws Exception {
+    public PageInfo<Dispatch> selectDispatchs(Integer pageNo, Integer pageSize) {
         PageHelper.startPage(pageNo, pageSize, true);
         //查询调度表
         DispatchExample dispatchExample = new DispatchExample();
@@ -485,7 +493,7 @@ public class DispatchServiceImpl implements DispatchService {
      * @return
      */
     @Override
-    public Integer onCheckDispatchInfo(Integer dispatchId, int staffId) throws Exception {
+    public Integer onCheckDispatchInfo(Integer dispatchId, int staffId) throws ParseException {
         Integer result = 0;
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

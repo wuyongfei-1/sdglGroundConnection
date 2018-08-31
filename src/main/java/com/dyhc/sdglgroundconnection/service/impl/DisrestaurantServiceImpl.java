@@ -7,6 +7,7 @@ import com.dyhc.sdglgroundconnection.pojo.Disrestaurant;
 import com.dyhc.sdglgroundconnection.pojo.DisrestaurantExample;
 import com.dyhc.sdglgroundconnection.service.DisrestaurantService;
 import com.dyhc.sdglgroundconnection.service.MealTypeService;
+import com.dyhc.sdglgroundconnection.utils.ConditionValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,15 +34,19 @@ public class DisrestaurantServiceImpl implements DisrestaurantService {
      */
     @Override
     public List<Disrestaurant> listDisrestaurantByDispatchId(Integer dispatchId, Integer dinDate) throws Exception {
-        DisrestaurantExample disrestaurantExample=new DisrestaurantExample();
-        DisrestaurantExample.Criteria criteria=disrestaurantExample.createCriteria();
-        criteria.andOfferidEqualTo(dispatchId);
-        criteria.andDindateEqualTo(dinDate);
-        disrestaurantExample.setOrderByClause("weight asc");
-        List<Disrestaurant> disrestaurantList=disrestaurantMapper.selectByExample(disrestaurantExample);
-        for (Disrestaurant disrestaurant: disrestaurantList) {
-            disrestaurant.setMealType(mealTypeService.getMealTypeById(disrestaurant.getTypeId()));
+        List<Disrestaurant> disrestaurantList=null;
+        if(ConditionValidation.validation(dinDate)==true&&ConditionValidation.validation(dispatchId)==true){
+            DisrestaurantExample disrestaurantExample=new DisrestaurantExample();
+            DisrestaurantExample.Criteria criteria=disrestaurantExample.createCriteria();
+            criteria.andOfferidEqualTo(dispatchId);
+            criteria.andDindateEqualTo(dinDate);
+            disrestaurantExample.setOrderByClause("weight asc");
+            disrestaurantList=disrestaurantMapper.selectByExample(disrestaurantExample);
+            for (Disrestaurant disrestaurant: disrestaurantList) {
+                disrestaurant.setMealType(mealTypeService.getMealTypeById(disrestaurant.getTypeId()));
+            }
         }
+
         return disrestaurantList;
     }
 

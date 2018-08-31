@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,6 +46,8 @@ public class GuideQuoteDetailsController {
 
     @Autowired
     private ReportqutsubsidyService reportqutsubsidyService;
+    @Autowired
+    private ReportdetailService reportdetailService;
 
     @Autowired
     private ReportingotherexpensesService reportingotherexpensesService;
@@ -232,6 +236,41 @@ public class GuideQuoteDetailsController {
             return data;
         } catch (Exception e) {
             logger.error(" method:insertReportfareInfo  新增报账车票数据失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+    /**
+     * 新增报账明细信息（dubingkun）
+     * @param reportdetail 报账明细对象
+     * @return 返回ReponseResult对象
+     */
+    @RequestMapping("/insertReportdetail")
+    public ReponseResult insertReportdetail(HttpServletRequest httpServletRequest, @RequestBody Reportdetail reportdetail){
+        try {
+            Staff staff=(Staff)httpServletRequest.getSession().getAttribute("user") ;
+            reportdetail.setCreateBy(staff==null?1:staff.getStaffId());
+            reportdetail.setWhetherDel(0);
+            reportdetail.setCreateDate(new Date());
+            reportdetail.setTypeCode("BILL");
+            reportdetail.setStatus(1);
+            Integer result =reportdetailService.insertReportdetail(reportdetail);
+            ReponseResult<Integer> data = null;
+            if(result>0){
+                //二、返回ReponseResult对象
+                data = ReponseResult.ok(result , "新增报账明细信息成功！");
+                //三、录入日志并返回
+                logger.info(" method:insertReportfareInfo  新增报账明细信息成功！");
+            }else{
+                //二、返回ReponseResult对象
+                data = ReponseResult.ok(result , "新增报账明细信息失败！");
+                //三、录入日志并返回
+                logger.info(" method:insertReportfareInfo  新增报账明细信息失败！");
+            }
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:insertReportfareInfo  新增报账明细数据失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
             return err;

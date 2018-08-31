@@ -284,14 +284,14 @@ public class DispatchController {
             ReponseResult<Dispatch> data=null;
             if(dispatch!=null){
                 data = ReponseResult.ok(dispatch, "根据调度编号获取调度表信息成功！");
-                logger.info(" method:selectDispatchs  根据调度编号获取调度表信息成功！");
+                logger.info(" method:getDispatchInfoByDispatchId  根据调度编号获取调度表信息成功！");
             }else {
                 data = ReponseResult.ok(dispatch, "没有该调度表信息！");
-                logger.info(" method:selectDispatchs  没有该调度表信息！");
+                logger.info(" method:getDispatchInfoByDispatchId  没有该调度表信息！");
             }
             return data;
         } catch (Exception e) {
-            logger.error(" method:selectDispatchs  根据调度编号获取调度表信息失败，系统出现异常！");
+            logger.error(" method:getDispatchInfoByDispatchId  根据调度编号获取调度表信息失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
             return err;

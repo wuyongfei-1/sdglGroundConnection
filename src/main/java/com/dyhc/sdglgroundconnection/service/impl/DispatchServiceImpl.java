@@ -47,6 +47,11 @@ public class DispatchServiceImpl implements DispatchService {
     @Autowired
     private MealTypeMapper mealTypeMapper; //餐馆类型dao
     @Autowired
+    private DisattrMapper disattrMapper; //调度旅游dao
+
+    @Autowired
+    private ScenicspotMapper scenicspotMapper; //景点dao
+    @Autowired
     private RestaurantMapper restaurantMapper; //餐馆dao
     @Autowired
     private DisrestaurantMapper disrestaurantMapper; //调度餐厅dao
@@ -88,6 +93,40 @@ public class DispatchServiceImpl implements DispatchService {
     @Autowired
     private StaffService staffService;
 
+    /**
+     * 根据调度id获取调度信息(lixiaojie)
+     * @param dispatchId
+     * @return
+     */
+    @Override
+    public Dispatch getDispatchByDispatchId(Integer dispatchId) {
+        return dispatchMapper.selectByPrimaryKey(dispatchId);
+    }
+
+    /**
+     * 根据调度id查询所有的景点信息(lixiaojie)
+     * @param dispatchId
+     * @return
+     */
+    @Override
+    public List<WechatTicketbudgetParam> selectDispatchByScenicspotInfo(Integer dispatchId) {
+        DisattrExample disattrExample=new DisattrExample();
+        DisattrExample.Criteria disattrExampleCriteria=disattrExample.createCriteria();
+        disattrExample.setOrderByClause("weight");
+        List<Disattr> disattrs= disattrMapper.selectByExample(disattrExample);
+        disattrExampleCriteria.andOfferidEqualTo(dispatchId);
+        Dispatch dispatch=dispatchMapper.selectByPrimaryKey(dispatchId);
+        List<WechatTicketbudgetParam> wechatTicketbudgetParams=new ArrayList<>();
+        for (Disattr disattr:disattrs) {
+            WechatTicketbudgetParam wechatTicketbudgetParam=new WechatTicketbudgetParam();
+            wechatTicketbudgetParam.setDispatch(dispatch);
+            wechatTicketbudgetParam.setDisattr(disattr);
+            Scenicspot scenicspot=scenicspotMapper.selectByPrimaryKey(disattr.getScenicSpotId());
+            wechatTicketbudgetParam.setScenicspot(scenicspot);
+            wechatTicketbudgetParams.add(wechatTicketbudgetParam);
+        }
+        return wechatTicketbudgetParams;
+    }
 
     /**
      * 根据调度表id 和权重获取每天的吃饭信息和住宿信息(lixiaojie)
@@ -99,7 +138,6 @@ public class DispatchServiceImpl implements DispatchService {
     @Override
     public WechatEatAndHotelParam selectDispatchInfoByWeightDispatchId(Integer dispatchId, Integer weight) {
         WechatEatAndHotelParam wechatEatAndHotelParam = new WechatEatAndHotelParam();
-
         Dispatch dispatch=dispatchMapper.selectByPrimaryKey(dispatchId);
         DisrestaurantExample noonDisrestaurantExample = new DisrestaurantExample();
         DisrestaurantExample.Criteria noonDisrestaurantExampleCriteria = noonDisrestaurantExample.createCriteria();
@@ -109,14 +147,12 @@ public class DispatchServiceImpl implements DispatchService {
         List<Disrestaurant> noonDisrestaurant = disrestaurantMapper.selectByExample(noonDisrestaurantExample);
 /*        disrestaurantExampleCriteria.andDindateEqualTo(3);
         List<Disrestaurant> nightDisrestaurant = disrestaurantMapper.selectByExample(noonDisrestaurantExample);*/
-
         DisrestaurantExample nightDisrestaurantExample = new DisrestaurantExample();
         DisrestaurantExample.Criteria nightDisrestaurantExampleCriteria = nightDisrestaurantExample.createCriteria();
         nightDisrestaurantExampleCriteria.andOfferidEqualTo(dispatchId);
         nightDisrestaurantExampleCriteria.andWeightEqualTo(weight);
         nightDisrestaurantExampleCriteria.andDindateEqualTo(3);
         List<Disrestaurant> nightDisrestaurant = disrestaurantMapper.selectByExample(nightDisrestaurantExample);
-
         DispatchhotelExample dispatchhotelExample=new DispatchhotelExample();
         DispatchhotelExample.Criteria dispatchhotelExampleCriteria=dispatchhotelExample.createCriteria();
         dispatchhotelExampleCriteria.andOfferidEqualTo(dispatchId);
@@ -126,20 +162,14 @@ public class DispatchServiceImpl implements DispatchService {
          Disrestaurant noonDisrestaurantinfo=noonDisrestaurant.get(0);  //中午调度调度餐厅对象
          Disrestaurant nightDisrestaurantinfo=nightDisrestaurant.get(0);
         dispatchhotel.setHotel(hotelMapper.selectByPrimaryKey(dispatchhotel.getHotelId()));
-
-
-        MealType zhongmealType=mealTypeMapper.selectByPrimaryKey(noonDisrestaurantinfo.getMealType());
-        noonDisrestaurantinfo.setRestaurant(restaurantMapper.selectByPrimaryKey(zhongmealType.getTypeId()));
-
-        MealType wanmealType=mealTypeMapper.selectByPrimaryKey(nightDisrestaurantinfo.getMealType());
-        nightDisrestaurantinfo.setRestaurant(restaurantMapper.selectByPrimaryKey(wanmealType.getTypeId()));
-
+        MealType zhongmealType=mealTypeMapper.selectByPrimaryKey(noonDisrestaurantinfo.getTypeId());
+        noonDisrestaurantinfo.setRestaurant(restaurantMapper.selectByPrimaryKey(zhongmealType.getRestaurantId()));
+        MealType wanmealType=mealTypeMapper.selectByPrimaryKey(nightDisrestaurantinfo.getTypeId());
+        nightDisrestaurantinfo.setRestaurant(restaurantMapper.selectByPrimaryKey(wanmealType.getRestaurantId()));
         wechatEatAndHotelParam.setDispatchhotel(dispatchhotel);
         wechatEatAndHotelParam.setNoonDisrestaurant(noonDisrestaurantinfo);
         wechatEatAndHotelParam.setNightDisrestaurant(nightDisrestaurantinfo);
-
         wechatEatAndHotelParam.setDispatch(dispatch);
-
         return wechatEatAndHotelParam;
     }
 

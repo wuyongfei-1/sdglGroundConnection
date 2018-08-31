@@ -2,6 +2,8 @@ package com.dyhc.sdglgroundconnection.wechat;
 
 import com.dyhc.sdglgroundconnection.dto.WechatEatAndHotelParam;
 import com.dyhc.sdglgroundconnection.dto.WechatInformationParam;
+import com.dyhc.sdglgroundconnection.dto.WechatTicketbudgetParam;
+import com.dyhc.sdglgroundconnection.pojo.Dispatch;
 import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.dyhc.sdglgroundconnection.service.DispatchService;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
@@ -29,6 +31,49 @@ public class GuideMoneyBudgetController {
     //调度service
     @Autowired
     private DispatchService dispatchService;
+
+    /**
+     * 根据调度id获取调度信息(lixiaojie)
+     * @param dispatchId
+     * @return
+     */
+    @RequestMapping(value = "/getDispatchByDispatchId", method = RequestMethod.GET)
+    public ReponseResult getDispatchByDispatchId(Integer dispatchId) {
+        try {
+            Dispatch dispatch = dispatchService.getDispatchByDispatchId( dispatchId);
+            ReponseResult<Dispatch> data = ReponseResult.ok(dispatch,  "根据调度id获取调度信息成功！");
+            logger.info(" method:getDispatchByDispatchId  根据调度id获取调度信息成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:getDispatchByDispatchId  根据调度id获取调度信息失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
+    /**
+     * 根据调度id查询所有的景点信息(lixiaojie)
+     * @param dispatchId
+     * @return WechatTicketbudgetParam 微信景点参数类
+     */
+    @RequestMapping(value = "/selectDispatchByScenicspotInfo", method = RequestMethod.GET)
+    public ReponseResult selectDispatchByScenicspotInfo(Integer dispatchId) {
+        ReponseResult<List> data;
+        try {
+            List<WechatTicketbudgetParam> Lists = dispatchService.selectDispatchByScenicspotInfo(dispatchId);
+            data = ReponseResult.ok(Lists, "根据调度id查询所有的景点信息成功！");
+            logger.info(" method:selectDispatchByScenicspotInfo  根据调度id查询所有的景点信息成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:selectDispatchByScenicspotInfo  根据调度id查询所有的景点信息失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
+
 
     /**
      * 根据调度表id 和权重获取每天的吃饭信息和住宿信息(lixiaojie)

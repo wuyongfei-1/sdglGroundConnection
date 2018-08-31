@@ -14,6 +14,21 @@ import java.util.List;
  **/
 public interface DispatchService {
     /**
+     * 根据调度id获取调度信息
+     * @param dispatchId
+     * @return
+     */
+    Dispatch getDispatchByDispatchId(Integer dispatchId);
+
+    /**
+     * 根据调度id查询所有的景点信息(lixiaojie)
+     * @param dispatchId
+     * @return
+     */
+    List<WechatTicketbudgetParam> selectDispatchByScenicspotInfo(Integer dispatchId);
+
+
+    /**
      * 根据调度表id 和权重获取每天的吃饭信息和住宿信息(lixiaojie)
      * @param dispatchId
      * @param weight

@@ -45,19 +45,23 @@ public class DisguideServiceImpl implements DisguideService {
      */
     @Override
     public List<Dispatch> listDispatchGuideByGuideId(Integer guideId) {
-        DisguideExample disguideExample=new DisguideExample();
-        DisguideExample.Criteria criteria=disguideExample.createCriteria();
-        criteria.andGuideidEqualTo(guideId);
-        List<Disguide> disguideList=disguideMapper.selectByExample(disguideExample);
-        List<Dispatch> dispatchList=new ArrayList<>();
-        for (Disguide disguide: disguideList) {
-            Dispatch dispatch=dispatchMapper.selectByPrimaryKey(disguide.getOfferId());
-            BillExample billExample=new BillExample();
-            BillExample.Criteria criteria1=billExample.createCriteria();
-            criteria1.andDispatchidEqualTo(dispatch.getDispatchId());
-            criteria1.andBilltypeidEqualTo(3);
-            dispatch.setBill(billMapper.selectByExample(billExample).get(0));
-            dispatchList.add(dispatch);
+        List<Disguide> disguideList=null;
+        List<Dispatch> dispatchList=null;
+        if(ConditionValidation.validation(guideId)==true){
+            DisguideExample disguideExample=new DisguideExample();
+            DisguideExample.Criteria criteria=disguideExample.createCriteria();
+            criteria.andGuideidEqualTo(guideId);
+            disguideList=disguideMapper.selectByExample(disguideExample);
+            dispatchList=new ArrayList<>();
+            for (Disguide disguide: disguideList) {
+                Dispatch dispatch=dispatchMapper.selectByPrimaryKey(disguide.getOfferId());
+                BillExample billExample=new BillExample();
+                BillExample.Criteria criteria1=billExample.createCriteria();
+                criteria1.andDispatchidEqualTo(dispatch.getDispatchId());
+                criteria1.andBilltypeidEqualTo(3);
+                dispatch.setBill(billMapper.selectByExample(billExample).get(0));
+                dispatchList.add(dispatch);
+            }
         }
         return dispatchList;
     }

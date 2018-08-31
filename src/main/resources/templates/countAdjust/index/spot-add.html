@@ -147,7 +147,11 @@
             formData.append("multipartFile", fileObj);
             formData.append("savePath", savePath);
             formData.append("scenicSpotName",scenicSpotName);
-            formData.append("parentId",parentId);
+            if(parentId==-1){
+                formData.append("parentId",0);
+            }else{
+                formData.append("parentId",parentId);
+            }
             formData.append("typeId",typeId);
             formData.append("scenicSpotAddress",scenicSpotAddress);
             formData.append("costprice",costprice);
@@ -187,9 +191,9 @@
             },"json");
         }
         function parentScenicSpot() {
-            //获取父景点信息s
+            //获取父景点信息
             $.post("/scenicspot/ListScenicspotByParentId","",function (data) {
-                var content="<select name=\"parentId\" lay-filter=\"status\" id=\"parentId\" lay-ignore style=\"height: 37px;width: 200px\"><option value=\"0\">请选择父景点</option>";
+                var content="<select name=\"parentId\" lay-filter=\"status\" id=\"parentId\" lay-ignore style=\"height: 37px;width: 200px\"><option value=\"0\">请选择父景点</option><option value=\"-1\">无</option>";
                 $.each(data.data,function (i,e) {
                     content+="<option value=\""+e.scenicSpotId+"\">"+e.scenicSpotName+"</option>";
                 });
@@ -201,8 +205,12 @@
 			$.post("/scenicspot/getInfoById","scenicSpotId="+id,function (data) {
                 $("input[name='scenicSpotName']").val(data.data.scenicSpotName);
                 var pid=data.data.parentId;
+                if(pid==0){
+                    $("select[name='parentId']").val(-1);
+                }else{
+                    $("select[name='parentId']").val(pid);
+				}
                 /*alert(pid);*/
-                $("select[name='parentId']").val(pid);
                 /*var parentId=$("select[name='parentId']").val()
                 alert(parentId);*/
                 var tid=data.data.typeId;
@@ -240,7 +248,11 @@
             formData.append("multipartFile", fileObj);
             formData.append("savePath", savePath);
             formData.append("scenicSpotName",scenicSpotName);
-            formData.append("parentId",parentId);
+            if(parentId==-1){
+                formData.append("parentId",0);
+			}else{
+                formData.append("parentId",parentId);
+			}
             formData.append("typeId",typeId);
             formData.append("scenicSpotAddress",scenicSpotAddress);
             formData.append("costprice",costprice);

@@ -55,7 +55,7 @@ public class OfferServiceImpl implements OfferService {
      * @throws OfferException 报价异常
      */
     @Override
-    public Offer getOfferByOfferId(Integer offerId) throws OfferException {
+    public Offer getOfferByOfferId(Integer offerId) throws OfferException,Exception {
         Offer offer = offerMapper.selectByPrimaryKey(offerId);
         // 查询组团社名称
         Travel travel = travelService.selectTravelByIds(offer.getTravelId());

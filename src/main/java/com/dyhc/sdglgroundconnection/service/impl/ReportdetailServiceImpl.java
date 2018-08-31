@@ -134,7 +134,7 @@ public class ReportdetailServiceImpl implements ReportdetailService {
     }
 
     @Override
-    public PageInfo<Reportdetail> listReportdetail(Integer pageNo, Integer pageSize, String groupNumber,Integer states) {
+    public PageInfo<Reportdetail> listReportdetail(Integer pageNo, Integer pageSize, String groupNumber,Integer states)throws Exception {
         PageHelper.startPage(pageNo, pageSize, true);
         ReportdetailExample reportdetailExample=new ReportdetailExample();
         ReportdetailExample.Criteria criteria=reportdetailExample.createCriteria();

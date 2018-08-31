@@ -26,12 +26,12 @@ public class DiscarServiceImpl implements DiscarService {
     private VehicleTypeService vehicleTypeService;
 
     /**
-     * 根据调度编号获取调度用车信息
+     * 根据调度编号获取调度用车信息(lixiaojie)
      * @param offId 调度编号
      * @return 返回调度用车对象
      */
     @Override
-    public Discar getDiscarByOffId(Integer offId) {
+    public Discar getDiscarByOffId(Integer offId) throws Exception{
         DiscarExample discarExample=new DiscarExample();
         DiscarExample.Criteria criteria=discarExample.createCriteria();
         criteria.andOfferidEqualTo(offId);

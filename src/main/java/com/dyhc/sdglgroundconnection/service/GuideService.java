@@ -44,17 +44,17 @@ public interface GuideService {
     /**
      * 增加（yunguohao）
      */
-    int insertGuide(Guide guide);
+    int insertGuide(Guide guide) throws Exception;
 
     /**
      * 修改（yunguohao）
      */
-    int updateGuide(Guide guide);
+    int updateGuide(Guide guide) throws Exception;
 
     /**
      * 删除（yunguohao）
      */
-    int deleteGuideByIDs(int guideid);
+    int deleteGuideByIDs(int guideid) throws Exception;
 
     /**
      * id查询（yunguohao）
@@ -62,18 +62,18 @@ public interface GuideService {
      * @param id
      * @return
      */
-    Guide selectGuideByIds(int id);
+    Guide selectGuideByIds(int id) throws Exception;
 
     /**
      *  获取所有导游  和导游的日程 （lixiaojie)
      * @return
      */
-    List<Guide> selectGuideInfoAndGuideSchedule();
+    List<Guide> selectGuideInfoAndGuideSchedule()throws Exception;
 
     /**
      * 查询所有导游信息(lixiaojie)
      * @return
      */
-    List<Guide> selectAllGuideInfo();
+    List<Guide> selectAllGuideInfo()throws Exception;
 
 }

@@ -42,9 +42,18 @@ public class Disrestaurant {
     private String value1;
     private String value2;
     private String value3;
-
+    @Transient
+    private Restaurant restaurant;
     @Transient
     private MealType mealType; // 餐馆类型对象
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
 
     public Integer getWeight() {
         return weight;

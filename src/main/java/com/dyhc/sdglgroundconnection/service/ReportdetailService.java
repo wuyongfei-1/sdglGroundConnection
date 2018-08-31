@@ -51,5 +51,5 @@ public interface ReportdetailService {
      * @param groupNumber
      * @return
      */
-    PageInfo<Reportdetail> listReportdetail(Integer pageNo, Integer pageSize, String groupNumber,Integer states);
+    PageInfo<Reportdetail> listReportdetail(Integer pageNo, Integer pageSize, String groupNumber,Integer states) throws Exception;
 }

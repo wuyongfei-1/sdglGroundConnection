@@ -1,6 +1,7 @@
 package com.dyhc.sdglgroundconnection.wechat;
 
 import com.dyhc.sdglgroundconnection.pojo.Guide;
+import com.dyhc.sdglgroundconnection.service.DispatchService;
 import com.dyhc.sdglgroundconnection.service.GuideService;
 import com.dyhc.sdglgroundconnection.utils.ConditionValidation;
 import com.dyhc.sdglgroundconnection.utils.DateTimeUtil;
@@ -29,6 +30,9 @@ public class GuideAccountController {
 
     @Autowired
     private GuideService guideService;
+    @Autowired
+    private DispatchService dispatchService;
+
 
     /**
      * 导游登陆接口（wuyongfei）
@@ -71,7 +75,26 @@ public class GuideAccountController {
             return ReponseResult.err("系统出现异常，登陆失败！");
         }
     }
-
+    /**
+     * 根据导游id获取调度信息id  没有则返回null(lixiaojie)
+     * @param guideId
+     * @return
+     */
+    @RequestMapping("/selectDisGuideInfoByguideId")
+    public ReponseResult selectDisGuideInfoByguideId(Integer guideId) {
+        try {
+            Integer result = dispatchService.selectDisGuideInfoByguideId(guideId);
+            ReponseResult<Integer> date;
+                date = ReponseResult.ok(result, "根据导游id获取调度id成功");
+                logger.info(" method:selectDisGuideInfoByguideId  根据导游id获取调度id成功！");
+            return date;
+        } catch (Exception e) {
+            logger.error(" method:selectDisGuideInfoByguideId  根据导游id获取调度id失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
 
     /**
      * 根据导游编号查询导游的个人信息(yunguohao)

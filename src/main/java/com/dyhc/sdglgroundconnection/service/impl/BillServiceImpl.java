@@ -25,7 +25,7 @@ public class BillServiceImpl implements BillService {
      * @return
      */
     @Override
-    public Bill selectBillByDispatchIdAndBillTypeId(Integer dispatchId, Integer billTypeId) {
+    public Bill selectBillByDispatchIdAndBillTypeId(Integer dispatchId, Integer billTypeId)throws Exception  {
         BillExample billExample=new BillExample();
         Bill bill=null;
         BillExample.Criteria billExampleCriteria=billExample.createCriteria();

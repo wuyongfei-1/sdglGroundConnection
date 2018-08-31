@@ -216,6 +216,7 @@ public class OfferController {
                     previewOfferParam.getList()) {
                 Integer id = Integer.parseInt(item.getZsdh());//获取酒店id
                 Hotel hotel = hotelService.selectHotelById(id);
+                if(hotel!=null)
                 item.setZsdh(hotel.getPhone());
             }
             Staff staff = (Staff) httpServletRequest.getSession().getAttribute("user");
@@ -225,11 +226,12 @@ public class OfferController {
                 previewOfferParam.setStr22(staff.getPhone());//电话
             }
             //收件人信息
+            if(previewOfferParam.getOffer().getTravelId()!=null){
             Travel travel = travelService.selectTravelByIds(previewOfferParam.getOffer().getTravelId());
             previewOfferParam.setStr11(travel.getTravelName());//组团社名称
             previewOfferParam.setStr12(travel.getPersonName());//负责人
             previewOfferParam.setStr13(travel.getPersonPost());//职位
-
+            }
             ReponseResult<PreviewOfferParam> ok = ReponseResult.ok(previewOfferParam, "系统出现异常！");
             logger.info(" method:updateHotel  添加报价成功！");
             return ok;

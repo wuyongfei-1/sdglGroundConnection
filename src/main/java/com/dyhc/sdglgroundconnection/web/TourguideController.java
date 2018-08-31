@@ -6,7 +6,6 @@ import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,10 +32,18 @@ public class TourguideController {
         try {
             //一、根据导游带团日志编号查询导游带团日志信息
             Tourguide tourguide = tourguideService.getTourguideInfoByTourguideId(tourguideId);
-            //二、返回ReponseResult对象
-            ReponseResult<Tourguide> data = ReponseResult.ok(tourguide, "获取导游带团日志成功！");
-            //三、录入日志并返回
-            logger.info(" method:getTourguideInfoByTourguideId  获取导游带团日志成功！");
+            ReponseResult<Tourguide> data=null;
+            if(tourguide!=null){
+                //二、返回ReponseResult对象
+                data = ReponseResult.ok(tourguide, "获取导游带团日志成功！");
+                //三、录入日志并返回
+                logger.info(" method:getTourguideInfoByTourguideId  获取导游带团日志成功！");
+            }else{
+                //二、返回ReponseResult对象
+                data = ReponseResult.ok(tourguide, "没有该导游带团日志！");
+                //三、录入日志并返回
+                logger.info(" method:getTourguideInfoByTourguideId  没有该导游带团日志！");
+            }
             return data;
         } catch (Exception e) {
             logger.error(" method:getTourguideInfoByTourguideId  获取导游带团日志数据失败，系统出现异常！");

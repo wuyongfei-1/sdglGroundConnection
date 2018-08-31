@@ -264,32 +264,34 @@ public class DispatchServiceImpl implements DispatchService {
         travelPathParam.setDiscar(discarService.getDiscarByOffId(dispathId));
         travelPathParam.setCompany(companyService.selectCompanyByIds(1));
         travelPathParam.setDisguide(disguideService.getDisguideByDispatchId(dispathId));
-        travelPathParam.setStaff(staffService.getStaffInfoByStaffId(travelPathParam.getDispatch().getCreater()));
-        travelPathParam.setDisattrList(disattrService.listDisattrByOffId(dispathId));
-        travelPathParam.setDislineList(dislineService.dislineList(dispathId));
-        travelPathParam.setDisshoppList(disshoppService.getDisshopp(dispathId));
-        travelPathParam.setDisrestaurantList(disrestaurantService.listDisrestaurantByOffId(dispathId));
-        travelPathParam.setDispatchhotelList(dispatchhotelService.getDispatchhotelInfoByDispatchId(dispathId));
-        List<TravelPathParam> travelPathParams = new ArrayList<>();
-        for (int i = 0; i < travelPathParam.getDisattrList().size(); i++) {
-            TravelPathParam travelPathParam1 = new TravelPathParam();
-            travelPathParam1.setSzaddress(travelPathParam.getDisattrList().get(i).getScenicspot().getScenicSpotAddress());
-            travelPathParams.add(travelPathParam1);
-        }
-        for (int i = 0; i < travelPathParam.getDispatchhotelList().size(); i++) {
-            travelPathParams.get(i).setZhuaddress(travelPathParam.getDispatchhotelList().get(i).getHotel().getHotelName());
-        }
+        if(travelPathParam.getDispatch()!=null){
+            travelPathParam.setStaff(staffService.getStaffInfoByStaffId(travelPathParam.getDispatch().getCreater()));
+            travelPathParam.setDisattrList(disattrService.listDisattrByOffId(dispathId));
+            travelPathParam.setDislineList(dislineService.dislineList(dispathId));
+            travelPathParam.setDisshoppList(disshoppService.getDisshopp(dispathId));
+            travelPathParam.setDisrestaurantList(disrestaurantService.listDisrestaurantByOffId(dispathId));
+            travelPathParam.setDispatchhotelList(dispatchhotelService.getDispatchhotelInfoByDispatchId(dispathId));
+            List<TravelPathParam> travelPathParams = new ArrayList<>();
+            for (int i = 0; i < travelPathParam.getDisattrList().size(); i++) {
+                TravelPathParam travelPathParam1 = new TravelPathParam();
+                travelPathParam1.setSzaddress(travelPathParam.getDisattrList().get(i).getScenicspot().getScenicSpotAddress());
+                travelPathParams.add(travelPathParam1);
+            }
+            for (int i = 0; i < travelPathParam.getDispatchhotelList().size(); i++) {
+                travelPathParams.get(i).setZhuaddress(travelPathParam.getDispatchhotelList().get(i).getHotel().getHotelName());
+            }
 
-        for (int i = 0; i < travelPathParam.getDisshoppList().size(); i++) {
-            travelPathParams.get(i).setShoppaddress(travelPathParam.getDisshoppList().get(i).getShopping().getShoppingSite());
+            for (int i = 0; i < travelPathParam.getDisshoppList().size(); i++) {
+                travelPathParams.get(i).setShoppaddress(travelPathParam.getDisshoppList().get(i).getShopping().getShoppingSite());
+            }
+            for (int i = 0; i < travelPathParam.getDisrestaurantList().size(); i++) {
+                travelPathParams.get(i).setEataddress(travelPathParam.getDisrestaurantList().get(i).getMealType().getRestaurant().getRestaurantAddress());
+            }
+            for (int i = 0; i < travelPathParam.getDislineList().size(); i++) {
+                travelPathParams.get(i).setXctext(travelPathParam.getDislineList().get(i).getLineContent());
+            }
+            travelPathParam.setTravelPathParamList(travelPathParams);
         }
-        for (int i = 0; i < travelPathParam.getDisrestaurantList().size(); i++) {
-            travelPathParams.get(i).setEataddress(travelPathParam.getDisrestaurantList().get(i).getMealType().getRestaurant().getRestaurantAddress());
-        }
-        for (int i = 0; i < travelPathParam.getDislineList().size(); i++) {
-            travelPathParams.get(i).setXctext(travelPathParam.getDislineList().get(i).getLineContent());
-        }
-        travelPathParam.setTravelPathParamList(travelPathParams);
         return travelPathParam;
     }
 

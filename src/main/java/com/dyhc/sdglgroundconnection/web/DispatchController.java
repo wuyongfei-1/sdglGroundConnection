@@ -41,8 +41,15 @@ public class DispatchController {
     public ReponseResult getTravelPathById(@RequestParam("dispatchId") Integer dispatchId) {
         try {
             TravelPathParam travelPathParam = dispatchService.getTravelPathParam(dispatchId);
-            ReponseResult<TravelPathParam> data = ReponseResult.ok(travelPathParam, "根据调度编号获取计划信息成功！");
-            logger.info(" method:selectDispatchs  根据调度编号获取计划信息成功！");
+            ReponseResult<TravelPathParam> data=null;
+            if(travelPathParam.getDispatch()!=null){
+                data = ReponseResult.ok(travelPathParam, "根据调度编号获取计划信息成功！");
+                logger.info(" method:selectDispatchs  根据调度编号获取计划信息成功！");
+            }else{
+                data = ReponseResult.ok(travelPathParam, "没有该计划信息！");
+                logger.info(" method:selectDispatchs  没有该计划信息！");
+            }
+
             return data;
         } catch (Exception e) {
             logger.error(" method:selectDispatchs  根据调度编号获取计划信息失败，系统出现异常！");
@@ -274,11 +281,17 @@ public class DispatchController {
     public ReponseResult getDispatchInfoByDispatchId(@RequestParam("dispatchId") Integer dispatchId) {
         try {
             Dispatch dispatch = dispatchService.getDispatchInfoByDispatchInfoId(dispatchId);
-            ReponseResult<Dispatch> data = ReponseResult.ok(dispatch, "根据调度编号获取调度表信息成功！");
-            logger.info(" method:selectDispatchs  根据调度编号获取调度表信息成功！");
+            ReponseResult<Dispatch> data=null;
+            if(dispatch!=null){
+                data = ReponseResult.ok(dispatch, "根据调度编号获取调度表信息成功！");
+                logger.info(" method:getDispatchInfoByDispatchId  根据调度编号获取调度表信息成功！");
+            }else {
+                data = ReponseResult.ok(dispatch, "没有该调度表信息！");
+                logger.info(" method:getDispatchInfoByDispatchId  没有该调度表信息！");
+            }
             return data;
         } catch (Exception e) {
-            logger.error(" method:selectDispatchs  根据调度编号获取调度表信息失败，系统出现异常！");
+            logger.error(" method:getDispatchInfoByDispatchId  根据调度编号获取调度表信息失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
             return err;

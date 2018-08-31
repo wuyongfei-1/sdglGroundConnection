@@ -36,12 +36,12 @@ public interface TravelService {
     /**
      * 组团社增加（yunguohao）
      */
-    int insertTravels(Travel travel);
+    int insertTravels(Travel travel) throws Exception;
 
     /**
      * 组团社修改（yunguohao）
      */
-    int updateTravels(Travel travel);
+    int updateTravels(Travel travel) throws Exception;
 
     /**
      * 组团社删除（yunguohao）
@@ -54,5 +54,5 @@ public interface TravelService {
      * @param id
      * @return
      */
-    Travel selectTravelByIds(int id);
+    Travel selectTravelByIds(int id) throws Exception;
 }

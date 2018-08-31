@@ -113,7 +113,7 @@ public class DisguideServiceImpl implements DisguideService {
             DisguideExample.Criteria criteria=disguideExample.createCriteria();
             criteria.andOfferidEqualTo(dispatchId);
             List<Disguide> disguideList=disguideMapper.selectByExample(disguideExample);
-            if(disguideList!=null){
+            if(disguideList!=null&&disguideList.size()>0){
                 disguide=disguideList.get(0);
                 disguide.setGuide(guideService.selectGuideByIds(disguide.getGuideId()));
             }

@@ -7,6 +7,7 @@ import com.dyhc.sdglgroundconnection.pojo.Discar;
 import com.dyhc.sdglgroundconnection.pojo.DiscarExample;
 import com.dyhc.sdglgroundconnection.service.DiscarService;
 import com.dyhc.sdglgroundconnection.service.VehicleTypeService;
+import com.dyhc.sdglgroundconnection.utils.ConditionValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,15 +33,17 @@ public class DiscarServiceImpl implements DiscarService {
      */
     @Override
     public Discar getDiscarByOffId(Integer offId) throws Exception{
-        DiscarExample discarExample=new DiscarExample();
-        DiscarExample.Criteria criteria=discarExample.createCriteria();
-        criteria.andOfferidEqualTo(offId);
-        List<Discar> discarList=discarMapper.selectByExample(discarExample);
         Discar discar=null;
-        if(discarList!=null){
-            discar=discarList.get(0);
+        if(ConditionValidation.validation(offId)==true){
+            DiscarExample discarExample=new DiscarExample();
+            DiscarExample.Criteria criteria=discarExample.createCriteria();
+            criteria.andOfferidEqualTo(offId);
+            List<Discar> discarList=discarMapper.selectByExample(discarExample);
+            if(discarList!=null){
+                discar=discarList.get(0);
+            }
+            discar.setVehicleType(vehicleTypeService.getVehicleTypeInfoByTypeId(discar.getTypeId()));
         }
-        discar.setVehicleType(vehicleTypeService.getVehicleTypeInfoByTypeId(discar.getTypeId()));
         return discar;
     }
 

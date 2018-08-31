@@ -155,7 +155,7 @@ public class StaffServiceImpl implements StaffService {
 
         String TheUserName = "SDGL" + currentDateTime + flag;//拼接这些字符
         staff.setTheUserName(TheUserName);
-        staff.setHeadPortraitPath("aaa.jpg");
+        staff.setHeadPortraitPath("aasa.jpg");
         return staffMapper.insert(staff);
     }
 

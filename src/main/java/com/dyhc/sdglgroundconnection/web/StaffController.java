@@ -59,12 +59,35 @@ public class StaffController {
         }
     }
 
+
+    /**
+     * 修改密码时从session中获取用户id(lixiaojie)
+     *
+     * @return
+     */
+    @RequestMapping(value = "/updateStaffInfoGetSessionInfo",produces = {"application/json"})
+    public ReponseResult updateStaffInfoGetSessionInfo(HttpServletRequest request) {
+        Staff oldStaff = (Staff) request.getSession().getAttribute("user");
+        ReponseResult<Staff> data;
+        try {
+            Staff staff = staffService.getStaffInfoByStaffId(oldStaff != null ? oldStaff.getStaffId() : 1);
+            data = ReponseResult.ok(staff, "从session中获取用户id成功！");
+            logger.info(" method:updateStaffInfoGetSessionInfo  修改密码时从session中获取用户id成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:updateStaffInfoGetSessionInfo  修改密码时从session中获取用户id失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
     /**
      * 从session中获取用户id(lixiaojie)
      *
      * @return
      */
-    @RequestMapping(value = "/getStaffIdBySession", method = RequestMethod.POST)
+    @RequestMapping(value = "/getStaffIdBySession",produces = {"application/json"})
     public ReponseResult getStaffIdBySession(HttpServletRequest request) {
         Staff oldStaff = (Staff) request.getSession().getAttribute("user");
         ReponseResult<Staff> data;

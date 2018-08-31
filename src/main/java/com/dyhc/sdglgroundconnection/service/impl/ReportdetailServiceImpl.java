@@ -148,15 +148,19 @@ public class ReportdetailServiceImpl implements ReportdetailService {
             criteria.andStatusEqualTo(states);
         }
         List<Reportdetail> reportdetailList=reportdetailMapper.selectByExample(reportdetailExample);//获取所有报账明细
+        if(reportdetailList!=null&&reportdetailList.size()!=0){
         for (Reportdetail item :
                 reportdetailList) {
             //根据报账编号获取调度信息
             Dispatch dispatch=dispatchMapper.selectByPrimaryKey(item.getDispatchId());
+            if(dispatch!=null)
             item.setGroupNumber(dispatch.getGroupNumber());//查询团号
             //查询导游
             Disguide disguide=disguideService.getDisguideByDispatchId(item.getDispatchId());//根据调度编号获取到由信息
-            Guide guide=guideService.selectGuideByIds(disguide.getGuideId());
-            item.setUsername(guide.getUsername());//查询导游名称
+            if(disguide!=null) {
+                Guide guide = guideService.selectGuideByIds(disguide.getGuideId());
+                item.setUsername(guide.getUsername());//查询导游名称
+            }
         }
         //根据团号进行筛选
         if(groupNumber!=null&&groupNumber!=""){
@@ -168,6 +172,7 @@ public class ReportdetailServiceImpl implements ReportdetailService {
                 }
             }
             reportdetailList=reportdetails;
+        }
         }
         PageInfo<Reportdetail> pageInfo = new PageInfo<Reportdetail>(reportdetailList);
         return pageInfo;

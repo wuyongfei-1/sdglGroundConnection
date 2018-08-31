@@ -20,10 +20,11 @@ public class BillTypeServiceImpl implements BillTypeService {
 
     /**
      * 查询所有单据类型(lixiaojie)
+     *
      * @return
      */
     @Override
-    public List<BillType> selectAllBillType() {
+    public List<BillType> selectAllBillType() throws Exception {
         return billTypeMapper.selectAll();
     }
 }

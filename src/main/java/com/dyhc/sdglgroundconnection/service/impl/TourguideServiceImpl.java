@@ -5,6 +5,7 @@ import com.dyhc.sdglgroundconnection.pojo.Tourguide;
 import com.dyhc.sdglgroundconnection.service.DispatchService;
 import com.dyhc.sdglgroundconnection.service.GuideService;
 import com.dyhc.sdglgroundconnection.service.TourguideService;
+import com.dyhc.sdglgroundconnection.utils.ConditionValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,9 +34,14 @@ public class TourguideServiceImpl implements TourguideService {
      */
     @Override
     public Tourguide getTourguideInfoByTourguideId(Integer tourguideId) throws Exception{
-        Tourguide tourguide=tourguideMapper.selectByPrimaryKey(tourguideId);
-        tourguide.setDispatch(dispatchService.getDispatchInfoByDispatchInfoId(tourguide.getOffid()));
-        tourguide.setGuide(guideService.selectGuideByIds(tourguide.getGuideid()));
+        Tourguide tourguide=null;
+        if(ConditionValidation.validation(tourguideId)==true){
+            tourguide=tourguideMapper.selectByPrimaryKey(tourguideId);
+            if(tourguide!=null){
+                tourguide.setDispatch(dispatchService.getDispatchInfoByDispatchInfoId(tourguide.getOffid()));
+                tourguide.setGuide(guideService.selectGuideByIds(tourguide.getGuideid()));
+            }
+        }
         return tourguide;
     }
 

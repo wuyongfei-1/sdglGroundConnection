@@ -7,6 +7,7 @@ import com.dyhc.sdglgroundconnection.pojo.Disattr;
 import com.dyhc.sdglgroundconnection.pojo.DisattrExample;
 import com.dyhc.sdglgroundconnection.service.DisattrService;
 import com.dyhc.sdglgroundconnection.service.ScenicspotService;
+import com.dyhc.sdglgroundconnection.utils.ConditionValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,14 +33,18 @@ public class DisattrServiceImpl implements DisattrService {
      */
     @Override
     public List<Disattr> listDisattrByOffId(Integer offerId)throws Exception {
-        DisattrExample disattrExample=new DisattrExample();
-        DisattrExample.Criteria criteria=disattrExample.createCriteria();
-        criteria.andOfferidEqualTo(offerId);
-        disattrExample.setOrderByClause("weight asc");
-        List<Disattr> disattrList=disattrMapper.selectByExample(disattrExample);
-        for (Disattr disattr: disattrList) {
-            disattr.setScenicspot(scenicspotService.getScenicspotById(disattr.getScenicSpotId()));
+        List<Disattr> disattrList=null;
+        if(ConditionValidation.validation(offerId)==true){
+            DisattrExample disattrExample=new DisattrExample();
+            DisattrExample.Criteria criteria=disattrExample.createCriteria();
+            criteria.andOfferidEqualTo(offerId);
+            disattrExample.setOrderByClause("weight asc");
+            disattrList=disattrMapper.selectByExample(disattrExample);
+            for (Disattr disattr: disattrList) {
+                disattr.setScenicspot(scenicspotService.getScenicspotById(disattr.getScenicSpotId()));
+            }
         }
+
         return disattrList;
     }
 

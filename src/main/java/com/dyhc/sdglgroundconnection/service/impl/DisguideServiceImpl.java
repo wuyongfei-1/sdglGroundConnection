@@ -9,6 +9,7 @@ import com.dyhc.sdglgroundconnection.mapper.GuideMapper;
 import com.dyhc.sdglgroundconnection.pojo.*;
 import com.dyhc.sdglgroundconnection.service.DisguideService;
 import com.dyhc.sdglgroundconnection.service.GuideService;
+import com.dyhc.sdglgroundconnection.utils.ConditionValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -105,15 +106,17 @@ public class DisguideServiceImpl implements DisguideService {
      * @return 返回调度导游表对象
      */
     @Override
-    public Disguide getDisguideByDispatchId(Integer dispatchId) {
-        DisguideExample disguideExample=new DisguideExample();
-        DisguideExample.Criteria criteria=disguideExample.createCriteria();
-        criteria.andOfferidEqualTo(dispatchId);
-        List<Disguide> disguideList=disguideMapper.selectByExample(disguideExample);
+    public Disguide getDisguideByDispatchId(Integer dispatchId) throws Exception {
         Disguide disguide=null;
-        if(disguideList!=null){
-            disguide=disguideList.get(0);
-            disguide.setGuide(guideService.selectGuideByIds(disguide.getGuideId()));
+        if(ConditionValidation.validation(dispatchId)==true){
+            DisguideExample disguideExample=new DisguideExample();
+            DisguideExample.Criteria criteria=disguideExample.createCriteria();
+            criteria.andOfferidEqualTo(dispatchId);
+            List<Disguide> disguideList=disguideMapper.selectByExample(disguideExample);
+            if(disguideList!=null){
+                disguide=disguideList.get(0);
+                disguide.setGuide(guideService.selectGuideByIds(disguide.getGuideId()));
+            }
         }
         return disguide;
     }

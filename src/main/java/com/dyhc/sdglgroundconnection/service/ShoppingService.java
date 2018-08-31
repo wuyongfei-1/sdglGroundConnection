@@ -39,14 +39,14 @@ public interface ShoppingService {
      * @param shoppingSite 购物地点
      * @return
      */
-    PageInfo<Shopping> listPageShoppingByShoppingSite(Integer pageNo, Integer pageSize, String shoppingSite);
+    PageInfo<Shopping> listPageShoppingByShoppingSite(Integer pageNo, Integer pageSize, String shoppingSite)throws Exception;
 
     /**
      * 获取所有景点信息 （lixiaojie)
      *
      * @return
      */
-    List<Scenicspot> listScenicspotAll();
+    List<Scenicspot> listScenicspotAll()throws Exception;
 
     /**
      * 新增购物信息 （lixiaojie)
@@ -54,7 +54,7 @@ public interface ShoppingService {
      * @param shopping
      * @return
      */
-    Integer saveShoppingInfo(Shopping shopping);
+    Integer saveShoppingInfo(Shopping shopping)throws Exception;
 
     /**
      * 根据id获取购物信息 （lixiaojie)
@@ -62,7 +62,7 @@ public interface ShoppingService {
      * @param shoppingId
      * @return
      */
-    Shopping getShoppingInfoByShoppingId(Integer shoppingId);
+    Shopping getShoppingInfoByShoppingId(Integer shoppingId)throws Exception;
 
     /**
      * 修改购物信息 （lixiaojie)
@@ -70,7 +70,7 @@ public interface ShoppingService {
      * @param shopping
      * @return
      */
-    Integer updateShoppingInfo(Shopping shopping);
+    Integer updateShoppingInfo(Shopping shopping)throws Exception;
 
     /**
      * 根据id删除购物信息 （lixiaojie)

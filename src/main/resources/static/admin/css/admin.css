@@ -1589,7 +1589,8 @@
 .main-layout-side .m-logo {
   width: 100%;
   height: 60px;
-  background: #00b5f9 url(../images/logo.png) center center no-repeat;
+  background:  url(/images/logo.png);
+  background-size: 750px 60px;
 }
 .main-layout-side .layui-nav {
   background: #444c63;

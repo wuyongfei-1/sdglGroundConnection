@@ -7,6 +7,7 @@ import com.dyhc.sdglgroundconnection.pojo.Dispatchhotel;
 import com.dyhc.sdglgroundconnection.pojo.DispatchhotelExample;
 import com.dyhc.sdglgroundconnection.service.DispatchhotelService;
 import com.dyhc.sdglgroundconnection.service.HotelService;
+import com.dyhc.sdglgroundconnection.utils.ConditionValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,14 +34,18 @@ public class DispatchhotelServiceImpl implements DispatchhotelService {
      */
     @Override
     public List<Dispatchhotel> getDispatchhotelInfoByDispatchId(Integer dispatchId) {
-        DispatchhotelExample dispatchhotelExample=new DispatchhotelExample();
-        DispatchhotelExample.Criteria criteria=dispatchhotelExample.createCriteria();
-        criteria.andOfferidEqualTo(dispatchId);
-        dispatchhotelExample.setOrderByClause("weight asc");
-        List<Dispatchhotel> dispatchhotelList=dispatchhotelMapper.selectByExample(dispatchhotelExample);
-        for (Dispatchhotel dispatchhote1: dispatchhotelList) {
-            dispatchhote1.setHotel(hotelService.selectHotelById(dispatchhote1.getHotelId()));
+        List<Dispatchhotel> dispatchhotelList=null;
+        if(ConditionValidation.validation(dispatchId)==true){
+            DispatchhotelExample dispatchhotelExample=new DispatchhotelExample();
+            DispatchhotelExample.Criteria criteria=dispatchhotelExample.createCriteria();
+            criteria.andOfferidEqualTo(dispatchId);
+            dispatchhotelExample.setOrderByClause("weight asc");
+            dispatchhotelList=dispatchhotelMapper.selectByExample(dispatchhotelExample);
+            for (Dispatchhotel dispatchhote1: dispatchhotelList) {
+                dispatchhote1.setHotel(hotelService.selectHotelById(dispatchhote1.getHotelId()));
+            }
         }
+
         return dispatchhotelList;
     }
 

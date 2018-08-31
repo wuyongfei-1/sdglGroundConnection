@@ -5,6 +5,7 @@ import com.dyhc.sdglgroundconnection.mapper.DispatchMapper;
 import com.dyhc.sdglgroundconnection.mapper.ReportdetailMapper;
 import com.dyhc.sdglgroundconnection.pojo.*;
 import com.dyhc.sdglgroundconnection.service.*;
+import com.dyhc.sdglgroundconnection.utils.ConditionValidation;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,26 +58,31 @@ public class ReportdetailServiceImpl implements ReportdetailService {
      */
     @Override
     public Reportdetail selectReportdetailById(int reportDetailId) {
-        Reportdetail reportdetail=reportdetailMapper.selectByPrimaryKey(reportDetailId);
-        //给调度表对象赋值
-        reportdetail.setDispatch(dispatchMapper.selectByPrimaryKey(reportdetail.getDispatchId()));
-        //给线路对象赋值
-        DislineExample dislineExample=new DislineExample();
-        DislineExample.Criteria dislineExampleCriteria=dislineExample.createCriteria();
-        dislineExampleCriteria.andOfferidEqualTo(dispatchMapper.selectByPrimaryKey(reportdetail.getDispatchId()).getDispatchId());
-        reportdetail.setDisline(dislineMapper.selectByExample(dislineExample).get(0));
-        //给导游报账住宿集合赋值
-        reportdetail.setReportaccommodationList(reportaccommodationService.listReportaccommodationByValueId(reportDetailId));
-        //给导游报账餐厅集合赋值
-        reportdetail.setReportrestaurantList(reportrestaurantService.listReportrestaurantByValueId(reportDetailId));
-        //给导游报账门票集合赋值
-        reportdetail.setReportticketList(reportticketService.listReportticketByValueId(reportDetailId));
-        //给导游报账车费对象赋值
-        reportdetail.setReportfare(reportfareService.getReportfareByValueId(reportDetailId));
-        //给导游报账其他支出对象赋值
-        reportdetail.setReportingotherexpenses(reportingotherexpensesService.getReportingotherexpensesByValueId(reportDetailId));
-        //给导游报账出团补助对象赋值
-        reportdetail.setReportqutsubsidy(reportqutsubsidyService.getReportqutsubsidyByValueId(reportDetailId));
+        Reportdetail reportdetail=null;
+        if(ConditionValidation.validation(reportDetailId)==true){
+            reportdetail=reportdetailMapper.selectByPrimaryKey(reportDetailId);
+            if(reportdetail!=null){
+                //给调度表对象赋值
+                reportdetail.setDispatch(dispatchMapper.selectByPrimaryKey(reportdetail.getDispatchId()));
+                //给线路对象赋值
+                DislineExample dislineExample=new DislineExample();
+                DislineExample.Criteria dislineExampleCriteria=dislineExample.createCriteria();
+                dislineExampleCriteria.andOfferidEqualTo(dispatchMapper.selectByPrimaryKey(reportdetail.getDispatchId()).getDispatchId());
+                reportdetail.setDisline(dislineMapper.selectByExample(dislineExample).get(0));
+                //给导游报账住宿集合赋值
+                reportdetail.setReportaccommodationList(reportaccommodationService.listReportaccommodationByValueId(reportDetailId));
+                //给导游报账餐厅集合赋值
+                reportdetail.setReportrestaurantList(reportrestaurantService.listReportrestaurantByValueId(reportDetailId));
+                //给导游报账门票集合赋值
+                reportdetail.setReportticketList(reportticketService.listReportticketByValueId(reportDetailId));
+                //给导游报账车费对象赋值
+                reportdetail.setReportfare(reportfareService.getReportfareByValueId(reportDetailId));
+                //给导游报账其他支出对象赋值
+                reportdetail.setReportingotherexpenses(reportingotherexpensesService.getReportingotherexpensesByValueId(reportDetailId));
+                //给导游报账出团补助对象赋值
+                reportdetail.setReportqutsubsidy(reportqutsubsidyService.getReportqutsubsidyByValueId(reportDetailId));
+            }
+        }
         return reportdetail;
     }
 
@@ -134,7 +140,7 @@ public class ReportdetailServiceImpl implements ReportdetailService {
     }
 
     @Override
-    public PageInfo<Reportdetail> listReportdetail(Integer pageNo, Integer pageSize, String groupNumber,Integer states) {
+    public PageInfo<Reportdetail> listReportdetail(Integer pageNo, Integer pageSize, String groupNumber,Integer states)throws Exception {
         PageHelper.startPage(pageNo, pageSize, true);
         ReportdetailExample reportdetailExample=new ReportdetailExample();
         ReportdetailExample.Criteria criteria=reportdetailExample.createCriteria();

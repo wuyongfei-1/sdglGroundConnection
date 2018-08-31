@@ -81,6 +81,10 @@ public class OfferController {
             logger.error(" method:getOfferInfoById  根据编号获取报价信息失败！");
             e.printStackTrace();
             return ReponseResult.err("获取报价信息失败！");
+        } catch (Exception e) {
+            logger.error(" method:getOfferInfoById  根据编号获取报价信息失败！");
+            e.printStackTrace();
+            return ReponseResult.err("获取报价信息失败！");
         }
     }
 

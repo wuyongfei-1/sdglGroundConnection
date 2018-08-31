@@ -33,7 +33,7 @@ public interface DisguideService {
      * @param dispatchId 调度表编号
      * @return 返回调度导游表对象
      */
-    Disguide getDisguideByDispatchId(Integer dispatchId);
+    Disguide getDisguideByDispatchId(Integer dispatchId) throws Exception;
 
     /**
      * 添加调度导游信息（wuyongfei）
@@ -48,7 +48,7 @@ public interface DisguideService {
      * @param disGuideId
      * @return
      */
-    List<Disguide> selectdisGuideId(int disGuideId);
+    List<Disguide> selectdisGuideId(int disGuideId) throws Exception;
 
 
 }

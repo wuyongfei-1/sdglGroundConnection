@@ -105,7 +105,7 @@ public class DisguideServiceImpl implements DisguideService {
      * @return 返回调度导游表对象
      */
     @Override
-    public Disguide getDisguideByDispatchId(Integer dispatchId) {
+    public Disguide getDisguideByDispatchId(Integer dispatchId) throws Exception {
         DisguideExample disguideExample=new DisguideExample();
         DisguideExample.Criteria criteria=disguideExample.createCriteria();
         criteria.andOfferidEqualTo(dispatchId);

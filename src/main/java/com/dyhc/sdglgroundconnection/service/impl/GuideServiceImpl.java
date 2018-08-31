@@ -106,7 +106,7 @@ public class GuideServiceImpl implements GuideService {
      */
     @Override
     @RecordOperation(type = "导游", desc = "添加了一条导游信息")
-    public int insertGuide(Guide guide) {
+    public int insertGuide(Guide guide)throws Exception {
         guide.setWhetherDel(0);
         guide.setState(3);
         guide.setPassword(EncryUtil.encrypt("123456"));//密码加密
@@ -133,7 +133,7 @@ public class GuideServiceImpl implements GuideService {
      */
     @Override
     @RecordOperation(type = "导游", desc = "修改了一条导游信息")
-    public int updateGuide(Guide guide) {
+    public int updateGuide(Guide guide)throws Exception {
         Guide offguide=guideMapper.selectByPrimaryKey(guide.getGuideId());
         System.out.println(offguide.getModifiedData());
         guide.setModifier(guide.getModifier());
@@ -154,7 +154,7 @@ public class GuideServiceImpl implements GuideService {
      */
     @Override
     @RecordOperation(type = "导游", desc = "删除了一条导游信息")
-    public int deleteGuideByIDs(int guideid) {
+    public int deleteGuideByIDs(int guideid)throws Exception {
         return guideMapper.deleteGuide(guideid);
     }
 
@@ -165,7 +165,7 @@ public class GuideServiceImpl implements GuideService {
      * @return
      */
     @Override
-    public Guide selectGuideByIds(int id) {
+    public Guide selectGuideByIds(int id) throws Exception {
         return guideMapper.selectByPrimaryKey(id);
     }
 

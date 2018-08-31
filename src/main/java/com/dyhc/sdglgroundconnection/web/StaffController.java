@@ -142,7 +142,7 @@ public class StaffController {
             Staff sessionstaff= (Staff) request.getSession().getAttribute("user");
             staff.setCreateBy(sessionstaff!=null?sessionstaff.getStaffId():1);
             staff.setCreateDate(new Date());
-            int result = staffService.saveStaffInfo(staff);
+             int result = staffService.saveStaffInfo(staff);
             ReponseResult<String> date;
             if (result > 0) {
                 date = ReponseResult.ok("1", "增加用户信息成功！");
@@ -155,8 +155,8 @@ public class StaffController {
             return date;
         } catch (Exception e) {
             logger.error(" method:saveStaffInfo  增加用户信息失败，系统出现异常！");
-            e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            e.printStackTrace();
             return err;
         }
     }
@@ -268,24 +268,29 @@ public class StaffController {
     }
 
     /**
-     * 修改公司(lixiaojie)
+     * 用户修改密码(lixiaojie)
      */
     @RequestMapping("/updateStaff1")
-    public ReponseResult updateCompany(Staff staff) {
+    public ReponseResult updateStaff1(Staff staff,HttpServletRequest request) {
         try {
+            Staff sessionstaff= (Staff) request.getSession().getAttribute("user");
+            staff.setStaffId(sessionstaff!=null?sessionstaff.getStaffId():1);
+            staff.setUpdateBy(sessionstaff!=null?sessionstaff.getStaffId():1);
+            staff.setUpdateDate(new Date());
+
             int result = staffService.updateStaffpas(staff);
             ReponseResult<String> date;
             if (result > 0) {
-                date = ReponseResult.ok("1", "修改公司成功！");
-                logger.info("method:updateStaff1  修改公司成功！");
+                date = ReponseResult.ok("1", "用户修改密码成功！");
+                logger.info("method:updateStaff1  用户修改密码成功！");
 
             } else {
-                date = ReponseResult.ok("0", "修改公司失败！");
-                logger.info(" method:updateStaff1  修改公司失败！");
+                date = ReponseResult.ok("0", "用户修改密码失败！");
+                logger.info(" method:updateStaff1  用户修改密码失败！");
             }
             return date;
         } catch (Exception e) {
-            logger.error(" method:updateStaff1  修改公司失败，系统出现异常！");
+            logger.error(" method:updateStaff1  用户修改密码失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
             return err;

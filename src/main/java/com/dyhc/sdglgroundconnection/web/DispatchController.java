@@ -1,15 +1,10 @@
 package com.dyhc.sdglgroundconnection.web;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.dyhc.sdglgroundconnection.dto.*;
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.pojo.*;
-import com.dyhc.sdglgroundconnection.pojo.Dispatch;
-import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.dyhc.sdglgroundconnection.service.DispatchService;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,9 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
@@ -71,8 +63,14 @@ public class DispatchController {
     public ReponseResult getMissionInfoByDisId(@RequestParam("dispatchId") Integer dispatchId) {
         try {
             MissionParam missionParam = dispatchService.getMissionParam(dispatchId);
-            ReponseResult<MissionParam> data = ReponseResult.ok(missionParam, "根据调度编号获取派团单信息成功！");
-            logger.info(" method:selectDispatchs  根据调度编号获取派团单信息成功！");
+            ReponseResult<MissionParam> data=null;
+            if(missionParam.getDispatch()!=null){
+                data = ReponseResult.ok(missionParam, "根据调度编号获取派团单信息成功！");
+                logger.info(" method:selectDispatchs  根据调度编号获取派团单信息成功！");
+            }else{
+                data = ReponseResult.ok(missionParam, "没有该调度信息，获取调度信息失败！");
+                logger.info(" method:selectDispatchs  没有该调度信息，获取调度信息失败！");
+            }
             return data;
         } catch (Exception e) {
             logger.error(" method:selectDispatchs  根据调度编号获取派团单信息失败，系统出现异常！");

@@ -34,7 +34,7 @@ public interface StaffService {
     int updateStaffs(Staff staff) throws Exception;
 
     /**
-     * 修改密码
+     * 修改密码(lixiaojie)
      */
     int updateStaffpas(Staff staff)throws Exception;
     /**

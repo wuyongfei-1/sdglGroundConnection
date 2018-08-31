@@ -74,18 +74,21 @@ public class StaffServiceImpl implements StaffService {
     }
 
     /**
-     * 修改密码（yunguohao）
+     * 修改密码（lixiaojie）
      *
      * @param staff
      * @return
      * @throws Exception
      */
     @Override
-    @RecordOperation(type = "用户", desc = "修改了一条用户信息")
+    @RecordOperation(type = "用户", desc = "修改了一条用户密码信息")
     public int updateStaffpas(Staff staff) throws Exception {
-        staff.setPassword(EncryUtil.encrypt("123456"));//密码加密
 
-        return staffMapper.updateStaffpa(staff);
+        Staff oldStaff=staffMapper.selectByPrimaryKey(staff.getStaffId());
+        oldStaff.setPassword(EncryUtil.encrypt(staff.getPassword()));
+        oldStaff.setUpdateDate(staff.getUpdateDate());
+        oldStaff.setUpdateBy(staff.getUpdateBy());
+        return staffMapper.updateByPrimaryKey(oldStaff);
     }
 
     /**

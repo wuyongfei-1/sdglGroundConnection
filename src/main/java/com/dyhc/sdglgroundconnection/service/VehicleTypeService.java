@@ -30,7 +30,7 @@ public interface VehicleTypeService {
      * @param VehicleTypeId
      * @return
      */
-    Integer deleteVehicleTypeByVehicleTypeId(Integer VehicleTypeId);
+    Integer deleteVehicleTypeByVehicleTypeId(Integer VehicleTypeId)throws Exception;
 
 
     /**
@@ -39,14 +39,14 @@ public interface VehicleTypeService {
      * @param vehicleType
      * @return
      */
-    Integer saveVehicleTypeInfo(VehicleType vehicleType);
+    Integer saveVehicleTypeInfo(VehicleType vehicleType) throws Exception;
 
     /**
      * 根据车辆类型id查询车辆类型信息(lixiaojie)
      *
      * @return
      */
-    VehicleType getVehicleTypeInfoByTypeId(Integer TypeId);
+    VehicleType getVehicleTypeInfoByTypeId(Integer TypeId) throws Exception;
 
     /**
      * 修改车辆类型信息(lixiaojie)
@@ -54,7 +54,7 @@ public interface VehicleTypeService {
      * @param vehicleType
      * @return
      */
-    Integer updateVehicleTypesInfo(VehicleType vehicleType);
+    Integer updateVehicleTypesInfo(VehicleType vehicleType) throws Exception;
 
 
 }

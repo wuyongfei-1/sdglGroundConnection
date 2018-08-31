@@ -25,12 +25,12 @@ public interface CarrentalService {
     List<Carrental> listAllCarrentals() throws DispatchException;
 
     /**
-     * 删除汽车公司
+     * 删除汽车公司(lixiaojie)
      *
      * @param carrentalId
      * @return
      */
-    Integer deleteCarrentalInfoByCarrentalId(Integer carrentalId);
+    Integer deleteCarrentalInfoByCarrentalId(Integer carrentalId) throws Exception;
 
 
     /**
@@ -39,7 +39,7 @@ public interface CarrentalService {
      * @param carrentalId
      * @return
      */
-    Carrental getCarrentalInfoByCarrentalId(Integer carrentalId);
+    Carrental getCarrentalInfoByCarrentalId(Integer carrentalId)throws Exception;
 
     /**
      * 修改用车公司信息 (lixiaojie)
@@ -47,7 +47,7 @@ public interface CarrentalService {
      * @param carrental
      * @return
      */
-    Integer updateCarrentalInfo(Carrental carrental);
+    Integer updateCarrentalInfo(Carrental carrental)throws Exception;
 
     /**
      * 从字典表获取所有车辆类型(lixiaojie)
@@ -63,7 +63,7 @@ public interface CarrentalService {
      * @param carrental
      * @return
      */
-    Integer saveCarrentalInfo(Carrental carrental);
+    Integer saveCarrentalInfo(Carrental carrental)throws Exception;
 
     /**
      * 分页查询用车信息   （lixiaojie)
@@ -73,7 +73,7 @@ public interface CarrentalService {
      * @param carRentalName 购物地点
      * @return
      */
-    PageInfo<Carrental> listPageInfoByCarRentalName(Integer pageNo, Integer pageSize, String carRentalName);
+    PageInfo<Carrental> listPageInfoByCarRentalName(Integer pageNo, Integer pageSize, String carRentalName)throws Exception;
 
 
 }

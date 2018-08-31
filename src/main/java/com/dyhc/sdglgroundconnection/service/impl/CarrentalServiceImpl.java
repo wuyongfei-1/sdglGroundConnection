@@ -50,7 +50,7 @@ public class CarrentalServiceImpl implements CarrentalService {
      */
     @Override
     @RecordOperation(type = "租车公司", desc = "删除了一条租车公司信息")
-    public Integer deleteCarrentalInfoByCarrentalId(Integer carrentalId) {
+    public Integer deleteCarrentalInfoByCarrentalId(Integer carrentalId)throws Exception {
         Carrental carrental = carrentalMapper.selectByPrimaryKey(carrentalId);
         carrental.setWhetherDel(1);
         int result = carrentalMapper.updateByPrimaryKey(carrental);
@@ -69,7 +69,7 @@ public class CarrentalServiceImpl implements CarrentalService {
      * @return
      */
     @Override
-    public Carrental getCarrentalInfoByCarrentalId(Integer carrentalId) {
+    public Carrental getCarrentalInfoByCarrentalId(Integer carrentalId)throws Exception {
         return carrentalMapper.selectByPrimaryKey(carrentalId);
     }
 
@@ -81,7 +81,7 @@ public class CarrentalServiceImpl implements CarrentalService {
      */
     @Override
     @RecordOperation(type = "租车公司", desc = "修改了一条租车公司信息")
-    public Integer updateCarrentalInfo(Carrental carrental) {
+    public Integer updateCarrentalInfo(Carrental carrental)throws Exception {
 
         Carrental oldCarrental=carrentalMapper.selectByPrimaryKey(carrental.getCarRentalId());
         carrental.setCreateBy(oldCarrental.getCreateBy());
@@ -109,7 +109,7 @@ public class CarrentalServiceImpl implements CarrentalService {
      */
     @Override
     @RecordOperation(type = "租车公司", desc = "新增了一条租车公司信息")
-    public Integer saveCarrentalInfo(Carrental carrental) {
+    public Integer saveCarrentalInfo(Carrental carrental)throws Exception {
         carrental.setWhetherDel(0);
         Integer result = carrentalMapper.insert(carrental);
         return result;
@@ -124,7 +124,7 @@ public class CarrentalServiceImpl implements CarrentalService {
      * @return
      */
     @Override
-    public PageInfo<Carrental> listPageInfoByCarRentalName(Integer pageNo, Integer pageSize, String carRentalName) {
+    public PageInfo<Carrental> listPageInfoByCarRentalName(Integer pageNo, Integer pageSize, String carRentalName)throws Exception {
 
         PageHelper.startPage(pageNo, pageSize, true);
         CarrentalExample carrentalExample = new CarrentalExample();

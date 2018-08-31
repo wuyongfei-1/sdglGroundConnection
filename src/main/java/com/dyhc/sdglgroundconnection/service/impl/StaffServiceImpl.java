@@ -31,22 +31,26 @@ public class StaffServiceImpl implements StaffService {
     @Autowired
     private RoleMapper roleMapper;
     private int flag;
-
+    /**
+     * 根据staffId删除修改状态(lixiaojie)
+     * @return
+     */
     @Override
     @RecordOperation(type = "用户", desc = "删除了一条用户信息")
-    public Integer updateStaffWhetherDel(Integer staffId) {
+    public Integer updateStaffWhetherDel(Integer staffId)throws Exception {
         return staffMapper.updateStaffWhetherDel(staffId);
     }
 
     /**
      * 修改个人信息（lixiaojie）
+     *
      * @param staff
      * @return
      */
     @Override
     @RecordOperation(type = "用户", desc = "修改了一条用户信息")
-    public Integer updateStaffInfo(Staff staff) {
-        Staff oldStaff=staffMapper.selectByPrimaryKey(staff.getStaffId());
+    public Integer updateStaffInfo(Staff staff) throws Exception {
+        Staff oldStaff = staffMapper.selectByPrimaryKey(staff.getStaffId());
         staff.setCreateBy(oldStaff.getCreateBy());
         staff.setCreateDate(oldStaff.getCreateDate());
         staff.setWhetherDel(0);
@@ -55,21 +59,23 @@ public class StaffServiceImpl implements StaffService {
 
     /**
      * 修改个人信息（yunguohao）
+     *
      * @param staff
      * @return
      */
     @Override
     @RecordOperation(type = "用户", desc = "修改了一条用户信息")
     public int updateStaffs(Staff staff) throws Exception {
-        Staff oldStaff=staffMapper.selectByPrimaryKey(staff.getStaffId());
+        Staff oldStaff = staffMapper.selectByPrimaryKey(staff.getStaffId());
         staff.setCreateBy(oldStaff.getCreateBy());
         staff.setCreateDate(oldStaff.getCreateDate());
         staff.setWhetherDel(0);
-        return  staffMapper.updateByPrimaryKey(staff);
+        return staffMapper.updateByPrimaryKey(staff);
     }
 
     /**
      * 修改密码（yunguohao）
+     *
      * @param staff
      * @return
      * @throws Exception
@@ -83,27 +89,29 @@ public class StaffServiceImpl implements StaffService {
     }
 
     /**
-     *  根据id获取用户信息 （lixiaojie)
+     * 根据id获取用户信息 （lixiaojie)
+     *
      * @param staffId
      * @return
      */
     @Override
-    public Staff getStaffInfoByStaffId(Integer staffId) {
+    public Staff getStaffInfoByStaffId(Integer staffId) throws Exception {
 
-        String Rolename=roleMapper.selectByPrimaryKey(staffMapper.selectByPrimaryKey(staffId).getRoleId()).getRolename();
-        Staff staff=staffMapper.selectByPrimaryKey(staffId);
+        String Rolename = roleMapper.selectByPrimaryKey(staffMapper.selectByPrimaryKey(staffId).getRoleId()).getRolename();
+        Staff staff = staffMapper.selectByPrimaryKey(staffId);
         staff.setRolename(Rolename);
         return staff;
     }
 
     /**
-     *  根据id删除用户信息（lixiaojie）
+     * 根据id删除用户信息（lixiaojie）
+     *
      * @param id
      * @return
      */
     @Override
     @RecordOperation(type = "用户", desc = "删除了一条用户信息")
-    public Integer deleteStaffBystaffId(Integer id) {
+    public Integer deleteStaffBystaffId(Integer id) throws Exception {
         return staffMapper.deleteByPrimaryKey(id);
     }
 
@@ -113,20 +121,21 @@ public class StaffServiceImpl implements StaffService {
      * @return
      */
     @Override
-    public PageInfo<Staff> listPageGetStaffByNameAndCreateDateAndRoleId(Integer pageNo, Integer pageSize, String staffname, String firstDate, String lastDate, Integer roleId) {
+    public PageInfo<Staff> listPageGetStaffByNameAndCreateDateAndRoleId(Integer pageNo, Integer pageSize, String staffname, String firstDate, String lastDate, Integer roleId) throws Exception {
         PageHelper.startPage(pageNo, pageSize, true);
         PageInfo<Staff> pageInfo = new PageInfo<Staff>(staffMapper.listGetStaffsByNameAndCreateDateAndRoleId(staffname, firstDate, lastDate, roleId));
         return pageInfo;
     }
 
     /**
-     *  新增用戶信息
+     * 新增用戶信息(lixiaojie)
+     *
      * @param staff
      * @return
      */
     @Override
     @RecordOperation(type = "用户", desc = "新增了一条用户信息")
-    public Integer saveStaffInfo(Staff staff) {
+    public Integer saveStaffInfo(Staff staff) throws Exception{
         staff.setWhetherDel(0);
 
         staff.setPassword(EncryUtil.encrypt("123456"));//密码加密

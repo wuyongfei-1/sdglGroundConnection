@@ -64,7 +64,7 @@ public class VehicleTypeServiceImpl implements VehicleTypeService {
      */
     @Override
     @RecordOperation(type = "车辆类型", desc = "删除了一条车辆类型信息")
-    public Integer deleteVehicleTypeByVehicleTypeId(Integer VehicleTypeId) {
+    public Integer deleteVehicleTypeByVehicleTypeId(Integer VehicleTypeId)throws Exception {
         VehicleType vehicleType = vehicleTypeMapper.selectByPrimaryKey(VehicleTypeId);
         vehicleType.setWhetherDel(1);
         return vehicleTypeMapper.updateByPrimaryKey(vehicleType);
@@ -78,7 +78,7 @@ public class VehicleTypeServiceImpl implements VehicleTypeService {
      */
     @Override
     @RecordOperation(type = "车辆类型", desc = "新增了一条车辆类型信息")
-    public Integer saveVehicleTypeInfo(VehicleType vehicleType) {
+    public Integer saveVehicleTypeInfo(VehicleType vehicleType) throws Exception {
         vehicleType.setWhetherDel(0);
         return vehicleTypeMapper.insert(vehicleType);
     }
@@ -89,7 +89,7 @@ public class VehicleTypeServiceImpl implements VehicleTypeService {
      * @return
      */
     @Override
-    public VehicleType getVehicleTypeInfoByTypeId(Integer TypeId) {
+    public VehicleType getVehicleTypeInfoByTypeId(Integer TypeId) throws Exception {
         VehicleType vehicleType=vehicleTypeMapper.selectByPrimaryKey(TypeId);
         vehicleType.setCarrental(carrentalService.getCarrentalInfoByCarrentalId(vehicleType.getCarRentalId()));
         vehicleType.setCarType(dictionariesService.listDictionaries1(vehicleType.getTypeCode(),vehicleType.getValueId()));
@@ -104,7 +104,7 @@ public class VehicleTypeServiceImpl implements VehicleTypeService {
      */
     @Override
     @RecordOperation(type = "车辆类型", desc = "修改了一条车辆类型信息")
-    public Integer updateVehicleTypesInfo(VehicleType vehicleType) {
+    public Integer updateVehicleTypesInfo(VehicleType vehicleType)throws Exception {
         VehicleType oldVehicleType=vehicleTypeMapper.selectByPrimaryKey(vehicleType.getTypeId());
         vehicleType.setCreateBy(oldVehicleType.getCreateBy());
         vehicleType.setCreateDate(oldVehicleType.getCreateDate());

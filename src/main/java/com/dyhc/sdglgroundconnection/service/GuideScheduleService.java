@@ -45,7 +45,7 @@ public interface GuideScheduleService {
     PageInfo<GuidescheduleParam> selectScheduleScheduleStateBy2(Integer pageNo, Integer pageSize, String guideId, String firstDate, String lastDate) throws ParseException;
 
     /**
-     * 新增导游请假信息
+     * 新增导游请假信息(lixiaojie)
      * @param guideSchedule
      * @return
      */

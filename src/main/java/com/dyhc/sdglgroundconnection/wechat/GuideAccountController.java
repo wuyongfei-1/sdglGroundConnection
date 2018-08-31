@@ -1,6 +1,7 @@
 package com.dyhc.sdglgroundconnection.wechat;
 
 import com.dyhc.sdglgroundconnection.pojo.Guide;
+import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.dyhc.sdglgroundconnection.service.DispatchService;
 import com.dyhc.sdglgroundconnection.service.GuideService;
 import com.dyhc.sdglgroundconnection.utils.ConditionValidation;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
@@ -103,6 +105,7 @@ public class GuideAccountController {
     public ReponseResult selectHotelById(int id) {
         try {
             Guide result = guideService.selectGuideByIds(id);
+            result.setPassword(EncryUtil.encrypt(result.getPassword()));
             ReponseResult<Guide> date;
             if (result != null) {
                 date = ReponseResult.ok(result, "id查询成功");
@@ -115,6 +118,36 @@ public class GuideAccountController {
             return date;
         } catch (Exception e) {
             logger.error(" method:selectGuideById  id查询导游失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
+    /**
+     * 修改(yunguohao)
+     */
+    @RequestMapping("/updateGuide")
+    public ReponseResult updateCompany(Guide guide,HttpServletRequest request) {
+        try {
+            Staff sessionstaff= (Staff) request.getSession().getAttribute("user");
+            guide.setModifier(sessionstaff!=null?sessionstaff.getStaffId():1);
+            guide.setModifiedData(new Date());
+            Guide guide1 = guideService.selectGuideByIds(guide.getGuideId());
+            guide1.setPassword(EncryUtil.encrypt(guide1.getPassword()));
+            int result = guideService.updateGuide(guide);
+            ReponseResult<String> date;
+            if (result > 0) {
+                date = ReponseResult.ok("1", "修改导游成功！");
+                logger.info("method:updateGuide  修改导游成功！");
+
+            } else {
+                date = ReponseResult.ok("0", "修改导游失败！");
+                logger.info(" method:updateGuide  修改导游失败！");
+            }
+            return date;
+        } catch (Exception e) {
+            logger.error(" method:updateGuide  修改导游失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
             return err;

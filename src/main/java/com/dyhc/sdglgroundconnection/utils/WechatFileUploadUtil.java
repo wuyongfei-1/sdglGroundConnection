@@ -27,26 +27,24 @@ public class WechatFileUploadUtil {
      * @param request        请求对象
      * @param suffixNameList 可上传的图片类型（后缀 .jpg/.png等）可传入多个
      *                       <如果不传入任何值，则默认可允许上传任何文件>
-     * @return 文件名称列表 <返回数据不为null说明上传成功，否则上传失败>
+     * @return 文件名称 <返回数据不为空字符串（“”）说明上传成功，否则上传失败>
+     * synchronized  微信多文件上传，同时发送多个线程，为了解决抢占资源对公共资源的获取出现出入，所以使用线程锁
      */
-    public static Vector<String> uploadImage(HttpServletRequest request, String... suffixNameList) {
-        Vector<String> imagesName = new Vector<>();
+    public synchronized static String uploadImage(HttpServletRequest request, String... suffixNameList) {
         StandardMultipartHttpServletRequest req = (StandardMultipartHttpServletRequest) request;
         //获取上传的图片
         Iterator<String> iterator = req.getFileNames();
-        while (iterator.hasNext()) {
-            MultipartFile file = req.getFile(iterator.next());
-            // 执行上传操作
-            String uploadResult = ClientFileUploadUtil.uploadImage(file, suffixNameList);
-            if (ConditionValidation.validation(uploadResult)) {
-                // 上传成功
-                imagesName.add(uploadResult);
-                logger.info("method:uploadImage " + DateTimeUtil.getCurrentDate("yyyy-MM-dd HH:mm:ss") + " 上传图片成功");
-            } else {
-                logger.info("method:uploadImage " + DateTimeUtil.getCurrentDate("yyyy-MM-dd HH:mm:ss") + " 上传图片失败");
-                return null;
-            }
+        MultipartFile file = req.getFile(iterator.next());
+        // 执行上传操作
+        String uploadResult = ClientFileUploadUtil.uploadImage(file, suffixNameList);
+        if (ConditionValidation.validation(uploadResult)) {
+            // 上传成功
+            logger.info("method:uploadImage " + DateTimeUtil.getCurrentDate("yyyy-MM-dd HH:mm:ss") + " 上传图片成功");
+            return uploadResult;
+        } else {
+            // 出现异常
+            logger.info("method:uploadImage " + DateTimeUtil.getCurrentDate("yyyy-MM-dd HH:mm:ss") + " 上传图片失败");
+            return "";
         }
-        return imagesName;
     }
 }

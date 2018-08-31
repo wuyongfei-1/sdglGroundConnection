@@ -14,4 +14,11 @@ public interface ReportingotherexpensesService {
      * @return 报账其他支出信息对象
      */
     Reportingotherexpenses getReportingotherexpensesByValueId(Integer value1);
+
+    /**
+     * 添加报账其他支出信息
+     * @param reportingotherexpenses 报账其他支出对象
+     * @return 返回受影响行数
+     */
+    Integer insertReportingotherexpensesInfo(Reportingotherexpenses reportingotherexpenses);
 }

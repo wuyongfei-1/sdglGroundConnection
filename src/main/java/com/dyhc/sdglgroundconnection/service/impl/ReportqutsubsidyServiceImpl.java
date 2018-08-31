@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
+import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.mapper.ReportqutsubsidyMapper;
 import com.dyhc.sdglgroundconnection.pojo.Reportdetail;
 import com.dyhc.sdglgroundconnection.pojo.Reportqutsubsidy;
@@ -49,6 +50,7 @@ public class ReportqutsubsidyServiceImpl implements ReportqutsubsidyService {
      * @return 返回受影响行数
      */
     @Override
+    @RecordOperation(type = "出团补助信息",desc = "新增一条出团补助信息！")
     public Integer insertReportqutsubsidyInfo(Reportqutsubsidy reportqutsubsidy) {
         reportqutsubsidy.setCreateDate(new Date());
         reportqutsubsidy.setStatus(0);

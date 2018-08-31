@@ -45,8 +45,9 @@ public class ClientFileUploadUtil {
      * @param suffixNameList 可上传的图片类型（后缀 .jpg/.png等）可传入多个
      *                       <如果不传入任何值，则默认可允许上传任何文件>
      * @return 文件名称 <返回数据不为空字符串（“”）说明上传成功，否则上传失败>
+     * synchronized  多文件上传，同时发送多个线程，为了解决抢占资源对公共资源的获取出现出入，所以使用线程锁
      */
-    public static String uploadImage(MultipartFile multipartFile, String... suffixNameList) {
+    public synchronized static String uploadImage(MultipartFile multipartFile, String... suffixNameList) {
         // 获取当前系统信息
         String osName = System.getProperty("os.name");
         String folderName = "";  // 当前系统目录

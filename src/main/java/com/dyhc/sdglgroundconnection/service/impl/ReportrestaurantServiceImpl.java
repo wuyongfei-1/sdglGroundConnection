@@ -1,5 +1,6 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
+import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.mapper.ReportrestaurantMapper;
 import com.dyhc.sdglgroundconnection.pojo.Reportdetail;
 import com.dyhc.sdglgroundconnection.pojo.Reportrestaurant;
@@ -45,6 +46,7 @@ public class ReportrestaurantServiceImpl implements ReportrestaurantService {
      * @return 返回受影响行数
      */
     @Override
+    @RecordOperation(type = "报账餐馆信息",desc = "新增一条报账餐馆信息！")
     public Integer insertReportrestaurant(Reportrestaurant reportrestaurant) {
         reportrestaurant.setCreateDate(new Date());
         reportrestaurant.setStatus(0);

@@ -24,7 +24,7 @@ public interface BillService {
      * @param bill
      * @return
      */
-    int insertBill(Bill bill);
+    int insertBill(Bill bill) throws Exception;
     /**
      *调度id查询全部(yunguohao)
      * @param

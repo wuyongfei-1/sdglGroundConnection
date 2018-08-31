@@ -17,16 +17,16 @@ import java.util.List;
 public interface StaffService {
 
     /**
-     * 根据staffId删除修改状态
+     * 根据staffId删除修改状态(lixiaojie)
      * @return
      */
-    Integer updateStaffWhetherDel( Integer staffId);
+    Integer updateStaffWhetherDel( Integer staffId) throws Exception;
     /**
      * 修改用户信息
      * @param staff
      * @return
      */
-    Integer updateStaffInfo(Staff staff);
+    Integer updateStaffInfo(Staff staff) throws Exception;
 
     /**
      * 修改用户信息（yunguohao）
@@ -42,27 +42,27 @@ public interface StaffService {
      * @param staffId
      * @return
      */
-    Staff getStaffInfoByStaffId(Integer staffId);
+    Staff getStaffInfoByStaffId(Integer staffId) throws Exception;
 
     /**
      * 根据用户id删除用户信息
      * @param id
      * @return
      */
-    Integer deleteStaffBystaffId(Integer id);
+    Integer deleteStaffBystaffId(Integer id) throws Exception;
 
     /**
      * 根据 staffname createDate roleId  分页查询人员信息(lixiaojie)
      * @return
      */
-    PageInfo<Staff> listPageGetStaffByNameAndCreateDateAndRoleId(Integer pageNo, Integer pageSize, String staffname, String firstDate,String lastDate, Integer roleId);
+    PageInfo<Staff> listPageGetStaffByNameAndCreateDateAndRoleId(Integer pageNo, Integer pageSize, String staffname, String firstDate,String lastDate, Integer roleId)throws Exception;
 
     /**
      * 添加用户信息(lixiaojie)
      * @param staff
      * @return
      */
-    Integer saveStaffInfo(Staff staff);
+    Integer saveStaffInfo(Staff staff)throws Exception;
     /**
      * 根据用户名返回用户信息（dubingkun）
      * @param username

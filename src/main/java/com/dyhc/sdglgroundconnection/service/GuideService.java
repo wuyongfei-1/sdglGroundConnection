@@ -68,12 +68,12 @@ public interface GuideService {
      *  获取所有导游  和导游的日程 （lixiaojie)
      * @return
      */
-    List<Guide> selectGuideInfoAndGuideSchedule();
+    List<Guide> selectGuideInfoAndGuideSchedule()throws Exception;
 
     /**
      * 查询所有导游信息(lixiaojie)
      * @return
      */
-    List<Guide> selectAllGuideInfo();
+    List<Guide> selectAllGuideInfo()throws Exception;
 
 }

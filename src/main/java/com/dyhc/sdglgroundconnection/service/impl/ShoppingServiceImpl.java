@@ -56,7 +56,7 @@ public class ShoppingServiceImpl implements ShoppingService {
      */
 
     @Override
-    public PageInfo<Shopping> listPageShoppingByShoppingSite(Integer pageNo, Integer pageSize, String shoppingSite) {
+    public PageInfo<Shopping> listPageShoppingByShoppingSite(Integer pageNo, Integer pageSize, String shoppingSite)throws Exception {
         PageHelper.startPage(pageNo, pageSize, true);
         ShoppingExample shoppingExample = new ShoppingExample();
         ShoppingExample.Criteria criteria = shoppingExample.createCriteria();
@@ -78,7 +78,7 @@ public class ShoppingServiceImpl implements ShoppingService {
      * @return
      */
     @Override
-    public List<Scenicspot> listScenicspotAll() {
+    public List<Scenicspot> listScenicspotAll()throws Exception {
         return scenicspotMapper.selectAll();
     }
 
@@ -90,7 +90,7 @@ public class ShoppingServiceImpl implements ShoppingService {
      */
     @RecordOperation(type = "购物", desc = "新增了一条购物信息")
     @Override
-    public Integer saveShoppingInfo(Shopping shopping) {
+    public Integer saveShoppingInfo(Shopping shopping)throws Exception {
         shopping.setWhetherDel(0);
         shopping.setCreationDate(new Date());
         return shoppingMapper.insert(shopping);
@@ -103,7 +103,7 @@ public class ShoppingServiceImpl implements ShoppingService {
      * @return
      */
     @Override
-    public Shopping getShoppingInfoByShoppingId(Integer shoppingId) {
+    public Shopping getShoppingInfoByShoppingId(Integer shoppingId)throws Exception {
         return shoppingMapper.selectByPrimaryKey(shoppingId);
     }
 
@@ -116,7 +116,7 @@ public class ShoppingServiceImpl implements ShoppingService {
      */
     @Override
     @RecordOperation(type = "购物地点", desc = "修改了一条购物地点信息！")
-    public Integer updateShoppingInfo(Shopping shopping) {
+    public Integer updateShoppingInfo(Shopping shopping)throws Exception {
         Shopping oldShopping=shoppingMapper.selectByPrimaryKey(shopping.getShoppingId());
         shopping.setCreationDate(oldShopping.getCreationDate());
         shopping.setCreater(oldShopping.getCreater());

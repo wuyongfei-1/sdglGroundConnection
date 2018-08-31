@@ -97,7 +97,7 @@ public class DispatchServiceImpl implements DispatchService {
      * @return
      */
     @Override
-    public Dispatch getDispatchByDispatchId(Integer dispatchId) {
+    public Dispatch getDispatchByDispatchId(Integer dispatchId)throws Exception {
         return dispatchMapper.selectByPrimaryKey(dispatchId);
     }
 
@@ -107,7 +107,7 @@ public class DispatchServiceImpl implements DispatchService {
      * @return
      */
     @Override
-    public List<WechatTicketbudgetParam> selectDispatchByScenicspotInfo(Integer dispatchId) {
+    public List<WechatTicketbudgetParam> selectDispatchByScenicspotInfo(Integer dispatchId) throws Exception{
         DisattrExample disattrExample=new DisattrExample();
         DisattrExample.Criteria disattrExampleCriteria=disattrExample.createCriteria();
         disattrExample.setOrderByClause("weight");
@@ -134,7 +134,7 @@ public class DispatchServiceImpl implements DispatchService {
      * @return
      */
     @Override
-    public WechatEatAndHotelParam selectDispatchInfoByWeightDispatchId(Integer dispatchId, Integer weight) {
+    public WechatEatAndHotelParam selectDispatchInfoByWeightDispatchId(Integer dispatchId, Integer weight)throws Exception {
         WechatEatAndHotelParam wechatEatAndHotelParam = new WechatEatAndHotelParam();
         Dispatch dispatch=dispatchMapper.selectByPrimaryKey(dispatchId);
         DisrestaurantExample noonDisrestaurantExample = new DisrestaurantExample();
@@ -177,7 +177,7 @@ public class DispatchServiceImpl implements DispatchService {
      * @return
      */
     @Override
-    public List<String> selectDispatchDaysByDispatchId(Integer dispatchId) throws ParseException {
+    public List<String> selectDispatchDaysByDispatchId(Integer dispatchId) throws Exception {
         List<String> Days = new ArrayList<>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Dispatch dispatch = dispatchMapper.selectByPrimaryKey(dispatchId);//根据调度id获取调度对象
@@ -209,7 +209,7 @@ public class DispatchServiceImpl implements DispatchService {
      * @return 微信基本信息参数类
      */
     @Override
-    public WechatInformationParam selectDispatchInfoByGuideId(Integer guideId) {
+    public WechatInformationParam selectDispatchInfoByGuideId(Integer guideId)throws Exception {
         //创建微信基本信息参数对象
         WechatInformationParam wechatInformationParam = null;
         DisguideExample disguideExample = new DisguideExample();
@@ -456,7 +456,7 @@ public class DispatchServiceImpl implements DispatchService {
      * @return
      */
     @Override
-    public PageInfo<Dispatch> selectDispatchs(Integer pageNo, Integer pageSize) {
+    public PageInfo<Dispatch> selectDispatchs(Integer pageNo, Integer pageSize)throws Exception {
         PageHelper.startPage(pageNo, pageSize, true);
         //查询调度表
         DispatchExample dispatchExample = new DispatchExample();
@@ -485,7 +485,7 @@ public class DispatchServiceImpl implements DispatchService {
      * @return
      */
     @Override
-    public Integer onCheckDispatchInfo(Integer dispatchId, int staffId) throws ParseException {
+    public Integer onCheckDispatchInfo(Integer dispatchId, int staffId) throws Exception {
         Integer result = 0;
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -550,7 +550,7 @@ public class DispatchServiceImpl implements DispatchService {
      * @return
      */
     @Override
-    public Integer noCheckDispatchInfo(Integer dispatchId) {
+    public Integer noCheckDispatchInfo(Integer dispatchId)throws Exception {
         Dispatch dispatch = dispatchMapper.selectByPrimaryKey(dispatchId);
         dispatch.setStatus(3);
         Integer result = dispatchMapper.updateByPrimaryKey(dispatch);
@@ -564,7 +564,7 @@ public class DispatchServiceImpl implements DispatchService {
      * @return
      */
     @Override
-    public Integer selectDisGuideInfoByguideId(Integer guideId) {
+    public Integer selectDisGuideInfoByguideId(Integer guideId) throws Exception{
         DisguideExample disguideExample = new DisguideExample();
         DisguideExample.Criteria disguideExampleCriteria = disguideExample.createCriteria();
         disguideExampleCriteria.andGuideidEqualTo(guideId);

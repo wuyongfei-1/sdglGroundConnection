@@ -14,7 +14,7 @@ public interface DiscarService {
      * @param offId 调度编号
      * @return 返回调度用车对象
      */
-    Discar getDiscarByOffId(Integer offId);
+    Discar getDiscarByOffId(Integer offId) throws Exception;
 
     /**
      * 添加调度用车信息（wuyongfei）

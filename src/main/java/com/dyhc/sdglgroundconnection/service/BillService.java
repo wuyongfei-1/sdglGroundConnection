@@ -17,7 +17,7 @@ public interface BillService {
      * @param billTypeId
      * @return
      */
-    Bill selectBillByDispatchIdAndBillTypeId(Integer dispatchId,Integer billTypeId);
+    Bill selectBillByDispatchIdAndBillTypeId(Integer dispatchId,Integer billTypeId) throws Exception;
 
     /**
      * 添加上传凭证(yunguohao)

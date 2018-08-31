@@ -26,7 +26,7 @@ public interface DisguideService {
      * @param offerId   调度id
      * @return
      */
-    Disguide getDisGuideByOfferIdAndGuideId(Integer guideId,Integer offerId);
+    Disguide getDisGuideByOfferIdAndGuideId(Integer guideId,Integer offerId)throws Exception;
 
     /**
      * 根据调度表编号查询调度导游表信息 （wangtao）

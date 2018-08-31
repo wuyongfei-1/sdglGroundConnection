@@ -12,7 +12,6 @@
 
 <body>
 <div id="dy">
-<h1 th:text="${id}" id="sessionId"></h1>
 <div style="width:60%; margin:0 auto">
     <div id="tupian">
         <img src="/images/logo.jpg" width="640px" height="50px">
@@ -24,15 +23,15 @@
             <td>收件单位及收件人</td>
             <td id="shoujian">西美 赖建章 经理</td>
             <td>发件单位及发件人</td>
-            <td>山西世达国旅<span id="fajian">崔俊娜</span></td>
+            <td>山西世达国旅  <span id="fajian">崔俊娜</span></td>
         </tr>
     </table>
     <table border="1" cellspacing="0" cellpadding="0">
         <tr>
-            <td style="width:15%">紧急联络</td>
-            <td style="width:35%"></td>
-            <td style="width:15%">紧急联络</td>
-            <td style="width:35%" id="fajianphone">15235433422</td>
+            <td style="width:10%">紧急联络</td>
+            <td style="width:40%"></td>
+            <td style="width:10%">紧急联络</td>
+            <td style="width:40%" id="fajianphone">15235433422</td>
         </tr>
     </table>
     <table border="1" cellspacing="0" cellpadding="0">
@@ -50,7 +49,7 @@
         <tr>
             <td style="width:5%; text-align:center">天数</td>
             <td style="width:12%; text-align:center">离/抵</td>
-            <td style="width:52%; text-align:center">行程内容</td>
+            <td style="width:53%; text-align:center">行程内容</td>
             <td style="width:15%; text-align:center">餐食</td>
             <td style="width:15%; text-align:center">住宿</td>
         </tr>
@@ -90,7 +89,7 @@
             <td style="width:50%" valign="top">地接社盖章：</td>
         </tr>
     </table>
-    <p style="text-align:right">2018年3月26日</p>
+    <p style="text-align:right" id="riqi"></p>
 </div>
 </div>
 <input type="button" value="打印预览" onclick="printview()">&nbsp;&nbsp;&nbsp;&nbsp;
@@ -100,6 +99,12 @@
 <script type="text/javascript" src="/lodop/jquery-3.2.1.js"></script>
 <script type="text/javascript" src="/lodop/LodopFuncs.js"></script>
 <script>
+    var sdate=new Date();     //new一个日对象
+    var time = sdate.toLocaleDateString();
+    time=time.replace("/","年");
+    time=time.replace("/","月");
+    time+="日";
+    $("#riqi").html(time)
     load();
     function load() {
         $.ajax({
@@ -110,8 +115,9 @@
             success: function (data) {
                 var context="";
                 $.each(data.data.list,function (i,e) {
+                    var day=e.day.replace("-",".").replace(/0/g,"");
                     context+=" <tr>\n" +
-                        "            <td>"+e.day+"</td>\n" +
+                        "            <td>"+day+"</td>\n" +
                         "            <td>"+e.dl+"</td>\n" +
                         "            <td>"+e.xc+"</td>\n" +
                         "            <td>"+e.cs+"</td>\n" +
@@ -155,7 +161,7 @@
         //var style="<style>"+document.getElementById("style").innerHTML+"</style>";
         var html="<body>"+document.getElementById("dy").innerHTML+"</body>";
         LODOP.SET_PRINT_STYLE("Bold",1); //字体加粗
-        LODOP.ADD_PRINT_HTM(20,50,640,890,html); //打印HTML
+        LODOP.ADD_PRINT_HTM(20,0,700,1000,html); //打印HTML
     }
 
 </script>

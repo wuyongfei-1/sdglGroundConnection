@@ -38,7 +38,7 @@ public class ReportfareServiceImpl implements ReportfareService {
         criteria.andValue1EqualTo(value1.toString());
         List<Reportfare> reportfareList=reportfareMapper.selectByExample(reportfareExample);
         Reportfare reportfare=null;
-        if(reportfareList!=null){
+        if(reportfareList!=null && reportfareList.size()>0){
             reportfare=reportfareList.get(0);
         }
         return reportfare;

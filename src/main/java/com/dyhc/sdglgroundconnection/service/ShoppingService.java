@@ -4,17 +4,7 @@ package com.dyhc.sdglgroundconnection.service;
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.pojo.Scenicspot;
 import com.dyhc.sdglgroundconnection.pojo.Shopping;
-import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.github.pagehelper.PageInfo;
-
-import com.dyhc.sdglgroundconnection.pojo.Shopping;
-
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Component;
-
-import javax.persistence.criteria.CriteriaBuilder;
-
 import java.util.List;
 
 /**

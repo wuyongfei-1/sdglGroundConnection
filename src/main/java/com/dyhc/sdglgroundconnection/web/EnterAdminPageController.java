@@ -23,8 +23,7 @@ public class EnterAdminPageController {
      * @return 返回到登录页面
      */
     @RequestMapping("/updatePassword-info.html")
-    public String updatePasswordInfo(HttpServletRequest request){
-        request.getSession().invalidate();
+    public String updatePasswordInfo(){
         return "admin/index/updatePassword-info.html";
     }
 

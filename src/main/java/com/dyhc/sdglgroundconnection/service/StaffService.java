@@ -36,7 +36,7 @@ public interface StaffService {
     /**
      * 修改密码(lixiaojie)
      */
-    int updateStaffpas(Staff staff)throws Exception;
+    int updateStaffpas(Staff staff,String oldPassword)throws Exception;
     /**
      * 根据用户id获取用户信息
      * @param staffId

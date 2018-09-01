@@ -38,7 +38,7 @@ public class ReportqutsubsidyServiceImpl implements ReportqutsubsidyService {
         criteria.andValue1EqualTo(value1.toString());
         List<Reportqutsubsidy> reportqutsubsidyList=reportqutsubsidyMapper.selectByExample(reportqutsubsidyExample);
         Reportqutsubsidy reportqutsubsidy=null;
-        if(reportqutsubsidyList!=null){
+        if(reportqutsubsidyList!=null && reportqutsubsidyList.size()>0){
             reportqutsubsidy=reportqutsubsidyList.get(0);
         }
         return reportqutsubsidy;

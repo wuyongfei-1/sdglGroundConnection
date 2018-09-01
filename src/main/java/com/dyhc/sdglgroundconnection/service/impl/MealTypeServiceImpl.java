@@ -62,7 +62,7 @@ public class MealTypeServiceImpl implements MealTypeService {
             DictionariesExample dictionariesExample = new DictionariesExample();
             DictionariesExample.Criteria criteria1 = dictionariesExample.createCriteria();
             criteria1.andTypecodeEqualTo("DIET");
-            criteria1.andValueidEqualTo(restaurantId);
+            criteria1.andValueidEqualTo(Integer.parseInt(mealType.getValueId()));
             List<Dictionaries> dictionaries = dictionariesMapper.selectByExample(dictionariesExample);
             // 完善饮食类型对象
             mealType.setMealTypeName((dictionaries != null && dictionaries.size() > 0) ? dictionaries.get(0).getValueContent1() : null);

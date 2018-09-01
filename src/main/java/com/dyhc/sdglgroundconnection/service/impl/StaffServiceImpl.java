@@ -82,9 +82,13 @@ public class StaffServiceImpl implements StaffService {
      */
     @Override
     @RecordOperation(type = "用户", desc = "修改了一条用户密码信息")
-    public int updateStaffpas(Staff staff) throws Exception {
+    public int updateStaffpas(Staff staff,String oldPassword) throws Exception {
 
         Staff oldStaff=staffMapper.selectByPrimaryKey(staff.getStaffId());
+
+        if (!EncryUtil.encrypt(oldPassword).equals(oldStaff.getPassword())){
+            return 2;
+        }
         oldStaff.setPassword(EncryUtil.encrypt(staff.getPassword()));
         oldStaff.setUpdateDate(staff.getUpdateDate());
         oldStaff.setUpdateBy(staff.getUpdateBy());

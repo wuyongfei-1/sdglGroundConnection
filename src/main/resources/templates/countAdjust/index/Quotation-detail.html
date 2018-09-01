@@ -260,9 +260,11 @@
                 // 只选中了一个
                 // 移除禁用样式
                 $('#viewOffer').removeClass("layui-btn-disabled");
+                $('#viewOffer').removeAttr("disabled");
             } else {
                 // 选中了多个
                 $('#viewOffer').addClass("layui-btn-disabled");
+                $('#viewOffer').attr('disabled','disabled');
             }
             // 刷新lay样式
             renderCss();
@@ -874,6 +876,7 @@
                 "<input type='radio' name='payMethods' value='现付' title='现付' />" +
                 "<input type='radio' name='payMethods' value='签单' title='签单' checked></td>" +
                 "</tr>");
+            $('#offer' + rowNum + ' #scenic' + (id + 1)).find('#scenicspots').first().attr("box", "true");
             renderCss();  // 刷新Lay样式
         }
 

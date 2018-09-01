@@ -38,7 +38,7 @@ public class ReportingotherexpensesServiceImpl implements Reportingotherexpenses
         criteria.andValue1EqualTo(value1.toString());
         List<Reportingotherexpenses> reportingotherexpensesList=reportingotherexpensesMapper.selectByExample(reportingotherexpensesExample);
         Reportingotherexpenses reportingotherexpenses=null;
-        if(reportingotherexpensesList!=null){
+        if(reportingotherexpensesList!=null && reportingotherexpensesList.size()>0){
             reportingotherexpenses=reportingotherexpensesList.get(0);
         }
         return reportingotherexpenses;

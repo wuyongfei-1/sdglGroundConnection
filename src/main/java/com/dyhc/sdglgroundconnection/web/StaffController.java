@@ -265,9 +265,7 @@ public class StaffController {
      */
     @RequestMapping("/updateUserInfo")
     public ReponseResult updateUserInfo(Staff staff, @RequestParam("fileObj") MultipartFile multipartFile, HttpServletRequest request) {
-
         try {
-
             Staff sessionstaff = (Staff) request.getSession().getAttribute("user");
             Staff oldStaff = staffService.getStaffInfoByStaffId(sessionstaff != null ? sessionstaff.getStaffId() : 1);
             staff.setUpdateBy(sessionstaff != null ? sessionstaff.getStaffId() : 1);

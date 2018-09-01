@@ -19,7 +19,7 @@ public class RandomValidateCodeUtil {
     //private String randString = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";//随机产生数字与字母组合的字符串
     private int width = 95;// 图片宽
     private int height = 25;// 图片高
-    private int lineSize = 40;// 干扰线数量
+    private int lineSize = 50;// 干扰线数量
     private int stringNum = 4;// 随机产生字符数量
 
     private static final Logger logger = LoggerFactory.getLogger(RandomValidateCodeUtil.class);
@@ -54,27 +54,31 @@ public class RandomValidateCodeUtil {
         HttpSession session = request.getSession();
         // BufferedImage类是具有缓冲区的Image类,Image类是用于描述图像信息的类
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_BGR);
-        Graphics g = image.getGraphics();// 产生Image对象的Graphics对象,改对象可以在图像上进行各种绘制操作
-        g.fillRect(0, 0, width, height);//图片大小
-        g.setFont(new Font("Times New Roman", Font.ROMAN_BASELINE, 18));//字体大小
-        g.setColor(getRandColor(110, 133));//字体颜色
+        Graphics2D g2 = (Graphics2D) image.getGraphics();
+        Color color = new Color(92, 162, 232);
+        g2.setBackground(color);
+/*        Graphics g = image.getGraphics();// 产生Image对象的Graphics对象,改对象可以在图像上进行各种绘制操作*/
+        g2.fillRect(0, 0, width, height);//图片大小
+        g2.setFont(new Font("Times New Roman", Font.ROMAN_BASELINE, 18));//字体大小
+        g2.setColor(getRandColor(110, 133));//字体颜色
+
         // 绘制干扰线
         for (int i = 0; i <= lineSize; i++) {
-            drowLine(g);
+            drowLine(g2);
         }
         // 绘制随机字符
         String randomString = "";
         for (int i = 1; i <= stringNum; i++) {
-            randomString = drowString(g, randomString, i);
+            randomString = drowString(g2, randomString, i);
         }
         logger.info(randomString);
         //将生成的随机字符串保存到session中
         session.removeAttribute(RANDOMCODEKEY);
         session.setAttribute(RANDOMCODEKEY, randomString);
-        g.dispose();
+        g2.dispose();
         try {
             // 将内存中的图片通过流动形式输出到客户端
-            ImageIO.write(image, "JPEG", response.getOutputStream());
+            ImageIO.write(image, "jpg", response.getOutputStream());
         } catch (Exception e) {
             logger.error("将内存中的图片通过流动形式输出到客户端失败>>>> ", e);
         }

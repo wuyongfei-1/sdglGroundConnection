@@ -27,8 +27,21 @@ public class EnterCountAdjustPageController {
     @Autowired
     private HotelService hotelService;
 
+
+
     // 日志对象
     private Logger logger = LoggerFactory.getLogger(EnterGeneralControlPageController.class);
+
+    /**
+     * 退出功能
+     * @return 返回到登录页面
+     */
+    @RequestMapping("/updatePassword-info.html")
+    public String updatePasswordInfo(){
+        return "countAdjust/index/updatePassword-info.html";
+    }
+
+
 
     /**
      * 进入计调首页

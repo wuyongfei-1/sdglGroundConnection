@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import java.util.Date;
 import java.util.List;
@@ -311,19 +312,27 @@ public class StaffController {
      * 用户修改密码(lixiaojie)
      */
     @RequestMapping("/updateStaff1")
-    public ReponseResult updateStaff1(Staff staff,String oldPassword, HttpServletRequest request) {
+    public ReponseResult updateStaff1(Staff staff,String imgVerify,String oldPassword, HttpServletRequest request,HttpSession session) {
+        ReponseResult<String> date;
         try {
             Staff sessionstaff = (Staff) request.getSession().getAttribute("user");
             staff.setStaffId(sessionstaff != null ? sessionstaff.getStaffId() : 1);
             staff.setUpdateBy(sessionstaff != null ? sessionstaff.getStaffId() : 1);
             staff.setUpdateDate(new Date());
-
+            String random = (String) session.getAttribute("RANDOMVALIDATECODEKEY");
+            if (random==null){
+                date = ReponseResult.ok("3", "找不到验证码！");
+                logger.info("method:updateStaff1  用户修改密码失败！");
+                return date;
+            }if (!random.equals(imgVerify)){
+                date = ReponseResult.ok("3", "验证码错误！");
+                logger.info("method:updateStaff1  用户修改密码失败！");
+                return date;
+            }
             int result = staffService.updateStaffpas(staff,oldPassword);
-            ReponseResult<String> date;
             if (result == 1) {
                 date = ReponseResult.ok("1", "用户修改密码成功！");
                 logger.info("method:updateStaff1  用户修改密码成功！");
-
             } else if (result == 2) {
                 date = ReponseResult.ok("2", "！");
                 logger.info(" method:updateStaff1  原密码错误！");

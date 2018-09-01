@@ -19,6 +19,14 @@ public class EnterGeneralControlPageController {
     private Logger logger = LoggerFactory.getLogger(EnterGeneralControlPageController.class);
 
     /**
+     * 退出功能
+     * @return 返回到登录页面
+     */
+    @RequestMapping("/updatePassword-info.html")
+    public String updatePasswordInfo(){
+        return "General-control/index/updatePassword-info.html";
+    }
+    /**
      * git测试页面
      * @return
      */

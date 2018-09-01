@@ -9,6 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("/finance")
 public class EnterFinancePageController {
+
+
+
+
+
+    /**
+     * 退出功能
+     * @return 返回到登录页面
+     */
+    @RequestMapping("/updatePassword-info.html")
+    public String updatePasswordInfo(){
+        return "finance/index/updatePassword-info.html";
+    }
+
     /**
      * 进入管理员修改个人信息页面
      * @param userId

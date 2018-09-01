@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class LoginConfigurer implements WebMvcConfigurer {
     final String[] notLoginInterceptPaths =
-            {"/static/**", "/account/**", "/log/**", "/moneyBudget/**"
+            {"/static/**", "/account/**", "/tourLog/**", "/tourLog/upData", "/moneyBudget/**"
                     , "/quoteDetails/**", "/record/**", "/route/**", "/bill/**", "/bill/uploadBills", "/admins/login.html"
                     , "/staff/loginCheck", "/admin/**", "/css/**", "/font/**", "/images/**","/api/image/**"
                     , "/js/**", "/lay/**"};//禁止拦截
@@ -32,7 +32,6 @@ public class LoginConfigurer implements WebMvcConfigurer {
     public ServletListenerRegistrationBean listenerRegist() {
         ServletListenerRegistrationBean srb = new ServletListenerRegistrationBean();
         srb.setListener(new MySessionListener());
-        System.out.println("listener");
         return srb;
     }
 

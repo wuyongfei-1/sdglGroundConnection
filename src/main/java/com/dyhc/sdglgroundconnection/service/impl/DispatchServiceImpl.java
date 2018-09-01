@@ -444,6 +444,7 @@ public class DispatchServiceImpl implements DispatchService {
             // 添加旅行社信息
             Dispatchtourgroup dispatchtourgroup = disParam.getDispatchtourgroup();
             dispatchtourgroup.setOfferid(baseId);
+            dispatchtourgroupServer.saveDispatchtourgroupInfo(dispatchtourgroup);
             return baseId;
         } catch (Exception e) {
             e.printStackTrace();

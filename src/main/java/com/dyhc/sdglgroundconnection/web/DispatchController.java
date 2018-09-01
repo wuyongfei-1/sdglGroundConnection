@@ -124,13 +124,13 @@ public class DispatchController {
             dispatch.setFare(patchInfo.getFare());
             dispatch.setWineFee(patchInfo.getWineFee());
             dispatch.setRemarks(patchInfo.getRemarks());
-            dispatch.setReception(patchInfo.getReception());
+            dispatch.setSupervision(patchInfo.getSupervision());
             dispatch.setReception(patchInfo.getReception());
             dispatch.setLoan(patchInfo.getLoan());
             dispatch.setCreater(userId);
             dispatch.setCreationDate(new Date());
             dispatch.setStatus(2);
-            dispatch.setState(1);
+            dispatch.setState(2);
             dispatch.setWhetherDel(0);
             dispatchParam.setDispatch(dispatch);
             // 其他信息

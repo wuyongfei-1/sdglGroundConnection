@@ -109,7 +109,9 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
                 "<td><label class='layui-form-label'>景点</label></td>\" +\n" +
                 "<td>" + scenicspots +
                 "</td>\" +\n" +
-                "<td>" + scenicspots +
+                "<td><select name=\"scenicspots\" id=\"scenicspots\" lay-ignore onchange=\"listenerSelectChange(this)\">\n" +
+                "<option value=\"0\">无需提供</option>" +
+                "</select>" +
                 "</td>\" +\n" +
                 "<td><label class='layui-form-label'>成本价:</label></td>\" +\n" +
                 "<td><input type='text'  class='layui-input'></td>\" +\n" +
@@ -252,6 +254,38 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
     $('#offer' + num).find("#date3").val(lineDate);
     // 酒店绑定
     $('#offer' + num).find("#hotels [value=" + hotelId + "]").attr('selected', 'selected');
+    // 根据酒店查询房间类型
+    // 获取选中的下拉框的值
+    var id = $('#offer' + num).find("#hotels").find('option:selected').val();
+    // 根据酒店查询所属的房间类型
+    if ($('#offer' + num).find("#hotels").attr('id') == "hotels") {  // 改变酒店，查询该酒店的所有房间类型
+        $.ajax({
+            url: "/roomType/roomType/details/" + id + ".html",
+            data: "",
+            dataType: "json",
+            type: "get",
+            success: function (result) {
+                var allRoomType = result.data;
+                var options = "";
+                $(allRoomType).each(function (i, e) {    // 遍历所有的房间类型
+                    options += "<option value='" + (e.typeId) + "'>" + (e.typeName) + "</option>";
+                })
+                if (allRoomType.length > 0) {
+                    // 获取成本价
+                    var costprice = allRoomType[0].costprice;
+                    // 报价
+                    var offer = allRoomType[0].offer;
+                }
+                // 将所有的房间类型附上值
+                $('#offer' + num).find("#hotels").parent().next().find('#therooms').html(options);
+                $('#offer' + num).find("#hotels").parent().next().next().next().next().next().find('input').val(costprice);
+                $('#offer' + num).find("#hotels").parent().next().next().next().next().next().next().next().find('input').val(offer);
+            },
+            error: function (res) {
+                alert(res);
+            }
+        })
+    }
     // 酒店成本价与报价绑定
     $('#offer' + num).find("#hotels").parent('td').next().next().next().next().next().find('input').val(hotelCostPrice);
     $('#offer' + num).find("#hotels").parent('td').next().next().next().next().next().next().next().find('input').val(hotelOffer);
@@ -295,6 +329,44 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
         $('#offer' + num + ' #scenic' + i).find('#scenicspots').parent('td').next().next().find('input').val(costPrice);
         // 绑定报价
         $('#offer' + num + ' #scenic' + i).find('#scenicspots').parent('td').next().next().next().next().find('input').val(offer);
+
+
+        if ($('#offer' + num + ' #scenic' + i).find('#scenicspots').first().attr('box') == "true") {  // 根据大景点查询小的景点信息
+            $.ajax({
+                url: "/scenicspot/scenicspot/childrens/" + id + ".html",
+                data: "",
+                dataType: "json",
+                type: "get",
+                success: function (result) {
+                    var allScenicspots = result.data;
+                    var options = "";
+                    $(allScenicspots).each(function (i, e) {    // 遍历所有的房间类型
+                        options += "<option value='" + (e.scenicSpotId) + "' costPrice='" + (e.costprice) + "' offer='" + (e.offer) + "'>" + (e.scenicSpotName) + "</option>";
+                    })
+                    if (allScenicspots.length > 0) {
+                        // 获取成本价
+                        var costprice = allScenicspots[0].costprice;
+                        // 报价
+                        var offer = allScenicspots[0].offer;
+                    }
+                    // 将所有的房间类型附上值
+                    $('#offer' + num + ' #scenic' + i).find('#scenicspots').first().parent().next().find('#scenicspots').html(options);
+                    $('#offer' + num + ' #scenic' + i).find('#scenicspots').first().parent().next().next().next().find('input').val(costprice);
+                    $('#offer' + num + ' #scenic' + i).find('#scenicspots').first().parent().next().next().next().next().next().find('input').val(offer);
+                },
+                error: function (res) {
+                    alert(res);
+                }
+            })
+        }
+
+
+
+
+
+
+
+
     })
     // 组团社名称绑定
     $('#travelName').val(travelName);

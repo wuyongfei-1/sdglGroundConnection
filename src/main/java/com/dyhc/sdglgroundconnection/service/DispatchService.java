@@ -14,18 +14,18 @@ import java.util.List;
  **/
 public interface DispatchService {
     /**
-     * 根据调度id获取调度信息
+     * 根据调度id获取调度信息(lixiaojie)
      * @param dispatchId
      * @return
      */
-    Dispatch getDispatchByDispatchId(Integer dispatchId);
+    Dispatch getDispatchByDispatchId(Integer dispatchId) throws Exception;
 
     /**
      * 根据调度id查询所有的景点信息(lixiaojie)
      * @param dispatchId
      * @return
      */
-    List<WechatTicketbudgetParam> selectDispatchByScenicspotInfo(Integer dispatchId);
+    List<WechatTicketbudgetParam> selectDispatchByScenicspotInfo(Integer dispatchId)throws Exception;
 
 
     /**
@@ -34,13 +34,13 @@ public interface DispatchService {
      * @param weight
      * @return
      */
-    WechatEatAndHotelParam selectDispatchInfoByWeightDispatchId(Integer dispatchId,Integer weight);
+    WechatEatAndHotelParam selectDispatchInfoByWeightDispatchId(Integer dispatchId,Integer weight)throws Exception;
 
     /**
      *  根据调度id获取该团的所有天数(lixiaojie)
      * @return
      */
-    List<String> selectDispatchDaysByDispatchId(Integer dispatchId) throws ParseException;
+    List<String> selectDispatchDaysByDispatchId(Integer dispatchId) throws ParseException, Exception;
 
 
     /**
@@ -48,7 +48,7 @@ public interface DispatchService {
      * @param guideId
      * @return  微信基本信息参数类
      */
-    WechatInformationParam selectDispatchInfoByGuideId(Integer guideId);
+    WechatInformationParam selectDispatchInfoByGuideId(Integer guideId) throws Exception;
 
     /**
      * 获取计划表的信息根据调度编号（yunguohao）
@@ -95,27 +95,27 @@ public interface DispatchService {
      *
      * @return
      */
-    PageInfo<Dispatch> selectDispatchs(Integer pageNo, Integer pageSize);
+    PageInfo<Dispatch> selectDispatchs(Integer pageNo, Integer pageSize)throws Exception;
 
     /**
      * 总控审核通过（lixiaojie)
      *
      * @return
      */
-    Integer onCheckDispatchInfo(Integer dispatchId,int staffId) throws ParseException;
+    Integer onCheckDispatchInfo(Integer dispatchId,int staffId) throws ParseException, Exception;
 
     /**
      * 总控审核不通过(lixiaojie)
      *
      * @return
      */
-    Integer noCheckDispatchInfo(Integer dispatchId);
+    Integer noCheckDispatchInfo(Integer dispatchId) throws Exception;
 
     /**
      * 根据导游id获取调度信息id  没有则返回null(lixiaojie)
      * @param guideId
      * @return
      */
-    Integer selectDisGuideInfoByguideId(Integer guideId);
+    Integer selectDisGuideInfoByguideId(Integer guideId)throws Exception;
 
 }

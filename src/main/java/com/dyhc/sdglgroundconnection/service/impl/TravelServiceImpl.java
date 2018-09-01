@@ -58,7 +58,7 @@ public class TravelServiceImpl implements TravelService {
      */
     @Override
     @RecordOperation(type = "组团社", desc = "添加了一条组团社信息")
-    public int insertTravels(Travel travel) {
+    public int insertTravels(Travel travel) throws Exception{
         travel.setWhetherDel(0);
         return travelMapper.insert(travel);
     }
@@ -71,7 +71,7 @@ public class TravelServiceImpl implements TravelService {
      */
     @Override
     @RecordOperation(type = "组团社", desc = "修改了一条组团社信息")
-    public int updateTravels(Travel travel) {
+    public int updateTravels(Travel travel) throws Exception{
         Travel offtrave=travelMapper.selectByPrimaryKey(travel.getTravelId());
         travel.setUpdateBy(travel.getUpdateBy());
         travel.setUpdateDate(travel.getUpdateDate());
@@ -100,7 +100,7 @@ public class TravelServiceImpl implements TravelService {
      * @return
      */
     @Override
-    public Travel selectTravelByIds(int id) {
+    public Travel selectTravelByIds(int id) throws Exception {
         return travelMapper.selectByPrimaryKey(id);
     }
 }

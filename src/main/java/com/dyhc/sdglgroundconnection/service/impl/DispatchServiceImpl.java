@@ -7,22 +7,24 @@ import com.dyhc.sdglgroundconnection.dto.GuideRouteParam;
 import com.dyhc.sdglgroundconnection.dto.MissionParam;
 import com.dyhc.sdglgroundconnection.dto.TravelPathParam;
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
+import com.dyhc.sdglgroundconnection.mapper.DisguideMapper;
+import com.dyhc.sdglgroundconnection.mapper.DispatchMapper;
+import com.dyhc.sdglgroundconnection.mapper.GuideMapper;
 import com.dyhc.sdglgroundconnection.mapper.*;
 import com.dyhc.sdglgroundconnection.pojo.*;
 import com.dyhc.sdglgroundconnection.service.*;
+import com.dyhc.sdglgroundconnection.utils.ConditionValidation;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
  * 调度业务实现
@@ -99,7 +101,7 @@ public class DispatchServiceImpl implements DispatchService {
      * @return
      */
     @Override
-    public Dispatch getDispatchByDispatchId(Integer dispatchId) {
+    public Dispatch getDispatchByDispatchId(Integer dispatchId)throws Exception {
         return dispatchMapper.selectByPrimaryKey(dispatchId);
     }
 
@@ -109,7 +111,7 @@ public class DispatchServiceImpl implements DispatchService {
      * @return
      */
     @Override
-    public List<WechatTicketbudgetParam> selectDispatchByScenicspotInfo(Integer dispatchId) {
+    public List<WechatTicketbudgetParam> selectDispatchByScenicspotInfo(Integer dispatchId) throws Exception{
         DisattrExample disattrExample=new DisattrExample();
         DisattrExample.Criteria disattrExampleCriteria=disattrExample.createCriteria();
         disattrExample.setOrderByClause("weight");
@@ -136,7 +138,7 @@ public class DispatchServiceImpl implements DispatchService {
      * @return
      */
     @Override
-    public WechatEatAndHotelParam selectDispatchInfoByWeightDispatchId(Integer dispatchId, Integer weight) {
+    public WechatEatAndHotelParam selectDispatchInfoByWeightDispatchId(Integer dispatchId, Integer weight)throws Exception {
         WechatEatAndHotelParam wechatEatAndHotelParam = new WechatEatAndHotelParam();
         Dispatch dispatch=dispatchMapper.selectByPrimaryKey(dispatchId);
         DisrestaurantExample noonDisrestaurantExample = new DisrestaurantExample();
@@ -179,7 +181,7 @@ public class DispatchServiceImpl implements DispatchService {
      * @return
      */
     @Override
-    public List<String> selectDispatchDaysByDispatchId(Integer dispatchId) throws ParseException {
+    public List<String> selectDispatchDaysByDispatchId(Integer dispatchId) throws Exception {
         List<String> Days = new ArrayList<>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Dispatch dispatch = dispatchMapper.selectByPrimaryKey(dispatchId);//根据调度id获取调度对象
@@ -211,7 +213,7 @@ public class DispatchServiceImpl implements DispatchService {
      * @return 微信基本信息参数类
      */
     @Override
-    public WechatInformationParam selectDispatchInfoByGuideId(Integer guideId) {
+    public WechatInformationParam selectDispatchInfoByGuideId(Integer guideId)throws Exception {
         //创建微信基本信息参数对象
         WechatInformationParam wechatInformationParam = null;
         DisguideExample disguideExample = new DisguideExample();
@@ -262,32 +264,34 @@ public class DispatchServiceImpl implements DispatchService {
         travelPathParam.setDiscar(discarService.getDiscarByOffId(dispathId));
         travelPathParam.setCompany(companyService.selectCompanyByIds(1));
         travelPathParam.setDisguide(disguideService.getDisguideByDispatchId(dispathId));
-        travelPathParam.setStaff(staffService.getStaffInfoByStaffId(travelPathParam.getDispatch().getCreater()));
-        travelPathParam.setDisattrList(disattrService.listDisattrByOffId(dispathId));
-        travelPathParam.setDislineList(dislineService.dislineList(dispathId));
-        travelPathParam.setDisshoppList(disshoppService.getDisshopp(dispathId));
-        travelPathParam.setDisrestaurantList(disrestaurantService.listDisrestaurantByOffId(dispathId));
-        travelPathParam.setDispatchhotelList(dispatchhotelService.getDispatchhotelInfoByDispatchId(dispathId));
-        List<TravelPathParam> travelPathParams = new ArrayList<>();
-        for (int i = 0; i < travelPathParam.getDisattrList().size(); i++) {
-            TravelPathParam travelPathParam1 = new TravelPathParam();
-            travelPathParam1.setSzaddress(travelPathParam.getDisattrList().get(i).getScenicspot().getScenicSpotAddress());
-            travelPathParams.add(travelPathParam1);
-        }
-        for (int i = 0; i < travelPathParam.getDispatchhotelList().size(); i++) {
-            travelPathParams.get(i).setZhuaddress(travelPathParam.getDispatchhotelList().get(i).getHotel().getHotelName());
-        }
+        if(travelPathParam.getDispatch()!=null){
+            travelPathParam.setStaff(staffService.getStaffInfoByStaffId(travelPathParam.getDispatch().getCreater()));
+            travelPathParam.setDisattrList(disattrService.listDisattrByOffId(dispathId));
+            travelPathParam.setDislineList(dislineService.dislineList(dispathId));
+            travelPathParam.setDisshoppList(disshoppService.getDisshopp(dispathId));
+            travelPathParam.setDisrestaurantList(disrestaurantService.listDisrestaurantByOffId(dispathId));
+            travelPathParam.setDispatchhotelList(dispatchhotelService.getDispatchhotelInfoByDispatchId(dispathId));
+            List<TravelPathParam> travelPathParams = new ArrayList<>();
+            for (int i = 0; i < travelPathParam.getDisattrList().size(); i++) {
+                TravelPathParam travelPathParam1 = new TravelPathParam();
+                travelPathParam1.setSzaddress(travelPathParam.getDisattrList().get(i).getScenicspot().getScenicSpotAddress());
+                travelPathParams.add(travelPathParam1);
+            }
+            for (int i = 0; i < travelPathParam.getDispatchhotelList().size(); i++) {
+                travelPathParams.get(i).setZhuaddress(travelPathParam.getDispatchhotelList().get(i).getHotel().getHotelName());
+            }
 
-        for (int i = 0; i < travelPathParam.getDisshoppList().size(); i++) {
-            travelPathParams.get(i).setShoppaddress(travelPathParam.getDisshoppList().get(i).getShopping().getShoppingSite());
+            for (int i = 0; i < travelPathParam.getDisshoppList().size(); i++) {
+                travelPathParams.get(i).setShoppaddress(travelPathParam.getDisshoppList().get(i).getShopping().getShoppingSite());
+            }
+            for (int i = 0; i < travelPathParam.getDisrestaurantList().size(); i++) {
+                travelPathParams.get(i).setEataddress(travelPathParam.getDisrestaurantList().get(i).getMealType().getRestaurant().getRestaurantAddress());
+            }
+            for (int i = 0; i < travelPathParam.getDislineList().size(); i++) {
+                travelPathParams.get(i).setXctext(travelPathParam.getDislineList().get(i).getLineContent());
+            }
+            travelPathParam.setTravelPathParamList(travelPathParams);
         }
-        for (int i = 0; i < travelPathParam.getDisrestaurantList().size(); i++) {
-            travelPathParams.get(i).setEataddress(travelPathParam.getDisrestaurantList().get(i).getMealType().getRestaurant().getRestaurantAddress());
-        }
-        for (int i = 0; i < travelPathParam.getDislineList().size(); i++) {
-            travelPathParams.get(i).setXctext(travelPathParam.getDislineList().get(i).getLineContent());
-        }
-        travelPathParam.setTravelPathParamList(travelPathParams);
         return travelPathParam;
     }
 
@@ -370,15 +374,19 @@ public class DispatchServiceImpl implements DispatchService {
      */
     @Override
     public Dispatch getDispatchInfoByDispatchInfoId(Integer dispatchId) throws Exception {
-        Dispatch dispatch = dispatchMapper.selectByPrimaryKey(dispatchId);
-        dispatch.setDispatchhotel(dispatchhotelService.getDispatchhotelInfoByDispatchId(dispatchId));
-        dispatch.setDisguide(disguideService.getDisguideByDispatchId(dispatchId));
-        dispatch.setDispatchtourgroup(dispatchtourgroupServer.getDispatchtourgroupByOffId(dispatchId));
-        dispatch.setDiscar(discarService.getDiscarByOffId(dispatchId));
-        dispatch.setDisattrList(disattrService.listDisattrByOffId(dispatchId));
-        dispatch.setCompany(companyService.selectCompanyByIds(1));
-        dispatch.setStaff(staffService.getStaffInfoByStaffId(dispatch.getCreater()));
-        dispatch.setDisrestaurantList(disrestaurantService.listDisrestaurantByOffId(dispatchId));
+        Dispatch dispatch=null;
+        if(ConditionValidation.validation(dispatchId)==true){
+            dispatch = dispatchMapper.selectByPrimaryKey(dispatchId);
+            dispatch.setDispatchhotel(dispatchhotelService.getDispatchhotelInfoByDispatchId(dispatchId));
+            dispatch.setDisguide(disguideService.getDisguideByDispatchId(dispatchId));
+            dispatch.setDispatchtourgroup(dispatchtourgroupServer.getDispatchtourgroupByOffId(dispatchId));
+            dispatch.setDiscar(discarService.getDiscarByOffId(dispatchId));
+            dispatch.setDisattrList(disattrService.listDisattrByOffId(dispatchId));
+            dispatch.setCompany(companyService.selectCompanyByIds(1));
+            dispatch.setStaff(staffService.getStaffInfoByStaffId(dispatch.getCreater()));
+            dispatch.setDisrestaurantList(disrestaurantService.listDisrestaurantByOffId(dispatchId));
+        }
+
         return dispatch;
     }
 
@@ -553,7 +561,7 @@ public class DispatchServiceImpl implements DispatchService {
      * @return
      */
     @Override
-    public Integer noCheckDispatchInfo(Integer dispatchId) {
+    public Integer noCheckDispatchInfo(Integer dispatchId)throws Exception {
         Dispatch dispatch = dispatchMapper.selectByPrimaryKey(dispatchId);
         dispatch.setStatus(3);
         Integer result = dispatchMapper.updateByPrimaryKey(dispatch);
@@ -567,7 +575,7 @@ public class DispatchServiceImpl implements DispatchService {
      * @return
      */
     @Override
-    public Integer selectDisGuideInfoByguideId(Integer guideId) {
+    public Integer selectDisGuideInfoByguideId(Integer guideId) throws Exception{
         DisguideExample disguideExample = new DisguideExample();
         DisguideExample.Criteria disguideExampleCriteria = disguideExample.createCriteria();
         disguideExampleCriteria.andGuideidEqualTo(guideId);

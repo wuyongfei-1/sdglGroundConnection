@@ -220,10 +220,10 @@
                 <tr>
                     <td></td>
                     <td>
-                        <input class='layui-btn layui-btn-normal layui-btn-radius' style="width: 110px" value="预览报价单" id="yulan">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input class='layui-btn layui-btn-normal layui-btn-radius' style="margin-bottom: 50px;margin-top: 50px;width: 110px" value="预览报价单" id="yulan">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td>
-                        <input value="打印报价单" type="button" class='layui-btn layui-btn-normal layui-btn-radius'
+                        <input value="保存报价信息" type="button" style="margin-bottom: 50px;margin-top: 50px" class='layui-btn layui-btn-normal layui-btn-radius'
                                id="baocun">
                     </td>
                 </tr>
@@ -833,12 +833,12 @@
             var wu = parent.find("[wc='wucan']").find("option:selected").text();//午餐
             var wub = parent.find("[wc='wucan']").find("option:selected").attr("offer");//午餐报价
             if (parent.find("[wc='wucan']").val() != "-1") {
-                cs += "L" + wu + " " + wub + " ";
+                cs += "<br/>L" + wu + " " + wub + " ";
             }
             var wac = parent.find("[wac='wancan']").find("option:selected").text();//晚餐
             var wacb = parent.find("[wac='wancan']").find("option:selected").attr("offer");//晚餐报价
             if (parent.find("[wac='wancan']").val()!= "-1") {
-                cs += "D" + wac + " " + wacb;
+                cs += "<br/>D" + wac + " " + wacb;
             }
             var zs = parent.find("[hotel='jiudian']").find("option:selected").text();//住宿
             var zsdh = parent.find("[hotel='jiudian']").val();//住宿电话

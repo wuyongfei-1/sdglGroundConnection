@@ -22,6 +22,16 @@ public class EnterAdminPageController {
      * 退出功能
      * @return 返回到登录页面
      */
+    @RequestMapping("/updatePassword-info.html")
+    public String updatePasswordInfo(){
+        return "admin/index/updatePassword-info.html";
+    }
+
+
+    /**
+     * 退出功能
+     * @return 返回到登录页面
+     */
     @RequestMapping("/exit.html")
     public String exitHtml(HttpServletRequest request){
         request.getSession().invalidate();

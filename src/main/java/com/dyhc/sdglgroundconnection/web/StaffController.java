@@ -4,6 +4,7 @@ import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.dyhc.sdglgroundconnection.service.StaffService;
 import com.dyhc.sdglgroundconnection.utils.EncryUtil;
 import com.dyhc.sdglgroundconnection.utils.ClientFileUploadUtil;
+import com.dyhc.sdglgroundconnection.utils.RandomValidateCodeUtil;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import java.util.Date;
 import java.util.List;
@@ -59,12 +61,35 @@ public class StaffController {
         }
     }
 
+
+    /**
+     * 修改密码时从session中获取用户id(lixiaojie)
+     *
+     * @return
+     */
+    @RequestMapping(value = "/updateStaffInfoGetSessionInfo", produces = {"application/json"})
+    public ReponseResult updateStaffInfoGetSessionInfo(HttpServletRequest request) {
+        Staff oldStaff = (Staff) request.getSession().getAttribute("user");
+        ReponseResult<Staff> data;
+        try {
+            Staff staff = staffService.getStaffInfoByStaffId(oldStaff != null ? oldStaff.getStaffId() : 1);
+            data = ReponseResult.ok(staff, "从session中获取用户id成功！");
+            logger.info(" method:updateStaffInfoGetSessionInfo  修改密码时从session中获取用户id成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:updateStaffInfoGetSessionInfo  修改密码时从session中获取用户id失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
     /**
      * 从session中获取用户id(lixiaojie)
      *
      * @return
      */
-    @RequestMapping(value = "/getStaffIdBySession", method = RequestMethod.POST)
+    @RequestMapping(value = "/getStaffIdBySession", produces = {"application/json"})
     public ReponseResult getStaffIdBySession(HttpServletRequest request) {
         Staff oldStaff = (Staff) request.getSession().getAttribute("user");
         ReponseResult<Staff> data;
@@ -137,10 +162,10 @@ public class StaffController {
      * 增加
      */
     @RequestMapping(value = "/saveStaffInfo", method = RequestMethod.POST)
-    public ReponseResult saveStaffInfo(Staff staff,HttpServletRequest request) {
+    public ReponseResult saveStaffInfo(Staff staff, HttpServletRequest request) {
         try {
-            Staff sessionstaff= (Staff) request.getSession().getAttribute("user");
-            staff.setCreateBy(sessionstaff!=null?sessionstaff.getStaffId():1);
+            Staff sessionstaff = (Staff) request.getSession().getAttribute("user");
+            staff.setCreateBy(sessionstaff != null ? sessionstaff.getStaffId() : 1);
             staff.setCreateDate(new Date());
             int result = staffService.saveStaffInfo(staff);
             ReponseResult<String> date;
@@ -155,17 +180,32 @@ public class StaffController {
             return date;
         } catch (Exception e) {
             logger.error(" method:saveStaffInfo  增加用户信息失败，系统出现异常！");
-            e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            e.printStackTrace();
             return err;
         }
     }
-
+    /**
+     * 生成验证码
+     */
+    @RequestMapping(value = "/getVerify")
+    public void getVerify(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            response.setContentType("image/jpeg");//设置相应类型,告诉浏览器输出的内容为图片
+            response.setHeader("Pragma", "No-cache");//设置响应头信息，告诉浏览器不要缓存此内容
+            response.setHeader("Cache-Control", "no-cache");
+            response.setDateHeader("Expire", 0);
+            RandomValidateCodeUtil randomValidateCode = new RandomValidateCodeUtil();
+            randomValidateCode.getRandcode(request, response);//输出验证码图片方法
+        } catch (Exception e) {
+            logger.error("获取验证码失败>>>> ", e);
+        }
+    }
     /**
      * 修改删除状态(lixiaojie)
      */
     @RequestMapping(value = "/updateStaffWhetherDel", method = RequestMethod.POST)
-    public ReponseResult updateStaffWhetherDel(Integer staffId,HttpServletRequest request) {
+    public ReponseResult updateStaffWhetherDel(Integer staffId, HttpServletRequest request) {
         try {
 
             int result = staffService.updateStaffWhetherDel(staffId);
@@ -191,10 +231,10 @@ public class StaffController {
      * 修改用户信息(lixiaojie)
      */
     @RequestMapping(value = "/updateStaffInfo", method = RequestMethod.POST)
-    public ReponseResult updateStaffInfo(Staff staff,HttpServletRequest request) {
+    public ReponseResult updateStaffInfo(Staff staff, HttpServletRequest request) {
         try {
-            Staff sessionstaff= (Staff) request.getSession().getAttribute("user");
-            staff.setUpdateBy(sessionstaff!=null?sessionstaff.getStaffId():1);
+            Staff sessionstaff = (Staff) request.getSession().getAttribute("user");
+            staff.setUpdateBy(sessionstaff != null ? sessionstaff.getStaffId() : 1);
             staff.setUpdateDate(new Date());
             int result = staffService.updateStaffInfo(staff);
             ReponseResult<String> date;
@@ -223,13 +263,13 @@ public class StaffController {
      * @return 保存结果updateStaff
      */
     @RequestMapping("/updateUserInfo")
-    public ReponseResult updateUserInfo(Staff staff, @RequestParam("fileObj") MultipartFile multipartFile,HttpServletRequest request) {
+    public ReponseResult updateUserInfo(Staff staff, @RequestParam("fileObj") MultipartFile multipartFile, HttpServletRequest request) {
 
         try {
 
-            Staff sessionstaff= (Staff) request.getSession().getAttribute("user");
-            Staff oldStaff = staffService.getStaffInfoByStaffId(sessionstaff!=null?sessionstaff.getStaffId():1);
-            staff.setUpdateBy(sessionstaff!=null?sessionstaff.getStaffId():1);
+            Staff sessionstaff = (Staff) request.getSession().getAttribute("user");
+            Staff oldStaff = staffService.getStaffInfoByStaffId(sessionstaff != null ? sessionstaff.getStaffId() : 1);
+            staff.setUpdateBy(sessionstaff != null ? sessionstaff.getStaffId() : 1);
             staff.setUpdateDate(new Date());
             staff.setStaffId(oldStaff.getStaffId());
             //判断是否有上传图片 判断multipartFile和savePath是否为null
@@ -238,7 +278,7 @@ public class StaffController {
                 staff.setHeadPortraitPath(oldStaff.getHeadPortraitPath());
             } else {
                 // 上传图片操作
-                String uploadResult = ClientFileUploadUtil.uploadImage(multipartFile, ".jpg",".png",".JPG",".PNG");
+                String uploadResult = ClientFileUploadUtil.uploadImage(multipartFile, ".jpg", ".png", ".JPG", ".PNG");
                 if (!"".equals(uploadResult)) {
                     staff.setHeadPortraitPath(uploadResult);
                     logger.info(" method:updateUserInfo  上传图片成功！");
@@ -268,24 +308,33 @@ public class StaffController {
     }
 
     /**
-     * 修改公司(lixiaojie)
+     * 用户修改密码(lixiaojie)
      */
     @RequestMapping("/updateStaff1")
-    public ReponseResult updateCompany(Staff staff) {
+    public ReponseResult updateStaff1(Staff staff,String oldPassword, HttpServletRequest request) {
         try {
-            int result = staffService.updateStaffpas(staff);
-            ReponseResult<String> date;
-            if (result > 0) {
-                date = ReponseResult.ok("1", "修改公司成功！");
-                logger.info("method:updateStaff1  修改公司成功！");
+            Staff sessionstaff = (Staff) request.getSession().getAttribute("user");
+            staff.setStaffId(sessionstaff != null ? sessionstaff.getStaffId() : 1);
+            staff.setUpdateBy(sessionstaff != null ? sessionstaff.getStaffId() : 1);
+            staff.setUpdateDate(new Date());
 
+            int result = staffService.updateStaffpas(staff,oldPassword);
+            ReponseResult<String> date;
+            if (result == 1) {
+                date = ReponseResult.ok("1", "用户修改密码成功！");
+                logger.info("method:updateStaff1  用户修改密码成功！");
+
+            } else if (result == 2) {
+                date = ReponseResult.ok("2", "！");
+                logger.info(" method:updateStaff1  原密码错误！");
             } else {
-                date = ReponseResult.ok("0", "修改公司失败！");
-                logger.info(" method:updateStaff1  修改公司失败！");
+
+                date = ReponseResult.ok("0", "用户修改密码失败！");
+                logger.info(" method:updateStaff1  用户修改密码失败！");
             }
             return date;
         } catch (Exception e) {
-            logger.error(" method:updateStaff1  修改公司失败，系统出现异常！");
+            logger.error(" method:updateStaff1  用户修改密码失败，系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
             return err;

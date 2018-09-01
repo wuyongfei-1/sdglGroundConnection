@@ -9,6 +9,7 @@ import com.dyhc.sdglgroundconnection.mapper.GuideMapper;
 import com.dyhc.sdglgroundconnection.pojo.*;
 import com.dyhc.sdglgroundconnection.service.DisguideService;
 import com.dyhc.sdglgroundconnection.service.GuideService;
+import com.dyhc.sdglgroundconnection.utils.ConditionValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,19 +45,23 @@ public class DisguideServiceImpl implements DisguideService {
      */
     @Override
     public List<Dispatch> listDispatchGuideByGuideId(Integer guideId) {
-        DisguideExample disguideExample=new DisguideExample();
-        DisguideExample.Criteria criteria=disguideExample.createCriteria();
-        criteria.andGuideidEqualTo(guideId);
-        List<Disguide> disguideList=disguideMapper.selectByExample(disguideExample);
-        List<Dispatch> dispatchList=new ArrayList<>();
-        for (Disguide disguide: disguideList) {
-            Dispatch dispatch=dispatchMapper.selectByPrimaryKey(disguide.getOfferId());
-            BillExample billExample=new BillExample();
-            BillExample.Criteria criteria1=billExample.createCriteria();
-            criteria1.andDispatchidEqualTo(dispatch.getDispatchId());
-            criteria1.andBilltypeidEqualTo(3);
-            dispatch.setBill(billMapper.selectByExample(billExample).get(0));
-            dispatchList.add(dispatch);
+        List<Disguide> disguideList=null;
+        List<Dispatch> dispatchList=null;
+        if(ConditionValidation.validation(guideId)==true){
+            DisguideExample disguideExample=new DisguideExample();
+            DisguideExample.Criteria criteria=disguideExample.createCriteria();
+            criteria.andGuideidEqualTo(guideId);
+            disguideList=disguideMapper.selectByExample(disguideExample);
+            dispatchList=new ArrayList<>();
+            for (Disguide disguide: disguideList) {
+                Dispatch dispatch=dispatchMapper.selectByPrimaryKey(disguide.getOfferId());
+                BillExample billExample=new BillExample();
+                BillExample.Criteria criteria1=billExample.createCriteria();
+                criteria1.andDispatchidEqualTo(dispatch.getDispatchId());
+                criteria1.andBilltypeidEqualTo(3);
+                dispatch.setBill(billMapper.selectByExample(billExample).get(0));
+                dispatchList.add(dispatch);
+            }
         }
         return dispatchList;
     }
@@ -105,15 +110,17 @@ public class DisguideServiceImpl implements DisguideService {
      * @return 返回调度导游表对象
      */
     @Override
-    public Disguide getDisguideByDispatchId(Integer dispatchId) {
-        DisguideExample disguideExample=new DisguideExample();
-        DisguideExample.Criteria criteria=disguideExample.createCriteria();
-        criteria.andOfferidEqualTo(dispatchId);
-        List<Disguide> disguideList=disguideMapper.selectByExample(disguideExample);
+    public Disguide getDisguideByDispatchId(Integer dispatchId) throws Exception {
         Disguide disguide=null;
-        if(disguideList!=null){
-            disguide=disguideList.get(0);
-            disguide.setGuide(guideService.selectGuideByIds(disguide.getGuideId()));
+        if(ConditionValidation.validation(dispatchId)==true){
+            DisguideExample disguideExample=new DisguideExample();
+            DisguideExample.Criteria criteria=disguideExample.createCriteria();
+            criteria.andOfferidEqualTo(dispatchId);
+            List<Disguide> disguideList=disguideMapper.selectByExample(disguideExample);
+            if(disguideList!=null&&disguideList.size()>0){
+                disguide=disguideList.get(0);
+                disguide.setGuide(guideService.selectGuideByIds(disguide.getGuideId()));
+            }
         }
         return disguide;
     }

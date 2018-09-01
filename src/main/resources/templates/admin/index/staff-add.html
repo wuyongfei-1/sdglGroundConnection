@@ -144,10 +144,12 @@
             type: "post",
             success: function (ReponseResult) {
                 if (ReponseResult.data == 0 || ReponseResult.data == '0') {
-                    alert("新增失败")
+                    alert(ReponseResult.data)
                 }
                 if (ReponseResult.data == 1 || ReponseResult.data == '1') {
                     alert("新增成功")
+                }else {
+                    alert("新增失败")
                 }
                 parent.location.reload();
             },

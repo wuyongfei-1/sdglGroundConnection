@@ -15,5 +15,5 @@ public interface BillTypeService {
      * 查询所有单据类型(lixiaojie)
      * @return
      */
-    List<BillType> selectAllBillType();
+    List<BillType> selectAllBillType()throws Exception ;
 }

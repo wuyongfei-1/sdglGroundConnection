@@ -129,7 +129,7 @@ public class ReportdetailController {
     public ReponseResult showInfoAll(Integer pageNo,Integer pageSize,String groupNumber,Integer states){
         try {
             PageInfo<Reportdetail> pageInfo=reportdetailService.listReportdetail(pageNo,pageSize,groupNumber,states);
-            ReponseResult<Object> data = ReponseResult.ok(pageInfo,"分页获取导游报账信息成功！");
+            ReponseResult<Object> data = ReponseResult.ok(pageInfo,pageInfo.getTotal(),"分页获取导游报账信息成功！");
             return data;
         }catch (Exception e){
             logger.error(" method:showInfoAll  分页获取导游报账信息失败，系统出现异常！");

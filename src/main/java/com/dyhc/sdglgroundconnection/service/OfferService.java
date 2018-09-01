@@ -22,7 +22,7 @@ public interface OfferService {
      * @param offerId
      * @return
      */
-    Offer getOfferByOfferId(Integer offerId) throws OfferException;
+    Offer getOfferByOfferId(Integer offerId) throws OfferException, Exception;
 
     /**
      * 添加报价信息（dubingkun）

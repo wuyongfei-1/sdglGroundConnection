@@ -11,24 +11,25 @@
     <link rel="stylesheet" type="text/css" href="/admin/layui/css/layui.css"/>
     <link rel="stylesheet" type="text/css" href="/admin/css/admin.css"/>
     <style type="text/css">
-        ::-webkit-scrollbar{
+        ::-webkit-scrollbar {
             /*垂直滚动条的宽*/
             width: 6px;
             height: 20px;
         }
-        #daoyouricheng td p{
+
+        #daoyouricheng td p {
             text-align: center;
             width: 24px;
             height: 16px;
 
         }
+
         #tbodyinfo td {
             text-align: center;
             width: 24px;
             height: 14px;
 
         }
-
 
         .jidiaoinfo {
             width: 370px;
@@ -39,7 +40,8 @@
         }
 
         .jidiaoinfo dd {
-            height: 28px;
+            height: 30px;
+            margin-top: 10px;
         }
 
         #daoyouxinxi {
@@ -82,7 +84,7 @@
 
             <thead>
             <tr id="daoyouricheng">
-                <td ><p style="width: 80px">证件号</p></td>
+                <td><p style="width: 80px">证件号</p></td>
                 <td><p>1</p></td>
                 <td><p>2</p></td>
                 <td><p>3</p></td>
@@ -136,15 +138,15 @@
     * 判断日程集合内是否有该值（lixiaojie)
     *
     */
-    function getTdRiChengInfo(allDay,allshiqing) {
+    function getTdRiChengInfo(allDay, allshiqing) {
 
         var result;
         $.each(allshiqing, function (i, e) {
             var myBeginDate = e.schedulebegintime;
             var thisDay = myBeginDate.substr(8, 2);
             thisDay = thisDay * 1;
-            if (thisDay==allDay){
-                result= e;
+            if (thisDay == allDay) {
+                result = e;
             }
 
         });
@@ -155,48 +157,48 @@
      * 总控为团选择导游(lixiaojie)
      *
      */
-    function zongKongDianJiRiQi(nowDay,guideId) {
+    function zongKongDianJiRiQi(nowDay, guideId) {
         /*if (!confirm("你确定要为团修改导游行程吗？")){
             return;
         }*/
-        var offerId=$('input:radio[name="okIndex"]:checked').val();
-        if(offerId==null){
+        var offerId = $('input:radio[name="okIndex"]:checked').val();
+        if (offerId == null) {
             alert("请选择旅行团!");
-            return ;
+            return;
         }
 
         $.ajax({
             url: "/disguide/getDisGuideByOfferIdAndGuideId",
             data: {
-                "guideId":guideId,
-                "offerId":offerId
+                "guideId": guideId,
+                "offerId": offerId
             },
             async: false,
             dataType: "json",
             type: "post",
             success: function (ReponseResult) {
 
-                if (ReponseResult.data.guideId==guideId) {
+                if (ReponseResult.data.guideId == guideId) {
 
-                }else {
-                   /* if (!confirm("该团的导游将被改成"+ReponseResult.data.guide.guideName)){
-                        return;
-                    }else {*/
-                        //执行修改团 导游
-                        $.ajax({
-                            url: "/disguide/updateDispatchGuide",
-                            data: {
-                                "guideId":guideId,
-                                "offerId":offerId
-                            },
-                            async: false,
-                            dataType: "json",
-                            type: "post",
-                            success: function (ReponseResult) {
-                                location.reload();
-                            }
-                        });
-                   /* }*/
+                } else {
+                    /* if (!confirm("该团的导游将被改成"+ReponseResult.data.guide.guideName)){
+                         return;
+                     }else {*/
+                    //执行修改团 导游
+                    $.ajax({
+                        url: "/disguide/updateDispatchGuide",
+                        data: {
+                            "guideId": guideId,
+                            "offerId": offerId
+                        },
+                        async: false,
+                        dataType: "json",
+                        type: "post",
+                        success: function (ReponseResult) {
+                            location.reload();
+                        }
+                    });
+                    /* }*/
                 }
             }
         });
@@ -204,9 +206,9 @@
         $.ajax({
             url: "/guideSchedule/insertGuideScheduleInfo",
             data: {
-                "guideId":guideId,
-                "Day":nowDay,
-                "offerId":offerId
+                "guideId": guideId,
+                "Day": nowDay,
+                "offerId": offerId
             },
             async: false,
             dataType: "json",
@@ -219,9 +221,8 @@
         //不管 执行不执行团导游修改 都执行 新增操作
 
 
-
-
     }
+
     /**
      * 获取所有导游和导游日程(lixiaojie)
      */
@@ -239,20 +240,20 @@
                     content += "<tr>";
                     content += " <td style='text-align: center'>" + e.certificate + "</td>";
 
-                    for (var s=1;s<32;s++){
-                        var result=getTdRiChengInfo(s,e.guideScheduleList)
-                        if (result!="" && result!=null && result!=undefined){
-                            if (result.schedulestate==1) {
+                    for (var s = 1; s < 32; s++) {
+                        var result = getTdRiChengInfo(s, e.guideScheduleList)
+                        if (result != "" && result != null && result != undefined) {
+                            if (result.schedulestate == 1) {
                                 content += "<td >无</td>";
                             }
-                            if (result.schedulestate==2) {
+                            if (result.schedulestate == 2) {
                                 content += "<td>休</td>";
                             }
-                            if (result.schedulestate==3) {
+                            if (result.schedulestate == 3) {
                                 content += "<td>√</td>";
                             }
-                        }else {
-                            content += "<td  onclick='zongKongDianJiRiQi("+(s+1)+","+e.guideId+")'></td>";
+                        } else {
+                            content += "<td  onclick='zongKongDianJiRiQi(" + (s + 1) + "," + e.guideId + ")'></td>";
                         }
                     }
 
@@ -309,10 +310,10 @@
 <!--点击调度信息 变redio 按钮  变边框颜色(lixiaojie)-->
 <script>
     function OnDivSelect(myElement) {
-        $(".jidiaoinfo").attr("style","border:1px solid #2B2E37;");
-        $(myElement).attr("style","border:1px solid #3385ff;");
+        $(".jidiaoinfo").attr("style", "border:1px solid #2B2E37;");
+        $(myElement).attr("style", "border:1px solid #3385ff;");
         $(".jidiaoinfo").children("dl").children(".redioDD").children("input[name='okIndex']").removeAttr("checked");
-        $(myElement).children("dl").children("dd").eq(6).children("input[name='okIndex']").attr("checked","checked");
+        $(myElement).children("dl").children("dd").eq(6).children("input[name='okIndex']").attr("checked", "checked");
 
     }
 
@@ -355,20 +356,21 @@
                             $(ReponseResult.data.list).each(function (i, e) {
                                 var content = "<div class='jidiaoinfo' onclick='OnDivSelect(this)'  >";
                                 content += "<dl>";
-                                content += "<dd style='float: right;margin-right: 70px'><p style='line-height: 40px'>姓名：" + e.guide.guideName + "</p><p>证件号：" + e.guide.certificate + "</p></dd>";
-                                content += "<dd><span>团号:" + e.groundConnectionNumber + "</span></dd>";
 
-                                content += "<dd>发往路线：" + e.sendLine + "</dd>";
-                                content += "<dd>人数：" + e.num + "</dd>";
-                                content += "<dd><span style=''>开始日期：" + e.travelStartTime + "</span><span style='margin-left: 50px'>截至日期：" + e.travelEndTime + "</span></dd>";
-                                content += "<dd>报价：" + e.offer + "</dd>";
-                                content += "<dd class='redioDD' ><input type='radio' style='opacity: 0'  value='"+e.dispatchId+"' name='okIndex'><button onclick='onCheckDispatchInfo(" + e.dispatchId + ")' class='layui-btn layui-btn-normal layui-btn-radius' style='width: 120px;margin-left: 180px;'>通过</button>&nbsp;&nbsp;</dd>";
+                                content += "<dd style='float: left;width: 170px'><span>团号:" + e.groundConnectionNumber + "</span></dd>";
+                                content += "<dd style='float: left;width: 170px'>人数：" + e.num + "</dd>";
+                                content += "<dd style='float: left;width: 170px'>姓名：" + e.guide.guideName + "</dd>";
+                                content += "<dd style='float: left;width: 170px'>证件号：" + e.guide.certificate +"</dd>";
+
+                                content += "<dd style='float: left;width: 170px'>开始日期：" + e.travelStartTime +"</dd>";
+                                content += "<dd style='float: left;width: 170px' >截至日期：" + e.travelEndTime +"</dd>";
+                                content += "<dd class='redioDD' ><input type='radio' style='opacity: 0'  value='" + e.dispatchId + "' name='okIndex'><button onclick='onCheckDispatchInfo(" + e.dispatchId + ")' class='layui-btn layui-btn-normal layui-btn-radius' style='width: 120px;margin-left: 180px;'>通过</button>&nbsp;&nbsp;</dd>";
                                 content += "<dd ></dd>";
                                 content += "</dl>";
                                 content += "</div>";
                                 lis.push(content);
                             });
-            /*<button onclick='noCheckDispatchInfo(" + e.dispatchId + ")' class='layui-btn layui-btn-normal layui-btn-radius'>打回</button>*/
+                            /*<button onclick='noCheckDispatchInfo(" + e.dispatchId + ")' class='layui-btn layui-btn-normal layui-btn-radius'>打回</button>*/
                             next(lis.join(''), page < ReponseResult.data.pages);
                         }
                     });

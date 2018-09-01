@@ -11,10 +11,7 @@ import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -127,27 +124,58 @@ public class GuideAccountController {
     /**
      * 修改(yunguohao)
      */
-    @RequestMapping("/updateGuide")
-    public ReponseResult updateCompany(Guide guide,HttpServletRequest request) {
+    @RequestMapping("/updateByGuideId")
+    public ReponseResult updateByGuideId(@RequestBody Guide guide, HttpServletRequest request) {
         try {
-            Staff sessionstaff= (Staff) request.getSession().getAttribute("user");
-            guide.setModifier(sessionstaff!=null?sessionstaff.getStaffId():1);
-            guide.setModifiedData(new Date());
-            Guide guide1 = guideService.selectGuideByIds(guide.getGuideId());
-            guide1.setPassword(EncryUtil.encrypt(guide1.getPassword()));
-            int result = guideService.updateGuide(guide);
+            guide.setPassword(EncryUtil.encrypt(guide.getPassword()));
+            int result = guideService.updateByGuideId(guide);
             ReponseResult<String> date;
             if (result > 0) {
-                date = ReponseResult.ok("1", "修改导游成功！");
-                logger.info("method:updateGuide  修改导游成功！");
+                date = ReponseResult.ok("1", "修改密码成功！");
+                logger.info("method:updateByGuideId  修改密码成功！");
 
             } else {
-                date = ReponseResult.ok("0", "修改导游失败！");
-                logger.info(" method:updateGuide  修改导游失败！");
+                date = ReponseResult.ok("0", "修改导游密码失败！");
+                logger.info(" method:updateByGuideId  修改导游密码失败！");
             }
             return date;
         } catch (Exception e) {
-            logger.error(" method:updateGuide  修改导游失败，系统出现异常！");
+            logger.error(" method:updateByGuideId  修改导游密码失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
+    /**
+     * 更具导游编号查询导游信息（yunguohao）微信
+     * @param guideId
+     * @return
+     */
+    @RequestMapping("/selectByGuideId")
+    public ReponseResult selectByGuideId(int guideId,String password) {
+        try {
+            int states=0;
+            Guide result = guideService.getguideById(guideId);
+            String pass= EncryUtil.decrypt(result.getPassword());
+            if(pass.equals(password)){
+                states=0;
+            }else {
+                states=1;
+            }
+
+            ReponseResult<Integer> date;
+            if (states != 1) {
+                date = ReponseResult.ok(states, "旧密码正确");
+                logger.info(" method:selectByGuideId  旧密码正确！");
+
+            } else {
+                date = ReponseResult.ok("旧密码不正确！");
+                logger.info(" method:selectByGuideId  旧密码不正确！");
+            }
+            return date;
+        } catch (Exception e) {
+            logger.error(" method:selectByGuideId  系统出现异常！");
             e.printStackTrace();
             ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
             return err;

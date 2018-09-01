@@ -136,8 +136,6 @@ public class GuideServiceImpl implements GuideService {
     public int updateGuide(Guide guide)throws Exception {
         Guide offguide=guideMapper.selectByPrimaryKey(guide.getGuideId());
         System.out.println(offguide.getModifiedData());
-        guide.setModifier(guide.getModifier());
-        guide.setModifiedData(guide.getModifiedData());
         guide.setUsername(offguide.getUsername());
         guide.setPassword(offguide.getPassword());
         guide.setCreater(offguide.getCreater());
@@ -205,6 +203,40 @@ public class GuideServiceImpl implements GuideService {
         guideCriteria.andWhetherdelEqualTo(0);
         List<Guide> guides=guideMapper.selectByExample(guideExample);
         return guides;
+    }
+
+    /**
+     * 更具导游编号查询导游信息（yunguohao）微信
+     * @param guideId
+     * @return
+     */
+    @Override
+    public Guide getguideById(Integer guideId) throws Exception {
+        GuideExample guideExample =new GuideExample();
+        GuideExample.Criteria criteria=guideExample.createCriteria();
+        criteria.andGuideidEqualTo(guideId);
+        return guideMapper.selectByExample(guideExample).get(0);
+    }
+
+    /**
+     * 修改密码（yunguohao）微信
+     */
+    @Override
+    public int updateByGuideId(Guide guide) throws Exception {
+        Guide offguide=guideMapper.selectByPrimaryKey(guide.getGuideId());
+        guide.setGuideName(offguide.getGuideName());
+      guide.setUsername(offguide.getUsername());
+      guide.setModifiedData(new Date());
+      guide.setModifier(guide.getGuideId());
+      guide.setCreater(offguide.getCreater());
+      guide.setCreationDate(offguide.getCreationDate());
+      guide.setWhetherDel(0);
+      guide.setAge(offguide.getAge());
+      guide.setSex(offguide.getSex());
+      guide.setState(offguide.getState());
+      guide.setCertificate(offguide.getCertificate());
+      guide.setTelephone(offguide.getTelephone());
+        return guideMapper.updateByPrimaryKey(guide);
     }
 
 

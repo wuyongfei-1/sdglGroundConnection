@@ -76,4 +76,16 @@ public interface GuideService {
      */
     List<Guide> selectAllGuideInfo()throws Exception;
 
+    /**
+     * 更具导游编号查询导游信息（yunguohao）微信
+     * @param guideId
+     * @return
+     */
+    Guide getguideById(Integer guideId) throws Exception;
+
+
+    /**
+     * 修改密码（yunguohao）微信
+     */
+    int updateByGuideId(Guide guide) throws Exception;
 }

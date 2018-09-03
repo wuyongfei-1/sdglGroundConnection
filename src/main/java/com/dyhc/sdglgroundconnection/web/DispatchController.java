@@ -133,6 +133,7 @@ public class DispatchController {
             dispatch.setReception(patchInfo.getReception());
             dispatch.setLoan(patchInfo.getLoan());
             dispatch.setCreater(userId);
+            dispatch.setTourist(patchInfo.getTourist());
             dispatch.setCreationDate(new Date());
             dispatch.setStatus(2);
             dispatch.setState(2);
@@ -170,6 +171,9 @@ public class DispatchController {
             discar.setCreateBy(userId);
             discar.setCreateDate(new Date());
             discar.setStatus(0);
+            discar.setValue1(patchCar.getCarNo());
+            discar.setValue2(patchCar.getCarPeopleName());
+            discar.setValue3(patchCar.getCarPeoplePhone());
             dispatchParam.setDiscar(discar);
             // 景点列表
             List<Disattr> disattrList = new ArrayList<>();

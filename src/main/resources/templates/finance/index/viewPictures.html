@@ -16,13 +16,13 @@
     <input type="hidden" name="dispatchId" id="hiddendispatchId" th:value="${dispatchId}">
     <div class="layui-carousel" id="test10" lay-anim="" lay-indicator="inside" lay-arrow="hover" style="width: 200px" >
         <div carousel-item="" id="viewPictures">
-            <div class=""><img src="//res.layui.com/images/layui/demo/1.png"></div>
+<!--            <div class=""><img src="//res.layui.com/images/layui/demo/1.png"></div>
             <div class=""><img src="//res.layui.com/images/layui/demo/2.png"></div>
             <div class=""><img src="//res.layui.com/images/layui/demo/3.png"></div>
             <div class=""><img src="//res.layui.com/images/layui/demo/4.png"></div>
             <div class=""><img src="//res.layui.com/images/layui/demo/5.png"></div>
             <div class=""><img src="//res.layui.com/images/layui/demo/6.png"></div>
-            <div class=""><img src="//res.layui.com/images/layui/demo/7.png"></div>
+            <div class=""><img src="//res.layui.com/images/layui/demo/7.png"></div>-->
         </div>
     </div>
 </div>
@@ -54,19 +54,18 @@
             dataType: "json",
             type: "post",
             success: function (ReponseResult) {
+                var content="";
                 if(ReponseResult.data!=null&&ReponseResult.data!=undefined&&ReponseResult.data!=""){
                     var attr=ReponseResult.data.picturePath.split(",");
-                    var content="";
                     var savePath = "/api/image/";
                     $.each(attr,function (i,e) {
-
-                        content+="<div class=''><img src='"+(savePath+e)+"' ></div>";
-
+                        content+="<div class=''><img src='"+(savePath+e)+"' width='500px' height='350px' ></div>";
                     });
-                    $("#viewPictures").html(content);
-                }else {
 
+                }else {
+                    content+="<div class=''><img src='/images/zanwutupian.jpg' width='500px' height='350px' ></div>";
                 }
+                $("#viewPictures").html(content);
             },
             error: function (res) {
                 alert(res);

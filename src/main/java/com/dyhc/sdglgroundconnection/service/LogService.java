@@ -1,10 +1,6 @@
 package com.dyhc.sdglgroundconnection.service;
 
 import com.dyhc.sdglgroundconnection.pojo.Log;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
-
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 /**

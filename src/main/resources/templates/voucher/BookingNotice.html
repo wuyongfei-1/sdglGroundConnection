@@ -22,7 +22,7 @@
                 <td style="width:30%">计调部</td>
                 <td style="width:10%">导游：</td>
                 <td style="width:30%"></td>
-                <td style="width:20%">2018年3月20日</td>
+                <td style="width:20%" id="times">2018年3月20日</td>
             </tr>
          </table>
          <table border="1" cellspacing="0" cellpadding="0">
@@ -115,6 +115,12 @@
 <script>
     $(function () {
         dispatchShow();
+        var sdate=new Date();     //new一个日对象
+        var time = sdate.toLocaleDateString();
+        time=time.replace("/","年");
+        time=time.replace("/","月");
+        time+="日";
+        $("#times").html(time);
     })
     //数据渲染
     function dispatchShow() {

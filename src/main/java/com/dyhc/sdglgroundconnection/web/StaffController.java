@@ -277,7 +277,7 @@ public class StaffController {
                 staff.setHeadPortraitPath(oldStaff.getHeadPortraitPath());
             } else {
                 // 上传图片操作
-                String uploadResult = ClientFileUploadUtil.uploadImage(multipartFile, ".jpg", ".png", ".JPG", ".PNG");
+                String uploadResult = ClientFileUploadUtil.uploadImage(multipartFile, ".jpg", ".png", ".JPG", ".PNG",".gif",".GIF");
                 if (!"".equals(uploadResult)) {
                     staff.setHeadPortraitPath(uploadResult);
                     logger.info(" method:updateUserInfo  上传图片成功！");

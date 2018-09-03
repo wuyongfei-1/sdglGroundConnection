@@ -86,7 +86,7 @@ public class ScenicspotController {
     public ReponseResult insertScenicspot(Scenicspot scenicspot, @RequestParam("multipartFile") MultipartFile multipartFile, HttpServletRequest request) {
         try {
             // 上传图片操作
-            String uploadResult = ClientFileUploadUtil.uploadImage(multipartFile, ".jpg");
+            String uploadResult = ClientFileUploadUtil.uploadImage(multipartFile, ".jpg",".png",".gif");
             if (!"".equals(uploadResult)) {
                 scenicspot.setPicturePath(uploadResult);
                 logger.info(" method:insertScenicspot  上传图片成功！");

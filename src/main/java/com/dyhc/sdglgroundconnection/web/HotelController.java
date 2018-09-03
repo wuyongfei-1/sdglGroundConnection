@@ -189,7 +189,7 @@ public class HotelController {
      */
     @RequestMapping("/insertHotel")
     public ReponseResult insertHotel(HttpServletRequest request,@RequestParam("fileObj") MultipartFile file, @RequestParam("savePath") String savePath){
-        String uploadResult = ClientFileUploadUtil.uploadImage(file, savePath, ".jpg");
+        String uploadResult = ClientFileUploadUtil.uploadImage(file, savePath, ".jpg",".JPG",".PNG",".png",".GIF",".gif");
         String parameter = request.getParameter("form");
         Staff staff=(Staff) request.getSession().getAttribute("user");
         int result= 0;

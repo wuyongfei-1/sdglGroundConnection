@@ -1,8 +1,7 @@
 package com.dyhc.sdglgroundconnection.service.impl;
 
-import com.dyhc.sdglgroundconnection.mapper.DislineMapper;
-import com.dyhc.sdglgroundconnection.mapper.DispatchMapper;
-import com.dyhc.sdglgroundconnection.mapper.ReportdetailMapper;
+import com.dyhc.sdglgroundconnection.dto.NewFileParam;
+import com.dyhc.sdglgroundconnection.mapper.*;
 import com.dyhc.sdglgroundconnection.pojo.*;
 import com.dyhc.sdglgroundconnection.service.*;
 import com.dyhc.sdglgroundconnection.utils.ConditionValidation;
@@ -12,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +23,12 @@ public class ReportdetailServiceImpl implements ReportdetailService {
 
     @Autowired
     private ReportdetailMapper reportdetailMapper;
+
+    @Autowired
+    private TravelMapper travelMapper;
+
+    @Autowired
+    private StaffMapper staffMapper;
 
     @Autowired
     private DispatchMapper dispatchMapper;
@@ -50,6 +56,58 @@ public class ReportdetailServiceImpl implements ReportdetailService {
     private GuideService guideService;
     @Autowired
     private DislineMapper dislineMapper;
+    @Autowired
+    private CompanyMapper companyMapper;
+
+    /**
+     * 根据报账详情id修改报账状态 打回(lixiaojie)
+     * @param reportDetailId
+     * @return
+     */
+    @Override
+    public Integer updateReportDetailStatusCallBack(Integer reportDetailId,Integer updateinfoid,Date updateData) {
+
+        Reportdetail oldReportdetail = reportdetailMapper.selectByPrimaryKey(reportDetailId);
+        oldReportdetail.setStatus(4);
+        Integer result= reportdetailMapper.updateByPrimaryKey(oldReportdetail);
+
+        return result;
+    }
+    /**
+     * 根据调度id获取  团  结算账单(lixiaojie)
+     * @param reportDetailId
+     * @return
+     */
+    @Override
+    public NewFileParam getReportdetailById(Integer reportDetailId) {
+        Reportdetail reportdetail=reportdetailMapper.selectByPrimaryKey(reportDetailId);
+        Dispatch dispatch=dispatchMapper.selectByPrimaryKey(reportdetail.getDispatchId());
+        Staff staff=staffMapper.selectByPrimaryKey(dispatch.getCreater());
+        Company company=companyMapper.selectByPrimaryKey(1);
+        Travel travel=travelMapper.selectByPrimaryKey(1);
+        NewFileParam newFileParam=new NewFileParam();
+        newFileParam.setStaff(staff);
+        newFileParam.setCompany(company);
+        newFileParam.setTravel(travel);
+        newFileParam.setDispatch(dispatch);
+        newFileParam.setReportdetail(reportdetail);
+        return newFileParam;
+    }
+
+    /**
+     * 根据报账详情id修改报账状态 通过(lixiaojie)
+     * @param reportDetailId
+     * @return
+     */
+    @Override
+    public Integer updateReportDetailStatus(Integer reportDetailId, Integer updateinfoid, Date updateData) {
+
+        Reportdetail oldReportdetail = reportdetailMapper.selectByPrimaryKey(reportDetailId);
+        oldReportdetail.setStatus(2);
+        Integer result= reportdetailMapper.updateByPrimaryKey(oldReportdetail);
+
+        return result;
+    }
 
     /**
      * 按导游报账明细表编号查询（yunguohao）

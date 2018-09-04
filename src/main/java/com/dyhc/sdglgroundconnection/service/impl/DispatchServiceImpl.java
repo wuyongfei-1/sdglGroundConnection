@@ -35,7 +35,12 @@ public class DispatchServiceImpl implements DispatchService {
 
     @Autowired
     private DispatchMapper dispatchMapper;  // 调度持久化
-
+    @Autowired
+    private DislineMapper dislineMapper;  // 调度线路
+    @Autowired
+    private ShoppingMapper shoppingMapper;  // 商品dao
+    @Autowired
+    private DisshoppMapper disshoppMapper;  // 调度持久化
     @Autowired
     private DispatchhotelMapper dispatchhotelMapper;  // 调度酒店持久化
     @Autowired
@@ -258,41 +263,82 @@ public class DispatchServiceImpl implements DispatchService {
      * @return
      */
     @Override
-    public TravelPathParam getTravelPathParam(Integer dispathId) throws Exception {
-        TravelPathParam travelPathParam = new TravelPathParam();
-        travelPathParam.setDispatch(dispatchMapper.selectByPrimaryKey(dispathId));
-        travelPathParam.setDiscar(discarService.getDiscarByOffId(dispathId));
-        travelPathParam.setCompany(companyService.selectCompanyByIds(1));
-        travelPathParam.setDisguide(disguideService.getDisguideByDispatchId(dispathId));
-        if(travelPathParam.getDispatch()!=null){
-            travelPathParam.setStaff(staffService.getStaffInfoByStaffId(travelPathParam.getDispatch().getCreater()));
-            travelPathParam.setDisattrList(disattrService.listDisattrByOffId(dispathId));
-            travelPathParam.setDislineList(dislineService.dislineList(dispathId));
-            travelPathParam.setDisshoppList(disshoppService.getDisshopp(dispathId));
-            travelPathParam.setDisrestaurantList(disrestaurantService.listDisrestaurantByOffId(dispathId));
-            travelPathParam.setDispatchhotelList(dispatchhotelService.getDispatchhotelInfoByDispatchId(dispathId));
-            List<TravelPathParam> travelPathParams = new ArrayList<>();
-            for (int i = 0; i < travelPathParam.getDisattrList().size(); i++) {
-                TravelPathParam travelPathParam1 = new TravelPathParam();
-                travelPathParam1.setSzaddress(travelPathParam.getDisattrList().get(i).getScenicspot().getScenicSpotAddress());
-                travelPathParams.add(travelPathParam1);
-            }
-            for (int i = 0; i < travelPathParam.getDispatchhotelList().size(); i++) {
-                travelPathParams.get(i).setZhuaddress(travelPathParam.getDispatchhotelList().get(i).getHotel().getHotelName());
-            }
+    public List<TravelPathParam>  getTravelPathParam(Integer dispathId) throws Exception {
 
-            for (int i = 0; i < travelPathParam.getDisshoppList().size(); i++) {
-                travelPathParams.get(i).setShoppaddress(travelPathParam.getDisshoppList().get(i).getShopping().getShoppingSite());
-            }
-            for (int i = 0; i < travelPathParam.getDisrestaurantList().size(); i++) {
-                travelPathParams.get(i).setEataddress(travelPathParam.getDisrestaurantList().get(i).getMealType().getRestaurant().getRestaurantAddress());
-            }
-            for (int i = 0; i < travelPathParam.getDislineList().size(); i++) {
-                travelPathParams.get(i).setXctext(travelPathParam.getDislineList().get(i).getLineContent());
-            }
-            travelPathParam.setTravelPathParamList(travelPathParams);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Dispatch dispatch = dispatchMapper.selectByPrimaryKey(dispathId);//根据调度id获取调度对象
+        Date beginTime = dispatch.getTravelStartTime();//从调度对象中获取开始时间和结束时间
+        Date endTime = dispatch.getTravelEndTime();
+        String beginDateStr = dateFormat.format(beginTime);
+        String endDateStr = dateFormat.format(endTime);
+        beginTime = dateFormat.parse(beginDateStr);
+        endTime = dateFormat.parse(endDateStr);
+        Long Number = (endTime.getTime() - beginTime.getTime()) / (24 * 60 * 60 * 1000) + 1;//计算旅游天数
+
+
+        DisattrExample disattrExample=new DisattrExample();
+        DisattrExample.Criteria disattrExampleCriteria=disattrExample.createCriteria();//景点
+        disattrExampleCriteria.andOfferidEqualTo(dispathId);
+        disattrExample.setOrderByClause("weight");
+        List<Disattr> disattrs=disattrMapper.selectByExample(disattrExample);
+
+        DislineExample dislineExample=new DislineExample();
+        DislineExample.Criteria dislineExampleCriteria=dislineExample.createCriteria();//线路
+        dislineExampleCriteria.andOfferidEqualTo(dispathId);
+        dislineExample.setOrderByClause("weight");
+        List<Disline> dislines=dislineMapper.selectByExample(dislineExample);
+
+        DisrestaurantExample disrestaurantExample =new DisrestaurantExample();
+        DisrestaurantExample.Criteria disrestaurantExampleCriteria=disrestaurantExample.createCriteria();//餐馆
+        disrestaurantExampleCriteria.andOfferidEqualTo(dispathId);
+        disrestaurantExampleCriteria.andDindateEqualTo(2);
+        disrestaurantExample.setOrderByClause("weight");
+        List<Disrestaurant> disrestaurants=disrestaurantMapper.selectByExample(disrestaurantExample);
+
+        DispatchhotelExample dispatchhotelExample =new DispatchhotelExample();
+        DispatchhotelExample.Criteria dispatchhotelExampleCriteria=dispatchhotelExample.createCriteria();//酒店
+        dispatchhotelExampleCriteria.andOfferidEqualTo(dispathId);
+        dispatchhotelExample.setOrderByClause("weight");
+        List<Dispatchhotel> dispatchhotels=dispatchhotelMapper.selectByExample(dispatchhotelExample);
+
+        DisshoppExample disshoppExample =new DisshoppExample();
+        DisshoppExample.Criteria disshoppExampleCriteria=disshoppExample.createCriteria();
+        disshoppExampleCriteria.andOfferidEqualTo(dispathId);
+        disshoppExample.setOrderByClause("weight");
+        List<Disshopp> disshopps =disshoppMapper.selectByExample(disshoppExample);
+        List<TravelPathParam> travelPathParams = new ArrayList<>();
+        for (int i = 0; i < Number; i++) {
+            TravelPathParam travelPathParam=new TravelPathParam();
+            Calendar c = Calendar.getInstance();
+            c.setTime(beginTime);
+            c.add(Calendar.DAY_OF_MONTH, i);  //然后做出旅游天数每天的时间对象 填入 参数类对象
+            Date tomorrow = c.getTime();
+            String dayString = dateFormat.format(tomorrow);
+            travelPathParam.setXcdata(dayString);
+            travelPathParam.setSzaddress(scenicspotMapper.selectByPrimaryKey(disattrs.get(i).getScenicSpotId()).getScenicSpotAddress());
+            travelPathParam.setXctext(dislines.get(i).getLineContent());
+            travelPathParam.setShoppaddress(shoppingMapper.selectByPrimaryKey(disshopps.get(i).getShoppingId()).getShoppingSite());
+            travelPathParam.setEataddress(restaurantMapper.selectByPrimaryKey(disrestaurants.get(i).getTypeId()).getRestaurantAddress());
+            travelPathParam.setZhuaddress(hotelMapper.selectByPrimaryKey(dispatchhotels.get(i).getHotelId()).getHotelAddress());
+            travelPathParams.add(travelPathParam);
         }
-        return travelPathParam;
+       return  travelPathParams;
+    }
+    /**
+     * 获取计划表的信息根据调度编号（yunguohao）
+     *
+     * @param dispathId 调度编号
+     * @return
+     */
+    @Override
+    public TravelPathsParam getTravelPathsParam(Integer dispathId) throws Exception {
+        TravelPathsParam travelPathsParam = new TravelPathsParam();
+        travelPathsParam.setDispatch(dispatchMapper.selectByPrimaryKey(dispathId));
+        travelPathsParam.setDiscar(discarService.getDiscarByOffId(dispathId));
+        travelPathsParam.setCompany(companyService.selectCompanyByIds(1));
+        travelPathsParam.setDisguide(disguideService.getDisguideByDispatchId(dispathId));
+        travelPathsParam.setStaff(staffService.getStaffInfoByStaffId(travelPathsParam.getDispatch().getCreater()));
+        return travelPathsParam;
     }
 
 

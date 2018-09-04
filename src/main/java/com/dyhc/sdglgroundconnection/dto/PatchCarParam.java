@@ -16,6 +16,36 @@ public class PatchCarParam {
 
     private Double offer; // 用车报价
 
+    private String carNo; // 车牌号
+
+    private String carPeopleName; // 驾驶员姓名
+
+    private String carPeoplePhone; // 驾驶员联系电话
+
+    public String getCarNo() {
+        return carNo;
+    }
+
+    public void setCarNo(String carNo) {
+        this.carNo = carNo;
+    }
+
+    public String getCarPeopleName() {
+        return carPeopleName;
+    }
+
+    public void setCarPeopleName(String carPeopleName) {
+        this.carPeopleName = carPeopleName;
+    }
+
+    public String getCarPeoplePhone() {
+        return carPeoplePhone;
+    }
+
+    public void setCarPeoplePhone(String carPeoplePhone) {
+        this.carPeoplePhone = carPeoplePhone;
+    }
+
     public Integer getTypeId() {
         return typeId;
     }

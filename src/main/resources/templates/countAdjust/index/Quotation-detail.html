@@ -106,6 +106,8 @@
                     <td><input type="text" class="layui-input" id="peopleNumber"></td>
                     <td><label class="layui-form-label" style="width:135px">抵达航班/车次号</label></td>
                     <td><input type="text" name="date" class="layui-input" id="carNum"></td>
+                    <td><label class="layui-form-label" style="width:135px">客源地</label></td>
+                    <td><input type="text" name="date" class="layui-input" id="tourist"></td>
                 </tr>
                 <tr>
                     <td><label class="layui-form-label" style="width:135px">接团时间</label></td>
@@ -153,11 +155,19 @@
                     </td>
                     <td><label class="layui-form-label" style="width: 140px">数量:</label></td>
                     <td><input type="text" class="layui-input"></td>
-
                     <td><label class="layui-form-label" style="width: 119px">成本价：</label></td>
                     <td width="140px"><input type="text" class="layui-input"></td>
                     <td><label class='layui-form-label'>报价:</label></td>
                     <td><input type='text' name='offer' class='layui-input'></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><label class="layui-form-label" style="width: 140px" >车牌号:</label></td>
+                    <td><input type="text" class="layui-input" id="carNo"></td>
+                    <td><label class="layui-form-label" style="width: 140px">驾驶员姓名:</label></td>
+                    <td><input type="text" class="layui-input" id="carPeopleName"></td>
+                    <td><label class="layui-form-label" style="width: 119px">联系电话:</label></td>
+                    <td><input type="text" class="layui-input" id="carPeoplePhone"></td>
                 </tr>
                 <tr>
                     <td><label class="layui-form-label">车费：</label></td>
@@ -328,6 +338,8 @@
             var patchCarJsonObj = {}; // 调度用车的json对象
             // 旅行社名称
             patchJsonObj.travelName = $('#travelName').val();
+            // 客源地
+            patchJsonObj.tourist = $('#tourist').val();
             // 旅行开始时间
             patchJsonObj.travelStartTime = $('#beginDate').val();
             // 旅行结束时间
@@ -369,6 +381,12 @@
             patchGuideJsonObj.guideId = $('#guideContext').find('option:selected').val();
             // 用车类型
             patchCarJsonObj.typeId = $('#vehicles').find('option:selected').val();
+            // 车牌号
+            patchCarJsonObj.carNo = $('#carNo').val();
+            // 司机姓名
+            patchCarJsonObj.carPeopleName = $('#carPeopleName').val();
+            // 司机联系电话
+            patchCarJsonObj.carPeoplePhone = $('#carPeoplePhone').val();
             // 用车数量
             patchCarJsonObj.number = $('#vehiclesContext').next().next().find('input').val();
             // 用车成本价/报价

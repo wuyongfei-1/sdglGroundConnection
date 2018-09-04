@@ -15,20 +15,6 @@ public class TravelPathParam {
     private Disguide disguide; // 调度导游表对象
     private Staff staff; // 计调人员信息对象
     private Discar discar; // 调度用车对象
-    private List<Disattr> disattrList; // 调度景点集合
-    private List<Disline> dislineList; // 调度线路集合
-    private List<Disshopp> disshoppList; // 调度购物集合
-    private List<Disrestaurant> disrestaurantList; // 调度餐厅集合
-    private List<Dispatchhotel> dispatchhotelList; // 调度酒店集合
-    private List<TravelPathParam> travelPathParamList;
-
-    public List<TravelPathParam> getTravelPathParamList() {
-        return travelPathParamList;
-    }
-
-    public void setTravelPathParamList(List<TravelPathParam> travelPathParamList) {
-        this.travelPathParamList = travelPathParamList;
-    }
 
     private String xcdata; // 行程日期
     private String szaddress; // 所在地区
@@ -125,43 +111,4 @@ public class TravelPathParam {
         this.discar = discar;
     }
 
-    public List<Disattr> getDisattrList() {
-        return disattrList;
-    }
-
-    public void setDisattrList(List<Disattr> disattrList) {
-        this.disattrList = disattrList;
-    }
-
-    public List<Disline> getDislineList() {
-        return dislineList;
-    }
-
-    public void setDislineList(List<Disline> dislineList) {
-        this.dislineList = dislineList;
-    }
-
-    public List<Disshopp> getDisshoppList() {
-        return disshoppList;
-    }
-
-    public void setDisshoppList(List<Disshopp> disshoppList) {
-        this.disshoppList = disshoppList;
-    }
-
-    public List<Disrestaurant> getDisrestaurantList() {
-        return disrestaurantList;
-    }
-
-    public void setDisrestaurantList(List<Disrestaurant> disrestaurantList) {
-        this.disrestaurantList = disrestaurantList;
-    }
-
-    public List<Dispatchhotel> getDispatchhotelList() {
-        return dispatchhotelList;
-    }
-
-    public void setDispatchhotelList(List<Dispatchhotel> dispatchhotelList) {
-        this.dispatchhotelList = dispatchhotelList;
-    }
 }

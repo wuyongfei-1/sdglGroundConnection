@@ -55,8 +55,14 @@ public interface DispatchService {
      * @param dispathId 调度编号
      * @return
      */
-    TravelPathParam getTravelPathParam(Integer dispathId) throws  Exception;
+    List<TravelPathParam> getTravelPathParam(Integer dispathId) throws  Exception;
 
+    /**
+     * 获取计划表的信息根据调度编号（yunguohao）
+     * @param dispathId 调度编号
+     * @return
+     */
+    TravelPathsParam getTravelPathsParam(Integer dispathId) throws  Exception;
     /**
      * 微信根据导游id查询行程的信息（yunguohao）
      * @param guideId 导游id

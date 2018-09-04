@@ -821,10 +821,16 @@
         offerTable();
         var xingcheng = [];
         $("[xl='xianlu']").each(function (i, e) {
+            var lineArriveName
             var parent = $(this).parent().parent().parent();
+            if($(this).attr("name")=="texts"){
+                lineArriveName=$(this).val();
+            }else{
+                lineArriveName=$(this).find("option:selected").text()
+            }
             var day = parent.find("[name='date']").val();//天数
             day = day.substring(day.indexOf("-") + 1);
-            var dl = parent.find("[xl='xianlu']").find("option:selected").text();//线路
+            var dl = lineArriveName;//线路
             var xc = parent.find("[name='desc']").val();//行程
             var cs = "";//餐食
             if (i != 0) {

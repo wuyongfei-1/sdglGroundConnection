@@ -48,6 +48,8 @@ public class PatchInfoParam {
 
     private Double otherOffer; // 其他的报价
 
+    private String tourist; // 客源地
+
 
     public Double getOtherCostPrice() {
         return otherCostPrice;
@@ -183,5 +185,13 @@ public class PatchInfoParam {
 
     public void setTravelName(String travelName) {
         this.travelName = travelName;
+    }
+
+    public String getTourist() {
+        return tourist;
+    }
+
+    public void setTourist(String tourist) {
+        this.tourist = tourist;
     }
 }

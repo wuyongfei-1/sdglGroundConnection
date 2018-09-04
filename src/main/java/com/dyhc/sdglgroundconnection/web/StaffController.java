@@ -265,9 +265,7 @@ public class StaffController {
      */
     @RequestMapping("/updateUserInfo")
     public ReponseResult updateUserInfo(Staff staff, @RequestParam("fileObj") MultipartFile multipartFile, HttpServletRequest request) {
-
         try {
-
             Staff sessionstaff = (Staff) request.getSession().getAttribute("user");
             Staff oldStaff = staffService.getStaffInfoByStaffId(sessionstaff != null ? sessionstaff.getStaffId() : 1);
             staff.setUpdateBy(sessionstaff != null ? sessionstaff.getStaffId() : 1);
@@ -279,7 +277,7 @@ public class StaffController {
                 staff.setHeadPortraitPath(oldStaff.getHeadPortraitPath());
             } else {
                 // 上传图片操作
-                String uploadResult = ClientFileUploadUtil.uploadImage(multipartFile, ".jpg", ".png", ".JPG", ".PNG");
+                String uploadResult = ClientFileUploadUtil.uploadImage(multipartFile, ".jpg", ".png", ".JPG", ".PNG",".gif",".GIF");
                 if (!"".equals(uploadResult)) {
                     staff.setHeadPortraitPath(uploadResult);
                     logger.info(" method:updateUserInfo  上传图片成功！");
@@ -349,8 +347,6 @@ public class StaffController {
             return err;
         }
     }
-
-
     /**
      * 登录验证（dubingkun）
      *

@@ -305,7 +305,6 @@ public class DispatchController {
 
     /**
      * 根据调度编号查询调度信息 （wangtao）
-     *
      * @param dispatchId 调度编号
      * @return 返回调度信息对象
      */
@@ -342,7 +341,6 @@ public class DispatchController {
         try {
             PageInfo<Dispatch> pageInfo = dispatchService.selectDispatchs(pageNo, pageSize);
             ReponseResult<PageInfo> data = ReponseResult.ok(pageInfo, "分页获取调度表信息成功！");
-
             logger.info(" method:selectDispatchs  分页获取调度表信息成功！");
             return data;
         } catch (Exception e) {

@@ -22,20 +22,20 @@
             padding-left: 20px;
             margin-top: 5px
         }
-        .heji{
+
+        .heji {
 
         }
 
-        .heji td:nth-child(0){
+        .heji td:nth-child(0) {
             font-size: 40px;
         }
-
 
         .mokuaitable {
             width: 1300px
         }
 
-        .mokuaitable td{
+        .mokuaitable td {
 
         }
 
@@ -54,13 +54,16 @@
     <h3 class="gradient">地接导游报账明细表</h3>
     <div>
         <input type="hidden" name="reportDetailId" id="hiddenreportDetailId" th:value="${reportDetailId}">
-        <input type="hidden" name="dispatchId" id="hiddendispatchId"  >
+        <input type="hidden" name="dispatchId" id="hiddendispatchId">
         <table width="1300px">
             <tr>
                 <td height="40px">团号:</td>
                 <td><input type="text" id="tuanhao" value="你真好" disabled></td>
                 <td>抵离时间:</td>
-                <td><input type="date" id="didashijian" value="2018-05-05" disabled>-<input type="date" id="likaishijian" value="2018-05-10" disabled></td>
+                <td><input type="date" id="didashijian" value="2018-05-05" disabled>-<input type="date"
+                                                                                            id="likaishijian"
+                                                                                            value="2018-05-10" disabled>
+                </td>
                 <td>线路:</td>
                 <td><input type="text" id="xianlu" value="北京" style="width:60px; text-align:center" disabled></td>
             </tr>
@@ -68,7 +71,8 @@
         <table width="1300px">
             <tr>
                 <td>组团社(单位):</td>
-                <td><input type="text" id="zutuanshemingzi" disabled value="号锡组团社" style="width:120px; text-align:center"></td>
+                <td><input type="text" id="zutuanshemingzi" disabled value="号锡组团社"
+                           style="width:120px; text-align:center"></td>
                 <td>人数:</td>
                 <td><input type="text" id="renshu" disabled value="10" style="width:60px; text-align:center"></td>
                 <td>客源地:</td>
@@ -78,7 +82,9 @@
                 </select></td>
                 <td>
                     <div class="site-demo-button" id="layerDemo">
-                        <button data-method="offset" data-type="auto" onclick="alertViewPictures()" class="layui-btn layui-btn-normal" style="height:23px; line-height:23px; margin-left:10px">
+                        <button data-method="offset" data-type="auto" onclick="alertViewPictures()"
+                                class="layui-btn layui-btn-normal"
+                                style="height:23px; line-height:23px; margin-left:10px">
                             查询
                         </button>
                     </div>
@@ -128,7 +134,7 @@
                         </tbody>
 
                     </table>
-                    <table  class="mokuaitable" border="1" cellspacing="0" cellpadding="2" bordercolor="#0000FF">
+                    <table class="mokuaitable" border="1" cellspacing="0" cellpadding="2" bordercolor="#0000FF">
                         <tr class="heji">
                             <td style=";background-color:#34bde2"><strong>住宿合计</strong></td>
                             <td style="" id="zhusuheji">10000</td>
@@ -216,13 +222,13 @@
                         </tr>
                         </tbody>
                     </table>
-                    <table class="mokuaitable" border="1" cellspacing="0" cellpadding="2" bordercolor="#0000FF" >
+                    <table class="mokuaitable" border="1" cellspacing="0" cellpadding="2" bordercolor="#0000FF">
                         <tr class="heji">
                             <td style="background-color:#34bde2"><strong>门票合计</strong></td>
                             <td style="" id="menpiaoheji">10000</td>
                             <td style="background-color:#34bde2"><strong>其中导游付</strong></td>
                             <td style="" id="menpiaodaoyoufu">3000</td>
-                           <td style="background-color:#34bde2"><strong>签单合计</strong></td>
+                            <td style="background-color:#34bde2"><strong>签单合计</strong></td>
                             <td style="" id="menpiaoqiandanheji">7000</td>
                         </tr>
                     </table>
@@ -278,9 +284,10 @@
                         </tbody>
                     </table>
                 </div>
-                <table border="1" cellspacing="0" cellpadding="2" bordercolor="#0000FF"  style="margin-top: 40px" width="1300px;">
+                <table border="1" cellspacing="0" cellpadding="2" bordercolor="#0000FF" style="margin-top: 40px"
+                       width="1300px;">
                     <tr>
-                        <td style="background-color:#34bde2"><strong >原借款</strong></td>
+                        <td style="background-color:#34bde2"><strong>原借款</strong></td>
                         <td style="" id="yuanjiekuan">100</td>
                         <td style="background-color:#34bde2"><strong>外收团款</strong></td>
                         <td style="" id="waishoutuankuan">200</td>
@@ -293,28 +300,102 @@
             </div>
 
         </div>
-<!--        <textarea style="resize: none; height:100px; width:869px">
- 交回的其他单据及内容(包括购物签单):
-</textarea>
-        <textarea style="resize: none; height:100px; width:869px">
- 现收团款明细:
-</textarea>-->
+
+        <div style="margin-right: 40px;width: 260px;float: right">
+            <div id="anniuxianshi">
+                <input class="layui-btn" type="button" value="通过" onclick="updateReportDetailStatus()">
+                <input class="layui-btn" type="button" value="打回" onclick="updateReportDetailStatusCallBack()">
+
+            </div>
+            <input class="layui-btn" type="button" value="预览" onclick="enterNewFiles()">
+        </div>
+
+        <!--        <textarea style="resize: none; height:100px; width:869px">
+         交回的其他单据及内容(包括购物签单):
+        </textarea>
+                <textarea style="resize: none; height:100px; width:869px">
+         现收团款明细:
+        </textarea>-->
 
 
     </div>
 </div>
+
 </body>
 <script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
 <script src="/layui.js"></script>
 <script src="/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
 <script src="/js/jquery-3.2.1.js"></script>
 
+<script>
 
+
+    function enterNewFiles() {
+        var reportDetailId = $("#hiddenreportDetailId").val();
+        location.href="../voucher/newFile.html?reportDetailId="+reportDetailId;
+    }
+
+
+    //打回 lixiaojie
+    function updateReportDetailStatusCallBack() {
+
+        var reportDetailId = $("#reportDetailId").val();
+        $.ajax({
+            url: "/reportdetail/updateReportDetailStatusCallBack",
+            data: {
+                "reportDetailId": 1
+            },
+            dataType: "json",
+            type: "post",
+            success: function (ReponseResult) {
+                if (ReponseResult.data == 0 || ReponseResult.data == '0') {
+                    alert("打回失败")
+                }
+                if (ReponseResult.data == 1 || ReponseResult.data == '1') {
+                    alert("打回成功")
+                }
+                $("#billType").html(content);
+            },
+            error: function (res) {
+                alert(res);
+            }
+        });
+    }
+
+</script>
+<script>
+    function updateReportDetailStatus() {
+
+        var reportDetailId = $("#hiddenreportDetailId").val();
+        $.ajax({
+            url: "/reportdetail/updateReportDetailStatus",
+            data: {
+                "reportDetailId": reportDetailId
+            },
+            dataType: "json",
+            type: "post",
+            success: function (ReponseResult) {
+                if (ReponseResult.data == 0 || ReponseResult.data == '0') {
+                    alert("通过失败")
+                }
+                if (ReponseResult.data == 1 || ReponseResult.data == '1') {
+                    alert("通过成功")
+                }
+                $("#billType").html(content);
+            },
+            error: function (res) {
+                alert(res);
+            }
+        });
+    }
+
+</script>
 <script>
     $(function () {
         selectReportdetailById();
         selectAllBillType();
     });
+
     /**
      *
      * 为单据类型绑定信息(lixiaojie)
@@ -322,14 +403,13 @@
     function selectAllBillType() {
         $.ajax({
             url: "/billType/selectAllBillType",
-            data: {
-            },
+            data: {},
             dataType: "json",
             type: "post",
             success: function (ReponseResult) {
-                content="<option value='0'>请选择</option>";
-                $.each(ReponseResult.data,function (i,e) {
-                    content+="<option value='"+e.billTypeId+"'>"+e.typeName+"</option>";
+                content = "<option value='0'>请选择</option>";
+                $.each(ReponseResult.data, function (i, e) {
+                    content += "<option value='" + e.billTypeId + "'>" + e.typeName + "</option>";
                 });
 
                 $("#billType").html(content);
@@ -344,34 +424,40 @@
      * 为各个模块绑定信息(lixiaojie)
      */
     function selectReportdetailById() {
+        var reportDetailId = $("#hiddenreportDetailId").val();
         $.ajax({
             url: "/reportdetail/selectReportdetailById",
             data: {
-                "reportDetailId": 1
+                "reportDetailId": reportDetailId
             },
             dataType: "json",
             type: "post",
             success: function (ReponseResult) {
+
+                if (ReponseResult.data.status != 0 && ReponseResult.data.status != '0') {
+                    $("#anniuxianshi").html("");
+                }
+
                 var reportaccommodationList = "";
-                var zhusuheji=0*1;//住宿合计
-                var zhusudaoyoufu=0*1;
-                var zhusuqiandanheji=0*1;
+                var zhusuheji = 0 * 1;//住宿合计
+                var zhusudaoyoufu = 0 * 1;
+                var zhusuqiandanheji = 0 * 1;
                 $.each(ReponseResult.data.reportaccommodationList, function (i, e) {
-                    var subtotal=0*1;
-                    subtotal=e.housePrice*e.roomNum+e.accompanyingBed*e.accompanyingPrice;
-                    if(e.liveDate!=null){       //日期
-                        monthDate=e.liveDate.substring(5,7);
-                        dayDate=e.liveDate.substring(8,10);
+                    var subtotal = 0 * 1;
+                    subtotal = e.housePrice * e.roomNum + e.accompanyingBed * e.accompanyingPrice;
+                    if (e.liveDate != null) {       //日期
+                        monthDate = e.liveDate.substring(5, 7);
+                        dayDate = e.liveDate.substring(8, 10);
                     }
-                    if(e.payMethods=="签单"){
-                        zhusuqiandanheji+=subtotal;
+                    if (e.payMethods == "签单") {
+                        zhusuqiandanheji += subtotal;
                     }
-                    if(e.payMethods=="现付"){
-                        zhusudaoyoufu+=subtotal;
+                    if (e.payMethods == "现付") {
+                        zhusudaoyoufu += subtotal;
                     }
-                    zhusuheji+=subtotal;//计算住宿合计
+                    zhusuheji += subtotal;//计算住宿合计
                     reportaccommodationList += "<tr>" +
-                        "<td>" +monthDate +"."+dayDate + "</td>" +
+                        "<td>" + monthDate + "." + dayDate + "</td>" +
                         "<td >" + e.hotelName + "</td>" +
                         "<td >" + e.housePrice + "</td>" +
                         "<td>" + e.roomNum + "</td>" +
@@ -390,42 +476,41 @@
                 $("#hiddendispatchId").val(ReponseResult.data.dispatchId);
 
 
-
                 //餐厅
                 var reportrestaurantList = "";
-                var yongcanheji=0*1;
-                var yongcandaoyoufu=0*1;
-                var yongcanqiandanheji=0*1;
+                var yongcanheji = 0 * 1;
+                var yongcandaoyoufu = 0 * 1;
+                var yongcanqiandanheji = 0 * 1;
                 $.each(ReponseResult.data.reportrestaurantList, function (i, e) {
-                    var wuheji=0*1;
-                    var wanheji=0*1;
-                    var wucanxiaoji=e.lunchMeal*e.lunchEatNum;
-                    var wancanxiaoji=e.dinnerMeal*e.dinnerEatNum;
-                    if(e.lunchPayMethods=="签单"){
-                        yongcanqiandanheji+=wucanxiaoji;
+                    var wuheji = 0 * 1;
+                    var wanheji = 0 * 1;
+                    var wucanxiaoji = e.lunchMeal * e.lunchEatNum;
+                    var wancanxiaoji = e.dinnerMeal * e.dinnerEatNum;
+                    if (e.lunchPayMethods == "签单") {
+                        yongcanqiandanheji += wucanxiaoji;
                     }
-                    if(e.dinnerPayMethods=="现付"){
-                        yongcandaoyoufu+=wancanxiaoji;
-                    }
-
-                    if(e.dinnerPayMethods=="签单"){
-                        yongcanqiandanheji+=wancanxiaoji;
-                    }
-                    if(e.lunchPayMethods=="现付"){
-                        yongcandaoyoufu+=wucanxiaoji;
+                    if (e.dinnerPayMethods == "现付") {
+                        yongcandaoyoufu += wancanxiaoji;
                     }
 
-                    yongcanheji+=wucanxiaoji+wancanxiaoji;
-                    if(e.lunchDate!=null){       //日期
-                        wumonthDate=e.lunchDate.substring(5,7);
-                        wudayDate=e.lunchDate.substring(8,10);
+                    if (e.dinnerPayMethods == "签单") {
+                        yongcanqiandanheji += wancanxiaoji;
                     }
-                    if(e.dinnerDate!=null){       //日期
-                        wanmonthDate=e.dinnerDate.substring(5,7);
-                        wandayDate=e.dinnerDate.substring(8,10);
+                    if (e.lunchPayMethods == "现付") {
+                        yongcandaoyoufu += wucanxiaoji;
+                    }
+
+                    yongcanheji += wucanxiaoji + wancanxiaoji;
+                    if (e.lunchDate != null) {       //日期
+                        wumonthDate = e.lunchDate.substring(5, 7);
+                        wudayDate = e.lunchDate.substring(8, 10);
+                    }
+                    if (e.dinnerDate != null) {       //日期
+                        wanmonthDate = e.dinnerDate.substring(5, 7);
+                        wandayDate = e.dinnerDate.substring(8, 10);
                     }
                     reportrestaurantList += "<tr>" +
-                        "<td>" + wumonthDate +"."+wudayDate  + "</td>" +
+                        "<td>" + wumonthDate + "." + wudayDate + "</td>" +
                         "<td>" + e.luncheonName + "</td>" +
                         "<td>" + e.lunchMeal + "</td>" +
                         "<td>" + e.lunchEatNum + "</td>" +
@@ -433,7 +518,7 @@
                         "<td>" + e.lunchother + "</td>" +
                         "<td>" + wucanxiaoji + "</td>" +
                         "<td>" + e.lunchPayMethods + "</td>" +
-                        "<td>" +  wanmonthDate +"."+wandayDate  + "</td>" +
+                        "<td>" + wanmonthDate + "." + wandayDate + "</td>" +
                         "<td>" + e.dinnerName + "</td>" +
                         "<td>" + e.dinnerMeal + "</td>" +
                         "<td>" + e.dinnerEatNum + "</td>" +
@@ -449,18 +534,18 @@
                 $("#yongcanqiandanheji").html(yongcanqiandanheji);
                 //门票
                 var reportticketList = "";
-                var menpiaoheji=0*1;
-                var menpiaodaoyoufu=0*1;
-                var menpiaoqiandanheji=0*1;
+                var menpiaoheji = 0 * 1;
+                var menpiaodaoyoufu = 0 * 1;
+                var menpiaoqiandanheji = 0 * 1;
                 $.each(ReponseResult.data.reportticketList, function (i, e) {
-                    var menpiaoxiaoji=e.price*e.nums;
-                    if(e.payMethods=="签单"){
-                        menpiaoqiandanheji+=menpiaoxiaoji;
+                    var menpiaoxiaoji = e.price * e.nums;
+                    if (e.payMethods == "签单") {
+                        menpiaoqiandanheji += menpiaoxiaoji;
                     }
-                    if(e.payMethods=="现付"){
-                        menpiaodaoyoufu+=menpiaoxiaoji;
+                    if (e.payMethods == "现付") {
+                        menpiaodaoyoufu += menpiaoxiaoji;
                     }
-                    menpiaoheji+=menpiaoxiaoji;
+                    menpiaoheji += menpiaoxiaoji;
                     reportticketList += "<tr>" +
                         "<td >" + e.attrName + "</td>" +
                         "<td >" + e.price + "</td>" +
@@ -478,11 +563,11 @@
                     "<td>" + ReponseResult.data.reportfare.tolls + "</td>" +
                     "<td>" + ReponseResult.data.reportfare.parkingFee + "</td>" +
                     "<td>" + ReponseResult.data.reportfare.prepaidFare + "</td>" +
-                    "<td>" + (ReponseResult.data.reportfare.tolls+ReponseResult.data.reportfare.parkingFee+ReponseResult.data.reportfare.prepaidFare) + "</td>" +
+                    "<td>" + (ReponseResult.data.reportfare.tolls + ReponseResult.data.reportfare.parkingFee + ReponseResult.data.reportfare.prepaidFare) + "</td>" +
                     "<td>" + ReponseResult.data.reportqutsubsidy.dailyCost + "</td>" +
                     "<td>" + ReponseResult.data.reportqutsubsidy.nums + "</td>" +
                     "<td>" + ReponseResult.data.reportqutsubsidy.guideNum + "</td>" +
-                    "<td>"+ReponseResult.data.reportqutsubsidy.dailyCost+"</td>" +
+                    "<td>" + ReponseResult.data.reportqutsubsidy.dailyCost + "</td>" +
                     "</tr>";
                 $("#reportfare").html(reportfare);
 
@@ -510,7 +595,6 @@
                 $("#baozhangriqi").text(ReponseResult.data.reportDate);
 
 
-
             },
             error: function (res) {
                 alert(res);
@@ -521,9 +605,9 @@
     //点击查询按钮进入查看图片页面
     //为修改模块添加弹出层
     function alertViewPictures() {
-       var hiddendispatchId= $("#hiddendispatchId").val();
-        var billType= $('#billType option:selected') .val();
-        if (billType==0||billType=='billType'){
+        var hiddendispatchId = $("#hiddendispatchId").val();
+        var billType = $('#billType option:selected').val();
+        if (billType == 0 || billType == 'billType') {
             alert("请选择票据类型!");
             return;
         }
@@ -533,7 +617,7 @@
             maxmin: true,
             shadeClose: true, //点击遮罩关闭层
             area: ['700px', '500px'],
-            content: 'viewPictures.html?dispatchId='+hiddendispatchId+"&billTypeId="+billType
+            content: 'viewPictures.html?dispatchId=' + hiddendispatchId + "&billTypeId=" + billType
         });
     }
 

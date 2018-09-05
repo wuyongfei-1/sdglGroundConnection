@@ -124,7 +124,7 @@
     })
     //数据渲染
     function dispatchShow() {
-        alert($('#dispatchId').val())
+
         $.ajax({
             url: "/dispatch/getDispatchInfoByDispatchId",
             data: {dispatchId:$('#dispatchId').val()},

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html >
 <html>
 
 	<head>
@@ -61,7 +61,7 @@
                         url:"/staff/loginCheck",
 						data:data.field,
 						dataType:"json",
-						type:"get",
+						type:"post",
 						success:function (data) {
                             if(data.data==-1){
                                 alert(data.msg);

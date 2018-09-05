@@ -1,6 +1,8 @@
 package com.dyhc.sdglgroundconnection.web;
 
+import com.dyhc.sdglgroundconnection.dto.NewFileParam;
 import com.dyhc.sdglgroundconnection.pojo.Reportdetail;
+import com.dyhc.sdglgroundconnection.pojo.Staff;
 import com.dyhc.sdglgroundconnection.service.ReportdetailService;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import com.github.pagehelper.PageInfo;
@@ -9,8 +11,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,6 +32,85 @@ public class ReportdetailController {
     @Autowired
     private ReportdetailService reportdetailService;
 
+    /**
+     * 根据调度id获取  团  结算账单(lixiaojie)
+     * @param reportDetailId
+     * @return
+     */
+    @RequestMapping("/getReportdetailById")
+    public ReponseResult getReportdetailById(Integer reportDetailId){
+        try {
+            NewFileParam newFileParam=reportdetailService.getReportdetailById(reportDetailId);
+            ReponseResult<NewFileParam> data = ReponseResult.ok( newFileParam,"根据调度id获取  团  结算账单成功！");
+            logger.info(" method:getReportdetailById  根据调度id获取  团  结算账单成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:getReportdetailById  根据调度id获取  团  结算账单失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
+
+
+    /**
+     * 根据报账详情id修改报账状态 打回(lixiaojie)
+     * @param reportDetailId
+     * @return
+     */
+    @RequestMapping(value = "/updateReportDetailStatusCallBack", method = RequestMethod.POST)
+    public ReponseResult updateReportDetailStatusCallBack(Integer reportDetailId,HttpServletRequest request) {
+        try {
+            Staff sessionstaff = (Staff) request.getSession().getAttribute("user");
+
+            int result = reportdetailService.updateReportDetailStatusCallBack(reportDetailId,sessionstaff.getStaffId(),new Date());
+            ReponseResult<String> date;
+            if (result > 0) {
+                date = ReponseResult.ok("1", "根据报账详情id修改报账状态 打回成功！");
+                logger.info(" method:updateReportDetailStatusCallBack  根据报账详情id修改报账状态 打回成功！");
+
+            } else {
+                date = ReponseResult.ok("0", "根据报账详情id修改报账状态 打回失败！");
+                logger.info(" method:updateReportDetailStatusCallBack  根据报账详情id修改报账状态 打回失败！");
+            }
+            return date;
+        } catch (Exception e) {
+            logger.error(" method:updateReportDetailStatusCallBack  根据报账详情id修改报账状态 打回失败，系统出现异常！");
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            e.printStackTrace();
+            return err;
+        }
+    }
+
+    /**
+     * 根据报账详情id修改报账状态 通过(lixiaojie)
+     * @param reportDetailId
+     * @return
+     */
+    @RequestMapping(value = "/updateReportDetailStatus", method = RequestMethod.POST)
+    public ReponseResult updateReportDetailStatus(Integer reportDetailId,HttpServletRequest request) {
+        try {
+            Staff sessionstaff = (Staff) request.getSession().getAttribute("user");
+
+            int result = reportdetailService.updateReportDetailStatus(reportDetailId,sessionstaff.getStaffId(),new Date());
+            ReponseResult<String> date;
+            if (result > 0) {
+                date = ReponseResult.ok("1", "根据报账详情id修改报账状态 通过成功！");
+                logger.info(" method:updateReportDetailStatus  根据报账详情id修改报账状态 通过成功！");
+
+            } else {
+                date = ReponseResult.ok("0", "根据报账详情id修改报账状态 通过失败！");
+                logger.info(" method:updateReportDetailStatus  根据报账详情id修改报账状态 通过失败！");
+            }
+            return date;
+        } catch (Exception e) {
+            logger.error(" method:updateReportDetailStatus  根据报账详情id修改报账状态 通过失败，系统出现异常！");
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            e.printStackTrace();
+            return err;
+        }
+    }
     /**
      * 按导游报账明细表编号查询查询 (yunguohao)
      */

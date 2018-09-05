@@ -40,9 +40,9 @@ public class DispatchController {
     @RequestMapping("/getTravelPathById")
     public ReponseResult getTravelPathById(@RequestParam("dispatchId") Integer dispatchId) {
         try {
-            TravelPathParam travelPathParam = dispatchService.getTravelPathParam(dispatchId);
-            ReponseResult<TravelPathParam> data=null;
-            if(travelPathParam.getDispatch()!=null){
+            List<TravelPathParam> travelPathParam = dispatchService.getTravelPathParam(dispatchId);
+            ReponseResult<List> data=null;
+            if(travelPathParam.size()>0){
                 data = ReponseResult.ok(travelPathParam, "根据调度编号获取计划信息成功！");
                 logger.info(" method:selectDispatchs  根据调度编号获取计划信息成功！");
             }else{
@@ -58,6 +58,34 @@ public class DispatchController {
             return err;
         }
     }
+    /**
+     * 根据调度编号查询计划信息（yunguohao）
+     *
+     * @param dispatchId 调度编号
+     * @return
+     */
+    @RequestMapping("/getTravelPathsById")
+    public ReponseResult getTravelPathsById(@RequestParam("dispatchId") Integer dispatchId) {
+        try {
+            TravelPathsParam travelPathsParam =dispatchService.getTravelPathsParam(dispatchId);
+            ReponseResult<TravelPathsParam> data=null;
+            if(travelPathsParam.getDispatch()!=null){
+                data = ReponseResult.ok(travelPathsParam, "根据调度编号获取计划信息成功！");
+                logger.info(" method:selectDispatchs  根据调度编号获取计划信息成功！");
+            }else{
+                data = ReponseResult.ok(travelPathsParam, "没有该计划信息！");
+                logger.info(" method:selectDispatchs  没有该计划信息！");
+            }
+
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:selectDispatchs  根据调度编号获取计划信息失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+
 
 
     /**
@@ -133,6 +161,7 @@ public class DispatchController {
             dispatch.setReception(patchInfo.getReception());
             dispatch.setLoan(patchInfo.getLoan());
             dispatch.setCreater(userId);
+            dispatch.setTourist(patchInfo.getTourist());
             dispatch.setCreationDate(new Date());
             dispatch.setStatus(2);
             dispatch.setState(2);
@@ -170,6 +199,9 @@ public class DispatchController {
             discar.setCreateBy(userId);
             discar.setCreateDate(new Date());
             discar.setStatus(0);
+            discar.setValue1(patchCar.getCarNo());
+            discar.setValue2(patchCar.getCarPeopleName());
+            discar.setValue3(patchCar.getCarPeoplePhone());
             dispatchParam.setDiscar(discar);
             // 景点列表
             List<Disattr> disattrList = new ArrayList<>();

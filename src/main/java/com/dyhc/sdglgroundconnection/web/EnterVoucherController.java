@@ -91,7 +91,8 @@ public class EnterVoucherController {
      * @return
      */
     @RequestMapping("/newFile.html")
-    public String enterNewFile() {
+    public String enterNewFile(Integer reportDetailId,HttpServletRequest request) {
+        request.setAttribute("reportDetailId",reportDetailId);
         return "voucher/newFile";
     }
 

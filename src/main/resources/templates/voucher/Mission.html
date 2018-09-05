@@ -303,16 +303,16 @@
                                 "<td>"+data.data.zdisrestaurantList[i].costPrice+"*"+data.data.dispatch.num+"="+data.data.zdisrestaurantList[i].costPrice*data.data.dispatch.num+"<br />含酒水果盘</td>\n" ;
                             zcount+=data.data.zdisrestaurantList[i].costPrice*data.data.dispatch.num;
 						}else{
-                            content1+= "<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>" +
-                                "<td>&nbsp;&nbsp;&nbsp;<br /></td>" ;
+                            content1+= "<td></td>" +
+                                "<td><br /></td>" ;
 						}
 						if(data.data.wdisrestaurantList[i]!=null && data.data.wdisrestaurantList[i]!==undefined){
                             content1+="<td>"+data.data.wdisrestaurantList[i].mealType.restaurant.restaurantName+"<br/></td>" +
                             "<td>"+data.data.wdisrestaurantList[i].costPrice+"*"+data.data.dispatch.num+"="+data.data.wdisrestaurantList[i].costPrice*data.data.dispatch.num+"<br />含酒水果盘</td>";
                             wcount+=data.data.wdisrestaurantList[i].costPrice*data.data.dispatch.num;
 						}else{
-                            content1+= "<td>&nbsp;&nbsp;&nbsp;</td>" +
-                                "<td>&nbsp;&nbsp;&nbsp;<br /></td>" ;
+                            content1+= "<td></td>" +
+                                "<td><br /></td>" ;
 						}
 						if(data.data.dispatchhotelList[i].payment=="签单"){
                             content1+="<td>"+Math.ceil(data.data.dispatch.num/2)+"标+"+data.data.dispatchhotelList[i].companyBedNum+"司陪<br/>"+data.data.dispatchhotelList[i].payment+"</td>\n" +
@@ -356,8 +356,8 @@
                             content2+="<td>签单"+data.data.disattrList[i+1].buynum+"全</td>";
 						}
 					}else{
-                        content2+="<td>&nbsp;&nbsp;&nbsp;</td>" +
-                            "<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>" +
+                        content2+="<td></td>" +
+                            "<td></td>" +
                             "</tr>";
 					}
                     i++;

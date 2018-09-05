@@ -172,7 +172,7 @@
     function TravelplansShow() {
         $.ajax({
             url: "/dispatch/getTravelPathsById",
-            data: {dispatchId:/*$('#dispatchId').val()*/1},
+            data: {dispatchId:$('#dispatchId').val()},
             dataType: "json",
             type: "post",
             success: function (e) {
@@ -206,7 +206,7 @@
 
         $.ajax({
             url: "/dispatch/getTravelPathById",
-            data: {dispatchId:/*$('#dispatchId').val()*/1},
+            data: {dispatchId:$('#dispatchId').val()},
             dataType: "json",
             type: "post",
             success: function (e) {

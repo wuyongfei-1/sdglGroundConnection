@@ -163,6 +163,8 @@ public class DispatchController {
             dispatch.setCreater(userId);
             dispatch.setTourist(patchInfo.getTourist());
             dispatch.setCreationDate(new Date());
+            dispatch.setValue1(patchInfo.getConcat());
+            dispatch.setValue2(patchInfo.getConcatPhone());
             dispatch.setStatus(2);
             dispatch.setState(2);
             dispatch.setWhetherDel(0);

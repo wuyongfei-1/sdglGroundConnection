@@ -231,7 +231,7 @@ public class DispatchController {
             List<Dispatchhotel> dispatchhotelList = new ArrayList<>();
             for (PatchHotelParam dispatchhotel : patchHotel) {
                 Dispatchhotel dispatchhotel1 = new Dispatchhotel();
-                dispatchhotel1.setHotelId(dispatchhotel.getHotelType());
+                dispatchhotel1.setHotelId(dispatchhotel.getHotelId());
                 dispatchhotel1.setRoomNumber(dispatchhotel.getHotelNum());
                 dispatchhotel1.setValue1(dispatchhotel.getHotelType().toString());
                 dispatchhotel1.setCostPrice(dispatchhotel.getHotelCostPrice());

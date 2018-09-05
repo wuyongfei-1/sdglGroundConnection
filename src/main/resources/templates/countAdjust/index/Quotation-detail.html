@@ -445,6 +445,8 @@
                 shoppingInfo.date = $(e).find('#date3').val();
                 shoppingAddressJsonArray.push(shoppingInfo);
 
+                // 酒店编号
+                var hotelId = $(e).find('#hotelItem').find('#hotels').find('option:selected').val();
                 // 获取酒店类型编号
                 var hotelType = $(e).find('#hotelItem').find('td[id=therooms]').find('option:selected').val()
                 // 获取房间数
@@ -456,6 +458,7 @@
                 // 付款方式
                 var payment = $(e).find('#hotelItem').find('.layui-form-radioed').find('div').html();
                 var date = $(e).find('#date3').val();
+                hotelInfo.hotelId = hotelId;
                 hotelInfo.hotelType = hotelType;
                 hotelInfo.hotelNum = hotelNum;
                 hotelInfo.hotelCostPrice = hotelCostPrice;

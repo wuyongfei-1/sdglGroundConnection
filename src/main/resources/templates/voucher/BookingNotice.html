@@ -124,6 +124,7 @@
     })
     //数据渲染
     function dispatchShow() {
+        alert($('#dispatchId').val())
         $.ajax({
             url: "/dispatch/getDispatchInfoByDispatchId",
             data: {dispatchId:$('#dispatchId').val()},
@@ -142,6 +143,7 @@
                 $("#num").text(e.data.num);//人数
                 $("#teamContactsName").text(e.data.dispatchtourgroup.teamcontactsname+"  "+e.data.dispatchtourgroup.contactnumber);//团控
                 $.each(e.data.dispatchhotel,function (i, result) {
+                    console.log(e.data.dispatchhotel)
                     date=result.date.substring(5,10);
                     var ss1=date.replace("-",".");
                     date2=result.date.substring(5,9);

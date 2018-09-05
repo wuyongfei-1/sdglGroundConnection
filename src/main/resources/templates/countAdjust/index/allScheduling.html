@@ -92,6 +92,12 @@
                             "\t\t\t\t\t\t\t\t<td><button  style='background-color: #e2e2e2'  disabled class=\"layui-btn layui-btn-primary\" id=\"nopass\" value=\""+e.offerId+"\">已经失效</button></td>\n"+
                         "<td></td>";
                     }
+                    //失效
+                    if(e.value1==4){
+                        anniu="\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"upOffer2\" value=\""+e.offerId+"\">报价详情</button></td>\n"+
+                            "\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-small layui-btn-warm listOrderBtn hidden-xs\" id=\"ssss\" value=\""+e.offerId+"\">调度完成</button></td>\n"+
+                            "<td></td>";
+                    }
                     var travelName;
                     $.ajax({
                         url:"/offer/getTravel",

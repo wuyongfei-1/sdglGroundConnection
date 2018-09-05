@@ -17,6 +17,8 @@ public class PatchHotelParam {
 
     private Double hotelCostPrice; // 房间成本价
 
+    private  Integer hotelId; // 酒店编号
+
     private Double hotelOffer; // 房间报价
 
     private String payment; // 支付方式
@@ -110,5 +112,13 @@ public class PatchHotelParam {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Integer getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(Integer hotelId) {
+        this.hotelId = hotelId;
     }
 }

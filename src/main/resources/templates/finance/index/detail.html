@@ -301,13 +301,16 @@
 
         </div>
 
-        <div style="margin-right: 40px;width: 260px;float: right">
-            <div id="anniuxianshi">
+        <div style="">
+            <div style="float: right;margin-right: 30px">
+                <input class="layui-btn" type="button" value="预览" onclick="enterNewFiles()">
+            </div>
+            <div id="anniuxianshi" style="float: right;margin-right: 14px">
                 <input class="layui-btn" type="button" value="通过" onclick="updateReportDetailStatus()">
                 <input class="layui-btn" type="button" value="打回" onclick="updateReportDetailStatusCallBack()">
-
             </div>
-            <input class="layui-btn" type="button" value="预览" onclick="enterNewFiles()">
+
+
         </div>
 
         <!--        <textarea style="resize: none; height:100px; width:869px">
@@ -332,7 +335,7 @@
 
     function enterNewFiles() {
         var reportDetailId = $("#hiddenreportDetailId").val();
-        location.href="../voucher/newFile.html?reportDetailId="+reportDetailId;
+        location.href = "../voucher/newFile.html?reportDetailId=" + reportDetailId;
     }
 
 
@@ -380,6 +383,7 @@
                 }
                 if (ReponseResult.data == 1 || ReponseResult.data == '1') {
                     alert("通过成功")
+                    location.reload()
                 }
                 $("#billType").html(content);
             },

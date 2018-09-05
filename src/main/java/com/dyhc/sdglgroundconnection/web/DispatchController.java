@@ -163,6 +163,8 @@ public class DispatchController {
             dispatch.setCreater(userId);
             dispatch.setTourist(patchInfo.getTourist());
             dispatch.setCreationDate(new Date());
+            dispatch.setValue1(patchInfo.getConcat());
+            dispatch.setValue2(patchInfo.getConcatPhone());
             dispatch.setStatus(2);
             dispatch.setState(2);
             dispatch.setWhetherDel(0);
@@ -231,7 +233,7 @@ public class DispatchController {
             List<Dispatchhotel> dispatchhotelList = new ArrayList<>();
             for (PatchHotelParam dispatchhotel : patchHotel) {
                 Dispatchhotel dispatchhotel1 = new Dispatchhotel();
-                dispatchhotel1.setHotelId(dispatchhotel.getHotelType());
+                dispatchhotel1.setHotelId(dispatchhotel.getHotelId());
                 dispatchhotel1.setRoomNumber(dispatchhotel.getHotelNum());
                 dispatchhotel1.setValue1(dispatchhotel.getHotelType().toString());
                 dispatchhotel1.setCostPrice(dispatchhotel.getHotelCostPrice());

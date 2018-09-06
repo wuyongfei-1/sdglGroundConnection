@@ -182,7 +182,7 @@
         function getScenicSpotLevel() {
             //获取景点等级
             $.post("/dictionaries/ListDictionariesByScenicspot","",function (data) {
-                var content1="<select name=\"typeId\" id=\"typeId\" style=\"height: 37px;width: 200px\"><option value=\"0\">请选择景点等级</option>";
+                var content1="<select name=\"typeId\" id=\"typeId\" style=\"height: 37px;width: 200px;display: block;\"><option value=\"0\">请选择景点等级</option>";
                 $.each(data.data,function (i,e) {
                     content1+="<option value=\""+e.valueId+"\">"+e.valueContent1+"</option>";
                 });
@@ -193,7 +193,7 @@
         function parentScenicSpot() {
             //获取父景点信息
             $.post("/scenicspot/ListScenicspotByParentId","",function (data) {
-                var content="<select name=\"parentId\" id=\"parentId\" style=\"height: 37px;width: 200px\"><option value=\"0\">请选择父景点</option><option value=\"-1\">无</option>";
+                var content="<select name=\"parentId\" id=\"parentId\" style=\"height: 37px;width: 200px;display: block;\"><option value=\"0\">请选择父景点</option><option value=\"-1\">无</option>";
                 $.each(data.data,function (i,e) {
                     content+="<option value=\""+e.scenicSpotId+"\">"+e.scenicSpotName+"</option>";
                 });

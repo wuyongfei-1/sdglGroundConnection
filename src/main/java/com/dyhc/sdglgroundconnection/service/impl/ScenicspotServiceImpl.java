@@ -158,7 +158,7 @@ public class ScenicspotServiceImpl implements ScenicspotService {
         ScenicspotExample.Criteria criteria=scenicspotExample.createCriteria();
         criteria.andParentidEqualTo(id);
         List<Scenicspot> scenicspotList=scenicspotMapper.selectByExample(scenicspotExample);
-        if(scenicspotList!=null){
+        if(scenicspotList!=null&&scenicspotList.size()>0){
             for (Scenicspot s : scenicspotList) {
                 scenicspotMapper.deleteByPrimaryKey(s.getScenicSpotId());
             }

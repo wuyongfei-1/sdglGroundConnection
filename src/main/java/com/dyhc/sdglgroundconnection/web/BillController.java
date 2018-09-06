@@ -40,8 +40,8 @@ public class BillController  {
     @RequestMapping("/selectBillByDispatchIdAndBillTypeId")
     public ReponseResult selectBillByDispatchIdAndBillTypeId(Integer dispatchId, Integer billTypeId){
         try {
-            Bill result=billService.selectBillByDispatchIdAndBillTypeId(dispatchId,billTypeId);
-            ReponseResult<Bill> date;
+            List<Bill> result=billService.selectBillByDispatchIdAndBillTypeId(dispatchId,billTypeId);
+            ReponseResult<List> date;
             if (result!=null){
                 date= ReponseResult.ok(result,"根据调度团id和单据类型id获取单据信息成功");
                 logger.info(" method:selectBillByDispatchIdAndBillTypeId  根据调度团id和单据类型id获取单据信息成功！");

@@ -69,7 +69,7 @@ public class ReportdetailServiceImpl implements ReportdetailService {
     public Integer updateReportDetailStatusCallBack(Integer reportDetailId,Integer updateinfoid,Date updateData) {
 
         Reportdetail oldReportdetail = reportdetailMapper.selectByPrimaryKey(reportDetailId);
-        oldReportdetail.setStatus(4);
+        oldReportdetail.setStatus(3);
         Integer result= reportdetailMapper.updateByPrimaryKey(oldReportdetail);
 
         return result;

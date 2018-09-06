@@ -56,10 +56,10 @@
             success: function (ReponseResult) {
                 var content="";
                 if(ReponseResult.data!=null&&ReponseResult.data!=undefined&&ReponseResult.data!=""){
-                    var attr=ReponseResult.data.picturePath.split(",");
+         /*           var attr=ReponseResult.data.picturePath.split(",");*/
                     var savePath = "/api/image/";
-                    $.each(attr,function (i,e) {
-                        content+="<div class=''><img src='"+(savePath+e)+"' width='500px' height='350px' ></div>";
+                    $.each(ReponseResult.data,function (i,e) {
+                        content+="<div class=''><img src='"+(savePath+e.picturePath)+"' width='500px' height='350px' ></div>";
                     });
 
                 }else {

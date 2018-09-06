@@ -27,8 +27,6 @@
         costprice = #{costprice},offer = #{offer},typeId = #{typeId},picturePath = #{picturePath},updateBy=#{updateBy}
         ,remarks = #{remarks},updateDate = #{updateDate} WHERE scenicSpotId = #{scenicSpotId}
     </update>
-    <select id="ListScenicspot" resultType="com.dyhc.sdglgroundconnection.pojo.Scenicspot">
-          SELECT * FROM scenicspot
-    </select>
+
 
 </mapper>

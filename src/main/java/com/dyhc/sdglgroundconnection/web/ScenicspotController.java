@@ -132,9 +132,9 @@ public class ScenicspotController {
     public ReponseResult ListScenicspotByParentId() {
         try {
             //一、查询所有的景点信息
-            PageInfo<Scenicspot> pageInfo = scenicspotService.ListScenicspot();
+            List<Scenicspot> scenicspotList = scenicspotService.ListScenicspot();
             //二、返回ReponseResult对象
-            ReponseResult<List> data = ReponseResult.ok(pageInfo.getList(), pageInfo.getTotal(), "获取所有景点成功！");
+            ReponseResult<List> data = ReponseResult.ok(scenicspotList, "获取所有景点成功！");
             //三、录入日志并返回
             logger.info(" method:ListScenicspotByParentId  获取所有景点成功！");
             return data;

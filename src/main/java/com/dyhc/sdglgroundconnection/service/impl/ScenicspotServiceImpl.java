@@ -109,9 +109,12 @@ public class ScenicspotServiceImpl implements ScenicspotService {
      * @throws Exception
      */
     @Override
-    public PageInfo<Scenicspot> ListScenicspot() throws Exception {
-        PageInfo<Scenicspot> pageInfo = new PageInfo<>(scenicspotMapper.ListScenicspot());
-        return pageInfo;
+    public List<Scenicspot> ListScenicspot() throws Exception {
+        ScenicspotExample scenicspotExample=new ScenicspotExample();
+        ScenicspotExample.Criteria criteria=scenicspotExample.createCriteria();
+        criteria.andParentidEqualTo(0);
+        criteria.andWhetherdelEqualTo(0);
+        return scenicspotMapper.selectByExample(scenicspotExample);
     }
 
     /**

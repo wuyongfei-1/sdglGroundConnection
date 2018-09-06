@@ -30,12 +30,6 @@ public interface ScenicspotMapper extends CommonMapper<Scenicspot>{
     int saveScenicspotInfo(Scenicspot scenicspot) throws Exception;
 
     /**
-     * 查询所有景点的信息 （wangtao）
-     * @return 返回景点集合
-     */
-    List<Scenicspot> ListScenicspot() throws Exception;
-
-    /**
      *  根据编号修改景点信息 （wangtao）
      * @return
      * @throws Exception

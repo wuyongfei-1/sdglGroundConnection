@@ -153,9 +153,19 @@ public class ScenicspotServiceImpl implements ScenicspotService {
     @RecordOperation(type = "景点信息", desc = "删除了一条景点信息")
     public Integer deleteScenicspotById(Integer id) throws Exception {
         List<Shopping> shoppingList = shoppingService.ListShoppingByScenicSpotId(id);
+        //查询所有父景点是此ID的景点
+        ScenicspotExample scenicspotExample=new ScenicspotExample();
+        ScenicspotExample.Criteria criteria=scenicspotExample.createCriteria();
+        criteria.andParentidEqualTo(id);
+        List<Scenicspot> scenicspotList=scenicspotMapper.selectByExample(scenicspotExample);
+        if(scenicspotList!=null){
+            for (Scenicspot s : scenicspotList) {
+                scenicspotMapper.deleteByPrimaryKey(s.getScenicSpotId());
+            }
+        }
         if (shoppingList != null) {
             for (Shopping shopping : shoppingList) {
-                Integer result1 = shoppingService.deleteShoppingById(shopping.getShoppingId());
+                shoppingService.deleteShoppingById(shopping.getShoppingId());
             }
         }
         Integer result = scenicspotMapper.deleteByPrimaryKey(id);

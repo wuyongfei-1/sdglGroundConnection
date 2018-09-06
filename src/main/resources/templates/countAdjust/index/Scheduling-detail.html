@@ -780,8 +780,24 @@
     var otherJson = {};//报价其它
     var lineJson = [];//报价线路
 
+    // 验证用户是否输入
+    function checkIsNot() {
+        // 获取所有的文本框
+        var textData = $('input[type=text]');
+        // 遍历所有的文本框是否用户完全输入
+        for (var text in textData) {
+            if ($(text).val() == "") {
+                $(text).css("backgroud","red");
+                alert('请先完善信息！');
+                return false;
+            }
+        }
+    }
     //新增报价信息
     function insertOffer() {
+        if (!checkIsNot()) {
+            return false;
+        }
         offerTable();
         carTbale();
         hotelTable();

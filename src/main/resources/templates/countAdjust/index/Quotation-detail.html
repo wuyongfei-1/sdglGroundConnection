@@ -258,6 +258,19 @@
     <script type="text/javascript" src="/js/scheduling.js"></script>
 
     <script>
+        // 验证用户是否输入
+        function checkIsNot() {
+            // 获取所有的文本框
+            var textData = $('input[type=text]');
+            // 遍历所有的文本框是否用户完全输入
+            for (var text in textData) {
+                if ($(text).val() == "") {
+                    $(text).css("backgroud","red");
+                    alert('请先完善信息！');
+                    return false;
+                }
+            }
+        }
         // 复选框的变化
         var arr = new Array();
         $("#bills :checkbox").change(function () {
@@ -332,6 +345,9 @@
         })
         // 保存调度信息
         function saveDispatchInfo() {
+            if (!checkIsNot()) {
+                return false; // 退出保存
+            }
 
             var patchJsonObj = {}; // 调度信息的json对象
             var patchGuideJsonObj = {}; // 调度导游的json对象

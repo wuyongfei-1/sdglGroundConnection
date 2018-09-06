@@ -35,7 +35,7 @@
             <table id="tabletwo" width="800px" height="50px" cellpadding="0" cellspacing="0">
                 <tr style="">
                     <td>收件单位及收件人</td>
-                    <td width="200px" ><span id="shoujianrenjishoujiandanwei"></span></td>
+                    <td width="200px"><span id="shoujianrenjishoujiandanwei"></span></td>
                     <td>发件单位及收件人</td>
                     <td width="200px"><span id="fanjianrenjifajiandanwei"></span></td>
                 </tr>
@@ -58,7 +58,8 @@
 
                 </tr>
                 <tr>
-                    <td colspan="2" style="text-align: left;">接团社团号：<span id="dijieshetuanhao"></span><br/>组团社团号：<span id="zutuanshetuanhao"></span></td>
+                    <td colspan="2" style="text-align: left;">接团社团号：<span id="dijieshetuanhao"></span><br/>组团社团号：<span
+                            id="zutuanshetuanhao"></span></td>
                     <td colspan="2" style="text-align: left;">用房：<span id="yongfang"></span></td>
                 </tr>
                 <tr>
@@ -93,8 +94,10 @@
                     <td colspan="4" style="text-align: left;">备注:请在团抵达前将团款汇至一下账户，感谢支持，预祝合作愉快！</td>
                 </tr>
                 <tr>
-                    <td colspan="2" style="text-align: left;">账户名：<span id="zhanghuming"></span><br/>账号:<span id="zhanghao"></span><br>开户行：<span id="kaihuhang"></span></td>
-                    <td colspan="2" style="text-align: left;">户名：<span id="huming"></span><br/>卡号:<span id="kahao"></span><br>开户行</td>
+                    <td colspan="2" style="text-align: left;">账户名：<span id="gongsizhanghuming"></span><br/>账号:<span
+                            id="gongsizhanghao"></span><br>开户行：<span id="gongsikaihuhang"></span></td>
+                    <td colspan="2" style="text-align: left;">户名：<span id="gerenhuming"></span><br/>卡号:<span
+                            id="gerenkahao"></span><br>开户行:<span id="gerenkaihuhang"></span></td>
                 </tr>
             </table>
         </div>
@@ -116,10 +119,72 @@
 
     $(function () {
         getReportdetailById();
+        selectReportdetailById();
     });
 
+    /**
+     * 为各个模块绑定信息(lixiaojie)
+     */
+    function selectReportdetailById() {
+        var reportDetailId = $("#reportDetailId").val();
+        $.ajax({
+            url: "/reportdetail/selectReportdetailById",
+            data: {
+                "reportDetailId": reportDetailId
+            },
+            dataType: "json",
+            type: "post",
+            async: false,
+            success: function (ReponseResult) {
+                var reportaccommodationList = "";
+                var zhusuheji = 0 * 1;//住宿合计
+                var zhusudaoyoufu = 0 * 1;
+                var zhusuqiandanheji = 0 * 1;
+                $.each(ReponseResult.data.reportaccommodationList, function (i, e) {
+                    var subtotal = 0 * 1;
+                    subtotal = e.housePrice * e.roomNum + e.accompanyingBed * e.accompanyingPrice;
+
+                    zhusuheji += subtotal;//计算住宿合计
+
+                });
+
+                //餐厅
+                var reportrestaurantList = "";
+                var yongcanheji = 0 * 1;
+                var yongcandaoyoufu = 0 * 1;
+                var yongcanqiandanheji = 0 * 1;
+                $.each(ReponseResult.data.reportrestaurantList, function (i, e) {
+                    var wuheji = 0 * 1;
+                    var wanheji = 0 * 1;
+                    var wucanxiaoji = e.lunchMeal * e.lunchEatNum;
+                    var wancanxiaoji = e.dinnerMeal * e.dinnerEatNum;
+                    yongcanheji += wucanxiaoji + wancanxiaoji;
+                })
+
+                //门票
+                var reportticketList = "";
+                var menpiaoheji = 0 * 1;
+                var menpiaodaoyoufu = 0 * 1;
+                var menpiaoqiandanheji = 0 * 1;
+                $.each(ReponseResult.data.reportticketList, function (i, e) {
+                    var menpiaoxiaoji = e.price * e.nums;
+                    menpiaoheji += menpiaoxiaoji;
+                });
+
+                $("#zongfeiqian").text(yongcanheji+menpiaoheji+zhusuheji);
+                  $("#zongfeizongjia").text(yongcanheji+menpiaoheji+zhusuheji);
+                   $("#feiyongzongji").text(yongcanheji+menpiaoheji+zhusuheji);
+
+            },
+            error: function (res) {
+                alert(res);
+            }
+        })
+    }
+
+
     function getReportdetailById() {
-        var reportDetailId=$("#reportDetailId").val();
+        var reportDetailId = $("#reportDetailId").val();
         $.ajax({
             url: "/reportdetail/getReportdetailById",
             data: {
@@ -130,19 +195,29 @@
             async: false,
             success: function (e) {
 
-                $("#shoujianrenjishoujiandanwei").text(e.data.travel.travelName+"\t"+e.data.travel.personName+"\t"+e.data.travel.personPost);
-                $("#fanjianrenjifajiandanwei").text(e.data.company.companyName+"\t"+e.data.staff.theUserName);
+                $("#shoujianrenjishoujiandanwei").text(e.data.travel.travelName + "\t" + e.data.travel.personName + "\t" + e.data.travel.personPost);
+                $("#fanjianrenjifajiandanwei").text(e.data.company.companyName + "\t" + e.data.staff.staffname);
                 $("#shoujianrendianhua").text(e.data.travel.phone);
                 $("#fajianrendianhua").text(e.data.company.companyPhone);
                 $("#keyuandi").text(e.data.dispatch.tourist);
                 $("#lvxingrenshu").text(e.data.dispatch.num);
                 $("#dijieshetuanhao").text(e.data.dispatch.groundConnectionNumber);
                 $("#zutuanshetuanhao").text(e.data.dispatch.groupNumber);
-                $("#yongfang").text(Math.ceil(e.data.dispatch.num/2));
+                $("#yongfang").text(Math.ceil(e.data.dispatch.num / 2));
 
                 $("#zongfeiqian").text(e.data.reportdetail.totalPayable);
-                $("#zongfeizongjia").text(e.data.reportdetail.totalPayable);
-                $("#feiyongzongji").text(e.data.reportdetail.totalPayable);
+             /*   $("#zongfeizongjia").text(e.data.reportdetail.totalPayable);
+                $("#feiyongzongji").text(e.data.reportdetail.totalPayable);*/
+                //公司账户信息
+                $("#gongsizhanghuming").text(e.data.companyAccount.accountName);
+                $("#gongsizhanghao").text(e.data.companyAccount.accountNum);
+                $("#gongsikaihuhang").text(e.data.companyAccount.bank);
+
+
+                //个人账户信息
+                $("#gerenhuming").text(e.data.personalAccount.accountName);
+                $("#gerenkahao").text(e.data.personalAccount.accountNum);
+                $("#gerenkaihuhang").text(e.data.personalAccount.bank);
             }
         });
     }

@@ -20,6 +20,7 @@ public class AccountType {
     private String accountNum; // 账号/卡号
     @Column(name = "accountName")
     private String accountName; // 账户名/户名
+    @Column(name = "`status`")
     private Integer status; // 状态  （1.个人   2.企业）
     @Column(name = "whetherDel")
     private Integer whetherDel; // 是否删除（1代表已删除，0代表未删除）
@@ -28,7 +29,7 @@ public class AccountType {
     @Column(name = "updateBy")
     private Integer updateBy; // 修改人（外键，与人员表关联）
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "upDate")
+    @Column(name = "`upDate`")
     private Date upDate; // 修改日期
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "createDate")

@@ -14,7 +14,7 @@ public class LoginConfigurer implements WebMvcConfigurer {
                     , "/quoteDetails/**", "/record/**", "/route/**", "/bill/**", "/bill/uploadBills", "/admins/login.html"
                     , "/staff/loginCheck", "/admin/**", "/css/**", "/font/**", "/images/**","/api/image/**"
                     , "/js/**", "/lay/**"};//禁止拦截
-  //  ,"/staff/updateStaffInfoGetSessionInfo"
+    //  ,"/staff/updateStaffInfoGetSessionInfo"
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

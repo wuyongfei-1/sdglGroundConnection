@@ -25,18 +25,16 @@ public class BillServiceImpl implements BillService {
      * @return
      */
     @Override
-    public Bill selectBillByDispatchIdAndBillTypeId(Integer dispatchId, Integer billTypeId)throws Exception  {
+    public List<Bill> selectBillByDispatchIdAndBillTypeId(Integer dispatchId, Integer billTypeId)throws Exception  {
         BillExample billExample=new BillExample();
         Bill bill=null;
         BillExample.Criteria billExampleCriteria=billExample.createCriteria();
         billExampleCriteria.andDispatchidEqualTo(dispatchId);
         billExampleCriteria.andBilltypeidEqualTo(billTypeId);
         List<Bill> bills=billMapper.selectByExample(billExample);//按条件查询票据表
-        if (bills.size()>0){//查出来的结果大于0返回 第一个对象  ， 不大于0  返回null
-            bill=bills.get(0);
-        }
 
-        return bill;
+
+        return bills;
     }
 
     /**

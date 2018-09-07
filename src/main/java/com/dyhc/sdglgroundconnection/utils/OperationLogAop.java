@@ -79,7 +79,7 @@ public class OperationLogAop {
         operationlog.setCreateBy(user.getStaffId());
         operationlog.setOperationDate(date);
         operationlog.setStatus(0);
-        operationlog.setRoleId(user.getStaffId());
+        operationlog.setRoleId(user.getRoleId());
         operationlog.setOperationType(type);
         // 执行添加日志
         try {

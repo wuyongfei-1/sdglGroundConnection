@@ -23,7 +23,8 @@ public class ReportdetailServiceImpl implements ReportdetailService {
 
     @Autowired
     private ReportdetailMapper reportdetailMapper;
-
+    @Autowired
+    private AccountTypeMapper accountTypeMapper;
     @Autowired
     private TravelMapper travelMapper;
 
@@ -68,7 +69,7 @@ public class ReportdetailServiceImpl implements ReportdetailService {
     public Integer updateReportDetailStatusCallBack(Integer reportDetailId,Integer updateinfoid,Date updateData) {
 
         Reportdetail oldReportdetail = reportdetailMapper.selectByPrimaryKey(reportDetailId);
-        oldReportdetail.setStatus(4);
+        oldReportdetail.setStatus(3);
         Integer result= reportdetailMapper.updateByPrimaryKey(oldReportdetail);
 
         return result;
@@ -84,10 +85,15 @@ public class ReportdetailServiceImpl implements ReportdetailService {
         Dispatch dispatch=dispatchMapper.selectByPrimaryKey(reportdetail.getDispatchId());
         Staff staff=staffMapper.selectByPrimaryKey(dispatch.getCreater());
         Company company=companyMapper.selectByPrimaryKey(1);
+        AccountType companyAccount=accountTypeMapper.selectByPrimaryKey(1);
+        AccountType personalAccount=accountTypeMapper.selectByPrimaryKey(2);
+
         Travel travel=travelMapper.selectByPrimaryKey(1);
         NewFileParam newFileParam=new NewFileParam();
         newFileParam.setStaff(staff);
         newFileParam.setCompany(company);
+        newFileParam.setCompanyAccount(companyAccount);
+        newFileParam.setPersonalAccount(personalAccount);
         newFileParam.setTravel(travel);
         newFileParam.setDispatch(dispatch);
         newFileParam.setReportdetail(reportdetail);

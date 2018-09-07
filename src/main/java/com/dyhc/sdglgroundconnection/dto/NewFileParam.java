@@ -10,16 +10,8 @@ public class NewFileParam {
 
     private Dispatch dispatch;//调度信息
 
-    public Reportdetail getReportdetail() {
-        return reportdetail;
-    }
-
-    public void setReportdetail(Reportdetail reportdetail) {
-        this.reportdetail = reportdetail;
-    }
-
-    private AccountType acCountType;//公司开户信息
-
+    private AccountType companyAccount;//公司开户信息
+    private AccountType personalAccount;//个人开户信息
     private Staff staff;
 
     public Staff getStaff() {
@@ -28,6 +20,14 @@ public class NewFileParam {
 
     public void setStaff(Staff staff) {
         this.staff = staff;
+    }
+
+    public Reportdetail getReportdetail() {
+        return reportdetail;
+    }
+
+    public void setReportdetail(Reportdetail reportdetail) {
+        this.reportdetail = reportdetail;
     }
 
     public Travel getTravel() {
@@ -54,11 +54,19 @@ public class NewFileParam {
         this.dispatch = dispatch;
     }
 
-    public AccountType getAcCountType() {
-        return acCountType;
+    public AccountType getCompanyAccount() {
+        return companyAccount;
     }
 
-    public void setAcCountType(AccountType acCountType) {
-        this.acCountType = acCountType;
+    public void setCompanyAccount(AccountType companyAccount) {
+        this.companyAccount = companyAccount;
+    }
+
+    public AccountType getPersonalAccount() {
+        return personalAccount;
+    }
+
+    public void setPersonalAccount(AccountType personalAccount) {
+        this.personalAccount = personalAccount;
     }
 }

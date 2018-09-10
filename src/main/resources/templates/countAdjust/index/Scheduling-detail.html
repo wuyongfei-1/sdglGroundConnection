@@ -627,7 +627,7 @@
         var travelEndTime = $("#date1").val();//结束日期
         var number = $("#number").val();//人数
         var travelId = $("#zutuanshe").val();//组团社
-        var offer = 0;//报价
+        var offer = $("#offerTotal").val();//报价
         var trip = "";//行程
         var shopping = $("[name='shopping']").val();//购物
         var notExclude = $("[name='notExclude']").val();//不含
@@ -635,11 +635,6 @@
         var reception = $("[name='reception']").val();//接待标准
         var supervision = $("[name='supervision']").val();//团体监督
         var tourist = $("#tourist").val();//客源地
-        $("[name='offer']").each(function (i, e) {
-            if($(this).val()!=""){
-                offer += parseInt($(this).val());
-            }
-        })
         $("[name='desc']").each(function (i, e) {
             trip += $(this).val();
             trip += "--";

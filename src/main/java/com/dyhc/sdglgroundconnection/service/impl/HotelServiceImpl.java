@@ -84,7 +84,10 @@ public class HotelServiceImpl implements HotelService {
      */
     @Override
     public List<Hotel> listByaHotel() {
-        return hotelMapper.selectAll();
+        HotelExample hotelExample=new HotelExample();
+        HotelExample.Criteria criteria=hotelExample.createCriteria();
+        criteria.andWhetherdelEqualTo(0);
+        return hotelMapper.selectByExample(hotelExample);
     }
 
     /**

@@ -329,11 +329,9 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
         $('#offer' + num + ' #scenic' + i).find('#scenicspots').parent('td').next().next().find('input').val(costPrice);
         // 绑定报价
         $('#offer' + num + ' #scenic' + i).find('#scenicspots').parent('td').next().next().next().next().find('input').val(offer);
-
-
         if ($('#offer' + num + ' #scenic' + i).find('#scenicspots').first().attr('box') == "true") {  // 根据大景点查询小的景点信息
             $.ajax({
-                url: "/scenicspot/scenicspot/childrens/" + id + ".html",
+                url: "/scenicspot/scenicspot/childrens/" + scenicId + ".html",
                 data: "",
                 dataType: "json",
                 type: "get",

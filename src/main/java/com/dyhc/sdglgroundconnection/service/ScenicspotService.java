@@ -1,12 +1,8 @@
 package com.dyhc.sdglgroundconnection.service;
 
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
-import com.dyhc.sdglgroundconnection.mapper.CommonMapper;
-import com.dyhc.sdglgroundconnection.pojo.Hotel;
 import com.dyhc.sdglgroundconnection.pojo.Scenicspot;
 import com.github.pagehelper.PageInfo;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -51,7 +47,7 @@ public interface ScenicspotService {
      * @return 返回景点对象集合
      * @throws Exception
      */
-    PageInfo<Scenicspot> ListScenicspot() throws Exception;
+    List<Scenicspot> ListScenicspot() throws Exception;
 
     /**
      * 根据编号修改景点信息 （wangtao）

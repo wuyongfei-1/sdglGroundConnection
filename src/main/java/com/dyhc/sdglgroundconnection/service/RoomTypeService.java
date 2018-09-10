@@ -1,8 +1,6 @@
 package com.dyhc.sdglgroundconnection.service;
 
 import com.dyhc.sdglgroundconnection.pojo.RoomType;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -11,6 +9,9 @@ import java.util.List;
  * 酒店类型业务接口
  **/
 public interface RoomTypeService {
+
+
+
     /**
      * 通过酒店编号查询所属的所有房间类型（wuyongfei）
      *

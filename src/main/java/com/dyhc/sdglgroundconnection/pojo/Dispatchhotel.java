@@ -51,6 +51,17 @@ public class Dispatchhotel {
     @Transient
     private Hotel hotel; // 酒店对象
 
+    @Transient
+    private RoomType roomType; // 酒店类型
+
+    public RoomType getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(RoomType roomType) {
+        this.roomType = roomType;
+    }
+
     public Integer getWeight() {
         return weight;
     }

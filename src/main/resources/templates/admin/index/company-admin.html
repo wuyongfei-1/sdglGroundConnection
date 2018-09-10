@@ -23,8 +23,8 @@
                            id="anteraddInfo" style="width: 35px;font-size: 26px" value="+"></input>
                 </div>
                 <div class="layui-inline">
-                    <input type="text" name="title" placeholder="公司名字" autocomplete="off" class="layui-input"
-                           id="companyNmae">
+                    <input type="text" name="title" placeholder="公司开户行" autocomplete="off" class="layui-input"
+                           id="bank">
                 </div>
                 <input type="button" class="layui-btn layui-btn-normal" onclick="loadData()" value="搜索"
                        style="width: 80px"></input>
@@ -45,13 +45,11 @@
                 <thead>
                 <tr>
                     <th style="width: 30px;">编号</th>
-                    <th style="width: 45px;">公司名称</th>
-                    <th style="width: 30px;">地址</th>
-                    <th style="width: 45px;">电话</th>
-                    <th style="width: 80px;">传真</th>
-                    <th style="width: 100px;">邮编</th>
-                    <th style="width: 80px;">经营许可证<br>(L-SX-CJ00026)</th>
-                    <th style="width: 80px; font-size: small;">操作</th>
+                    <th style="width: 45px;">开户行</th>
+                    <th style="width: 30px;">账号/卡号</th>
+                    <th style="width: 45px;">账户名/户名</th>
+                    <th style="width: 80px;">状态</th>
+                    <th style="width: 100px; font-size: small;">操作</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -102,23 +100,30 @@
 
     //分页查询
     function loadData() {
-        var companyName = $("#companyNmae").val();
+        var bank = $("#bank").val();
         var str = "";
         $.ajax({
-            url: "/company/showAllCompany",
-            data: {page: curnum, limit: limitcount, companyName: companyName},
+            url: "/accountType/showAllAccountType",
+            data: {page: curnum, limit: limitcount, bank: bank},
             dataType: "json",
             type: "get",
             success: function (e) {
+                var st="";
+
                 var pageNo = (curnum - 1) * limitcount;
                 $(e.data).each(function (i, result) {
+                    if(result.status==1){
+                        st="个人"
+                    }
+                    if(result.status==2){
+                        st="企业"
+                    }
                     pageNo++;
-                    str += "<tr><td>" + (pageNo) + "</td><td>" + result.companyName + "</td><td>"
-                        + result.companyAddress + "</td><td>"
-                        + result.companyPhone + "</td><td>"
-                        + result.fax + "</td><td>" + result.zipCode + "</td><td>"
-                        + result.businessLicense + "</td>"
-                        + "<td>\n" +
+                    str += "<tr><td>" + (pageNo) + "</td><td>" + result.bank + "</td><td>"
+                        + result.accountNum + "</td><td>"
+                        + result.accountName + "</td><td>"
+                        + st+ "</td>"
+                        + "<td>" +
                         "<div class=\"layui-inline\">\n" +
                         "<button onclick='updatInfo(" + result.companyId + ")' id='updatInfo'  class=\"layui-btn layui-btn-mini layui-btn-normal  edit-btn\"><i class='layui-icon'>&#xe642</i></button>" +
                         "<button onclick='deleteCompany(" + result.companyId + ")' class=\"layui-btn layui-btn-mini layui-btn-danger del-btn\" data-id=\"1\"><i class=\"layui-icon\">&#xe640;</i></button>\n" +

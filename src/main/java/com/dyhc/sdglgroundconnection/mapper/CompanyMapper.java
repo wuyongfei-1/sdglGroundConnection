@@ -26,4 +26,11 @@ public interface CompanyMapper extends CommonMapper<Company>{
      * @return
      */
     int deleteCompany(int companyid);
+
+    /**
+     * 公司查询(yunguohao)
+     * @param
+     * @return
+     */
+    Company getcompany();
 }

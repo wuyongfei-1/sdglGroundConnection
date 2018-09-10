@@ -82,6 +82,10 @@
             <td>S/P</td>
             <td id="shopping">NO SP，可自费（允许车载：山西土特产、大红枣、核桃、小米）</td>
         </tr>
+        <tr>
+            <td style="width:5%; text-align:center">报价</td>
+            <td id="offertotal" style="align-content: right"></td>
+        </tr>
     </table>
     <table style="width:100%">
         <tr>
@@ -126,6 +130,7 @@
                         "            </td>\n" +
                         "        </tr>";
                 })
+                $("#offertotal").html("￥"+data.data.offer.offer);
                 $("#append").html(context);
                 $("#reception").html(data.data.offer.reception);
                 $("#notExclude").html(data.data.offer.notExclude);

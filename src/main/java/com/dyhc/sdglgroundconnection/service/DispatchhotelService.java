@@ -16,7 +16,7 @@ public interface DispatchhotelService {
      * @param dispatchId 调度表编号
      * @return 返回调度酒店对象
      */
-    List<Dispatchhotel> getDispatchhotelInfoByDispatchId(Integer dispatchId);
+    List<Dispatchhotel> getDispatchhotelInfoByDispatchId(Integer dispatchId)throws Exception;
 
     /**
      * 批量添加多条调度酒店信息（wuyongfei）

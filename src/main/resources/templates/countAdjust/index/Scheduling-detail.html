@@ -786,6 +786,7 @@
         var textData = $('input[type=text]');
         // 遍历所有的文本框是否用户完全输入
         for (var text in textData) {
+            alert($(text).attr('name'))
             if ($(text).val() == "") {
                 $(text).css("backgroud","red");
                 alert('请先完善信息！');
@@ -795,9 +796,6 @@
     }
     //新增报价信息
     function insertOffer() {
-        if (!checkIsNot()) {
-            return false;
-        }
         offerTable();
         carTbale();
         hotelTable();

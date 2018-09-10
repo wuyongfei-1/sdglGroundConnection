@@ -7,6 +7,7 @@ import com.dyhc.sdglgroundconnection.pojo.Dispatchhotel;
 import com.dyhc.sdglgroundconnection.pojo.DispatchhotelExample;
 import com.dyhc.sdglgroundconnection.service.DispatchhotelService;
 import com.dyhc.sdglgroundconnection.service.HotelService;
+import com.dyhc.sdglgroundconnection.service.RoomTypeService;
 import com.dyhc.sdglgroundconnection.utils.ConditionValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,13 +28,16 @@ public class DispatchhotelServiceImpl implements DispatchhotelService {
     @Autowired
     private DispatchhotelMapper dispatchhotelMapper;
 
+    @Autowired
+    private RoomTypeService roomTypeService;
+
     /**
      * 根据调度表编号查询调度酒店信息 （wangtao）
      * @param dispatchId 调度表编号
      * @return 返回调度酒店对象
      */
     @Override
-    public List<Dispatchhotel> getDispatchhotelInfoByDispatchId(Integer dispatchId) {
+    public List<Dispatchhotel> getDispatchhotelInfoByDispatchId(Integer dispatchId) throws Exception {
         List<Dispatchhotel> dispatchhotelList=null;
         if(ConditionValidation.validation(dispatchId)==true){
             DispatchhotelExample dispatchhotelExample=new DispatchhotelExample();
@@ -43,6 +47,7 @@ public class DispatchhotelServiceImpl implements DispatchhotelService {
             dispatchhotelList=dispatchhotelMapper.selectByExample(dispatchhotelExample);
             for (Dispatchhotel dispatchhote1: dispatchhotelList) {
                 dispatchhote1.setHotel(hotelService.selectHotelById(dispatchhote1.getHotelId()));
+                dispatchhote1.setRoomType(roomTypeService.getTypeId(Integer.parseInt(dispatchhote1.getValue1())));
             }
         }
 

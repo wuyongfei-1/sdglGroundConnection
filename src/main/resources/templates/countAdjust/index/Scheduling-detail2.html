@@ -22,7 +22,7 @@
                         </select>
                     </td>
                     <td><label class="layui-form-label">人数</label></td>
-                    <td><input type="text" name="number" id="number" class="layui-input"></td>
+                    <td><input type="text" name="number" onchange="total()" id="number" class="layui-input"></td>
                 </tr>
                 <tr>
                     <td><label class="layui-form-label">开始时间</label></td>
@@ -159,9 +159,9 @@
                         </select>
                     </td>
                     <td><label class="layui-form-label">成本价</label></td>
-                    <td><input type="text" id="carcostPrice" name='costPrice' class="layui-input"></td>
+                    <td><input type="text" id="carcostPrice"  class="layui-input"></td>
                     <td><label class="layui-form-label">报价</label></td>
-                    <td><input type="text" id="caroffer" name='offer' class="layui-input"></td>
+                    <td><input type="text" id="caroffer" class="layui-input"></td>
                 </tr>
                 <tr>
                     <td><label class="layui-form-label">其他:</label></td>
@@ -171,9 +171,9 @@
                                 <td><label class="layui-form-label">备注</label></td>
                                 <td width="300px"><input type="text" id="otherremarks" class="layui-input"></td>
                                 <td><label class="layui-form-label">成本价</label></td>
-                                <td width="300px"><input type="text" name='costPrice' id="othercostPrice" class="layui-input"></td>
+                                <td width="300px"><input type="text" id="othercostPrice" class="layui-input"></td>
                                 <td><label class="layui-form-label">报价</label></td>
-                                <td width="300px"><input type="text" id="otheroffer" name='offer' class="layui-input">
+                                <td width="300px"><input type="text" id="otheroffer" class="layui-input">
                                 </td>
                             </tr>
                         </table>
@@ -1171,6 +1171,7 @@
     function total() {
         var offer=0;
         var costPrice=0;
+        var bbbb=parseInt($("[xl='xianlu']").length);
         $("[name='offer']").each(function (i, e) {
             if($(this).val()!=""){
                 offer += parseInt($(this).val());
@@ -1181,6 +1182,27 @@
                 costPrice += parseInt($(this).val());
             }
         })
+        if($("#number").val()!="") {
+            offer = offer * parseInt($("#number").val());
+            costPrice = costPrice * parseInt($("#number").val());
+        }
+        var cccc=parseInt($("#caroffer").val())*bbbb;
+        var dddd=parseInt($("#carcostPrice").val())*bbbb;
+        var hhhh=parseInt($("#otheroffer").val());
+        var jjjj=parseInt($("#othercostPrice").val());
+        if(!isNaN(cccc)){
+            offer+=cccc;
+        }
+        if(!isNaN(hhhh)){
+            offer+=hhhh;
+        }
+        cccc=(parseInt($("#carcostPrice").val())+parseInt($("#othercostPrice").val()))*bbbb;
+        if(!isNaN(dddd)) {
+            costPrice += dddd;
+        }
+        if(!isNaN(jjjj)){
+            costPrice+=jjjj
+        }
         $("#costPriceTotal").val(costPrice);
         $("#offerTotal").val(offer);
     }

@@ -159,9 +159,9 @@
                         </select>
                     </td>
                     <td><label class="layui-form-label">成本价</label></td>
-                    <td><input type="text" id="carcostPrice"  class="layui-input"></td>
+                    <td><input type="text" onchange="total()" id="carcostPrice"  class="layui-input"></td>
                     <td><label class="layui-form-label">报价</label></td>
-                    <td><input type="text" id="caroffer" class="layui-input"></td>
+                    <td><input type="text" onchange="total()" id="caroffer" class="layui-input"></td>
                 </tr>
                 <tr>
                     <td><label class="layui-form-label">其他:</label></td>
@@ -171,9 +171,9 @@
                                 <td><label class="layui-form-label">备注</label></td>
                                 <td width="300px"><input type="text" id="otherremarks" class="layui-input"></td>
                                 <td><label class="layui-form-label">成本价</label></td>
-                                <td width="300px"><input type="text" id="othercostPrice" class="layui-input"></td>
+                                <td width="300px"><input type="text" onchange="total()" id="othercostPrice" class="layui-input"></td>
                                 <td><label class="layui-form-label">报价</label></td>
-                                <td width="300px"><input type="text" id="otheroffer" class="layui-input">
+                                <td width="300px"><input type="text" onchange="total()" id="otheroffer" class="layui-input">
                                 </td>
                             </tr>
                         </table>

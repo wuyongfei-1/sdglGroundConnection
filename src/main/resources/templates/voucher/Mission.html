@@ -315,14 +315,13 @@
                                 "<td><br /></td>" ;
 						}
 						if(data.data.dispatchhotelList[i].payment=="签单"){
-                            content1+="<td>"+Math.ceil(data.data.dispatch.num/2)+"标+"+data.data.dispatchhotelList[i].companyBedNum+"司陪<br/>"+data.data.dispatchhotelList[i].payment+"</td>\n" +
-                                "<td>"+data.data.dispatchhotelList[i].companyBedNum+"床</td>\n" +
+                            content1+="<td>"+data.data.dispatchhotelList[i].roomNumber+data.data.dispatchhotelList[i].roomType.typeName+"+"+data.data.dispatchhotelList[i].companyBedNum+"司陪<br/>"+data.data.dispatchhotelList[i].payment+"</td>\n" +
+                                "<td>"+data.data.dispatchhotelList[i].companyBedNum+"间</td>\n" +
                                 "</tr>";
-
 						}else{
                             fcount+=data.data.dispatchhotelList[i].costPrice*data.data.dispatch.num;
-                            content1+="<td>"+Math.ceil(data.data.dispatch.num/2)+"标+"+data.data.dispatchhotelList[i].companyBedNum+"司陪<br/>"+data.data.dispatchhotelList[i].payment+" "+data.data.dispatchhotelList[i].costPrice+"*"+data.data.dispatch.num+"="+data.data.dispatchhotelList[i].costPrice*data.data.dispatch.num+"</td>\n" +
-                                "<td>"+data.data.dispatchhotelList[i].companyBedNum+"床</td>\n" +
+                            content1+="<td>"+data.data.dispatchhotelList[i].roomNumber+data.data.dispatchhotelList[i].roomType.typeName+"+"+data.data.dispatchhotelList[i].companyBedNum+"司陪<br/>"+data.data.dispatchhotelList[i].payment+" "+data.data.dispatchhotelList[i].roomType.costprice+"*"+data.data.dispatchhotelList[i].roomNumber+"+"+data.data.dispatchhotelList[i].companyBedNum+"*"+data.data.dispatchhotelList[i].companyBedoffer+"="+((data.data.dispatchhotelList[i].roomType.costprice*data.data.dispatchhotelList[i].roomNumber)+(data.data.dispatchhotelList[i].companyBedNum*data.data.dispatchhotelList[i].companyBedoffer))+"</td>\n" +
+                                "<td>"+data.data.dispatchhotelList[i].companyBedNum+"间</td>\n" +
                                 "</tr>";
 						}
 				}
@@ -344,7 +343,11 @@
                             content2+="<td>"+data.data.disattrList[i].costPrice+"*"+data.data.disattrList[i].buynum+"="+data.data.disattrList[i].costPrice*data.data.disattrList[i].buynum+"</td>";
                             jcount+=data.data.disattrList[i].costPrice*data.data.disattrList[i].buynum;
 					    }else{
-					        content2+="<td>签单"+data.data.disattrList[i].buynum+"全</td>";
+                            if(data.data.disattrList[i].buynum==null){
+                                content2+="<td>签单0全</td>";
+                            }else{
+                                content2+="<td>签单"+data.data.disattrList[i].buynum+"全</td>";
+                            }
 						}
 					}
                     if(data.data.disattrList[i+1]!=undefined&&data.data.disattrList[i+1]!=null){
@@ -353,7 +356,12 @@
                             content2+="<td>"+data.data.disattrList[i+1].costPrice+"*"+data.data.disattrList[i+1].buynum+"="+data.data.disattrList[i+1].costPrice*data.data.disattrList[i+1].buynum+"</td>";
                             jcount+=data.data.disattrList[i+1].costPrice*data.data.disattrList[i+1].buynum;
 						}else{
-                            content2+="<td>签单"+data.data.disattrList[i+1].buynum+"全</td>";
+                            if(data.data.disattrList[i+1].buynum==null){
+                                content2+="<td>签单0全</td>";
+							}else{
+                                content2+="<td>签单"+data.data.disattrList[i+1].buynum+"全</td>";
+							}
+
 						}
 					}else{
                         content2+="<td></td>" +

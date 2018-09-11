@@ -36,7 +36,7 @@ function xianlu(obj) {
         form.render('select'); //刷新select选择框渲染
     });
 }
-
+alert(123)
 function shanchu(aa) {
     if ($("#date1").val() != "") {
         var day=datedel($("#date1").val());

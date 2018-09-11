@@ -123,6 +123,10 @@
                     if(e.day.substring(e.day.length-1)=="0"){
                         day+="0";
                     }
+                    if(e.day.substring(e.day.indexOf("-")-1,e.day.indexOf("-"))=="0"){
+                        day=day.substring(0,1)+"0"+day.substring(1)
+                    }
+                    //alert(e.day.substring(1,1));
                     context+=" <tr>\n" +
                         "            <td>"+day+"</td>\n" +
                         "            <td>"+e.dl+"</td>\n" +

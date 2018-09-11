@@ -85,4 +85,81 @@ public class AccountTypeController {
             return err;
         }
     }
+
+    /**
+     * 修改
+     */
+    @RequestMapping("/updateAccountType")
+    public ReponseResult updateAccountType(AccountType accountType,HttpServletRequest request){
+        try {
+            Staff sessionstaff= (Staff) request.getSession().getAttribute("user");
+            accountType.setUpdateBy(sessionstaff!=null?sessionstaff.getStaffId():1);
+            accountType.setUpDate(new Date());
+            int result=accountTypeService.updateAccountType(accountType);
+            ReponseResult<String> date;
+            if (result>0){
+                date= ReponseResult.ok("1","修改公司账户成功！");
+                logger.info("method:updateAccountType  修改公司账户成功！");
+
+            }else{
+                date= ReponseResult.ok("0","修改公司账户失败！");
+                logger.info(" method:updateAccountType  修改公司失败！");
+            }
+            return date;
+        }catch (Exception e){
+            logger.error(" method:updateAccountType  修改公司账户失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+    /**
+     * 删除
+     */
+    @RequestMapping("/deleteaccountTypeByID")
+    public ReponseResult deleteaccountTypeByID(int accountTypeId){
+        try {
+            int result=accountTypeService.deleteAccountTypeByIDs(accountTypeId);
+            ReponseResult<String> date;
+            if (result>0){
+                date= ReponseResult.ok("1","删除公司账户成功！");
+                logger.info(" method:deleteaccountTypeByID  删除公司账户成功！");
+
+            }else{
+                date= ReponseResult.ok("0","删除公司账户失败！");
+                logger.info(" method:deleteaccountTypeByID  删除公司账户失败！");
+            }
+            return date;
+        }catch (Exception e){
+            logger.error(" method:deleteaccountTypeByID  删除公司账户失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+    /**
+     * id查询
+     */
+    @RequestMapping("/selectAccountTypeById")
+    public ReponseResult selectHotelById(int id){
+        try {
+            AccountType result=accountTypeService.selectAccountTypeByIds(id);
+
+            ReponseResult<AccountType> date;
+            if (result!=null){
+                date= ReponseResult.ok(result,"id查询成功");
+                logger.info(" method:selectAccountTypeById  id查询成功！");
+
+            }else{
+                date= ReponseResult.ok("id查询公司失败！");
+                logger.info(" method:selectAccountTypeById  id查询公司失败！");
+            }
+            return date;
+        }catch (Exception e){
+            logger.error(" method:selectAccountTypeById  id查询公司失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
 }

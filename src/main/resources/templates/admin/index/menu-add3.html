@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>网站后台管理模版</title>
+		<link rel="stylesheet" type="text/css" href="/admin/layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="/admin/css/admin.css" />
+	</head>
+	<body>
+		<div class="wrap-container">
+			<form class="layui-form" style="width: 90%;padding-top: 20px;">
+					<div class="layui-form-item">
+						<input type="hidden" th:value="${accountTypeId}" id="accountTypeId">
+						<label class="layui-form-label">开户行：</label>
+						<div class="layui-input-block">
+							<input type="text" name="title1"  placeholder="请输入开户行" autocomplete="off" class="layui-input" id="bank">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">账号/卡号：</label>
+						<div class="layui-input-block">
+							<input type="text" name="title2"  placeholder="请输入账号/卡号" autocomplete="off" class="layui-input" id="accountNum">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">账户名/户名：</label>
+						<div class="layui-input-block">
+							<input type="text" name="title3"  placeholder="请输入账户名/户名" autocomplete="off" class="layui-input" id="accountName">
+						</div>
+					</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">状态：</label>
+					<div class="layui-input-block" id="Job-list">
+						<select id="roleId" name="roleId" lay-filter="status">
+							<option value="0">请选择状态</option>
+							<option value="1">个人</option>
+							<option value="2">企业</option>
+						</select>
+					</div>
+				</div>
+					
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo" onclick="JIudge()">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</form>
+		</div>
+
+		<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/js/jquery-1.8.2.min.js"></script>
+		<script>
+			//Demo
+			layui.use(['form'], function() {
+				var form = layui.form();
+				form.render();
+				//监听提交
+				form.on('submit(formDemo)', function(data) {
+					return false;
+				});
+			});
+			//窗体加载事件
+            $(function () {
+                updateById();
+            })
+			//判断是增加还是删除
+			function JIudge() {
+				var id=$("#accountTypeId").val();
+                var bank=$("#bank").val();
+                var accountNum=$("#accountNum").val();
+                var accountName=$("#accountName").val();
+                var status=$("#roleId").val();
+                if (bank==undefined||bank==""||bank==null){
+                    alert("不准为空");
+                    return;
+                }
+                if (accountNum==undefined||accountNum==""||accountNum==null){
+                    alert("不准为空");
+                    return;
+                }
+                if (accountName==undefined||accountName==""||accountName==null){
+                    alert("不准为空");
+                    return;
+                }
+                if (status==undefined||status==""||status==null){
+                    alert("不准为空");
+                    return;
+                }
+				if (id==null || id==""){
+                    insertCompany();
+				}
+                if (id != null && id != ""){
+                    updateCompany();
+                }
+            }
+			//id查询赋值
+			function updateById(){
+                var id=$("#accountTypeId").val();
+                $.ajax({
+                    url:"/accountType/selectAccountTypeById",
+                    data:{id:id},
+                    dataType: "json",
+                    type: "get",
+                    success:function (data) {
+                        $("#bank").val(data.data.bank);
+                        $("#accountNum").val(data.data.accountNum);
+                        $("#accountName").val(data.data.accountName);
+                        $("#roleId").val(data.data.status);
+                    }
+                })
+			}
+
+            //修改方法
+            function updateCompany() {
+                var id=$("#accountTypeId").val();
+                var bank=$("#bank").val();
+                var accountNum=$("#accountNum").val();
+                var accountName=$("#accountName").val();
+                var status=$("#roleId").val();
+                $.ajax({
+                    url:"/accountType/updateAccountType",
+                    data:{bank:bank,accountNum:accountNum,accountName:accountName,status:status,accountTypeId:id},
+                    dataType: "json",
+                    type: "get",
+                    success:function (data) {
+                        if (data.data==1 || data.data=="1"){
+                            alert("修改成功");
+                        } else{
+                            alert("修改失败");
+                        }
+                        parent.location.reload();
+                    }
+                })
+            }
+			
+			
+			//添加方法
+			function insertCompany() {
+			    var bank=$("#bank").val();
+                var accountNum=$("#accountNum").val();
+                var accountName=$("#accountName").val();
+                var st="";
+                var status=$("#roleId").val();
+
+				$.ajax({
+					url:"/accountType/insertaccpountType",
+					data:{bank:bank,accountNum:accountNum,accountName:accountName,status:status},
+                    dataType: "json",
+                    type: "get",
+                    success:function (data) {
+                        if (data.data==1 || data.data=="1"){
+                            alert("增加成功");
+                        } else{
+                            alert("增加失败");
+                        }
+                        parent.location.reload();
+                    }
+				})
+            }
+		</script>
+	</body>
+
+</html>

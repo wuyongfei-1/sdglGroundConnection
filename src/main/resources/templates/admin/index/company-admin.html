@@ -77,24 +77,24 @@
         $('#anteraddInfo').on('click', function () {
             layer.open({
                 type: 2,
-                title: '公司添加',
+                title: '公司账户添加',
                 maxmin: true,
                 shadeClose: true, //点击遮罩关闭层
                 area: ['800px', '520px'],
-                content: 'menu-add.html'
+                content: 'menu-add3.html'
             });
         });
     });
 
     //修改弹窗事件
-    function updatInfo(companyid) {
+    function updatInfo(accountTypeId) {
         layer.open({
             type: 2,
-            title: '公司修改',
+            title: '公司账户修改',
             maxmin: true,
             shadeClose: true, //点击遮罩关闭层
             area: ['800px', '520px'],
-            content: 'menu-add.html?companyid=' + companyid
+            content: 'menu-add3.html?accountTypeId=' + accountTypeId
         });
     }
 
@@ -125,8 +125,8 @@
                         + st+ "</td>"
                         + "<td>" +
                         "<div class=\"layui-inline\">\n" +
-                        "<button onclick='updatInfo(" + result.companyId + ")' id='updatInfo'  class=\"layui-btn layui-btn-mini layui-btn-normal  edit-btn\"><i class='layui-icon'>&#xe642</i></button>" +
-                        "<button onclick='deleteCompany(" + result.companyId + ")' class=\"layui-btn layui-btn-mini layui-btn-danger del-btn\" data-id=\"1\"><i class=\"layui-icon\">&#xe640;</i></button>\n" +
+                        "<button onclick='updatInfo(" + result.accountTypeId + ")' id='updatInfo'  class=\"layui-btn layui-btn-mini layui-btn-normal  edit-btn\"><i class='layui-icon'>&#xe642</i></button>" +
+                        "<button onclick='deleteCompany(" + result.accountTypeId + ")' class=\"layui-btn layui-btn-mini layui-btn-danger del-btn\" data-id=\"1\"><i class=\"layui-icon\">&#xe640;</i></button>\n" +
                         "</div>\n" +
                         "</td>" + "</tr>";
                 })
@@ -162,8 +162,8 @@
     function deleteCompany(id) {
         if (confirm("确定删除数据?")) {
             $.ajax({
-                url: "/company/deleteCompanyByID",
-                data: {companyid: id},
+                url: "/accountType/deleteaccountTypeByID",
+                data: {accountTypeId: id},
                 dataType: "json",
                 type: "get",
                 success: function (data) {

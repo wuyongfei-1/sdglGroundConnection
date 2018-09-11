@@ -19,6 +19,10 @@ public interface CompanyService {
      * @throws Exception
      */
     PageInfo<Company> listCompany(Integer pageNo, Integer PageSize,Company company) throws Exception;
+    /**
+     * 公司名字查询（yunguohao）
+     */
+    Company getcompany();
 
     /**
      * 增加（yunguohao）

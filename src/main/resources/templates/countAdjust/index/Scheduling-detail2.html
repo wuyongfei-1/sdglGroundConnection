@@ -22,7 +22,7 @@
                         </select>
                     </td>
                     <td><label class="layui-form-label">人数</label></td>
-                    <td><input type="text" name="number" id="number" class="layui-input"></td>
+                    <td><input type="text" name="number" onchange="total()" id="number" class="layui-input"></td>
                 </tr>
                 <tr>
                     <td><label class="layui-form-label">开始时间</label></td>
@@ -37,7 +37,7 @@
                 <tr>
                     <td style="display: none"><label class="layui-form-label">选择线路</label></td>
                     <td style="display: none">
-                        <select id="zongxianlu" lay-ignore onchange="chengZhong(this)">
+                        <select style="height:36px ; width: 170px" id="zongxianlu" lay-ignore onchange="chengZhong(this)">
 
                         </select>
                     </td>
@@ -60,7 +60,7 @@
                         <tr>
                             <td><label class="layui-form-label">线路</label></td>
                             <td>
-                                <select name="city" lay-ignore lay-search xl="xianlu" onchange="chengZi(this)">
+                                <select style="height:36px ; width: 170px" name="city" lay-ignore lay-search xl="xianlu" onchange="chengZi(this)">
 
                                 </select>
                             </td>
@@ -81,7 +81,7 @@
                         <tr>
                             <td><label class="layui-form-label">酒店</label></td>
                             <td>
-                                <select name="city" lay-ignore hotel="jiudian" onchange="baojia(this)">
+                                <select style="height:36px ; width: 170px" name="city" lay-ignore hotel="jiudian" onchange="baojia(this)">
 
                                 </select>
                             </td>
@@ -102,7 +102,7 @@
                         <tr id="scenic">
                             <td><label class="layui-form-label">景点</label></td>
                             <td>
-                                <select name="city" weight="1" lay-ignore spot="jingdian" onchange="baojia(this)">
+                                <select style="height:36px ; width: 170px" name="city" weight="1" lay-ignore spot="jingdian" onchange="baojia(this)">
 
                                 </select>
                             </td>
@@ -114,7 +114,7 @@
                         <tr>
                             <td><label class="layui-form-label">午餐</label></td>
                             <td>
-                                <select name="city" lay-ignore wc="wucan" onchange="baojia(this)">
+                                <select style="height:36px ; width: 170px" name="city" lay-ignore wc="wucan" onchange="baojia(this)">
 
 
                                 </select>
@@ -127,7 +127,7 @@
                         <tr>
                             <td><label class="layui-form-label">晚餐</label></td>
                             <td>
-                                <select name="city" lay-ignore wac="wancan" onchange="baojia(this)">
+                                <select style="height:36px ; width: 170px" name="city" lay-ignore wac="wancan" onchange="baojia(this)">
 
                                 </select>
                             </td>
@@ -159,9 +159,9 @@
                         </select>
                     </td>
                     <td><label class="layui-form-label">成本价</label></td>
-                    <td><input type="text" id="carcostPrice" name='costPrice' class="layui-input"></td>
+                    <td><input type="text" onchange="total()" id="carcostPrice"  class="layui-input"></td>
                     <td><label class="layui-form-label">报价</label></td>
-                    <td><input type="text" id="caroffer" name='offer' class="layui-input"></td>
+                    <td><input type="text" onchange="total()" id="caroffer" class="layui-input"></td>
                 </tr>
                 <tr>
                     <td><label class="layui-form-label">其他:</label></td>
@@ -171,9 +171,9 @@
                                 <td><label class="layui-form-label">备注</label></td>
                                 <td width="300px"><input type="text" id="otherremarks" class="layui-input"></td>
                                 <td><label class="layui-form-label">成本价</label></td>
-                                <td width="300px"><input type="text" name='costPrice' id="othercostPrice" class="layui-input"></td>
+                                <td width="300px"><input type="text" onchange="total()" id="othercostPrice" class="layui-input"></td>
                                 <td><label class="layui-form-label">报价</label></td>
-                                <td width="300px"><input type="text" id="otheroffer" name='offer' class="layui-input">
+                                <td width="300px"><input type="text" onchange="total()" id="otheroffer" class="layui-input">
                                 </td>
                             </tr>
                         </table>
@@ -277,7 +277,7 @@
                             context2 += "<tr id=\"scenic\">\n" +
                                 "                            <td><label class=\"layui-form-label\">景点</label></td>\n" +
                                 "                            <td>\n" +
-                                "                                <select name=\"city\" weight='" + countspot + "' lay-ignore spot=\"jingdian\" onchange=\"baojia(this)\">\n" +
+                                "                                <select style=\"height:36px ; width: 170px\" name=\"city\" weight='" + countspot + "' lay-ignore spot=\"jingdian\" onchange=\"baojia(this)\">\n" +
                                 "\n" +
                                 "                                </select>\n" +
                                 "                            </td>\n" +
@@ -299,7 +299,7 @@
                             "                        <tr>\n" +
                             "                            <td><label class=\"layui-form-label\" onchange='chengZi(this)'>线路</label></td>\n" +
                             "                            <td>\n" +
-                            "                                <select name=\"city\" lay-ignore lay-search xl=\"xianlu\" onchange='chengZi(this)'>\n" +
+                            "                                <select style=\"height:36px ; width: 170px\" name=\"city\" lay-ignore lay-search xl=\"xianlu\" onchange='chengZi(this)'>\n" +
                             "\n" +
                             "                                </select>\n" +
                             "                            </td>\n" +
@@ -320,7 +320,7 @@
                             "                        <tr>\n" +
                             "                            <td><label class=\"layui-form-label\">酒店</label></td>\n" +
                             "                            <td>\n" +
-                            "                                <select name=\"city\" lay-ignore hotel=\"jiudian\" onchange='baojia(this)'>\n" +
+                            "                                <select style=\"height:36px ; width: 170px\" name=\"city\" lay-ignore hotel=\"jiudian\" onchange='baojia(this)'>\n" +
                             "\n" +
                             "                                </select>\n" +
                             "                            </td>\n" +
@@ -341,7 +341,7 @@
                             "                        <tr>\n" +
                             "                            <td><label class=\"layui-form-label\">午餐</label></td>\n" +
                             "                            <td>\n" +
-                            "                                <select name=\"city\" lay-ignore wc=\"wucan\" onchange='baojia(this)'>\n" +
+                            "                                <select style=\"height:36px ; width: 170px\" name=\"city\" lay-ignore wc=\"wucan\" onchange='baojia(this)'>\n" +
                             "\n" +
                             "\n" +
                             "                                </select>\n" +
@@ -354,7 +354,7 @@
                             "                        <tr>\n" +
                             "                            <td><label class=\"layui-form-label\">晚餐</label></td>\n" +
                             "                            <td>\n" +
-                            "                                <select name=\"city\" lay-ignore wac=\"wancan\" onchange='baojia(this)'>\n" +
+                            "                                <select style=\"height:36px ; width: 170px\" name=\"city\" lay-ignore wac=\"wancan\" onchange='baojia(this)'>\n" +
                             "\n" +
                             "                                </select>\n" +
                             "                            </td>\n" +
@@ -537,7 +537,7 @@
                         context2 += "<tr id=\"scenic\">\n" +
                             "                            <td><label class=\"layui-form-label\">景点</label></td>\n" +
                             "                            <td>\n" +
-                            "                                <select name=\"city\" weight='" + countspot + "' lay-ignore spot=\"jingdian\"onchange=\"baojia(this)\">\n" +
+                            "                                <select style=\"height:36px ; width: 170px\" name=\"city\" weight='" + countspot + "' lay-ignore spot=\"jingdian\"onchange=\"baojia(this)\">\n" +
                             "\n" +
                             "                                </select>\n" +
                             "                            </td>\n" +
@@ -559,7 +559,7 @@
                         "                        <tr>\n" +
                         "                            <td><label class=\"layui-form-label\" onchange='chengZi(this)'>线路</label></td>\n" +
                         "                            <td>\n" +
-                        "                                <select name=\"city\" lay-ignore lay-search xl=\"xianlu\" onchange='chengZi(this)'>\n" +
+                        "                                <select style=\"height:36px ; width: 170px\" name=\"city\" lay-ignore lay-search xl=\"xianlu\" onchange='chengZi(this)'>\n" +
                         "\n" +
                         "                                </select>\n" +
                         "                            </td>\n" +
@@ -585,7 +585,7 @@
                         "                        <tr>\n" +
                         "                            <td><label class=\"layui-form-label\">酒店</label></td>\n" +
                         "                            <td>\n" +
-                        "                                <select name=\"city\" lay-ignore hotel=\"jiudian\" onchange='baojia(this)'>\n" +
+                        "                                <select style=\"height:36px ; width: 170px\" name=\"city\" lay-ignore hotel=\"jiudian\" onchange='baojia(this)'>\n" +
                         "\n" +
                         "                                </select>\n" +
                         "                            </td>\n" +
@@ -606,7 +606,7 @@
                         "                        <tr>\n" +
                         "                            <td><label class=\"layui-form-label\">午餐</label></td>\n" +
                         "                            <td>\n" +
-                        "                                <select name=\"city\" lay-ignore wc=\"wucan\" onchange='baojia(this)'>\n" +
+                        "                                <select style=\"height:36px ; width: 170px\" name=\"city\" lay-ignore wc=\"wucan\" onchange='baojia(this)'>\n" +
                         "\n" +
                         "\n" +
                         "                                </select>\n" +
@@ -619,7 +619,7 @@
                         "                        <tr>\n" +
                         "                            <td><label class=\"layui-form-label\">晚餐</label></td>\n" +
                         "                            <td>\n" +
-                        "                                <select name=\"city\" lay-ignore wac=\"wancan\" onchange='baojia(this)'>\n" +
+                        "                                <select style=\"height:36px ; width: 170px\" name=\"city\" lay-ignore wac=\"wancan\" onchange='baojia(this)'>\n" +
                         "\n" +
                         "                                </select>\n" +
                         "                            </td>\n" +
@@ -738,7 +738,7 @@
                     context += "<tr id=\"scenic\">\n" +
                         "                            <td><label class=\"layui-form-label\">景点</label></td>\n" +
                         "                            <td>\n" +
-                        "                                <select name=\"city\" weight='" + count + "' lay-ignore spot=\"jingdian\"onchange=\"baojia(this)\">\n" +
+                        "                                <select style=\"height:36px ; width: 170px\" name=\"city\" weight='" + count + "' lay-ignore spot=\"jingdian\"onchange=\"baojia(this)\">\n" +
                         "\n" +
                         "                                </select>\n" +
                         "                            </td>\n" +
@@ -771,6 +771,7 @@
         var cb = $(zhege).find("option:selected").attr("costPrice");
         $(zhege).parent().next().next().children().val(cb);
         $(zhege).parent().next().next().next().next().children().val(bj);
+        total();
     }
 
     function showInfo2(zhege) {
@@ -891,7 +892,7 @@
         var travelEndTime = $("#date1").val();//结束日期
         var number = $("#number").val();//人数
         var travelId = $("#zutuanshe").val();//组团社
-        var offer = 0;//报价
+        var offer = $("#offerTotal").val();//报价
         var trip = "";//行程
         var shopping = $("[name='shopping']").val();//购物
         var notExclude = $("[name='notExclude']").val();//不含
@@ -899,11 +900,6 @@
         var reception = $("[name='reception']").val();//接待标准
         var supervision = $("[name='supervision']").val();//团体监督
         var tourist = $("#tourist").val();//客源地
-        $("[name='offer']").each(function (i, e) {
-            if($(this).val()!=""){
-                offer += parseInt($(this).val());
-            }
-        })
         $("[name='desc']").each(function (i, e) {
             trip += $(this).val();
             trip += "--";
@@ -1106,7 +1102,7 @@
         $(onClickjd).parent().parent().next().after("<tr id='scenic'>" +
             "<td><label class='layui-form-label'>景点</label></td>" +
             "<td>" +
-            "<select name='city' lay-verify='required'>" +
+            "<select style=\"height:36px ; width: 170px\" name='city' lay-verify='required'>" +
             "<option value=''></option>" +
             jingdian +
             "</select>" +
@@ -1171,6 +1167,7 @@
     function total() {
         var offer=0;
         var costPrice=0;
+        var bbbb=parseInt($("[xl='xianlu']").length);
         $("[name='offer']").each(function (i, e) {
             if($(this).val()!=""){
                 offer += parseInt($(this).val());
@@ -1181,6 +1178,27 @@
                 costPrice += parseInt($(this).val());
             }
         })
+        if($("#number").val()!="") {
+            offer = offer * parseInt($("#number").val());
+            costPrice = costPrice * parseInt($("#number").val());
+        }
+        var cccc=parseInt($("#caroffer").val())*bbbb;
+        var dddd=parseInt($("#carcostPrice").val())*bbbb;
+        var hhhh=parseInt($("#otheroffer").val());
+        var jjjj=parseInt($("#othercostPrice").val());
+        if(!isNaN(cccc)){
+            offer+=cccc;
+        }
+        if(!isNaN(hhhh)){
+            offer+=hhhh;
+        }
+        cccc=(parseInt($("#carcostPrice").val())+parseInt($("#othercostPrice").val()))*bbbb;
+        if(!isNaN(dddd)) {
+            costPrice += dddd;
+        }
+        if(!isNaN(jjjj)){
+            costPrice+=jjjj
+        }
         $("#costPriceTotal").val(costPrice);
         $("#offerTotal").val(offer);
     }

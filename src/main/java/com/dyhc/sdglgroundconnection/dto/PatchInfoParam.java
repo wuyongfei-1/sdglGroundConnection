@@ -12,11 +12,9 @@ import java.util.Date;
 @Component
 public class PatchInfoParam {
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date travelStartTime;   // 旅行开始时间
+    private String travelStartTime;   // 旅行开始时间
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date travelEndTime; // 旅行结束时间
+    private String travelEndTime; // 旅行结束时间
 
     private String travelName; // 旅行社名称
 
@@ -107,19 +105,19 @@ public class PatchInfoParam {
         this.concatPhone = concatPhone;
     }
 
-    public Date getTravelStartTime() {
+    public String getTravelStartTime() {
         return travelStartTime;
     }
 
-    public void setTravelStartTime(Date travelStartTime) {
+    public void setTravelStartTime(String travelStartTime) {
         this.travelStartTime = travelStartTime;
     }
 
-    public Date getTravelEndTime() {
+    public String getTravelEndTime() {
         return travelEndTime;
     }
 
-    public void setTravelEndTime(Date travelEndTime) {
+    public void setTravelEndTime(String travelEndTime) {
         this.travelEndTime = travelEndTime;
     }
 

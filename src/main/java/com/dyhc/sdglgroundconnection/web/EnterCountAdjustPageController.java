@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -28,19 +29,18 @@ public class EnterCountAdjustPageController {
     private HotelService hotelService;
 
 
-
     // 日志对象
     private Logger logger = LoggerFactory.getLogger(EnterGeneralControlPageController.class);
 
     /**
      * 退出功能
+     *
      * @return 返回到登录页面
      */
     @RequestMapping("/updatePassword-info.html")
-    public String updatePasswordInfo(){
+    public String updatePasswordInfo() {
         return "countAdjust/index/updatePassword-info.html";
     }
-
 
 
     /**
@@ -51,6 +51,66 @@ public class EnterCountAdjustPageController {
     @RequestMapping("/count-Adjust-Index.html")
     public String countAdjustIndex() {
         return "countAdjust/index/count-Adjust-Index";
+    }
+
+
+    /**
+     * 进入调度记录信息页面
+     *
+     * @return
+     */
+    @RequestMapping("/dispatchList.html")
+    public String dispatchRecordInfo() {
+        return "countAdjust/index/dispatchList";
+    }
+
+    /**
+     * 进入调度详细信息页面
+     *
+     * @return
+     */
+    @GetMapping(value = "/dispatchRecord.html")
+    public String dispatchInfo(Integer dispatchId, HttpServletRequest request) {
+        // 将调度编号保存到作用域中
+        request.setAttribute("dispatchId",dispatchId);
+        try{
+            // 所有的线路
+            List<Template> templates = templateService.listAllTemplate();
+            // 酒店名称
+            List<Hotel> hotels = hotelService.listByaHotel();
+            // 房间类型
+            List<Dictionaries> therooms = dictionariesService.listDictionaries("THEROOM");
+            // 所有的父景点
+            List<Scenicspot> scenicspots = scenicspotService.listScenicspotByParentId(0);
+            // 所有的子景点
+            List<Scenicspot> childScenicspots = scenicspotService.listSmallScenicspots();
+            // 购物地
+            List<Shopping> shoppings = shoppingService.listAllShoppings();
+            // 所有的餐馆
+            List<Restaurant> restaurants = restaurantService.listAllRestaurants();
+            // 所有的饮食类型
+            List<Dictionaries> diets = dictionariesService.listDictionaries("DIET");
+            // 所有的导游
+            List<Guide> guides = guideService.listAllGuides();
+            // 所有的汽车租赁公司
+            List<Carrental> carrentals = carrentalService.listAllCarrentals();
+            // 所有的车辆类型
+            List<Dictionaries> vehicles = dictionariesService.listDictionaries("VEHICLE");
+            request.setAttribute("templates", templates);
+            request.setAttribute("hotels", hotels);
+            request.setAttribute("therooms", therooms);
+            request.setAttribute("scenicspots", scenicspots);
+            request.setAttribute("shoppings", shoppings);
+            request.setAttribute("restaurants", restaurants);
+            request.setAttribute("diets", diets);
+            request.setAttribute("guides", guides);
+            request.setAttribute("carrentals", carrentals);
+            request.setAttribute("vehicles", vehicles);
+            request.setAttribute("childScenicspots", childScenicspots);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "countAdjust/index/dispatchRecord";
     }
 
     /**
@@ -513,9 +573,9 @@ public class EnterCountAdjustPageController {
      * @return
      */
     @RequestMapping("/Scheduling-detail.html2")
-    public String SchedulingDetail2(HttpServletRequest httpServletRequest, Integer offerId,Integer redonly) {
+    public String SchedulingDetail2(HttpServletRequest httpServletRequest, Integer offerId, Integer redonly) {
         httpServletRequest.setAttribute("offerId", offerId);
-        httpServletRequest.setAttribute("redonly",redonly);//只读标识
+        httpServletRequest.setAttribute("redonly", redonly);//只读标识
         return "countAdjust/index/Scheduling-detail2";
     }
 

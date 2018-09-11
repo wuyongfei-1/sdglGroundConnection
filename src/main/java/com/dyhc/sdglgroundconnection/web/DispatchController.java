@@ -4,6 +4,7 @@ import com.dyhc.sdglgroundconnection.dto.*;
 import com.dyhc.sdglgroundconnection.exception.DispatchException;
 import com.dyhc.sdglgroundconnection.pojo.*;
 import com.dyhc.sdglgroundconnection.service.DispatchService;
+import com.dyhc.sdglgroundconnection.utils.DateTimeUtil;
 import com.dyhc.sdglgroundconnection.utils.ReponseResult;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,6 +34,26 @@ public class DispatchController {
     private DispatchService dispatchService;
 
     /**
+     * 分页获取所有的调度信息（wuyongfei）
+     *
+     * @param page  起始页码
+     * @param limit 每页记录数
+     * @return 相应对象
+     */
+    @GetMapping(value = "/dispatch/info/all")
+    public ReponseResult listDispatchInfo(@RequestParam(value = "pageNo") Integer page, @RequestParam(value = "pageSize") Integer limit) {
+        try {
+            PageInfo<Dispatch> pageInfo = dispatchService.listDispatchesInfo(page, limit);
+            logger.info(" method:listDispatchInfo  分页获取调度信息成功！");
+            return ReponseResult.ok(pageInfo.getList(), pageInfo.getTotal(), "分页查询调度信息成功！");
+        } catch (Exception e) {
+            logger.error(" method:listDispatchInfo  分页获取调度信息失败，系统出现异常！");
+            e.printStackTrace();
+            return ReponseResult.err("分页获取调度信息失败！");
+        }
+    }
+
+    /**
      * 根据调度编号查询计划信息（yunguohao）
      *
      * @param dispatchId 调度编号
@@ -41,11 +63,11 @@ public class DispatchController {
     public ReponseResult getTravelPathById(@RequestParam("dispatchId") Integer dispatchId) {
         try {
             List<TravelPathParam> travelPathParam = dispatchService.getTravelPathParam(dispatchId);
-            ReponseResult<List> data=null;
-            if(travelPathParam.size()>0){
+            ReponseResult<List> data = null;
+            if (travelPathParam.size() > 0) {
                 data = ReponseResult.ok(travelPathParam, "根据调度编号获取计划信息成功！");
                 logger.info(" method:selectDispatchs  根据调度编号获取计划信息成功！");
-            }else{
+            } else {
                 data = ReponseResult.ok(travelPathParam, "没有该计划信息！");
                 logger.info(" method:selectDispatchs  没有该计划信息！");
             }
@@ -58,6 +80,7 @@ public class DispatchController {
             return err;
         }
     }
+
     /**
      * 根据调度编号查询计划信息（yunguohao）
      *
@@ -67,12 +90,12 @@ public class DispatchController {
     @RequestMapping("/getTravelPathsById")
     public ReponseResult getTravelPathsById(@RequestParam("dispatchId") Integer dispatchId) {
         try {
-            TravelPathsParam travelPathsParam =dispatchService.getTravelPathsParam(dispatchId);
-            ReponseResult<TravelPathsParam> data=null;
-            if(travelPathsParam.getDispatch()!=null){
+            TravelPathsParam travelPathsParam = dispatchService.getTravelPathsParam(dispatchId);
+            ReponseResult<TravelPathsParam> data = null;
+            if (travelPathsParam.getDispatch() != null) {
                 data = ReponseResult.ok(travelPathsParam, "根据调度编号获取计划信息成功！");
                 logger.info(" method:selectDispatchs  根据调度编号获取计划信息成功！");
-            }else{
+            } else {
                 data = ReponseResult.ok(travelPathsParam, "没有该计划信息！");
                 logger.info(" method:selectDispatchs  没有该计划信息！");
             }
@@ -87,7 +110,6 @@ public class DispatchController {
     }
 
 
-
     /**
      * 根据调度编号查询派团单信息
      *
@@ -98,11 +120,11 @@ public class DispatchController {
     public ReponseResult getMissionInfoByDisId(@RequestParam("dispatchId") Integer dispatchId) {
         try {
             MissionParam missionParam = dispatchService.getMissionParam(dispatchId);
-            ReponseResult<MissionParam> data=null;
-            if(missionParam.getDispatch()!=null){
+            ReponseResult<MissionParam> data = null;
+            if (missionParam.getDispatch() != null) {
                 data = ReponseResult.ok(missionParam, "根据调度编号获取派团单信息成功！");
                 logger.info(" method:selectDispatchs  根据调度编号获取派团单信息成功！");
-            }else{
+            } else {
                 data = ReponseResult.ok(missionParam, "没有该调度信息，获取调度信息失败！");
                 logger.info(" method:selectDispatchs  没有该调度信息，获取调度信息失败！");
             }
@@ -125,7 +147,7 @@ public class DispatchController {
      * @return 响应结果
      */
     @PostMapping("/dispatch/save")
-    public ReponseResult saveDispatchInfo(@RequestBody PatchParam patchParamObj, HttpServletRequest request) {
+    public ReponseResult saveDispatchInfo(@RequestBody PatchParam patchParamObj,@RequestParam(value = "dispatchId", required = false, defaultValue = "0") Integer dispatchIdStatus, HttpServletRequest request) {
         try {
             Staff staff = (Staff) request.getSession().getAttribute("user");
             int userId = staff != null ? staff.getStaffId() : 1;    // 当前session中的用户编号
@@ -151,8 +173,13 @@ public class DispatchController {
             Dispatch dispatch = new Dispatch();
             dispatch.setGroundConnectionNumber("GG-1651166166-SDGL");
             dispatch.setGroupNumber("JDSK-5656161616-SY");
-            dispatch.setTravelStartTime(patchInfo.getTravelStartTime());
-            dispatch.setTravelEndTime(patchInfo.getTravelEndTime());
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            try {
+                dispatch.setTravelStartTime(sdf.parse(patchInfo.getTravelStartTime()));
+                dispatch.setTravelEndTime(sdf.parse(patchInfo.getTravelEndTime()));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             dispatch.setNum(patchInfo.getNum());
             dispatch.setFare(patchInfo.getFare());
             dispatch.setWineFee(patchInfo.getWineFee());
@@ -180,14 +207,17 @@ public class DispatchController {
             dispatchParam.setDisother(disother);
             // 旅行社信息
             Dispatchtourgroup dispatchtourgroup = new Dispatchtourgroup();
-            dispatchtourgroup.setClustertime(patchInfo.getTravelStartTime());
+            try {
+                dispatchtourgroup.setClustertime(sdf.parse(patchInfo.getTravelStartTime()));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             dispatchtourgroup.setClusteraddress(patchInfo.getBeginAddress());
             dispatchtourgroup.setFlightid(patchInfo.getCarNum());
             dispatchtourgroup.setTeamcontactsname(patchInfo.getConcat());
             dispatchtourgroup.setContactnumber(patchInfo.getConcatPhone());
             dispatchtourgroup.setCreatedate(new Date());
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            String time = sdf.format(patchInfo.getTravelEndTime());
+            String time = patchInfo.getTravelEndTime();
             dispatchtourgroup.setValue1(time);  // 送团时间
             dispatchtourgroup.setValue2(patchInfo.getEndAddress()); // 送团地点
             dispatchtourgroup.setValue3(patchInfo.getTravelName()); // 旅行社名称
@@ -294,9 +324,9 @@ public class DispatchController {
             }
             dispatchParam.setDislineList(dislineList);
             // start save operation
-            Integer dispatchId = dispatchService.saveDispatchInfo(dispatchParam);
+            Integer dispatchId = dispatchService.saveDispatchInfo(dispatchParam,dispatchIdStatus);
             logger.info("method: saveDispatchInfo  保存调度信息成功！");
-            return ReponseResult.ok("{\"dispatchId\":" + (dispatchId) + "}","保存调度信息成功！");
+            return ReponseResult.ok("{\"dispatchId\":" + (dispatchId) + "}", "保存调度信息成功！");
         } catch (DispatchException e) {
             logger.error("method: saveDispatchInfo  保存调度信息失败！" + e.getMessage());
             e.printStackTrace();
@@ -307,6 +337,7 @@ public class DispatchController {
 
     /**
      * 根据调度编号查询调度信息 （wangtao）
+     *
      * @param dispatchId 调度编号
      * @return 返回调度信息对象
      */
@@ -314,11 +345,11 @@ public class DispatchController {
     public ReponseResult getDispatchInfoByDispatchId(@RequestParam("dispatchId") Integer dispatchId) {
         try {
             Dispatch dispatch = dispatchService.getDispatchInfoByDispatchInfoId(dispatchId);
-            ReponseResult<Dispatch> data=null;
-            if(dispatch!=null){
+            ReponseResult<Dispatch> data = null;
+            if (dispatch != null) {
                 data = ReponseResult.ok(dispatch, "根据调度编号获取调度表信息成功！");
                 logger.info(" method:getDispatchInfoByDispatchId  根据调度编号获取调度表信息成功！");
-            }else {
+            } else {
                 data = ReponseResult.ok(dispatch, "没有该调度表信息！");
                 logger.info(" method:getDispatchInfoByDispatchId  没有该调度表信息！");
             }

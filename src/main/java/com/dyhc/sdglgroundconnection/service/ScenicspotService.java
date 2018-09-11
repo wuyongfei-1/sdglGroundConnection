@@ -81,4 +81,12 @@ public interface ScenicspotService {
      * @throws Exception
      */
     List<Scenicspot> listScenicspot() throws Exception;
+
+    /**
+     * 查询所有的小景点（wuyongfei）
+     *
+     * @return 所有的景点信息
+     * @throws Exception 全局异常
+     */
+    List<Scenicspot> listSmallScenicspots() throws Exception;
 }

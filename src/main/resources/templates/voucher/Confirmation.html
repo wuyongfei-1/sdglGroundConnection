@@ -120,6 +120,9 @@
                 var context="";
                 $.each(data.data.list,function (i,e) {
                     var day=e.day.replace("-",".").replace(/0/g,"");
+                    if(e.day.substring(e.day.length-1)=="0"){
+                        day+="0";
+                    }
                     context+=" <tr>\n" +
                         "            <td>"+day+"</td>\n" +
                         "            <td>"+e.dl+"</td>\n" +

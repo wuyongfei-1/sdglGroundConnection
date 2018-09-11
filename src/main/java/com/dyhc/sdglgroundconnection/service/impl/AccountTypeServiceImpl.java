@@ -27,22 +27,29 @@ public class AccountTypeServiceImpl implements AccountTypeService {
     }
 
     @Override
-    @RecordOperation(type = "公司账户", desc = "添加了一条公司信息")
+    @RecordOperation(type = "公司账户", desc = "添加了一条公司账户信息")
     public int insertaccountType(AccountType accountType) {
         accountType.setWhetherDel(0);
         return accountTypeMapper.insert(accountType);
     }
 
     @Override
-    @RecordOperation(type = "公司账户", desc = "修改了一条公司信息")
+    @RecordOperation(type = "公司账户", desc = "修改了一条公司账户信息")
     public int updateAccountType(AccountType accountType) {
         AccountType offcompany=accountTypeMapper.selectByPrimaryKey(accountType.getAccountTypeId());
 
-        return accountTypeMapper.updateByPrimaryKey(accountType);
+        offcompany.setBank(accountType.getBank());
+        offcompany.setAccountNum(accountType.getAccountNum());
+        offcompany.setAccountName(accountType.getAccountName());
+        offcompany.setStatus(accountType.getStatus());
+        offcompany.setWhetherDel(0);
+        offcompany.setCreateBy(accountType.getCreateBy());
+        offcompany.setCreateDate(accountType.getCreateDate());
+        return accountTypeMapper.updateByPrimaryKey(offcompany);
     }
 
     @Override
-    @RecordOperation(type = "公司账户", desc = "删除了一条公司信息")
+    @RecordOperation(type = "公司账户", desc = "删除了一条公司账户信息")
     public int deleteAccountTypeByIDs(int accountTypeId) {
         return accountTypeMapper.deleteAccountType(accountTypeId);
     }

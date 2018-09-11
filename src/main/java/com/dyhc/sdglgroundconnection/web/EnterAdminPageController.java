@@ -250,6 +250,16 @@ public class EnterAdminPageController {
         httpServletRequest.setAttribute("guideid", guideid);
         return "admin/index/guide-up";
     }
+    /**
+     * 进入menu-add页面
+     *
+     * @return
+     */
+    @RequestMapping("/menu-add3.html")
+    public String menuAdd3(String accountTypeId, HttpServletRequest httpServletRequest) {
+        httpServletRequest.setAttribute("accountTypeId", accountTypeId);
+        return "admin/index/menu-add3";
+    }
 
     /**
      * 进入rbac-admin页面

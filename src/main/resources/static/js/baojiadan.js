@@ -17,7 +17,7 @@ function xianlu(obj) {
         $(obj).parent().prev().html("<input type='text'xl='xianlu' placeholder='例（太原-大同）' class='layui-input' name='texts'>");
         $(obj).html("选择模板");
     } else {
-        $(obj).parent().prev().html("<select name=\"city\" lay-ignore lay-search xl=\"xianlu\" onchange=\"chengZi(this)\">" +
+        $(obj).parent().prev().html("<select style=\"height:36px ; width: 170px\" name=\"city\" lay-ignore lay-search xl=\"xianlu\" onchange=\"chengZi(this)\">" +
             xianluinfo +
             "</select>");
         $(obj).html("自行填写\n" +
@@ -51,7 +51,7 @@ function insertJingdian(onClickjd) {
     $(onClickjd).parent().parent().next().after("<tr id=\"scenic\">\n" +
         "                            <td><label class=\"layui-form-label\">景点</label></td>\n" +
         "                            <td>\n" +
-        "                                <select name=\"city\" weight='" + count + "' lay-ignore spot=\"jingdian\"onchange=\"baojia(this)\">\n" +
+        "                                <select style=\"height:36px ; width: 170px\" name=\"city\" weight='" + count + "' lay-ignore spot=\"jingdian\"onchange=\"baojia(this)\">\n" +
         jingdian +
         "                                </select>\n" +
         "                            </td>\n" +
@@ -115,7 +115,7 @@ function addss() {
         "                        <tr>\n" +
         "                            <td><label class=\"layui-form-label\" onchange='chengZi(this)'>线路</label></td>\n" +
         "                            <td>\n" +
-        "                                <select name=\"city\" lay-ignore lay-search xl=\"xianlu\" onchange='chengZi(this)'>\n" +
+        "                                <select style=\"height:36px ; width: 170px\" name=\"city\" lay-ignore lay-search xl=\"xianlu\" onchange='chengZi(this)'>\n" +
         xianluinfo +
         "                                </select>\n" +
         "                            </td>\n" +
@@ -141,7 +141,7 @@ function addss() {
         "                        <tr>\n" +
         "                            <td><label class=\"layui-form-label\">酒店</label></td>\n" +
         "                            <td>\n" +
-        "                                <select name=\"city\" lay-ignore hotel=\"jiudian\" onchange='baojia(this)'>\n" +
+        "                                <select style=\"height:36px ; width: 170px\" name=\"city\" lay-ignore hotel=\"jiudian\" onchange='baojia(this)'>\n" +
         jiudian +
         "                                </select>\n" +
         "                            </td>\n" +
@@ -161,7 +161,7 @@ function addss() {
         " <tr id=\"scenic\">\n" +
         "                            <td><label class=\"layui-form-label\">景点</label></td>\n" +
         "                            <td>\n" +
-        "                                <select name=\"city\" weight='" + count + "' lay-ignore spot=\"jingdian\"onchange=\"baojia(this)\">\n" +
+        "                                <select style=\"height:36px ; width: 170px\" name=\"city\" weight='" + count + "' lay-ignore spot=\"jingdian\"onchange=\"baojia(this)\">\n" +
         jingdian +
         "                                </select>\n" +
         "                            </td>\n" +
@@ -173,7 +173,7 @@ function addss() {
         "                        <tr>\n" +
         "                            <td><label class=\"layui-form-label\">午餐</label></td>\n" +
         "                            <td>\n" +
-        "                                <select name=\"city\" lay-ignore wc=\"wucan\" onchange='baojia(this)'>\n" +
+        "                                <select style=\"height:36px ; width: 170px\" name=\"city\" lay-ignore wc=\"wucan\" onchange='baojia(this)'>\n" +
         wucan +
         "\n" +
         "                                </select>\n" +
@@ -186,7 +186,7 @@ function addss() {
         "                        <tr>\n" +
         "                            <td><label class=\"layui-form-label\">晚餐</label></td>\n" +
         "                            <td>\n" +
-        "                                <select name=\"city\" lay-ignore wac=\"wancan\" onchange='baojia(this)'>\n" +
+        "                                <select style=\"height:36px ; width: 170px\" name=\"city\" lay-ignore wac=\"wancan\" onchange='baojia(this)'>\n" +
         wancan +
         "                                </select>\n" +
         "                            </td>\n" +

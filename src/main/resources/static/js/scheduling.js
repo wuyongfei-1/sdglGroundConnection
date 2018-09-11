@@ -364,7 +364,6 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
     $('#peopleNumber').val(personNum);
     //字符串转成时间
     function getDate(strDate) {
-        alert(strDate)
         var oldStartTime = eval('new Date(' + strDate.replace(/\d+(?=-[^-]+$)/,
             function (a) {
                 return parseInt(a, 10) - 1;

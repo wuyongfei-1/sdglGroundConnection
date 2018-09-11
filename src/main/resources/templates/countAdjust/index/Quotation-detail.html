@@ -111,8 +111,7 @@
                 </tr>
                 <tr>
                     <td><label class="layui-form-label" style="width:135px">接团时间</label></td>
-                    <td><input type="text" name="date" id="beginDate" lay-verify="date" placeholder="yyyy-MM-dd"
-                               autocomplete="off" class="layui-input"></td>
+                    <td><input type="datetime-local" name="date" id="beginDate" value="2018-00-09T00:00:00"></td>
                     <td><label class="layui-form-label" style="width: 135px">接团地点</label></td>
                     <td><input type="text" name="date" class="layui-input" id="beginAddress"></td>
                     <td><label class="layui-form-label" style="width: 135px">送团地点</label></td>
@@ -120,8 +119,7 @@
                 </tr>
                 <tr>
                     <td><label class="layui-form-label" style="width:135px">送团时间</label></td>
-                    <td><input type="text" name="date" id="endDate" lay-verify="date" placeholder="yyyy-MM-dd"
-                               autocomplete="off" class="layui-input"></td>
+                    <td><input type="datetime-local" name="date" id="endDate"></td>
                     <td><label class="layui-form-label" style="width:135px">团队联系人</label></td>
                     <td><input type="text" name="date" class="layui-input" id="concat"></td>
                     <td><label class="layui-form-label" style="width: 135px">联系电话</label></td>
@@ -172,16 +170,10 @@
                 <tr>
                     <td><label class="layui-form-label">车费：</label></td>
                     <td width="140px"><input type="text" id="fare" style="width: 140px" class="layui-input"></td>
-                    <td width="140px"><label class="layui-form-label" style="width: 140px">报停费：</label></td>
-                    <td><input type="text" class="layui-input"></td>
                 </tr>
                 <tr>
-                    <td><label class="layui-form-label">酒水：</label></td>
-                    <td width="140px"><input type="text" class="layui-input" style="width: 140px"></td>
-                    <td width="140px"><label class="layui-form-label" style="width: 140px">成本价：</label></td>
+                    <td><label class="layui-form-label">酒水费：</label></td>
                     <td width="140px"><input type="text" class="layui-input" id="wineFee"></td>
-                    <td><label class='layui-form-label' style="width: 119px">报价:</label></td>
-                    <td><input type='text' name='offer' class='layui-input'></td>
                 </tr>
                 <tr>
                     <td><label class="layui-form-label">其他：</label></td>
@@ -190,12 +182,6 @@
                     </td>
                     <td><label class='layui-form-label' style="width: 140px">报价:</label></td>
                     <td><input type='text' name='offer' class='layui-input' id="otherOffer"></td>
-                </tr>
-                <tr>
-                    <td><label class="layui-form-label">
-                        <小费></小费>
-                        ：</label></td>
-                    <td colspan="5"><input type="text" class="layui-input"></td>
                 </tr>
                 <tr>
                     <td><label class="layui-form-label">备注：</label></td>
@@ -353,10 +339,16 @@
             patchJsonObj.travelName = $('#travelName').val();
             // 客源地
             patchJsonObj.tourist = $('#tourist').val();
+            // 转换日期
+            function getCurrentTime(time) {
+                time = time.split('T');
+                var dateTime = time[0].trim() + " " + time[1].trim();
+                return dateTime;
+            }
             // 旅行开始时间
-            patchJsonObj.travelStartTime = $('#beginDate').val();
+            patchJsonObj.travelStartTime = getCurrentTime($('#beginDate').val());
             // 旅行结束时间
-            patchJsonObj.travelEndTime = $('#endDate').val();
+            patchJsonObj.travelEndTime = getCurrentTime($('#endDate').val());
             // 人数
             patchJsonObj.num = $('#peopleNumber').val();
             // 接团地点

@@ -173,7 +173,7 @@ public class DispatchController {
             Dispatch dispatch = new Dispatch();
             dispatch.setGroundConnectionNumber("GG-1651166166-SDGL");
             dispatch.setGroupNumber("JDSK-5656161616-SY");
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             try {
                 dispatch.setTravelStartTime(sdf.parse(patchInfo.getTravelStartTime()));
                 dispatch.setTravelEndTime(sdf.parse(patchInfo.getTravelEndTime()));

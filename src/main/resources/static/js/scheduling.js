@@ -357,23 +357,47 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
                 }
             })
         }
-
-
-
-
-
-
-
-
     })
     // 组团社名称绑定
     $('#travelName').val(travelName);
     // 人数绑定
     $('#peopleNumber').val(personNum);
+    //字符串转成时间
+    function getDate(strDate) {
+        alert(strDate)
+        var oldStartTime = eval('new Date(' + strDate.replace(/\d+(?=-[^-]+$)/,
+            function (a) {
+                return parseInt(a, 10) - 1;
+            }).match(/\d+/g) + ')');
+        var month = parseInt(oldStartTime.getMonth()) + 1;
+        if (month < 10) {
+            month = "0" + month;
+        }
+        var day = oldStartTime.getDate();
+        if (day < 10) {
+            day = "0" + day;
+        }
+        var hour = oldStartTime.getHours();
+        if (hour < 10) {
+            hour = "0" + hour;
+        }
+        var minth = oldStartTime.getMinutes();
+        if (minth < 10) {
+            minth = "0" + minth;
+        }
+        var secord = oldStartTime.getSeconds();
+        if (secord < 10) {
+            secord = "0" + secord;
+        }
+        startTime = oldStartTime.getFullYear() + "-" + (month) + "-" + day; // 年-月-日
+        startTime += "T";
+        startTime += hour + ":" + minth + ":" + secord;
+        return startTime;
+    }
     // 接团时间绑定
-    $('#beginDate').val(startTime);
+    $('#beginDate').val(getDate(startTime+" 00:00:00"));
     // 送团时间绑定
-    $('#endDate').val(endTime)
+    $('#endDate').val(getDate(endTime+" 00:00:00"));
     // 车队类型绑定  vehicles
     $('#vehiclesContext #vehicles option[value=' + carType + ']').attr("selected", "selected");
     // 车辆类型成本价绑定

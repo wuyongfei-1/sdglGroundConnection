@@ -356,13 +356,10 @@
                 var dateTime = time[0].trim() + " " + time[1].trim();
                 return dateTime;
             }
-            alert($('#beginDate').val());
             // 旅行开始时间
             patchJsonObj.travelStartTime = getCurrentTime($('#beginDate').val());
-            alert(getCurrentTime($('#beginDate').val()));
             // 旅行结束时间
             patchJsonObj.travelEndTime = getCurrentTime($('#endDate').val());
-            alert(getCurrentTime($('#endDate').val()));
             // 人数
             patchJsonObj.num = $('#peopleNumber').val();
             // 接团地点
@@ -500,7 +497,6 @@
                     } else { // 已选择小景点
                         scenicSpotId = $(allScenicpot[j]).find('#childScenicspots').find('option:selected').val();
                     }
-                    alert(scenicSpotId);
                     // 获取景点编号
                     scenicspotInfo.scenicSpotId = scenicSpotId;
                     // 获取景点的成本价和报价
@@ -524,7 +520,6 @@
                     scenicspotInfo.payment = payment;
                     scenicspotJsonArray.push(scenicspotInfo);
                 }
-                console.log(scenicspotJsonArray)
                 // 获取线路名称
                 var lineName = $(e).find('#lineName').val();
                 lineInfo.lineName = lineName;
@@ -538,14 +533,14 @@
                 lineInfo.desc = desc;
                 lineJsonArray.push(lineInfo);
             })
-            alert("调度信息的json对象:" + patchJsonObj);
-            alert("调度导游的json对象" + patchGuideJsonObj);
-            alert("调度用车的json对象" + patchCarJsonObj);
-            alert("线路信息json集合" + lineJsonArray[0]);
-            alert("酒店信息的json集合" + hotelJsonArray[0].hotelOffer);
-            alert("景点信息的json集合" + scenicspotJsonArray[0].offer);
-            alert("购物地点的json集合" + shoppingAddressJsonArray);
-            alert("餐馆 & 饮食类型的json集合" + mealTypeJsonArray[0].offer);
+            // alert("调度信息的json对象:" + patchJsonObj);
+            // alert("调度导游的json对象" + patchGuideJsonObj);
+            // alert("调度用车的json对象" + patchCarJsonObj);
+            // alert("线路信息json集合" + lineJsonArray[0]);
+            // alert("酒店信息的json集合" + hotelJsonArray[0].hotelOffer);
+            // alert("景点信息的json集合" + scenicspotJsonArray[0].offer);
+            // alert("购物地点的json集合" + shoppingAddressJsonArray);
+            // alert("餐馆 & 饮食类型的json集合" + mealTypeJsonArray[0].offer);
 
             // 拼接调度信息的所有信息
             var PatchJsonObj = {

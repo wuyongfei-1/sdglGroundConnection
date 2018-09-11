@@ -75,13 +75,13 @@
                     var patchId = e.dispatchId; // 调度编号
                     context += "<tr id='" + patchId + "' class=\"parent collapsed\">\n" +
                         "<td class=''>" +
-                        "\t\t\t\t\t\t\t\t<td class=\"\">" + ((curnum - 1) * 6 + 1) + "</td>\n" +
+                        "\t\t\t\t\t\t\t\t<td class=\"\">" + ((curnum - 1) * 6 ) + "</td>\n" +
                         "\t\t\t\t\t\t\t\t<td class=\"\">" + e.groupNumber + "</td>\n" +
                         "\t\t\t\t\t\t\t\t<td class=\"\">" + e.num + "</td>\n" +
                         "\t\t\t\t\t\t\t\t<td class=\"\">" + e.tourist + "</td>\n" +
                         "\t\t\t\t\t\t\t\t<td class=\"\">" + e.travelStartTime + "</td>\n" +
                         "\t\t\t\t\t\t\t\t<td class=\"\">" + e.travelEndTime + "</td>\n" +
-                        "\t\t\t\t\t\t\t\t<td class=\"\"><input type='button' onclick='queryDispatchRecord("+ (e.dispatchId) +")' value='调度记录' /></td>\n" +
+                        "\t\t\t\t\t\t\t\t<td class=\"\"><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"upOffer2\" value=\"2\" onclick='queryDispatchRecord("+e.dispatchId+")'>调度记录</button></td>\n" +
                         "\t\t\t\t\t\t\t</tr>";
                 })
                 $("tbody").html(context);

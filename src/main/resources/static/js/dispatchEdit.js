@@ -526,7 +526,6 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
         startTime += hour + ":" + minth + ":" + secord;
         return startTime;
     }
-
     $('#beginDate').val(getDate(startTime));
     // 送团时间绑定
     $('#endDate').val(getDate(endTime))

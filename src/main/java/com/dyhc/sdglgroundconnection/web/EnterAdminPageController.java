@@ -301,6 +301,15 @@ public class EnterAdminPageController {
     public String companyAdmin() {
         return "admin/index/company-admin";
     }
+    /**
+     * 进入company-admin页面
+     *
+     * @return
+     */
+    @RequestMapping("/company-admin1.html")
+    public String companyAdmin1() {
+        return "admin/index/company-admin1";
+    }
 
     /**
      * 进入company-admin页面

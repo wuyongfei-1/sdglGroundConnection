@@ -48,7 +48,7 @@
 									<th style="width: 45px;">联系电话</th>
 									<th style="width: 0px">年龄</th>
 									<th style="width: 45px;">性别</th>
-									<th style="width: 45px;">状态</th>
+									<th style="width: 45px;"></th>
 									<th style="width: 80px; font-size: small;">操作</th>
 								</tr>
 						</thead>
@@ -129,13 +129,7 @@
 							} else if(result.sex==0){
                                 sex="女";
 							}
-							if(result.state==1){
-                                states="请假";
-                            }else if(result.state==2){
-                                states="已占用";
-                            }else if(result.state==3){
-                                states="空闲中";
-                            }
+
                             pageNo++;
                             str += "<tr><td>" + (pageNo)
 								+ "</td><td>" + result.certificate + "</td><td>"
@@ -144,7 +138,7 @@
                                 + result.telephone + "</td><td>"
 								+ result.age + "</td><td>"
                                 + sex + "</td><td>"
-                                + states + "</td>"
+                                + "</td>"
                                 + "<td>\n" +
                                 "<div class=\"layui-inline\">\n" +
                                 "<button onclick='updatInfo(" + result.guideId + ")' id='updatInfo'  class=\"layui-btn layui-btn-mini layui-btn-normal  edit-btn\"><i class='layui-icon'>&#xe642</i></button>" +

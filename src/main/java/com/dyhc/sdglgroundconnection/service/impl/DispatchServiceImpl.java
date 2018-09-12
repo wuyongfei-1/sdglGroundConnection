@@ -95,6 +95,8 @@ public class DispatchServiceImpl implements DispatchService {
 
     @Autowired
     private DisattrService disattrService; // 调度景点业务
+    @Autowired
+    private MealTypeService mealTypeService; // 饮食类型表业务
 
     @Autowired
     private CompanyService companyService;
@@ -348,7 +350,7 @@ public class DispatchServiceImpl implements DispatchService {
             travelPathParam.setSzaddress(scenicspotMapper.selectByPrimaryKey(disattrs.get(i).getScenicSpotId()).getScenicSpotAddress());
             travelPathParam.setXctext(dislines.get(i).getLineContent());
             travelPathParam.setShoppaddress(shoppingMapper.selectByPrimaryKey(disshopps.get(i).getShoppingId()).getShoppingSite());
-            travelPathParam.setEataddress(restaurantMapper.selectByPrimaryKey(disrestaurants.get(i).getTypeId()).getRestaurantAddress());
+            travelPathParam.setEataddress(restaurantMapper.selectByPrimaryKey(mealTypeMapper.selectByPrimaryKey(disrestaurants.get(i).getTypeId())).getRestaurantAddress());
             travelPathParam.setZhuaddress(hotelMapper.selectByPrimaryKey(dispatchhotels.get(i).getHotelId()).getHotelAddress());
             travelPathParams.add(travelPathParam);
         }

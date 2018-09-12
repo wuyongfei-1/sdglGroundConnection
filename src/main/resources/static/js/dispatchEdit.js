@@ -150,11 +150,11 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
                 "<td>" + childScenicspots +
                 "</td>\" +\n" +
                 "<td><label class='layui-form-label'>成本价:</label></td>\" +\n" +
-                "<td><input type='text'  class='layui-input'></td>\" +\n" +
+                "<td><input type='text'  class='layui-input' name=\"costPrices\" extra='price'></td>\" +\n" +
                 "<td><label class='layui-form-label'>报价:</label></td>\" +\n" +
-                "<td><input type='text' name='offer' class='layui-input'></td>\" +\n" +
+                "<td><input type='text' name='offer' extra='price' class='layui-input'></td>\" +\n" +
                 "<td><label class='layui-form-label'>需购票人数:</label></td>\" +\n" +
-                "<td><input type='text'  class='layui-input'></td>\" +\n" +
+                "<td><input type='text'  class='layui-input' extra='price'></td>\" +\n" +
                 "<td colspan='2' width='300px'>" +
                 "<input type='radio' name='scenic" + (i) + "' value='现付' title='现付' />" +
                 "<input type='radio' name='scenic" + (i) + "' value='签单' title='签单' checked></td>" +
@@ -214,11 +214,11 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
         "<td id='therooms'>" + therooms +
         "</td>" +
         "<td><label class='layui-form-label' >房间数：</label></td>" +
-        "<td><input type='text' class='layui-input' id='roomNum'></td>" +
-        "<td><label class='layui-form-label'>成本价：</label></td>" +
-        "<td><input type='text' class='layui-input' /></td>" +
+        "<td><input type='text' class='layui-input' id='roomNum' extra='price'></td>" +
+        "<td><label class='layui-form-label' >成本价：</label></td>" +
+        "<td><input type='text' class='layui-input' name=\"costPrices\" extra='price'/></td>" +
         "<td><label class='layui-form-label'>报价：</label></td>" +
-        "<td><input type='text' class='layui-input'></td>" +
+        "<td><input type='text' class='layui-input' extra='price'></td>" +
         "<td colspan='2'> " +
         "<input type='radio' name='hotel' value='现付' title='现付' />" +
         "<input type='radio' name='hotel' value='签单' title='签单' checked></td>" +
@@ -226,9 +226,9 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
         "<tr>" +
         "<td><label class='layui-form-label'>司陪：</label></td>" +
         "<td><label class='layui-form-label' style='width: 140px;'>房间数：</label></td>" +
-        "<td><input type='text' class='layui-input' id='companyBedNum'></td>" +
+        "<td><input type='text' class='layui-input' id='companyBedNum' extra='price'></td>" +
         "<td><label class='layui-form-label' >成本价：</label></td>" +
-        "<td><input type='text' class='layui-input' id='companyBedoffer'></td>" +
+        "<td><input type='text' class='layui-input' name=\"costPrices\" extra='price' id='companyBedoffer'></td>" +
         "<td colspan='2' id='privateAccompany'> " +
         "<input type='radio' name='privatePany' value='免费' title='免费' />" +
         "<input type='radio' name='privatePany' value='付费' title='付费' checked></td>" +
@@ -252,9 +252,9 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
         "<td>" + diets +
         "	</td>" +
         "	<td><label class='layui-form-label'>成本价</label></td>" +
-        "	<td ><input type='text' class='layui-input'></td>" +
+        "	<td ><input type='text' class='layui-input' name=\"costPrices\" extra='price'></td>" +
         "<td><label class='layui-form-label'>报价:</label></td>" +
-        "<td><input type='text' name='offer' class='layui-input'></td>" +
+        "<td><input type='text' name='offer' extra='price' class='layui-input'></td>" +
         "<td colspan='2'>" +
         "<input type='radio' name='lunch' value='现付' title='现付' />" +
         "<input type='radio' name='lunch' value='签单' title='签单' checked></td>" +
@@ -267,9 +267,9 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
         "	<td>" + diets +
         "</td>" +
         "<td><label class='layui-form-label'>成本价</label></td>" +
-        "	<td ><input type='text' class='layui-input'></td>" +
+        "	<td ><input type='text' class='layui-input' name=\"costPrices\" extra='price'></td>" +
         "<td><label class='layui-form-label'>报价:</label></td>" +
-        "<td><input type='text' name='offer' class='layui-input'></td>" +
+        "<td><input type='text' name='offer' extra='price' class='layui-input'></td>" +
         "<td colspan='2'>" +
         "<input type='radio' name='dinner' value='现付' title='现付' />" +
         "<input type='radio' name='dinner' value='签单' title='签单' checked></td>" +
@@ -324,6 +324,7 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
             data: "",
             dataType: "json",
             type: "get",
+            async:false,
             success: function (result) {
                 var allRoomType = result.data;
                 var options = "";
@@ -407,6 +408,7 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
                 data: "",
                 dataType: "json",
                 type: "get",
+                async:false,
                 success: function (result) {
                     var allMealType = result.data;
                     var options = "";

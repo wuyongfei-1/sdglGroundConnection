@@ -466,7 +466,6 @@ public class DispatchServiceImpl implements DispatchService {
             dispatch.setDisother(disotherService.listDisshippingByDisId(dispatchId));
             dispatch.setDisrestaurantList(disrestaurantService.listDisrestaurantByOffId(dispatchId));
         }
-
         return dispatch;
     }
 

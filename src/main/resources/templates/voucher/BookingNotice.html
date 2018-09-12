@@ -143,12 +143,12 @@
                 $("#num").text(e.data.num);//人数
                 $("#teamContactsName").text(e.data.dispatchtourgroup.teamcontactsname+"  "+e.data.dispatchtourgroup.contactnumber);//团控
                 $.each(e.data.dispatchhotel,function (i, result) {
-                    console.log(e.data.dispatchhotel)
+                    console.log(result.date)
                     date=result.date.substring(5,10);
                     var ss1=date.replace("-",".");
                     date2=result.date.substring(5,9);
                     date1=date.substring(4);
-                    date1++;
+                    date1 = parseInt(date1)+1;
                     date3=date2+date1;
                     var ss2=date3.replace("-",".");
                     num1= Math.ceil(e.data.num/2);

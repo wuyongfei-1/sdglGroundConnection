@@ -91,6 +91,7 @@ public class ScenicspotServiceImpl implements ScenicspotService {
 
     /**
      * 新增方法 （wangtao）
+     *
      * @param s 景点信息参数对象
      * @return 返回受影响行数
      * @throws Exception
@@ -110,8 +111,8 @@ public class ScenicspotServiceImpl implements ScenicspotService {
      */
     @Override
     public List<Scenicspot> ListScenicspot() throws Exception {
-        ScenicspotExample scenicspotExample=new ScenicspotExample();
-        ScenicspotExample.Criteria criteria=scenicspotExample.createCriteria();
+        ScenicspotExample scenicspotExample = new ScenicspotExample();
+        ScenicspotExample.Criteria criteria = scenicspotExample.createCriteria();
         criteria.andParentidEqualTo(0);
         criteria.andWhetherdelEqualTo(0);
         return scenicspotMapper.selectByExample(scenicspotExample);
@@ -154,11 +155,11 @@ public class ScenicspotServiceImpl implements ScenicspotService {
     public Integer deleteScenicspotById(Integer id) throws Exception {
         List<Shopping> shoppingList = shoppingService.ListShoppingByScenicSpotId(id);
         //查询所有父景点是此ID的景点
-        ScenicspotExample scenicspotExample=new ScenicspotExample();
-        ScenicspotExample.Criteria criteria=scenicspotExample.createCriteria();
+        ScenicspotExample scenicspotExample = new ScenicspotExample();
+        ScenicspotExample.Criteria criteria = scenicspotExample.createCriteria();
         criteria.andParentidEqualTo(id);
-        List<Scenicspot> scenicspotList=scenicspotMapper.selectByExample(scenicspotExample);
-        if(scenicspotList!=null&&scenicspotList.size()>0){
+        List<Scenicspot> scenicspotList = scenicspotMapper.selectByExample(scenicspotExample);
+        if (scenicspotList != null && scenicspotList.size() > 0) {
             for (Scenicspot s : scenicspotList) {
                 scenicspotMapper.deleteByPrimaryKey(s.getScenicSpotId());
             }
@@ -175,6 +176,21 @@ public class ScenicspotServiceImpl implements ScenicspotService {
     @Override
     public List<Scenicspot> listScenicspot() throws Exception {
         return scenicspotMapper.selectAll();
+    }
+
+    /**
+     * 查询所有的子景点（wuyongfei）
+     *
+     * @return 景点列表
+     * @throws Exception 全局异常
+     */
+    @Override
+    public List<Scenicspot> listSmallScenicspots() throws Exception {
+        ScenicspotExample scenicspotExample = new ScenicspotExample();
+        ScenicspotExample.Criteria criteria = scenicspotExample.createCriteria();
+        criteria.andParentidNotEqualTo(0);
+        List<Scenicspot> scenicspots = scenicspotMapper.selectByExample(scenicspotExample);
+        return scenicspots;
     }
 
 

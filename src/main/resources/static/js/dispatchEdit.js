@@ -61,7 +61,7 @@ function shanchu(aa) {
 var dayNum = 0; // 天数
 
 function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
-               allOfferrestaurantJosnArray, commonsJsonStr) {
+               allOfferrestaurantJosnArray, commonsJsonStr, allShoppJsonArray) {
 
     if (num != undefined) {
         dayNum = (num + 1);
@@ -69,13 +69,20 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
         var lineDate = offerLine["lineDate"]; // 日期
         var travelContent = offerLine["travelContent"]; // 行程内容
         var hotelId = offerHotel["hotelId"]; // 酒店编号
+        var shoppingId = allShoppJsonArray["shoppingId"]; // 购物地点编号
         var hotelCostPrice = offerHotel["costPrice"]; // 酒店成本价
+        var roomNumber = offerHotel["roomNumber"]; // 酒店房间数
+        var roomPayment = offerHotel["payment"]; // 酒店付款方式
         var hotelOffer = offerHotel["offer"]; // 酒店报价
+        var companyBedNum = offerHotel["companyBedNum"]; // 司陪房间数
+        var companyBedoffer = offerHotel["companyBedoffer"]; // 司陪房间价
+        var companyPaymeny = offerHotel["companyPaymeny"]; // 司陪支付方式
         var offerscenicJsonArray = [];  // 当天行程的景点json串
         var offerrestaurantJosnArray = []; // 当天行程的餐馆json串
 
         var travelName = commonsJsonStr["travelName"]; // 组团社名称
         var personNum = commonsJsonStr["personNum"]; // 人数
+
         var startTime = commonsJsonStr["startTime"]; // 接团时间
         var endTime = commonsJsonStr["endTime"]; // 送团时间
         var carType = commonsJsonStr["carType"]; // 车队类型编号
@@ -86,6 +93,23 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
         var remarks = commonsJsonStr["remarks"]; // 备注
         var supervision = commonsJsonStr["supervision"]; // 团队监督
         var reception = commonsJsonStr["reception"]; // 接待标准
+        // 新属性 start
+        var flightId = commonsJsonStr["flightId"]; // 航班车次
+        var teamContactsName = commonsJsonStr["teamContactsName"]; // 团队联系人
+        var contactNumber = commonsJsonStr["contactNumber"]; // 联系电话
+        var clusterAddress = commonsJsonStr["clusterAddress"]; // 接团地点
+        var endAddress = commonsJsonStr["endAddress"]; // 送团地点
+        var tourist = commonsJsonStr["tourist"]; // 客源地
+        var guideId = commonsJsonStr["guideId"]; // 导游编号
+        var loan = commonsJsonStr["loan"]; // 导游借款
+        var carRentalId = commonsJsonStr["carRentalId"]; // 车辆公司编号
+        var carNumber = commonsJsonStr["carNumber"]; // 车辆数量
+        var carNo = commonsJsonStr["carNo"]; // 车牌号
+        var carConcat = commonsJsonStr["carConcat"]; // 驾驶员姓名
+        var carPhone = commonsJsonStr["carPhone"];// 联系电话
+        var fare = commonsJsonStr["fare"];   // 车费
+        var wineFee = commonsJsonStr["wineFee"];   // 酒水费
+        // 新属性 end
 
 
         // 遍历所有的景点json数组
@@ -94,7 +118,16 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
                 var scenicId = e["scenicId"]; // 景点编号
                 var costPrice = e["costPrice"]; // 成本价
                 var offer = e["offer"]; // 报价
-                var jsonStr = {scenicId: scenicId, costPrice: costPrice, offer: offer};
+                var weight = e["weight"]; // 权重
+                var payment = e["payment"]; // 付款方式
+                var buynum = e["buynum"]; // 购买人数
+                var payMethods = e["payMethods"]; // 购买方式
+                var parentId = e["parentId"]; // 父景点编号
+                var jsonStr = {
+                    scenicId: scenicId, costPrice: costPrice, offer: offer,
+                    weight: weight, payment: payment, buynum: buynum,
+                    payMethods: payMethods, parentId: parentId
+                };
                 offerscenicJsonArray.push(jsonStr);
             }
         })
@@ -105,13 +138,16 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
             var scenicId = e["scenicId"]; // 景点编号
             var costPrice = e["costPrice"]; // 成本价
             var offer = e["offer"]; // 报价
+            var weight = e["weight"]; // 权重
+            var payment = e["payment"]; // 付款方式
+            var buynum = e["buynum"]; // 购买人数
+            var payMethods = e["payMethods"]; // 购买方式
+            var parentId = e["parentId"]; // 父景点编号
             scenics += "<tr id='scenic" + i + "'>\" +\n" +
                 "<td><label class='layui-form-label'>景点</label></td>\" +\n" +
                 "<td>" + scenicspots +
                 "</td>\" +\n" +
-                "<td><select name=\"scenicspots\" id=\"scenicspots\" lay-ignore onchange=\"listenerSelectChange(this)\">\n" +
-                "<option value=\"0\">无需提供</option>" +
-                "</select>" +
+                "<td>" + childScenicspots +
                 "</td>\" +\n" +
                 "<td><label class='layui-form-label'>成本价:</label></td>\" +\n" +
                 "<td><input type='text'  class='layui-input'></td>\" +\n" +
@@ -123,7 +159,11 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
                 "<input type='radio' name='scenic" + (i) + "' value='现付' title='现付' />" +
                 "<input type='radio' name='scenic" + (i) + "' value='签单' title='签单' checked></td>" +
                 "</tr>";
-            var scenic = {scenicId: scenicId, costPrice: costPrice, offer: offer};
+            var scenic = {
+                scenicId: scenicId, costPrice: costPrice, offer: offer,
+                weight: weight, payment: payment, buynum: buynum,
+                payMethods: payMethods, parentId: parentId
+            };
             scenicsArray.push(scenic);
         })
 
@@ -134,9 +174,13 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
                 var costPrice = e["costPrice"]; // 成本价
                 var offer = e["offer"]; // 报价
                 var havemealsdate = e["havemealsdate"]; // 用餐时间
+                var weight = e["weight"]; // 权重
+                var restaurantId = e["restaurantId"]; // 餐馆编号
+                var payment = e["payment"]; // 购买方式
                 var jsonStr = {
-                    dictionariesId: dictionariesId, costPrice: costPrice,
-                    offer: offer, havemealsdate: havemealsdate
+                    dictionariesId: dictionariesId, costPrice: costPrice, offer: offer,
+                    weight: weight, havemealsdate: havemealsdate, restaurantId: restaurantId,
+                    payment: payment
                 };
                 offerrestaurantJosnArray.push(jsonStr);
             }
@@ -254,6 +298,22 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
     $('#offer' + num).find("#date3").val(lineDate);
     // 酒店绑定
     $('#offer' + num).find("#hotels [value=" + hotelId + "]").attr('selected', 'selected');
+    // 酒店房间数绑定
+    $('#offer' + num).find("#hotels").parent().next().next().next().find('input').val(roomNumber);
+    // 酒店支付方式绑定
+    if (roomPayment == "现付") {
+        $('#offer' + num).find("#hotels").parent().next().next().next().next().next().next().next().next().find('[value=现付]').attr("checked", "checked");
+    }
+    // 司陪房间数绑定
+    $('#offer' + num).find("#companyBedNum").val(companyBedNum);
+    // 司陪房间价绑定
+    $('#offer' + num).find("#companyBedoffer").val(companyBedoffer);
+    // 司陪付款方式绑定
+    if (companyPaymeny == "免费") {
+        $('#privateAccompany').find('[value=免费]').attr("checked", "checked");
+    }
+    // 购物地点绑定
+    $('#offer' + num).find('#shoppings [value=' + shoppingId + ']').attr('selected', 'selected');
     // 根据酒店查询房间类型
     // 获取选中的下拉框的值
     var id = $('#offer' + num).find("#hotels").find('option:selected').val();
@@ -295,26 +355,82 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
     $('#offer' + num).find('[name=desc]').text(travelContent);
     // 饮食类型绑定
     // 遍历当天饮食类型
+    console.log(offerrestaurantJosnArray)
     $(offerrestaurantJosnArray).each(function (i, e) {
         var dictionariesId = e["dictionariesId"]; // 饮食类型编号
         var costPrice = e["costPrice"]; // 成本价
         var offer = e["offer"]; // 报价
         var havemealsdate = e["havemealsdate"]; // 用餐时间
+        var restaurantId = e["restaurantId"]; // 餐馆编号
+        var payment = e["payment"]; // 购买方式
         if (havemealsdate == 2) {
+            // 绑定午餐餐馆
+            $('#offer' + num + ' #lunch #restaurants option[value=' + restaurantId + ']').attr("selected", "selected");
+            // 根据餐馆查询出所有的饮食类型
+            $.ajax({
+                url: "/mealType/mealType/detail/" + restaurantId + ".html",
+                data: "",
+                dataType: "json",
+                type: "get",
+                async:false,
+                success: function (result) {
+                    var allMealType = result.data;
+                    var options = "";
+                    $(allMealType).each(function (i, e) {    // 遍历所有的饮食类型
+                        options += "<option value='" + (e.typeId) + "' costprice='" + (e.costprice) + "' offer='" + (e.offer) + "'>" + (e.mealTypeName) + "</option>";
+                    })
+                    // 所有饮食类型赋值
+                    $('#offer' + num + " #lunch #diets").html(options);
+                },
+                error: function (res) {
+                    alert(res);
+                }
+            })
             // 绑定午餐数据
             $('#offer' + num + ' #lunch #diets option[value=' + dictionariesId + ']').attr("selected", "selected");
             // 绑定午餐成本价
             $('#offer' + num + ' #lunch #diets').parent('td').next().next().find('input').val(costPrice);
             // 绑定午餐报价
             $('#offer' + num + ' #lunch #diets').parent('td').next().next().next().next().find('input').val(offer);
+            // 绑定午餐支付方式
+            if (payment == "现付") {
+                $('#offer' + num + ' #lunch #diets').parent('td').next().next().next().next()
+                    .next().find('[value=现付]').attr("checked", "checked");
+            }
         }
         else if (havemealsdate == 3) {
+            // 绑定晚餐餐馆
+            $('#offer' + num + ' #dinner #restaurants option[value=' + restaurantId + ']').attr("selected", "selected");
+            // 根据餐馆查询出所有的饮食类型
+            $.ajax({
+                url: "/mealType/mealType/detail/" + restaurantId + ".html",
+                data: "",
+                dataType: "json",
+                type: "get",
+                success: function (result) {
+                    var allMealType = result.data;
+                    var options = "";
+                    $(allMealType).each(function (i, e) {    // 遍历所有的饮食类型
+                        options += "<option value='" + (e.typeId) + "' costprice='" + (e.costprice) + "' offer='" + (e.offer) + "'>" + (e.mealTypeName) + "</option>";
+                    })
+                    // 所有饮食类型赋值
+                    $('#offer' + num + " #dinner #diets").html(options);
+                },
+                error: function (res) {
+                    alert(res);
+                }
+            })
             // 绑定晚餐数据
             $('#offer' + num + ' #dinner #diets option[value=' + dictionariesId + ']').attr("selected", "selected");
             // 绑定晚餐成本价
             $('#offer' + num + ' #dinner #diets').parent('td').next().next().find('input').val(costPrice);
             // 绑定晚餐报价
             $('#offer' + num + ' #dinner #diets').parent('td').next().next().next().next().find('input').val(offer);
+            // 绑定晚餐支付方式
+            if (payment == "现付") {
+                $('#offer' + num + ' #dinner #diets').parent('td').next().next().next().next()
+                    .next().find('[value=现付]').attr("checked", "checked");
+            }
         }
     })
     // 绑定景点
@@ -322,46 +438,63 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
         var scenicId = e["scenicId"]; // 景点编号
         var costPrice = e["costPrice"]; // 成本价
         var offer = e["offer"]; // 报价
-        $('#offer' + num + ' #scenic' + i).find('#scenicspots').first().attr("box", "true");
-        $('#offer' + num + ' #scenic' + i).find('#scenicspots').first().find('option[value=' + scenicId + ']')
+        var buynum = e["buynum"]; // 购买人数
+        var payMethods = e["payMethods"]; // 购买方式
+        var parentId = e["parentId"]; // 父景点编号
+        $('#offer' + num + ' #scenic' + i).find('#scenicspots').attr("box", "true");
+        // 绑定父景点
+        $('#offer' + num + ' #scenic' + i).find('#scenicspots').find('option[value=' + parentId + ']')
+            .attr('selected', 'selected');
+        $('#offer' + num + ' #scenic' + i).find('#childScenicspots').find('option[value=' + scenicId + ']')
             .attr('selected', 'selected');
         // 绑定成本价
-        $('#offer' + num + ' #scenic' + i).find('#scenicspots').parent('td').next().next().find('input').val(costPrice);
+        $('#offer' + num + ' #scenic' + i).find('#scenicspots').parent('td').next().next().next().find('input').val(costPrice);
         // 绑定报价
-        $('#offer' + num + ' #scenic' + i).find('#scenicspots').parent('td').next().next().next().next().find('input').val(offer);
-        if ($('#offer' + num + ' #scenic' + i).find('#scenicspots').first().attr('box') == "true") {  // 根据大景点查询小的景点信息
-            $.ajax({
-                url: "/scenicspot/scenicspot/childrens/" + scenicId + ".html",
-                data: "",
-                dataType: "json",
-                type: "get",
-                success: function (result) {
-                    var allScenicspots = result.data;
-                    var options = "";
-                    $(allScenicspots).each(function (i, e) {    // 遍历所有的房间类型
-                        options += "<option value='" + (e.scenicSpotId) + "' costPrice='" + (e.costprice) + "' offer='" + (e.offer) + "'>" + (e.scenicSpotName) + "</option>";
-                    })
-                    if (allScenicspots.length > 0) {
-                        // 获取成本价
-                        var costprice = allScenicspots[0].costprice;
-                        // 报价
-                        var offer = allScenicspots[0].offer;
-                    }
-                    // 将所有的房间类型附上值
-                    $('#offer' + num + ' #scenic' + i).find('#scenicspots').first().parent().next().find('#scenicspots').html(options);
-                    $('#offer' + num + ' #scenic' + i).find('#scenicspots').first().parent().next().next().next().find('input').val(costprice);
-                    $('#offer' + num + ' #scenic' + i).find('#scenicspots').first().parent().next().next().next().next().next().find('input').val(offer);
-                },
-                error: function (res) {
-                    alert(res);
-                }
-            })
+        $('#offer' + num + ' #scenic' + i).find('#scenicspots').parent('td').next().next().next().next().next().find('input').val(offer);
+        // 绑定购买人数
+        $('#offer' + num + ' #scenic' + i).find('#scenicspots').parent('td').next().next().next().next().next().next().next().find('input').val(buynum);
+        // 绑定付款方式
+        if (payMethods == "现付") {
+            $('#offer' + num + ' #scenic' + i).find('#scenicspots').parent('td').next().next().next().next().next()
+                .next().next().next().find('[value=现付]').attr("checked", "checked");
         }
+        // if ($('#offer' + num + ' #scenic' + i).find('#scenicspots').first().attr('box') == "true") {  // 根据大景点查询小的景点信息
+        //     $.ajax({
+        //         url: "/scenicspot/scenicspot/childrens/" + scenicId + ".html",
+        //         data: "",
+        //         dataType: "json",
+        //         type: "get",
+        //         success: function (result) {
+        //             var allScenicspots = result.data;
+        //             var options = "";
+        //             $(allScenicspots).each(function (i, e) {    // 遍历所有的房间类型
+        //                 options += "<option value='" + (e.scenicSpotId) + "' costPrice='" + (e.costprice) + "' offer='" + (e.offer) + "'>" + (e.scenicSpotName) + "</option>";
+        //             })
+        //             if (allScenicspots.length > 0) {
+        //                 // 获取成本价
+        //                 var costprice = allScenicspots[0].costprice;
+        //                 // 报价
+        //                 var offer = allScenicspots[0].offer;
+        //             }
+        //             // 将所有的房间类型附上值
+        //             $('#offer' + num + ' #scenic' + i).find('#scenicspots').first().parent().next().find('#scenicspots').html(options);
+        //             $('#offer' + num + ' #scenic' + i).find('#scenicspots').first().parent().next().next().next().find('input').val(costprice);
+        //             $('#offer' + num + ' #scenic' + i).find('#scenicspots').first().parent().next().next().next().next().next().find('input').val(offer);
+        //         },
+        //         error: function (res) {
+        //             alert(res);
+        //         }
+        //     })
+        // }
+
+
     })
     // 组团社名称绑定
     $('#travelName').val(travelName);
     // 人数绑定
     $('#peopleNumber').val(personNum);
+    // 接团时间绑定
+
     //字符串转成时间
     function getDate(strDate) {
         var oldStartTime = eval('new Date(' + strDate.replace(/\d+(?=-[^-]+$)/,
@@ -393,10 +526,39 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
         startTime += hour + ":" + minth + ":" + secord;
         return startTime;
     }
-    // 接团时间绑定
-    $('#beginDate').val(getDate(startTime+" 00:00:00"));
+    $('#beginDate').val(getDate(startTime));
     // 送团时间绑定
-    $('#endDate').val(getDate(endTime+" 00:00:00"));
+    $('#endDate').val(getDate(endTime))
+    // 航班车次绑定
+    $('#carNum').val(flightId);
+    // 团队联系人绑定
+    $('#concat').val(teamContactsName);
+    // 联系电话绑定
+    $('#concatPhone').val(contactNumber);
+    // 接团地点绑定
+    $('#beginAddress').val(clusterAddress);
+    // 送团地点绑定
+    $('#endAddress').val(endAddress);
+    // 客源地绑定
+    $('#tourist').val(tourist);
+    // 导游绑定
+    $('#guideContext #guides option[value=' + guideId + ']').attr('selected', 'selected');
+    // 导游借款绑定
+    $('#loan').val(loan);
+    // 车辆公司绑定
+    $('#carrentalsContext #carrentals option[value=' + carRentalId + ']').attr('selected', 'selected');
+    // 车辆数量绑定
+    $('#vehiclesContext').next().next().find('input').val(carNumber);
+    // 车牌号绑定
+    $('#carNo').val(carNo);
+    // 驾驶员姓名绑定
+    $('#carPeopleName').val(carConcat);
+    // 联系电话绑定
+    $('#carPeoplePhone').val(carPhone);
+    // 车费绑定
+    $('#fare').val(fare);
+    // 酒水费绑定
+    $('#wineFee').val(wineFee)
     // 车队类型绑定  vehicles
     $('#vehiclesContext #vehicles option[value=' + carType + ']').attr("selected", "selected");
     // 车辆类型成本价绑定

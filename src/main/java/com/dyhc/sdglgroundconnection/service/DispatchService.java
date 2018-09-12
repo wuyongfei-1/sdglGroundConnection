@@ -13,8 +13,20 @@ import java.util.List;
  * 调度业务接口
  **/
 public interface DispatchService {
+
+    /**
+     * 分页查询所有的调度信息（wuyongfei）
+     *
+     * @param pageNo   当前页码
+     * @param pageSize 总记录数
+     * @return
+     * @throws Exception 全局异常
+     */
+    PageInfo<Dispatch> listDispatchesInfo(Integer pageNo, Integer pageSize) throws Exception;
+
     /**
      * 根据调度id获取调度信息(lixiaojie)
+     *
      * @param dispatchId
      * @return
      */
@@ -22,22 +34,25 @@ public interface DispatchService {
 
     /**
      * 根据调度id查询所有的景点信息(lixiaojie)
+     *
      * @param dispatchId
      * @return
      */
-    List<WechatTicketbudgetParam> selectDispatchByScenicspotInfo(Integer dispatchId)throws Exception;
+    List<WechatTicketbudgetParam> selectDispatchByScenicspotInfo(Integer dispatchId) throws Exception;
 
 
     /**
      * 根据调度表id 和权重获取每天的吃饭信息和住宿信息(lixiaojie)
+     *
      * @param dispatchId
      * @param weight
      * @return
      */
-    WechatEatAndHotelParam selectDispatchInfoByWeightDispatchId(Integer dispatchId,Integer weight)throws Exception;
+    WechatEatAndHotelParam selectDispatchInfoByWeightDispatchId(Integer dispatchId, Integer weight) throws Exception;
 
     /**
-     *  根据调度id获取该团的所有天数(lixiaojie)
+     * 根据调度id获取该团的所有天数(lixiaojie)
+     *
      * @return
      */
     List<String> selectDispatchDaysByDispatchId(Integer dispatchId) throws ParseException, Exception;
@@ -45,38 +60,45 @@ public interface DispatchService {
 
     /**
      * 根据导游id查询调度表 (lixiaojie)
+     *
      * @param guideId
-     * @return  微信基本信息参数类
+     * @return 微信基本信息参数类
      */
     WechatInformationParam selectDispatchInfoByGuideId(Integer guideId) throws Exception;
 
     /**
      * 获取计划表的信息根据调度编号（yunguohao）
+     *
      * @param dispathId 调度编号
      * @return
      */
-    List<TravelPathParam> getTravelPathParam(Integer dispathId) throws  Exception;
+    List<TravelPathParam> getTravelPathParam(Integer dispathId) throws Exception;
 
     /**
      * 获取计划表的信息根据调度编号（yunguohao）
+     *
      * @param dispathId 调度编号
      * @return
      */
-    TravelPathsParam getTravelPathsParam(Integer dispathId) throws  Exception;
+    TravelPathsParam getTravelPathsParam(Integer dispathId) throws Exception;
+
     /**
      * 微信根据导游id查询行程的信息（yunguohao）
+     *
      * @param guideId 导游id
      * @return
      * @throws Exception
      */
     GuideRouteParam getGuideRouteParam(Integer guideId) throws Exception;
+
     /**
      * 获取派团单信息根据调度编号 （wangtao）
+     *
      * @param dispatchId 调度编号
      * @return 返回派团单参数对象
      * @throws Exception
      */
-    MissionParam getMissionParam(Integer dispatchId)throws Exception;
+    MissionParam getMissionParam(Integer dispatchId) throws Exception;
 
     /**
      * 根据调度编号查询调度信息 （wangtao）
@@ -93,7 +115,7 @@ public interface DispatchService {
      * @return 受影响行数
      * @throws DispatchException 调度信息异常
      */
-    Integer saveDispatchInfo(DispatchParam disParam) throws DispatchException;
+    Integer saveDispatchInfo(DispatchParam disParam, Integer dispatchIdStatus) throws DispatchException;
 
     /**
      * 查询所有未审核且删除状态为1的调度信息 (lixiaojie)
@@ -101,14 +123,14 @@ public interface DispatchService {
      *
      * @return
      */
-    PageInfo<Dispatch> selectDispatchs(Integer pageNo, Integer pageSize)throws Exception;
+    PageInfo<Dispatch> selectDispatchs(Integer pageNo, Integer pageSize) throws Exception;
 
     /**
      * 总控审核通过（lixiaojie)
      *
      * @return
      */
-    Integer onCheckDispatchInfo(Integer dispatchId,int staffId) throws ParseException, Exception;
+    Integer onCheckDispatchInfo(Integer dispatchId, int staffId) throws ParseException, Exception;
 
     /**
      * 总控审核不通过(lixiaojie)
@@ -119,9 +141,10 @@ public interface DispatchService {
 
     /**
      * 根据导游id获取调度信息id  没有则返回null(lixiaojie)
+     *
      * @param guideId
      * @return
      */
-    Integer selectDisGuideInfoByguideId(Integer guideId)throws Exception;
+    Integer selectDisGuideInfoByguideId(Integer guideId) throws Exception;
 
 }

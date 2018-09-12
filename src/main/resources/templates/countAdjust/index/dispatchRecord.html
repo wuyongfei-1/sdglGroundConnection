@@ -243,9 +243,12 @@
             <input type="checkbox" name="bill" value="6" title="经费预算单"/>经费预算单 &nbsp;&nbsp;
         </div>
 
-        <div style="float: left;margin-right: 40px;margin-left: 30px;margin-bottom: 40px;">
-            <button class='layui-btn layui-btn-radius' id="baocun"
+        <div style="float: left;margin-right: 40px;margin-left: 30px;margin-bottom: 40px;" id="buttoninfo">
+            <button style="display: none"  class='layui-btn layui-btn-radius' id="baocun"
                     onclick="saveDispatchInfo()">保存调度信息
+            </button>
+            <button style="display: none;" class='layui-btn layui-btn-radius' id="xiugai"
+                    onclick="alertInsertChangeBook()">修改调度信息
             </button>
             <button id="viewOffer" class='layui-btn layui-btn-radius'>预览报价单</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </div>
@@ -255,6 +258,74 @@
     <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="/layui.js"></script>
     <script type="text/javascript" src="/js/dispatchEdit.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            getDispatchByDispatchId();
+        });
+
+        //根据调度dispatchId获取dispatch表的信息(lixiaojie)
+        function getDispatchByDispatchId() {
+            var dispatchId = $('#dispatchId').val();
+            $.ajax({
+                url: "/dispatch/getDispatchByDispatchId",
+                data: {
+                    "dispatchId": dispatchId
+                },
+                async: false,
+                dataType: "json",
+                type: "post",
+                success: function (ReponseResult) {
+                    if(ReponseResult.data.state==1||ReponseResult.data.state=="1"){
+                        var content="<button  class='layui-btn layui-btn-radius' id=\"baocun\"\n" +
+                            "                    onclick=\"saveDispatchInfo()\">保存调度信息\n" +
+                            "            </button>\n" +
+                            "            <button id=\"viewOffer\" class='layui-btn layui-btn-radius'>预览报价单</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+
+                        $("#buttoninfo").html(content);
+
+
+                    }
+                    if(ReponseResult.data.state==2||ReponseResult.data.state=="2"){
+                        var content=" <button  class='layui-btn layui-btn-radius' id='xiugai' onclick='alertInsertChangeBook()'>修改调度信息</button>" +
+                            "            <button id=\"viewOffer\" class='layui-btn layui-btn-radius'>预览报价单</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+
+                        $("#buttoninfo").html(content);
+
+                    }
+                    if(ReponseResult.data.state==3||ReponseResult.data.state=="3"){
+
+                        var content=" <button id=\"viewOffer\" class='layui-btn layui-btn-radius'>预览报价单</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+
+                        $("#buttoninfo").html(content);
+
+                    }
+                },
+                error: function (res) {
+                    /*  alert(res);*/
+                }
+            })
+        }
+    </script>
+
+    <!--上传行程变更书 (lixiaojie)-->
+    <script type="text/javascript">
+        //弹出上传变更书页面 (lixiaojie)
+        function alertInsertChangeBook() {
+            var dispatchId = $('#dispatchId').val();
+            layer.open({
+                type: 2,
+                title: '上传行程变更书',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area: ['700px', '500px'],
+                content: 'InsertChangBook.html?dispatchId=' + dispatchId
+            });
+
+        }
+
+    </script>
+
 
     <script>
         var templates = $('[name=templates]').prop("outerHTML"); // 景点列表
@@ -362,8 +433,12 @@
         })
 
 
+        //begin
+
         // 保存调度信息
         function saveDispatchInfo() {
+
+
             var patchJsonObj = {}; // 调度信息的json对象
             var patchGuideJsonObj = {}; // 调度导游的json对象
             var patchCarJsonObj = {}; // 调度用车的json对象
@@ -578,6 +653,7 @@
 
         // 提交调度信息到服务器
         function submitPatchInfoToServer(PatchJsonObj) {
+
             $.ajax({
                 url: "/dispatch/dispatch/save?dispatchId=" + dispatchId,
                 data: JSON.stringify(PatchJsonObj),
@@ -768,7 +844,6 @@
                 $(obj).parent().next().next().next().next().next().next().find('input').val(offer);
             }
         }
-
 
         loadData();
 

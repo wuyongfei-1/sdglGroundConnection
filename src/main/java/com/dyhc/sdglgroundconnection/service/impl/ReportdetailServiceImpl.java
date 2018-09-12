@@ -60,6 +60,10 @@ public class ReportdetailServiceImpl implements ReportdetailService {
     @Autowired
     private CompanyMapper companyMapper;
 
+
+
+
+
     /**
      * 根据报账详情id修改报账状态 打回(lixiaojie)
      * @param reportDetailId
@@ -74,6 +78,22 @@ public class ReportdetailServiceImpl implements ReportdetailService {
 
         return result;
     }
+
+    @Override
+    public Integer insertChangBook(Dispatch dispatch) {
+        Dispatch oldDispatch=dispatchMapper.selectByPrimaryKey(dispatch.getDispatchId());
+        String biangenshu=oldDispatch.getSendLine();
+        if (!"".equals(biangenshu)&&""!=biangenshu){
+            oldDispatch.setSendLine(oldDispatch.getSendLine()+","+dispatch.getSendLine());
+        }else {
+            oldDispatch.setSendLine(dispatch.getSendLine());
+        }
+        oldDispatch.setModifiedData(dispatch.getModifiedData());
+        oldDispatch.setModifier(dispatch.getModifier());
+
+        return dispatchMapper.updateByPrimaryKey(oldDispatch);
+    }
+
     /**
      * 根据调度id获取  团  结算账单(lixiaojie)
      * @param reportDetailId

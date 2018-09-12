@@ -9,7 +9,7 @@
         </if>
     </select>
     <update id="deleteAccountType">
-        UPDATE accounttype` SET
+       UPDATE `accounttype` SET
             `whetherDel` = 1
         WHERE `accountTypeId` = #{accountTypeId}
     </update>

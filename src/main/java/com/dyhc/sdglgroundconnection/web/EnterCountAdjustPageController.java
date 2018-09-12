@@ -44,6 +44,19 @@ public class EnterCountAdjustPageController {
 
 
     /**
+     * 进入上传上传变更书页面(lixiaojie)
+     *
+     * @return
+     */
+    @RequestMapping("/InsertChangBook.html")
+    public String InsertChangBook(Integer dispatchId,HttpServletRequest request)
+    {
+        request.setAttribute("dispatchId",dispatchId);
+        return "countAdjust/index/InsertChangBook.html";
+    }
+
+
+    /**
      * 进入计调首页
      *
      * @return
@@ -72,8 +85,8 @@ public class EnterCountAdjustPageController {
     @GetMapping(value = "/dispatchRecord.html")
     public String dispatchInfo(Integer dispatchId, HttpServletRequest request) {
         // 将调度编号保存到作用域中
-        request.setAttribute("dispatchId",dispatchId);
-        try{
+        request.setAttribute("dispatchId", dispatchId);
+        try {
             // 所有的线路
             List<Template> templates = templateService.listAllTemplate();
             // 酒店名称
@@ -107,7 +120,7 @@ public class EnterCountAdjustPageController {
             request.setAttribute("carrentals", carrentals);
             request.setAttribute("vehicles", vehicles);
             request.setAttribute("childScenicspots", childScenicspots);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "countAdjust/index/dispatchRecord";

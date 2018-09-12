@@ -14,8 +14,8 @@
            </div>
 	<h3>单次租车合同附件</h3>
   <h3 align="center">旅游团队运输合同(共2页)</h3>
-  <p align="right">合同编号: <strong style="text-decoration:underline">0415J1D</strong></p><p style="text-height:5px; height:5px">旅行社(简林甲方):<strong style="text-decoration:underline"><u class="companyName"></u></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  T: <strong style="text-decoration:underline" class="companyPhone"></strong>  F:<strong style="text-decoration:underline" class="fax">&nbsp;&nbsp;&nbsp;</strong></p>
-<p style="text-height:5px; height:5px">承运人(简称乙方):<strong style="text-decoration:underline" class="carRentalName"></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T: <strong style="text-decoration:underline" class="phone"></strong>  <strong style="text-decoration:underline">&nbsp;&nbsp;&nbsp;F:0351-4640676</strong></p>
+  <p align="right">合同编号: <strong style="text-decoration:underline">0415J1D</strong></p><p style="text-height:5px; height:5px">旅行社(简林甲方):<strong style="text-decoration:underline"><u class="companyName"></u></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  T: <strong style="text-decoration:underline" class="companyPhone"></strong>  F:<strong style="text-decoration:underline" class="fax">&nbsp;&nbsp;&nbsp;</strong></p>
+<p style="text-height:5px; height:5px">承运人(简称乙方):<strong style="text-decoration:underline" class="carRentalName"></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T: <strong style="text-decoration:underline" class="phone"></strong>  <strong style="text-decoration:underline">&nbsp;&nbsp;&nbsp;F:0351-4640676</strong></p>
   <p style="text-indent:4em;text-height:20px; height:20px;">甲方因组团旅游需要，由乙方提供旅游客坛服务， 为明确双方权利义务，经平等协商一致，达成本合同，以供双方共同遵照执行</p><h4 style="text-height:8px; height:8px;">第一条、旅游车辆</h4>
   <p style="text-indent:2em;text-height:55px; height:55px;">甲方因组团去<strong style="text-decoration:underline" class="scenicSpotName"></strong>日游"需乙方派车型为<strong style="text-decoration:underline" class="valueContent1"></strong>座旅游客车<strong style="text-decoration:underline" class="number"></strong>辆。起点:<strong style="text-decoration:underline" class="clusteraddress"></strong>， 终点:<strong style="text-decoration:underline" class="value2"></strong>。 司机: (姓名请填写全名)<strong style="text-decoration:underline" class="value02">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>  ，身份证号:<strong style="text-decoration:underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;，</strong> 电话：<strong style="text-decoration:underline" class="value3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;，</strong>车牌号：<strong style="text-decoration:underline" class="value1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;，</strong>乙方同意提供本实团队运输服务
   </p>
@@ -59,7 +59,13 @@
             dataType: "json",
             type: "post",
             success: function (e) {
-                console.log(e.data.discar)
+                console.log(e.data.dispatchList)
+                var time1=e.data.travelStartTime;
+                var time2=e.data.travelEndTime;
+                var time3="";
+                var time4 = Date.parse(new Date(time1));
+                var time5 = Date.parse(new Date(time2));
+                time3 =(Math.abs(parseInt((time4 - time5)/1000/3600/24))+1);
                 $(".value1").text(e.data.discar.value1);//车牌号
                 $(".value02").text(e.data.discar.value2);//姓名
                 $(".value3").text(e.data.discar.value3);//电话
@@ -76,7 +82,7 @@
                 var scenicSpotName="";
                 $.each(e.data.disattrList,function (i, result) {
                     scenicSpotName+=" "+result.scenicspot.scenicSpotName;
-                    $(".scenicSpotName").text(scenicSpotName+" "+e.data.disattrList.length);//景点
+                    $(".scenicSpotName").text(scenicSpotName+" "+time3);//景点
                 })
             }
         })

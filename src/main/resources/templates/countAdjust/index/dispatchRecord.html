@@ -167,7 +167,7 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td><label class="layui-form-label" style="width: 140px" >车牌号:</label></td>
+                    <td><label class="layui-form-label" style="width: 140px">车牌号:</label></td>
                     <td><input type="text" class="layui-input" id="carNo"></td>
                     <td><label class="layui-form-label" style="width: 140px">驾驶员姓名:</label></td>
                     <td><input type="text" class="layui-input" id="carPeopleName"></td>
@@ -237,11 +237,14 @@
             <input type="checkbox" name="bill" value="6" title="经费预算单"/>经费预算单 &nbsp;&nbsp;
         </div>
 
-        <div style="float: left;margin-right: 40px;margin-left: 30px;margin-bottom: 40px;">
-            <button class='layui-btn layui-btn-radius' id="baocun"
+        <div style="float: left;margin-right: 40px;margin-left: 30px;margin-bottom: 40px;" id="buttoninfo">
+            <button style="display: none"  class='layui-btn layui-btn-radius' id="baocun"
                     onclick="saveDispatchInfo()">保存调度信息
             </button>
-            <button id="viewOffer" class='layui-btn layui-btn-radius' >预览报价单</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button style="display: none;" class='layui-btn layui-btn-radius' id="xiugai"
+                    onclick="alertInsertChangeBook()">修改调度信息
+            </button>
+            <button id="viewOffer" class='layui-btn layui-btn-radius'>预览报价单</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </div>
 
     </div>
@@ -249,6 +252,74 @@
     <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="/layui.js"></script>
     <script type="text/javascript" src="/js/dispatchEdit.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            getDispatchByDispatchId();
+        });
+        
+        //根据调度dispatchId获取dispatch表的信息(lixiaojie)
+        function getDispatchByDispatchId() {
+            var dispatchId = $('#dispatchId').val();
+            $.ajax({
+                url: "/dispatch/getDispatchByDispatchId",
+                data: {
+                    "dispatchId": dispatchId
+                },
+                async: false,
+                dataType: "json",
+                type: "post",
+                success: function (ReponseResult) {
+                    if(ReponseResult.data.state==1||ReponseResult.data.state=="1"){
+                        var content="<button  class='layui-btn layui-btn-radius' id=\"baocun\"\n" +
+                            "                    onclick=\"saveDispatchInfo()\">保存调度信息\n" +
+                            "            </button>\n" +
+                            "            <button id=\"viewOffer\" class='layui-btn layui-btn-radius'>预览报价单</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+
+                        $("#buttoninfo").html(content);
+
+
+                    }
+                    if(ReponseResult.data.state==2||ReponseResult.data.state=="2"){
+                        var content=" <button  class='layui-btn layui-btn-radius' id='xiugai' onclick='alertInsertChangeBook()'>修改调度信息</button>" +
+                            "            <button id=\"viewOffer\" class='layui-btn layui-btn-radius'>预览报价单</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+
+                        $("#buttoninfo").html(content);
+
+                    }
+                    if(ReponseResult.data.state==3||ReponseResult.data.state=="3"){
+
+                        var content=" <button id=\"viewOffer\" class='layui-btn layui-btn-radius'>预览报价单</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+
+                        $("#buttoninfo").html(content);
+
+                    }
+                },
+                error: function (res) {
+                    /*  alert(res);*/
+                }
+            })
+        }
+    </script>
+
+    <!--上传行程变更书 (lixiaojie)-->
+    <script type="text/javascript">
+        //弹出上传变更书页面 (lixiaojie)
+        function alertInsertChangeBook() {
+            var dispatchId = $('#dispatchId').val();
+            layer.open({
+                type: 2,
+                title: '上传行程变更书',
+                maxmin: true,
+                shadeClose: true, //点击遮罩关闭层
+                area: ['700px', '500px'],
+                content: 'InsertChangBook.html?dispatchId=' + dispatchId
+            });
+
+        }
+
+    </script>
+
 
     <script>
         // 验证用户是否输入
@@ -259,19 +330,20 @@
             for (var text in textData) {
                 alert($(text).attr('name'))
                 if ($(text).val() == "") {
-                    $(text).css("backgroud","red");
+                    $(text).css("backgroud", "red");
                     alert('请先完善信息！');
                     return false;
                 }
             }
         }
+
         // 复选框的变化
         var arr = new Array();
         $("#bills :checkbox").change(function () {
             var checkNum = 0;
-            $('#bills :checkbox[checked]').each(function (i,e) {
+            $('#bills :checkbox[checked]').each(function (i, e) {
                 arr[i] = $(this).val();
-                checkNum ++ ;
+                checkNum++;
             })
             if (checkNum == 1) {  // 判断选中的复选框的个数
                 // 只选中了一个
@@ -281,7 +353,7 @@
             } else {
                 // 选中了多个
                 $('#viewOffer').addClass("layui-btn-disabled");
-                $('#viewOffer').attr('disabled','disabled');
+                $('#viewOffer').attr('disabled', 'disabled');
             }
             // 刷新lay样式
             renderCss();
@@ -339,10 +411,12 @@
         })
 
 
-
+        //begin
 
         // 保存调度信息
         function saveDispatchInfo() {
+
+
             var patchJsonObj = {}; // 调度信息的json对象
             var patchGuideJsonObj = {}; // 调度导游的json对象
             var patchCarJsonObj = {}; // 调度用车的json对象
@@ -350,12 +424,14 @@
             patchJsonObj.travelName = $('#travelName').val();
             // 客源地
             patchJsonObj.tourist = $('#tourist').val();
+
             // 转换日期
             function getCurrentTime(time) {
                 time = time.split('T');
                 var dateTime = time[0].trim() + " " + time[1].trim();
                 return dateTime;
             }
+
             // 旅行开始时间
             patchJsonObj.travelStartTime = getCurrentTime($('#beginDate').val());
             // 旅行结束时间
@@ -555,8 +631,9 @@
 
         // 提交调度信息到服务器
         function submitPatchInfoToServer(PatchJsonObj) {
+
             $.ajax({
-                url: "/dispatch/dispatch/save?dispatchId="+dispatchId,
+                url: "/dispatch/dispatch/save?dispatchId=" + dispatchId,
                 data: JSON.stringify(PatchJsonObj),
                 dataType: "json",
                 type: "post",
@@ -564,7 +641,7 @@
                 success: function (result) {
                     if (result.code == 0) {
                         // 获取dispatchId
-                        var jsonObj  = JSON.parse(result.data);
+                        var jsonObj = JSON.parse(result.data);
                         dispatchId = jsonObj["dispatchId"];
                         alert('保存成功！');
                     } else {
@@ -740,7 +817,6 @@
             }
         }
 
-
         loadData();
 
         // 发送请求查询指定的报价信息
@@ -750,24 +826,24 @@
             // 发送请求
             $.ajax({
                 url: "/dispatch/getDispatchInfoByDispatchId",
-                data: {dispatchId:dispatchId},
+                data: {dispatchId: dispatchId},
                 dataType: "json",
                 type: "get",
                 success: function (result) {
                     // start
                     var data = result.data;
                     // 新属性 start
-                    var flightId =  data.dispatchtourgroup.flightid; // 航班车次
+                    var flightId = data.dispatchtourgroup.flightid; // 航班车次
                     var teamContactsName = data.dispatchtourgroup.teamcontactsname; // 团队联系人
                     var contactNumber = data.dispatchtourgroup.contactnumber; // 联系电话
                     var clusterAddress = data.dispatchtourgroup.clusteraddress; // 接团地点
                     var endAddress = data.dispatchtourgroup.value2; // 送团地点
                     var tourist = data.tourist; // 客源地
-                    var guideId = data.disguide.guideId ; // 导游编号
+                    var guideId = data.disguide.guideId; // 导游编号
                     var loan = data.loan; // 导游借款
                     var carRentalId = data.discar.vehicleType.carRentalId; // 车辆公司编号
                     var carNumber = data.discar.number; // 车辆数量
-                    var carNo =  data.discar.value1; // 车牌号
+                    var carNo = data.discar.value1; // 车牌号
                     var carConcat = data.discar.value2; // 驾驶员姓名
                     var carPhone = data.discar.value3; // 联系电话
                     var fare = data.fare;    // 车费
@@ -792,10 +868,10 @@
                         otherOffer: otherOffer, remarks: remarks, supervision: supervision,
                         reception: reception, carTypeCost: carTypeCost, carTypeOffer: carTypeOffer,
 
-                        flightId:flightId, teamContactsName:teamContactsName, contactNumber:contactNumber,
-                        clusterAddress:clusterAddress, endAddress:endAddress, tourist:tourist,guideId:guideId,
-                        loan:loan, carRentalId:carRentalId, carNumber:carNumber, carNo:carNo, carConcat:carConcat,
-                        carPhone:carPhone, fare:fare, wineFee:wineFee
+                        flightId: flightId, teamContactsName: teamContactsName, contactNumber: contactNumber,
+                        clusterAddress: clusterAddress, endAddress: endAddress, tourist: tourist, guideId: guideId,
+                        loan: loan, carRentalId: carRentalId, carNumber: carNumber, carNo: carNo, carConcat: carConcat,
+                        carPhone: carPhone, fare: fare, wineFee: wineFee
 
                     };
                     // 获取行程
@@ -828,9 +904,17 @@
                         var companyBedNum = e.companyBedNum; // 司陪房间数
                         var companyBedoffer = e.companyBedoffer; // 司陪房价
                         var companyPaymeny = e.companyPaymeny; // 司陪付款方式
-                        var jsonStr = {hotelId: hotelId, costPrice: costPrice, offer: offer,
-                            roomNumber:roomNumber, payment:payment, companyBedNum:companyBedNum, companyBedoffer:companyBedoffer
-                            ,companyPaymeny:companyPaymeny};
+                        var jsonStr = {
+                            hotelId: hotelId,
+                            costPrice: costPrice,
+                            offer: offer,
+                            roomNumber: roomNumber,
+                            payment: payment,
+                            companyBedNum: companyBedNum,
+                            companyBedoffer: companyBedoffer
+                            ,
+                            companyPaymeny: companyPaymeny
+                        };
                         offerHotelArray[offerNum] = jsonStr;
                         offerNum++;
                     })
@@ -854,9 +938,11 @@
                         var buynum = e.buynum; // 购买人数
                         var payMethods = e.payMethods; // 购买方式
                         var parentId = e.scenicspot.parentId; // 父景点编号
-                        var jsonStr = {scenicId: scenicId, costPrice: costPrice, offer: offer,
-                                        weight: weight, buynum:buynum,
-                                        payMethods:payMethods, parentId:parentId};
+                        var jsonStr = {
+                            scenicId: scenicId, costPrice: costPrice, offer: offer,
+                            weight: weight, buynum: buynum,
+                            payMethods: payMethods, parentId: parentId
+                        };
                         offerscenicJsonArray.push(jsonStr);
                     })
                     var offerrestaurantList = data.disrestaurantList; // 所有饮食类型列表
@@ -872,8 +958,8 @@
                         var payment = e.payment; // 购买方式
                         var jsonStr = {
                             dictionariesId: dictionariesId, costPrice: costPrice, offer: offer,
-                            weight: weight, havemealsdate: havemealsdate, restaurantId:restaurantId,
-                            payment:payment
+                            weight: weight, havemealsdate: havemealsdate, restaurantId: restaurantId,
+                            payment: payment
                         };
                         offerrestaurantJsonArray.push(jsonStr);
                     })

@@ -1,6 +1,7 @@
 package com.dyhc.sdglgroundconnection.service;
 
 import com.dyhc.sdglgroundconnection.dto.NewFileParam;
+import com.dyhc.sdglgroundconnection.pojo.Dispatch;
 import com.dyhc.sdglgroundconnection.pojo.Reportdetail;
 import com.github.pagehelper.PageInfo;
 
@@ -12,6 +13,12 @@ import java.util.List;
  * 导游报账明细业务接口
  **/
 public interface ReportdetailService {
+    /**
+     * 上传行程变更书
+     * @param dispatch
+     * @return
+     */
+    Integer insertChangBook(Dispatch dispatch);
     /**
      * 根据调度id获取  团  结算账单(lixiaojie)
      *

@@ -34,6 +34,24 @@ public class DispatchController {
     private DispatchService dispatchService;
 
     /**
+     * 根据调度dispatchId获取dispatch表的信息(lixiaojie可复用)
+     * @param dispatchId
+     * @return
+     */
+    @RequestMapping(value = "/getDispatchByDispatchId", method = RequestMethod.POST)
+    public ReponseResult getDispatchByDispatchId(Integer dispatchId) {
+        try {
+            Dispatch pageInfo = dispatchService.getDispatchByDispatchId(dispatchId);
+            logger.info(" method:getDispatchByDispatchId  根据调度dispatchId获取dispatch表的信息成功！");
+            return ReponseResult.ok(pageInfo, "根据调度dispatchId获取dispatch表的信息成功！");
+        } catch (Exception e) {
+            logger.error(" method:getDispatchByDispatchId  根据调度dispatchId获取dispatch表的信息失败，系统出现异常！");
+            e.printStackTrace();
+            return ReponseResult.err("根据调度dispatchId获取dispatch表的信息失败！");
+        }
+    }
+
+    /**
      * 分页获取所有的调度信息（wuyongfei）
      *
      * @param page  起始页码

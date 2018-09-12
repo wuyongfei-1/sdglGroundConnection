@@ -97,6 +97,8 @@ public class DispatchServiceImpl implements DispatchService {
 
     @Autowired
     private DisattrService disattrService; // 调度景点业务
+    @Autowired
+    private MealTypeService mealTypeService; // 饮食类型表业务
 
     @Autowired
     private CompanyService companyService;

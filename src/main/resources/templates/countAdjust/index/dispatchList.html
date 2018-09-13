@@ -55,6 +55,24 @@
 <script src="/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
 <script src="/js/jquery-3.2.1.js" type="text/javascript"></script>
 <script src="/layui.js" type="text/javascript"></script>
+
+<!--上传行程变更书 (lixiaojie)-->
+<script type="text/javascript">
+    //弹出上传变更书页面 (lixiaojie)
+    function alertInsertChangeBook(disInfo) {
+        layer.open({
+            type: 2,
+            title: '上传行程变更书',
+            maxmin: true,
+            shadeClose: true, //点击遮罩关闭层
+            area: ['700px', '500px'],
+            content: 'InsertChangBook.html?dispatchId=' + disInfo
+        });
+
+    }
+
+</script>
+
 <script>
     var limitcount = 2; // 每页总记录数
     var curnum = 1;  // 当前页码
@@ -72,7 +90,13 @@
             success: function (result) {
                 var context = "";
                 $(result.data).each(function (i, e) {
+                    var buttonInfo = "";
                     var patchId = e.dispatchId; // 调度编号
+                    if (e.status == 1 || e.status == "1") {
+                        buttonInfo = "<button class='layui-btn layui-btn-mini layui-btn-normal table-list-status' id='shangchuan' value='1' onclick='alertInsertChangeBook("+patchId+")'>行程变更</button>";
+                    } else {
+                        buttonInfo = "<button class='layui-btn layui-btn-mini layui-btn-normal table-list-status' id='upOffer2' value='2' onclick='queryDispatchRecord(" + e.dispatchId + ")'>调度记录</button>";
+                    }
                     context += "<tr id='" + patchId + "' class=\"parent collapsed\">\n" +
                         "<td class=''>" +
                         "\t\t\t\t\t\t\t\t<td class=\"\">" + ((curnum - 1) * 6 + (i+1)) + "</td>\n" +
@@ -81,7 +105,7 @@
                         "\t\t\t\t\t\t\t\t<td class=\"\">" + e.tourist + "</td>\n" +
                         "\t\t\t\t\t\t\t\t<td class=\"\">" + e.travelStartTime + "</td>\n" +
                         "\t\t\t\t\t\t\t\t<td class=\"\">" + e.travelEndTime + "</td>\n" +
-                        "\t\t\t\t\t\t\t\t<td class=\"\"><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"upOffer2\" value=\"2\" onclick='queryDispatchRecord("+e.dispatchId+")'>调度记录</button></td>\n" +
+                        "\t\t\t\t\t\t\t\t<td class=\"\">" + buttonInfo + "</td>\n" +
                         "\t\t\t\t\t\t\t</tr>";
                 })
                 $("tbody").html(context);
@@ -108,6 +132,7 @@
             }
         })
     }
+
     // 查询调度信息
     function queryDispatchRecord(dispatchId) {
         location.href = "/countAdjust/dispatchRecord.html?dispatchId=" + dispatchId;

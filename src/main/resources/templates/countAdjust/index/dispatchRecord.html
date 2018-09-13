@@ -144,14 +144,6 @@
     <div id="divfoot">
         <form class="layui-form layui-form-pane" action="">
             <table border="0	" cellspacing="0" cellpadding="0" style="width: 1100px">
-
-                <tr>
-                    <td><label class="layui-form-label">导游：</label></td>
-                    <td id="guideContext">
-                    </td>
-                    <td><label class="layui-form-label" style="width: 140px">借款：</label></td>
-                    <td><input type="text" class="layui-input" id="loan"></td>
-                </tr>
                 <tr>
                     <td><label class="layui-form-label">车队：</label></td>
                     <td id="carrentalsContext" style="width:140px">
@@ -159,11 +151,11 @@
                     <td id="vehiclesContext" style="width: 140px">
                     </td>
                     <td><label class="layui-form-label" style="width: 140px">数量:</label></td>
-                    <td><input type="text" class="layui-input"></td>
+                    <td><input type="text" class="layui-input" extra='price'></td>
                     <td><label class="layui-form-label" style="width: 119px">成本价：</label></td>
-                    <td width="140px"><input type="text" class="layui-input"></td>
+                    <td width="140px"><input type="text" name="costPrices" extra='price' class="layui-input"></td>
                     <td><label class='layui-form-label'>报价:</label></td>
-                    <td><input type='text' name='offer' class='layui-input'></td>
+                    <td><input type='text' name='offer' extra='price'class='layui-input'></td>
                 </tr>
                 <tr>
                     <td></td>
@@ -176,19 +168,35 @@
                 </tr>
                 <tr>
                     <td><label class="layui-form-label">车费：</label></td>
-                    <td width="140px"><input type="text" id="fare" style="width: 140px" class="layui-input"></td>
+                    <td width="140px"><input type="text" name="costPrices" id="fare" style="width: 140px"
+                                             class="layui-input" extra='price'></td>
                 </tr>
                 <tr>
                     <td><label class="layui-form-label">酒水费：</label></td>
-                    <td width="140px"><input type="text" class="layui-input" id="wineFee"></td>
+                    <td width="140px"><input type="text" extra='price' name="costPrices"  class="layui-input" id="wineFee"></td>
                 </tr>
                 <tr>
                     <td><label class="layui-form-label">其他：</label></td>
                     <td><label class="layui-form-label" style="width: 140px">成本价：</label></td>
-                    <td width="140px"><input type="text" class="layui-input" style="width: 140px" id="otherCostPrice">
+                    <td width="140px"><input name="costPrices" type="text" class="layui-input" style="width: 140px"
+                                             id="otherCostPrice" extra='price'>
                     </td>
                     <td><label class='layui-form-label' style="width: 140px">报价:</label></td>
-                    <td><input type='text' name='offer' class='layui-input' id="otherOffer"></td>
+                    <td><input type='text' name='offer' extra='price'  class='layui-input' id="otherOffer" ></td>
+                </tr>
+                <tr>
+                    <td><label class="layui-form-label">总成本价：</label></td>
+                    <td width="140px"><input type="text" class="layui-input" style="width: 140px" id="costPrices">
+                    </td>
+                    <td><label class='layui-form-label' style="width: 140px">总报价:</label></td>
+                    <td><input type='text' name='offer' class='layui-input'  id="offerPrices"></td>
+                </tr>
+                <tr>
+                    <td><label class="layui-form-label">导游：</label></td>
+                    <td id="guideContext">
+                    </td>
+                    <td><label class="layui-form-label" style="width: 140px">借款：</label></td>
+                    <td><input type="text" class="layui-input" id="loan" name="costPrices"></td>
                 </tr>
                 <tr>
                     <td><label class="layui-form-label">备注：</label></td>
@@ -205,8 +213,6 @@
                     <td colspan="8"><textarea placeholder="请输入内容" class="layui-textarea" name="desc"
                                               id="supervision"></textarea></td>
                 </tr>
-
-
                 <tr>
                     <td></td>
                     <td colspan="2" height="80px">
@@ -254,7 +260,7 @@
         $(function () {
             getDispatchByDispatchId();
         });
-        
+
         //根据调度dispatchId获取dispatch表的信息(lixiaojie)
         function getDispatchByDispatchId() {
             var dispatchId = $('#dispatchId').val();
@@ -319,6 +325,22 @@
 
 
     <script>
+        var templates = $('[name=templates]').prop("outerHTML"); // 景点列表
+        var scenicspots = $('[name=scenicspots]').prop("outerHTML"); // 景点列表
+        var hotels = $('[name=hotels]').prop("outerHTML");	// 酒店列表
+        var therooms = $('[name=therooms]').prop("outerHTML"); // 房间类型列表
+        var scenicspots = $('[name=scenicspots]').prop("outerHTML"); // 父景点列表
+        var childScenicspots = $('[name=childScenicspots]').prop("outerHTML"); // 子景点列表
+        var shoppings = $('[name=shoppings]').prop("outerHTML"); // 购物地点列表
+        var restaurants = $('[name=restaurants]').prop("outerHTML"); // 餐馆列表
+        var diets = $('[name=diets]').prop("outerHTML"); // 饮食类型列表
+        var guides = $('[name=guides]').prop("outerHTML"); // 导游列表
+        var carrentals = $('[name=carrentals]').prop("outerHTML"); // 租赁公司列表
+        var vehicles = $('[name=vehicles]').prop("outerHTML"); // 车辆类型列表
+        $('#guideContext').html(guides);
+        $('#carrentalsContext').html(carrentals);
+        $('#vehiclesContext').html(vehicles);
+
         // 验证用户是否输入
         function checkIsNot() {
             // 获取所有的文本框
@@ -634,6 +656,7 @@
                 data: JSON.stringify(PatchJsonObj),
                 dataType: "json",
                 type: "post",
+                async: false,
                 contentType: "application/json",
                 success: function (result) {
                     if (result.code == 0) {
@@ -660,6 +683,7 @@
                     data: "",
                     dataType: "json",
                     type: "get",
+                    async: false,
                     success: function (result) {
                         var allRoomType = result.data;
                         var options = "";
@@ -688,6 +712,7 @@
                     data: "",
                     dataType: "json",
                     type: "get",
+                    async: false,
                     success: function (result) {
                         var roomType = result.data;
                         // 成本价
@@ -708,6 +733,7 @@
                     data: "",
                     dataType: "json",
                     type: "get",
+                    async: false,
                     success: function (result) {
                         var allScenicspots = result.data;
                         var options = "";
@@ -745,6 +771,7 @@
                     data: "",
                     dataType: "json",
                     type: "get",
+                    async: false,
                     success: function (result) {
                         var allMealType = result.data;
                         var options = "";
@@ -782,6 +809,7 @@
                     data: "",
                     dataType: "json",
                     type: "get",
+                    async: false,
                     success: function (result) {
                         var allVehicleType = result.data;
                         var options = "";
@@ -826,6 +854,7 @@
                 data: {dispatchId: dispatchId},
                 dataType: "json",
                 type: "get",
+                async: false,
                 success: function (result) {
                     // start
                     var data = result.data;
@@ -973,21 +1002,6 @@
         }
     </script>
     <script type="text/javascript">
-        var templates = $('[name=templates]').prop("outerHTML"); // 景点列表
-        var scenicspots = $('[name=scenicspots]').prop("outerHTML"); // 景点列表
-        var hotels = $('[name=hotels]').prop("outerHTML");	// 酒店列表
-        var therooms = $('[name=therooms]').prop("outerHTML"); // 房间类型列表
-        var scenicspots = $('[name=scenicspots]').prop("outerHTML"); // 父景点列表
-        var childScenicspots = $('[name=childScenicspots]').prop("outerHTML"); // 子景点列表
-        var shoppings = $('[name=shoppings]').prop("outerHTML"); // 购物地点列表
-        var restaurants = $('[name=restaurants]').prop("outerHTML"); // 餐馆列表
-        var diets = $('[name=diets]').prop("outerHTML"); // 饮食类型列表
-        var guides = $('[name=guides]').prop("outerHTML"); // 导游列表
-        var carrentals = $('[name=carrentals]').prop("outerHTML"); // 租赁公司列表
-        var vehicles = $('[name=vehicles]').prop("outerHTML"); // 车辆类型列表
-        $('#guideContext').html(guides);
-        $('#carrentalsContext').html(carrentals);
-        $('#vehiclesContext').html(vehicles);
 
 
         function san(dang) {
@@ -1007,11 +1021,11 @@
                 "<td>" + scenicspots +
                 "</td>" +
                 "<td><label class='layui-form-label'>成本价:</label></td>" +
-                "<td><input type='text' class='layui-input'></td>" +
+                "<td><input type='text' class='layui-input' name='costPrices' extra='price'></td>" +
                 "<td><label class='layui-form-label'>报价:</label></td>" +
-                "<td><input type='text' class='layui-input'></td>" +
+                "<td><input type='text' class='layui-input' name='offerPrices' extra='price'></td>" +
                 "<td><label class='layui-form-label'>需购票人数:</label></td>\" +\n" +
-                "<td><input type='text'  class='layui-input'></td>\" +\n" +
+                "<td><input type='text'  class='layui-input' extra='price'></td>\" +\n" +
                 "<td colspan='2' width='300px'>" +
                 "<input type='radio' name='payMethods' value='现付' title='现付' />" +
                 "<input type='radio' name='payMethods' value='签单' title='签单' checked></td>" +
@@ -1068,4 +1082,114 @@
     </script>
 </div>
 </body>
+<script>
+    loadMoney();
+    // 计算总成本价与总报价，并赋值
+    function loadMoney() {
+        // 总成本价
+        var costMoney = 0;
+        // 总报价
+        var offerMoney = 0;
+
+        // 获取总人数
+        var peopleNum = $('#peopleNumber').val();
+        // 总天数
+        var dayCount = $('[id^=offer]').length;
+        // 其他成本价/报价
+        var otherCostPrice = $('#otherCostPrice').val();
+        var otherOffer = $('#otherOffer').val();
+        // 车费
+        var fare = $('#fare').val();
+        // 酒水费
+        var wineFee = $('#wineFee').val();
+        // 用车数量
+        var number = $('#vehiclesContext').next().next().find('input').val();
+        // 用车成本价/报价
+        var carCostPrice = $('#vehiclesContext').next().next().next().next().find('input').val();
+        var caroffer = $('#vehiclesContext').next().next().next().next().next().next().find('input').val();
+        costMoney += parseFloat(otherCostPrice*dayCount) + parseFloat(fare*dayCount) + parseFloat(wineFee*dayCount) + parseFloat(number*carCostPrice*dayCount);
+        offerMoney += parseFloat(otherOffer*dayCount) + parseFloat(fare*dayCount) + parseFloat(wineFee*dayCount) + parseFloat(number*caroffer*dayCount);
+
+
+        // 获取以id以offer开头的所有元素
+        var contents = $("div[id^='offer']");
+        $(contents).each(function (i, e) {
+            // 午餐饮食类型成本价/报价
+            var costprice = $(e).find('#lunch').find('#diets').parent('td')
+                .next().next().find('input').val();
+            var offer = $(e).find('#lunch').find('#diets').parent('td')
+                .next().next().next().next().find('input').val();
+            // 付款方式
+            var payment = $(e).find('#lunch').find('.layui-form-radioed').find('div').html();
+            if (payment == "签单") {
+                costMoney += parseFloat(costprice*peopleNum);
+                offerMoney += parseFloat(offer*peopleNum);
+            }
+            // 晚餐饮食类型成本价/报价
+            var costprice = $(e).find('#dinner').find('#diets').parent('td')
+                .next().next().find('input').val();
+            var offer = $(e).find('#dinner').find('#diets').parent('td')
+                .next().next().next().next().find('input').val();
+            // 付款方式
+            var payment = $(e).find('#dinner').find('.layui-form-radioed').find('div').html();
+            if (payment == "签单") {
+                costMoney += parseFloat(costprice*peopleNum);
+                offerMoney += parseFloat(offer*peopleNum);
+            }
+            // 获取房间数
+            var hotelNum = $(e).find('#hotelItem').find('td[id=therooms]').next().next().find('input').val();
+            // 获取成本价和报价
+            var hotelCostPrice = $(e).find('#hotelItem').find('td[id=therooms]').next().next().next().next().find('input').val();
+            var hotelOffer = $(e).find('#hotelItem').find('td[id=therooms]').next().next().next().next().next().next()
+                .find('input').val();
+            // 付款方式
+            var payment = $(e).find('#hotelItem').find('.layui-form-radioed').find('div').html();
+            if (payment == "签单") {
+                costMoney += parseFloat(hotelCostPrice*hotelNum);
+                offerMoney += parseFloat(hotelOffer*hotelNum);
+            }
+            // 司陪房间数
+            var companyBedNum = $(e).find('#companyBedNum').val();
+            // 司陪房间价
+            var companyBedoffer = $(e).find('#companyBedoffer').val();
+            // 司陪支付方式
+            var companyPaymeny = $(e).find('#privateAccompany').find('.layui-form-radioed').find('div').html();
+            if (companyPaymeny == "付费") {
+                costMoney += parseFloat(companyBedoffer*companyBedNum);
+                offerMoney += parseFloat(companyBedoffer*companyBedNum);
+            }
+
+            // 获取当前下的所有景点
+            var allScenicpot = $(e).find('tr[id^=scenic]');
+            // 遍历景点列表
+            for (var j = 0; j < allScenicpot.length; j++) {
+                // 获取景点的成本价和报价
+                var costprice = $(allScenicpot[j]).find('td').first().next().next().next().next()
+                    .find('input').val();
+                var offer = $(allScenicpot[j]).find('td').first().next().next().next().next().next().next()
+                    .find('input').val();
+                // 购买人数
+                var buynum = $(allScenicpot[j]).find('td').first().next().next().next().next().next().next()
+                    .next().next().find('input').val();
+                // 付款方式
+                var payment = $(allScenicpot[j]).find('.layui-form-radioed').find('div').html();
+                if (payment == "签单") {
+                    costMoney += parseFloat(costprice*buynum);
+                    offerMoney += parseFloat(offer*buynum);
+                }
+            }
+
+        })
+        // 总成本价
+        $('#costPrices').val(costMoney);
+        // 总报价
+        $('#offerPrices').val(offerMoney);
+    }
+
+
+    // 数据改变触发事件
+    $('[extra=price]').change(function () {
+        loadMoney();
+    })
+</script>
 </html>

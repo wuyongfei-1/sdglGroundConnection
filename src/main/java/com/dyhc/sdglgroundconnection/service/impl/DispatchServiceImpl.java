@@ -78,6 +78,8 @@ public class DispatchServiceImpl implements DispatchService {
     @Autowired
     private DisrestaurantService disrestaurantService; // 调度餐馆业务
 
+
+
     @Autowired
     private DispatchhotelService dispatchhotelService; // 调度酒店业务
 
@@ -95,6 +97,8 @@ public class DispatchServiceImpl implements DispatchService {
 
     @Autowired
     private DisattrService disattrService; // 调度景点业务
+    @Autowired
+    private MealTypeService mealTypeService; // 饮食类型表业务
 
     @Autowired
     private CompanyService companyService;
@@ -337,7 +341,7 @@ public class DispatchServiceImpl implements DispatchService {
         disshoppExample.setOrderByClause("weight");
         List<Disshopp> disshopps = disshoppMapper.selectByExample(disshoppExample);
         List<TravelPathParam> travelPathParams = new ArrayList<>();
-        for (int i = 0; i < Number; i++) {
+        for (int i = 0; i < dislines.size(); i++) {
             TravelPathParam travelPathParam = new TravelPathParam();
             Calendar c = Calendar.getInstance();
             c.setTime(beginTime);
@@ -348,7 +352,7 @@ public class DispatchServiceImpl implements DispatchService {
             travelPathParam.setSzaddress(scenicspotMapper.selectByPrimaryKey(disattrs.get(i).getScenicSpotId()).getScenicSpotAddress());
             travelPathParam.setXctext(dislines.get(i).getLineContent());
             travelPathParam.setShoppaddress(shoppingMapper.selectByPrimaryKey(disshopps.get(i).getShoppingId()).getShoppingSite());
-            travelPathParam.setEataddress(restaurantMapper.selectByPrimaryKey(disrestaurants.get(i).getTypeId()).getRestaurantAddress());
+            travelPathParam.setEataddress(restaurantMapper.selectByPrimaryKey(mealTypeMapper.selectByPrimaryKey(disrestaurants.get(i).getTypeId())).getRestaurantAddress());
             travelPathParam.setZhuaddress(hotelMapper.selectByPrimaryKey(dispatchhotels.get(i).getHotelId()).getHotelAddress());
             travelPathParams.add(travelPathParam);
         }

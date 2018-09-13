@@ -31,12 +31,12 @@ public class Disline {
 
     @Column(name = "travelTime")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @JSONField(format = "yyyy-MM-dd")
     private Date travelTime;    // 旅行时间
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "createTime")
     private Date createTime;    // 创建时间

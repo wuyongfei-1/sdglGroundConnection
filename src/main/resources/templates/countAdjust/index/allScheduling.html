@@ -67,7 +67,7 @@
             data:{pageNo:curnum,pageSize:6},
             dataType:"json",
             type:"get",
-			async:false,
+            async:false,
             success:function (data) {
                 var count=0;
                 var count2=0;
@@ -76,21 +76,21 @@
                     var anniu;
                     //报价中
                     if(e.value1==3){
-						anniu="\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"upOffer\" value=\""+e.offerId+"\">报价详情</button></td>\n"+
+                        anniu="\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"upOffer\" value=\""+e.offerId+"\">报价详情</button></td>\n"+
                             "\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-small layui-btn-warm listOrderBtn hidden-xs\" id=\"pass\" value=\""+e.offerId+"\">确认成团</button></td>\n"+
                             "\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-danger\" id=\"nopass\" value=\""+e.offerId+"\">失效</button></td>\n";
-					}
-					//确认成团
-					if(e.value1==1){
+                    }
+                    //确认成团
+                    if(e.value1==1){
                         anniu="\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"upOffer\" value=\""+e.offerId+"\">报价详情</button></td>\n"+
                             "\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"jinyong\" value=\""+e.offerId+"\">调度详情</button></td>\n"+
-                        	"<td></td>";
-					}
+                            "<td></td>";
+                    }
                     //失效
                     if(e.value1==2){
                         anniu="\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"upOffer2\" value=\""+e.offerId+"\">报价详情</button></td>\n"+
                             "\t\t\t\t\t\t\t\t<td><button  style='background-color: #e2e2e2'  disabled class=\"layui-btn layui-btn-primary\" id=\"nopass\" value=\""+e.offerId+"\">已经失效</button></td>\n"+
-                        "<td></td>";
+                            "<td></td>";
                     }
                     //失效
                     if(e.value1==4){
@@ -106,8 +106,8 @@
                         type:"get",
                         async:false,
                         success:function (data) {
-							travelName=data.data.travelName;
-						}
+                            travelName=data.data.travelName;
+                        }
                     })
                     count++;
                     count2++;
@@ -123,7 +123,7 @@
                         "\t\t\t\t\t\t\t\t<td class=\"\">"+e.travelStartTime+"</td>\n" +
                         "\t\t\t\t\t\t\t\t<td class=\"\">"+e.travelEndTime+"</td>\n" +
                         anniu
-                        "\t\t\t\t\t\t\t</tr>";
+                    "\t\t\t\t\t\t\t</tr>";
                 })
                 $("tbody").html(context2);
                 // 分页插件
@@ -177,7 +177,7 @@
             $(this).parent().next().html("<button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"jinyong\" value=\""+id+"\">调度详情</button>");
             $(this).parent().next().after("<td></td>")
             $(this).parent().remove();
-		}
+        }
     })
     //失效按钮（dubingkun）
     $(document).on("click","#nopass",function () {
@@ -200,7 +200,7 @@
             $(this).parent().after("\t\t\t\t\t\t\t\t<td><button style='background-color: #e2e2e2' disabled class=\"layui-btn layui-btn-primary\" id=\"nopass\" value=\""+id+"\">已经失效</button></td>\n");
             $(this).parent().after("\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"upOffer2\" value=\""+id+"\">报价详情</button></td>\n");
             $(this).parent().remove();
-		}
+        }
     })
     //调度按钮（dubingkun）
     $(document).on("click","#jinyong",function () {

@@ -21,7 +21,9 @@
 	</form>
 	<div class="layui-form" id="table-list">
 		<table class="layui-table" lay-skin="line">
+			<input type="button" value="打印报价单" onclick="printbaojia()"/>
 			<colgroup>
+				<col width="50">
 				<col width="50">
 				<col class="hidden-xs" width="120">
 				<col class="hidden-xs" width="170">
@@ -35,6 +37,7 @@
 			<thead>
 			<tr>
 				<th></th>
+				<th class=""></th>
 				<th class="">报价编号</th>
 				<th class="">组团社名称</th>
 				<th class="">人数</th>
@@ -58,7 +61,10 @@
 <script>
     var limitcount = 2; // 每页总记录数
     var curnum = 1;  // 当前页码
-
+	function printbaojia(){
+		var offerid=$("[name='baojiadan']:checked").val();
+	    location.href="http://localhost:8888/voucher/baojiandan.html?offerId="+offerid+"";
+	}
     search();
     //查询（dubingkun）
     function search() {
@@ -114,7 +120,7 @@
                     var fuqinid="node-"+count;
                     var erziclass="child-node-"+count2+" parent collapsed";
                     context2+="<tr id='"+fuqinid+"' class=\"parent collapsed\">\n" +
-                        "\t\t\t\t\t\t\t\t<td>" +
+                        "\t\t\t\t\t\t\t\t<td><input type='radio' name='baojiadan' value='"+e.offerId+"'></td>" +
                         "\t\t\t\t\t\t\t\t<td class=\"\">"+((curnum-1)*6+(i+1))+"</td>\n" +
                         "\t\t\t\t\t\t\t\t<td class=\"\">"+travelName+"</td>\n" +
                         "\t\t\t\t\t\t\t\t<td class=\"\">"+e.number+"</td>\n" +

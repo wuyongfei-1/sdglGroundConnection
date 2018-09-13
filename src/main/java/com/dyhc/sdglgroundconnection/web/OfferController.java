@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.sound.sampled.Line;
+import java.text.DecimalFormat;
 import java.util.*;
 
 /**
@@ -77,6 +78,57 @@ public class OfferController {
             Offer offer = offerService.getOfferByOfferId(offerId);
             logger.info(" method:getOfferInfoById  根据编号获取报价信息成功！");
             return ReponseResult.ok(offer, "获取报价信息成功！");
+        } catch (OfferException e) {
+            logger.error(" method:getOfferInfoById  根据编号获取报价信息失败！");
+            e.printStackTrace();
+            return ReponseResult.err("获取报价信息失败！");
+        } catch (Exception e) {
+            logger.error(" method:getOfferInfoById  根据编号获取报价信息失败！");
+            e.printStackTrace();
+            return ReponseResult.err("获取报价信息失败！");
+        }
+    }
+
+    /**
+     * 获取报价详细信息（dubingkun）
+     *
+     * @param offerId 报价编号
+     * @return 响应结果
+     */
+    @GetMapping("/offer/detail2/{id}.html")
+    public ReponseResult getOfferInfoById2(@PathVariable("id") Integer offerId,HttpServletRequest request) {
+        try {
+            Offer offer = offerService.getOfferByOfferId(offerId);
+            offer.setValue3(offerlineService.getOfferline(offerId));
+            Staff staff = (Staff) request.getSession().getAttribute("user");
+            List<Offercar> offercars=offercarService.listOffercarByOfferId(offerId);
+            List<Offerrestaurant>offerrestaurants=offerrestaurantService.listOfferrestaurantByOfferId(offerId);
+            Integer canshu=offerrestaurants.size();
+            DecimalFormat df = new DecimalFormat( "0.00");
+            Double pingjun=0d;
+            for (Offerrestaurant item :
+                    offerrestaurants) {
+                pingjun+=item.getOffer();
+            }
+            pingjun=pingjun/offerrestaurants.size();
+            Integer carid=1;
+            if (offercars.size()>0&&offercars!=null)
+            carid=offercars.get(0).getValueId();
+            List<Object> list=new ArrayList<Object>();
+            list.add(offer);
+            list.add(staff);
+            list.add(canshu);
+            list.add(df.format(pingjun));
+            if(carid==1){
+                carid=30;
+            }else if(carid==2){
+                carid=15;
+            }else {
+                carid=7;
+            }
+            list.add(carid);
+            logger.info(" method:getOfferInfoById  根据编号获取报价信息成功！");
+            return ReponseResult.ok(list, "获取报价信息成功！");
         } catch (OfferException e) {
             logger.error(" method:getOfferInfoById  根据编号获取报价信息失败！");
             e.printStackTrace();

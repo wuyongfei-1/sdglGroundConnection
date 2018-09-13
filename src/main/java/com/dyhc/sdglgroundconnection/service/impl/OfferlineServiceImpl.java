@@ -3,12 +3,16 @@ package com.dyhc.sdglgroundconnection.service.impl;
 import com.dyhc.sdglgroundconnection.annotation.RecordOperation;
 import com.dyhc.sdglgroundconnection.exception.OfferException;
 import com.dyhc.sdglgroundconnection.mapper.OfferlineMapper;
+import com.dyhc.sdglgroundconnection.pojo.Offer;
 import com.dyhc.sdglgroundconnection.pojo.Offerline;
 import com.dyhc.sdglgroundconnection.pojo.OfferlineExample;
 import com.dyhc.sdglgroundconnection.service.OfferlineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -48,5 +52,32 @@ public class OfferlineServiceImpl implements OfferlineService {
         OfferlineExample.Criteria criteria=offerhotelExample.createCriteria();
         criteria.andOfferidEqualTo(id);
         return offerlineMapper.deleteByExample(offerhotelExample);
+    }
+
+    @Override
+    public String getOfferline(Integer id) throws OfferException {
+        OfferlineExample offerhotelExample=new OfferlineExample();
+        OfferlineExample.Criteria criteria=offerhotelExample.createCriteria();
+        criteria.andOfferidEqualTo(id);
+        List<Offerline> list=offerlineMapper.selectByExample(offerhotelExample);
+        List intlist=new ArrayList();
+        for (Offerline item :
+                list) {
+            intlist.add(item.getWeight());
+        }
+        Collections.sort(intlist);
+        Offerline offerline=null;
+        for (Offerline item :
+                list) {
+            if(item.getWeight()==intlist.get(intlist.size()-1)){
+                offerline=item;
+            }
+        }
+        String mudidi="";
+        if(offerline!=null){
+            mudidi=offerline.getLineArriveName();
+            mudidi.substring(mudidi.indexOf("-"));
+        }
+        return mudidi;
     }
 }

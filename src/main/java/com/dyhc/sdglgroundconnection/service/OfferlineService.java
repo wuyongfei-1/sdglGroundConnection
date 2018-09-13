@@ -1,6 +1,7 @@
 package com.dyhc.sdglgroundconnection.service;
 
 import com.dyhc.sdglgroundconnection.exception.OfferException;
+import com.dyhc.sdglgroundconnection.pojo.Offer;
 import com.dyhc.sdglgroundconnection.pojo.Offerline;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
@@ -40,4 +41,11 @@ public interface OfferlineService {
      * @throws OfferException
      */
     Integer deleteOfferline(Integer id)throws OfferException;
+
+    /**
+     * 返回最后一天的线路名（dubingkun）
+     * @param id
+     * @return
+     */
+    String getOfferline(Integer id) throws OfferException;
 }

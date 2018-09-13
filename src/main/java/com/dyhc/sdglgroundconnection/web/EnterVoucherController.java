@@ -125,9 +125,13 @@ public class EnterVoucherController {
         request.setAttribute("dispatchId",dispatchId);
         return "voucher/TravelPlan";
     }
-
-
-
-
-
+    /**
+     * 进入报价单 页面
+     * @return
+     */
+    @RequestMapping("/baojiandan.html")
+    public String enterbaojiandan(Integer offerId,HttpServletRequest request) {
+        request.setAttribute("offerId",offerId);
+        return "voucher/baojiadan";
+    }
 }

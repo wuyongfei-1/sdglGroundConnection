@@ -97,7 +97,7 @@
             type: "post",
             success: function (e) {
                 $(".guideName").text(e.data.disguide.guide.guideName+":(导游证号："+e.data.disguide.guide.certificate+")");
-                $(".clusterTime").text((e.data.dispatchtourgroup.clustertime).substring(0,10));
+                $(".clusterTime").text((e.data.dispatchtourgroup.clustertime).substring(0,16));
                 $(".clusteraddress").text(e.data.dispatchtourgroup.clusteraddress)//
                 $(".flightId").text(e.data.dispatchtourgroup.flightid);//
                 $(".num").text("共计：  "+e.data.num+"  人");//人数

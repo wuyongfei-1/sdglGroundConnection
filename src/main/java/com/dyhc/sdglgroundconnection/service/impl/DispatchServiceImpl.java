@@ -341,7 +341,7 @@ public class DispatchServiceImpl implements DispatchService {
         disshoppExample.setOrderByClause("weight");
         List<Disshopp> disshopps = disshoppMapper.selectByExample(disshoppExample);
         List<TravelPathParam> travelPathParams = new ArrayList<>();
-        for (int i = 0; i < Number; i++) {
+        for (int i = 0; i < dislines.size(); i++) {
             TravelPathParam travelPathParam = new TravelPathParam();
             Calendar c = Calendar.getInstance();
             c.setTime(beginTime);

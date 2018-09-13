@@ -24,7 +24,6 @@
 			<input type="button" value="打印报价单" onclick="printbaojia()"/>
 			<colgroup>
 				<col width="50">
-				<col width="50">
 				<col class="hidden-xs" width="120">
 				<col class="hidden-xs" width="170">
 				<col class="hidden-xs" width="200">
@@ -36,7 +35,6 @@
 			</colgroup>
 			<thead>
 			<tr>
-				<th></th>
 				<th class=""></th>
 				<th class="">报价编号</th>
 				<th class="">组团社名称</th>
@@ -63,7 +61,9 @@
     var curnum = 1;  // 当前页码
 	function printbaojia(){
 		var offerid=$("[name='baojiadan']:checked").val();
-	    location.href="http://localhost:8888/voucher/baojiandan.html?offerId="+offerid+"";
+	    if (offerid!=undefined) {
+	        location.href="http://localhost:8888/voucher/baojiandan.html?offerId="+offerid+""
+	    }
 	}
     search();
     //查询（dubingkun）
@@ -132,6 +132,7 @@
                     "\t\t\t\t\t\t\t</tr>";
                 })
                 $("tbody").html(context2);
+                renderCss();
                 // 分页插件
                 layui.use('table', function () {
                     var laypage = layui.laypage;
@@ -156,6 +157,19 @@
                 alert(123)
             }
         })
+        // 刷新Lay样式
+        function renderCss() {
+            layui.use(['form', 'layedit', 'laydate', 'element'], function () {
+                var form = layui.form,
+                    layer = layui.layer,
+                    layedit = layui.layedit,
+                    element = layui.element,
+                    laydate = layui.laydate,
+                    a;
+                form.render(); //更新全部
+                form.render('select'); //刷新select选择框渲染
+            });
+        }
         //$("tbody").html(fuqin);
     };
     //报价按钮（dubingkun）

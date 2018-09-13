@@ -35,9 +35,9 @@
             alert("请上传行程变更书！");
             return;
         }
-        if (!confirm("确定要变更行程吗？")){
+        /*if (!confirm("确定要变更行程吗？")){
             return;
-        }
+        }*/
         var dispatchId=$("#dispatchId").val();
         var savePath = "D://upload-images-test";
         var fileObj = document.getElementById("browsefile").files[0];
@@ -63,9 +63,10 @@
             contentType: false,
             success: function (data) {
                 if (data.data==1||data.data=="1") {
-                    parent.saveDispatchInfo();
+                    alert("上传成功！！");
+                    parent.queryDispatchRecord(dispatchId);
                 }else {
-                    alert("服务器加载慢请重试!");
+                    alert("服务器加载慢请刷新页面后重试!");
                 }
                 var index = parent.layer.getFrameIndex(window.name);
                 parent.layer.close(index)

@@ -229,7 +229,8 @@ public class DispatchController {
             dispatch.setValue1(patchInfo.getConcat());
             dispatch.setValue2(patchInfo.getConcatPhone());
             dispatch.setStatus(2);
-            dispatch.setState(1);
+            // 行程开始状态
+            dispatch.setState(dispatchIdStatus == 0 ? 1 : 2);
             dispatch.setWhetherDel(0);
             dispatchParam.setDispatch(dispatch);
             // 其他信息

@@ -63,6 +63,7 @@ public class Dispatch {
     private String value2; // 组团社联系电话
     private String value3;
 
+
     @Transient
     private Staff staff; // 计调人员信息对象
 
@@ -89,6 +90,15 @@ public class Dispatch {
 
     @Transient
     private Bill bill; // 集体照对象
+
+    @Transient
+    private List<Disline> dislineList; // 线路集合
+
+    @Transient
+    private List<Disshopp> disshoppList; // 购物地集合
+
+    @Transient
+    private Disother disother; // 其他对象
 
     public Bill getBill() {
         return bill;
@@ -456,5 +466,29 @@ public class Dispatch {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public List<Disline> getDislineList() {
+        return dislineList;
+    }
+
+    public void setDislineList(List<Disline> dislineList) {
+        this.dislineList = dislineList;
+    }
+
+    public List<Disshopp> getDisshoppList() {
+        return disshoppList;
+    }
+
+    public void setDisshoppList(List<Disshopp> disshoppList) {
+        this.disshoppList = disshoppList;
+    }
+
+    public Disother getDisother() {
+        return disother;
+    }
+
+    public void setDisother(Disother disother) {
+        this.disother = disother;
     }
 }

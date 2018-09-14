@@ -21,7 +21,7 @@ public class Dispatch {
     private String groupNumber; // 组团社团号
     @Column(name = "sendLine")
     private String sendLine; // 发往线路
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @Column(name = "travelStartTime")
     private Date travelStartTime; // 旅行开始时间
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
@@ -83,15 +83,6 @@ public class Dispatch {
 
     @Transient
     private Disguide disguide; // 调度导游表对象
-
-    @Transient
-    private List<Disline> dislineList; // 调度线路对象
-
-    @Transient
-    private Disother disother; // 调度其他对象
-
-    @Transient
-    private List<Disshopp> disshoppList; // 调度购物地对象
 
     @Transient
     private Company company; // 本公司对象
@@ -310,6 +301,7 @@ public class Dispatch {
     }
 
 
+
     @Basic
     @Column(name = "remarks")
     public String getRemarks() {
@@ -464,29 +456,5 @@ public class Dispatch {
 
     public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public List<Disline> getDislineList() {
-        return dislineList;
-    }
-
-    public void setDislineList(List<Disline> dislineList) {
-        this.dislineList = dislineList;
-    }
-
-    public Disother getDisother() {
-        return disother;
-    }
-
-    public void setDisother(Disother disother) {
-        this.disother = disother;
-    }
-
-    public List<Disshopp> getDisshoppList() {
-        return disshoppList;
-    }
-
-    public void setDisshoppList(List<Disshopp> disshoppList) {
-        this.disshoppList = disshoppList;
     }
 }

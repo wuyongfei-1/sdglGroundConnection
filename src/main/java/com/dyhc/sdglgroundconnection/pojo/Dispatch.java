@@ -21,10 +21,10 @@ public class Dispatch {
     private String groupNumber; // 组团社团号
     @Column(name = "sendLine")
     private String sendLine; // 发往线路
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @Column(name = "travelStartTime")
     private Date travelStartTime; // 旅行开始时间
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @Column(name = "travelEndTime")
     private Date travelEndTime; // 旅行结束时间
     private Integer num; // 人数

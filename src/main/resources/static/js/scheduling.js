@@ -62,7 +62,6 @@ var dayNum = 0; // 天数
 
 function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
                allOfferrestaurantJosnArray, commonsJsonStr) {
-
     if (num != undefined) {
         dayNum = (num + 1);
         var lineArriveName = offerLine["lineArriveName"]; // 线路名称
@@ -114,11 +113,11 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
                 "</select>" +
                 "</td>\" +\n" +
                 "<td><label class='layui-form-label'>成本价:</label></td>\" +\n" +
-                "<td><input type='text'  class='layui-input'></td>\" +\n" +
+                "<td><input type='text'  class='layui-input' extra='price'></td>\" +\n" +
                 "<td><label class='layui-form-label'>报价:</label></td>\" +\n" +
-                "<td><input type='text' name='offer' class='layui-input'></td>\" +\n" +
+                "<td><input type='text' name='offer' class='layui-input' extra='price'></td>\" +\n" +
                 "<td><label class='layui-form-label'>需购票人数:</label></td>\" +\n" +
-                "<td><input type='text'  class='layui-input'></td>\" +\n" +
+                "<td><input type='text'  class='layui-input' extra='price'></td>\" +\n" +
                 "<td colspan='2' width='300px'>" +
                 "<input type='radio' name='scenic" + (i) + "' value='现付' title='现付' />" +
                 "<input type='radio' name='scenic" + (i) + "' value='签单' title='签单' checked></td>" +
@@ -170,11 +169,11 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
         "<td id='therooms'>" + therooms +
         "</td>" +
         "<td><label class='layui-form-label' >房间数：</label></td>" +
-        "<td><input type='text' class='layui-input' id='roomNum'></td>" +
+        "<td><input type='text' class='layui-input' id='roomNum' extra='price'></td>" +
         "<td><label class='layui-form-label'>成本价：</label></td>" +
-        "<td><input type='text' class='layui-input' /></td>" +
+        "<td><input type='text' class='layui-input' extra='price' /></td>" +
         "<td><label class='layui-form-label'>报价：</label></td>" +
-        "<td><input type='text' class='layui-input'></td>" +
+        "<td><input type='text' class='layui-input' extra='price'></td>" +
         "<td colspan='2'> " +
         "<input type='radio' name='hotel' value='现付' title='现付' />" +
         "<input type='radio' name='hotel' value='签单' title='签单' checked></td>" +
@@ -182,9 +181,9 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
         "<tr>" +
         "<td><label class='layui-form-label'>司陪：</label></td>" +
         "<td><label class='layui-form-label' style='width: 140px;'>房间数：</label></td>" +
-        "<td><input type='text' class='layui-input' id='companyBedNum'></td>" +
+        "<td><input type='text' class='layui-input' id='companyBedNum' extra='price'></td>" +
         "<td><label class='layui-form-label' >成本价：</label></td>" +
-        "<td><input type='text' class='layui-input' id='companyBedoffer'></td>" +
+        "<td><input type='text' class='layui-input' extra='price' id='companyBedoffer'></td>" +
         "<td colspan='2' id='privateAccompany'> " +
         "<input type='radio' name='privatePany' value='免费' title='免费' />" +
         "<input type='radio' name='privatePany' value='付费' title='付费' checked></td>" +
@@ -208,9 +207,9 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
         "<td>" + diets +
         "	</td>" +
         "	<td><label class='layui-form-label'>成本价</label></td>" +
-        "	<td ><input type='text' class='layui-input'></td>" +
+        "	<td ><input type='text' class='layui-input' extra='price'></td>" +
         "<td><label class='layui-form-label'>报价:</label></td>" +
-        "<td><input type='text' name='offer' class='layui-input'></td>" +
+        "<td><input type='text' name='offer' class='layui-input' extra='price'></td>" +
         "<td colspan='2'>" +
         "<input type='radio' name='lunch' value='现付' title='现付' />" +
         "<input type='radio' name='lunch' value='签单' title='签单' checked></td>" +
@@ -223,9 +222,9 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
         "	<td>" + diets +
         "</td>" +
         "<td><label class='layui-form-label'>成本价</label></td>" +
-        "	<td ><input type='text' class='layui-input'></td>" +
+        "	<td ><input type='text' class='layui-input' extra='price'></td>" +
         "<td><label class='layui-form-label'>报价:</label></td>" +
-        "<td><input type='text' name='offer' class='layui-input'></td>" +
+        "<td><input type='text' name='offer' class='layui-input' extra='price'></td>" +
         "<td colspan='2'>" +
         "<input type='radio' name='dinner' value='现付' title='现付' />" +
         "<input type='radio' name='dinner' value='签单' title='签单' checked></td>" +
@@ -264,6 +263,7 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
             data: "",
             dataType: "json",
             type: "get",
+            async:false,
             success: function (result) {
                 var allRoomType = result.data;
                 var options = "";
@@ -335,6 +335,7 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
                 data: "",
                 dataType: "json",
                 type: "get",
+                async:false,
                 success: function (result) {
                     var allScenicspots = result.data;
                     var options = "";
@@ -357,23 +358,46 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
                 }
             })
         }
-
-
-
-
-
-
-
-
     })
     // 组团社名称绑定
     $('#travelName').val(travelName);
     // 人数绑定
     $('#peopleNumber').val(personNum);
+    //字符串转成时间
+    function getDate(strDate) {
+        var oldStartTime = eval('new Date(' + strDate.replace(/\d+(?=-[^-]+$)/,
+            function (a) {
+                return parseInt(a, 10) - 1;
+            }).match(/\d+/g) + ')');
+        var month = parseInt(oldStartTime.getMonth()) + 1;
+        if (month < 10) {
+            month = "0" + month;
+        }
+        var day = oldStartTime.getDate();
+        if (day < 10) {
+            day = "0" + day;
+        }
+        var hour = oldStartTime.getHours();
+        if (hour < 10) {
+            hour = "0" + hour;
+        }
+        var minth = oldStartTime.getMinutes();
+        if (minth < 10) {
+            minth = "0" + minth;
+        }
+        var secord = oldStartTime.getSeconds();
+        if (secord < 10) {
+            secord = "0" + secord;
+        }
+        startTime = oldStartTime.getFullYear() + "-" + (month) + "-" + day; // 年-月-日
+        startTime += "T";
+        startTime += hour + ":" + minth + ":" + secord;
+        return startTime;
+    }
     // 接团时间绑定
-    $('#beginDate').val(startTime);
+    $('#beginDate').val(getDate(startTime+" 00:00:00"));
     // 送团时间绑定
-    $('#endDate').val(endTime)
+    $('#endDate').val(getDate(endTime+" 00:00:00"));
     // 车队类型绑定  vehicles
     $('#vehiclesContext #vehicles option[value=' + carType + ']').attr("selected", "selected");
     // 车辆类型成本价绑定

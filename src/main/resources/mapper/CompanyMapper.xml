@@ -13,4 +13,7 @@
             `whetherDel` = 1
         WHERE `companyId` = #{companyId}
     </update>
+    <select id="getcompany" resultType="com.dyhc.sdglgroundconnection.pojo.Company">
+        SELECT * FROM `company`
+    </select>
 </mapper>

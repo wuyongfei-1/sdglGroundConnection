@@ -1,0 +1,228 @@
+﻿<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>山西世达国旅报价单</title>
+
+    <style type="text/css" id="style">
+
+        h4 {
+
+        }
+
+        #dy {
+            border: 1px, #000000, solid;
+            width: 640px;
+            height: 700px;
+            margin: 0 auto;
+            font-size: 12px;
+        }
+
+        #tupian {
+            margin: 0 auto;
+            width: 640px;
+            height: 50px;
+        }
+
+        #xiabian {
+            border-bottom: 1px solid #000;
+            font-size: 15px;
+        }
+
+        table {
+
+        }
+
+        #t1 {
+            text-align: left;
+        }
+
+        .p1 {
+            font-weight: 500;
+        }
+
+        .xingcheng {
+            height: 100px;
+        }
+
+        .team {
+            height: 50px;
+        }
+
+        #ss {
+            border: 1px solid #fff;
+
+            position: relative;
+        }
+
+        #xuhao {
+            position: absolute;
+            left: 1%;
+            padding-top: 17px;
+            background-color: #ccc;
+
+        }
+    </style>
+</head>
+
+<body>
+<input type="hidden" th:value="${offerId}" id="offerId" />
+<div id="dy">
+    <div id="tupian">
+        <img src="/images/logo.jpg" width="640px" height="50px">
+    </div>
+    <DIV style="color:#0042A3;font-size: 12px;" id="xiabian">
+        <span>山西省十强旅行社&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>山西省诚信旅行社&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>山西省诚信旅行社&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>4A山西省诚信旅行社&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>经营许可证：L-SX-CJ00026</span>
+    </DIV>
+    <div id="ss">
+        <!--<div id="xuhao">01-1</div>-->
+        <h4>山西世达国旅报价单</h4>
+    </div>
+    <table border="1px" bordercolor="#000000" cellspacing="0" cellpadding="2" style="border-collapse:collapse;">
+        <tr>
+            <td width="13%">发往</td>
+            <td colspan="5" id="fawang"></td>
+        </tr>
+        <tr>
+            <td width="13%">旅行时间</td>
+            <td width="23%"><span id="time"></span></td>
+            <td width="8%">人数</td>
+            <td width="23%"><span id="number"></span></td>
+            <td width="10%">客源地</td>
+            <td width="23%"><span id="keyuandi"></span></td>
+        </tr>
+        <tr>
+            <td class="xingcheng">行程</td>
+            <td colspan="5" id="xingcheng"></td>
+        </tr>
+        <tr>
+            <td>报价</td>
+            <td colspan="5" id="baojia">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+1T/L：RMB<span>&nbsp;&nbsp;&nbsp;</span>元/人（免&nbsp;1&nbsp;持证领队）&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单间房差：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span></span>元
+            </td>
+        </tr>
+        <tr>
+            <td>包含</td>
+            <td colspan="5" id="baohan">
+                1、行程中所列酒店双人标准间<br/>
+                2、正餐&nbsp;<span id="jican"></span>&nbsp;&nbsp;餐，餐标<span id="canbiao">_______</span><br/>
+                3、<span id="jizuo">_________</span>座空调旅游巴士<br/>
+                4、行程中所列景区景点门票及小交通<br/>
+                5、全程中文导游服务
+            </td>
+        </tr>
+        <tr>
+            <td>购物/自费</td>
+            <td colspan="5" id="shopping">
+                <span>_________</span>购物&nbsp;<span>_________</span>自费&nbsp;<span>_________</span>车购
+            </td>
+        </tr>
+        <tr>
+            <td>不含</td>
+            <td colspan="5" id="buhan">
+                往返机票及税、旅游人身意外伤害险30元/人、酒店行李生小费、计划外项目、司机导游小费（<span>_________</span>元/人•天）
+            </td>
+        </tr>
+        <tr>
+            <td>备注</td>
+            <td colspan="5" id="beizhu">
+                1、赠送每人每天一瓶矿泉水<br/>
+                2、<span class="p1">老年票已分摊至报价内,恕不退还,敬请海涵!请配合出示证件,感谢支持!</span><br/>
+                3、<span class="p1">如遇国家法定节假日、平遥摄影节及太原能博会等大型会议期间价格另议。</span><br/>
+                4、报价不包含因政府行为门票临时涨价部分。<br/>
+                5、如团队在行程中发生任何问题，请团员或领队第一时间与本社联系，以争取最及时之适当处理，如团队回到当地后，本社不接受任何投诉。<br/>
+                6、请组团社在团队出发前核对确认书内容是否有误并盖章确认回传，谢谢！
+                7、领队无领队证所产生的费用，敬请自理。<br/>
+                8、行程顺序以当地安排为准。<br/>
+                9、<span class="p1">山西高速晚22点至早6点严禁7座以上客车在高速上行驶，请组团社预定航班及车次时注意，以免遇上飞机晚点等情况导致无法上高速影响行程。</span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6" id="bumen">部门</td>
+        </tr>
+        <tr>
+            <td class="team">团体监督</td>
+            <td colspan="5">
+                <span id="tuantijiandu"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>联系人</td>
+            <td colspan="5" id="lianxiren">
+                崔俊娜 18603416895 <br/>
+                Tel：886-351-7896890 <br/>
+                QQ：2355703931 <br/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">
+                以上专此呈上，如有不详之处敬请垂询，感谢支持，预祝合作愉快！<br/><br/>
+
+                发件人：<span id="fajianren"></span>
+
+            </td>
+        </tr>
+
+    </table>
+
+</div>
+<div>
+    <input type="button" value="打印预览" onclick="printview()">&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="button" value="打印维护" onclick="updatePrint()">
+</div>
+</body>
+<script src="/js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/lodop/jquery-3.2.1.js"></script>
+<script type="text/javascript" src="/lodop/LodopFuncs.js"></script>
+<script>
+    $.ajax({
+        url:"/offer/offer/detail2/"+$("#offerId").val()+".html",
+        data:"",
+        dataType:"json",
+        type:"get",
+        success:function (data) {
+            $("#time").html(data.data[0].travelStartTime);
+            $("#number").html(data.data[0].number);
+            $("#keyuandi").html(data.data[0].tourist);
+            $("#fawang").html(data.data[0].value3);
+            $("#baojia").html("￥"+data.data[0].offer);
+            //$("#baohan").html(data.data[0].offer);
+            $("#jican").html("&nbsp&nbsp&nbsp&nbsp"+data.data[2]+"&nbsp&nbsp&nbsp&nbsp");
+            $("#canbiao").html("&nbsp&nbsp&nbsp&nbsp￥"+data.data[3]+"&nbsp&nbsp&nbsp&nbsp");
+            $("#jizuo").html("&nbsp"+data.data[4]+"&nbsp&nbsp&nbsp&nbsp");
+            $("#shopping").html(data.data[0].shopping);
+            $("#buhan").html(data.data[0].notExclude);
+            $("#beizhu").html(data.data[0].remarks);
+            $("#xingcheng").html(data.data[0].trip)
+            $("#tuantijiandu").html(data.data[0].supervision);
+            $("#lianxiren").html(data.data[1].staffname+":"+data.data[1].phone+"<br/>"+"QQ:"+data.data[1].qqnumber);
+        },error:function () {
+            alert("服务器异常！");
+        }
+    })
+    var LODOP;//声明为全局变量
+    function printview(){
+        createPage();
+        LODOP.PREVIEW(); //打印预览
+    }
+    function updatePrint(){
+        createPage();
+        LODOP.PRINT_SETUP();//打印维护
+    }
+    function print(){
+        createPage();
+        LODOP.PRINT_DESIGN();//直接打印
+    }
+
+    function createPage(){
+        LODOP=getLodop();  //获取打印对象
+        var style="<style>"+document.getElementById("style").innerHTML+"</style>";
+        var html="<body>"+document.getElementById("dy").innerHTML+"</body>";
+        LODOP.SET_PRINT_STYLE("Bold",1); //字体加粗
+        LODOP.ADD_PRINT_HTM(20,50,640,890,html); //打印HTML
+    }
+</script>
+</html>

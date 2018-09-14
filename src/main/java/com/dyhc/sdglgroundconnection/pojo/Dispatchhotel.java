@@ -26,6 +26,7 @@ public class Dispatchhotel {
     @Column(name = "costPrice")
     private Double costPrice; // 成本价
     private Double offer; // 报价
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date date; // 日期
     private String payment; // 付款方式
     @Column(name = "companyBedNum")

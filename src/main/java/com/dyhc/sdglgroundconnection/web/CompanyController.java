@@ -56,6 +56,25 @@ public class CompanyController  {
             return err;
         }
     }
+
+    /**
+     * 查询
+     * @return
+     */
+    @RequestMapping("/getCompany")
+    public ReponseResult getcompany() {
+        try {
+            Company company = companyService.getcompany();
+            ReponseResult<Company> data = ReponseResult.ok(company, "获取公司成功！");
+            logger.info(" method:showAllCompany  获取公司成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:showAllCompany  获取数据失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
     /**
      * 增加
      */

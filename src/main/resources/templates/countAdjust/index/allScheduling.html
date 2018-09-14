@@ -21,6 +21,7 @@
 	</form>
 	<div class="layui-form" id="table-list">
 		<table class="layui-table" lay-skin="line">
+			<input type="button" value="打印报价单" onclick="printbaojia()"/>
 			<colgroup>
 				<col width="50">
 				<col class="hidden-xs" width="120">
@@ -34,7 +35,7 @@
 			</colgroup>
 			<thead>
 			<tr>
-				<th></th>
+				<th class=""></th>
 				<th class="">报价编号</th>
 				<th class="">组团社名称</th>
 				<th class="">人数</th>
@@ -58,7 +59,12 @@
 <script>
     var limitcount = 2; // 每页总记录数
     var curnum = 1;  // 当前页码
-
+	function printbaojia(){
+		var offerid=$("[name='baojiadan']:checked").val();
+	    if (offerid!=undefined) {
+	        location.href="http://localhost:8888/voucher/baojiandan.html?offerId="+offerid+""
+	    }
+	}
     search();
     //查询（dubingkun）
     function search() {
@@ -67,7 +73,7 @@
             data:{pageNo:curnum,pageSize:6},
             dataType:"json",
             type:"get",
-			async:false,
+            async:false,
             success:function (data) {
                 var count=0;
                 var count2=0;
@@ -76,21 +82,21 @@
                     var anniu;
                     //报价中
                     if(e.value1==3){
-						anniu="\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"upOffer\" value=\""+e.offerId+"\">报价详情</button></td>\n"+
+                        anniu="\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"upOffer\" value=\""+e.offerId+"\">报价详情</button></td>\n"+
                             "\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-small layui-btn-warm listOrderBtn hidden-xs\" id=\"pass\" value=\""+e.offerId+"\">确认成团</button></td>\n"+
                             "\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-danger\" id=\"nopass\" value=\""+e.offerId+"\">失效</button></td>\n";
-					}
-					//确认成团
-					if(e.value1==1){
+                    }
+                    //确认成团
+                    if(e.value1==1){
                         anniu="\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"upOffer\" value=\""+e.offerId+"\">报价详情</button></td>\n"+
                             "\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"jinyong\" value=\""+e.offerId+"\">调度详情</button></td>\n"+
-                        	"<td></td>";
-					}
+                            "<td></td>";
+                    }
                     //失效
                     if(e.value1==2){
                         anniu="\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"upOffer2\" value=\""+e.offerId+"\">报价详情</button></td>\n"+
                             "\t\t\t\t\t\t\t\t<td><button  style='background-color: #e2e2e2'  disabled class=\"layui-btn layui-btn-primary\" id=\"nopass\" value=\""+e.offerId+"\">已经失效</button></td>\n"+
-                        "<td></td>";
+                            "<td></td>";
                     }
                     //失效
                     if(e.value1==4){
@@ -106,15 +112,15 @@
                         type:"get",
                         async:false,
                         success:function (data) {
-							travelName=data.data.travelName;
-						}
+                            travelName=data.data.travelName;
+                        }
                     })
                     count++;
                     count2++;
                     var fuqinid="node-"+count;
                     var erziclass="child-node-"+count2+" parent collapsed";
                     context2+="<tr id='"+fuqinid+"' class=\"parent collapsed\">\n" +
-                        "\t\t\t\t\t\t\t\t<td>" +
+                        "\t\t\t\t\t\t\t\t<td><input type='radio' name='baojiadan' value='"+e.offerId+"'></td>" +
                         "\t\t\t\t\t\t\t\t<td class=\"\">"+((curnum-1)*6+(i+1))+"</td>\n" +
                         "\t\t\t\t\t\t\t\t<td class=\"\">"+travelName+"</td>\n" +
                         "\t\t\t\t\t\t\t\t<td class=\"\">"+e.number+"</td>\n" +
@@ -123,9 +129,10 @@
                         "\t\t\t\t\t\t\t\t<td class=\"\">"+e.travelStartTime+"</td>\n" +
                         "\t\t\t\t\t\t\t\t<td class=\"\">"+e.travelEndTime+"</td>\n" +
                         anniu
-                        "\t\t\t\t\t\t\t</tr>";
+                    "\t\t\t\t\t\t\t</tr>";
                 })
                 $("tbody").html(context2);
+                renderCss();
                 // 分页插件
                 layui.use('table', function () {
                     var laypage = layui.laypage;
@@ -150,6 +157,19 @@
                 alert(123)
             }
         })
+        // 刷新Lay样式
+        function renderCss() {
+            layui.use(['form', 'layedit', 'laydate', 'element'], function () {
+                var form = layui.form,
+                    layer = layui.layer,
+                    layedit = layui.layedit,
+                    element = layui.element,
+                    laydate = layui.laydate,
+                    a;
+                form.render(); //更新全部
+                form.render('select'); //刷新select选择框渲染
+            });
+        }
         //$("tbody").html(fuqin);
     };
     //报价按钮（dubingkun）
@@ -177,7 +197,7 @@
             $(this).parent().next().html("<button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"jinyong\" value=\""+id+"\">调度详情</button>");
             $(this).parent().next().after("<td></td>")
             $(this).parent().remove();
-		}
+        }
     })
     //失效按钮（dubingkun）
     $(document).on("click","#nopass",function () {
@@ -200,7 +220,7 @@
             $(this).parent().after("\t\t\t\t\t\t\t\t<td><button style='background-color: #e2e2e2' disabled class=\"layui-btn layui-btn-primary\" id=\"nopass\" value=\""+id+"\">已经失效</button></td>\n");
             $(this).parent().after("\t\t\t\t\t\t\t\t<td><button class=\"layui-btn layui-btn-mini layui-btn-normal table-list-status\" id=\"upOffer2\" value=\""+id+"\">报价详情</button></td>\n");
             $(this).parent().remove();
-		}
+        }
     })
     //调度按钮（dubingkun）
     $(document).on("click","#jinyong",function () {

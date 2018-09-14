@@ -113,6 +113,8 @@
 <script type="text/javascript" src="/lodop/jquery-3.2.1.js"></script>
 <script type="text/javascript" src="/lodop/LodopFuncs.js"></script>
 <script>
+
+
     $(function () {
         dispatchShow();
         var sdate=new Date();     //new一个日对象
@@ -137,25 +139,39 @@
                 var date2="";
                 var date3="";
                 var num1="";
+                var dateTime=new Date();
                 $("#travelName").text(e.data.groupNumber);//团名
                 $("#remarks").text(e.data.remarks)//备注);
                 $("#tourist").text(e.data.tourist);//客源地
                 $("#num").text(e.data.num);//人数
                 $("#teamContactsName").text(e.data.dispatchtourgroup.teamcontactsname+"  "+e.data.dispatchtourgroup.contactnumber);//团控
                 $.each(e.data.dispatchhotel,function (i, result) {
-                    console.log(e.data.dispatchhotel)
                     date=result.date.substring(5,10);
                     var ss1=date.replace("-",".");
+
+                    date2 = new Date(date);
+                    date2 = +date2 + 1000*60*60*24;
+                    date2 = new Date(date2);
+                    var nextStartDate = date2.getFullYear()+"-"+(date2.getMonth()+1)+"-"+date2.getDate();
+                    var d= nextStartDate.substring(5,10)
+                    /*alert(d)
+
+
                     date2=result.date.substring(5,9);
                     date1=date.substring(4);
-                    date1++;
+                    date1 = parseInt(date1)+1;
                     date3=date2+date1;
                     var ss2=date3.replace("-",".");
+                    date1++;
+                    date3=date2+date1;*/
+
+                    var ss2=d.replace("-",".");
                     num1= Math.ceil(e.data.num/2);
+
                     str +="<tr>\n" +
                         "\t<td>"+ss1+"-"+ss2+"</td>\n" +
                         " <td>"+result.hotel.hotelName+"</td>\n" +
-                        "<td>"+num1+"标+"+result.companyBedNum+"司陪</td>\n" +
+                        "<td>"+result.roomNumber+"标+"+result.companyBedNum+"司陪</td>\n" +
                         "</tr>";
                 })
                 $("#t").html(str);

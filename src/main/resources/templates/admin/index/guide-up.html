@@ -34,17 +34,6 @@
                 <input type="radio"  name="status" id="nvsex" value="0" title="女">
             </div>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">状态：</label>
-            <div class="layui-input-block" id="Job-list">
-                <select id="roleId" name="roleId" lay-filter="status">
-                    <option value="0">请选择状态</option>
-                    <option value="1">请假</option>
-                    <option value="2">已占用</option>
-                    <option value="3">空闲中</option>
-                </select>
-            </div>
-        </div>
 
 
         <div class="layui-form-item">
@@ -120,10 +109,7 @@
             alert("不可修改");
             return;
         }
-        if (roleId==undefined||roleId==""||roleId==null||roleId==0){
-            alert("不准为空");
-            return;
-        }
+
         if (id != null || id != ""){
             updateGuide();
         }
@@ -143,7 +129,7 @@
                 $("#password").val(data.data.password);
                 $("#telephone").val(data.data.telephone);
                 $("#age").val(data.data.age);
-                $("#roleId").val(data.data.state);
+
                 if(data.data.sex==1){
                     $("#nansex").attr("checked",true);
                 }else{
@@ -164,10 +150,10 @@
         var telephone=$("#telephone").val();
         var age=$("#age").val();
         var sex= $("input[name='status']:checked").val();
-        var roleId=$("#roleId").val();
+
         $.ajax({
             url:"/guide/updateGuide",
-            data:{certificate:certificate,guideName:guideName,telephone:telephone,age:age,sex:sex,state:roleId,guideId:id},
+            data:{certificate:certificate,guideName:guideName,telephone:telephone,age:age,sex:sex,guideId:id},
             dataType: "json",
             type: "get",
             success:function (data) {

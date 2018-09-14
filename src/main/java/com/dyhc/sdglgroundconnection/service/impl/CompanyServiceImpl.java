@@ -33,6 +33,12 @@ public class CompanyServiceImpl implements CompanyService {
         return pageInfo;
     }
 
+    @Override
+    public Company getcompany() {
+        return companyMapper.getcompany();
+    }
+
+
     /**
      * 公司增加（yunguohao）
      * @param company

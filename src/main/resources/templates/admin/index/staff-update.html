@@ -16,7 +16,7 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">姓名：</label>
 						<div class="layui-input-block">
-							<input type="text" name="staffname" required lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+							<input type="text" name="staffname" required lay-verify="required" placeholder="请输入姓名" autocomplete="off"  class="layui-input" lay-ignore >
 						</div>
 					</div>
 			<!--		<div class="layui-form-item">
@@ -35,7 +35,7 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">职务：</label>
 						<div class="layui-input-block" id="Job-list">
-							<select id="roleId" name="roleId" lay-filter="status">
+							<select id="roleId" name="roleId" class="layui-select" lay-filter="status" style="width: 610px" lay-ignore>
 									<option value="0">请选择职务</option>
 									<option value="1">经理</option>
 									<option value="2">总控</option>
@@ -99,7 +99,7 @@
                     success: function (ReponseResult) {
                         var content = "<option  value='0' selected='selected'>请选择职务</option>";
                         $(ReponseResult.data).each(function (i, e) {
-                            content += "<option value='" + e.roleId + "'>" + e.rolename + "</option>";
+                            content += "<option  value='" + e.roleId + "'>" + e.rolename + "</option>";
                         })
                         $('#Job-list select').html(content);
                     },

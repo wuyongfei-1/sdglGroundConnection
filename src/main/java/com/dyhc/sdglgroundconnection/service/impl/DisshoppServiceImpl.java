@@ -43,7 +43,7 @@ public class DisshoppServiceImpl implements DisshoppService {
     public List<Disshopp> getDisshopp(Integer dispatchId) throws Exception {
         DisshoppExample disshoppExample=new DisshoppExample();
         DisshoppExample.Criteria criteria=disshoppExample.createCriteria();
-        criteria.andCreatebyEqualTo(dispatchId);
+        criteria.andOfferidEqualTo(dispatchId);
         List<Disshopp> disshoppList=disshoppMapper.selectByExample(disshoppExample);
         for(Disshopp disshopp:disshoppList){
            disshopp.setShopping(shoppingService.getShoppingById(disshopp.getShoppingId()));

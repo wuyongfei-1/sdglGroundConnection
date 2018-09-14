@@ -19,12 +19,14 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
  * 调度业务实现
@@ -76,6 +78,8 @@ public class DispatchServiceImpl implements DispatchService {
     @Autowired
     private DisrestaurantService disrestaurantService; // 调度餐馆业务
 
+
+
     @Autowired
     private DispatchhotelService dispatchhotelService; // 调度酒店业务
 
@@ -93,6 +97,8 @@ public class DispatchServiceImpl implements DispatchService {
 
     @Autowired
     private DisattrService disattrService; // 调度景点业务
+    @Autowired
+    private MealTypeService mealTypeService; // 饮食类型表业务
 
     @Autowired
     private CompanyService companyService;
@@ -100,35 +106,63 @@ public class DispatchServiceImpl implements DispatchService {
     @Autowired
     private StaffService staffService;
 
+    @Autowired
+    private DisotherMapper disotherMapper;
+
+    @Autowired
+    private DispatchtourgroupMapper dispatchtourgroupMapper;
+
     /**
-     * 根据调度id获取调度信息(lixiaojie)
-     * @param dispatchId
-     * @return
+     * 分页获取所有的调度信息（wuyongfei）
+     *
+     * @param pageNo   当前页码
+     * @param pageSize 总记录数
+     * @return 分页对象
+     * @throws Exception 全局异常
      */
     @Override
-    public Dispatch getDispatchByDispatchId(Integer dispatchId)throws Exception {
-        return dispatchMapper.selectByPrimaryKey(dispatchId);
+    public PageInfo<Dispatch> listDispatchesInfo(Integer pageNo, Integer pageSize) throws Exception {
+        // 分页
+        PageHelper.startPage(pageNo != null && pageNo > 0 ? pageNo : 1
+                , pageSize != null && pageSize > 0 ? pageSize : 6);
+        // 查询全部信息
+        List<Dispatch> dispatches = dispatchMapper.selectAll();
+        PageInfo<Dispatch> pageInfo = new PageInfo<>(dispatches);
+        return pageInfo;
     }
 
     /**
-     * 根据调度id查询所有的景点信息(lixiaojie)
+     * 根据调度id获取调度信息(lixiaojie)
+     *
      * @param dispatchId
      * @return
      */
     @Override
-    public List<WechatTicketbudgetParam> selectDispatchByScenicspotInfo(Integer dispatchId) throws Exception{
-        DisattrExample disattrExample=new DisattrExample();
-        DisattrExample.Criteria disattrExampleCriteria=disattrExample.createCriteria();
+    public Dispatch getDispatchByDispatchId(Integer dispatchId) throws Exception {
+        return dispatchMapper.selectByPrimaryKey(dispatchId);
+    }
+
+
+    /**
+     * 根据调度id查询所有的景点信息(lixiaojie)
+     *
+     * @param dispatchId
+     * @return
+     */
+    @Override
+    public List<WechatTicketbudgetParam> selectDispatchByScenicspotInfo(Integer dispatchId) throws Exception {
+        DisattrExample disattrExample = new DisattrExample();
+        DisattrExample.Criteria disattrExampleCriteria = disattrExample.createCriteria();
         disattrExample.setOrderByClause("weight");
-        List<Disattr> disattrs= disattrMapper.selectByExample(disattrExample);
+        List<Disattr> disattrs = disattrMapper.selectByExample(disattrExample);
         disattrExampleCriteria.andOfferidEqualTo(dispatchId);
-        Dispatch dispatch=dispatchMapper.selectByPrimaryKey(dispatchId);
-        List<WechatTicketbudgetParam> wechatTicketbudgetParams=new ArrayList<>();
-        for (Disattr disattr:disattrs) {
-            WechatTicketbudgetParam wechatTicketbudgetParam=new WechatTicketbudgetParam();
+        Dispatch dispatch = dispatchMapper.selectByPrimaryKey(dispatchId);
+        List<WechatTicketbudgetParam> wechatTicketbudgetParams = new ArrayList<>();
+        for (Disattr disattr : disattrs) {
+            WechatTicketbudgetParam wechatTicketbudgetParam = new WechatTicketbudgetParam();
             wechatTicketbudgetParam.setDispatch(dispatch);
             wechatTicketbudgetParam.setDisattr(disattr);
-            Scenicspot scenicspot=scenicspotMapper.selectByPrimaryKey(disattr.getScenicSpotId());
+            Scenicspot scenicspot = scenicspotMapper.selectByPrimaryKey(disattr.getScenicSpotId());
             wechatTicketbudgetParam.setScenicspot(scenicspot);
             wechatTicketbudgetParams.add(wechatTicketbudgetParam);
         }
@@ -143,9 +177,9 @@ public class DispatchServiceImpl implements DispatchService {
      * @return
      */
     @Override
-    public WechatEatAndHotelParam selectDispatchInfoByWeightDispatchId(Integer dispatchId, Integer weight)throws Exception {
+    public WechatEatAndHotelParam selectDispatchInfoByWeightDispatchId(Integer dispatchId, Integer weight) throws Exception {
         WechatEatAndHotelParam wechatEatAndHotelParam = new WechatEatAndHotelParam();
-        Dispatch dispatch=dispatchMapper.selectByPrimaryKey(dispatchId);
+        Dispatch dispatch = dispatchMapper.selectByPrimaryKey(dispatchId);
         DisrestaurantExample noonDisrestaurantExample = new DisrestaurantExample();
         DisrestaurantExample.Criteria noonDisrestaurantExampleCriteria = noonDisrestaurantExample.createCriteria();
         noonDisrestaurantExampleCriteria.andOfferidEqualTo(dispatchId);
@@ -160,18 +194,18 @@ public class DispatchServiceImpl implements DispatchService {
         nightDisrestaurantExampleCriteria.andWeightEqualTo(weight);
         nightDisrestaurantExampleCriteria.andDindateEqualTo(3);
         List<Disrestaurant> nightDisrestaurant = disrestaurantMapper.selectByExample(nightDisrestaurantExample);
-        DispatchhotelExample dispatchhotelExample=new DispatchhotelExample();
-        DispatchhotelExample.Criteria dispatchhotelExampleCriteria=dispatchhotelExample.createCriteria();
+        DispatchhotelExample dispatchhotelExample = new DispatchhotelExample();
+        DispatchhotelExample.Criteria dispatchhotelExampleCriteria = dispatchhotelExample.createCriteria();
         dispatchhotelExampleCriteria.andOfferidEqualTo(dispatchId);
         dispatchhotelExampleCriteria.andWeightEqualTo(weight);
-        List<Dispatchhotel> dispatchhotels=dispatchhotelMapper.selectByExample(dispatchhotelExample);
-         Dispatchhotel dispatchhotel=dispatchhotels.get(0);  //调度酒店对象
-         Disrestaurant noonDisrestaurantinfo=noonDisrestaurant.get(0);  //中午调度调度餐厅对象
-         Disrestaurant nightDisrestaurantinfo=nightDisrestaurant.get(0);
+        List<Dispatchhotel> dispatchhotels = dispatchhotelMapper.selectByExample(dispatchhotelExample);
+        Dispatchhotel dispatchhotel = dispatchhotels.get(0);  //调度酒店对象
+        Disrestaurant noonDisrestaurantinfo = noonDisrestaurant.get(0);  //中午调度调度餐厅对象
+        Disrestaurant nightDisrestaurantinfo = nightDisrestaurant.get(0);
         dispatchhotel.setHotel(hotelMapper.selectByPrimaryKey(dispatchhotel.getHotelId()));
-        MealType zhongmealType=mealTypeMapper.selectByPrimaryKey(noonDisrestaurantinfo.getTypeId());
+        MealType zhongmealType = mealTypeMapper.selectByPrimaryKey(noonDisrestaurantinfo.getTypeId());
         noonDisrestaurantinfo.setRestaurant(restaurantMapper.selectByPrimaryKey(zhongmealType.getRestaurantId()));
-        MealType wanmealType=mealTypeMapper.selectByPrimaryKey(nightDisrestaurantinfo.getTypeId());
+        MealType wanmealType = mealTypeMapper.selectByPrimaryKey(nightDisrestaurantinfo.getTypeId());
         nightDisrestaurantinfo.setRestaurant(restaurantMapper.selectByPrimaryKey(wanmealType.getRestaurantId()));
         wechatEatAndHotelParam.setDispatchhotel(dispatchhotel);
         wechatEatAndHotelParam.setNoonDisrestaurant(noonDisrestaurantinfo);
@@ -218,7 +252,7 @@ public class DispatchServiceImpl implements DispatchService {
      * @return 微信基本信息参数类
      */
     @Override
-    public WechatInformationParam selectDispatchInfoByGuideId(Integer guideId)throws Exception {
+    public WechatInformationParam selectDispatchInfoByGuideId(Integer guideId) throws Exception {
         //创建微信基本信息参数对象
         WechatInformationParam wechatInformationParam = null;
         DisguideExample disguideExample = new DisguideExample();
@@ -263,7 +297,7 @@ public class DispatchServiceImpl implements DispatchService {
      * @return
      */
     @Override
-    public List<TravelPathParam>  getTravelPathParam(Integer dispathId) throws Exception {
+    public List<TravelPathParam> getTravelPathParam(Integer dispathId) throws Exception {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Dispatch dispatch = dispatchMapper.selectByPrimaryKey(dispathId);//根据调度id获取调度对象
@@ -276,39 +310,39 @@ public class DispatchServiceImpl implements DispatchService {
         Long Number = (endTime.getTime() - beginTime.getTime()) / (24 * 60 * 60 * 1000) + 1;//计算旅游天数
 
 
-        DisattrExample disattrExample=new DisattrExample();
-        DisattrExample.Criteria disattrExampleCriteria=disattrExample.createCriteria();//景点
+        DisattrExample disattrExample = new DisattrExample();
+        DisattrExample.Criteria disattrExampleCriteria = disattrExample.createCriteria();//景点
         disattrExampleCriteria.andOfferidEqualTo(dispathId);
         disattrExample.setOrderByClause("weight");
-        List<Disattr> disattrs=disattrMapper.selectByExample(disattrExample);
+        List<Disattr> disattrs = disattrMapper.selectByExample(disattrExample);
 
-        DislineExample dislineExample=new DislineExample();
-        DislineExample.Criteria dislineExampleCriteria=dislineExample.createCriteria();//线路
+        DislineExample dislineExample = new DislineExample();
+        DislineExample.Criteria dislineExampleCriteria = dislineExample.createCriteria();//线路
         dislineExampleCriteria.andOfferidEqualTo(dispathId);
         dislineExample.setOrderByClause("weight");
-        List<Disline> dislines=dislineMapper.selectByExample(dislineExample);
+        List<Disline> dislines = dislineMapper.selectByExample(dislineExample);
 
-        DisrestaurantExample disrestaurantExample =new DisrestaurantExample();
-        DisrestaurantExample.Criteria disrestaurantExampleCriteria=disrestaurantExample.createCriteria();//餐馆
+        DisrestaurantExample disrestaurantExample = new DisrestaurantExample();
+        DisrestaurantExample.Criteria disrestaurantExampleCriteria = disrestaurantExample.createCriteria();//餐馆
         disrestaurantExampleCriteria.andOfferidEqualTo(dispathId);
         disrestaurantExampleCriteria.andDindateEqualTo(2);
         disrestaurantExample.setOrderByClause("weight");
-        List<Disrestaurant> disrestaurants=disrestaurantMapper.selectByExample(disrestaurantExample);
+        List<Disrestaurant> disrestaurants = disrestaurantMapper.selectByExample(disrestaurantExample);
 
-        DispatchhotelExample dispatchhotelExample =new DispatchhotelExample();
-        DispatchhotelExample.Criteria dispatchhotelExampleCriteria=dispatchhotelExample.createCriteria();//酒店
+        DispatchhotelExample dispatchhotelExample = new DispatchhotelExample();
+        DispatchhotelExample.Criteria dispatchhotelExampleCriteria = dispatchhotelExample.createCriteria();//酒店
         dispatchhotelExampleCriteria.andOfferidEqualTo(dispathId);
         dispatchhotelExample.setOrderByClause("weight");
-        List<Dispatchhotel> dispatchhotels=dispatchhotelMapper.selectByExample(dispatchhotelExample);
+        List<Dispatchhotel> dispatchhotels = dispatchhotelMapper.selectByExample(dispatchhotelExample);
 
-        DisshoppExample disshoppExample =new DisshoppExample();
-        DisshoppExample.Criteria disshoppExampleCriteria=disshoppExample.createCriteria();
+        DisshoppExample disshoppExample = new DisshoppExample();
+        DisshoppExample.Criteria disshoppExampleCriteria = disshoppExample.createCriteria();
         disshoppExampleCriteria.andOfferidEqualTo(dispathId);
         disshoppExample.setOrderByClause("weight");
-        List<Disshopp> disshopps =disshoppMapper.selectByExample(disshoppExample);
+        List<Disshopp> disshopps = disshoppMapper.selectByExample(disshoppExample);
         List<TravelPathParam> travelPathParams = new ArrayList<>();
-        for (int i = 0; i < Number; i++) {
-            TravelPathParam travelPathParam=new TravelPathParam();
+        for (int i = 0; i < dislines.size(); i++) {
+            TravelPathParam travelPathParam = new TravelPathParam();
             Calendar c = Calendar.getInstance();
             c.setTime(beginTime);
             c.add(Calendar.DAY_OF_MONTH, i);  //然后做出旅游天数每天的时间对象 填入 参数类对象
@@ -318,12 +352,13 @@ public class DispatchServiceImpl implements DispatchService {
             travelPathParam.setSzaddress(scenicspotMapper.selectByPrimaryKey(disattrs.get(i).getScenicSpotId()).getScenicSpotAddress());
             travelPathParam.setXctext(dislines.get(i).getLineContent());
             travelPathParam.setShoppaddress(shoppingMapper.selectByPrimaryKey(disshopps.get(i).getShoppingId()).getShoppingSite());
-            travelPathParam.setEataddress(restaurantMapper.selectByPrimaryKey(disrestaurants.get(i).getTypeId()).getRestaurantAddress());
+            travelPathParam.setEataddress(restaurantMapper.selectByPrimaryKey(mealTypeMapper.selectByPrimaryKey(disrestaurants.get(i).getTypeId())).getRestaurantAddress());
             travelPathParam.setZhuaddress(hotelMapper.selectByPrimaryKey(dispatchhotels.get(i).getHotelId()).getHotelAddress());
             travelPathParams.add(travelPathParam);
         }
-       return  travelPathParams;
+        return travelPathParams;
     }
+
     /**
      * 获取计划表的信息根据调度编号（yunguohao）
      *
@@ -344,37 +379,38 @@ public class DispatchServiceImpl implements DispatchService {
 
     /**
      * 微信根据导游id查询行程的信息（yunguohao）
+     *
      * @param guideId 导游id
      * @return
      * @throws Exception
      */
     @Override
     public GuideRouteParam getGuideRouteParam(Integer guideId) throws Exception {
-        GuideRouteParam guideRouteParam=null;
-        DisguideExample disguideExample =new DisguideExample();
-        DisguideExample.Criteria disguideExampleCriteria=disguideExample.createCriteria();
+        GuideRouteParam guideRouteParam = null;
+        DisguideExample disguideExample = new DisguideExample();
+        DisguideExample.Criteria disguideExampleCriteria = disguideExample.createCriteria();
         disguideExampleCriteria.andGuideidEqualTo(guideId);
-        List<Disguide> disguideList =disguideMapper.selectByExample(disguideExample);  //查询调度导游表是否有该导游的带团信息， 没有的话  返回null
-        if (disguideList.size()==0){
+        List<Disguide> disguideList = disguideMapper.selectByExample(disguideExample);  //查询调度导游表是否有该导游的带团信息， 没有的话  返回null
+        if (disguideList.size() == 0) {
             return guideRouteParam;
         }
         //有的话，查询调度表  有没有 调度表里的调度  id   并且 状态为 2 的 信息
-        Dispatch dispatch=null;
-        for (Disguide disguide: disguideList) {
-            DispatchExample dispatchExample =new DispatchExample();
-            DispatchExample.Criteria dispatchExampleCriteria=dispatchExample.createCriteria();
+        Dispatch dispatch = null;
+        for (Disguide disguide : disguideList) {
+            DispatchExample dispatchExample = new DispatchExample();
+            DispatchExample.Criteria dispatchExampleCriteria = dispatchExample.createCriteria();
             dispatchExampleCriteria.andDispatchidEqualTo(disguide.getOfferId());
             dispatchExampleCriteria.andStateEqualTo(2);
-            List<Dispatch> dispatchList=dispatchMapper.selectByExample(dispatchExample);
-            if (dispatchList.size()>0){
-                dispatch=dispatchList.get(0);
+            List<Dispatch> dispatchList = dispatchMapper.selectByExample(dispatchExample);
+            if (dispatchList.size() > 0) {
+                dispatch = dispatchList.get(0);
             }
         }
         //要是没查到信息  返回null  不执行后续操作
-        if (dispatch==null){
+        if (dispatch == null) {
             return guideRouteParam;
         }
-        guideRouteParam=new GuideRouteParam();
+        guideRouteParam = new GuideRouteParam();
         guideRouteParam.setClusterTime(dispatchtourgroupServer.getDispatchtourgroupByOffId(dispatch.getDispatchId()).getClustertime());
         guideRouteParam.setClusterAddress(dispatchtourgroupServer.getDispatchtourgroupByOffId(dispatch.getDispatchId()).getClusteraddress());
         guideRouteParam.setFlightId(dispatchtourgroupServer.getDispatchtourgroupByOffId(dispatch.getDispatchId()).getFlightid());
@@ -386,7 +422,6 @@ public class DispatchServiceImpl implements DispatchService {
         guideRouteParam.setDispatchvalue2(dispatch.getValue2());
         return guideRouteParam;
     }
-
 
 
     /**
@@ -420,8 +455,8 @@ public class DispatchServiceImpl implements DispatchService {
      */
     @Override
     public Dispatch getDispatchInfoByDispatchInfoId(Integer dispatchId) throws Exception {
-        Dispatch dispatch=null;
-        if(ConditionValidation.validation(dispatchId)==true){
+        Dispatch dispatch = null;
+        if (ConditionValidation.validation(dispatchId) == true) {
             dispatch = dispatchMapper.selectByPrimaryKey(dispatchId);
             dispatch.setDispatchhotel(dispatchhotelService.getDispatchhotelInfoByDispatchId(dispatchId));
             dispatch.setDisguide(disguideService.getDisguideByDispatchId(dispatchId));
@@ -430,11 +465,15 @@ public class DispatchServiceImpl implements DispatchService {
             dispatch.setDisattrList(disattrService.listDisattrByOffId(dispatchId));
             dispatch.setCompany(companyService.selectCompanyByIds(1));
             dispatch.setStaff(staffService.getStaffInfoByStaffId(dispatch.getCreater()));
+            dispatch.setDislineList(dislineService.dislineList(dispatchId));
+            dispatch.setDisshoppList(disshoppService.getDisshopp(dispatchId));
+            dispatch.setDisother(disotherService.listDisshippingByDisId(dispatchId));
             dispatch.setDisrestaurantList(disrestaurantService.listDisrestaurantByOffId(dispatchId));
         }
 
         return dispatch;
     }
+
 
     /**
      * 保存一条调度信息（wuyongfei）
@@ -447,8 +486,58 @@ public class DispatchServiceImpl implements DispatchService {
     @Override
     @Transactional
     @RecordOperation(type = "调度信息", desc = "添加了一条调度信息")
-    public Integer saveDispatchInfo(DispatchParam disParam) throws DispatchException {
+    public Integer saveDispatchInfo(DispatchParam disParam, Integer dispatchIdStatus) throws DispatchException {
         try {
+            // 判断如果该调度信息已存在，先删除
+            if (dispatchIdStatus > 0) {
+                // 删除调度信息
+                dispatchMapper.deleteByPrimaryKey(dispatchIdStatus);
+                // 删除调度景点
+                DisattrExample disattrExample = new DisattrExample();
+                DisattrExample.Criteria criteria = disattrExample.createCriteria();
+                criteria.andOfferidEqualTo(dispatchIdStatus);
+                disattrMapper.deleteByExample(disattrExample);
+                // 删除调度用车
+                DiscarExample discarExample = new DiscarExample();
+                DiscarExample.Criteria criteria1 = discarExample.createCriteria();
+                criteria1.andOfferidEqualTo(dispatchIdStatus);
+                discarMapper.deleteByExample(discarExample);
+                // 删除调度导游
+                DisguideExample disguideExample = new DisguideExample();
+                DisguideExample.Criteria criteria2 = disguideExample.createCriteria();
+                criteria2.andOfferidEqualTo(dispatchIdStatus);
+                disguideMapper.deleteByExample(disguideExample);
+                // 删除调度线路
+                DislineExample dislineExample = new DislineExample();
+                DislineExample.Criteria criteria3 = dislineExample.createCriteria();
+                criteria3.andOfferidEqualTo(dispatchIdStatus);
+                dislineMapper.deleteByExample(dislineExample);
+                // 删除调度其他信息
+                DisotherExample disotherExample = new DisotherExample();
+                DisotherExample.Criteria criteria4 = disotherExample.createCriteria();
+                criteria4.andOfferidEqualTo(dispatchIdStatus);
+                disotherMapper.deleteByExample(disotherExample);
+                // 删除调度酒店信息
+                DispatchhotelExample dispatchhotelExample = new DispatchhotelExample();
+                DispatchhotelExample.Criteria criteria5 = dispatchhotelExample.createCriteria();
+                criteria5.andOfferidEqualTo(dispatchIdStatus);
+                dispatchhotelMapper.deleteByExample(dispatchhotelExample);
+                // 删除调度旅行团信息
+                DispatchtourgroupExample dispatchtourgroupExample = new DispatchtourgroupExample();
+                DispatchtourgroupExample.Criteria criteria6 = dispatchtourgroupExample.createCriteria();
+                criteria6.andOfferidEqualTo(dispatchIdStatus);
+                dispatchtourgroupMapper.deleteByExample(dispatchtourgroupExample);
+                // 删除调度餐馆信息
+                DisrestaurantExample disrestaurantExample = new DisrestaurantExample();
+                DisrestaurantExample.Criteria criteria7 = disrestaurantExample.createCriteria();
+                criteria7.andOfferidEqualTo(dispatchIdStatus);
+                disrestaurantMapper.deleteByExample(disrestaurantExample);
+                // 删除调度购物信息
+                DisshoppExample disshoppExample = new DisshoppExample();
+                DisshoppExample.Criteria criteria8 = disshoppExample.createCriteria();
+                criteria8.andOfferidEqualTo(dispatchIdStatus);
+                disshoppMapper.deleteByExample(disshoppExample);
+            }
             // 添加调度基础信息
             Integer dispatchId = dispatchMapper.saveDispatchInfo(disParam.getDispatch());
             // 返回的基础数据编号
@@ -607,7 +696,7 @@ public class DispatchServiceImpl implements DispatchService {
      * @return
      */
     @Override
-    public Integer noCheckDispatchInfo(Integer dispatchId)throws Exception {
+    public Integer noCheckDispatchInfo(Integer dispatchId) throws Exception {
         Dispatch dispatch = dispatchMapper.selectByPrimaryKey(dispatchId);
         dispatch.setStatus(3);
         Integer result = dispatchMapper.updateByPrimaryKey(dispatch);
@@ -621,7 +710,7 @@ public class DispatchServiceImpl implements DispatchService {
      * @return
      */
     @Override
-    public Integer selectDisGuideInfoByguideId(Integer guideId) throws Exception{
+    public Integer selectDisGuideInfoByguideId(Integer guideId) throws Exception {
         DisguideExample disguideExample = new DisguideExample();
         DisguideExample.Criteria disguideExampleCriteria = disguideExample.createCriteria();
         disguideExampleCriteria.andGuideidEqualTo(guideId);

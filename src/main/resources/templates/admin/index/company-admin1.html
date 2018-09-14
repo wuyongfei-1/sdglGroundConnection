@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>网站后台管理模版</title>
+    <link rel="stylesheet" type="text/css" href="/admin/layui/css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="/admin/css/admin.css"/>
+    <style type="text/css">
+        #userInfo div div input {
+            width: 500px;
+        }
+        #userInfo div {
+            margin-left: 60px;
+            width: 500px;
+            height: 80px;
+            float: left;
+        }
+
+        #userInfo div input {
+
+            border: 0px;
+            width: 200px;
+
+        }
+    </style>
+</head>
+<body>
+<div class="layui-tab page-content-wrap">
+    <div class="layui-tab-content">
+        <div class="layui-tab-item layui-show">
+            <form class="layui-form" id="userInfo" style="width: 90%;padding-top: 20px;">
+
+
+
+                <input type="hidden" name="staffId" id="hiddenStaffId" th:value="${staffId}">
+                <!--<div>
+                    <label class="layui-form-label" >人员编号：</label><input type="text"  name="theUserName"  disabled autocomplete="off" class="layui-input " value="admin">
+                </div>-->
+                <div>
+                    <label class="layui-form-label">公司名称：</label><input type="text" name="companyName" disabled
+                                                                      autocomplete="off"
+                                                                      class="layui-input" value="admin">
+                </div>
+                <div>
+                    <label class="layui-form-label" style="float: left">地址：</label><input type="text" name="companyAddress" disabled
+                                                                                          autocomplete="off"
+                                                                                          class="layui-input " >
+                </div>
+
+                <div>
+                    <label class="layui-form-label">电话：</label><input type="text" name="companyPhone" disabled
+                                                                       autocomplete="off"
+                                                                       class="layui-input " value="admin">
+                </div>
+                <div>
+                    <label class="layui-form-label">传真：</label><input type="text" name="fax" disabled
+                                                                      autocomplete="off"
+                                                                      class="layui-input " value="admin">
+                </div>
+
+                <div>
+                    <label class="layui-form-label">邮编：</label><input type="text" name="zipCode" disabled
+                                                                        autocomplete="off"
+                                                                        class="layui-input "
+                                                                        value="admin">
+                </div>
+
+
+                <div>
+                    <label class="layui-form-label" style="width: 90px">经营许可证：</label><input type="text" name="businessLicense" disabled
+                                                                        autocomplete="off"
+                                                                        class="layui-input "
+                                                                        value="admin">
+                </div>
+                <div class="xg"></div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/js/getUrlParam.js"></script>
+<script src="/js/jquery-1.8.3.min.js"></script>
+<script>
+
+    $(function () {
+        loadData()
+    })
+
+    //分页查询
+    function loadData() {
+        var str = "";
+        $.ajax({
+            url: "/company/getCompany",
+            data:{},
+            dataType: "json",
+            type: "get",
+            success: function (e) {
+                console.log(e.data.companyName);
+                $("input[name=companyId]").val(e.data.companyId);
+                $("input[name=companyName]").val(e.data.companyName);
+                $("input[name=companyAddress]").val(e.data.companyAddress);
+                $("input[name=companyPhone]").val(e.data.companyPhone);
+                $("input[name=fax]").val(e.data.fax);
+                $("input[name=zipCode]").val(e.data.zipCode);
+                $("input[name=businessLicense]").val(e.data.businessLicense);
+                // var update= "<button onclick='updatInfo(" + e.data.companyId + ")' id='updatInfo'  class=\"layui-btn layui-btn-mini layui-btn-normal  edit-btn\"><i class='layui-icon'>&#xe642</i></button>"
+                // $("xg").html(update)
+                var update= "<a class='xg' href='javascript:void(0)' onclick='updatInfo(" + e.data.companyId + ")'>编辑资料</a>"
+                $(".xg").html(update)
+            },
+            error: function (res) {
+                alert(res);
+            }
+        })
+    }
+
+    //修改弹窗事件
+    function updatInfo(companyid) {
+        layer.open({
+            type: 2,
+            title: '公司修改',
+            maxmin: true,
+            shadeClose: true, //点击遮罩关闭层
+            area: ['800px', '520px'],
+            content: 'menu-add.html?companyid=' + companyid
+        });
+    }
+
+</script>
+</body>
+</html>

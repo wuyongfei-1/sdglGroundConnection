@@ -9,7 +9,7 @@ import java.util.Date;
  * 微信行程参数类
  */
 public class GuideRouteParam {
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
     private Date clusterTime; // 接团时间
 
     public Date getClusterTime() {

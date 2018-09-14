@@ -26,10 +26,10 @@
                 </tr>
                 <tr>
                     <td><label class="layui-form-label">开始时间</label></td>
-                    <td><input type="text" name="travelStartTime" id="date" lay-verify="date" placeholder="yyyy-MM-dd"
+                    <td><input type="text" name="travelStartTime" id="beginDate" lay-verify="date" placeholder="yyyy-MM-dd"
                                autocomplete="off" class="layui-input"></td>
                     <td><label class="layui-form-label">结束时间</label></td>
-                    <td><input type="text" name="travelEndTime" id="date1" lay-verify="date" placeholder="yyyy-MM-dd"
+                    <td><input type="text" name="travelEndTime" id="endDate" lay-verify="date" placeholder="yyyy-MM-dd"
                                autocomplete="off" class="layui-input"></td>
                 </tr>
             </table>
@@ -219,6 +219,12 @@
                 </tr>
                 <tr>
                     <td></td>
+                    <td>
+                        <input class='layui-btn layui-btn-normal layui-btn-radius'
+                               style="margin-bottom: 50px;margin-top: 50px;width: 110px" value="预览确认书" id="yulan">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input class='layui-btn layui-btn-normal layui-btn-radius'
+                               style="margin-bottom: 50px;margin-top: 50px;width: 110px" value="预览报价单" id="printBaojia">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
                     <td>
                         <input value="保存修改" style="margin-bottom: 50px;margin-top: 50px" type="button" class='layui-btn layui-btn-normal layui-btn-radius'
                                id="baocun">
@@ -420,8 +426,8 @@
                     }
                 }
                 //报价信息
-                $("#date").val(data.data["-1"][0].travelStartTime);//开团日期
-                $("#date1").val(data.data["-1"][0].travelEndTime);//结束日期
+                $("#beginDate").val(data.data["-1"][0].travelStartTime);//开团日期
+                $("#endDate").val(data.data["-1"][0].travelEndTime);//结束日期
                 $("#number").val(data.data["-1"][0].number);//人数
                 $("[name='shopping']").val(data.data["-1"][0].shopping);//购物
                 $("[name='notExclude']").val(data.data["-1"][0].notExclude);//不含
@@ -888,8 +894,8 @@
     //报价表信息
     function offerTable() {
         offerJson = {};
-        var travelStartTime = $("#date").val();//开团日期
-        var travelEndTime = $("#date1").val();//结束日期
+        var travelStartTime = $("#beginDate").val();//开团日期
+        var travelEndTime = $("#endDate").val();//结束日期
         var number = $("#number").val();//人数
         var travelId = $("#zutuanshe").val();//组团社
         var offer = $("#offerTotal").val();//报价
@@ -1088,6 +1094,7 @@
     $("#baocun").click(function () {
         deleteOffer();
         insertOffer();
+        flag=true;
     })
 
 
@@ -1134,10 +1141,10 @@
                 laydate = layui.laydate;
             //日期
             laydate.render({
-                elem: '#date'
+                elem: '#beginDate'
             });
             laydate.render({
-                elem: '#date1'
+                elem: '#endDate'
             });
             laydate.render({
                 elem: '#date2'
@@ -1217,6 +1224,87 @@
             $(e).attr("disabled","disabled");
         })
     }
+
+    var flag=false;
+    $("#printBaojia").click(function () {
+        if(flag){
+            $.ajax({
+                url: "/offer/getLastOfferId",
+                data: "",
+                dataType: "json",
+                type: "get",
+                success: function (result) {
+                    window.open("http://localhost:8888/voucher/baojiandan.html?offerId="+result.data+"");
+                },
+                error: function (res) {
+                    alert(res);
+                }
+            })
+        }else{
+            alert("请确认修改后进行查看！")
+        }
+    })
+    //报价预览按钮单击事件
+    $("#yulan").click(function () {
+        if(flag){
+            offerTable();
+            var xingcheng = [];
+            $("[xl='xianlu']").each(function (i, e) {
+                var lineArriveName
+                var parent = $(this).parent().parent().parent();
+                if ($(this).attr("name") == "texts") {
+                    lineArriveName = $(this).val();
+                } else {
+                    lineArriveName = $(this).find("option:selected").text()
+                }
+                var day = parent.find("[name='date']").val();//天数
+                day = day.substring(day.indexOf("-") + 1);
+                var dl = lineArriveName;//线路
+                var xc = parent.find("[name='desc']").val();//行程
+                var cs = "";//餐食
+                if (i != 0) {
+                    cs += "B酒店自助 ";
+                }
+                var wu = parent.find("[wc='wucan']").find("option:selected").text();//午餐
+                var wub = parent.find("[wc='wucan']").find("option:selected").attr("offer");//午餐报价
+                if (parent.find("[wc='wucan']").val() != "-1") {
+                    cs += "<br/>L" + wu + " " + wub + " ";
+                }
+                var wac = parent.find("[wac='wancan']").find("option:selected").text();//晚餐
+                var wacb = parent.find("[wac='wancan']").find("option:selected").attr("offer");//晚餐报价
+                if (parent.find("[wac='wancan']").val() != "-1") {
+                    cs += "<br/>D" + wac + " " + wacb;
+                }
+                var zs = parent.find("[hotel='jiudian']").find("option:selected").text();//住宿
+                var zsdh = parent.find("[hotel='jiudian']").val();//住宿电话
+                var json = {
+                    "day": day,
+                    "dl": dl,
+                    "xc": xc,
+                    "cs": cs,
+                    "zs": zs,
+                    "zsdh": zsdh
+                }
+                xingcheng.push(json);
+            })
+            var previewJson = {"offer": offerJson, "list": xingcheng};//预览报价json
+            $.ajax({
+                url: "/offer/previewOffer",
+                data: JSON.stringify(previewJson),
+                dataType: "json",
+                type: "post",
+                contentType: "application/json",
+                async: false,
+                success: function (data) {
+                }, error: function () {
+                    alert("程序异常")
+                }
+            })
+            window.open("http://localhost:8888/voucher/Confirmation.html");
+        }else{
+            alert("请确认修改后进行查看！")
+        }
+    })
 </script>
 </body>
 

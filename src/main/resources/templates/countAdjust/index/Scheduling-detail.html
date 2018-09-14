@@ -26,11 +26,11 @@
                 </tr>
                 <tr>
                     <td><label class="layui-form-label">开始时间</label></td>
-                    <td><input type="text" name="travelStartTime" id="date" lay-verify="date" placeholder="yyyy-MM-dd"
-                               autocomplete="off" class="layui-input"></td>
+                    <td><input type="text" name="travelStartTime"  lay_type="dateTime" placeholder="yyyy-MM-dd"
+                               autocomplete="off" class="layui-input" id="beginDate" ></td>
                     <td><label class="layui-form-label">结束时间</label></td>
-                    <td><input type="text" name="travelEndTime" id="date1" lay-verify="date" placeholder="yyyy-MM-dd"
-                               autocomplete="off" class="layui-input"></td>
+                    <td><input type="text" name="travelEndTime"   lay_type="dateTime" placeholder="yyyy-MM-dd"
+                               autocomplete="off" class="layui-input" id="endDate"></td>
                 </tr>
             </table>
             <table border="0" cellspacing="0" cellpadding="0">
@@ -223,7 +223,9 @@
                     <td></td>
                     <td>
                         <input class='layui-btn layui-btn-normal layui-btn-radius'
-                               style="margin-bottom: 50px;margin-top: 50px;width: 110px" value="预览报价单" id="yulan">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                               style="margin-bottom: 50px;margin-top: 50px;width: 110px" value="预览确认书" id="yulan">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input class='layui-btn layui-btn-normal layui-btn-radius'
+                               style="margin-bottom: 50px;margin-top: 50px;width: 110px" value="预览报价单" id="printBaojia">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td>
                         <input value="保存报价信息" type="button" style="margin-bottom: 50px;margin-top: 50px"
@@ -235,8 +237,8 @@
         </form>
         <!--底部div结束-->
     </div>
-
 </div>
+
 <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="/layui.js"></script>
 <script type="text/javascript" src="/js/baojiadan.js"></script>
@@ -244,6 +246,22 @@
 <script type="text/javascript" src="/lodop/jquery-3.2.1.js"></script>
 <script type="text/javascript" src="/lodop/LodopFuncs.js"></script>
 <script>
+    // //开始时间、结束时间监听事件
+    // layui.use('laydate', function () {
+    //     var laydate = layui.laydate;
+    //      //lay('[lay_type=dateTime]').each(function() {
+    //          // var id="#"+$(this).attr("id");
+    //          // alert(id);
+    //         laydate.render({
+    //             elem: "#test1"
+    //             ,change: function (value, date, endDate) {
+    //               alert(123)
+    //             }
+    //         });
+    //      //});
+    // });
+
+
     var selectJson = [];//存放总线路中的酒店id以及景点id等信息
     var selectJson2 = [];//存放线路中的酒店id以及景点id等信息
     var zongxinalu = "<option value=''>请选择</option>";
@@ -261,7 +279,7 @@
         startDate = +startDate + 1000 * 60 * 60 * 24 * day;
         startDate = new Date(startDate);
         var nextStartDate = startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
-        $("#date1").val(nextStartDate);
+        $("#endDate").val(nextStartDate);
     }
 
     //指定日期加x天
@@ -403,10 +421,10 @@
                     //alert(data.data[key].templateHotel.hotelId)
                 }
                 $("#zong").html(context);
-                if ($("#date").val() != "") {
-                    dateDay($("#date").val(), $("[xl='xianlu']").length - 1);
+                if ($("#beginDate").val() != "") {
+                    dateDay($("#beginDate").val(), $("[xl='xianlu']").length - 1);
                     $("[name='date']").each(function (i, e) {
-                        $(e).val(dateDay2($("#date").val(), (i)));
+                        $(e).val(dateDay2($("#beginDate").val(), (i)));
                     });
                 }
                 showInfo();
@@ -650,8 +668,8 @@
     //报价表信息
     function offerTable() {
         offerJson = {};
-        var travelStartTime = $("#date").val();//开团日期
-        var travelEndTime = $("#date1").val();//结束日期
+        var travelStartTime = $("#beginDate").val();//开团日期
+        var travelEndTime = $("#endDate").val();//结束日期
         var number = $("#number").val();//人数
         var travelId = $("#zutuanshe").val();//组团社
         var offer = $("#offerTotal").val();//报价
@@ -843,72 +861,98 @@
             contentType: "application/json",
             success: function (data) {
                 alert(data.msg)
+                if(data.msg=="添加报价成功！"){
+                    $("#baocun").attr("disabled","disabled");
+                }
             }, error: function () {
                 alert("程序异常")
             }
         })
     }
-
+    var flag=false;
     //报价按钮单击事件
     $("#baocun").click(function () {
+        flag=true;
         insertOffer();
+    })
+    $("#printBaojia").click(function () {
+        if(flag){
+            $.ajax({
+                url: "/offer/getLastOfferId",
+                data: "",
+                dataType: "json",
+                type: "get",
+                success: function (result) {
+                    window.open("http://localhost:8888/voucher/baojiandan.html?offerId="+result.data+"");
+                },
+                error: function (res) {
+                    alert(res);
+                }
+            })
+        }else{
+            alert("请先添加报价！")
+        }
     })
     //报价预览按钮单击事件
     $("#yulan").click(function () {
-        offerTable();
-        var xingcheng = [];
-        $("[xl='xianlu']").each(function (i, e) {
-            var lineArriveName
-            var parent = $(this).parent().parent().parent();
-            if ($(this).attr("name") == "texts") {
-                lineArriveName = $(this).val();
-            } else {
-                lineArriveName = $(this).find("option:selected").text()
-            }
-            var day = parent.find("[name='date']").val();//天数
-            day = day.substring(day.indexOf("-") + 1);
-            var dl = lineArriveName;//线路
-            var xc = parent.find("[name='desc']").val();//行程
-            var cs = "";//餐食
-            if (i != 0) {
-                cs += "B酒店自助 ";
-            }
-            var wu = parent.find("[wc='wucan']").find("option:selected").text();//午餐
-            var wub = parent.find("[wc='wucan']").find("option:selected").attr("offer");//午餐报价
-            if (parent.find("[wc='wucan']").val() != "-1") {
-                cs += "<br/>L" + wu + " " + wub + " ";
-            }
-            var wac = parent.find("[wac='wancan']").find("option:selected").text();//晚餐
-            var wacb = parent.find("[wac='wancan']").find("option:selected").attr("offer");//晚餐报价
-            if (parent.find("[wac='wancan']").val() != "-1") {
-                cs += "<br/>D" + wac + " " + wacb;
-            }
-            var zs = parent.find("[hotel='jiudian']").find("option:selected").text();//住宿
-            var zsdh = parent.find("[hotel='jiudian']").val();//住宿电话
-            var json = {
-                "day": day,
-                "dl": dl,
-                "xc": xc,
-                "cs": cs,
-                "zs": zs,
-                "zsdh": zsdh
-            }
-            xingcheng.push(json);
-        })
-        var previewJson = {"offer": offerJson, "list": xingcheng};//预览报价json
-        $.ajax({
-            url: "/offer/previewOffer",
-            data: JSON.stringify(previewJson),
-            dataType: "json",
-            type: "post",
-            contentType: "application/json",
-            async: false,
-            success: function (data) {
-            }, error: function () {
-                alert("程序异常")
-            }
-        })
-        window.open("http://localhost:8888/voucher/Confirmation.html");
+        if(flag){
+            offerTable();
+            var xingcheng = [];
+            $("[xl='xianlu']").each(function (i, e) {
+                var lineArriveName
+                var parent = $(this).parent().parent().parent();
+                if ($(this).attr("name") == "texts") {
+                    lineArriveName = $(this).val();
+                } else {
+                    lineArriveName = $(this).find("option:selected").text()
+                }
+                var day = parent.find("[name='date']").val();//天数
+                day = day.substring(day.indexOf("-") + 1);
+                var dl = lineArriveName;//线路
+                var xc = parent.find("[name='desc']").val();//行程
+                var cs = "";//餐食
+                if (i != 0) {
+                    cs += "B酒店自助 ";
+                }
+                var wu = parent.find("[wc='wucan']").find("option:selected").text();//午餐
+                var wub = parent.find("[wc='wucan']").find("option:selected").attr("offer");//午餐报价
+                if (parent.find("[wc='wucan']").val() != "-1") {
+                    cs += "<br/>L" + wu + " " + wub + " ";
+                }
+                var wac = parent.find("[wac='wancan']").find("option:selected").text();//晚餐
+                var wacb = parent.find("[wac='wancan']").find("option:selected").attr("offer");//晚餐报价
+                if (parent.find("[wac='wancan']").val() != "-1") {
+                    cs += "<br/>D" + wac + " " + wacb;
+                }
+                var zs = parent.find("[hotel='jiudian']").find("option:selected").text();//住宿
+                var zsdh = parent.find("[hotel='jiudian']").val();//住宿电话
+                var json = {
+                    "day": day,
+                    "dl": dl,
+                    "xc": xc,
+                    "cs": cs,
+                    "zs": zs,
+                    "zsdh": zsdh
+                }
+                xingcheng.push(json);
+            })
+            var previewJson = {"offer": offerJson, "list": xingcheng};//预览报价json
+            $.ajax({
+                url: "/offer/previewOffer",
+                data: JSON.stringify(previewJson),
+                dataType: "json",
+                type: "post",
+                contentType: "application/json",
+                async: false,
+                success: function (data) {
+                }, error: function () {
+                    alert("程序异常")
+                }
+            })
+            window.open("http://localhost:8888/voucher/Confirmation.html");
+        }else{
+            alert("请先添加报价！")
+        }
     })
     totalchange();
 
@@ -985,6 +1029,14 @@
             "<td style='bottom: 0px;'><label class='layui-form-label' onclick='san(this)'>×</label></td>" +
             "</tr>");
         layui.use(['form', 'layedit', 'laydate', 'element'], function () {
+            laydate.render({
+                elem: '#beginDate'
+                ,change: function(value, date, endDate){
+                    console.log(value); //得到日期生成的值，如：2017-08-18
+                    console.log(date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+                    console.log(endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
+                }
+            });
             var form = layui.form,
                 layer = layui.layer,
                 layedit = layui.layedit,
@@ -1005,10 +1057,16 @@
                 laydate = layui.laydate;
             //日期
             laydate.render({
-                elem: '#date'
+                elem: '#beginDate'
+                ,done: function (value, date, endDate) {
+                    fanzhuanDate()
+                }
             });
             laydate.render({
-                elem: '#date1'
+                elem: '#endDate'
+                ,done: function (value, date, endDate) {
+                    fanzhuanDate()
+                }
             });
             laydate.render({
                 elem: '#date2'
@@ -1023,7 +1081,6 @@
             });
         });
     });
-
 </script>
 </body>
 

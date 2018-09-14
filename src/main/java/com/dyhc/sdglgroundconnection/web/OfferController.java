@@ -496,4 +496,25 @@ public class OfferController {
             return err;
         }
     }
+    /**
+     * 查询报价表最后一条报价信息的id（dubingkun）
+     * @param id
+     * @param value1
+     * @return
+     */
+    @RequestMapping("/getLastOfferId")
+    public ReponseResult getLastOfferId(Integer id,String value1){
+        try {
+            ReponseResult<Integer> data=null;
+            Integer result=offerService.getIntegerByOfferId();
+                data = ReponseResult.ok(result,"获取报价id成功！");
+            logger.info(" method:deleteOffer  获取报价id成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:deleteOffer  获取报价id失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
 }

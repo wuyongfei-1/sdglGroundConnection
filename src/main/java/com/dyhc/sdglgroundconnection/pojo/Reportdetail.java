@@ -19,7 +19,7 @@ public class Reportdetail {
     @Column(name = "dispatchId")
     private Integer dispatchId; // 调度编号（外键，与调度表关联）
     @Column(name = "reportDate")
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date reportDate; // 报账日期
     private Double receipt; // 外收团款
     @Column(name = "totalPayable")

@@ -24,7 +24,7 @@ public class Dispatch {
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @Column(name = "travelStartTime")
     private Date travelStartTime; // 旅行开始时间
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @Column(name = "travelEndTime")
     private Date travelEndTime; // 旅行结束时间
     private Integer num; // 人数

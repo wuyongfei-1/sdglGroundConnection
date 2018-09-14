@@ -111,6 +111,19 @@ public class DispatchServiceImpl implements DispatchService {
 
     @Autowired
     private DispatchtourgroupMapper dispatchtourgroupMapper;
+    /**
+     * 根据调度id 修改开团状态为进行中（lixiaojie）
+     * @param dispatchId
+     * @return
+     */
+    @Override
+    public Integer updateDispatcheStateInfo(Integer dispatchId) {
+
+      Dispatch dispatch=  dispatchMapper.selectByPrimaryKey(dispatchId);
+        dispatch.setState(2);
+       Integer result= dispatchMapper.updateByPrimaryKey(dispatch);
+        return result;
+    }
 
     /**
      * 分页获取所有的调度信息（wuyongfei）

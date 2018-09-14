@@ -24,10 +24,10 @@
         <table class="layui-table" lay-skin="line">
             <colgroup>
                 <col width="50">
-                <col class="hidden-xs" width="120">
+                <col class="hidden-xs" width="100">
                 <col class="hidden-xs" width="170">
-                <col class="hidden-xs" width="200">
-                <col class="hidden-xs" width="120">
+                <col class="hidden-xs" width="100">
+                <col class="hidden-xs" width="100">
                 <col width="150">
                 <col width="130">
                 <col width="130">
@@ -58,6 +58,26 @@
 
 <!--上传行程变更书 (lixiaojie)-->
 <script type="text/javascript">
+    
+    function updateDispatcheStateInfo(dispatchId) {
+        $.ajax({
+            url: "/dispatch/updateDispatcheStateInfo",
+            data: {"dispatchId":dispatchId},
+            dataType: "json",
+            type: "post",
+            async: false,
+            success: function (result) {
+                if(result.data==1||result.data=="1"){
+                    alert("保存成功")
+                }else {
+                    alert("发生未知错误！请刷新后重试")
+                }
+                search();
+            }
+        });
+    }
+    
+    
     //弹出上传变更书页面 (lixiaojie)
     function alertInsertChangeBook(disInfo) {
         layer.open({
@@ -92,10 +112,14 @@
                 $(result.data).each(function (i, e) {
                     var buttonInfo = "";
                     var patchId = e.dispatchId; // 调度编号
-                    if (e.status == 1 || e.status == "1") {
-                        buttonInfo = "<button class='layui-btn layui-btn-mini layui-btn-normal table-list-status' id='shangchuan' value='1' onclick='alertInsertChangeBook("+patchId+")'>行程变更</button>";
-                    } else {
-                        buttonInfo = "<button class='layui-btn layui-btn-mini layui-btn-normal table-list-status' id='upOffer2' value='2' onclick='queryDispatchRecord(" + e.dispatchId + ")'>调度记录</button>";
+                    if (e.state == 1|| e.state == "1") {
+                        buttonInfo += "<button class='layui-btn layui-btn-mini layui-btn-normal table-list-status' id='upOffer2' value='2' onclick='queryDispatchRecord(" + e.dispatchId + ")'>调度记录</button>";
+                        buttonInfo += "<button class='layui-btn layui-btn-mini layui-btn-normal table-list-status'id='shangchuan' value='1' onclick='updateDispatcheStateInfo("+patchId+")'>确认</button>";
+                    }
+
+                    if (e.state == 2 || e.state == "2") {
+                        buttonInfo += "<button class='layui-btn layui-btn-mini layui-btn-normal table-list-status' id='upOffer2' value='2' onclick='updateDispatchRecord(" + e.dispatchId + ")'>调度记录</button>";
+                        buttonInfo += "<button class='layui-btn layui-btn-mini layui-btn-normal table-list-status'  id='shangchuan' value='1' onclick='alertInsertChangeBook("+patchId+")'>修改</button>";
                     }
                     context += "<tr id='" + patchId + "' class=\"parent collapsed\">\n" +
                         "<td class=''>" +
@@ -135,7 +159,11 @@
 
     // 查询调度信息
     function queryDispatchRecord(dispatchId) {
-        location.href = "/countAdjust/dispatchRecord.html?dispatchId=" + dispatchId;
+        location.href = "/countAdjust/dispatchRecord.html?xjInfo=1&dispatchId=" + dispatchId;
+    }
+    // 修改调度信息
+    function updateDispatchRecord(dispatchId) {
+        location.href = "/countAdjust/dispatchRecord.html?xjInfo=2&dispatchId=" + dispatchId;
     }
 </script>
 <script>

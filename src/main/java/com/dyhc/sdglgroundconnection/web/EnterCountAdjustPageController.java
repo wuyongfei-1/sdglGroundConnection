@@ -83,9 +83,10 @@ public class EnterCountAdjustPageController {
      * @return
      */
     @GetMapping(value = "/dispatchRecord.html")
-    public String dispatchInfo(Integer dispatchId, HttpServletRequest request) {
+    public String dispatchInfo(Integer dispatchId,Integer xjInfo, HttpServletRequest request) {
         // 将调度编号保存到作用域中
         request.setAttribute("dispatchId", dispatchId);
+        request.setAttribute("xjInfo", xjInfo);
         try {
             // 所有的线路
             List<Template> templates = templateService.listAllTemplate();

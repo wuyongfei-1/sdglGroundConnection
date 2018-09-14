@@ -32,6 +32,24 @@ public class DispatchController {
 
     @Autowired
     private DispatchService dispatchService;
+    /**
+     * 根据调度id 修改开团状态为进行中（lixiaojie）
+     * @param dispatchId
+     * @return
+     */
+    @RequestMapping(value = "/updateDispatcheStateInfo", method = RequestMethod.POST)
+    public ReponseResult updateDispatcheStateInfo(Integer dispatchId) {
+        try {
+            Integer result = dispatchService.updateDispatcheStateInfo(dispatchId);
+            logger.info(" method:updateDispatcheStateInfo  根据调度id 修改开团状态为进行中成功！");
+            return ReponseResult.ok(result, "根据调度id 修改开团状态为进行中成功！");
+        } catch (Exception e) {
+            logger.error(" method:updateDispatcheStateInfo  根据调度id 修改开团状态为进行中失败，系统出现异常！");
+            e.printStackTrace();
+            return ReponseResult.err("根据调度id 修改开团状态为进行中失败！");
+        }
+    }
+
 
     /**
      * 根据调度dispatchId获取dispatch表的信息(lixiaojie可复用)
@@ -211,7 +229,7 @@ public class DispatchController {
             dispatch.setValue1(patchInfo.getConcat());
             dispatch.setValue2(patchInfo.getConcatPhone());
             dispatch.setStatus(2);
-            dispatch.setState(2);
+            dispatch.setState(1);
             dispatch.setWhetherDel(0);
             dispatchParam.setDispatch(dispatch);
             // 其他信息

@@ -16,6 +16,7 @@ public class Reportrestaurant {
     @Column(name = "reportRestaurantId")
     private Integer reportRestaurantId; // 导游报账餐厅表编号
     @Column(name = "lunchDate")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date lunchDate; // 午餐日期
     @Column(name = "luncheonName")
     private String luncheonName; // 午餐馆名称
@@ -27,6 +28,7 @@ public class Reportrestaurant {
     @Column(name = "lunchPayMethods")
     private String lunchPayMethods; // 午餐支付方式
     @Column(name = "dinnerDate")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date dinnerDate; // 晚餐日期
     @Column(name = "dinnerName")
     private String dinnerName; // 晚餐馆名称

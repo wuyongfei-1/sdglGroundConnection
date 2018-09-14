@@ -16,6 +16,7 @@ public class Reportaccommodation {
     @Column(name = "reportAccommodationId")
     private int reportAccommodationId; // 导游报账住宿表编号
     @Column(name = "liveDate")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date liveDate; // 入住日期
     @Column(name = "hotelName")
     private String hotelName; // 酒店名称

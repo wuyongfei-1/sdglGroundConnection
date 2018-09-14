@@ -25,6 +25,7 @@
 <!-- 资源管理 start -->
 <div style="display: none">
     <input type="hidden" th:value="${dispatchId}" id="dispatchId"/>
+    <input type="hidden" th:value="${xjInfo}" id="xjInfo"/>
     <!-- 线路列表 -->
     <select name="templates" id="templates" lay-ignore>
         <option th:each="template:${templates}" th:value="${template.templateId}"
@@ -247,7 +248,7 @@
             <button   class='layui-btn layui-btn-radius' id="baocun"
                     onclick="saveDispatchInfo()">保存调度信息
             </button>
-            <button id="viewOffer" class='layui-btn layui-btn-radius'>预览报价单</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="viewOffer" class='layui-btn layui-btn-radius'>单据预览</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </div>
 
     </div>
@@ -255,8 +256,43 @@
     <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="/layui.js"></script>
     <script type="text/javascript" src="/js/dispatchEdit.js"></script>
+    <script type="text/javascript">
+        
+        $(function () {
+            xjInfoOrNo();
+            
+        });
+        function xjInfoOrNo() {
+            var xjInfo=$("#xjInfo").val();
 
-<!--    <script type="text/javascript">
+            if (xjInfo=="1"||xjInfo==1){
+                var content="<button  class='layui-btn layui-btn-radius' id='baocun'onclick='saveDispatchInfo()'>保存调度信息 </button>  <button id='viewOffer' class='layui-btn layui-btn-radius'>预览报价单</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+
+                $("#buttoninfo").html(content);
+            }
+            if (xjInfo==2||xjInfo=="2"){
+                $("input").each(function (i,e) {
+                    $(e).attr("disabled","disabled");
+                })
+                $("select").each(function (i,e) {
+                    $(e).attr("disabled","disabled");
+                })
+                $("textarea").each(function (i,e) {
+                    $(e).attr("disabled","disabled");
+                })
+                $("button").each(function (i,e) {
+                    $(e).attr("disabled","disabled");
+                })
+                $("input[name='bill']").each(function (i,e) {
+                    $(e).removeAttr("disabled");
+                })
+                var content=" <button id='viewOffer' class='layui-btn layui-btn-radius'>预览报价单</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+
+                $("#buttoninfo").html(content);
+            }
+        }
+    </script>
+ <!--<script type="text/javascript">
         $(function () {
             getDispatchByDispatchId();
         });
@@ -292,9 +328,7 @@
                     }
                     if(ReponseResult.data.state==3||ReponseResult.data.state=="3"){
 
-                        var content=" <button id=\"viewOffer\" class='layui-btn layui-btn-radius'>预览报价单</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 
-                        $("#buttoninfo").html(content);
 
                     }
                 },

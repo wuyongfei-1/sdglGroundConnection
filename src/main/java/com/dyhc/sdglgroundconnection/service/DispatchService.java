@@ -15,6 +15,14 @@ import java.util.List;
 public interface DispatchService {
 
     /**
+     * 根据调度id 修改开团状态为进行中（lixiaojie）
+     * @param dispatchId
+     * @return
+     */
+     Integer updateDispatcheStateInfo(Integer dispatchId);
+
+
+    /**
      * 分页查询所有的调度信息（wuyongfei）
      *
      * @param pageNo   当前页码

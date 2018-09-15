@@ -32,8 +32,6 @@ public class BillServiceImpl implements BillService {
         billExampleCriteria.andDispatchidEqualTo(dispatchId);
         billExampleCriteria.andBilltypeidEqualTo(billTypeId);
         List<Bill> bills=billMapper.selectByExample(billExample);//按条件查询票据表
-
-
         return bills;
     }
 

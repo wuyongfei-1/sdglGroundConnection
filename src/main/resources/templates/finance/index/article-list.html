@@ -27,7 +27,7 @@
                     <select name="states" lay-filter="status" id="states">
                         <option value="0">请选择一个状态</option>
                         <option value="1">审核中</option>
-                        <option value="2">以结算</option>
+                        <option value="2">已结算</option>
                         <option value="3">未通过</option>
                     </select>
                 </div>
@@ -88,7 +88,7 @@
                         status="未审核";
                     }
                     if(e.status==2){
-                        status="以结算";
+                        status="已结算";
                     }
                     if(e.status==3){
                         status="未通过";

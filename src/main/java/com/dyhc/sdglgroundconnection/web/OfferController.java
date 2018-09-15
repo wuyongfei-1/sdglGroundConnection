@@ -497,6 +497,31 @@ public class OfferController {
         }
     }
     /**
+     * 根据id改变报价单状态
+     * @param value1
+     * @return
+     */
+    @RequestMapping("/updateOfferValue1Two")
+    public ReponseResult updateOfferValue1Two(String value1){
+        try {
+            ReponseResult<String> data=null;
+            Integer id=offerService.getIntegerByOfferId();
+            Integer result=offerService.updateOfferValue1(id,value1);
+            if(result>0){
+                data = ReponseResult.ok("修改报价信息成功！");
+            }else{
+                data = ReponseResult.ok("修改报价信息失败！");
+            }
+            logger.info(" method:deleteOffer  修改报价信息成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:deleteOffer  修改报价信息失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
+    /**
      * 查询报价表最后一条报价信息的id（dubingkun）
      * @param id
      * @param value1

@@ -1069,6 +1069,7 @@
             data: JSON.stringify(offerJsonPlus),
             dataType: "json",
             type: "post",
+            async:false,
             contentType: "application/json",
             success: function (data) {
                 alert("修改成功！")
@@ -1084,6 +1085,7 @@
             data: {id:$("#offerId").val()},
             dataType: "json",
             type: "post",
+            async:false,
             success: function (data) {
             }, error: function () {
                 alert("程序异常")
@@ -1094,6 +1096,17 @@
     $("#baocun").click(function () {
         deleteOffer();
         insertOffer();
+        $.ajax({
+            url:"/offer/updateOfferValue1Two",
+            data:{value1:1},
+            dataType:"json",
+            type:"get",
+            async:false,
+            success:function(data){
+            },error:function () {
+                alert("服务器异常")
+            }
+        })
         flag=true;
     })
 

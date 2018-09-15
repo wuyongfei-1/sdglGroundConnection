@@ -21,7 +21,7 @@
             	<td style="width:10%">部门：</td>
                 <td style="width:30%">计调部</td>
                 <td style="width:10%">导游：</td>
-                <td style="width:30%"></td>
+                <td style="width:30%" class="guideName"></td>
                 <td style="width:20%" id="times">2018年3月20日</td>
             </tr>
          </table>
@@ -141,6 +141,7 @@
                 var num1="";
                 var dateTime=new Date();
                 $("#travelName").text(e.data.groupNumber);//团名
+                $(".guideName").text(e.data.disguide.guide.guideName);//团名
                 $("#remarks").text(e.data.remarks)//备注);
                 $("#tourist").text(e.data.tourist);//客源地
                 $("#num").text(e.data.num);//人数

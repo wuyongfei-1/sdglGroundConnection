@@ -21,7 +21,6 @@
 	</form>
 	<div class="layui-form" id="table-list">
 		<table class="layui-table" lay-skin="line">
-			<input type="button" value="打印报价单" onclick="printbaojia()"/>
 			<colgroup>
 				<col width="50">
 				<col class="hidden-xs" width="120">
@@ -120,7 +119,7 @@
                     var fuqinid="node-"+count;
                     var erziclass="child-node-"+count2+" parent collapsed";
                     context2+="<tr id='"+fuqinid+"' class=\"parent collapsed\">\n" +
-                        "\t\t\t\t\t\t\t\t<td><input type='radio' name='baojiadan' value='"+e.offerId+"'></td>" +
+                        "\t\t\t\t\t\t\t\t<td></td>" +
                         "\t\t\t\t\t\t\t\t<td class=\"\">"+((curnum-1)*6+(i+1))+"</td>\n" +
                         "\t\t\t\t\t\t\t\t<td class=\"\">"+travelName+"</td>\n" +
                         "\t\t\t\t\t\t\t\t<td class=\"\">"+e.number+"</td>\n" +

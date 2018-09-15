@@ -184,7 +184,7 @@
         dataType:"json",
         type:"get",
         success:function (data) {
-            $("#time").html(data.data[0].travelStartTime);
+            $("#time").html("出发:&nbsp&nbsp"+data.data[0].travelStartTime+"<br/>截至:&nbsp&nbsp"+data.data[0].travelEndTime);
             $("#number").html(data.data[0].number);
             $("#keyuandi").html(data.data[0].tourist);
             $("#fawang").html(data.data[0].value3);

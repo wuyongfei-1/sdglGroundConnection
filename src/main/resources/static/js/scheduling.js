@@ -417,9 +417,9 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
     $('#reception').text(reception);
     // end
     // 刷新lay样式
-    renderCss();
-}
 
+}
+renderCss();
 
 function addjd(obj) {
     var jd = $(obj).prev().val();

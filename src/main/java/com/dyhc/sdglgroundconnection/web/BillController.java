@@ -45,6 +45,7 @@ public class BillController  {
             if (result!=null){
                 date= ReponseResult.ok(result,"根据调度团id和单据类型id获取单据信息成功");
                 logger.info(" method:selectBillByDispatchIdAndBillTypeId  根据调度团id和单据类型id获取单据信息成功！");
+
             }else{
                 date= ReponseResult.ok("根据调度团id和单据类型id获取单据信息失败！");
                 logger.info(" method:selectBillByDispatchIdAndBillTypeId  根据调度团id和单据类型id获取单据信息失败！");

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 	<style>
 		*{margin: 0 auto;}
         table,table tr th, table tr td { border:1px solid black; height: 20px;}
@@ -11,6 +11,7 @@
 		<title></title>
 	</head>
 	<body>
+	<input type="hidden" id="reportDetailId" th:value="${reportDetailId}">
 	<div id="dy">
 		<div id="tupian" style="width: 635px;margin-left: 365px;">
                 <img src="/images/logo.jpg" width="640px" height="50px">
@@ -29,7 +30,7 @@
 				<td colspan="4" class="sendLine"></td>
 			</tr>
 			<tr>
-				<td colspan="3">组团社（单位）</td>
+				<td colspan="3">组团社（团号）</td>
 				<td colspan="3" class="groupNumber"></td>
 				<td>人数</td>
 				<td colspan="4" class="num"></td>
@@ -434,7 +435,7 @@
 				</tr>
 				<tr>
 					<td colspan="2">原借贷</td>
-					<td colspan="3"></td>
+					<td colspan="3" class="loan"></td>
 					<td>外售团款</td>
 					<td colspan="3" class="receipt"></td>
 					<td colspan="2">导游现付合计</td>
@@ -470,15 +471,18 @@
     })
     //数据渲染
     function dispatchShow() {
+        var reportDetailId = $("#reportDetailId").val();
         $.ajax({
             url: "/reportdetail/selectReportdetailById",
-            data: {reportDetailId:1},
+            data: {reportDetailId:reportDetailId},
             dataType: "json",
             type: "post",
             success: function (e) {
 				var ss=e.data.reportDate;
 				var reg=new RegExp("-","g");
 				var ss1=ss.replace(reg,".");
+                $(".loan").text(e.data.dispatch.loan);
+                $(".groupNumber").text(e.data.dispatch.groupNumber);
                 $(".receipt").text(e.data.receipt);
                 $(".totalPayable").text(e.data.totalPayable);
                 $(".reportDate").text(ss1);
@@ -505,7 +509,7 @@
                 var travelStartTime1=e.data.dispatch.travelStartTime.substring(8,10);
                 var day=travelEndTime1-travelStartTime1;
                 $(".offset").text(travelStartTime3+"到"+travelEndTime2);
-                $(".travelName").text(e.data.dispatch.groupNumber);
+                $(".travelName").text(e.data.dispatch.groundConnectionNumber);
                 $(".sendLine").text(e.data.disline.lineName);
                 $(".num").text(e.data.dispatch.num);
                 $(".day").text(day);

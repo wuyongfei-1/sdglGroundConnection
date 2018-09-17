@@ -310,7 +310,7 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
 
             // 根据饮食类型查询出餐馆列表
             $.ajax({
-                url: "/mealType/mealType/restaurants/"+ (dictionariesId) +".html",
+                url: "/mealType/mealType/restaurantAndDictionsries/"+ (dictionariesId) +".html",
                 data: "",
                 dataType: "json",
                 type: "get",
@@ -341,7 +341,7 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
 
             // 根据饮食类型查询出餐馆列表
             $.ajax({
-                url: "/mealType/mealType/restaurants/"+ (dictionariesId) +".html",
+                url: "/mealType/mealType/restaurantAndDictionsries/"+ (dictionariesId) +".html",
                 data: "",
                 dataType: "json",
                 type: "get",

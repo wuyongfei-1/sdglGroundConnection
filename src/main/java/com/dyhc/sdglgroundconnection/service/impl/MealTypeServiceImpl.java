@@ -29,11 +29,28 @@ public class MealTypeServiceImpl implements MealTypeService {
 
     /**
      * 通过饮食类型编号查询所有的餐馆信息
-     * @param valueId   饮食类型编号
+     * @param mealTypeId   饮食类型编号
      * @return
      */
     @Override
-    public List<MealType> getRestaurantsByMealTypeId (Integer valueId) throws Exception {
+    public List<MealType> getRestaurantsByMealTypeId (Integer mealTypeId) throws Exception {
+        MealType mealType1 = mealTypeMapper.selectByPrimaryKey(mealTypeId);
+        if (mealType1 == null) {
+            return null;
+        }
+        MealtypeExample mealtypeExample = new MealtypeExample();
+        MealtypeExample.Criteria criteria = mealtypeExample.createCriteria();
+        criteria.andValueIdEqualTo(Integer.parseInt(mealType1.getValueId()));
+        List<MealType> mealTypes = mealTypeMapper.selectByExample(mealtypeExample);
+        for (MealType mealType : mealTypes) {
+            Restaurant restaurant = restaurantService.getRestaurantById(mealType.getRestaurantId());
+            mealType.setRestaurant(restaurant);
+        }
+        return mealTypes;
+    }
+
+    @Override
+    public List<MealType> getRestaurantAndDictionaries(Integer valueId) throws Exception {
         MealtypeExample mealtypeExample = new MealtypeExample();
         MealtypeExample.Criteria criteria = mealtypeExample.createCriteria();
         criteria.andValueIdEqualTo(valueId);

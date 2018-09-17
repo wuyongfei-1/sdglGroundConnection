@@ -28,6 +28,7 @@ public class MealTypeController {
     @Autowired
     private MealTypeService mealTypeService;
 
+
     /**
      * 根据餐馆编号查询饮食类型列表（wuyongfei）
      *
@@ -35,7 +36,7 @@ public class MealTypeController {
      * @return 响应结果
      */
     @GetMapping("/mealType/detail/{restaurantId}.html")
-    public ReponseResult getMealTypeByRestaurantBy(@PathVariable Integer restaurantId) {
+    public ReponseResult getMealTypeByRestaurant(@PathVariable Integer restaurantId) {
         try {
             List<MealType> mealTypes = mealTypeService.listMealTypesByRestaurantId(restaurantId);
             logger.info("method:getMealTypeByRestaurantBy  根据餐馆编号查询饮食类型列表成功！");
@@ -44,6 +45,25 @@ public class MealTypeController {
             logger.error("method:getMealTypeByRestaurantBy  根据餐馆编号查询饮食类型列表失败，系统出现异常！" + e.getMessage());
             e.printStackTrace();
             return ReponseResult.err("根据餐馆编号查询饮食类型列表失败，系统出现异常！");
+        }
+    }
+
+    /**
+     * 通过饮食类型编号对应的字典表查询所属的餐馆
+     *
+     * @param valueId 饮食类型（字典表中的饮食类型对应的valueId）
+     * @return
+     */
+    @GetMapping("/mealType/restaurantAndDictionsries/{valueId}.html")
+    public ReponseResult getMealTypeByRestaurantAndDictionsries(@PathVariable Integer valueId) {
+        try {
+            List<MealType> mealTypes = mealTypeService.getRestaurantAndDictionaries(valueId);
+            logger.info("method:getMealTypeByRestaurantAndDictionsries  根据字典表饮食类型编号查询饮食类型列表成功！");
+            return ReponseResult.ok(mealTypes, "根据字典表饮食类型编号查询饮食类型列表成功！");
+        } catch (Exception e) {
+            logger.error("method:getMealTypeByRestaurantAndDictionsries  根据字典表饮食类型编号查询饮食类型列表失败，系统出现异常！" + e.getMessage());
+            e.printStackTrace();
+            return ReponseResult.err("根据字典表饮食类型编号查询饮食类型列表失败，系统出现异常！");
         }
     }
 

@@ -14,6 +14,13 @@ import java.util.List;
 public interface MealTypeService {
 
     /**
+     * 通过饮食类型的编号查询所属的餐馆
+     * @return
+     * @throws Exception
+     */
+    List<MealType> getRestaurantAndDictionaries(Integer valueId) throws Exception;
+
+    /**
      * 根据类型编号查询类型信息
      * @param typeId 类型编号
      * @return 类型信息对象

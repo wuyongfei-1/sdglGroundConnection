@@ -591,8 +591,9 @@
 						xianfu+=subtotal
                     }
                     if(result.liveDate!=null){
-                        riqi=result.liveDate.substring(8,10);
+                        riqi=result.liveDate.substring(5,10);
 					}
+                    riqi = riqi.replace('-','.')
 
 					content+="<tr>\n" +
                         "\t\t\t\t<td>"+riqi+"</td>\n" +
@@ -627,11 +628,13 @@
 					qiandan3=qiandan1+qiandan2;
                     xianfu3=xianfu1+xianfu2;
                     if(result.lunchDate!=null){
-                        wuriqi=result.lunchDate.substring(8,10);
+                        wuriqi=result.lunchDate.substring(5,10);
                     }
+                    wuriqi = wuriqi.replace('-','.')
                     if(result.dinnerDate!=null){
-                        wanriqi=result.dinnerDate.substring(8,10);
+                        wanriqi=result.dinnerDate.substring(5,10);
                     }
+                    wanriqi = wanriqi.replace('-','.')
                     content1+="<tr>\n" +
                         "\t\t\t\t\t<td>"+wuriqi+"</td>\n" +
                         "\t\t\t\t\t<td>"+result.luncheonName+"</td>\n" +

@@ -1,8 +1,11 @@
 package com.dyhc.sdglgroundconnection.service;
 
 import com.dyhc.sdglgroundconnection.dto.NewFileParam;
+import com.dyhc.sdglgroundconnection.dto.WechatReportdetailEatAndHotelParam;
 import com.dyhc.sdglgroundconnection.pojo.Dispatch;
 import com.dyhc.sdglgroundconnection.pojo.Reportdetail;
+import com.dyhc.sdglgroundconnection.pojo.Reportingotherexpenses;
+import com.dyhc.sdglgroundconnection.pojo.Reportticket;
 import com.github.pagehelper.PageInfo;
 
 import java.util.Date;
@@ -14,7 +17,33 @@ import java.util.List;
  **/
 public interface ReportdetailService {
     /**
-     * 上传行程变更书
+     * 根据调度id查询其他报账信息(lixiaojie)
+     * @param dispatchId
+     * @return
+     */
+    List<Reportingotherexpenses> selectReportingotherexpensesBydispatchId(Integer dispatchId);
+
+
+    /**
+     * 根据调度id查询报账景点集合(lixiaojie)
+     * @param dispatchId
+     * @return
+     */
+    List<Reportticket>  selectReportticketInfoBydispatchId(Integer dispatchId);
+    /**
+     * 根据调度id和日期查询  当日的 吃饭和睡觉地点  (lixiaojie)
+     * @param dispatchId
+     * @return
+     */
+    WechatReportdetailEatAndHotelParam  getReportdetailInfoByDispatchIdAndByRiqi(Integer dispatchId,String Riqi) throws Exception;
+    /**
+     * 根据 调度id查询报账信息(lixiaojie)
+     * @param dispatchId
+     * @return
+     */
+    Reportdetail getReportdetailInfoByDispatchId(Integer dispatchId);
+    /**
+     * 上传行程变更书(lixiaojie)
      * @param dispatch
      * @return
      */

@@ -1259,7 +1259,6 @@
     })
     //报价预览按钮单击事件
     $("#yulan").click(function () {
-        if(flag){
             offerTable();
             var xingcheng = [];
             $("[xl='xianlu']").each(function (i, e) {
@@ -1314,9 +1313,6 @@
                 }
             })
             window.open("http://localhost:8888/voucher/Confirmation.html");
-        }else{
-
-        }
     })
 </script>
 </body>

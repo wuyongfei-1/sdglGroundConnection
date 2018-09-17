@@ -111,7 +111,7 @@
                 </tr>
                 <tr>
                     <td><label class="layui-form-label" style="width:135px">接团时间</label></td>
-                    <td><input type="datetime-local" name="date" id="beginDate" ></td>
+                    <td><input type="datetime-local" name="date" id="beginDate"></td>
                     <td><label class="layui-form-label" style="width: 135px">接团地点</label></td>
                     <td><input type="text" name="date" class="layui-input" id="beginAddress"></td>
                     <td><label class="layui-form-label" style="width: 135px">送团地点</label></td>
@@ -510,9 +510,9 @@
                 // 遍历景点列表
                 for (var j = 0; j < allScenicpot.length; j++) {
                     if ($(allScenicpot[j]).find('#scenicspots').last().find('option:selected').val() == 0) {  // 未选择小景点
-                        scenicSpotId = $(e).find('#scenicspots').first().find('option:selected').val();
+                        scenicSpotId = $(allScenicpot[j]).find('#scenicspots').first().find('option:selected').val();
                     } else { // 已选择小景点
-                        scenicSpotId = $(e).find('#scenicspots').last().find('option:selected').val();
+                        scenicSpotId = $(allScenicpot[j]).find('#scenicspots').last().find('option:selected').val();
                     }
                     // 获取景点编号
                     scenicspotInfo.scenicSpotId = scenicSpotId;

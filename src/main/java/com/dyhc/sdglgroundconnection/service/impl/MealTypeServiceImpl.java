@@ -2,10 +2,7 @@ package com.dyhc.sdglgroundconnection.service.impl;
 
 import com.dyhc.sdglgroundconnection.mapper.DictionariesMapper;
 import com.dyhc.sdglgroundconnection.mapper.MealTypeMapper;
-import com.dyhc.sdglgroundconnection.pojo.Dictionaries;
-import com.dyhc.sdglgroundconnection.pojo.DictionariesExample;
-import com.dyhc.sdglgroundconnection.pojo.MealType;
-import com.dyhc.sdglgroundconnection.pojo.MealtypeExample;
+import com.dyhc.sdglgroundconnection.pojo.*;
 import com.dyhc.sdglgroundconnection.pojo.MealType;
 import com.dyhc.sdglgroundconnection.service.MealTypeService;
 import com.dyhc.sdglgroundconnection.service.RestaurantService;
@@ -27,6 +24,27 @@ public class MealTypeServiceImpl implements MealTypeService {
     @Autowired
     private RestaurantService restaurantService;
 
+    @Autowired
+    private DictionariesMapper dictionariesMapper;
+
+    /**
+     * 通过饮食类型编号查询所有的餐馆信息
+     * @param valueId   饮食类型编号
+     * @return
+     */
+    @Override
+    public List<MealType> getRestaurantsByMealTypeId (Integer valueId) throws Exception {
+        MealtypeExample mealtypeExample = new MealtypeExample();
+        MealtypeExample.Criteria criteria = mealtypeExample.createCriteria();
+        criteria.andValueIdEqualTo(valueId);
+        List<MealType> mealTypes = mealTypeMapper.selectByExample(mealtypeExample);
+        for (MealType mealType : mealTypes) {
+            Restaurant restaurant = restaurantService.getRestaurantById(mealType.getRestaurantId());
+            mealType.setRestaurant(restaurant);
+        }
+        return mealTypes;
+    }
+
     /**
      * 根据类型编号查询类型信息
      * @param typeId 类型编号
@@ -38,9 +56,6 @@ public class MealTypeServiceImpl implements MealTypeService {
         mealType.setRestaurant(restaurantService.getRestaurantById(mealType.getRestaurantId()));
         return mealType;
     }
-
-    @Autowired
-    private DictionariesMapper dictionariesMapper;
 
     /**
      * 根据餐馆编号查询饮食类型列表（wuyongfei）

@@ -3,6 +3,7 @@ package com.dyhc.sdglgroundconnection.pojo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * this class by created wuyongfei on 2018/6/5 13:50
@@ -36,6 +37,9 @@ public class MealType {
     private String value1;
     private String value2;
     private String value3;
+
+    @Transient
+    private List<Restaurant> restaurantList; // 餐厅集合对象
 
     @Transient
     private Restaurant restaurant; // 餐厅对象
@@ -194,5 +198,13 @@ public class MealType {
 
     public void setMealTypeName(String mealTypeName) {
         this.mealTypeName = mealTypeName;
+    }
+
+    public List<Restaurant> getRestaurantList() {
+        return restaurantList;
+    }
+
+    public void setRestaurantList(List<Restaurant> restaurantList) {
+        this.restaurantList = restaurantList;
     }
 }

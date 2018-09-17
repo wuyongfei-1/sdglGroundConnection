@@ -21,6 +21,16 @@ public class EnterVoucherController {
     private Logger logger = LoggerFactory.getLogger(EnterGeneralControlPageController.class);
 
     /**
+     * 进入山西世达国旅报账明细页面
+     * @return
+     */
+    @RequestMapping("/GuidesReimbursement.html")
+    public String GuidesReimbursement(Integer reportDetailId,HttpServletRequest request) {
+        request.setAttribute("reportDetailId",reportDetailId);
+        return "voucher/GuidesReimbursement";
+    }
+
+    /**
      * 进入山西世达国旅订房通知单 页面
      * @return
      */
@@ -58,14 +68,7 @@ public class EnterVoucherController {
         return "voucher/Confirmation";
     }
 
-    /**
-     * 进入导游报账明细单 页面
-     * @return
-     */
-    @RequestMapping("/GuidesReimbursement.html")
-    public String enterGuidesReimbursement() {
-        return "voucher/GuidesReimbursement";
-    }
+
 
     /**
      * 进入导游带团日志单页面

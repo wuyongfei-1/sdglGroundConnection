@@ -62,8 +62,8 @@
                 <td>抵离时间:</td>
                 <td><input type="date" id="didashijian" value="2018-05-05" disabled>-<input type="date" id="likaishijian" value="2018-05-10" disabled>
                 </td>
-                <td>线路:</td>
-                <td><input type="text" id="xianlu" value="北京" style="width:60px; text-align:center" disabled></td>
+  <!--              <td>线路:</td>
+                <td><input type="text" id="xianlu" value="北京" style="width:60px; text-align:center" disabled></td>-->
             </tr>
         </table>
         <table width="1300px">
@@ -302,7 +302,10 @@
 
         <div style="">
             <div style="float: right;margin-right: 30px">
-                <input class="layui-btn" type="button" value="预览" onclick="enterNewFiles()">
+                <input class="layui-btn" type="button" value="预览报账明细" onclick="enterNewFiles()">
+            </div>
+            <div style="float: right;margin-right: 30px">
+                <input class="layui-btn" type="button" value="预览团结算账单" onclick="enterGuidesReimbursement()">
             </div>
             <div id="anniuxianshi" style="float: right;margin-right: 14px">
                 <input class="layui-btn" type="button" value="通过" onclick="updateReportDetailStatus()">
@@ -336,7 +339,10 @@
         var reportDetailId = $("#hiddenreportDetailId").val();
         location.href = "../voucher/newFile.html?reportDetailId=" + reportDetailId;
     }
-
+    function enterGuidesReimbursement() {
+        var reportDetailId = $("#hiddenreportDetailId").val();
+        location.href = "../voucher/GuidesReimbursement.html?reportDetailId=" + reportDetailId;
+    }
 
     //打回 lixiaojie
     function updateReportDetailStatusCallBack() {

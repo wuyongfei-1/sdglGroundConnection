@@ -46,4 +46,23 @@ public class MealTypeController {
             return ReponseResult.err("根据餐馆编号查询饮食类型列表失败，系统出现异常！");
         }
     }
+
+    /**
+     * 通过饮食类型编号获取包含该饮食类型的所有餐馆（wuyongfei）
+     *
+     * @param mealTypeId 饮食类型编号
+     * @return 响应对象
+     */
+    @GetMapping("/mealType/restaurants/{mealTypeId}.html")
+    public ReponseResult getRestaurantsByMealTypeId(@PathVariable Integer mealTypeId) {
+        try {
+            List<MealType> mealTypes = mealTypeService.getRestaurantsByMealTypeId(mealTypeId);
+            logger.info("method:getRestaurantsByMealTypeId  根据饮食类型编号查询餐馆列表成功！");
+            return ReponseResult.ok(mealTypes, "根据饮食类型编号查询餐馆列表成功！");
+        } catch (Exception e) {
+            logger.error("method:getRestaurantsByMealTypeId  根据饮食类型编号查询餐馆列表失败，系统出现异常！" + e.getMessage());
+            e.printStackTrace();
+            return ReponseResult.err("根据饮食类型编号查询餐馆列表失败，系统出现异常！");
+        }
+    }
 }

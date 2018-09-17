@@ -27,4 +27,11 @@ public interface MealTypeService {
      * @throws Exception 全局异常
      */
     List<MealType> listMealTypesByRestaurantId(Integer restaurantId) throws Exception;
+
+    /**
+     * 通过饮食类型编号查询所有的餐馆信息
+     * @param valueId   饮食类型编号
+     * @return
+     */
+    List<MealType> getRestaurantsByMealTypeId (Integer valueId) throws Exception;
 }

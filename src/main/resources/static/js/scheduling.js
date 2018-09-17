@@ -307,6 +307,29 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
             $('#offer' + num + ' #lunch #diets').parent('td').next().next().find('input').val(costPrice);
             // 绑定午餐报价
             $('#offer' + num + ' #lunch #diets').parent('td').next().next().next().next().find('input').val(offer);
+
+            // 根据饮食类型查询出餐馆列表
+            $.ajax({
+                url: "/mealType/mealType/restaurants/"+ (dictionariesId) +".html",
+                data: "",
+                dataType: "json",
+                type: "get",
+                async: false,
+                success: function (result) {
+                    // 获取到所有的餐馆
+                    var allRestaurants = result.data;
+                    var option = "";
+                    option += "<option value=\"0\">请选择餐馆</option>";
+                    $(allRestaurants).each(function (i,e) {
+                        option += "<option value='"+ (e.restaurant.restaurantId) +"'> "+ (e.restaurant.restaurantName) +" </option>";
+                    })
+                    // 赋值
+                    $('#offer' + num + ' #lunch #restaurants').html(option);
+                },
+                error: function (res) {
+                    alert(res);
+                }
+            })
         }
         else if (havemealsdate == 3) {
             // 绑定晚餐数据
@@ -315,6 +338,29 @@ function addss(num, offerLine, offerHotel, allOfferscenicJsonArray,
             $('#offer' + num + ' #dinner #diets').parent('td').next().next().find('input').val(costPrice);
             // 绑定晚餐报价
             $('#offer' + num + ' #dinner #diets').parent('td').next().next().next().next().find('input').val(offer);
+
+            // 根据饮食类型查询出餐馆列表
+            $.ajax({
+                url: "/mealType/mealType/restaurants/"+ (dictionariesId) +".html",
+                data: "",
+                dataType: "json",
+                type: "get",
+                async:false,
+                success: function (result) {
+                    // 获取到所有的餐馆
+                    var allRestaurants = result.data;
+                    var option = "";
+                    option += "<option value=\"0\">请选择餐馆</option>";
+                    $(allRestaurants).each(function (i,e) {
+                        option += "<option value='"+ (e.restaurant.restaurantId) +"'> "+ (e.restaurant.restaurantName) +" </option>";
+                    })
+                    // 赋值
+                    $('#offer' + num + ' #dinner #restaurants').html(option);
+                },
+                error: function (res) {
+                    alert(res);
+                }
+            })
         }
     })
     // 绑定景点

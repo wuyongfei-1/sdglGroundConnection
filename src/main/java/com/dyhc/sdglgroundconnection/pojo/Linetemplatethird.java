@@ -5,10 +5,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Date;
 
 @Table(name = "linetemplatethird")
-public class Linetemplatethird {
+public class Linetemplatethird implements Serializable {
     @Id
     @Column(name = "thirdId")
     private Integer thirdid;    // 线路模板编号

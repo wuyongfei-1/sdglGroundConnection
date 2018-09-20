@@ -3,6 +3,7 @@ package com.dyhc.sdglgroundconnection.pojo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
  * 账户类型
  **/
 @Table(name = "accounttype")
-public class AccountType {
+public class AccountType implements Serializable {
     @Id
     @Column(name = "accountTypeId")
     private Integer accountTypeId; // 账户类型表编号

@@ -6,11 +6,13 @@ import com.dyhc.sdglgroundconnection.exception.OfferException;
 import com.dyhc.sdglgroundconnection.mapper.OfferMapper;
 import com.dyhc.sdglgroundconnection.pojo.*;
 import com.dyhc.sdglgroundconnection.service.*;
+import com.dyhc.sdglgroundconnection.utils.RedisUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.SerializationUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
@@ -56,6 +58,15 @@ public class OfferServiceImpl implements OfferService {
      */
     @Override
     public Offer getOfferByOfferId(Integer offerId) throws OfferException,Exception {
+        String redisKey = "offerInfo：" + offerId;
+        // 判断redis中是否存在该报价信息
+        if (RedisUtil.get(redisKey.getBytes()) != null){
+            // 获取对应的报价信息
+            byte[] offerBytesInfo = (byte[]) RedisUtil.get(redisKey.getBytes());
+            // 反序列化为调度对象
+            Offer offer = (Offer) SerializationUtils.deserialize(offerBytesInfo);
+            return offer;
+        }
         Offer offer = offerMapper.selectByPrimaryKey(offerId);
         // 查询组团社名称
         Travel travel = travelService.selectTravelByIds(offer.getTravelId());
@@ -94,6 +105,7 @@ public class OfferServiceImpl implements OfferService {
         List<Offerscenic> offerscenics = offerscenicService.listOfferscenicByOfferId((offer != null)
                 ? offer.getOfferId() : 1);
         offer.setOfferscenicList(offerscenics);
+        RedisUtil.set(redisKey.getBytes(),SerializationUtils.serialize(offer));
         return offer;
     }
 

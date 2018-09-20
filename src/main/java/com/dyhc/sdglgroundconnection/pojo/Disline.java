@@ -7,13 +7,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 调度路线信息表
  */
 @Table(name = "disline")
-public class Disline {
+public class Disline implements Serializable {
     @Id
     @Column(name = "dislineId")
     private Integer dislineId;  // 调度线路编号

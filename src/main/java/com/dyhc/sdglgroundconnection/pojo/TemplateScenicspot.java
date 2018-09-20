@@ -3,6 +3,7 @@ package com.dyhc.sdglgroundconnection.pojo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Objects;
@@ -12,7 +13,7 @@ import java.util.Objects;
  * 模板景点表
  **/
 @Table(name = "templatescenicspot")
-public class TemplateScenicspot {
+public class TemplateScenicspot implements Serializable {
     @Id
     @Column(name = "templateScenicSpotId")
     private int templateScenicSpotId; // 主键编号

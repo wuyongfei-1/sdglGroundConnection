@@ -6,11 +6,12 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @Table(name = "linetemplate")
-public class Linetemplate {
+public class Linetemplate implements Serializable {
     @Id
     @Column(name = "lineId")
     private Integer lineid; // 总线路模板编号

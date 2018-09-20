@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.stereotype.Controller;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -12,7 +13,7 @@ import java.util.Objects;
  * 公司信息表
  **/
 @Table(name = "company")
-public class Company {
+public class Company implements Serializable {
     @Id
     @Column(name = "companyId")
     private int companyId; // 编号

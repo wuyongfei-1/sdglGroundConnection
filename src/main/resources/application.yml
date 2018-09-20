@@ -41,6 +41,15 @@ spring:
     pool:
       enabled: false
     in-memory: true
+  # redis配置
+  redis:
+    host: 120.79.200.87
+    port: 6379
+    jedis:
+      pool:
+        max-idle: 300
+        max-active: 1000
+        max-wait: 1000
 
 # mybatis配置
 mybatis:

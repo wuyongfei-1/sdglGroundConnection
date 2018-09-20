@@ -3,6 +3,7 @@ package com.dyhc.sdglgroundconnection.pojo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
  * 单据类型表
  **/
 @Table(name = "billtype")
-public class BillType {
+public class BillType implements Serializable {
     @Id
     @Column(name = "billTypeId")
     private int billTypeId; // 单据类型编号

@@ -3,6 +3,7 @@ package com.dyhc.sdglgroundconnection.pojo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
  * 调度酒店房间类型表
  **/
 @Table(name = "hoteroomtype")
-public class HoteroomType {
+public class HoteroomType implements Serializable {
     @Id
     @Column(name = "hoteroomtId")
     private int hoteroomtId; // 调度酒店房间类型id

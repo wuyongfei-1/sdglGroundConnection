@@ -14,11 +14,13 @@ import com.dyhc.sdglgroundconnection.mapper.*;
 import com.dyhc.sdglgroundconnection.pojo.*;
 import com.dyhc.sdglgroundconnection.service.*;
 import com.dyhc.sdglgroundconnection.utils.ConditionValidation;
+import com.dyhc.sdglgroundconnection.utils.RedisUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.SerializationUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,7 +34,6 @@ import java.util.List;
  * 调度业务实现
  **/
 @Service
-@Transactional
 public class DispatchServiceImpl implements DispatchService {
 
     @Autowired
@@ -79,7 +80,6 @@ public class DispatchServiceImpl implements DispatchService {
     private DisrestaurantService disrestaurantService; // 调度餐馆业务
 
 
-
     @Autowired
     private DispatchhotelService dispatchhotelService; // 调度酒店业务
 
@@ -111,17 +111,19 @@ public class DispatchServiceImpl implements DispatchService {
 
     @Autowired
     private DispatchtourgroupMapper dispatchtourgroupMapper;
+
     /**
      * 根据调度id 修改开团状态为进行中（lixiaojie）
+     *
      * @param dispatchId
      * @return
      */
     @Override
     public Integer updateDispatcheStateInfo(Integer dispatchId) {
 
-      Dispatch dispatch=  dispatchMapper.selectByPrimaryKey(dispatchId);
+        Dispatch dispatch = dispatchMapper.selectByPrimaryKey(dispatchId);
         dispatch.setState(2);
-       Integer result= dispatchMapper.updateByPrimaryKey(dispatch);
+        Integer result = dispatchMapper.updateByPrimaryKey(dispatch);
         return result;
     }
 
@@ -469,7 +471,16 @@ public class DispatchServiceImpl implements DispatchService {
     @Override
     public Dispatch getDispatchInfoByDispatchInfoId(Integer dispatchId) throws Exception {
         Dispatch dispatch = null;
+        String redisKey = "dispatchInfo：";
         if (ConditionValidation.validation(dispatchId) == true) {
+            // 判断redis是否存在
+            if (RedisUtil.get((redisKey + dispatchId).getBytes()) != null) {
+                byte[] dispatchInfo = (byte[]) RedisUtil.get((redisKey + dispatchId).getBytes());
+                // 将字节转换为对象
+                Dispatch deserialize = (Dispatch) SerializationUtils.deserialize(dispatchInfo);
+
+                return deserialize;
+            }
             dispatch = dispatchMapper.selectByPrimaryKey(dispatchId);
             dispatch.setDispatchhotel(dispatchhotelService.getDispatchhotelInfoByDispatchId(dispatchId));
             dispatch.setDisguide(disguideService.getDisguideByDispatchId(dispatchId));
@@ -482,6 +493,8 @@ public class DispatchServiceImpl implements DispatchService {
             dispatch.setDisshoppList(disshoppService.getDisshopp(dispatchId));
             dispatch.setDisother(disotherService.listDisshippingByDisId(dispatchId));
             dispatch.setDisrestaurantList(disrestaurantService.listDisrestaurantByOffId(dispatchId));
+            // 存放到redis中
+            RedisUtil.set((redisKey + dispatchId).getBytes(), SerializationUtils.serialize(dispatch));
         }
 
         return dispatch;
@@ -501,8 +514,10 @@ public class DispatchServiceImpl implements DispatchService {
     @RecordOperation(type = "调度信息", desc = "添加了一条调度信息")
     public Integer saveDispatchInfo(DispatchParam disParam, Integer dispatchIdStatus) throws DispatchException {
         try {
+            String redisKey = "dispatchInfo：";
             // 判断如果该调度信息已存在，先删除
             if (dispatchIdStatus > 0) {
+                RedisUtil.del((redisKey + dispatchIdStatus).getBytes());
                 // 删除调度信息
                 dispatchMapper.deleteByPrimaryKey(dispatchIdStatus);
                 // 删除调度景点

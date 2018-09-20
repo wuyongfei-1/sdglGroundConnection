@@ -3,6 +3,7 @@ package com.dyhc.sdglgroundconnection.pojo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
  * 报价线路信息记录表：（打印确认单）
  **/
 @Table(name = "offerline")
-public class Offerline {
+public class Offerline  implements Serializable {
     public Integer getWeight() {
         return weight;
     }

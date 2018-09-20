@@ -3,6 +3,7 @@ package com.dyhc.sdglgroundconnection.pojo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
  * 日志操作表
  **/
 @Table(name = "operationlog")
-public class Operationlog {
+public class Operationlog implements Serializable {
     @Id
     @Column(name = "operationLogId")
     private int operationLogId; // 主键Id

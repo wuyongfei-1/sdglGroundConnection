@@ -3,6 +3,7 @@ package com.dyhc.sdglgroundconnection.pojo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.Objects;
  * 汽车租赁公司表
  **/
 @Table(name = "carrental")
-public class Carrental {
+public class Carrental implements Serializable {
     @Id
     @Column(name = "carRentalId")
     private int carRentalId; // 公司编号

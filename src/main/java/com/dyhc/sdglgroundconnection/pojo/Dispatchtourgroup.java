@@ -6,13 +6,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 调度旅行团表
  */
 @Table(name = "dispatchtourgroup")
-public class Dispatchtourgroup {
+public class Dispatchtourgroup implements Serializable {
 
     @Id
     @Column(name = "dispatchtourgroupId")

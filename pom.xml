@@ -25,6 +25,11 @@
     </properties>
 
     <dependencies>
+        <!-- redis整合包 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
         <!--Springboot与jdbc整合包-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -112,12 +117,6 @@
             <artifactId>javax.servlet-api</artifactId>
             <version>4.0.0</version>
             <scope>provided</scope>
-        </dependency>
-        <!-- 启动Springboot热部署 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
         </dependency>
         <!-- junit测试包 -->
         <dependency>

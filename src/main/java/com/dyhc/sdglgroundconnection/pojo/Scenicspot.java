@@ -3,6 +3,7 @@ package com.dyhc.sdglgroundconnection.pojo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -12,7 +13,7 @@ import java.util.Objects;
  * 景点表
  **/
 @Table(name = "scenicspot")
-public class Scenicspot {
+public class Scenicspot implements Serializable {
     @Id
     @Column(name = "scenicSpotId")
     private int scenicSpotId; // 景点编号

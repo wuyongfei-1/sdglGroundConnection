@@ -3,6 +3,7 @@ package com.dyhc.sdglgroundconnection.pojo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.Objects;
  * 模板信息表
  **/
 @Table(name = "template")
-public class Template {
+public class Template  implements Serializable {
     @Id
     @Column(name = "templateId")
     private int templateId; // 模板编号

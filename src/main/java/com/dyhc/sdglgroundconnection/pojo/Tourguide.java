@@ -6,13 +6,14 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 带团日志表 （wangtao）
  */
 @Table(name="tourguide")
-public class Tourguide {
+public class Tourguide implements Serializable {
 
     @Id
     @Column(name = "tourguideId")

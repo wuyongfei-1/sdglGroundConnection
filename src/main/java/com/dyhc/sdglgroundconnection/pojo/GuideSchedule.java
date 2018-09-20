@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * 导游日程安排表
  */
 @Table(name = "guideschedule")
-public class GuideSchedule {
+public class GuideSchedule implements Serializable {
     @Id
     @Column(name = "guideScheduleId")
     private Integer guidescheduleid;

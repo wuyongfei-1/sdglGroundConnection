@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import java.util.Date;
@@ -13,7 +14,7 @@ import java.util.Date;
  * 报价信息表
  **/
 @Table(name = "offer")
-public class Offer {
+public class Offer implements Serializable {
     @Id
     @Column(name = "offerId")
     private int offerId; // 主键编号

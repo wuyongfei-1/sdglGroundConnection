@@ -478,7 +478,6 @@ public class DispatchServiceImpl implements DispatchService {
                 byte[] dispatchInfo = (byte[]) RedisUtil.get((redisKey + dispatchId).getBytes());
                 // 将字节转换为对象
                 Dispatch deserialize = (Dispatch) SerializationUtils.deserialize(dispatchInfo);
-
                 return deserialize;
             }
             dispatch = dispatchMapper.selectByPrimaryKey(dispatchId);

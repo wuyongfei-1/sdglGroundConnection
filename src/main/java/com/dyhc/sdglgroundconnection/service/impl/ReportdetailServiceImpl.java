@@ -109,7 +109,7 @@ public class ReportdetailServiceImpl implements ReportdetailService {
 
         ReportingotherexpensesExample reportingotherexpensesExample = new ReportingotherexpensesExample();
         ReportingotherexpensesExample.Criteria reportingotherexpensesExampleCriteria = reportingotherexpensesExample.createCriteria();
-        reportingotherexpensesExampleCriteria.andValue1EqualTo(reportdetail.getDispatchId() + "");
+        reportingotherexpensesExampleCriteria.andValue1EqualTo(reportdetail.getReportDetailId() + "");
         List<Reportingotherexpenses> reportingotherexpensesList = reportingotherexpensesMapper.selectByExample(reportingotherexpensesExample);
 
 
@@ -135,7 +135,7 @@ public class ReportdetailServiceImpl implements ReportdetailService {
         Reportdetail reportdetail = reportdetails.get(0);
         ReportticketExample reportticketExample = new ReportticketExample();
         ReportticketExample.Criteria reportticketExampleCriteria = reportticketExample.createCriteria();
-        reportticketExampleCriteria.andValue1EqualTo(reportdetail.getDispatchId() + "");
+        reportticketExampleCriteria.andValue1EqualTo(reportdetail.getReportDetailId() + "");
         List<Reportticket> reporttickets = reportticketMapper.selectByExample(reportticketExample);
 
         return reporttickets;
@@ -158,7 +158,7 @@ public class ReportdetailServiceImpl implements ReportdetailService {
         Reportdetail reportdetail = reportdetails.get(0);
         ReportaccommodationExample reportaccommodationExample = new ReportaccommodationExample();
         ReportaccommodationExample.Criteria reportaccommodationExampleCriteria = reportaccommodationExample.createCriteria();
-        reportaccommodationExampleCriteria.andValue1EqualTo(reportdetail.getDispatchId() + "");
+        reportaccommodationExampleCriteria.andValue1EqualTo(reportdetail.getReportDetailId() + "");
         reportaccommodationExampleCriteria.andLivedateEqualTo(NowDate);
         List<Reportaccommodation> reportaccommodations = reportaccommodationMapper.selectByExample(reportaccommodationExample);
         if (reportaccommodations.size() != 0) {
@@ -167,7 +167,7 @@ public class ReportdetailServiceImpl implements ReportdetailService {
 
         ReportrestaurantExample reportrestaurantExample = new ReportrestaurantExample();
         ReportrestaurantExample.Criteria reportrestaurantExampleCriteria = reportrestaurantExample.createCriteria();
-        reportrestaurantExampleCriteria.andValue1EqualTo(reportdetail.getDispatchId() + "");
+        reportrestaurantExampleCriteria.andValue1EqualTo(reportdetail.getReportDetailId() + "");
         reportrestaurantExampleCriteria.andLunchdateEqualTo(NowDate);
         List<Reportrestaurant> reportrestaurants = reportrestaurantMapper.selectByExample(reportrestaurantExample);
         if (reportrestaurants.size() != 0) {

@@ -470,6 +470,31 @@ public class OfferController {
             return err;
         }
     }
+    /**
+     * 删除报价单信息（dubingkun）
+     * @param id
+     * @return
+     */
+    @RequestMapping("/deleteOffer2")
+    public ReponseResult deleteOffer2(Integer id){
+        try {
+            ReponseResult<String> data=null;
+            id=offerService.getIntegerByOfferId();
+            Integer result=offerService.deleteOffer(id);
+            if(result>0){
+                data = ReponseResult.ok("删除报价信息成功！");
+            }else{
+                data = ReponseResult.ok("删除报价信息失败！");
+            }
+            logger.info(" method:deleteOffer2  删除报价信息成功！");
+            return data;
+        } catch (Exception e) {
+            logger.error(" method:deleteOffer2  删除报价信息失败，系统出现异常！");
+            e.printStackTrace();
+            ReponseResult<Object> err = ReponseResult.err("系统出现异常！");
+            return err;
+        }
+    }
 
     /**
      * 根据id改变报价单状态
@@ -502,11 +527,17 @@ public class OfferController {
      * @return
      */
     @RequestMapping("/updateOfferValue1Two")
-    public ReponseResult updateOfferValue1Two(String value1){
+    public ReponseResult updateOfferValue1Two(Integer value1){
         try {
             ReponseResult<String> data=null;
             Integer id=offerService.getIntegerByOfferId();
-            Integer result=offerService.updateOfferValue1(id,value1);
+            String pan="0";
+            if(value1==1){
+                pan="1";
+            }else{
+                pan="3";
+            }
+            Integer result=offerService.updateOfferValue1(id,pan);
             if(result>0){
                 data = ReponseResult.ok("修改报价信息成功！");
             }else{

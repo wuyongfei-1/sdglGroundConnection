@@ -1080,17 +1080,31 @@
     }
     //删除报价信息
     function deleteOffer(){
-        $.ajax({
-            url: "/offer/deleteOffer",
-            data: {id:$("#offerId").val()},
-            dataType: "json",
-            type: "post",
-            async:false,
-            success: function (data) {
-            }, error: function () {
-                alert("程序异常")
-            }
-        })
+        if(!flag){
+            $.ajax({
+                url: "/offer/deleteOffer",
+                data: {id:$("#offerId").val()},
+                dataType: "json",
+                type: "post",
+                async:false,
+                success: function (data) {
+                }, error: function () {
+                    alert("程序异常")
+                }
+            })
+        }else{
+            $.ajax({
+                url: "/offer/deleteOffer2",
+                data: {id:$("#offerId").val()},
+                dataType: "json",
+                type: "post",
+                async:false,
+                success: function (data) {
+                }, error: function () {
+                    alert("程序异常")
+                }
+            })
+        }
     }
     //报价按钮单击事件
     $("#baocun").click(function () {
@@ -1098,7 +1112,7 @@
         insertOffer();
         $.ajax({
             url:"/offer/updateOfferValue1Two",
-            data:{value1:3},
+            data:{value1:$("#redonly").val()},
             dataType:"json",
             type:"get",
             async:false,
